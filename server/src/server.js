@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+app.use(express.static('app'));
+
 app.get('/api/members', function(req, res){
    res.send("Hello World!");
 });
