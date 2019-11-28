@@ -19,9 +19,9 @@ function ColorTest () {
                     <input type="text" placeholder=" Search..."/>
                 </div>
                 <nav>
-                    <a>HOME</a>
-                    <a>PROFILE</a>
-                    <a>STATS</a>
+                    <a href="#">HOME</a>
+                    <a href="#">PROFILE</a>
+                    <a href="#">STATS</a>
                 </nav>
                 <div>
                     <label className="switch">
