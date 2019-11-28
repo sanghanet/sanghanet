@@ -5,6 +5,7 @@
 
  2. run `npm install` in client folder
     run `npm install` in server folder
+    run `npm install` in root folder to get eslint and It's dependencies. (Also add/enable eslint extension in VsCode.)
 
  3. in order to start both the backend and the frontend + dev server, use `npm run-script startBoth` in the client directory.
 
