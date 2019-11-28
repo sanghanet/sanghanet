@@ -2,11 +2,11 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import ProfilePic from './images/profile_pic.png'
+import ProfilePic from './images/profile_pic.png';
 
 function ColorTest () {
     return (
-        <div class="color-test">
+        <div className="color-test">
             <header>
                 <h1 className="page-title">SanghaNet</h1>
                 <div className="search-bar-grid">
@@ -47,30 +47,30 @@ function ColorTest () {
                     <div className="text-box">
                         <h2>Personal information</h2>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                            Error laboriosam id possimus harum molestiae delectus quis dolor, 
-                            dolorum provident amet? Nam esse nulla dolorem iste totam, error 
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                            Error laboriosam id possimus harum molestiae delectus quis dolor,
+                            dolorum provident amet? Nam esse nulla dolorem iste totam, error
                             harum ipsum eveniet!
                         </p>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                            Error laboriosam id possimus harum molestiae delectus quis dolor, 
-                            dolorum provident amet? Nam esse nulla dolorem iste totam, error 
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                            Error laboriosam id possimus harum molestiae delectus quis dolor,
+                            dolorum provident amet? Nam esse nulla dolorem iste totam, error
                             harum ipsum eveniet!
                         </p>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                            Error laboriosam id possimus harum molestiae delectus quis dolor, 
-                            dolorum provident amet? Nam esse nulla dolorem iste totam, error 
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                            Error laboriosam id possimus harum molestiae delectus quis dolor,
+                            dolorum provident amet? Nam esse nulla dolorem iste totam, error
                             harum ipsum eveniet!
                         </p>
                     </div>
                     <div>
                         <a className="edit-button">
-                        <FontAwesomeIcon
-                            className="edit-icon"
-                            icon={faEdit}
-                        />
+                            <FontAwesomeIcon
+                                className="edit-icon"
+                                icon={faEdit}
+                            />
                             EDIT
                         </a>
                     </div>
@@ -80,7 +80,7 @@ function ColorTest () {
                 <h3>Hello World!</h3>
             </footer>
         </div>
-    )
+    );
 }
 
 export default ColorTest;
