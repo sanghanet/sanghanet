@@ -1,7 +1,10 @@
+const { DB_URL, PORT } = require('./config');
+
 const express = require('express');
 const app = express();
+
 const mongoose = require('mongoose');
-const mongourl = 'mongodb://localhost/test'; // Mongo DB URL later can be exported to ENV
+const mongourl = 'mongodb://' + DB_URL; // Mongo DB URL later can be exported to ENV
 
 mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => { console.log('Successfully connected to MongoDB database.'); })
@@ -13,6 +16,6 @@ app.get('/api/members', function (req, res) {
     res.send('Hello World!');
 });
 
-app.listen(4000, () => {
-    console.log('Backend server is running as well.');
+app.listen(PORT, () => {
+    console.log('Backend server is running on port', PORT);
 });

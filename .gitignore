@@ -7,3 +7,5 @@ client/build
 #server
 server/node_modules
 server/app
+server/.env.local
+server/.env.atlas
