@@ -22,7 +22,7 @@
         "react"
     ],
     "rules": {
-        "indent": [2, 4],
-        "semi": [2, "always"]
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "semi": ["error", "always"]
     }
 }
