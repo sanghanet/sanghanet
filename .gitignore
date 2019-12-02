@@ -9,3 +9,4 @@ server/node_modules
 server/app
 server/.env.local
 server/.env.atlas
+server/logs
