@@ -27,6 +27,8 @@ const closeLogger = () => {
     });
 };
 
+process.on('SIGINT', closeLogger);
+
 module.exports = {
     logManager: logManager,
     closeLogger: closeLogger,
