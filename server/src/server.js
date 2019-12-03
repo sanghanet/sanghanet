@@ -9,24 +9,31 @@ const mongourl = 'mongodb://' + DB_URL; // Mongo DB URL later can be exported to
 
 const log = logManager.createLogger('src/server.js'.padEnd(FILENAME_MAX_LENGTH));
 
-mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => { log.info('Successfully connected to MongoDB database.'); })
-    .catch((error) => {
-        log.fatal('Database connection error: ' + error.message);
-        closeLogger().then(process.exit);
-    });
-
 app.use(express.static('app'));
 
 app.get('/api/members', function (req, res) {
     res.send('Hello World!');
 });
 
-if (PORT) {
-    app.listen(PORT, () => {
-        log.info('Server is listening on port: ', PORT);
-    }).on('error', (error) => {
-        log.fatal(error.message);
+const runServer = async () => {
+    try {
+        await mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
+        log.info('Successfully connected to MongoDB database.');
+        if (PORT) {
+            app.listen(PORT, () => {
+                log.info('Server is listening on port: ', PORT);
+            }).on('error', (error) => {
+                log.fatal(error.message);
+                closeLogger().then(process.exit);
+            });
+        } else {
+            log.fatal('Missing PORT environment variable!');
+            closeLogger().then(process.exit);
+        }
+    } catch (error) {
+        log.fatal('Database connection error: ' + error.message);
         closeLogger().then(process.exit);
-    });
-}
+    }
+};
+
+runServer();
