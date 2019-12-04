@@ -33,7 +33,6 @@
 # test deployment
 
    1. use the `npm run-script build` in the client folder
-   2. copy the contents of the build folder to the app folder in the server.
-      `$ cp -r  build/* ../server/app`
+      NOTE: this script will delete the contents of the /client/build and /server/app folders, then deploy the app in the /client/build folder and finally will copy it's contents to the /server/app folder.  
 
    The production build is now hosted on the backend server.
