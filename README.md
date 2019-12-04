@@ -16,6 +16,12 @@
 
       PORT=4000
 
+   When setting up env.atlas:
+
+      Use URL: mongodb+srv://<username>:<password>@cluster0-deyq5.gcp.mongodb.net/test?retryWrites=true&w=majority
+
+      Your access has to be set up and your IP whitelisted before you can remotely connect using above URL.
+
    Since .env files will contain 'secrets' as well, NEVER push them into git repositories.
    Manage them on your computer only..
 
