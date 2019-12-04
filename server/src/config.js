@@ -19,6 +19,6 @@ if (env.error) {
 }
 
 module.exports = {
-    DB_URL: `${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
+    DB_URL: `${process.env.DB_URL}`,
     PORT: process.env.PORT || null
 };

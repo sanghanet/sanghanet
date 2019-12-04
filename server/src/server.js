@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
-const mongourl = 'mongodb://' + DB_URL; // Mongo DB URL later can be exported to ENV
+const mongourl = DB_URL; 
 
 const log = logManager.createLogger('src/server.js'.padEnd(FILENAME_MAX_LENGTH));
 
