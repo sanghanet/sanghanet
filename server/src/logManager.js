@@ -2,14 +2,13 @@ const logManager = require('simple-node-logger').createLogManager();
 
 const FILENAME_MAX_LENGTH = 24;
 
-logManager.createRollingFileAppender({
-    logDirectory: 'logs', // This directory MUST exist to avoid 'Error: ENOENT: no such file or directory,' error @ start
-    fileNamePattern: '<DATE>.log',
+logManager.createFileAppender({
+    logFilePath: 'logs/'.concat(new Date().toISOString().replace(/:/g, '.').slice(0, -5).concat('.utc.log')),
     timestampFormat: 'YYYY-MM-DD HH:mm:ss.SSS'
 });
 
 const log = logManager.createLogger('src/logManager.js'.padEnd(FILENAME_MAX_LENGTH));
-log.info('Server starting.');
+log.info('Log service starting.');
 
 // Log levels with decreasing verbosity!
 // trace, debug, info, warn, error and fatal
@@ -20,14 +19,9 @@ log.info('Server starting.');
 const closeLogger = () => {
     return new Promise((resolve, reject) => {
         log.info('Server shut down.');
-        setInterval(() => {
-            resolve();
-            process.exit(0);
-        }, 200);
+        setInterval(() => { resolve(); }, 10);
     });
 };
-
-process.on('SIGINT', closeLogger);
 
 module.exports = {
     logManager: logManager,
