@@ -17,7 +17,16 @@ app.get('/api/members', function (req, res) {
 
 const runServer = async () => {
     try {
-        await mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true })
+            .then(() => {
+                const db = mongoose.connection.client.db('sanghanet');
+                return db;
+            }).then((db) => {
+                const coll = db.collection('users');
+                return coll.find({}).toArray();
+            }).then((res) => {
+                console.log(res);
+            });
         log.info('Successfully connected to MongoDB database.');
         if (PORT) {
             app.listen(PORT, () => {
