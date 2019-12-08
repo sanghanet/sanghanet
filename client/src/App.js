@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import ColorTest from './color-test/ColorTest';
+import Home from './components/Home';
 
 function App () {
     return (
-        <ColorTest />
+        <Home />
     );
 }
 

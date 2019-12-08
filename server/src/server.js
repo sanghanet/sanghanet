@@ -11,22 +11,21 @@ const log = logManager.createLogger('src/server.js'.padEnd(FILENAME_MAX_LENGTH))
 
 app.use(express.static('app'));
 
-app.get('/api/members', function (req, res) {
-    res.send('Hello World!');
+app.get('/userList', function (req, res) {
+    console.log(userArray);
+    res.json(userArray);
 });
 
-const runServer = async () => {
+let userArray = null;
+
+const runServer = async (dbName, collName) => {
     try {
         await mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true })
             .then(() => {
-                const db = mongoose.connection.client.db('sanghanet');
-                return db;
-            }).then((db) => {
-                const coll = db.collection('users');
+                const db = mongoose.connection.client.db(dbName);
+                const coll = db.collection(collName);
                 return coll.find({}).toArray();
-            }).then((res) => {
-                console.log(res);
-            });
+            }).then((res) => { userArray = res; });
         log.info('Successfully connected to MongoDB database.');
         app.listen(PORT, () => {
             log.info('Server is listening on port: ', PORT);
@@ -40,4 +39,4 @@ const runServer = async () => {
     }
 };
 
-runServer();
+runServer('sanghanet', 'users');
