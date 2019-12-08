@@ -19,17 +19,12 @@ const runServer = async () => {
     try {
         await mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
         log.info('Successfully connected to MongoDB database.');
-        if (PORT) {
-            app.listen(PORT, () => {
-                log.info('Server is listening on port: ', PORT);
-            }).on('error', (error) => {
-                log.fatal(error.message);
-                closeLogger().then(process.exit);
-            });
-        } else {
-            log.fatal('Missing PORT environment variable!');
+        app.listen(PORT, () => {
+            log.info('Server is listening on port: ', PORT);
+        }).on('error', (error) => {
+            log.fatal(error.message);
             closeLogger().then(process.exit);
-        }
+        });
     } catch (error) {
         log.fatal('Database connection error: ' + error.message);
         closeLogger().then(process.exit);
