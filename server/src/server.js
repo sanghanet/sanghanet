@@ -12,22 +12,21 @@ const log = logManager.createLogger('src/server.js'.padEnd(FILENAME_MAX_LENGTH))
 app.use(express.static('app'));
 
 app.get('/userList', (req, res) => {
+    res.set({ 'Access-Control-Allow-Origin': '*' });
     coll.find({}).toArray().then((data) => { res.json(data); });
 });
 
 let db = null;
 let coll = null;
 
-const runServer = async (dbName, collName) => {
+const runServer = async () => {
     try {
-        await mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true })
-            .then(() => {
-                db = mongoose.connection.client.db(dbName);
-                coll = db.collection(collName);
-            });
+        await mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
         log.info('Successfully connected to MongoDB database.');
         app.listen(PORT, () => {
             log.info('Server is listening on port: ', PORT);
+            db = mongoose.connection.client.db(DB_NAME);
+            coll = db.collection(COLL_NAME);
         }).on('error', (error) => {
             log.fatal(error.message);
             closeLogger().then(process.exit);
@@ -38,4 +37,4 @@ const runServer = async (dbName, collName) => {
     }
 };
 
-runServer(DB_NAME, COLL_NAME);
+runServer();
