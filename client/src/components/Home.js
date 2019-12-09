@@ -3,7 +3,6 @@ import React from 'react';
 class Home extends React.Component {
     constructor (props) {
         super(props);
-        this.container = null;
         this.state = { list: null };
         this.fetchData = this.fetchData.bind(this);
         this.printUserList = this.printUserList.bind(this);
@@ -23,12 +22,14 @@ class Home extends React.Component {
                 return res.json();
             }).then((data) => {
                 this.printUserList(data);
+            }).catch((err) => {
+                throw new Error(err.message);
             });
     }
 
     printUserList (userArray) {
         const result = userArray.map((value, index) => {
-            return (<div key={index}>
+            return (<div key={value._id}>
                 {index} {value.first_name} {value.last_name}
             </div>);
         });

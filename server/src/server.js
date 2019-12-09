@@ -1,4 +1,4 @@
-const { DB_URL, PORT } = require('./config');
+const { DB_URL, PORT, DB_NAME, COLL_NAME } = require('./config');
 const { logManager, closeLogger, FILENAME_MAX_LENGTH } = require('./logManager');
 
 const express = require('express');
@@ -11,21 +11,20 @@ const log = logManager.createLogger('src/server.js'.padEnd(FILENAME_MAX_LENGTH))
 
 app.use(express.static('app'));
 
-app.get('/userList', function (req, res) {
-    console.log(userArray);
-    res.json(userArray);
+app.get('/userList', (req, res) => {
+    coll.find({}).toArray().then((data) => { res.json(data); });
 });
 
-let userArray = null;
+let db = null;
+let coll = null;
 
 const runServer = async (dbName, collName) => {
     try {
         await mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true })
             .then(() => {
-                const db = mongoose.connection.client.db(dbName);
-                const coll = db.collection(collName);
-                return coll.find({}).toArray();
-            }).then((res) => { userArray = res; });
+                db = mongoose.connection.client.db(dbName);
+                coll = db.collection(collName);
+            });
         log.info('Successfully connected to MongoDB database.');
         app.listen(PORT, () => {
             log.info('Server is listening on port: ', PORT);
@@ -39,4 +38,4 @@ const runServer = async (dbName, collName) => {
     }
 };
 
-runServer('sanghanet', 'users');
+runServer(DB_NAME, COLL_NAME);

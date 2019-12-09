@@ -11,7 +11,8 @@
    Example of .env.local:
 
       DB_URL=mongodb://localhost:test/27017
-
+      DB_NAME=test 
+      COLL_NAME=users
       PORT=4000
 
    When setting up env.atlas:
@@ -22,6 +23,8 @@
 
    Since .env files will contain 'secrets' as well, NEVER push them into git repositories.
    Manage them on your computer only..
+
+   WARNING! - Currently if the DB_NAME and COLL_NAME local variables are not matching any database and collection in your mongo cluster, no error is thrown but functionality will be lost. Consider that as possible cause when debugging.
 
  4. If you would like to start the front-end + dev server, run `npm start` in the client directory.
 
