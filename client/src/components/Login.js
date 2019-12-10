@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Buddha from './media/sangha_logo.svg';
 import GoogleLogo from './media/google_logo.png';
+import Home from './Home';
 
 class Login extends Component {
     constructor (props) {
@@ -33,7 +34,7 @@ class Login extends Component {
         }
         return (
             <div>
-                <h1>Hello World</h1>
+                <Home />
             </div>
         );
     }

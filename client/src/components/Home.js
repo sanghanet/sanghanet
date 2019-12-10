@@ -6,18 +6,17 @@ class Home extends React.Component {
         this.state = { list: null };
     }
 
-    
     fetchData = () => {
-        fetch('http://localhost:4000/userList', { method: 'GET'})
-        .then((res) => {
-            return res.json();
-        }).then((data) => {
-            this.printUserList(data);
-        }).catch((err) => {
-            throw new Error(err.message);
-        });
+        fetch('http://localhost:4000/userList', { method: 'GET' })
+            .then((res) => {
+                return res.json();
+            }).then((data) => {
+                this.printUserList(data);
+            }).catch((err) => {
+                throw new Error(err.message);
+            });
     }
-    
+
     printUserList = (userArray) => {
         const result = userArray.map((value, index) => {
             return (
@@ -26,7 +25,7 @@ class Home extends React.Component {
                 </div>
             );
         });
-        
+
         this.setState({ list: result });
     }
 
@@ -38,7 +37,6 @@ class Home extends React.Component {
             </div>
         );
     }
-
 }
 
 export default Home;
