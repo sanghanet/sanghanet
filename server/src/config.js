@@ -1,5 +1,10 @@
-const { logManager, closeLogger, FILENAME_MAX_LENGTH } = require('./logManager');
-const log = logManager.createLogger('src/config.js'.padEnd(FILENAME_MAX_LENGTH));
+const { log4js } = require('./logManager');
+const log = log4js.getLogger('src/config.js');
+
+const fatalError = (errorMessage) => {
+    log.fatal(errorMessage);
+    log4js.shutdown(process.exit);
+};
 
 let envPath = `${__dirname}`;
 switch (process.env.NODE_ENV) {
@@ -11,14 +16,19 @@ switch (process.env.NODE_ENV) {
 const env = require('dotenv').config({ path: envPath });
 
 if (env.error) {
-    log.fatal('Environment setup is incorrect!');
-    closeLogger().then(process.exit);
+    fatalError('Environment setup is incorrect!');
 } else {
-    env.parsed.NODE_ENV = process.env.NODE_ENV;
-    log.info('Environment variables: ', env.parsed);
+    if (!process.env.DB_URL) {
+        fatalError(`DB_URL is undefined in ${envPath}!`);
+    } else if (!process.env.PORT) {
+        fatalError(`PORT is undefined in ${envPath}!`);
+    } else {
+        env.parsed.NODE_ENV = process.env.NODE_ENV;
+        log.info('Environmennt variables: \n', env.parsed);
+    }
 }
 
 module.exports = {
-    DB_URL: `${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
-    PORT: process.env.PORT || null
+    DB_URL: process.env.DB_URL,
+    PORT: process.env.PORT
 };

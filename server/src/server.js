@@ -1,13 +1,13 @@
 const { DB_URL, PORT } = require('./config');
-const { logManager, closeLogger, FILENAME_MAX_LENGTH } = require('./logManager');
+
+const log4js = require('log4js');
+const log = log4js.getLogger('src/config.js');
 
 const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
-const mongourl = 'mongodb://' + DB_URL; // Mongo DB URL later can be exported to ENV
-
-const log = logManager.createLogger('src/server.js'.padEnd(FILENAME_MAX_LENGTH));
+const mongourl = DB_URL;
 
 app.use(express.static('app'));
 
@@ -19,20 +19,15 @@ const runServer = async () => {
     try {
         await mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
         log.info('Successfully connected to MongoDB database.');
-        if (PORT) {
-            app.listen(PORT, () => {
-                log.info('Server is listening on port: ', PORT);
-            }).on('error', (error) => {
-                log.fatal(error.message);
-                closeLogger().then(process.exit);
-            });
-        } else {
-            log.fatal('Missing PORT environment variable!');
-            closeLogger().then(process.exit);
-        }
+        app.listen(PORT, () => {
+            log.info('Server is listening on port: ', PORT);
+        }).on('error', (error) => {
+            log.fatal(error.message);
+            log4js.shutdown(process.exit);
+        });
     } catch (error) {
         log.fatal('Database connection error: ' + error.message);
-        closeLogger().then(process.exit);
+        log4js.shutdown(process.exit);
     }
 };
 

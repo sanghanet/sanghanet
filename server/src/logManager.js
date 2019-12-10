@@ -1,36 +1,25 @@
-const logManager = require('simple-node-logger').createLogManager();
+const log4js = require('log4js');
 
-const FILENAME_MAX_LENGTH = 24;
-
-logManager.createRollingFileAppender({
-    logDirectory: 'logs', // This directory MUST exist to avoid 'Error: ENOENT: no such file or directory,' error @ start
-    fileNamePattern: '<DATE>.log',
-    timestampFormat: 'YYYY-MM-DD HH:mm:ss.SSS'
+log4js.configure({
+    appenders: {
+        out: { type: 'stdout', layout: { type: 'colored' } },
+        file: {
+            type: 'file',
+            filename: 'logs/'.concat(new Date().toISOString().replace(/:/g, '.').slice(0, -5).concat('.utc.log'))
+        }
+    },
+    categories: { default: { appenders: ['out', 'file'], level: 'info' } }
 });
 
-const log = logManager.createLogger('src/logManager.js'.padEnd(FILENAME_MAX_LENGTH));
-log.info('Server starting.');
+const log = log4js.getLogger('src/logManager.js');
+log.info('Log service starting.');
 
-// Log levels with decreasing verbosity!
-// trace, debug, info, warn, error and fatal
+// // Log levels with decreasing verbosity!
+// // trace, debug, info, warn, error and fatal
 
-// Set log level like that:
-// log.setLevel('trace');
-
-const closeLogger = () => {
-    return new Promise((resolve, reject) => {
-        log.info('Server shut down.');
-        setInterval(() => {
-            resolve();
-            process.exit(0);
-        }, 200);
-    });
-};
-
-process.on('SIGINT', closeLogger);
+// // Set log level like that:
+// // log.level = 'trace';
 
 module.exports = {
-    logManager: logManager,
-    closeLogger: closeLogger,
-    FILENAME_MAX_LENGTH: FILENAME_MAX_LENGTH
+    log4js: log4js
 };

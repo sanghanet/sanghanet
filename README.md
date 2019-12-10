@@ -10,11 +10,15 @@
  3. create .env.local / .env.atlas / .env.???? files accordig to your need in server directory.
    Example of .env.local:
 
-      DB_URL=localhost
-      DB_NAME=test
-      DB_PORT=27017
+      DB_URL=mongodb://localhost:test/27017
 
       PORT=4000
+
+   When setting up env.atlas:
+
+      Use DB_URL: mongodb+srv://<username>:<password>@cluster0-deyq5.gcp.mongodb.net/test?retryWrites=true&w=majority
+
+      Your access has to be set up and your IP whitelisted before you can remotely connect using above URL.
 
    Since .env files will contain 'secrets' as well, NEVER push them into git repositories.
    Manage them on your computer only..
@@ -33,7 +37,6 @@
 # test deployment
 
    1. use the `npm run-script build` in the client folder
-   2. copy the contents of the build folder to the app folder in the server.
-      `$ cp -r  build/* ../server/app`
+      NOTE: this script will delete the contents of the /client/build and /server/app folders, then deploy the app in the /client/build folder and finally will copy it's contents to the /server/app folder.  
 
    The production build is now hosted on the backend server.
