@@ -1,245 +1,131 @@
-/* =============== SITE CONTAINER =============== */
-.color-test {
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/* --- CSS reset --- */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	font-family: Arial, Helvetica, sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	  -webkit-user-select: none; /* Safari */
+	   -khtml-user-select: none; /* Konqueror HTML */
+		 -moz-user-select: none; /* Firefox */
+		  -ms-user-select: none; /* Internet Explorer/Edge */
+			  user-select: none; /* Non-prefixed version, currently
+									supported by Chrome and Opera */
+  }
+/* --- end of CSS reset --- */
+
+
+body {
+	background: #0B3954;
+}
+
+.app {
 	height: 100vh;
 	display: grid;
-	grid-template-rows: 2fr 10fr 1fr;
+	grid-template-rows: 1fr 6fr;
 }
 
-
-/* =============== HEADER =============== */
-.color-test header {
-	background: #efefef;
-	grid-column: 1 / -1;
+.app > header {
+	width: 100vw;
 	display: grid;
-	grid-template-columns: 10vw 2fr 4fr 3fr 1fr 2vw;
-	align-items: center;
+	justify-content: center;
+    align-items: center;
+
+	/* gradient */
+	background: rgb(218,77,81);
+	background: -moz-linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
+	background: -webkit-linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
+	background: linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#da4d51",endColorstr="#e64793",GradientType=1);
 }
 
-.page-title {
-	grid-column: 2;
-	font-weight: 300;
-    font-size: 1.5em;
-    height: fit-content;
-    margin: auto 0;
+.app > header h1 {
+	color: #fff;
+	font-size: 26px;
+	font-weight: bold;
 }
 
-.search-bar-grid {
-	display: grid;
-	width: 80%;
-    height: 100%;
-    align-content: space-around;
-    grid-template: 1fr 1fr 1fr / 1fr 8fr;
-}
-
-.search-bar-grid div {
-	grid-row: 2;
-	height: 100%;
-	width: 100%;
-	border-radius: 15px 0 0 15px;
-	background: #000;
-	cursor: pointer;
-	position: relative;
-}
-
-.search-bar-grid .search-icon {
+main .buddha {
 	position: absolute;
-	left: 30%;
-    top: 25%;
-	color: #cecece;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 50vh;
+	z-index: -1;
 }
 
-.search-bar-grid input {
-	/* reset */
-	border:none;
-    background-image:none;
-    background-color:transparent;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-	box-shadow: none;
-	border: 1px solid #333;
-	
-	/* normal */
-	grid-row: 2;
-	width: 100%;
-	border-radius: 0 15px 15px 0;
-	min-height: 30px;
-	font-size: 20px;
-	padding: 0;
-}
-
-.search-bar-grid input:focus {
-	-webkit-box-shadow: none;
-    -moz-box-shadow: none;
-	box-shadow: none;
-}
-
-nav {
-	display: grid;
-	height: 100%;
-	grid-template: 1fr / repeat(3, 1fr);
-	align-items: center;
-	text-align: center;
-}
-
-nav a {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-	height: fit-content;
-	padding: 10px 24px;
-}
-
-
-/* ========== copied code for dark/light mode toggle ========== */
-/* source: https://www.w3schools.com/howto/howto_css_switch.asp */
-/* The switch - the box around the slider */
-.switch {
-	position: relative;
-	/* display: inline-block; */
-	width: 60px;
-	height: 34px;
-	float: right;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-	opacity: 0;
-	width: 0;
-	height: 0;
-  }
-  
-  /* The slider */
-  .slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #cecece;
-	-webkit-transition: .4s;
-	transition: .4s;
-  }
-  
-  .slider:before {
-	position: absolute;
-	content: "";
-	height: 26px;
-	width: 26px;
-	left: 4px;
-	bottom: 4px;
-	background-color: #6d6d6d;
-	-webkit-transition: .4s;
-	transition: .4s;
-  }
-  
-  input:checked + .slider {
-	background-color: #232323;
-  }
-  
-  input:checked + .slider:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-	border-radius: 34px;
-  }
-  
-  .slider.round:before {
-	border-radius: 50%;
-  }
-/* ========== end of copied toggle button code ========== */
-
-
-/* =============== MAIN =============== */
-
-main {
-	display: grid;
-	grid-template-rows: 40px 1fr 40px;
-	grid-template-columns: 10vw 2fr 1fr 7fr 10vw;
-}
-
-.profile {
-	grid-area: 2/2;
-	display: grid;
-	grid-template-rows: 15px 3fr 1fr 15px;
-}
-
-.profile-pic {
-	grid-row: 2;
-}
-
-.profile-pic div {
+.login-btn {
 	display: flex;
-	background-color: pink;
-	border-radius: 10px;
-	width: 100%;
-	height: 100%;
-}
-
-.profile-pic img {
-	max-width: 85%;
-	max-height: 85%;
-	margin: auto;
-	cursor: pointer;
-}
-
-.profile-pic-caption {
-	grid-row: 3;
-	text-align: center;
-	margin-top: 5px;
-}
-
-.profile-pic-caption h3 {
-	margin: 10px
-}
-
-.personal-info {
-	grid-area: 2 /4;
-	background: #efefef;
-	display: grid;
-	grid-template-rows: 6fr 1fr;
-	position: relative;
-}
-
-.text-box {
-	margin: auto 2vw;
-}
-
-.personal-info div:last-child {
-	display: flex;
-	align-items: center;
-}
-
-.edit-button {
-	background: #ccc;
+	justify-content: center;
 	position: absolute;
-	right: 2vw;
-	padding: 10px;
-	margin-bottom: 5px;
-	cursor: pointer;
+    top: 50%;
+    left: 50%;
+	transform: translate(-50%, -50%);
+	width: fit-content;
 }
 
-.edit-button:hover {
-	background: #aaa;
+.login-btn-text {
+	box-sizing: border-box;
+	font-size: 2.1em;
+	color: white;
+	background: #2C6C91;
+	border-radius: 0 5px 5px 0;
+	padding: 40px;
 }
 
-.edit-icon {
-	padding-right: 5px;
+.google-logo-box {
+	box-sizing: border-box;
+	background: white;
+	border: none;
+	border-radius: 5px 0 0 5px;
+	padding: 19.5px;
 }
 
-.text-box h2 {
-	text-align: center;
-}
-
-
-/* =============== FOOTER =============== */
-
-footer {
-	grid-row: -2;
-	text-align: center;
-	background: #efefef;
+.google-logo {
+	width: 6em;
 }

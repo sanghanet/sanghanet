@@ -1,0 +1,9 @@
+2019-12-03 21:41:30.239 INFO  src/logManager.js        Server starting. 
+2019-12-03 21:41:30.244 INFO  src/config.js            Environment variables: {"DB_URL":"localhost","DB_NAME":"test","DB_PORT":"27017","PORT":"4000","NODE_ENV":"local"} 
+2019-12-03 21:42:01.412 FATAL src/server.js            Database connection error: Server selection timed out after 30000 ms 
+2019-12-03 21:42:01.413 INFO  src/logManager.js        Server shut down. 
+2019-12-03 21:43:21.080 INFO  src/logManager.js        Server starting. 
+2019-12-03 21:43:21.087 INFO  src/config.js            Environment variables: {"DB_URL":"localhost","DB_NAME":"test","DB_PORT":"27017","PORT":"4000","NODE_ENV":"local"} 
+2019-12-03 21:43:22.633 INFO  src/server.js            Successfully connected to MongoDB database. 
+2019-12-03 21:43:22.651 INFO  src/server.js            Server is listening on port: 4000 
+

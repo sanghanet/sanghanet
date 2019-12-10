@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import ColorTest from './color-test/ColorTest';
+import Login from './components/Login';
 
-function App () {
+const App = () => {
     return (
-        <ColorTest />
+        <Login />
     );
-}
+};
 
 export default App;
