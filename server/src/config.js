@@ -1,9 +1,9 @@
-const { logManager, closeLogger, FILENAME_MAX_LENGTH } = require('./logManager');
-const log = logManager.createLogger('src/config.js'.padEnd(FILENAME_MAX_LENGTH));
+const { log4js } = require('./logManager');
+const log = log4js.getLogger('src/config.js');
 
 const fatalError = (errorMessage) => {
     log.fatal(errorMessage);
-    closeLogger().then(process.exit);
+    log4js.shutdown(process.exit);
 };
 
 let envPath = `${__dirname}`;
@@ -28,7 +28,7 @@ if (env.error) {
         fatalError(`COLL_NAME is undefined in ${envPath}!`);
     } else {
         env.parsed.NODE_ENV = process.env.NODE_ENV;
-        log.info('Environmennt variables: ', env.parsed);
+        log.info('Environmennt variables: \n', env.parsed);
     }
 }
 
