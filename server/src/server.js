@@ -1,4 +1,4 @@
-const { DB_URL, PORT } = require('./config');
+const { DB_URL, PORT, DB_NAME, COLL_NAME } = require('./config');
 
 const log4js = require('log4js');
 const log = log4js.getLogger('src/config.js');
@@ -11,9 +11,13 @@ const mongourl = DB_URL;
 
 app.use(express.static('app'));
 
-app.get('/api/members', function (req, res) {
-    res.send('Hello World!');
+app.get('/userList', (req, res) => {
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    coll.find({}).toArray().then((data) => { res.json(data); });
 });
+
+let db = null;
+let coll = null;
 
 const runServer = async () => {
     try {
@@ -21,6 +25,8 @@ const runServer = async () => {
         log.info('Successfully connected to MongoDB database.');
         app.listen(PORT, () => {
             log.info('Server is listening on port: ', PORT);
+            db = mongoose.connection.client.db(DB_NAME);
+            coll = db.collection(COLL_NAME);
         }).on('error', (error) => {
             log.fatal(error.message);
             log4js.shutdown(process.exit);
