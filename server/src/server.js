@@ -1,4 +1,6 @@
-const { DB_URL, PORT, DB_NAME, COLL_NAME, CLIENT_ID } = require('./config');
+const { DB_URL, PORT, DB_NAME, COLL_NAME, SESSION_SECRET, CLIENT_ID } = require('./config');
+
+const uuidv4 = require('uuid/v4');
 
 const log4js = require('log4js');
 const log = log4js.getLogger('src/config.js');
@@ -7,6 +9,11 @@ const express = require('express');
 const app = express();
 
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+const passport = require('passport');
+const GoogleStrategy = require('passport-google').Strategy;
 
 const mongoose = require('mongoose');
 const mongourl = DB_URL;
@@ -30,6 +37,30 @@ app.use(express.static('app'));
 // configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+passport.use(new GoogleStrategy({
+    returnURL: 'http://localhost:4000/userList',
+    realm: 'http://localhost:4000/'
+}, (identifier, done) => {
+    // in this callback we check the user's credentials in our database based on identifier
+    return done(err, user);
+}));
+
+app.use(session({
+    genid: () => { return uuidv4(); },
+    secret: SESSION_SECRET,
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        dbName: DB_NAME
+    }),
+    cookie: {
+        maxAge: 60000,
+        secure: true
+    }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/userList', (req, res) => {
     res.set({ 'Access-Control-Allow-Origin': '*' });

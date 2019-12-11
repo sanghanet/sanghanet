@@ -28,6 +28,8 @@ if (env.error) {
         fatalError(`COLL_NAME is undefined in ${envPath}!`);
     } else if (!process.env.CLIENT_ID) {
         fatalError(`CLIENT_ID is undefined in ${envPath}!`);
+    } else if (!process.env.SESSION_SECRET) {
+        fatalError(`SESSION_SECRET is undefined in ${envPath}!`);
     } else {
         env.parsed.NODE_ENV = process.env.NODE_ENV;
         log.info('Environmennt variables: \n', env.parsed);
@@ -35,6 +37,7 @@ if (env.error) {
 }
 
 module.exports = {
+    SESSION_SECRET: process.env.SESSION_SECRET,
     DB_NAME: process.env.DB_NAME,
     COLL_NAME: process.env.COLL_NAME,
     DB_URL: process.env.DB_URL,
