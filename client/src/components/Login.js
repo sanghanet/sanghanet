@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { GoogleLogin } from 'react-google-login';
+
 import Buddha from './media/sangha_logo.svg';
-import GoogleLogo from './media/google_logo.png';
 import Home from './Home';
 
 class Login extends Component {
@@ -9,32 +10,52 @@ class Login extends Component {
         this.state = { login: false };
     }
 
-    logIn = () => {
+    onFailure = (error) => {
+        console.error(error);
+    }
+
+    onSignOut = () => {
+        this.setState({ login: false });
+    }
+
+    onSignIn = (googleUser) => {
+        const profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
         this.setState({ login: true });
+        // The ID token to pass to your backend:
+        // var id_token = googleUser.getAuthResponse().id_token;
+        // console.log('ID Token: ' + id_token);
     }
 
     render () {
         if (!this.state.login) {
             return (
-                <div className="app">
+                <div className='app'>
                     <header>
                         <h1>Welcome to SanghaNet</h1>
                     </header>
                     <main>
-                        <img className="buddha" src={Buddha} alt="buddha logo"/>
-                        <button onClick={this.logIn} className="login-btn">
-                            <div className="google-logo-box">
-                                <img className="google-logo" src={GoogleLogo} alt="google logo"/>
-                            </div>
-                            <div className="login-btn-text noselect">SIGN IN</div>
-                        </button>
+                        <img className='buddha' src={Buddha} alt='buddha logo'/>
+                        <GoogleLogin
+                            clientId='55347337253-aglrjccot9o1n7s2caborv6gnee634pf.apps.googleusercontent.com'
+                            onSuccess={this.onSignIn}
+                            onFailure={this.onFailure}
+                            cookiePolicy={'single_host_origin'}
+                            theme='dark'
+                            className='login-btn'
+                        />
                     </main>
                 </div>
             );
         }
         return (
             <div>
-                <Home />
+                <Home signOut={this.onSignOut} />
             </div>
         );
     }

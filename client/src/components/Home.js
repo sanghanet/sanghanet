@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoogleLogout } from 'react-google-login';
 
 class Home extends React.Component {
     constructor (props) {
@@ -29,11 +30,22 @@ class Home extends React.Component {
         this.setState({ list: result });
     }
 
+    onLogout = () => {
+        console.log('You are logged out');
+        this.props.signOut();
+    }
+
     render () {
         return (
             <div>
                 <button onClick = {this.fetchData}>List users</button>
                 <div>{this.state.list}</div>
+                <GoogleLogout
+                    clientId="55347337253-aglrjccot9o1n7s2caborv6gnee634pf.apps.googleusercontent.com"
+                    buttonText="Sign out"
+                    onLogoutSuccess={this.onLogout}
+                >
+                </GoogleLogout>
             </div>
         );
     }
