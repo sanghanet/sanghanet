@@ -11,7 +11,7 @@
    Example of .env.local:
 
       DB_URL=mongodb://localhost:test/27017
-      DB_NAME=test 
+      DB_NAME=test
       COLL_NAME=users
       PORT=4000
 
@@ -28,7 +28,7 @@
 
  4. If you would like to start the front-end + dev server, run `npm start` in the client directory.
 
- 5. If you would like to start the back-end server with local db, run `npm run start-local` in the server directory.
+ 5. If you would like to start the back-end server with local db, run `npm run local` in the server directory.
     Feel free to config other .env files and start scripts...
 
     NOTE: for Windows users, with bash as their shell for npm scripts:
@@ -40,6 +40,6 @@
 # test deployment
 
    1. use the `npm run-script build` in the client folder
-      NOTE: this script will delete the contents of the /client/build and /server/app folders, then deploy the app in the /client/build folder and finally will copy it's contents to the /server/app folder.  
+      NOTE: this script will delete the contents of the /client/build and /server/app folders, then deploy the app in the /client/build folder and finally will copy it's contents to the /server/app folder.
 
    The production build is now hosted on the backend server.
