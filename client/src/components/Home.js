@@ -44,6 +44,8 @@ class Home extends React.Component {
                     clientId="55347337253-aglrjccot9o1n7s2caborv6gnee634pf.apps.googleusercontent.com"
                     buttonText="Sign out"
                     onLogoutSuccess={this.onLogout}
+                    theme='dark'
+                    className='logout-btn'
                 >
                 </GoogleLogout>
             </div>
