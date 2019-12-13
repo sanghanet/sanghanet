@@ -60,6 +60,7 @@ table {
 /* --- end of CSS reset --- */
 
 
+/* --- Login.js --- */
 body {
 	background: #0B3954;
 }
@@ -107,6 +108,9 @@ main .buddha {
     left: 50%;
 	transform: translate(-50%, -50%);
 	width: fit-content;
+	padding: 0;
+    border: none;
+    border-radius: 5px;
 }
 
 .login-btn-text {
@@ -128,4 +132,14 @@ main .buddha {
 
 .google-logo {
 	width: 6em;
+}
+
+
+
+/* --- Home.js --- */
+.user-search {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }

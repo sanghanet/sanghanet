@@ -3,7 +3,10 @@ import React from 'react';
 class Home extends React.Component {
     constructor (props) {
         super(props);
-        this.state = { list: null };
+        this.state = {
+            list: null,
+            inputValue: ''
+        };
     }
 
     fetchData = () => {
@@ -32,6 +35,7 @@ class Home extends React.Component {
     render () {
         return (
             <div>
+                <input type="text" name="searchUsers" className="user-search"/>
                 <button onClick = {this.fetchData}>List users</button>
                 <div>{this.state.list}</div>
             </div>
