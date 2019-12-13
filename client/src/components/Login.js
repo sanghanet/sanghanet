@@ -18,14 +18,22 @@ class Login extends Component {
         this.setState({ login: false });
     }
 
-    onSignIn = (idToken) => {
-        // The ID token to pass to your backend
-        // If responseType is 'code', callback will return the offline token for use on your server.
-        // https://github.com/anthonyjgrove/react-google-login#onsuccess-callback
-        console.dir(idToken);
+    onSignIn = (googleUser) => {
+        // const profile = googleUser.getBasicProfile();
+        // console.log('ID: ' + profile.getId()); // Don't send this directly to your server!
+        // console.log('Full Name: ' + profile.getName());
+        // console.log('Given Name: ' + profile.getGivenName());
+        // console.log('Family Name: ' + profile.getFamilyName());
+        // console.log('Image URL: ' + profile.getImageUrl());
+        // console.log('Email: ' + profile.getEmail());
+        // console.dir(googleUser);
         fetch('/auth', {
             method: 'post',
-            body: JSON.stringify(idToken)
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_token: googleUser.Zi.id_token }) // The ID token to pass to your backend
         }).then((res) => {
             if (res.ok) { this.setState({ login: true }); };
         }).catch((error) => {
@@ -49,7 +57,6 @@ class Login extends Component {
                             cookiePolicy={'single_host_origin'}
                             theme='dark'
                             className='login-btn'
-                            responseType='code'
                         />
                     </main>
                 </div>

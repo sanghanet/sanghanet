@@ -26,6 +26,8 @@ if (env.error) {
         fatalError(`DB_NAME is undefined in ${envPath}!`);
     } else if (!process.env.COLL_NAME) {
         fatalError(`COLL_NAME is undefined in ${envPath}!`);
+    } else if (!process.env.CLIENT_ID) {
+        fatalError(`CLIENT_ID is undefined in ${envPath}!`);
     } else {
         env.parsed.NODE_ENV = process.env.NODE_ENV;
         log.info('Environmennt variables: \n', env.parsed);
@@ -36,5 +38,6 @@ module.exports = {
     DB_NAME: process.env.DB_NAME,
     COLL_NAME: process.env.COLL_NAME,
     DB_URL: process.env.DB_URL,
-    PORT: process.env.PORT
+    PORT: process.env.PORT,
+    CLIENT_ID: process.env.CLIENT_ID
 };
