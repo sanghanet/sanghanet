@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { GoogleLogout } from 'react-google-login';
 
 class Home extends React.Component {
@@ -52,5 +53,9 @@ class Home extends React.Component {
         );
     }
 }
+
+Home.propTypes = {
+    signOut: PropTypes.func.isRequired
+};
 
 export default Home;
