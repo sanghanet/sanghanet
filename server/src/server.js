@@ -14,7 +14,7 @@ const mongourl = DB_URL;
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(CLIENT_ID);
 
-async function verify (token) {
+const verify = async (token) => {
     const ticket = await client.verifyIdToken({
         idToken: token,
         audience: CLIENT_ID
@@ -24,7 +24,7 @@ async function verify (token) {
     const givenName = payload.given_name;
     const familyName = payload.family_name;
     log.info(`Signing in: ${givenName} ${familyName}, ID: ${userid}`);
-}
+};
 
 app.use(express.static('app'));
 // configuring express to use body-parser as middle-ware.

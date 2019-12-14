@@ -28,7 +28,7 @@ class Login extends Component {
         // console.log('Email: ' + profile.getEmail());
         // console.dir(googleUser);
         fetch('/auth', {
-            method: 'post',
+            method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
