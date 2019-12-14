@@ -22,11 +22,13 @@ class Home extends Component {
                     names.push(this.getFullName(user));
                 });
                 this.setState({ userNames: names });
-                console.log('hell yes');
+                console.dir(this.state.userNames);
             }).catch((err) => {
                 throw new Error(err.message);
             });
     }
+
+    debugger;
 
     onSearchClick = () => {
         this.fetchData();
@@ -41,33 +43,43 @@ class Home extends Component {
         this.setState({ inputValue: e.target.value });
     }
 
-    handleSearch = (searchValue, searchList) => {
-        this.setState({ foundUsers: null });
-        const found = [];
-        for (var i = 0; i < searchList.length; i++) {
-            if (searchList[i].includes(searchValue)) {
-                console.log('updated person');
-                found.push(searchList[i]);
-            };
-        }
+    find = (searchValue, searchList) => {
+        return new Promise((resolve, reject) => {
+            this.setState({ foundUsers: null });
+            const found = [];
+            for (let i = 0; i < searchList.length; i++) {
+                if (searchList[i].includes(searchValue)) {
+                    console.log('updated person');
+                    found.push(searchList[i]);
+                };
+            }
+            this.setState({ foundUsers: found });
+            resolve(this.state.foundUsers);
+        });
+    }
 
-        this.setState({ foundUsers: found });
-        console.dir(this.state.foundUsers);
+    handleSearch = (searchValue, searchList) => {
+        this.find(searchValue, searchList).then((value) => {
+            console.dir(value);
+        });
     }
 
     render () {
         return (
-            <div className="user-search">
-                <input
-                    type="text"
-                    value={this.state.inputValue}
-                    onChange={this.handleInputChange}
-                />
-                <input
-                    type="button"
-                    value="Search"
-                    onClick={this.onSearchClick}
-                />
+            <div>
+                <div className="user-search">
+                    <input
+                        type="text"
+                        value={this.state.inputValue}
+                        onChange={this.handleInputChange}
+                    />
+                    <input
+                        type="button"
+                        value="Search"
+                        onClick={this.onSearchClick}
+                    />
+                </div>
+                <div>{this.state.test}</div>
             </div>
         );
     }
