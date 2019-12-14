@@ -1,43 +1,73 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Home extends React.Component {
+class Home extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            list: null,
+            userNames: [],
+            foundUsers: [],
             inputValue: ''
         };
     }
+
+    userList = [];
 
     fetchData = () => {
         fetch('http://localhost:4000/userList', { method: 'GET' })
             .then((res) => {
                 return res.json();
             }).then((data) => {
-                this.printUserList(data);
+                const names = [];
+                data.forEach(user => {
+                    names.push(this.getFullName(user));
+                });
+                this.setState({ userNames: names });
+                console.log('hell yes');
             }).catch((err) => {
                 throw new Error(err.message);
             });
     }
 
-    printUserList = (userArray) => {
-        const result = userArray.map((value, index) => {
-            return (
-                <div key={value._id}>
-                    {index} {value.first_name} {value.last_name}
-                </div>
-            );
-        });
+    onSearchClick = () => {
+        this.fetchData();
+        this.handleSearch(this.state.inputValue, this.state.userNames);
+    }
 
-        this.setState({ list: result });
+    getFullName = (user) => {
+        return [user.first_name, user.last_name].join(' ');
+    }
+
+    handleInputChange = (e) => {
+        this.setState({ inputValue: e.target.value });
+    }
+
+    handleSearch = (searchValue, searchList) => {
+        this.setState({ foundUsers: null });
+        const found = [];
+        for (var i = 0; i < searchList.length; i++) {
+            if (searchList[i].includes(searchValue)) {
+                console.log('updated person');
+                found.push(searchList[i]);
+            };
+        }
+
+        this.setState({ foundUsers: found });
+        console.dir(this.state.foundUsers);
     }
 
     render () {
         return (
-            <div>
-                <input type="text" name="searchUsers" className="user-search"/>
-                <button onClick = {this.fetchData}>List users</button>
-                <div>{this.state.list}</div>
+            <div className="user-search">
+                <input
+                    type="text"
+                    value={this.state.inputValue}
+                    onChange={this.handleInputChange}
+                />
+                <input
+                    type="button"
+                    value="Search"
+                    onClick={this.onSearchClick}
+                />
             </div>
         );
     }
