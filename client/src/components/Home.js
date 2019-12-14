@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { GoogleLogout } from 'react-google-login';
 
 class Home extends React.Component {
     constructor (props) {
@@ -38,9 +40,21 @@ class Home extends React.Component {
                 <input type="text" name="searchUsers" className="user-search"/>
                 <button onClick = {this.fetchData}>List users</button>
                 <div>{this.state.list}</div>
+                <GoogleLogout
+                    clientId="55347337253-aglrjccot9o1n7s2caborv6gnee634pf.apps.googleusercontent.com"
+                    buttonText="Sign out"
+                    onLogoutSuccess={this.props.signOut}
+                    theme='dark'
+                    className='logout-btn'
+                >
+                </GoogleLogout>
             </div>
         );
     }
 }
+
+Home.propTypes = {
+    signOut: PropTypes.func.isRequired
+};
 
 export default Home;

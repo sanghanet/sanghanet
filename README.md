@@ -9,11 +9,15 @@
 
  3. create .env.local / .env.atlas / .env.???? files accordig to your need in server directory.
    Example of .env.local:
-
+```
       DB_URL=mongodb://localhost:test/27017
       DB_NAME=test
       COLL_NAME=users
       PORT=4000
+      CLIENT_ID=55347337253-aglrjccot9o1n7s2caborv6gnee634pf.apps.googleusercontent.com
+```
+   > This CLIENT_ID is valid for localhost only.
+   > For deployment you will need a different value for the CLIENT_ID.
 
    When setting up env.atlas:
 

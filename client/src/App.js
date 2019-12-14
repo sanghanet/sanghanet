@@ -10,14 +10,19 @@ class App extends Component {
     }
 
     logIn = () => {
+        console.log('You are logged in');
         this.setState({ login: true });
     }
 
+    onSignOut = () => {
+        console.log('You are logged out');
+        this.setState({ login: false });
+    }
+
     render () {
-        if (!this.state.login) {
-            return (<Login onclick={this.logIn}/>);
-        }
-        return (<Home />);
+        return !this.state.login
+            ? (<Login loginOK={this.logIn} />)
+            : (<Home signOut={this.onSignOut} />);
     }
 };
 
