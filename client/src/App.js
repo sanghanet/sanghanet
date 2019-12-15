@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+
 import './App.css';
-import Login from './components/Login';
-import Home from './components/Home';
+import Login from './pages/Login';
+import Main from './pages/Main';
 
 class App extends Component {
     constructor (props) {
@@ -20,9 +21,9 @@ class App extends Component {
     }
 
     render () {
-        return !this.state.login
-            ? (<Login loginOK={this.logIn} />)
-            : (<Home signOut={this.onSignOut} />);
+        return this.state.login
+            ? (<Main signOut={this.onSignOut} />)
+            : (<Login loginOK={this.logIn} />);
     }
 };
 
