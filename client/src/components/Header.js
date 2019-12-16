@@ -6,7 +6,7 @@ import './Header.css';
 
 const Header = (props) => {
     return (
-        <div className='header'>
+        <header className='header'>
             <h1>This a Header!</h1>
             <GoogleLogout
                 clientId="55347337253-aglrjccot9o1n7s2caborv6gnee634pf.apps.googleusercontent.com"
@@ -16,7 +16,7 @@ const Header = (props) => {
                 className='logout-btn'
             >
             </GoogleLogout>
-        </div>
+        </header>
     );
 };
 

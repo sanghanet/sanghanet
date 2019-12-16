@@ -1,6 +1,6 @@
 import React from 'react';
 
-class DashboarContent extends React.Component {
+class Dashboard extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -44,4 +44,4 @@ class DashboarContent extends React.Component {
     }
 }
 
-export default DashboarContent;
+export default Dashboard;

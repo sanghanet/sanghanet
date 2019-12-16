@@ -5,14 +5,14 @@ import './Navbar.css';
 
 const Navbar = (props) => {
     return (
-        <div className='navbar'>
-            <h4>This a Navbar!</h4>
+        <nav className='navbar'>
+            <h4>This is a Navbar!</h4>
             <ul>
                 <li><Link to='/'>Dashboard</Link></li>
                 <li><Link to='/profile'>Profile</Link></li>
                 <li><Link to='/queries'>Queries</Link></li>
             </ul>
-        </div>
+        </nav>
     );
 };
 

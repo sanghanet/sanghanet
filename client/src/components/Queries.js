@@ -1,6 +1,6 @@
 import React from 'react';
 
-const QueriesContent = () => {
+const Queries = (props) => {
     return (
         <main>
             <h1>QUERIES ARE REPORTING FOR DUTY!</h1>
@@ -8,4 +8,4 @@ const QueriesContent = () => {
     );
 };
 
-export default QueriesContent;
+export default Queries;
