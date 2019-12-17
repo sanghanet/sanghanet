@@ -1,0 +1,10 @@
+.navbar {
+    float: left;
+    background-color: aqua;
+    min-width: 128px;
+    height: 100vh;
+}
+
+.navbar ul {
+    list-style-type: none;
+}

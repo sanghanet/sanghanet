@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { GoogleLogout } from 'react-google-login';
 
-class Home extends React.Component {
+class Dashboard extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -36,25 +34,14 @@ class Home extends React.Component {
 
     render () {
         return (
-            <div>
+            <main>
+                <h1>DASHBOARD, OF COURSE.</h1>
                 <input type="text" name="searchUsers" className="user-search"/>
                 <button onClick = {this.fetchData}>List users</button>
                 <div>{this.state.list}</div>
-                <GoogleLogout
-                    clientId="55347337253-aglrjccot9o1n7s2caborv6gnee634pf.apps.googleusercontent.com"
-                    buttonText="Sign out"
-                    onLogoutSuccess={this.props.signOut}
-                    theme='dark'
-                    className='logout-btn'
-                >
-                </GoogleLogout>
-            </div>
+            </main>
         );
     }
 }
 
-Home.propTypes = {
-    signOut: PropTypes.func.isRequired
-};
-
-export default Home;
+export default Dashboard;
