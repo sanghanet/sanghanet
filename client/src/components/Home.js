@@ -28,8 +28,6 @@ class Home extends Component {
             });
     }
 
-    debugger;
-
     onSearchClick = () => {
         this.fetchData();
         this.handleSearch(this.state.inputValue, this.state.userNames);
