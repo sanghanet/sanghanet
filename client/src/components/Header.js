@@ -1,27 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { GoogleLogout } from 'react-google-login';
 
-import './Header.css';
+import './Header.scss';
+import FindIcon from './icons/search-25.png';
 
 const Header = (props) => {
     return (
         <header className='header'>
-            <h1>This a Header!</h1>
-            <GoogleLogout
-                clientId="55347337253-aglrjccot9o1n7s2caborv6gnee634pf.apps.googleusercontent.com"
-                buttonText="Sign out"
-                onLogoutSuccess={props.signOut}
-                theme='dark'
-                className='logout-btn'
-            >
-            </GoogleLogout>
+            <p>Signed in as <br/><span> Jon Doe</span></p>
+            <div className="search-field">
+                <input type="text" placeholder="Search..."></input>
+                <a href="#"><img src={FindIcon} alt="Search icon"></img></a>
+            </div>
+            <p>Dashboard</p>
         </header>
     );
-};
-
-Header.propTypes = {
-    signOut: PropTypes.func.isRequired
 };
 
 export default Header;

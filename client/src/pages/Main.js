@@ -11,8 +11,8 @@ import Queries from '../components/Queries';
 const Main = (props) => {
     return (
         <BrowserRouter>
-            <Header signOut={props.signOut}/>
-            <Navbar />
+            <Header />
+            <Navbar signOut={props.signOut} />
             <Switch>
                 <Route exact path='/' component={Dashboard} />
                 <Route path='/profile' component={Profile} />

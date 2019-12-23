@@ -1,0 +1,42 @@
+$sideBar-color: #484848;
+$sideBarHover-color: #343434;
+
+@mixin reset-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+@mixin link-hover {
+    padding: 20px 0;
+    &:hover {background-color: $sideBarHover-color;}
+}
+
+.navbar {
+    height: calc(100vh - 87px);
+    width: 80px;
+    background-color: $sideBar-color;
+    float: left;
+
+    display: flex;
+    flex-direction: column;
+    ul {
+        @include reset-list;
+        height: 50vh;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    li {
+        width: 100%;
+        text-align: center;
+        @include link-hover;
+    }
+    button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin: auto 0 50px;
+        @include link-hover;
+    }
+}

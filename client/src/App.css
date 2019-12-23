@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 	font-family: Arial, Helvetica, sans-serif;
-	background: #0B3954;
+	background: #343434;
 }
 
 .app {
@@ -47,14 +47,6 @@ main .buddha {
     left: 50%;
 	transform: translate(-50%, -50%);
 }
-
-.logout-btn {
-	position: absolute;
-	top: 1%;
-    right: 2%;
-}
-
-
 
 /* --- Home.js --- */
 .user-search {
