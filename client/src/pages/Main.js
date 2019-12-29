@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import '../components/Navbar_Header.scss';
+
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Dashboard from '../components/Dashboard';
@@ -11,13 +13,15 @@ import Queries from '../components/Queries';
 const Main = (props) => {
     return (
         <BrowserRouter>
-            <Header />
-            <Navbar signOut={props.signOut} />
-            <Switch>
-                <Route exact path='/' component={Dashboard} />
-                <Route path='/profile' component={Profile} />
-                <Route path='/queries' component={Queries} />
-            </Switch>
+            <div className="grid-container">
+                <Header />
+                <Navbar signOut={props.signOut} />
+                <Switch className="main">
+                    <Route exact path='/' component={Dashboard} />
+                    <Route path='/profile' component={Profile} />
+                    <Route path='/queries' component={Queries} />
+                </Switch>
+            </div>
         </BrowserRouter>
     );
 };

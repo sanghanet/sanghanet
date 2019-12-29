@@ -1,0 +1,14 @@
+<svg id="all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke-width:10px;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:7;}
+        </style>
+    </defs>
+    <circle class="cls-1" cx="50" cy="50" r="40.25"/>
+    <circle class="cls-2" cx="50" cy="70.51" r="4.5"/>
+    <g id="i">
+        <line class="cls-1" x1="50" y1="47.5" x2="50" y2="71.6"/>
+        <circle class="cls-2" cx="50" cy="47.5" r="4.5"/>
+        <circle class="cls-2" cx="50" cy="32.9" r="4.5"/>
+    </g>
+</svg>

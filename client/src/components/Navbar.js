@@ -1,22 +1,41 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import './Navbar.scss';
-import DashboardIcon from './icons/dashboard-30.png';
-import ProfileIcon from './icons/profile-30.png';
-import QueryIcon from './icons/query-30.png';
-import LogoutIcon from './icons/logout-30.png';
+import './Navbar_Header.scss';
+
+import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
+import { ReactComponent as Profile } from './icons/profile.svg';
+import { ReactComponent as Info } from './icons/info.svg';
+import { ReactComponent as Logout } from './icons/logout.svg';
 
 const Navbar = (props) => {
     return (
-        <nav className='navbar'>
+        <nav className="navbar">
             <ul>
-                <li><Link to='/'><img src={DashboardIcon} alt="Arrow" /></Link></li>
-                <li><Link to='/profile'><img src={ProfileIcon} alt="Profile" /></Link></li>
-                <li><Link to='/queries'><img src={QueryIcon} alt="Queries" /></Link></li>
+                <li>
+                    <NavLink to="/" className="dashboard link">
+                        <div className="menu-icon"><DashboardIcon /></div>
+                        <span className="title">DASHBOARD</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/profile" className="profile link">
+                        <div className="menu-icon"><Profile /></div>
+                        <span className="title">PROFILE</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/queries" className="queries link">
+                        <div className="menu-icon"><Info /></div>
+                        <span className="title">QUERIES</span>
+                    </NavLink>
+                </li>
             </ul>
-            <button onClick={props.signOut}><img src={LogoutIcon} alt="Logout" /></button>
+            <button onClick={props.signOut} className="link">
+                <div className="menu-icon"><Logout /></div>
+                <span className="title">EXIT</span>
+            </button>
         </nav>
     );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import './Header.scss';
-import FindIcon from './icons/search-25.png';
+import './Navbar_Header.scss';
 
 const Header = (props) => {
     return (
@@ -9,7 +8,7 @@ const Header = (props) => {
             <p>Signed in as <br/><span> Jon Doe</span></p>
             <div className="search-field">
                 <input type="text" placeholder="Search..."></input>
-                <a href="#"><img src={FindIcon} alt="Search icon"></img></a>
+                <a href="#"><span className="search-icon"></span></a>
             </div>
             <p>Dashboard</p>
         </header>
