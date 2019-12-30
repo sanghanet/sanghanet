@@ -121,10 +121,14 @@ li .active {
         }
     }
     button {
-        width: 30px;
-        height: 30px;
+        width: 48px;
+        height: 48px;
         fill: $sideBar-iconColor;
         @include buttonReset;
+        svg {
+            width: 36px;
+            height: 36px;
+        }
         &:hover {
             fill: $sideBarHover-iconColor;
         }
