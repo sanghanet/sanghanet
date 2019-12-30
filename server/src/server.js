@@ -13,37 +13,33 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 const passport = require('passport');
-const GoogleStrategy = require('passport-google').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const mongoose = require('mongoose');
 const mongourl = DB_URL;
 
-const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client(CLIENT_ID);
-
-const verify = async (token) => {
-    const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: CLIENT_ID
-    });
-    const payload = ticket.getPayload();
-    const userid = payload.sub;
-    const givenName = payload.given_name;
-    const familyName = payload.family_name;
-    log.info(`Signing in: ${givenName} ${familyName}, ID: ${userid}`);
-};
-
-app.use(express.static('app'));
+app.use('/app', express.static('app'));
+app.use(express.static('login'));
 // configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
+
 passport.use(new GoogleStrategy({
-    returnURL: 'http://localhost:4000/userList',
-    realm: 'http://localhost:4000/'
-}, (identifier, done) => {
-    // in this callback we check the user's credentials in our database based on identifier
-    return done(err, user);
+    clientID: CLIENT_ID,
+    clientSecret: 'm-ezr_Dp_CjQSfyhkyIBodji',
+    callbackURL: 'http://localhost:4000/passport'
+}, (identifier, refreshtoken, profile, done) => {
+    log.info(profile.emails);
+    //match the user to our database here
+    return done(null, profile);
 }));
 
 app.use(session({
@@ -54,8 +50,8 @@ app.use(session({
         dbName: DB_NAME
     }),
     cookie: {
-        maxAge: 60000,
-        secure: true
+        maxAge: 120000,
+        secure: false
     }
 }));
 
@@ -67,12 +63,11 @@ app.get('/userList', (req, res) => {
     coll.find({}).toArray().then((data) => { res.json(data); });
 });
 
-app.post('/auth', (req, res) => {
-    const token = req.body.id_token;
-    log.debug(token);
-    verify(token)
-        .then(() => res.status(200).send('OK'))
-        .catch(console.error);
+app.get('/auth', passport.authenticate('google', { scope: ['profile', 'email'] }), (req, res) => {
+    // this function is not called, becasue the request is redirected to google
+});
+
+app.get('/passport', passport.authenticate('google', { successRedirect: '/app', failureRedirect: '/' }), (req, res) => {
 });
 
 let db = null;
