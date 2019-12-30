@@ -14,19 +14,19 @@ const Navbar = (props) => {
         <nav className="navbar">
             <ul>
                 <li>
-                    <NavLink to="/" className="dashboard link">
+                    <NavLink exact to="/" className="dashboard link">
                         <div className="menu-icon"><DashboardIcon /></div>
                         <span className="title">DASHBOARD</span>
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/profile" className="profile link">
+                    <NavLink exact to="/profile" className="profile link">
                         <div className="menu-icon"><Profile /></div>
                         <span className="title">PROFILE</span>
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/queries" className="queries link">
+                    <NavLink exact to="/queries" className="queries link">
                         <div className="menu-icon"><Info /></div>
                         <span className="title">QUERIES</span>
                     </NavLink>

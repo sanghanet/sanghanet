@@ -46,6 +46,20 @@ $sideBarHover-backgroundColor: #343434;
 // @include mQ(600px) {
 //     xxxx
 // }
+li .active {
+    background-color: $sideBarHover-backgroundColor;
+
+    .title {
+        color: $sideBarHover-iconColor;
+    }
+    svg {
+        fill: $sideBarHover-iconColor;
+
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+}
 
 * {
     box-sizing: border-box;
@@ -128,25 +142,25 @@ $sideBarHover-backgroundColor: #343434;
         margin-bottom: 90px;
     }
     li {
-        @include navbarItemHeight;
-        padding: 20px 0;
         cursor: pointer;
 
+        @include navbarItemHeight;
         @include centerElement;
         @include hoveredElement;
     }
     .link {
         text-decoration: none;
+        width: 100%;
 
-        display: flex;
+        @include navbarItemHeight;
+        @include centerElement;
         flex-direction: column;
-        align-items: center;
     }
     .menu-icon {
-        @include centerElement;
-
         width: 36px;
         height: 36px;
+
+        @include centerElement;
     }
     svg {
         fill: $sideBar-iconColor;
@@ -165,13 +179,14 @@ $sideBarHover-backgroundColor: #343434;
         color: $sideBar-iconColor;
     }
     button {
-        @include navbarItemHeight;
         background-color: transparent;
         border: none;
         cursor: pointer;
         margin: auto 0;
 
         justify-content: center;
+
+        @include navbarItemHeight;
 
         .title {
             letter-spacing: 2px;
