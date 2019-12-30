@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './Navbar_Header.scss';
+import { ReactComponent as Search } from './icons/search.svg';
 
 const Header = (props) => {
     return (
@@ -9,7 +10,7 @@ const Header = (props) => {
             <p>Signed in as <br/><span> Jon Doe</span></p>
             <div className="search-field">
                 <input type="text" placeholder="Search..."></input>
-                <a href="#"><span className="search-icon"></span></a>
+                <button><Search /></button>
             </div>
             <p>{props.activePage}</p>
         </header>

@@ -4,10 +4,22 @@ $sideBar-iconColor: #c9c9c9;
 $sideBarHover-iconColor: #fff;
 $sideBarHover-backgroundColor: #343434;
 
-@mixin reset-list {
+@mixin resetList {
     margin: 0;
     padding: 0;
     list-style: none;
+}
+@mixin buttonReset {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+@mixin customFocus {
+    &:focus {
+        outline: 0 none;
+        fill: aqua;
+    }
 }
 @mixin navbarItemHeight {
     height: 90px;
@@ -108,25 +120,15 @@ li .active {
             font-size: 20px;
         }
     }
-    a {
-        width: 50px;
-        height: 50px;
-        cursor: pointer;
-
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
-    .search-icon {
-        margin-right: 5px;
-        -webkit-mask-image: url('./icons/search.svg');
-        mask-image: url('./icons/search.svg');
-        background-color: $searchField-color;
+    button {
         width: 30px;
         height: 30px;
-    }
-    a:hover .search-icon {
-        background-color:  #fff;
+        fill: $sideBar-iconColor;
+        @include buttonReset;
+        &:hover {
+            fill: $sideBarHover-iconColor;
+        }
+        @include customFocus;
     }
 }
 
@@ -140,7 +142,7 @@ li .active {
     flex-direction: column;
     justify-content: space-around;
     ul {
-        @include reset-list;
+        @include resetList;
         margin-bottom: 90px;
     }
     li {
@@ -182,13 +184,11 @@ li .active {
         color: $sideBar-iconColor;
     }
     button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
         margin: auto 0;
 
         justify-content: center;
 
+        @include buttonReset;
         @include navbarItemHeight;
 
         .title {
