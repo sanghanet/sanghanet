@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Navbar_Header.scss';
 
@@ -10,9 +11,13 @@ const Header = (props) => {
                 <input type="text" placeholder="Search..."></input>
                 <a href="#"><span className="search-icon"></span></a>
             </div>
-            <p>Dashboard</p>
+            <p>{props.activePage}</p>
         </header>
     );
+};
+
+Header.propTypes = {
+    activePage: PropTypes.string.isRequired
 };
 
 export default Header;

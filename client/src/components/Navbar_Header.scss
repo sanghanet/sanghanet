@@ -83,7 +83,9 @@ li .active {
     align-items: center;
     p {
         margin: 0;
+        width: 150px;
         color: #fff;
+        text-align: center;
     }
     .search-field {
         border-bottom: 2px solid $searchField-color;
@@ -176,6 +178,7 @@ li .active {
         font-size: 11px;
         font-weight: 400;
         letter-spacing: 0.6px;
+        text-transform: uppercase;
         color: $sideBar-iconColor;
     }
     button {
