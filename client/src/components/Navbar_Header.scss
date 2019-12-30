@@ -1,5 +1,7 @@
 $searchField-color: #e8e3e3;
 $sideBar-backgroundColor: #484848;
+$sideBar-iconColor: #c9c9c9;
+$sideBarHover-iconColor: #fff;
 $sideBarHover-backgroundColor: #343434;
 
 @mixin reset-list {
@@ -7,6 +9,30 @@ $sideBarHover-backgroundColor: #343434;
     padding: 0;
     list-style: none;
 }
+@mixin navbarItemHeight {
+    height: 90px;
+}
+@mixin centerElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@mixin hoveredElement {
+    &:hover {
+        background-color: $sideBarHover-backgroundColor;
+    }
+    &:hover .title {
+        color: $sideBarHover-iconColor;
+    }
+    &:hover svg {
+        fill: $sideBarHover-iconColor;
+
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+}
+
 // @mixin link-hover {
 //     &:hover {background-color: $sideBarHover-backgroundColor;}
 // }
@@ -20,6 +46,7 @@ $sideBarHover-backgroundColor: #343434;
 // @include mQ(600px) {
 //     xxxx
 // }
+
 * {
     box-sizing: border-box;
 }
@@ -101,25 +128,12 @@ $sideBarHover-backgroundColor: #343434;
         margin-bottom: 90px;
     }
     li {
-        width: 100%;
-        height: 90px;
+        @include navbarItemHeight;
         padding: 20px 0;
         cursor: pointer;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &:hover {
-            background-color: $sideBarHover-backgroundColor;
-        }
-        &:hover .title {
-            color: #fff;
-        }
-        &:hover svg {
-            fill: #fff;
-            width: 36px;
-            height: 36px;
-        }
+        @include centerElement;
+        @include hoveredElement;
     }
     .link {
         text-decoration: none;
@@ -128,26 +142,30 @@ $sideBarHover-backgroundColor: #343434;
         flex-direction: column;
         align-items: center;
     }
-    svg {
-        width: 32px;
-        height: 32px;
-        transition: 0.2s;
-    }
     .menu-icon {
-        fill: #ccc;
+        @include centerElement;
+
         width: 36px;
         height: 36px;
+    }
+    svg {
+        fill: $sideBar-iconColor;
+        width: 32px;
+        height: 32px;
+
+        -webkit-transition: 0.2s;
+        -moz-transition: 0.2s;
+        transition: 0.2s;
     }
     .title {
         padding-top: 5px;
         font-size: 11px;
         font-weight: 400;
         letter-spacing: 0.6px;
-        color: #ccc;
+        color: $sideBar-iconColor;
     }
     button {
-        width: 100%;
-        height: 90px;
+        @include navbarItemHeight;
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -158,17 +176,7 @@ $sideBarHover-backgroundColor: #343434;
         .title {
             letter-spacing: 2px;
         }
-        &:hover {
-            background-color: $sideBarHover-backgroundColor;
-        }
-        &:hover .title {
-            color: #fff;
-        }
-        &:hover svg {
-            fill: #fff;
-            width: 36px;
-            height: 36px;
-        }
+        @include hoveredElement;
     }
 }
 
