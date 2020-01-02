@@ -29,6 +29,13 @@ $sideBarHover-backgroundColor: #343434;
     align-items: center;
     justify-content: center;
 }
+@mixin svgChanging {
+    fill: $sideBarHover-iconColor;
+
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
 @mixin hoveredElement {
     &:hover {
         background-color: $sideBarHover-backgroundColor;
@@ -37,25 +44,16 @@ $sideBarHover-backgroundColor: #343434;
         color: $sideBarHover-iconColor;
     }
     &:hover svg {
-        fill: $sideBarHover-iconColor;
-
-        -webkit-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        transform: scale(1.2);
+        @include svgChanging;
     }
 }
 
-// @mixin link-hover {
-//     &:hover {background-color: $sideBarHover-backgroundColor;}
-// }
-
-// For future reference to make the Header and Navbar responsive
-// @mixin mQ($arg) {
-//     @media screen and (max-width: $arg) {
-//         @content;
-//     }
-// }
-// @include mQ(600px) {
+@mixin mQ($arg) {
+    @media screen and (max-width: $arg) {
+        @content;
+    }
+}
+// @include mQ(750px) {
 //     xxxx
 // }
 li .active {
@@ -65,11 +63,7 @@ li .active {
         color: $sideBarHover-iconColor;
     }
     svg {
-        fill: $sideBarHover-iconColor;
-
-        -webkit-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        transform: scale(1.2);
+        @include svgChanging;
     }
 }
 
@@ -83,30 +77,102 @@ li .active {
                             "navbar content";
     grid-template-rows: 90px minmax(calc(100vh - 90px), auto);
     grid-template-columns: 90px;
+
+    @include mQ(750px) {
+        grid-template-areas:    "header"
+                                "content";
+        grid-template-columns: repeat(1, 100vw);
+    }
 }
 
 .header {
     grid-area: header;
+
     background: linear-gradient(90deg, rgba(216,76,81,1) 0%, rgba(143,65,120,1) 100%);
     font-size: calc(20px + 1%);
 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+
+    .burger-lines, .mobile-search {
+        display: none;
+    }
+    @include mQ(750px) {
+        justify-content: space-between;
+        .mobile-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .mobile-search {
+            width: 70px;
+            height: 90px;
+            @include centerElement;
+            .mobile-search-icon {
+                width: 34px;
+                height: 34px;
+            }
+        }
+        .burger-lines {
+            width: 80px;
+            height: 90px;
+            z-index: 10;
+            @include centerElement;
+            flex-direction: column;
+            &:hover div {
+                background-color: #fff;
+            }
+            div {
+                width: 30px;
+                height: 1.5px;
+                margin: 4px 0;
+                background-color: #c9c9c9;
+                border-radius: 10px;
+
+                transition: 0.4s;
+            }
+        }
+    }
     p {
         margin: 0;
         width: 150px;
         color: #fff;
         text-align: center;
+        @include mQ(750px) {
+            font-size: 16px;
+            letter-spacing: 1px;
+            width: 100px;
+        }
+    }
+    .page-name {
+        letter-spacing: 2px;
+        @include mQ(470px) {
+            display: none;
+        }
+    }
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        @include mQ(750px) {
+            width: 46px;
+            height: 46px;
+        }
     }
     .search-field {
-        border-bottom: 2px solid $searchField-color;
+        border-bottom: 1.5px solid $searchField-color;
 
         display: flex;
         align-items: center;
+
+        @include mQ(750px) {
+            display: none;
+        }
     }
     input {
-        width: 28vw;
+        max-width: 28vw;
         height: 30px;
         font-size: 20px;
         color: $searchField-color;
@@ -137,14 +203,19 @@ li .active {
 }
 
 .navbar {
-    padding-top: 50px;
     grid-area: navbar;
 
+    padding-top: 50px;
     background-color: $sideBar-backgroundColor;
 
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+
+    @include mQ(750px) {
+        display: none;
+    }
+
     ul {
         @include resetList;
         margin-bottom: 90px;
@@ -201,7 +272,6 @@ li .active {
         @include hoveredElement;
     }
 }
-
 .main {
-    grid-area: main;
+    grid-area: content;
 }
