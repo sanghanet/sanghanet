@@ -1,4 +1,4 @@
-const { DB_URL, PORT, DB_NAME, COLL_NAME, SESSION_SECRET, CLIENT_ID } = require('./config');
+const { DB_URL, PORT, DB_NAME, COLL_NAME, SESSION_SECRET, CLIENT_ID, CLIENT_SECRET } = require('./config');
 
 const uuidv4 = require('uuid/v4');
 
@@ -34,16 +34,16 @@ passport.deserializeUser((user, done) => {
 
 passport.use(new GoogleStrategy({
     clientID: CLIENT_ID,
-    clientSecret: 'm-ezr_Dp_CjQSfyhkyIBodji',
-    callbackURL: 'http://localhost:4000/passport'
+    clientSecret: CLIENT_SECRET,
+    callbackURL: 'http://localhost:' + PORT + '/passport'
 }, (identifier, refreshtoken, profile, done) => {
     log.info(profile.emails);
-    //match the user to our database here
+    // match the user to our database here
     return done(null, profile);
 }));
 
 app.use(session({
-    genid: () => { return uuidv4(); },
+    genid: () => uuidv4(),
     secret: SESSION_SECRET,
     store: new MongoStore({
         mongooseConnection: mongoose.connection,
@@ -63,12 +63,9 @@ app.get('/userList', (req, res) => {
     coll.find({}).toArray().then((data) => { res.json(data); });
 });
 
-app.get('/auth', passport.authenticate('google', { scope: ['profile', 'email'] }), (req, res) => {
-    // this function is not called, becasue the request is redirected to google
-});
+app.get('/auth', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.get('/passport', passport.authenticate('google', { successRedirect: '/app', failureRedirect: '/' }), (req, res) => {
-});
+app.get('/passport', passport.authenticate('google', { successRedirect: '/app', failureRedirect: '/' }));
 
 let db = null;
 let coll = null;
