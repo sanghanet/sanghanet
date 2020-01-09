@@ -17,6 +17,9 @@ const Header = (props) => {
     };
     const mobileActivePage = (event) => {
         props.setActivePage(event.currentTarget.querySelector('SPAN').innerHTML);
+        const slider = event.currentTarget.parentElement.parentElement;
+        slider.classList.toggle('slideIn');
+        slider.previousElementSibling.querySelector('INPUT').checked = false;
     };
 
     return (
@@ -63,7 +66,7 @@ const Header = (props) => {
                     </ul>
                     <button onClick={props.signOut} className="link">
                         <div className="menu-icon"><Logout /></div>
-                        <span className="title">EXIT</span>
+                        <span className="title">Logout</span>
                     </button>
                 </div>
             </div>

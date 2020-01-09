@@ -203,6 +203,7 @@ body { overflow: hidden; }
             .menu-icon {
                 width: 36px;
                 height: 36px;
+                margin-left: 34px;
 
                 @include centerElement;
             }
@@ -222,6 +223,8 @@ body { overflow: hidden; }
                 letter-spacing: 0.6px;
                 text-transform: uppercase;
                 color: $sideBar-iconColor;
+                width: 100px;
+                text-align: left;
             }
             button {
                 margin: auto 0;
@@ -231,9 +234,6 @@ body { overflow: hidden; }
                 @include buttonReset;
                 @include navbarItemHeight;
                 border-top: 1px solid #5a5a5a;
-                .title {
-                    letter-spacing: 2px;
-                }
                 @include hoveredMenu;
             }
         }
@@ -381,9 +381,6 @@ body { overflow: hidden; }
 
         border-top: 1px solid #5a5a5a;
         border-bottom: 1px solid #5a5a5a;
-        .title {
-            letter-spacing: 2px;
-        }
         @include hoveredElement;
     }
 }

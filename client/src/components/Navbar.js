@@ -37,7 +37,7 @@ const Navbar = (props) => {
             </ul>
             <button onClick={props.signOut} className="link">
                 <div className="menu-icon"><Logout /></div>
-                <span className="title">EXIT</span>
+                <span className="title">Logout</span>
             </button>
         </nav>
     );
