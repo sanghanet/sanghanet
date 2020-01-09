@@ -24,7 +24,7 @@ class Main extends React.Component {
         return (
             <BrowserRouter>
                 <div className="grid-container">
-                    <Header activePage={this.state.activePage} />
+                    <Header signOut={this.props.signOut} activePage={this.state.activePage} setActivePage={this.setActivePage} />
                     <Navbar signOut={this.props.signOut} setActivePage={this.setActivePage} />
                     <Switch className="main">
                         <Route exact path='/' component={Dashboard} />
