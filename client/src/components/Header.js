@@ -1,15 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './Navbar_Header.scss';
 import Logout from './Logout';
+import PageNavigation from './PageNavigation';
 
 import Avatar from './icons/avatar.png';
 import { ReactComponent as Search } from './icons/search.svg';
-import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
-import { ReactComponent as Profile } from './icons/profile.svg';
-import { ReactComponent as Info } from './icons/info.svg';
 
 const Header = (props) => {
     const handleHamburgerClick = (event) => {
@@ -45,26 +42,7 @@ const Header = (props) => {
                     <div></div>
                 </button>
                 <div className="slider">
-                    <ul>
-                        <li onClick={mobileActivePage}>
-                            <NavLink exact to="/" className="dashboard link">
-                                <div className="menu-icon"><DashboardIcon /></div>
-                                <span className="title">Dashboard</span>
-                            </NavLink>
-                        </li>
-                        <li onClick={mobileActivePage}>
-                            <NavLink exact to="/profile" className="profile link">
-                                <div className="menu-icon"><Profile /></div>
-                                <span className="title">Profile</span>
-                            </NavLink>
-                        </li>
-                        <li onClick={mobileActivePage}>
-                            <NavLink exact to="/queries" className="queries link">
-                                <div className="menu-icon"><Info /></div>
-                                <span className="title">Queries</span>
-                            </NavLink>
-                        </li>
-                    </ul>
+                    <PageNavigation activePage={mobileActivePage} />
                     <Logout signOut={props.signOut} />
                 </div>
             </div>
