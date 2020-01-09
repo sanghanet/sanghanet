@@ -3,12 +3,13 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './Navbar_Header.scss';
+import Logout from './Logout';
+
 import Avatar from './icons/avatar.png';
 import { ReactComponent as Search } from './icons/search.svg';
 import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
 import { ReactComponent as Profile } from './icons/profile.svg';
 import { ReactComponent as Info } from './icons/info.svg';
-import { ReactComponent as Logout } from './icons/logout.svg';
 
 const Header = (props) => {
     const handleHamburgerClick = (event) => {
@@ -64,10 +65,7 @@ const Header = (props) => {
                             </NavLink>
                         </li>
                     </ul>
-                    <button onClick={props.signOut} className="link">
-                        <div className="menu-icon"><Logout /></div>
-                        <span className="title">Logout</span>
-                    </button>
+                    <Logout signOut={props.signOut} />
                 </div>
             </div>
         </header>

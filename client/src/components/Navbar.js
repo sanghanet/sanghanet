@@ -2,12 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import Logout from './Logout';
 import './Navbar_Header.scss';
 
 import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
 import { ReactComponent as Profile } from './icons/profile.svg';
 import { ReactComponent as Info } from './icons/info.svg';
-import { ReactComponent as Logout } from './icons/logout.svg';
 
 const Navbar = (props) => {
     const activePage = (event) => {
@@ -35,10 +35,7 @@ const Navbar = (props) => {
                     </NavLink>
                 </li>
             </ul>
-            <button onClick={props.signOut} className="link">
-                <div className="menu-icon"><Logout /></div>
-                <span className="title">Logout</span>
-            </button>
+            <Logout signOut={props.signOut} />
         </nav>
     );
 };
