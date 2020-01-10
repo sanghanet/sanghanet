@@ -1,20 +1,40 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import './App.css';
-import Main from './pages/Main';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import Queries from './pages/Queries';
 
 class App extends Component {
-    constructor (props) {
-        super(props);
-    }
-
     onSignOut = () => {
         console.log('You are logged out');
-        this.setState({ login: false });
     }
 
     render () {
-        return (<Main signOut={this.onSignOut} />);
+        return (
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path='/' component={Login} />
+                    <Route path='/dashboard'
+                        render={ props => (
+                            <Dashboard {...props} signOut={this.onSignOut} />
+                        )}
+                    />
+                    <Route path='/profile'
+                        render={ props => (
+                            <Profile {...props} signOut={this.onSignOut} />
+                        )}
+                    />
+                    <Route path='/queries'
+                        render={ props => (
+                            <Queries {...props} signOut={this.onSignOut} />
+                        )}
+                    />
+                </Switch>
+            </BrowserRouter>
+        );
     }
 };
 

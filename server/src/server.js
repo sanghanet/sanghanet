@@ -1,4 +1,4 @@
-const { DB_URL, PORT, DB_NAME, COLL_NAME, SESSION_SECRET, CLIENT_ID, CLIENT_SECRET } = require('./config');
+const { APP_PORT, DB_URL, PORT, DB_NAME, COLL_NAME, SESSION_SECRET, CLIENT_ID, CLIENT_SECRET } = require('./config');
 
 const uuidv4 = require('uuid/v4');
 
@@ -18,8 +18,11 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const mongoose = require('mongoose');
 const mongourl = DB_URL;
 
-app.use('/app', express.static('app'));
-app.use(express.static('login'));
+app.use(express.static('app'));
+app.use('/dashboard', express.static('app'));
+app.use('/profile', express.static('app'));
+app.use('/queries', express.static('app'));
+
 // configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -35,7 +38,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GoogleStrategy({
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
-    callbackURL: 'http://localhost:' + PORT + '/passport'
+    callbackURL: `http://localhost:${PORT}/passport`
 }, (identifier, refreshtoken, profile, done) => {
     log.info(profile.emails);
     // match the user to our database here
@@ -63,9 +66,18 @@ app.get('/userList', (req, res) => {
     coll.find({}).toArray().then((data) => { res.json(data); });
 });
 
-app.get('/auth', passport.authenticate('google', { scope: ['profile', 'email'] }));
+app.get('/auth',
+    passport.authenticate(
+        'google',
+        { scope: ['profile', 'email'] }
+    )
+);
 
-app.get('/passport', passport.authenticate('google', { successRedirect: '/app', failureRedirect: '/' }));
+app.get('/passport',
+    passport.authenticate(
+        'google',
+        { successRedirect: `http://localhost:${APP_PORT}/profile`, failureRedirect: '/' })
+);
 
 let db = null;
 let coll = null;
@@ -87,6 +99,5 @@ const runServer = async () => {
         log4js.shutdown(process.exit);
     }
 };
-
 
 runServer();
