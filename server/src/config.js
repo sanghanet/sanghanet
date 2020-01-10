@@ -41,7 +41,11 @@ if (env.error) {
 }
 
 const APP_PORT = process.env.DEV_SERVER === '1' ? 3000 : process.env.PORT;
-log.info('APP server is listening on port: ', APP_PORT);
+if (APP_PORT === 3000) {
+    log.info('APPLICATION developer server should run on port: ', 3000);
+} else {
+    log.info('Application developer server is DISABLED! BUILD the software to use latest version!');
+}
 
 module.exports = {
     APP_PORT: APP_PORT,
