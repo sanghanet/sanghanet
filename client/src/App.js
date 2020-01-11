@@ -4,9 +4,10 @@ import './App.css';
 import Main from './pages/Main';
 
 class App extends Component {
-    constructor (props) {
-        super(props);
-    }
+    // there was a warning in the console saying that this is useless:
+    // constructor (props) {
+    //     super(props);
+    // }
 
     onSignOut = () => {
         console.log('You are logged out');

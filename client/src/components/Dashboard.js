@@ -1,12 +1,12 @@
 import React from 'react';
 import './Dashboard.scss';
+import SearchBar from './SearchBar';
 
 class Dashboard extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            list: null,
-            inputValue: ''
+            list: null
         };
     }
 
@@ -37,7 +37,11 @@ class Dashboard extends React.Component {
         return (
             <main>
                 <h1>DASHBOARD, OF COURSE.</h1>
-                <input type="text" name="searchUsers" className="user-search"/>
+                {/* <input type="text" name="searchUsers" className="user-search"/> */}
+                <SearchBar
+                    className="user-search"
+                    searchAction={() => console.log('test works') }
+                />
                 <button onClick = {this.fetchData}>List users</button>
                 <div>{this.state.list}</div>
             </main>
