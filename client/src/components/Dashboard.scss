@@ -1,0 +1,65 @@
+$searchField-color: #e8e3e3;
+$sideBar-backgroundColor: #484848;
+$sideBar-iconColor: #c9c9c9;
+$sideBarHover-iconColor: #fff;
+$sideBarHover-backgroundColor: #343434;
+
+@mixin mQ($arg) {
+    @media screen and (max-width: $arg) {
+        @content;
+    }
+}
+
+@mixin buttonReset {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+@mixin customFocus {
+    &:focus {
+        outline: 0 none;
+        fill: aqua;
+    }
+}
+
+.search-field {
+    border-bottom: 1.5px solid $searchField-color;
+
+    display: flex;
+    align-items: center;
+
+    @include mQ(750px) {
+        display: none;
+    }
+}
+input {
+    max-width: 28vw;
+    height: 30px;
+    font-size: 20px;
+    color: $searchField-color;
+    background: transparent;
+    border:none;
+    &:focus{
+        outline: 0 none;
+    }
+    &::placeholder {
+        color: inherit;
+        font-size: 20px;
+    }
+}
+button {
+    width: 48px;
+    height: 48px;
+    fill: $sideBar-iconColor;
+    @include buttonReset;
+    svg {
+        width: 36px;
+        height: 36px;
+    }
+    &:hover {
+        fill: $sideBarHover-iconColor;
+    }
+    @include customFocus;
+}

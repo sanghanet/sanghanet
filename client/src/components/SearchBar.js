@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ReactComponent as Search } from './icons/search.svg';
 
 class SearchBar extends Component {
     constructor (props) {
@@ -37,10 +38,10 @@ class SearchBar extends Component {
 
     render () {
         return (
-            <div>
+            <div className="search-field">
                 <input
                     type="text"
-                    name="searchUsers"
+                    placeholder="Search..."
                     onChange={this.handleInputChange}
                     value={this.state.inputValue}
                     className={this.props.inputClassName}
@@ -49,7 +50,7 @@ class SearchBar extends Component {
                     onClick={this.fetchData}
                     className={this.props.buttonClassName}
                 >
-                    {this.props.buttonValue}
+                    <Search />
                 </button>
             </div>
         );
@@ -59,8 +60,7 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
     // in case inner JSX elements need to be styled when element is reused
     inputClassName: PropTypes.string,
-    buttonClassName: PropTypes.string,
-    buttonValue: PropTypes.string
+    buttonClassName: PropTypes.string
 };
 
 export default SearchBar;
