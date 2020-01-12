@@ -20,6 +20,9 @@
 
       SESSION_SECRET = <???>
 ```
+   > If you would use client as a production build without a front-end dev-server,
+   > set DEV_SERVER = 0
+
    > This CLIENT_ID is valid for localhost only.
    > For deployment you will need a different value for the CLIENT_ID.
 
