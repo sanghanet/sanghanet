@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import './Navbar_Header.scss';
 
@@ -11,19 +10,19 @@ import { ReactComponent as InfoIcon } from './icons/info.svg';
 const PageNavigation = (props) => {
     return (
         <ul>
-            <li onClick={props.activePage}>
-                <NavLink exact to="/" className="link">
+            <li>
+                <NavLink exact to="/dashboard" className="link">
                     <div className="menu-icon"><DashboardIcon /></div>
                     <span className="title">Dashboard</span>
                 </NavLink>
             </li>
-            <li onClick={props.activePage}>
+            <li>
                 <NavLink exact to="/profile" className="link">
                     <div className="menu-icon"><ProfileIcon /></div>
                     <span className="title">Profile</span>
                 </NavLink>
             </li>
-            <li onClick={props.activePage}>
+            <li>
                 <NavLink exact to="/queries" className="link">
                     <div className="menu-icon"><InfoIcon /></div>
                     <span className="title">Queries</span>
@@ -31,10 +30,6 @@ const PageNavigation = (props) => {
             </li>
         </ul>
     );
-};
-
-PageNavigation.propTypes = {
-    activePage: PropTypes.func.isRequired
 };
 
 export default PageNavigation;

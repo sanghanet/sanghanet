@@ -14,7 +14,6 @@ const Header = (props) => {
         slider.classList.toggle('slideIn');
     };
     const mobileActivePage = (event) => {
-        props.setActivePage(event.currentTarget.querySelector('SPAN').innerHTML);
         const slider = event.currentTarget.parentElement.parentElement;
         slider.classList.toggle('slideIn');
         slider.previousElementSibling.querySelector('INPUT').checked = false;
@@ -52,8 +51,7 @@ const Header = (props) => {
 
 Header.propTypes = {
     activePage: PropTypes.string.isRequired,
-    signOut: PropTypes.func.isRequired,
-    setActivePage: PropTypes.func.isRequired
+    signOut: PropTypes.func.isRequired
 };
 
 export default Header;

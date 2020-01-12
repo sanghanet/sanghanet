@@ -1,5 +1,8 @@
 import React from 'react';
-import './Dashboard.scss';
+import PropTypes from 'prop-types';
+
+import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 
 class Dashboard extends React.Component {
     constructor (props) {
@@ -35,14 +38,22 @@ class Dashboard extends React.Component {
 
     render () {
         return (
-            <main>
-                <h1>DASHBOARD, OF COURSE.</h1>
-                <input type="text" name="searchUsers" className="user-search"/>
-                <button onClick = {this.fetchData}>List users</button>
-                <div>{this.state.list}</div>
-            </main>
+            <div className='grid-container'>
+                <Header activePage="Dashboard" signOut={this.props.signOut} />
+                <Navbar signOut={this.props.signOut} />
+                <main>
+                    <h1>DASHBOARD, OF COURSE.</h1>
+                    <input type="text" name="searchUsers" className="user-search"/>
+                    <button onClick = {this.fetchData}>List users</button>
+                    <div>{this.state.list}</div>
+                </main>
+            </div>
         );
     }
 }
+
+Dashboard.propTypes = {
+    signOut: PropTypes.func.isRequired
+};
 
 export default Dashboard;

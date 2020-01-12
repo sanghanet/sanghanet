@@ -18,7 +18,9 @@ const env = require('dotenv').config({ path: envPath });
 if (env.error) {
     fatalError('Environment setup is incorrect!');
 } else {
-    if (!process.env.DB_URL) {
+    if (!process.env.DEV_SERVER) {
+        fatalError(`DEV_SERVER is undefined in ${envPath}!`);
+    } else if (!process.env.DB_URL) {
         fatalError(`DB_URL is undefined in ${envPath}!`);
     } else if (!process.env.PORT) {
         fatalError(`PORT is undefined in ${envPath}!`);
@@ -38,7 +40,15 @@ if (env.error) {
     }
 }
 
+const APP_PORT = process.env.DEV_SERVER === '1' ? 3000 : process.env.PORT;
+if (APP_PORT === 3000) {
+    log.info('APPLICATION developer server should run on port: ', 3000);
+} else {
+    log.info('Application developer server is DISABLED! BUILD the software to use latest version!');
+}
+
 module.exports = {
+    APP_PORT: APP_PORT,
     SESSION_SECRET: process.env.SESSION_SECRET,
     DB_NAME: process.env.DB_NAME,
     COLL_NAME: process.env.COLL_NAME,
