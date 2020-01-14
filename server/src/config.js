@@ -26,13 +26,6 @@ const variablesToExport = {
     // add new entries here ...
 };
 
-variablesToExport.APP_PORT = process.env.DEV_SERVER === '1' ? 3000 : process.env.PORT;
-if (variablesToExport.APP_PORT === 3000) {
-    log.info('APPLICATION developer server should run on port: ', 3000);
-} else {
-    log.info('Application developer server is DISABLED! BUILD the software to use latest version!');
-}
-
 if (env.error) {
     fatalError('Environment setup is incorrect!');
 } else {
@@ -43,5 +36,12 @@ if (env.error) {
     env.parsed.NODE_ENV = process.env.NODE_ENV;
     log.info('Environmennt variables: \n', env.parsed);
 };
+
+variablesToExport.APP_PORT = process.env.DEV_SERVER === '1' ? 3000 : process.env.PORT;
+if (variablesToExport.APP_PORT === 3000) {
+    log.info('APPLICATION developer server should run on port: ', 3000);
+} else {
+    log.info('Application developer server is DISABLED! BUILD the software to use latest version!');
+}
 
 module.exports = variablesToExport;
