@@ -32,21 +32,30 @@
 
       Your access has to be set up and your IP whitelisted before you can remotely connect using above URL.
 
-   Since .env files will contain 'secrets' as well, NEVER push them into git repositories.
-   Manage them on your computer only..
+   > Since .env files will contain 'secrets' as well, NEVER push them into git repositories.
+   > Manage them on your computer only..
 
    WARNING! - Currently if the DB_NAME and COLL_NAME local variables are not matching any database and collection in your mongo cluster, no error is thrown but functionality will be lost. Consider that as possible cause when debugging.
 
- 4. If you would like to start the front-end + dev server, run `npm start` in the client directory.
+# start the system
+   ## Manual (legacy) mode
+   1. If you would like to start the front-end + dev server, run `npm start` in the client directory.
 
- 5. If you would like to start the back-end server with local db, run `npm run local` in the server directory.
-    Feel free to config other .env files and start scripts...
+   2. If you would like to start the back-end server with local db, run `npm run local` in the server directory.
 
-    NOTE: for Windows users, with bash as their shell for npm scripts:
-        edit your '.npmrc' config file (ususally in C:\Users\[username] folder) and set bash as 'shell' & 'script-shell'
-        for example:
-            shell=E:\Dev\Tools\PortableGit\bin\bash.exe
-            script-shell=E:\Dev\Tools\PortableGit\bin\bash.exe
+   Feel free to config other .env files and start scripts...
+
+   ## Automatic mode
+   a) In project ROOT folder run `npm run dev`. This command:
+
+      - set DEV_SERVER variable to 1
+      - start client dev server and backend server (atlas conf.) concurrently
+
+   b) Or in project ROOT folder run `npm run build`. This command:
+
+      - set DEV_SERVER variable to 0
+      - run client build and copy to server
+      - run backend server (atlas conf.)
 
 # test deployment
 
@@ -54,3 +63,13 @@
       NOTE: this script will delete the contents of the /client/build and /server/app folders, then deploy the app in the /client/build folder and finally will copy it's contents to the /server/app folder.
 
    The production build is now hosted on the backend server.
+
+
+# Note for Windows users
+
+      with bash as their shell for npm scripts:
+      edit your '.npmrc' config file (ususally in C:\Users\[username] folder) and set bash as 'shell' & 'script-shell'
+
+      for example:
+         shell=E:\Dev\Tools\PortableGit\bin\bash.exe
+         script-shell=E:\Dev\Tools\PortableGit\bin\bash.exe

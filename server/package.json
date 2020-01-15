@@ -5,8 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "local": "NODE_ENV=local node src/server.js",
-    "atlas": "NODE_ENV=atlas node src/server.js"
+    "local": "NODE_ENV=local nodemon src/server.js",
+    "atlas": "NODE_ENV=atlas nodemon src/server.js"
   },
   "author": "Danko Denes, Jozsa Benjamin, Ildiko Rigo, Miklos Ballo",
   "license": "ISC",
