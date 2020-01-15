@@ -50,6 +50,9 @@
 
       - set DEV_SERVER variable to 1
       - start client dev server and backend server (atlas conf.) concurrently
+      - to stop the process, press CTRL-C
+
+    On WINDOWS also run `npm run killnode` to stop execution, because CTRL-C does not release port 4000 (EADDRINUSE :::4000)
 
    b) Or in project ROOT folder run `npm run build`. This command:
 
