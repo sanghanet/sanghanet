@@ -1,5 +1,6 @@
 import React from 'react';
 import Buddha from './media/sangha_logo.svg';
+import './Login.scss';
 
 const Login = (props) => {
     return (

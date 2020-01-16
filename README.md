@@ -33,9 +33,9 @@
       Your access has to be set up and your IP whitelisted before you can remotely connect using above URL.
 
    > Since .env files will contain 'secrets' as well, NEVER push them into git repositories.
-   > Manage them on your computer only..
+   > Manage them on your computer only.
 
-   WARNING! - Currently if the DB_NAME and COLL_NAME local variables are not matching any database and collection in your mongo cluster, no error is thrown but functionality will be lost. Consider that as possible cause when debugging.
+   WARNING! - Currently, if the DB_NAME and COLL_NAME local variables are not matching any database and collection in your mongo cluster, no error is thrown but functionality will be lost. Consider that as possible cause when debugging.
 
 # start the system
    ## Manual (legacy) mode
@@ -46,15 +46,16 @@
    Feel free to config other .env files and start scripts...
 
    ## Automatic mode
-   a) In project ROOT folder run `npm run dev`. This command:
+   a) In project ROOT folder run `npm run dev`. This command will:
 
       - set DEV_SERVER variable to 1
       - start client dev server and backend server (atlas conf.) concurrently
-      - to stop the process, press CTRL-C
 
-    On WINDOWS also run `npm run killnode` to stop execution, because CTRL-C does not release port 4000 (EADDRINUSE :::4000)
+   To stop the process, press CTRL-C
 
-   b) Or in project ROOT folder run `npm run build`. This command:
+   On WINDOWS also run `npm run killnode` to stop execution, because CTRL-C does not release port 4000 (EADDRINUSE :::4000)
+
+   b) Or in project ROOT folder run `npm run build`. This command will:
 
       - set DEV_SERVER variable to 0
       - run client build and copy to server
