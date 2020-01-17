@@ -10,9 +10,9 @@ const Login = (props) => {
             </header>
             <main>
                 <img className='buddha' src={Buddha} alt='buddha logo'/>
-                <button className = "login-btn">
-                    <a href='/auth'>Passport login using link</a>
-                </button>
+                <form method="POST" action="/auth" className = "login-btn">
+                    <input type="submit" value="Login with Google OAuth2" />
+                </form>
             </main>
         </div>
     );

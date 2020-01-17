@@ -66,7 +66,7 @@ app.get('/userList', (req, res) => {
     coll.find({}).toArray().then((data) => { res.json(data); });
 });
 
-app.get('/auth',
+app.post('/auth',
     passport.authenticate(
         'google',
         { scope: ['profile', 'email'] }
