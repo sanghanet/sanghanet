@@ -75,7 +75,7 @@ body { overflow: hidden; }
     display: grid;
     grid-template-areas:    "header header"
                             "navbar content";
-    grid-template-rows: 90px minmax(calc(100vh - 90px), auto);
+    grid-template-rows: 93px 100vh;
     grid-template-columns: 90px;
 
     @include mQ(750px) {

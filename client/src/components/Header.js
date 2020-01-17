@@ -13,8 +13,8 @@ const Header = (props) => {
         const slider = event.currentTarget.nextElementSibling;
         slider.classList.toggle('slideIn');
     };
-    const mobileActivePage = (event) => {
-        const slider = event.currentTarget.parentElement.parentElement;
+    const mobileCloseMenu = (event) => {
+        const slider = event.currentTarget.parentElement;
         slider.classList.toggle('slideIn');
         slider.previousElementSibling.querySelector('INPUT').checked = false;
     };
@@ -41,7 +41,7 @@ const Header = (props) => {
                     <div></div>
                 </button>
                 <div className="slider">
-                    <PageNavigation activePage={mobileActivePage} />
+                    <PageNavigation activePage={mobileCloseMenu} />
                     <Logout signOut={props.signOut} />
                 </div>
             </div>
