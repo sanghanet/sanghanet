@@ -7,7 +7,8 @@
     "dev": "sed -i 's/DEV_SERVER.*/DEV_SERVER = 1/' server/.env.atlas; concurrently \"cd client && npm start\" \"cd server && npm run atlas\"",
     "build": "sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' server/.env.atlas; cd client; npm run build; cd ../server; npm run atlas",
     "killnode": "start killnode.bat",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "./deploy.sh"
   },
   "keywords": [],
   "author": "",

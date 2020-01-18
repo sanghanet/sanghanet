@@ -61,12 +61,29 @@
       - run client build and copy to server
       - run backend server (atlas conf.)
 
-# test deployment
+# test build
 
-   1. use the `npm run-script build` in the client folder
+   1. Use the `npm run-script build` in the client folder
       NOTE: this script will delete the contents of the /client/build and /server/app folders, then deploy the app in the /client/build folder and finally will copy it's contents to the /server/app folder.
 
    The production build is now hosted on the backend server.
+
+# manual test deployment (DRAFT, and tested only on Linux!)
+
+   1. Run `npm run deploy` script from root. The script build the product, and copy all necessary files - and modify them - in a separet folder. `cd` this folder.
+
+   2. Heroku deployment works with a git repo, so create one, and commit all files.
+
+   3. Login to Heroku, with our test user credentials from cli
+      *  delete previous deployment
+      *  `heroku create`
+      *  `git push heroku master` => get the URL here i.e.: https://fierce-cliffs-30626.herokuapp.com
+      *  modify server.js (URL) if necessary, commit, and push again => TODO: find a better solution
+      *  `heroku logs` => get the server PORT here
+
+   4. ENABLE URL:PORT in google dev. console.
+
+   > WARNING: all restart assign new PORT, all new deployment provide new URL!
 
 
 # Note for Windows users
