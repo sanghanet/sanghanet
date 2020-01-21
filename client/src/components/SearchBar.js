@@ -28,7 +28,7 @@ class SearchBar extends Component {
 
     handleSearch = (users) => {
         const userNames = users.map((user) => {
-            return `${user.first_name} ${user.last_name}`;
+            return `${user.firstName} ${user.lastName}`;
         });
 
         const foundUsers = userNames.filter(name => name.includes(this.state.inputValue));
