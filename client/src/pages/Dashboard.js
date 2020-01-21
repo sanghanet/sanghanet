@@ -28,7 +28,7 @@ class Dashboard extends React.Component {
         const result = userArray.map((value, index) => {
             return (
                 <div key={value._id}>
-                    {index} {value.first_name} {value.last_name}
+                    {index} {value.firstName} {value.lastName}
                 </div>
             );
         });
