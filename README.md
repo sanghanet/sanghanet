@@ -68,22 +68,25 @@
 
    The production build is now hosted on the backend server.
 
-# manual test deployment (DRAFT, and tested only on Linux!)
+# manual test deployment (tested only on Linux!)
 
    1. Run `npm run deploy` script from root. The script build the product, and copy all necessary files - and modify them - in a separet folder. `cd` this folder.
 
    2. Heroku deployment works with a git repo, so create one, and commit all files.
+      * `git init`
+      * `git add .`
+      * `git commit -m 'Deploy on Heroku'`
 
-   3. Login to Heroku, with our test user credentials from cli
-      *  delete previous deployment
-      *  `heroku create`
-      *  `git push heroku master` => get the URL here i.e.: https://fierce-cliffs-30626.herokuapp.com
-      *  modify server.js (URL) if necessary, commit, and push again => TODO: find a better solution
-      *  `heroku logs` => get the server PORT here
+   3. Login to Heroku (user & pwd: our test user credentials)
+      *  `heroku login`
+      *  `heroku apps:destroy sanghanet --confirm sanghanet`
+      *  `heroku apps:create sanghanet`
+      *  `git push heroku master` => the URL here must be: https://sanghanet.herokuapp.com
+      *  `heroku logs` => get the assigned server PORT here
 
-   4. ENABLE URL:PORT in google dev. console.
+   4. ENABLE **PORT** in **google developers consol**, otherwise google login redirect is not possible !!!
 
-   > WARNING: all restart assign new PORT, all new deployment provide new URL!
+   > WARNING: all restart assign new PORT!
 
 
 # Note for Windows users

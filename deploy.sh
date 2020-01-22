@@ -20,4 +20,7 @@ echo "4) tweak .env config"
 sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' $DEPLOY_DIR/.env.atlas
 sed -i 's/PORT.*/PORT = process.env.PORT/' $DEPLOY_DIR/.env.atlas
 
+echo "5) set application URL in server.js"
+sed -i 's/http:\/\/localhost/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/server.js
+
 echo "SanghaNet build is ready for manual deployment to Heroku from " $DEPLOY_DIR
