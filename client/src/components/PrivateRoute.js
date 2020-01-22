@@ -3,23 +3,22 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = (props) => {
-    console.log(props);
-    const { path, Component, ...rest } = props;
-
+    const { component: Component, ...rest } = props;
     const user = sessionStorage.getItem('user');
+    const isActive = sessionStorage.getItem('isActive');
     return (
-        // Show the component only when the user is known
+        // Show the component only when user is known & active
         // Otherwise, redirect the user to / page
-        <Route path={path} render={ rest => (
-            user ? <Component {...rest} />
+        <Route {...rest} render={ props => (
+            user && isActive
+                ? <Component {...props} />
                 : <Redirect to="/" />
         )} />
     );
-    // return <Redirect to="/" />
 };
 
 PrivateRoute.propTypes = {
-    Component: PropTypes.func.isRequired,
+    component: PropTypes.func.isRequired,
     path: PropTypes.string.isRequired
 };
 

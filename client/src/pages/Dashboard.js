@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
@@ -39,8 +38,8 @@ class Dashboard extends React.Component {
     render () {
         return (
             <div className='grid-container'>
-                <Header activePage="Dashboard" signOut={this.props.signOut} />
-                <Navbar signOut={this.props.signOut} />
+                <Header activePage="Dashboard" />
+                <Navbar />
                 <main>
                     <h1>DASHBOARD, OF COURSE.</h1>
                     <input type="text" name="searchUsers" className="user-search"/>
@@ -51,9 +50,5 @@ class Dashboard extends React.Component {
         );
     }
 }
-
-Dashboard.propTypes = {
-    signOut: PropTypes.func.isRequired
-};
 
 export default Dashboard;
