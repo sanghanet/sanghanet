@@ -8,8 +8,7 @@ class Dashboard extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            list: null,
-            inputValue: ''
+            list: null
         };
     }
 
