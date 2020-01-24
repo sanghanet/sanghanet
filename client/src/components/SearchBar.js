@@ -10,6 +10,26 @@ class SearchBar extends Component {
         };
     }
 
+    handleInputChange = (e) => {
+        this.setState({ inputValue: e.target.value });
+    }
+
+    onEnter = e => {
+        if (e.keyCode === 13) {
+            if (this.state.inputValue !== '') {
+                this.fetchData();
+            }
+        }
+    }
+
+    onFocus = (e) => {
+        e.target.addEventListener('keyup', this.onEnter);
+    }
+
+    onBlur = (e) => {
+        e.target.removeEventListener('keyup', this.onEnter);
+    }
+
     fetchData = () => {
         fetch('http://localhost:4000/userList', { method: 'GET' })
             .then((res) => {
@@ -20,10 +40,6 @@ class SearchBar extends Component {
             }).catch((err) => {
                 throw new Error(err.message);
             });
-    }
-
-    handleInputChange = (e) => {
-        this.setState({ inputValue: e.target.value });
     }
 
     handleSearch = (users) => {
@@ -43,6 +59,8 @@ class SearchBar extends Component {
                     type="text"
                     placeholder="Search..."
                     onChange={this.handleInputChange}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                     value={this.state.inputValue}
                     className={this.props.inputClassName}
                 />
