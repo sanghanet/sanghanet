@@ -43,13 +43,18 @@ class SearchBar extends Component {
     }
 
     handleSearch = (users) => {
-        const userNames = users.map((user) => {
-            return `${user.firstName} ${user.lastName}`;
-        });
+        let userNames = null;
+        let foundUsers = null;
 
-        const foundUsers = userNames.filter(name => name.toLowerCase().includes(this.state.inputValue.toLowerCase()));
+        if (this.state.inputValue !== '') {
+            userNames = users.map((user) => {
+                return `${user.firstName} ${user.lastName}`;
+            });
 
-        console.dir(foundUsers);
+            foundUsers = userNames.filter(name => name.toLowerCase().includes(this.state.inputValue.toLowerCase()));
+
+            console.dir(foundUsers);
+        }
     }
 
     render () {
