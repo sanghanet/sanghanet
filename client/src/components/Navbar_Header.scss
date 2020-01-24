@@ -1,3 +1,9 @@
+@font-face {
+    font-family: GEInspiraRegular;
+    src: url('../fonts/GE Inspira Regular/GE Inspira Regular.ttf');
+}
+//   font-family: GEInspiraRegular;
+
 $searchField-color: #e8e3e3;
 $sideBar-backgroundColor: #484848;
 $sideBar-iconColor: #c9c9c9;
@@ -70,12 +76,12 @@ $menuHover-backgroundColor: #252525;
 * {
     box-sizing: border-box;
 }
-body { overflow: hidden; }
+body {font-family: GEInspiraRegular;}
 .grid-container {
     display: grid;
     grid-template-areas:    "header header"
                             "navbar content";
-    grid-template-rows: 93px 100vh;
+    grid-template-rows: 93px minmax(calc(100vh - 93px), auto);
     grid-template-columns: 90px;
 
     @include mQ(750px) {
@@ -224,7 +230,7 @@ body { overflow: hidden; }
             }
             .title {
                 padding-top: 5px;
-                font-size: 11px;
+                font-size: 14px;
                 font-weight: 400;
                 letter-spacing: 1px;
                 text-transform: uppercase;
@@ -245,7 +251,7 @@ body { overflow: hidden; }
         }
         .slideIn { right: 0; }
     }
-    p {
+    p, .page-name {
         margin: 0;
         width: 150px;
         color: #fff;
@@ -257,6 +263,8 @@ body { overflow: hidden; }
         }
     }
     .page-name {
+        font-size: 22px;
+        font-weight: 100;
         letter-spacing: 2px;
         @include mQ(470px) {
             display: none;
@@ -295,6 +303,7 @@ body { overflow: hidden; }
         &::placeholder {
             color: inherit;
             font-size: 20px;
+            font-family: GEInspiraRegular;
         }
     }
     button {
@@ -375,11 +384,10 @@ body { overflow: hidden; }
         font-weight: 400;
         letter-spacing: 0.6px;
         text-transform: uppercase;
+        letter-spacing: 2px;
         color: $sideBar-iconColor;
     }
     button {
-        margin: auto 0;
-
         justify-content: center;
 
         @include buttonReset;
