@@ -50,7 +50,7 @@ class SearchBar extends Component {
     }
 
     componentDidMount () {
-        fetch('http://localhost:4000/userList', { method: 'GET' })
+        fetch('http://localhost:4000/userList')
             .then((res) => {
                 return res.json();
             }).then((data) => {
