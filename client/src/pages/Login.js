@@ -14,7 +14,7 @@ const Login = (props) => {
                 <form method="POST" action="/auth" className="login-btn">
                     <button>
                         <img src={GoogleLogo} alt="Google logo"/>
-                        <span>Sign in with Google</span>
+                        <span>Sign in</span>
                     </button>
                 </form>
             </main>
