@@ -87,6 +87,11 @@ app.post('/api/user', (req, res) => {
     res.json({ name: 'Olajos Alajos', isActive: true, isAdmin: false });
 });
 
+app.get('/api/logout', (req, res) => {
+    // Delete session information here..
+    res.status(200).send();
+});
+
 let db = null;
 let coll = null;
 
