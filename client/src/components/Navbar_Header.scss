@@ -353,6 +353,13 @@ body { overflow: hidden; }
         @include navbarItemHeight;
         @include centerElement;
         flex-direction: column;
+
+        &:focus {
+            outline: none;
+            -webkit-box-shadow: inset 0px 0px 45px 9px rgba(26,26,26,1);
+            -moz-box-shadow: inset 0px 0px 45px 9px rgba(26,26,26,1);
+            box-shadow: inset 0px 0px 45px 9px rgba(26,26,26,1);
+        }
     }
     .menu-icon {
         width: 36px;
