@@ -338,6 +338,7 @@ body { overflow: hidden; }
         @include hoveredElement;
         .active {
             background-color: $sideBarHover-backgroundColor;
+            border-bottom: 1px solid #5a5a5a;
             .title {
                 color: $sideBarHover-iconColor;
             }
