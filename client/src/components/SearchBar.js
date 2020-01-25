@@ -6,7 +6,8 @@ class SearchBar extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            inputValue: ''
+            inputValue: '',
+            dataList: null
         };
     }
 
@@ -14,10 +15,10 @@ class SearchBar extends Component {
         this.setState({ inputValue: e.target.value });
     }
 
-    onEnter = e => {
+    onEnter = (e) => {
         if (e.keyCode === 13) {
             if (this.state.inputValue !== '') {
-                this.fetchData();
+                this.handleSearch();
             }
         }
     }
@@ -30,19 +31,8 @@ class SearchBar extends Component {
         e.target.removeEventListener('keyup', this.onEnter);
     }
 
-    fetchData = () => {
-        fetch('http://localhost:4000/userList', { method: 'GET' })
-            .then((res) => {
-                return res.json();
-            }).then((data) => {
-                this.setState({ dataList: data });
-                this.handleSearch(data);
-            }).catch((err) => {
-                throw new Error(err.message);
-            });
-    }
-
-    handleSearch = (users) => {
+    handleSearch = () => {
+        const users = this.state.dataList;
         let userNames = null;
         let foundUsers = null;
 
@@ -59,6 +49,17 @@ class SearchBar extends Component {
         }
     }
 
+    componentDidMount () {
+        fetch('http://localhost:4000/userList', { method: 'GET' })
+            .then((res) => {
+                return res.json();
+            }).then((data) => {
+                this.setState({ dataList: data });
+            }).catch((err) => {
+                throw new Error(err.message);
+            });
+    }
+
     render () {
         return (
             <div className="search-field">
@@ -72,7 +73,7 @@ class SearchBar extends Component {
                     className={this.props.inputClassName}
                 />
                 <button
-                    onClick={this.fetchData}
+                    onClick={this.handleSearch}
                     className={this.props.buttonClassName}
                 >
                     <Search />
