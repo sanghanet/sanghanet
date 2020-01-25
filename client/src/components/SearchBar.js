@@ -6,34 +6,58 @@ class SearchBar extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            inputValue: ''
+            inputValue: '',
+            dataList: null
         };
-    }
-
-    fetchData = () => {
-        fetch('http://localhost:4000/userList', { method: 'GET' })
-            .then((res) => {
-                return res.json();
-            }).then((data) => {
-                this.setState({ dataList: data });
-                this.handleSearch(data);
-            }).catch((err) => {
-                throw new Error(err.message);
-            });
     }
 
     handleInputChange = (e) => {
         this.setState({ inputValue: e.target.value });
     }
 
-    handleSearch = (users) => {
-        const userNames = users.map((user) => {
-            return `${user.firstName} ${user.lastName}`;
-        });
+    onEnter = (e) => {
+        if (e.keyCode === 13) {
+            if (this.state.inputValue !== '') {
+                this.handleSearch();
+            }
+        }
+    }
 
-        const foundUsers = userNames.filter(name => name.toLowerCase().includes(this.state.inputValue.toLowerCase()));
+    onFocus = (e) => {
+        e.target.addEventListener('keyup', this.onEnter);
+    }
 
-        console.dir(foundUsers);
+    onBlur = (e) => {
+        e.target.removeEventListener('keyup', this.onEnter);
+    }
+
+    handleSearch = () => {
+        const users = this.state.dataList;
+        let userNames = null;
+        let foundUsers = null;
+
+        if (this.state.inputValue !== '') {
+            userNames = users.map((user) => {
+                return `${user.firstName} ${user.lastName}`;
+            });
+
+            foundUsers = userNames.filter((name) => name.toLowerCase().includes(this.state.inputValue.toLowerCase()));
+
+            this.setState({ inputValue: '' });
+
+            console.dir(foundUsers);
+        }
+    }
+
+    componentDidMount () {
+        fetch('http://localhost:4000/userList')
+            .then((res) => {
+                return res.json();
+            }).then((data) => {
+                this.setState({ dataList: data });
+            }).catch((err) => {
+                throw new Error(err.message);
+            });
     }
 
     render () {
@@ -43,11 +67,13 @@ class SearchBar extends Component {
                     type="text"
                     placeholder="Search..."
                     onChange={this.handleInputChange}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                     value={this.state.inputValue}
                     className={this.props.inputClassName}
                 />
                 <button
-                    onClick={this.fetchData}
+                    onClick={this.handleSearch}
                     className={this.props.buttonClassName}
                 >
                     <Search />
