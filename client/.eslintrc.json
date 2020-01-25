@@ -25,6 +25,7 @@
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "semi": ["error", "always"],
-        "react/jsx-wrap-multilines": ["error", { "return": "parens-new-line" }]
+        "react/jsx-wrap-multilines": ["error", { "return": "parens-new-line" }],
+        "arrow-parens": ["error", "always"]
     }
 }

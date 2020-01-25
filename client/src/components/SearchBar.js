@@ -41,7 +41,7 @@ class SearchBar extends Component {
                 return `${user.firstName} ${user.lastName}`;
             });
 
-            foundUsers = userNames.filter(name => name.toLowerCase().includes(this.state.inputValue.toLowerCase()));
+            foundUsers = userNames.filter((name) => name.toLowerCase().includes(this.state.inputValue.toLowerCase()));
 
             this.setState({ inputValue: '' });
 
