@@ -1,5 +1,6 @@
 import React from 'react';
 import Buddha from './media/sangha_logo.svg';
+import GoogleLogo from './media/google_logo.png';
 import './Login.scss';
 
 const Login = (props) => {
@@ -10,8 +11,11 @@ const Login = (props) => {
             </header>
             <main>
                 <img className='buddha' src={Buddha} alt='buddha logo'/>
-                <form method="POST" action="/auth" className = "login-btn">
-                    <input type="submit" value="Login with Google OAuth2" />
+                <form method="POST" action="/auth" className="login-btn">
+                    <button>
+                        <img src={GoogleLogo} alt="Google logo"/>
+                        <span>Sign in</span>
+                    </button>
                 </form>
             </main>
         </div>
