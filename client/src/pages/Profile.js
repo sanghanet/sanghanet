@@ -4,18 +4,28 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import './Profile.scss';
-import Photo from './media/myPhoto.png';
+// import Photo from './media/myPhoto.png';
 
 const Profile = (props) => {
+    const loadFile = (event) => {
+        const image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
     return (
         <div className='grid-container'>
             <Header activePage="Profile" signOut={props.signOut} />
             <Navbar signOut={props.signOut} />
             <main>
-                <img src={Photo} className="profile-photo" alt="Profile"/>
                 <form className="profile-form">
                     <div className="general-data profile-blocks">
                         <h2 className="profile-form-h2">GENERAL DATA</h2>
+                        <div className="profile-form-field">
+                            <input type="file" accept="image/*" name="image" id="file" onChange={loadFile}></input>
+                            <label htmlFor="file" id="file-upload">
+                                <p className="upload-text">Click here to<br />upload your photo</p>
+                                <img id="output" className="profile-photo"/>
+                            </label>
+                        </div>
                         <div className="profile-form-field">
                             <label htmlFor="firstName">First Name</label>
                             <input type="text" id="firstName" name="firstName" required></input>
