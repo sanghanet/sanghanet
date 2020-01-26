@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Logout from './Logout';
 import PageNavigation from './PageNavigation';
@@ -9,13 +8,9 @@ const Navbar = (props) => {
     return (
         <nav className="navbar">
             <PageNavigation />
-            <Logout signOut={props.signOut} />
+            <Logout />
         </nav>
     );
-};
-
-Navbar.propTypes = {
-    signOut: PropTypes.func.isRequired
 };
 
 export default Navbar;

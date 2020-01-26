@@ -44,7 +44,7 @@ const Header = (props) => {
                 </button>
                 <div className="slider">
                     <PageNavigation activePage={mobileCloseMenu} />
-                    <Logout signOut={props.signOut} />
+                    <Logout />
                 </div>
             </div>
         </header>
@@ -52,8 +52,7 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-    activePage: PropTypes.string.isRequired,
-    signOut: PropTypes.func.isRequired
+    activePage: PropTypes.string.isRequired
 };
 
 export default Header;

@@ -3,7 +3,7 @@ const { APP_PORT, DB_URL, PORT, DB_NAME, COLL_NAME, SESSION_SECRET, CLIENT_ID, C
 const uuidv4 = require('uuid/v4');
 
 const log4js = require('log4js');
-const log = log4js.getLogger('src/config.js');
+const log = log4js.getLogger('src/server.js');
 
 const express = require('express');
 const app = express();
@@ -19,6 +19,7 @@ const mongoose = require('mongoose');
 const mongourl = DB_URL;
 
 app.use(express.static('app'));
+app.use('/loading', express.static('app'));
 app.use('/dashboard', express.static('app'));
 app.use('/profile', express.static('app'));
 app.use('/queries', express.static('app'));
@@ -76,8 +77,20 @@ app.post('/auth',
 app.get('/passport',
     passport.authenticate(
         'google',
-        { successRedirect: `http://localhost:${APP_PORT}/profile`, failureRedirect: '/' })
+        { successRedirect: `http://localhost:${APP_PORT}/loading`, failureRedirect: '/' })
 );
+
+app.post('/api/user', (req, res) => {
+    log.info(req.ip, req.url);
+    // Search user by sessionID ??
+    // If name is null => unknown user
+    res.json({ name: 'Olajos Alajos', isActive: true, isAdmin: false });
+});
+
+app.get('/api/logout', (req, res) => {
+    // Delete session information here..
+    res.status(200).send();
+});
 
 let db = null;
 let coll = null;
