@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Queries from './pages/Queries';
+import Finances from './pages/Finances';
 
 class App extends Component {
     onSignOut = () => {
@@ -17,18 +18,23 @@ class App extends Component {
                 <Switch>
                     <Route exact path='/' component={Login} />
                     <Route path='/dashboard'
-                        render={ props => (
+                        render={ (props) => (
                             <Dashboard {...props} signOut={this.onSignOut} />
                         )}
                     />
                     <Route path='/profile'
-                        render={ props => (
+                        render={ (props) => (
                             <Profile {...props} signOut={this.onSignOut} />
                         )}
                     />
                     <Route path='/queries'
-                        render={ props => (
+                        render={ (props) => (
                             <Queries {...props} signOut={this.onSignOut} />
+                        )}
+                    />
+                    <Route path='/finances'
+                        render={ (props) => (
+                            <Finances {...props} signOut={this.onSignOut} />
                         )}
                     />
                 </Switch>

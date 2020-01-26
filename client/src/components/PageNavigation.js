@@ -7,6 +7,7 @@ import './Navbar_Header.scss';
 import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
 import { ReactComponent as ProfileIcon } from './icons/profile.svg';
 import { ReactComponent as InfoIcon } from './icons/info.svg';
+import { ReactComponent as FinanceIcon } from './icons/finances.svg';
 
 const PageNavigation = (props) => {
     return (
@@ -27,6 +28,12 @@ const PageNavigation = (props) => {
                 <NavLink exact to="/queries" className="link">
                     <div className="menu-icon"><InfoIcon /></div>
                     <span className="title">Queries</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink exact to="/finances" className="link">
+                    <div className="menu-icon"><FinanceIcon /></div>
+                    <span className="title">Finances</span>
                 </NavLink>
             </li>
         </ul>
