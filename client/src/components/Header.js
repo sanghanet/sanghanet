@@ -6,7 +6,7 @@ import Logout from './Logout';
 import PageNavigation from './PageNavigation';
 import SearchBar from './SearchBar';
 
-import Avatar from './icons/avatar.png';
+import Avatar from './icons/avatar.jpg';
 import { ReactComponent as SearchIcon } from './icons/search.svg';
 
 const Header = (props) => {
@@ -22,13 +22,9 @@ const Header = (props) => {
 
     return (
         <header className='header'>
-            <p><img src={Avatar} alt="Profile" className="avatar"/><br/><span> Jon Doe</span></p>
-            {/* <div className="search-field">
-                <input type="text" placeholder="Search..."></input>
-                <button><SearchIcon /></button>
-            </div> */}
+            <p><img src={Avatar} alt="Profile" className="avatar"/><br/><span>Baby Yoda</span></p>
             <SearchBar />
-            <p className="page-name">{props.activePage}</p>
+            <h1 className="page-name">{props.activePage}</h1>
             <div className="mobile-header">
                 <button className="mobile-search">
                     <SearchIcon className="mobile-search-icon" />

@@ -1,0 +1,160 @@
+@font-face {
+    font-family: GEInspiraRegular;
+    src: url('../fonts/GE Inspira Regular/GE Inspira Regular.ttf');
+}
+//   font-family: GEInspiraRegular;
+
+$h2-font-color: #d6d6d6;
+$lable-input-font-color: #fff;
+$salmon: #cb4a58;
+$input-backgroundColor: #484848;
+$input-border: 1px solid #969494;
+@mixin centerElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+// @include centerElement;
+@mixin mQ($arg) {
+    @media screen and (max-width: $arg) {
+        @content;
+    }
+}
+// @include mQ(750px) {
+// }
+
+#file {
+    display: none;
+}
+main {
+    display: grid;
+    grid-template-columns: 100%;
+    font-family: GEInspiraRegular;
+    ::-moz-selection {
+        color: #fff;
+        background: #725e68;
+    }
+    ::selection {
+        color: #fff;
+        background: #725e68;
+    }
+
+    .profile-form {
+        margin-top: 24px;
+        color: $h2-font-color;
+        .profile-blocks {
+            width: 300px;
+            min-width: 80%;
+            margin: 20px auto;
+            background-color: #272326;
+            border: $input-border;
+            border-radius: 10px;
+            &>:nth-last-child(1) { margin-bottom: 62px; }
+        }
+        .profile-form-h2 {
+            font-size: 16px;
+            font-weight: 100;
+            letter-spacing: 6px;
+            word-spacing: 10px;
+            text-align: center;
+            margin: 28px 0;
+        }
+        .profile-form-field {
+            @include centerElement;
+            flex-direction: column;
+            margin: 20px;
+            #file-upload {
+                width: 214px;
+                height: 214px;
+                margin: auto;
+                cursor: pointer;
+
+                position: relative;
+                .upload-text {
+                    text-align: center;
+                    font-style: italic;
+                    position: absolute;
+                    top: 66px;
+                    left: 44px;
+                }
+                .profile-photo {
+                    display: block;
+                    width: 214px;
+                    height: 214px;
+                    margin: auto;
+                    border: 14px solid $salmon;
+                    border-radius: 10px;
+
+                    position: absolute;
+                    bottom: 0;
+                }
+            }
+            label:not(#file-upload), input, select {
+                height: 44px;
+                width: 70%;
+                min-width: 280px;
+                line-height: 44px;
+                color: $lable-input-font-color;
+                padding-left: 14px;
+            }
+            label:not(#file-upload) {
+                background-color: $salmon;
+                border: $input-border;
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+            }
+            input, select {
+                background-color: $input-backgroundColor;
+                border: none;
+                border-right: $input-border;
+                border-bottom: $input-border;
+                border-left: $input-border;
+                border-bottom-right-radius: 2px;
+                border-bottom-left-radius: 2px;
+            }
+            input[type="date"]::-webkit-inner-spin-button,
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                display: none;
+                -webkit-appearance: none;
+            }
+        }
+        summary:focus { outline: none; }
+        summary::-webkit-details-marker { display: none;}
+        summary label { position: relative; }
+        .arrow {
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            top: 16px;
+            right: 10px;
+        }
+        .em-field {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        details div:first-of-type { margin-top: -21px; }
+
+        .white-belt {background-color: white;color: #000;}
+        .yellow-belt { background-color: yellow; color: #000; }
+        .orange-belt { background-color: orange; color: #000; }
+        .green-belt { background-color: green; }
+        .blue-belt { background-color: blue; }
+        .brown-belt { background-color: brown; }
+        .black-belt { background-color: black; }
+
+        .books {
+            position: relative;
+            font-style: italic;
+            cursor: pointer;
+        }
+        .plus {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            z-index: 10;
+        }
+    }
+}
