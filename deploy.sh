@@ -2,9 +2,16 @@
 
 DEPLOY_DIR=../deploy/sanghanet
 
-echo "1) building the project"
+echo "PRE BUILD"
 cd client
+FILES=`grep -rl "http://localhost:" ./src`
+echo $FILES | xargs sed -i 's/http:\/\/localhost:[0-9]*/https:\/\/sanghanet.herokuapp.com/g'
+
+echo "1) building the project"
 npm run build
+
+echo "POST BUILD"
+echo $FILES | xargs git checkout
 cd ..
 
 echo "2) copy server directory in a separate git directory"
@@ -21,6 +28,7 @@ sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' $DEPLOY_DIR/.env.atlas
 sed -i 's/PORT.*/PORT = process.env.PORT/' $DEPLOY_DIR/.env.atlas
 
 echo "5) set application URL in server.js"
-sed -i 's/http:\/\/localhost/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/server.js
+sed -i 's/http:\/\/localhost:${PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/server.js
+sed -i 's/http:\/\/localhost:${APP_PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/server.js
 
 echo "SanghaNet build is ready for manual deployment to Heroku from " $DEPLOY_DIR

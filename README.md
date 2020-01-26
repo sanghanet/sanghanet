@@ -80,14 +80,9 @@
    3. Login to Heroku (user & pwd: our test user credentials)
       *  `heroku login`
       *  `heroku apps:destroy sanghanet --confirm sanghanet`
-      *  `heroku apps:create sanghanet`
+      *  `heroku apps:create sanghanet --region eu`
       *  `git push heroku master` => the URL here must be: https://sanghanet.herokuapp.com
-      *  `heroku logs` => get the assigned server PORT here
-
-   4. ENABLE **PORT** in **google developers consol**, otherwise google login redirect is not possible !!!
-
-   > WARNING: all restart assign new PORT!
-
+      *  `heroku logs` => to get logs
 
 # Note for Windows users
 
