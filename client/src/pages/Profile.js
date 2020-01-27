@@ -32,7 +32,7 @@ class Profile extends React.Component {
                     <form className="profile-form">
                         <div className="general-data profile-blocks">
                             <h2 className="profile-form-h2">GENERAL DATA</h2>
-                            <div className="profile-form-field">
+                            <div className="profile-form-field avatar">
                                 <input type="file" accept="image/*" name="image" id="file" onChange={this.loadFile}></input>
                                 <label htmlFor="file" id="file-upload">
                                     <p className="upload-text">Click here to<br />upload your photo</p>
