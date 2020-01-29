@@ -347,6 +347,7 @@ body {font-family: GEInspiraRegular;}
         @include hoveredElement;
         .active {
             background-color: $sideBarHover-backgroundColor;
+            border-bottom: 1px solid #5a5a5a;
             .title {
                 color: $sideBarHover-iconColor;
             }
@@ -362,6 +363,13 @@ body {font-family: GEInspiraRegular;}
         @include navbarItemHeight;
         @include centerElement;
         flex-direction: column;
+
+        &:focus {
+            outline: none;
+            -webkit-box-shadow: inset 0px 0px 45px 9px rgba(26,26,26,1);
+            -moz-box-shadow: inset 0px 0px 45px 9px rgba(26,26,26,1);
+            box-shadow: inset 0px 0px 45px 9px rgba(26,26,26,1);
+        }
     }
     .menu-icon {
         width: 36px;
