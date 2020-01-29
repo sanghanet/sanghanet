@@ -98,10 +98,6 @@ class Profile extends React.Component {
                                 <label htmlFor="meditation">Meditation score</label>
                                 <input type="number" id="meditation" name="meditation" min="1" max="100"></input>
                             </div>
-                            <div className="profile-form-field">
-                                <label htmlFor="sheva">Sheva score</label>
-                                <input type="number" id="sheva" name="sheva" min="1" max="100"></input>
-                            </div>
                             <div className="profile-form-field select-container">
                                 <label htmlFor="martial-art">Martial Art Belt</label>
                                 <select id="martial-art">
