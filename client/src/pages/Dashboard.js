@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import ComingSoon from '../components/ComingSoon';
 
 class Dashboard extends React.Component {
     constructor (props) {
@@ -40,10 +41,7 @@ class Dashboard extends React.Component {
                 <Header activePage="Dashboard" />
                 <Navbar />
                 <main>
-                    <h1>DASHBOARD, OF COURSE.</h1>
-                    <input type="text" name="searchUsers" className="user-search"/>
-                    <button onClick = {this.fetchData}>List users</button>
-                    <div>{this.state.list}</div>
+                    <ComingSoon pageName = "Dashboard"/>
                 </main>
             </div>
         );
