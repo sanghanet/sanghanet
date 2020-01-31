@@ -4,12 +4,13 @@ import './ComingSoon.scss';
 
 const ComingSoon = (props) => {
     return (
-        <div className= 'comingSoon'>{props.pageName} coming soon!</div>
+        <div className= 'comingSoon'>{props.pageName} {props.isPlural ? 'are' : 'is'} coming soon!</div>
     );
 };
 
 ComingSoon.propTypes = {
-    pageName: PropTypes.string.isRequired
+    pageName: PropTypes.string.isRequired,
+    isPlural: PropTypes.bool.isRequired
 };
 
 export default ComingSoon;

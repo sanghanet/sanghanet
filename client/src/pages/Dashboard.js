@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
                 <Header activePage="Dashboard" />
                 <Navbar />
                 <main>
-                    <ComingSoon pageName = "Dashboard"/>
+                    <ComingSoon pageName = "Dashboard" isPlural = {false}/>
                 </main>
             </div>
         );
