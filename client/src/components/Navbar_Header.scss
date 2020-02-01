@@ -317,22 +317,18 @@ body {
 
 .navbar {
     position: fixed;
-    top: $header-height;
-    height: 100vh;
+    height: calc(100vh - 93px); //93px is the height of the fixed header
     width: $navbar-width;
-
     background-color: $sideBar-backgroundColor;
 
-    // display: flex;
-    // flex-direction: column;
-
+    display: flex;
+    flex-direction: column;
     @include mQ(750px) {
         display: none;
     }
 
     ul {
         @include resetList;
-        margin-bottom: 90px;
     }
     li {
         cursor: pointer;
@@ -392,11 +388,8 @@ body {
         color: $sideBar-iconColor;
     }
     button {
-        justify-content: center;
-
+        margin-top: auto;
         @include buttonReset;
-        @include navbarItemHeight;
-
         border-top: 1px solid #5a5a5a;
         border-bottom: 1px solid #5a5a5a;
         @include hoveredElement;
