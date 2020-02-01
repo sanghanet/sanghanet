@@ -6,10 +6,10 @@ import ComingSoon from '../components/ComingSoon';
 
 const Queries = (props) => {
     return (
-        <div className='grid-container'>
+        <div>
             <Header activePage="Queries" />
             <Navbar />
-            <main>
+            <main className="align">
                 <ComingSoon pageName = "Queries" isPlural = {true}/>
             </main>
         </div>

@@ -391,7 +391,6 @@ body {
         margin-top: auto;
         @include buttonReset;
         border-top: 1px solid #5a5a5a;
-        border-bottom: 1px solid #5a5a5a;
         @include hoveredElement;
     }
 }
