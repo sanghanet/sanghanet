@@ -10,7 +10,7 @@ const Logout = (props) => {
             .then((res) => {
                 if (res.ok) { window.location.href = '/'; }
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(err.message);
                 window.location.href = '/';
             });
