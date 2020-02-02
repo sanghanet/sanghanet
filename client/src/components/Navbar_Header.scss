@@ -1,8 +1,7 @@
 @font-face {
-    font-family: GEInspiraRegular;
-    src: url('../fonts/GE Inspira Regular/GE Inspira Regular.ttf');
+    font-family: RobotoRegular;
+    src: url('../fonts/Roboto/Roboto-Regular.ttf');
 }
-//   font-family: GEInspiraRegular;
 
 $searchField-color: #e8e3e3;
 $sideBar-backgroundColor: #484848;
@@ -76,7 +75,7 @@ $menuHover-backgroundColor: #252525;
 * {
     box-sizing: border-box;
 }
-body {font-family: GEInspiraRegular;}
+body {font-family: RobotoRegular;}
 .grid-container {
     display: grid;
     grid-template-areas:    "header header"
@@ -303,7 +302,7 @@ body {font-family: GEInspiraRegular;}
         &::placeholder {
             color: inherit;
             font-size: 20px;
-            font-family: GEInspiraRegular;
+            font-family: RobotoRegular;
         }
     }
     button {
