@@ -9,7 +9,7 @@ const Finances = (props) => {
         <div className='grid-container'>
             <Header activePage="Finances"/>
             <Navbar/>
-            <main>
+            <main className="align">
                 <ComingSoon pageName = "Finances" isPlural = {true}/>
             </main>
         </div>
