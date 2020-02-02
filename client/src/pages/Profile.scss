@@ -1,8 +1,7 @@
 @font-face {
-    font-family: GEInspiraRegular;
+    font-family: RobotoRegular;
     src: url('../fonts/Roboto/Roboto-Regular.ttf');
 }
-//   font-family: GEInspiraRegular;
 
 $h2-font-color: #d6d6d6;
 $lable-input-font-color: #fff;
@@ -35,7 +34,7 @@ $input-border: 1px solid #969494;
 }
 * {box-sizing: border-box;}
 main {
-    font-family: GEInspiraRegular;
+    font-family: RobotoRegular;
     ::-moz-selection {
         color: #fff;
         background: #725e68;
