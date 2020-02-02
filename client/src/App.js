@@ -7,6 +7,7 @@ import LoginFailed from './pages/LoginFailed';
 import Loading from './pages/Loading';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import Finances from './pages/Finances';
 import Queries from './pages/Queries';
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
                     <Route path='/loginfailed' component={LoginFailed} />
                     <PrivateRoute path='/dashboard' component={Dashboard}/>
                     <PrivateRoute path='/profile' component={Profile} />
+                    <PrivateRoute path='/finances' component={Finances}/>
                     <PrivateRoute path='/queries' component={Queries}/>
                 </Switch>
             </BrowserRouter>

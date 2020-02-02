@@ -22,6 +22,7 @@ app.use(express.static('app'));
 app.use('/loading', express.static('app'));
 app.use('/dashboard', express.static('app'));
 app.use('/profile', express.static('app'));
+app.use('/finances', express.static('app'));
 app.use('/queries', express.static('app'));
 
 // configuring express to use body-parser as middle-ware.
