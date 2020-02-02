@@ -3,10 +3,10 @@ import React from 'react';
 class Loading extends React.Component {
     componentDidMount () {
         fetch('/api/user', { method: 'POST' })
-            .then(res => {
+            .then((res) => {
                 if (res.ok) { return res.json(res.body); }
             })
-            .then(user => {
+            .then((user) => {
                 if (user.name && user.isActive) {
                     sessionStorage.setItem('user', user.name);
                     sessionStorage.setItem('isActive', user.isActive);
@@ -16,7 +16,7 @@ class Loading extends React.Component {
                     window.location.href = '/loginfailed';
                 }
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(err.message);
                 window.location.href = '/';
             });
