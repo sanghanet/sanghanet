@@ -9,7 +9,7 @@ const PrivateRoute = (props) => {
     return (
         // Show the component only when user is known & active
         // Otherwise, redirect the user to / page
-        <Route {...rest} render={ props => (
+        <Route {...rest} render={ (props) => (
             user && isActive
                 ? <Component {...props} />
                 : <Redirect to="/" />

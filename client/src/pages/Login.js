@@ -1,23 +1,24 @@
 import React from 'react';
-import Buddha from './media/sangha_logo.svg';
+import { ReactComponent as Buddha } from './media/sangha_logo.svg';
 import GoogleLogo from './media/google_logo.png';
 import './Login.scss';
 
 const Login = (props) => {
     return (
-        <div className='app'>
+        <div className='login'>
             <header>
                 <h1>Welcome to SanghaNet</h1>
             </header>
-            <main>
-                <img className='buddha' src={Buddha} alt='buddha logo'/>
+            {/* main is a div here to discard general main style */}
+            <div className="login-main">
+                <Buddha className="buddha" />
                 <form method="POST" action="/auth" className="login-btn">
                     <button>
                         <img src={GoogleLogo} alt="Google logo"/>
                         <span>Sign in</span>
                     </button>
                 </form>
-            </main>
+            </div>
         </div>
     );
 };

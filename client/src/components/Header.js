@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import './Navbar_Header.scss';
 import Logout from './Logout';
@@ -19,12 +20,22 @@ const Header = (props) => {
         slider.classList.toggle('slideIn');
         slider.previousElementSibling.querySelector('INPUT').checked = false;
     };
+    const handleAvatarClick = (event) => {
+        if (props.location.pathname !== '/profile') {
+            props.history.push('/profile');
+        }
+    };
 
     return (
         <header className='header'>
-            <p><img src={Avatar} alt="Profile" className="avatar"/><br/><span>Baby Yoda</span></p>
-            <SearchBar />
-            <h1 className="page-name">{props.activePage}</h1>
+            <div className="desktop-header">
+                <div className="avatar-container" onClick={handleAvatarClick}>
+                    <img src={Avatar} alt="Profile" className="avatar"/>
+                    <p>Baby Yoda</p>
+                </div>
+                <SearchBar />
+                <h1 className="page-name">{props.activePage}</h1>
+            </div>
             <div className="mobile-header">
                 <button className="mobile-search">
                     <SearchIcon className="mobile-search-icon" />
@@ -48,7 +59,9 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-    activePage: PropTypes.string.isRequired
+    activePage: PropTypes.string.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
 };
 
-export default Header;
+export default withRouter(Header);

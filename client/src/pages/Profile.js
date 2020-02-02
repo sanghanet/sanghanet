@@ -25,7 +25,7 @@ class Profile extends React.Component {
 
     render () {
         return (
-            <div className='grid-container'>
+            <div>
                 <Header activePage="Profile" />
                 <Navbar />
                 <main>

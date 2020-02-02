@@ -37,10 +37,10 @@ class Dashboard extends React.Component {
 
     render () {
         return (
-            <div className='grid-container'>
+            <div>
                 <Header activePage="Dashboard" />
                 <Navbar />
-                <main>
+                <main className="align">
                     <ComingSoon pageName = "Dashboard" isPlural = {false}/>
                 </main>
             </div>

@@ -3,71 +3,70 @@ body {
 	background: #343434;
 }
 
-.app {
+.login {
 	height: 100vh;
 
 	display: grid;
 	grid-template-rows: 1fr 6fr;
-}
+	header {
+		width: 100%;
 
-.app > header {
-	width: 100vw;
-
-	display: flex;
-	justify-content: center;
-    align-items: center;
-
-	/* gradient */
-	background: rgb(218,77,81);
-	background: -moz-linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
-	background: -webkit-linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
-	background: linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#da4d51",endColorstr="#e64793",GradientType=1);
-}
-
-.app > header h1 {
-	color: #fff;
-	font-size: 26px;
-	font-weight: bold;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-main .buddha {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	height: 50vh;
-	z-index: -1;
-}
-
-.login-btn {
-	position: absolute;
-	top: 55%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-    display: flex;
-	align-items: center;
-	background: #fff;
-	border-radius: 5px;
-
-	button {
-		background: none;
-		color: inherit;
-		border: none;
-		padding: 0;
-		font: inherit;
-		cursor: pointer;
-		outline: inherit;
 		display: flex;
+		justify-content: center;
 		align-items: center;
-		padding: 0 15px 0 0;
-	}
 
-	img {
-		width: 40px;
-		padding: 10px;
-		box-sizing: content-box;
+		/* gradient */
+		background: rgb(218,77,81);
+		background: -moz-linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
+		background: -webkit-linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
+		background: linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#da4d51",endColorstr="#e64793",GradientType=1);
+	}
+	h1 {
+		color: #fff;
+		font-size: 26px;
+		font-weight: bold;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+}
+
+.login-main {
+	.buddha {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 50vh;
+		z-index: -1;
+		fill:#15040c;
+	}
+	.login-btn {
+		position: absolute;
+		top: 55%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: #fff;
+		border-radius: 5px;
+		button {
+			background: none;
+			color: inherit;
+			border: none;
+			padding: 0;
+			font: inherit;
+			cursor: pointer;
+			outline: inherit;
+			display: flex;
+			align-items: center;
+			padding: 0 15px 0 0;
+			span {
+				font-size: 20px;
+			}
+		}
+		img {
+			width: 40px;
+			padding: 10px;
+			box-sizing: content-box;
+		}
 	}
 }
 
@@ -78,4 +77,3 @@ main .buddha {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-main span {font-size: 20px;}
