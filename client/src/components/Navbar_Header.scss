@@ -85,16 +85,18 @@ body {
 .header {
     position: fixed;
     top: 0;
-    width: 100vw;
+    width: 100%;
     height: $header-height;
-
-    background: linear-gradient(90deg, rgba(216,76,81,1) 0%, rgba(143,65,120,1) 100%);
-    font-size: calc(20px + 1%);
     z-index: 10;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: linear-gradient(90deg, rgba(216,76,81,1) 0%, rgba(143,65,120,1) 100%);
+    @include centerElement;
+    .desktop-header {
+        width: 96%;
+        max-width: 1200px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
     .burger-lines, .mobile-search, .slider {
         display: none;
@@ -244,35 +246,57 @@ body {
         }
         .slideIn { right: 0; }
     }
+
+    .avatar-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+        @include mQ(750px) {
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
     p, .page-name {
         margin: 0;
         width: 150px;
         color: #fff;
         text-align: center;
+        font-size: calc(24px + 2%);
+        letter-spacing: 2px;
+    }
+    p {
+        margin-left: 10px;
         @include mQ(750px) {
-            font-size: 16px;
+            font-size: 18px;
             letter-spacing: 1px;
-            width: 100px;
+            margin-left: 0;
+            margin-top: 6px;
+            margin-bottom: 4px;
         }
     }
     .page-name {
-        font-size: 22px;
         font-weight: 100;
-        letter-spacing: 2px;
+        @include mQ(750px) {
+            font-size: 22px;
+            margin: auto;
+        }
         @include mQ(470px) {
             display: none;
         }
     }
     .avatar {
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 70px;
         border: 2px solid #fff;
         border-radius: 50%;
         @include mQ(750px) {
-            width: 46px;
-            height: 46px;
+            width: 50px;
+            height: 50px;
         }
     }
+
+
     .search-field {
         border-bottom: 1px solid $searchField-color;
 
@@ -287,9 +311,11 @@ body {
         max-width: 28vw;
         height: 30px;
         font-size: 20px;
-        color: $searchField-color;
+        color: #c9c9c9;
         background: transparent;
         border:none;
+        font-style: italic;
+        letter-spacing: 2px;
         &:focus{
             outline: 0 none;
         }
