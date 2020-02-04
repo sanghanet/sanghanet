@@ -2,6 +2,8 @@ import React from 'react';
 
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+
 import './Profile.scss';
 import ArrowDown from '../components/icons/arrow-down.svg';
 import ArrowUp from '../components/icons/arrow-up.svg';
@@ -133,6 +135,7 @@ class Profile extends React.Component {
                         </div>
                     </form>
                 </main>
+                <Footer />
             </div>
         );
     };

@@ -80,13 +80,16 @@ body {font-family: GEInspiraRegular;}
 .grid-container {
     display: grid;
     grid-template-areas:    "header header"
-                            "navbar content";
-    grid-template-rows: 93px minmax(calc(100vh - 93px), auto);
+                            "navbar content"
+                            "footer footer";
+    grid-template-rows: 93px minmax(calc(100vh - 93px - 50px), auto) 30px;
     grid-template-columns: 90px;
 
     @include mQ(750px) {
         grid-template-areas:    "header"
-                                "content";
+                                "content"
+                                "footer";
+        grid-template-rows: 93px minmax(calc(100vh - 93px - 50px), auto) 50px;
         grid-template-columns: repeat(1, 100vw);
     }
 }
@@ -408,4 +411,41 @@ body {font-family: GEInspiraRegular;}
 }
 .main {
     grid-area: content;
+}
+
+.footer {
+    // background: linear-gradient(90deg, rgba(216,76,81,1) 0%, rgba(143,65,120,1) 100%);
+    background: #484848;
+    font-size: 8px;
+    color: $sideBar-iconColor;
+
+    grid-area: footer;
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    grid-template-columns: 70px 1fr 70px;
+
+    @include mQ(750px) {
+        // font-size: 6px;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .credential-box {
+        grid-column: 2;
+
+        @include mQ(750px) {
+            grid-column: 1;
+        }
+
+        span {
+            margin-left: 10px;
+
+            &:last-child {
+                margin-right: 40px;
+            }
+        }
+    }
 }
