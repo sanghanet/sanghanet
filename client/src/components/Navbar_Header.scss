@@ -82,7 +82,7 @@ body {font-family: GEInspiraRegular;}
     grid-template-areas:    "header header"
                             "navbar content"
                             "footer footer";
-    grid-template-rows: 93px minmax(calc(100vh - 93px - 50px), auto) 30px;
+    grid-template-rows: 93px minmax(calc(100vh - 93px - 30px), auto) 30px;
     grid-template-columns: 90px;
 
     @include mQ(750px) {
