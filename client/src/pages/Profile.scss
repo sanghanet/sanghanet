@@ -134,6 +134,7 @@ main {
         summary:focus { outline: none; }
         summary::-webkit-details-marker { display: none;}
         summary label { position: relative; }
+        summary label, summary input { margin: auto; }
         .arrow {
             width: 14px;
             height: 14px;
