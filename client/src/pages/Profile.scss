@@ -124,6 +124,7 @@ main {
                 border-left: $input-border;
                 border-bottom-right-radius: 2px;
                 border-bottom-left-radius: 2px;
+                -webkit-appearance: none;
             }
             input[type="date"]::-webkit-inner-spin-button,
             input[type="date"]::-webkit-calendar-picker-indicator {
