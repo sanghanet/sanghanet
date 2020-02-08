@@ -75,6 +75,7 @@ main {
         .profile-form-field {
             @include centerElement;
             flex-direction: column;
+            align-self: flex-start;
             margin: 20px;
             #file-upload {
                 width: 214px;
