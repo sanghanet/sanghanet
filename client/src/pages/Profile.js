@@ -11,7 +11,7 @@ import Plus from '../components/icons/plus.svg';
 
 class Profile extends React.Component {
     state = {
-        openArrow: true
+        openDetails: false
     }
 
     loadFile = (event) => {
@@ -19,10 +19,14 @@ class Profile extends React.Component {
         image.src = URL.createObjectURL(event.target.files[0]);
     };
 
-    toggleArrow = (event) => {
-        this.setState((state) => ({ openArrow: !state.openArrow }));
+    toggleDetails = (event) => {
+        this.setState((state) => ({ openDetails: !state.openDetails }));
         const image = event.currentTarget.lastElementChild;
-        image.src = this.state.openArrow ? ArrowUp : ArrowDown;
+        // const detailsTag = event.currentTarget.closest('details');
+        image.src = this.state.openDetails ? ArrowUp : ArrowDown;
+        // detailsTag.open = this.state.openDetails;
+        // console.log('event open: ' + event.currentTarget.closest('details').open);
+        // console.log('state open: ' + this.state.openDetails + '\n');
     };
 
     render () {
@@ -76,9 +80,9 @@ class Profile extends React.Component {
                                 <label htmlFor="address">Address</label>
                                 <input type="text" id="address" name="address" placeholder="1045 Budapest, Rozsa u. 25/8"></input>
                             </div>
-                            <details>
+                            <details open={this.state.openDetails}>
                                 <summary className="profile-form-field em-name">
-                                    <label htmlFor="emName" onClick={this.toggleArrow}>
+                                    <label htmlFor="emName" onClick={this.toggleDetails}>
                                         Emergency contact
                                         <img src={ArrowDown} className="arrow" alt=""></img>
                                     </label>
@@ -112,9 +116,9 @@ class Profile extends React.Component {
                                     <option value="black" className="black-belt">Black</option>
                                 </select>
                             </div>
-                            <details>
+                            <details open={this.state.openDetails}>
                                 <summary className="profile-form-field em-name">
-                                    <label htmlFor="book" onClick={this.toggleArrow}>
+                                    <label htmlFor="book" onClick={this.toggleDetails}>
                                         Books
                                         <img src={ArrowDown} className="arrow" alt=""></img>
                                     </label>
