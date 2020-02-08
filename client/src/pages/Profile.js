@@ -22,11 +22,7 @@ class Profile extends React.Component {
     toggleDetails = (event) => {
         this.setState((state) => ({ openDetails: !state.openDetails }));
         const image = event.currentTarget.lastElementChild;
-        // const detailsTag = event.currentTarget.closest('details');
         image.src = this.state.openDetails ? ArrowUp : ArrowDown;
-        // detailsTag.open = this.state.openDetails;
-        // console.log('event open: ' + event.currentTarget.closest('details').open);
-        // console.log('state open: ' + this.state.openDetails + '\n');
     };
 
     render () {
