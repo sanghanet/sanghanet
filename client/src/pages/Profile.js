@@ -14,6 +14,15 @@ class Profile extends React.Component {
         openDetails: false
     }
 
+    componentDidMount () {
+        const detailsTags = document.getElementsByTagName('details');
+        for (let i = 0; i < detailsTags.length; i++) {
+            detailsTags[i].addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        }
+    }
+
     loadFile = (event) => {
         const image = document.getElementById('output');
         image.src = URL.createObjectURL(event.target.files[0]);
@@ -80,7 +89,7 @@ class Profile extends React.Component {
                                 <summary className="profile-form-field em-name">
                                     <label htmlFor="emName" onClick={this.toggleDetails}>
                                         Emergency contact
-                                        <img src={ArrowDown} className="arrow" alt=""></img>
+                                        <img src={ArrowUp} className="arrow" alt=""></img>
                                     </label>
                                     <input type="text" id="emName" name="emName" placeholder="Contact Name"></input>
                                 </summary>
@@ -116,7 +125,7 @@ class Profile extends React.Component {
                                 <summary className="profile-form-field em-name">
                                     <label htmlFor="book" onClick={this.toggleDetails}>
                                         Books
-                                        <img src={ArrowDown} className="arrow" alt=""></img>
+                                        <img src={ArrowUp} className="arrow" alt=""></img>
                                     </label>
                                 </summary>
                                 <div className="profile-form-field em-field">
