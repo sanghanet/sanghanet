@@ -75,6 +75,7 @@ main {
         .profile-form-field {
             @include centerElement;
             flex-direction: column;
+            align-self: flex-start;
             margin: 20px;
             #file-upload {
                 width: 214px;
@@ -124,6 +125,7 @@ main {
                 border-left: $input-border;
                 border-bottom-right-radius: 2px;
                 border-bottom-left-radius: 2px;
+                -webkit-appearance: none;
             }
             input[type="date"]::-webkit-inner-spin-button,
             input[type="date"]::-webkit-calendar-picker-indicator {
@@ -134,6 +136,7 @@ main {
         summary:focus { outline: none; }
         summary::-webkit-details-marker { display: none;}
         summary label { position: relative; }
+        summary label, summary input { margin: auto; }
         .arrow {
             width: 14px;
             height: 14px;

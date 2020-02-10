@@ -11,7 +11,16 @@ import Plus from '../components/icons/plus.svg';
 
 class Profile extends React.Component {
     state = {
-        openArrow: true
+        openDetails: false
+    }
+
+    componentDidMount () {
+        const detailsTags = document.getElementsByTagName('details');
+        for (let i = 0; i < detailsTags.length; i++) {
+            detailsTags[i].addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        }
     }
 
     loadFile = (event) => {
@@ -19,10 +28,10 @@ class Profile extends React.Component {
         image.src = URL.createObjectURL(event.target.files[0]);
     };
 
-    toggleArrow = (event) => {
-        this.setState((state) => ({ openArrow: !state.openArrow }));
+    toggleDetails = (event) => {
+        this.setState((state) => ({ openDetails: !state.openDetails }));
         const image = event.currentTarget.lastElementChild;
-        image.src = this.state.openArrow ? ArrowUp : ArrowDown;
+        image.src = this.state.openDetails ? ArrowUp : ArrowDown;
     };
 
     render () {
@@ -76,11 +85,11 @@ class Profile extends React.Component {
                                 <label htmlFor="address">Address</label>
                                 <input type="text" id="address" name="address" placeholder="1045 Budapest, Rozsa u. 25/8"></input>
                             </div>
-                            <details>
+                            <details open={this.state.openDetails}>
                                 <summary className="profile-form-field em-name">
-                                    <label htmlFor="emName" onClick={this.toggleArrow}>
+                                    <label htmlFor="emName" onClick={this.toggleDetails}>
                                         Emergency contact
-                                        <img src={ArrowDown} className="arrow" alt=""></img>
+                                        <img src={ArrowUp} className="arrow" alt=""></img>
                                     </label>
                                     <input type="text" id="emName" name="emName" placeholder="Contact Name"></input>
                                 </summary>
@@ -112,11 +121,11 @@ class Profile extends React.Component {
                                     <option value="black" className="black-belt">Black</option>
                                 </select>
                             </div>
-                            <details>
+                            <details open={this.state.openDetails}>
                                 <summary className="profile-form-field em-name">
-                                    <label htmlFor="book" onClick={this.toggleArrow}>
+                                    <label htmlFor="book" onClick={this.toggleDetails}>
                                         Books
-                                        <img src={ArrowDown} className="arrow" alt=""></img>
+                                        <img src={ArrowUp} className="arrow" alt=""></img>
                                     </label>
                                 </summary>
                                 <div className="profile-form-field em-field">
