@@ -18,6 +18,9 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const mongoose = require('mongoose');
 const mongourl = DB_URL;
 
+let db = null;
+let coll = null;
+
 app.use(express.static('app'));
 app.use('/loading', express.static('app'));
 app.use('/dashboard', express.static('app'));
@@ -30,10 +33,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 passport.serializeUser((user, done) => {
-    done(null, user);
+    log.info(`serialize ${user._id}`);
+    done(null, user._id);
 });
 
 passport.deserializeUser((user, done) => {
+    log.info(`deserialize ${user}`);
     done(null, user);
 });
 
@@ -43,8 +48,16 @@ passport.use(new GoogleStrategy({
     callbackURL: `http://localhost:${PORT}/passport`
 }, (identifier, refreshtoken, profile, done) => {
     log.info(profile.emails);
-    // match the user to our database here
-    return done(null, profile);
+    coll.find({ email: profile.emails[0].value }).toArray()
+        .then((result) => {
+            log.info(result);
+            if (!result[0]) {
+                return done(null, null);
+            } else if (result[0].isActive) {
+                return done(null, result[0]);
+            }
+            return done(null, null);
+        });
 }));
 
 app.use(session({
@@ -57,7 +70,9 @@ app.use(session({
     cookie: {
         maxAge: 120000,
         secure: false
-    }
+    },
+    name: 'Sanghanet.backend',
+    saveUninitialized: false
 }));
 
 app.use(passport.initialize());
@@ -82,7 +97,7 @@ app.get('/passport',
 );
 
 app.post('/api/user', (req, res) => {
-    log.info(req.ip, req.url);
+    log.info(req.ip, req.user);
     // Search user by sessionID ??
     // If name is null => unknown user
     res.json({ name: 'Olajos Alajos', isActive: true, isAdmin: false });
@@ -92,9 +107,6 @@ app.get('/api/logout', (req, res) => {
     // Delete session information here..
     res.status(200).send();
 });
-
-let db = null;
-let coll = null;
 
 const runServer = async () => {
     try {
