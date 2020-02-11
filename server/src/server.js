@@ -50,11 +50,12 @@ passport.use(new GoogleStrategy({
     log.info(profile.emails);
     coll.find({ email: profile.emails[0].value }).toArray()
         .then((result) => {
+            const userObject = result[0];
             log.info(result);
-            if (!result[0]) {
+            if (!userObject) {
                 return done(null, null);
-            } else if (result[0].isActive) {
-                return done(null, result[0]);
+            } else if (userObject.isActive) {
+                return done(null, userObject);
             }
             return done(null, null);
         });
