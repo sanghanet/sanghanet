@@ -31,7 +31,7 @@ const Header = (props) => {
             <div className="desktop-header">
                 <div className="avatar-container" onClick={handleAvatarClick}>
                     <img src={Avatar} alt="Profile" className="avatar"/>
-                    <p>Baby Yoda</p>
+                    <p>{sessionStorage.user}</p>
                 </div>
                 <SearchBar />
                 <h1 className="page-name">{props.activePage}</h1>
