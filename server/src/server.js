@@ -79,11 +79,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/userList', (req, res) => {
-    res.set({ 'Access-Control-Allow-Origin': '*' });
-    coll.find({}).toArray().then((data) => { res.json(data); });
-});
-
 app.post('/auth',
     passport.authenticate(
         'google',
