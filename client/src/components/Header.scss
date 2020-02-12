@@ -1,36 +1,5 @@
 $header-height: 93px;
 
-@mixin resetList {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-@mixin buttonReset {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-}
-
-@mixin svgChanging {
-    fill: #fff;
-
-    transform: scale(1.2);
-}
-
-@mixin hoveredMenu {
-    &:hover {
-        background-color: #252525;
-    }
-    &:hover .title {
-        color: #fff;
-    }
-    &:hover svg {
-        @include svgChanging;
-    }
-}
-
 .header {
     position: fixed;
     justify-content: center;
