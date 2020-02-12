@@ -11,9 +11,13 @@
 
     .row {
         align-items: center;
-        width: 96%;
+        width: 90%;
         height: 100%;
         justify-content: space-between;
+
+        @media screen and (max-width: 767px) {
+            justify-content: space-around;
+        }
 
         .avatar-container {
             align-items: center;
@@ -22,30 +26,30 @@
                 margin: 0 10px 0 0;
                 height: 70px;
                 border: 2px solid #fff;
+
+                @media screen and (max-width: 767px) {
+                    width: 40px;
+                    height: 40px;
+                    display: block;
+                    margin: auto;
+                }
             }
     
             .avatar-name {
                 margin: 20px 0;
                 font-size: 1.4em;
                 font-weight: 100;
-            }
-        }
 
-        .search-field {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+                @media screen and (max-width: 767px) {
+                    font-size: 14px;
+                    margin: 5px 0 0 0;
+                }
+            }
         }
 
         .page-name {
             font-size: 1.4em;
             font-weight: 100;
-
-            @media screen and (max-width: 767px) {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            }
         }
 
         .mobile-header-items {

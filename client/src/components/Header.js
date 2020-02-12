@@ -5,8 +5,9 @@ import { withRouter } from 'react-router-dom';
 import './Header.scss';
 import Avatar from './icons/avatar.jpg';
 import SearchBar from './SearchBar';
+import PageNavigation from './PageNavigation';
 import { ReactComponent as SearchIcon } from './icons/search.svg';
-import { Container, Row, Figure, Button } from 'react-bootstrap';
+import { Container, Row, Figure, Navbar, Nav, Button } from 'react-bootstrap';
 
 const Header = (props) => {
     const handleAvatarClick = (event) => {
@@ -19,7 +20,7 @@ const Header = (props) => {
         <Container fluid className='header d-flex p-0' as='header'>
             <Row className='d-flex position-relative'>
                 <Figure
-                    bsPrefix='avatar-container d-flex m-0'
+                    bsPrefix='avatar-container d-md-flex d-grid m-0'
                     onClick={handleAvatarClick}
                 >
                     <Figure.Image
@@ -40,6 +41,14 @@ const Header = (props) => {
                     <Button className="search-icon" variant="outline-light">
                         <SearchIcon/>
                     </Button>
+                    <Navbar expand='md'>
+                        <Navbar.Toggle aria-controls='mobile-nav' />
+                        <Navbar.Collapse id='mobile-nav position-absolute'>
+                            <Nav>
+                                <PageNavigation />
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Navbar>
                 </div>
             </Row>
         </Container>
