@@ -15,10 +15,10 @@ const Header = (props) => {
     };
 
     return (
-        <Container fluid className='header' as='header'>
+        <Container fluid className='header d-flex p-0' as='header'>
             <Row className='d-flex'>
                 <Figure
-                    bsPrefix='avatar-container d-flex'
+                    bsPrefix='avatar-container d-flex m-0'
                     onClick={handleAvatarClick}
                 >
                     <Figure.Image
@@ -33,7 +33,7 @@ const Header = (props) => {
                     </Figure.Caption>
                 </Figure>
                 <SearchBar/>
-                <h1 className='page-name'>{props.activePage}</h1>
+                <h1 className='page-name m-0'>{props.activePage}</h1>
             </Row>
         </Container>
     );
