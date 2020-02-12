@@ -40,6 +40,12 @@
         .page-name {
             font-size: 1.4em;
             font-weight: 100;
+
+            @media screen and (max-width: 767px) {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
 
         .mobile-header-items {
