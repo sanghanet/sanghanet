@@ -18,7 +18,7 @@ const Header = (props) => {
 
     return (
         <Container fluid className='header d-flex p-0' as='header'>
-            <Row className='d-flex position-relative'>
+            <Row className='d-flex'>
                 <Figure
                     bsPrefix='avatar-container d-md-flex d-grid m-0'
                     onClick={handleAvatarClick}
@@ -35,7 +35,7 @@ const Header = (props) => {
                     </Figure.Caption>
                 </Figure>
                 <SearchBar className="d-md-flex d-none"/>
-                <h1 className='page-name m-0'>{props.activePage}</h1>
+                <h1 className='page-name m-0 d-xs-none'>{props.activePage}</h1>
 
                 <div className='mobile-header-items d-flex d-md-none d-flex'>
                     <Button className="search-icon" variant="outline-light">
@@ -43,7 +43,7 @@ const Header = (props) => {
                     </Button>
                     <Navbar expand='md'>
                         <Navbar.Toggle aria-controls='mobile-nav' />
-                        <Navbar.Collapse id='mobile-nav position-absolute'>
+                        <Navbar.Collapse id='mobile-nav' className='mobile-nav position-absolute'>
                             <Nav>
                                 <PageNavigation />
                             </Nav>

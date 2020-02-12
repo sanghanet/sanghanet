@@ -69,6 +69,16 @@
                 fill: #fff;
                 }
             }
+
+            .mobile-nav {
+                top: 74px;
+                left: calc(100% - 52px);
+                background: #484848;
+
+                ul {
+                    list-style: none;
+                }
+            }
         }
     }
 }
