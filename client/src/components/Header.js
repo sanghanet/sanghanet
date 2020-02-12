@@ -17,7 +17,7 @@ const Header = (props) => {
 
     return (
         <Container fluid className='header d-flex p-0' as='header'>
-            <Row className='d-flex'>
+            <Row className='d-flex position-relative'>
                 <Figure
                     bsPrefix='avatar-container d-flex m-0'
                     onClick={handleAvatarClick}

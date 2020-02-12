@@ -31,6 +31,12 @@
             }
         }
 
+        .search-field {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
         .page-name {
             font-size: 1.4em;
             font-weight: 100;
