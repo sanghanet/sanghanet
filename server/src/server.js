@@ -85,7 +85,7 @@ app.post('/api/user', (req, res) => {
     log.info(req.ip, req.url);
     // Search user by sessionID ??
     // If name is null => unknown user
-    res.json({ name: 'Olajos Alajos', isActive: true, isAdmin: false });
+    res.json({ name: 'Baby Yoda', isActive: true, isAdmin: false });
 });
 
 app.get('/api/logout', (req, res) => {
