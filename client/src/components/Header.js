@@ -5,13 +5,27 @@ import { withRouter } from 'react-router-dom';
 import './Header.scss';
 import Avatar from './icons/avatar.jpg';
 import SearchBar from './SearchBar';
-import { Container, Row, Figure } from 'react-bootstrap';
+import Logout from './Logout';
+import PageNavigation from './PageNavigation';
+import { ReactComponent as SearchIcon } from './icons/search.svg';
+import { Container, Row, Figure, Button } from 'react-bootstrap';
 
 const Header = (props) => {
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/profile') {
             props.history.push('/profile');
         }
+    };
+
+    const mobileCloseMenu = (event) => {
+        const slider = event.currentTarget.parentElement;
+        slider.classList.toggle('slideIn');
+        slider.previousElementSibling.querySelector('INPUT').checked = false;
+    };
+
+    const handleHamburgerClick = (event) => {
+        const slider = event.currentTarget.nextElementSibling;
+        slider.classList.toggle('slideIn');
     };
 
     return (
@@ -32,8 +46,14 @@ const Header = (props) => {
                         {sessionStorage.user}
                     </Figure.Caption>
                 </Figure>
-                <SearchBar/>
+                <SearchBar className="d-md-flex d-none"/>
                 <h1 className='page-name m-0'>{props.activePage}</h1>
+
+                <div className='mobile-header-items d-flex d-md-none d-flex'>
+                    <Button className="search-icon" variant="outline-light">
+                        <SearchIcon/>
+                    </Button>
+                </div>
             </Row>
         </Container>
     );
