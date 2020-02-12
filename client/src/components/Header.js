@@ -5,8 +5,6 @@ import { withRouter } from 'react-router-dom';
 import './Header.scss';
 import Avatar from './icons/avatar.jpg';
 import SearchBar from './SearchBar';
-import Logout from './Logout';
-import PageNavigation from './PageNavigation';
 import { ReactComponent as SearchIcon } from './icons/search.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
 
@@ -15,17 +13,6 @@ const Header = (props) => {
         if (props.location.pathname !== '/profile') {
             props.history.push('/profile');
         }
-    };
-
-    const mobileCloseMenu = (event) => {
-        const slider = event.currentTarget.parentElement;
-        slider.classList.toggle('slideIn');
-        slider.previousElementSibling.querySelector('INPUT').checked = false;
-    };
-
-    const handleHamburgerClick = (event) => {
-        const slider = event.currentTarget.nextElementSibling;
-        slider.classList.toggle('slideIn');
     };
 
     return (
