@@ -1,0 +1,30 @@
+$header-height: 93px;
+
+.header {
+    position: fixed;
+    padding: 0;
+    top: 0;
+    width: 100%;
+    height: $header-height;
+    z-index: 10;
+    background: linear-gradient(90deg, rgba(216,76,81,1) 0%, rgba(143,65,120,1) 100%);
+    color: #fff;
+
+    .row {
+        align-items: center;
+
+        .avatar-container {
+            align-items: center;
+            margin: 0 15px;
+    
+            img {
+                margin: 20px 10px 20px 0;
+            }
+    
+            .avatar-name {
+                margin: 20px 0;
+                font-size: 1.4em;
+            }
+        }
+    }
+}
