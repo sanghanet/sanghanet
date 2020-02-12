@@ -33,6 +33,7 @@ const Header = (props) => {
                     </Figure.Caption>
                 </Figure>
                 <SearchBar/>
+                <h1 className='page-name'>{props.activePage}</h1>
             </Row>
         </Container>
     );

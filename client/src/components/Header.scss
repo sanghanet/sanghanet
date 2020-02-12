@@ -9,9 +9,12 @@ $header-height: 93px;
     z-index: 10;
     background: linear-gradient(90deg, rgba(216,76,81,1) 0%, rgba(143,65,120,1) 100%);
     color: #fff;
+    letter-spacing: 2px;
 
     .row {
         align-items: center;
+        width: 96%;
+        justify-content: space-between;
 
         .avatar-container {
             align-items: center;
@@ -24,7 +27,13 @@ $header-height: 93px;
             .avatar-name {
                 margin: 20px 0;
                 font-size: 1.4em;
+                font-weight: 100;
             }
+        }
+
+        .page-name {
+            font-size: 1.4em;
+            font-weight: 100;
         }
     }
 }
