@@ -1,11 +1,9 @@
-$header-height: 93px;
-
 .header {
     position: fixed;
     justify-content: center;
     top: 0;
     width: 100%;
-    height: $header-height;
+    height: 93px;
     z-index: 10;
     background: linear-gradient(90deg, rgba(216,76,81,1) 0%, rgba(143,65,120,1) 100%);
     color: #fff;
