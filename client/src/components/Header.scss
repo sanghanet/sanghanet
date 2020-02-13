@@ -85,7 +85,8 @@
             justify-content: center;
             border: none;
             background-color: transparent;
-            transition: background-color .5s;
+            transition: background-color .5s,
+                        width .5s;
 
             &:hover div { background-color: #fff; }
 
@@ -124,15 +125,16 @@
 
             &.activeBurger {
                 background-color: #484848;
+                width: 60vw;
             }
         }
 
         .slider {
+            width: 60vw;
             height: calc(100vh - 93px);
-            width: 110px;
             overflow: scroll;
             top: 93px;
-            right: -110px;
+            right: -60vw;
 
             transition: right .5s;
 
