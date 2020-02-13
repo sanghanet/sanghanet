@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import './SearchBar.scss';
 import { ReactComponent as Search } from './icons/search.svg';
 
 class SearchBar extends Component {
@@ -62,7 +64,7 @@ class SearchBar extends Component {
 
     render () {
         return (
-            <div className="search-field">
+            <div className="search-field d-none d-md-flex">
                 <input
                     type="text"
                     placeholder="Search..."

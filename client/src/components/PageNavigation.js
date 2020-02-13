@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-import './Navbar_Header.scss';
+import './PageNavigation.scss';
+import Logout from './Logout';
 
 import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
 import { ReactComponent as ProfileIcon } from './icons/profile.svg';
@@ -11,7 +12,7 @@ import { ReactComponent as InfoIcon } from './icons/info.svg';
 
 const PageNavigation = (props) => {
     return (
-        <ul onClick={props.activePage}>
+        <ul onClick={props.activePage} className="p-0 m-0">
             <li>
                 <NavLink exact to="/dashboard" className="link">
                     <div className="menu-icon"><DashboardIcon /></div>
@@ -35,6 +36,9 @@ const PageNavigation = (props) => {
                     <div className="menu-icon"><InfoIcon /></div>
                     <span className="title">Queries</span>
                 </NavLink>
+            </li>
+            <li>
+                <Logout />
             </li>
         </ul>
     );

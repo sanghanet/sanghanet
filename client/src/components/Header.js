@@ -2,59 +2,67 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import './Navbar_Header.scss';
-import Logout from './Logout';
-import PageNavigation from './PageNavigation';
-import SearchBar from './SearchBar';
-
+import './Header.scss';
 import Avatar from './icons/avatar.jpg';
+import SearchBar from './SearchBar';
+import PageNavigation from './PageNavigation';
 import { ReactComponent as SearchIcon } from './icons/search.svg';
+import { Container, Row, Figure, Button } from 'react-bootstrap';
 
 const Header = (props) => {
-    const handleHamburgerClick = (event) => {
-        const slider = event.currentTarget.nextElementSibling;
-        slider.classList.toggle('slideIn');
-    };
-    const mobileCloseMenu = (event) => {
-        const slider = event.currentTarget.parentElement;
-        slider.classList.toggle('slideIn');
-        slider.previousElementSibling.querySelector('INPUT').checked = false;
-    };
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/profile') {
             props.history.push('/profile');
         }
     };
 
-    return (
-        <header className='header'>
-            <div className="desktop-header">
-                <div className="avatar-container" onClick={handleAvatarClick}>
-                    <img src={Avatar} alt="Profile" className="avatar"/>
-                    <p>{sessionStorage.user}</p>
-                </div>
-                <SearchBar />
-                <h1 className="page-name">{props.activePage}</h1>
-            </div>
-            <div className="mobile-header">
-                <button className="mobile-search">
-                    <SearchIcon className="mobile-search-icon" />
-                </button>
-                <button className="burger-lines" onClick={handleHamburgerClick}>
-                    {/* A fake & hidden checkbox is used as click reciever,
-                    so you can use the :checked selector on it. */}
-                    <input type="checkbox" />
+    const handleHamburgerClick = () => {
+        const slider = document.getElementsByClassName('slider')[0];
+        const hamburger = document.getElementsByClassName('burger-lines')[0];
 
+        slider.classList.toggle('slideIn');
+        hamburger.classList.toggle('activeBurger');
+    };
+
+    return (
+        <Container fluid className='header d-flex p-0' as='header'>
+            <Row className='d-flex'>
+                <Figure
+                    bsPrefix='avatar-container d-md-flex d-grid m-0'
+                    onClick={handleAvatarClick}
+                >
+                    <Figure.Image
+                        src={Avatar}
+                        alt='Profile'
+                        roundedCircle
+                        width={70}
+                        height={70}
+                    />
+                    <Figure.Caption bsPrefix='avatar-name d-none d-sm-flex' as='h2'>
+                        {sessionStorage.user}
+                    </Figure.Caption>
+                </Figure>
+                <SearchBar className='d-md-flex d-none'/>
+                <h1 className='page-name m-0 d-none d-md-flex'>{props.activePage}</h1>
+
+                <Button className='search-icon d-flex d-md-none' variant='outline-light'>
+                    <SearchIcon/>
+                </Button>
+
+                <button
+                    className='burger-lines p-0 d-flex d-md-none position-absolute'
+                    onClick={handleHamburgerClick}
+                >
+                    <input type='checkbox' />
                     <div></div>
                     <div></div>
                     <div></div>
                 </button>
-                <div className="slider">
-                    <PageNavigation activePage={mobileCloseMenu} />
-                    <Logout />
+                <div className='slider position-absolute'>
+                    <PageNavigation />
                 </div>
-            </div>
-        </header>
+            </Row>
+        </Container>
     );
 };
 
