@@ -103,11 +103,21 @@ app.post('/auth',
     )
 );
 
-app.get('/passport',
+app.get('/passport', (req, res, next) => {
     passport.authenticate(
         'google',
-        { successRedirect: `http://localhost:${APP_PORT}/loading`, failureRedirect: '/' })
-);
+        (err, user) => {
+            if (err) {
+                res.status(500).send(err);
+            } else if (!user) {
+                res.redirect('/');
+            } else if (user) {
+                req.logIn(user, (err) => { res.status(500).send(err); });
+                res.redirect(`http://localhost:${APP_PORT}/loading`);
+            }
+        }
+    )(req, res, next);
+});
 
 app.post('/api/user', (req, res) => {
     const user = req.user;
@@ -116,7 +126,12 @@ app.post('/api/user', (req, res) => {
 });
 
 app.get('/api/logout', (req, res) => {
-    // Delete session information here..
+    req.session.destroy((err) => {
+        if (err) {
+            log.info(`Session deletion failed: ${err}`);
+            res.status(500).send();
+        }
+    });
     res.status(200).send();
 });
 
