@@ -11,8 +11,8 @@ import { Container, Row, Figure, Button } from 'react-bootstrap';
 
 const Header = (props) => {
     const handleAvatarClick = (event) => {
-        if (this.props.location.pathname !== '/profile') {
-            this.props.history.push('/profile');
+        if (props.location.pathname !== '/profile') {
+            props.history.push('/profile');
         }
     };
 
