@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import './PageNavigation.scss';
+import Logout from './Logout';
 
 import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
 import { ReactComponent as ProfileIcon } from './icons/profile.svg';
@@ -35,6 +36,9 @@ const PageNavigation = (props) => {
                     <div className="menu-icon"><InfoIcon /></div>
                     <span className="title">Queries</span>
                 </NavLink>
+            </li>
+            <li>
+                <Logout />
             </li>
         </ul>
     );

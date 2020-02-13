@@ -52,29 +52,29 @@
             font-weight: 100;
         }
 
-        .mobile-header-items {
-            .search-icon {
-                padding: 5px;
-                border: none;
+        .search-icon {
+            border: none;
+            margin-left: 12px;
 
-                &:hover {
-                    svg {
-                        fill: #000;
-                    }
-                }
-    
+            &:hover {
                 svg {
-                    width: 34px;
-                height: 34px;
-                fill: #fff;
+                    fill: #000;
                 }
             }
 
-            .mobile-nav {
-                top: 74px;
-                left: calc(100% - 52px);
-                background: #484848;
+            svg {
+                width: 34px;
+                height: 34px;
+                fill: #fff;
+            }
+        }
 
+        .navbar {
+            .mobile-nav {
+                top: 65px;
+                left: calc(6.5vw);
+                background: #484848;
+    
                 ul {
                     list-style: none;
                 }

@@ -30,26 +30,24 @@ const Header = (props) => {
                         width={70}
                         height={70}
                     />
-                    <Figure.Caption bsPrefix='avatar-name' as='h2'>
+                    <Figure.Caption bsPrefix='avatar-name d-none' as='h2'>
                         {sessionStorage.user}
                     </Figure.Caption>
                 </Figure>
-                <SearchBar className="d-md-flex d-none"/>
-                <h1 className='page-name m-0 d-xs-none'>{props.activePage}</h1>
+                <SearchBar className='d-md-flex d-none'/>
+                <h1 className='page-name m-0 d-none d-md-flex'>{props.activePage}</h1>
 
-                <div className='mobile-header-items d-flex d-md-none d-flex'>
-                    <Button className="search-icon" variant="outline-light">
-                        <SearchIcon/>
-                    </Button>
-                    <Navbar expand='md'>
-                        <Navbar.Toggle aria-controls='mobile-nav' />
-                        <Navbar.Collapse id='mobile-nav' className='mobile-nav position-absolute'>
-                            <Nav>
-                                <PageNavigation />
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Navbar>
-                </div>
+                <Button className='search-icon d-flex d-md-none' variant='outline-light'>
+                    <SearchIcon/>
+                </Button>
+                <Navbar expand='md' className='navbar-dark d-flex d-md-none p-0'>
+                    <Navbar.Toggle aria-controls='mobile-nav' />
+                    <Navbar.Collapse id='mobile-nav' className='mobile-nav position-absolute'>
+                        <Nav>
+                            <PageNavigation />
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
             </Row>
         </Container>
     );
