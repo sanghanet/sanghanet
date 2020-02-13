@@ -3,7 +3,6 @@ import React from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import ComingSoon from '../components/ComingSoon';
-import PageNavigation from '../components/PageNavigation';
 
 const Finances = (props) => {
     return (
