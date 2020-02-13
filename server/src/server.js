@@ -110,8 +110,9 @@ app.get('/passport',
 );
 
 app.post('/api/user', (req, res) => {
-    log.info(req.ip, req.user);
-    res.json({ name: 'Olajos Alajos', isActive: true, isAdmin: false });
+    const user = req.user;
+    log.info(req.ip, user);
+    res.json({ name: `${user.firstName} ${user.lastName}`, isActive: user.isActive, isAdmin: user.isAdmin });
 });
 
 app.get('/api/logout', (req, res) => {
