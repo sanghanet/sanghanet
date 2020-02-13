@@ -16,6 +16,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 const mongourl = DB_URL;
 
 let db = null;
@@ -39,7 +40,18 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((user, done) => {
     log.info(`deserialize ${user}`);
-    done(null, user);
+    coll.find({ _id: ObjectId(user) }).toArray()
+        .then((result) => {
+            const identifiedUserObject = result[0];
+            if (!identifiedUserObject) {
+                log.info('deserialization failed');
+                done(null, null);
+            } else {
+                log.info(`deserialized user as: ${identifiedUserObject.firstName} ${identifiedUserObject.lastName}`);
+                done(null, identifiedUserObject);
+            }
+            done(null, null);
+        });
 });
 
 passport.use(new GoogleStrategy({
@@ -99,8 +111,6 @@ app.get('/passport',
 
 app.post('/api/user', (req, res) => {
     log.info(req.ip, req.user);
-    // Search user by sessionID ??
-    // If name is null => unknown user
     res.json({ name: 'Olajos Alajos', isActive: true, isAdmin: false });
 });
 
