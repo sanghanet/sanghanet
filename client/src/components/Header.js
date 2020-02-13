@@ -30,7 +30,7 @@ const Header = (props) => {
                         width={70}
                         height={70}
                     />
-                    <Figure.Caption bsPrefix='avatar-name d-none' as='h2'>
+                    <Figure.Caption bsPrefix='avatar-name d-none d-sm-flex' as='h2'>
                         {sessionStorage.user}
                     </Figure.Caption>
                 </Figure>
