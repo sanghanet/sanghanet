@@ -128,7 +128,8 @@
         }
 
         .slider {
-            width: 110px;
+            height: calc(100vh - 93px);
+            overflow: scroll;
             top: 93px;
             right: -110px;
 
