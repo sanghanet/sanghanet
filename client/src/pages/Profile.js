@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 import './Profile.scss';
@@ -37,6 +38,7 @@ class Profile extends React.Component {
         return (
             <div>
                 <Header activePage="Profile" />
+                <Navbar />
                 <main>
                     <form className="profile-form">
                         <div className="general-data profile-blocks">
