@@ -44,6 +44,7 @@ ul {
 }
 
 .header + ul {
+    width: 110px;
     height: calc(100vh - 93px);
     overflow-y: scroll;
     position: fixed;
@@ -69,5 +70,9 @@ ul {
                 margin: 0;
             }
         }
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
     }
 }

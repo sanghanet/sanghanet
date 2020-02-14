@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
     font-family: RobotoRegular;
     src: url('../fonts/Roboto/Roboto-Regular.ttf');
 }
@@ -72,46 +72,4 @@ $navbar-width: 90px;
     @media screen and (max-width: $arg) {
         @content;
     }
-}
-
-* {
-    box-sizing: border-box;
-}
-body {
-    font-family: RobotoRegular;
-}
-/*
-.footer {
-    background: #272427;
-    font-size: 8px;
-    color: $sideBar-iconColor;
-
-    display: grid;
-    justify-items: center;
-    align-items: center;
-
-    grid-template-columns: 70px 1fr 70px;
-
-    @include mQ(750px) {
-        // font-size: 6px;
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(2, 1fr);
-    }
-
-    .credential-box {
-        grid-column: 2;
-
-        @include mQ(750px) {
-            grid-column: 1;
-        }
-
-        span {
-            margin-left: 10px;
-
-            &:last-child {
-                margin-right: 40px;
-            }
-        }
-    }
-}
-*/
+}*/
