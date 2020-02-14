@@ -11,7 +11,9 @@ ul {
     li {
         padding: 20px;
         text-align: center;
-        display: flex;
+        width: 180px;
+        display: block;
+        margin: auto;
 
         .link {
             align-items: center;
@@ -21,7 +23,7 @@ ul {
 
             .menu-icon {
                 width: fit-content;
-                margin: 0 auto;
+                margin: 0;
     
                 svg {
                     fill: #fff;
@@ -56,6 +58,7 @@ ul {
     }
 
     li {
+        width: fit-content;
         justify-content: center;
 
         &:nth-last-child(2) {
