@@ -69,6 +69,10 @@ ul {
             display: flex;
             flex-direction: column;
 
+            &:hover {
+                text-decoration: none;
+            }
+
             .title {
                 margin: 0;
             }
