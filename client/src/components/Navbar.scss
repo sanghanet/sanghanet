@@ -43,7 +43,7 @@ ul {
     }
 }
 
-.header + ul {
+.header ~ ul {
     width: 110px;
     height: calc(100vh - 93px);
     overflow-y: scroll;
