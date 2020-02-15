@@ -50,6 +50,7 @@ ul {
     position: fixed;
     height: 100%;
     display: flex;
+    scrollbar-width: none;
 
     @media screen and (max-width: 767px) {
         display: none;
