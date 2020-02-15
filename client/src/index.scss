@@ -2,6 +2,7 @@
     font-family: RobotoRegular;
     src: url('./fonts/Roboto/Roboto-Regular.ttf');
 }
+@import './style/colors';
 
 $header-height: 93px;
 $navbar-width: 90px;
@@ -12,4 +13,8 @@ $navbar-width: 90px;
 body {
     font-family: RobotoRegular;
     margin: 0;
+}
+main {
+    min-height: 100vh;
+    background-color: $main-background;
 }
