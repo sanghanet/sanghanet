@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import './Navbar.scss';
-import Logout from './Logout';
+import Logout from '../Logout/Logout';
 
-import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
-import { ReactComponent as PersonalIcon } from './icons/personal.svg';
-import { ReactComponent as FinanceIcon } from './icons/finances.svg';
-import { ReactComponent as InfoIcon } from './icons/info.svg';
-import { ReactComponent as YogaIcon } from './icons/yoga.svg';
-import { ReactComponent as EventIcon } from './icons/event.svg';
-import { ReactComponent as QuestionsIcon } from './icons/questions.svg';
+import { ReactComponent as DashboardIcon } from '../icons/dashboard.svg';
+import { ReactComponent as PersonalIcon } from '../icons/personal.svg';
+import { ReactComponent as FinanceIcon } from '../icons/finances.svg';
+import { ReactComponent as InfoIcon } from '../icons/info.svg';
+import { ReactComponent as YogaIcon } from '../icons/yoga.svg';
+import { ReactComponent as EventIcon } from '../icons/event.svg';
+import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 
 const PageNavigation = (props) => {
     return (

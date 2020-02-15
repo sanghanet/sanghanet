@@ -1,7 +1,6 @@
 import React from 'react';
 
-import './Navbar_Header.scss';
-import { ReactComponent as LogoutIcon } from './icons/logout.svg';
+import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 
 const Logout = (props) => {
     const handleClick = (event) => {

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import './Header.scss';
-import Avatar from './icons/avatar.jpg';
-import SearchBar from './SearchBar';
-import Navbar from './Navbar';
-import { ReactComponent as SearchIcon } from './icons/search.svg';
+import Avatar from '../icons/avatar.jpg';
+import SearchBar from '../Search/SearchBar';
+import Navbar from '../Navbar/Navbar';
+import { ReactComponent as SearchIcon } from '../icons/search.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
 
 const Header = (props) => {

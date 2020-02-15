@@ -1,5 +1,5 @@
 import React from 'react';
-import version from '../version';
+import version from '../../version';
 import './Footer.scss';
 
 const Footer = (props) => {
