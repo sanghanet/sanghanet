@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import PrivateRoute from './components/PrivateRoute';
-import Login from './pages/Login';
-import LoginFailed from './pages/LoginFailed';
-import Loading from './pages/Loading';
-import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
-import Finances from './pages/Finances';
-import Queries from './pages/Queries';
+import Login from './pages/Login/Login';
+import LoginFailed from './pages/LoginFailed/LoginFailed';
+import Loading from './pages/Loading/Loading';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Personal from './pages/Personal/Personal';
+import Yoga from './pages/Yoga/Yoga';
+import Finances from './pages/Finances/Finances';
+import Events from './pages/Events/Events';
+import Questions from './pages/Questions/Questions';
+import Queries from './pages/Queries/Queries';
 
 class App extends Component {
     render () {
@@ -19,8 +22,11 @@ class App extends Component {
                     <Route path='/loading' component={Loading} />
                     <Route path='/loginfailed' component={LoginFailed} />
                     <PrivateRoute path='/dashboard' component={Dashboard}/>
-                    <PrivateRoute path='/profile' component={Profile} />
+                    <PrivateRoute path='/personal' component={Personal} />
+                    <PrivateRoute path='/yoga' component={Yoga} />
                     <PrivateRoute path='/finances' component={Finances}/>
+                    <PrivateRoute path='/events' component={Events}/>
+                    <PrivateRoute path='/questions' component={Questions}/>
                     <PrivateRoute path='/queries' component={Queries}/>
                 </Switch>
             </BrowserRouter>

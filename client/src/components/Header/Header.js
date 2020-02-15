@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import './Header.scss';
-import Avatar from './icons/avatar.jpg';
-import SearchBar from './SearchBar';
-import Navbar from './Navbar';
-import { ReactComponent as SearchIcon } from './icons/search.svg';
+import Avatar from '../icons/avatar.jpg';
+import SearchBar from '../Search/SearchBar';
+import Navbar from '../Navbar/Navbar';
+import { ReactComponent as SearchIcon } from '../icons/search.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
 
 const Header = (props) => {
     const handleAvatarClick = (event) => {
-        if (props.location.pathname !== '/profile') {
-            props.history.push('/profile');
+        if (props.location.pathname !== '/personal') {
+            props.history.push('/personal');
         }
     };
 
@@ -33,7 +33,7 @@ const Header = (props) => {
                 >
                     <Figure.Image
                         src={Avatar}
-                        alt='Profile'
+                        alt='Avatar'
                         roundedCircle
                         width={70}
                         height={70}

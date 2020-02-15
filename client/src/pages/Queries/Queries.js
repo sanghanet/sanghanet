@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Header from '../components/Header';
-import Navbar from '../components/Navbar';
-import ComingSoon from '../components/ComingSoon';
+import Header from '../../components/Header/Header';
+import Navbar from '../../components/Navbar/Navbar';
+import ComingSoon from '../../components/ComingSoon/ComingSoon';
 
 const Queries = (props) => {
     return (

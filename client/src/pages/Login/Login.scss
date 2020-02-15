@@ -1,7 +1,4 @@
-body {
-	margin: 0;
-	background: #343434;
-}
+@import '../../style/colors';
 
 .login {
 	height: 100vh;
@@ -31,13 +28,14 @@ body {
 }
 
 .login-main {
+	background-color: $main-background;
 	.buddha {
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		height: 50vh;
-		z-index: -1;
+		z-index: 1;
 		fill:#15040c;
 	}
 	.login-btn {
@@ -47,6 +45,7 @@ body {
 		transform: translate(-50%, -50%);
 		background: #fff;
 		border-radius: 5px;
+		z-index: 2;
 		button {
 			background: none;
 			color: inherit;
@@ -68,12 +67,4 @@ body {
 			box-sizing: content-box;
 		}
 	}
-}
-
-/* --- Home.js --- */
-.user-search {
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 }

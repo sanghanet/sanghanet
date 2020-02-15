@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactComponent as Buddha } from './media/sangha_logo.svg';
-import GoogleLogo from './media/google_logo.png';
+import { ReactComponent as Buddha } from '../media/sangha_logo.svg';
+import GoogleLogo from '../media/google_logo.png';
 import './Login.scss';
 
 const Login = (props) => {
