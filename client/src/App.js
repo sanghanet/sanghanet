@@ -7,7 +7,10 @@ import LoginFailed from './pages/LoginFailed';
 import Loading from './pages/Loading';
 import Dashboard from './pages/Dashboard';
 import Personal from './pages/Personal';
+import Yoga from './pages/Yoga';
 import Finances from './pages/Finances';
+import Events from './pages/Events';
+import Questions from './pages/Questions';
 import Queries from './pages/Queries';
 
 class App extends Component {
@@ -20,7 +23,10 @@ class App extends Component {
                     <Route path='/loginfailed' component={LoginFailed} />
                     <PrivateRoute path='/dashboard' component={Dashboard}/>
                     <PrivateRoute path='/personal' component={Personal} />
+                    <PrivateRoute path='/yoga' component={Yoga} />
                     <PrivateRoute path='/finances' component={Finances}/>
+                    <PrivateRoute path='/events' component={Events}/>
+                    <PrivateRoute path='/questions' component={Questions}/>
                     <PrivateRoute path='/queries' component={Queries}/>
                 </Switch>
             </BrowserRouter>
