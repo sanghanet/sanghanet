@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import './Header.scss';
 import Avatar from './icons/avatar.jpg';
 import SearchBar from './SearchBar';
-import PageNavigation from './PageNavigation';
+import Navbar from './Navbar';
 import { ReactComponent as SearchIcon } from './icons/search.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
 
@@ -59,7 +59,7 @@ const Header = (props) => {
                     <div></div>
                 </button>
                 <div className='slider position-absolute'>
-                    <PageNavigation />
+                    <Navbar />
                 </div>
             </Row>
         </Container>
