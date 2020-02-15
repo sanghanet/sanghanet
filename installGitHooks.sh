@@ -22,4 +22,5 @@ const version = {
 export default version;
 EOT
 
+echo EOT >> $POST_CHECKOUT
 chmod +x $POST_CHECKOUT
