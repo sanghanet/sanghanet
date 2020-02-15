@@ -6,7 +6,7 @@
  2. run `npm install` in client folder
     run `npm install` in server folder
     run `npm install` in root folder to get eslint and its dependencies. (Also add/enable eslint extension in VsCode.)
-    run `installGitHooks.sh` in root, to install git hooks
+    run `./installGitHooks.sh` in root, to install git hooks
 
  3. create .env.local / .env.atlas / .env.???? files accordig to your need in server directory.
    Example of .env.local:
