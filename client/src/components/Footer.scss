@@ -1,6 +1,6 @@
 .footer {
     left: 110px;
-    width: calc(100vw - 125px);
+    width: calc(100% - 110px);
 
     background: #272427;
     font-size: 8px;
@@ -10,22 +10,15 @@
     justify-items: center;
     align-items: center;
 
-    grid-template-columns: 70px 1fr 70px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
 
     @media screen and (max-width: 767px) {
         width: 100vw;
         left: 0;
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(2, 1fr);
     }
 
     .credential-box {
-        grid-column: 2;
-
-        @media screen and (max-width: 767px) {
-            grid-column: 1;
-        }
-
         span {
             margin-left: 10px;
             &:last-child {
@@ -34,7 +27,11 @@
         }
     }
 
+    .git-box {
+        display: flex;
+    }
+
     p {
-        margin: 10px 0;
+        margin: 10px 20px;
     }
 }
