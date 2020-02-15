@@ -1,0 +1,60 @@
+@mixin resetList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+@mixin buttonReset {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+@mixin customFocus {
+    &:focus {
+        outline: 0 none;
+        fill: #fff;
+    }
+}
+@mixin navbarItemHeight {
+    height: $navbar-width;
+}
+@mixin centerElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@mixin svgChanging {
+    fill: $sideBarHover-iconColor;
+
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+@mixin hoveredElement {
+    &:hover {
+        background-color: $sideBarHover-backgroundColor;
+    }
+    &:hover .title {
+        color: $sideBarHover-iconColor;
+    }
+    &:hover svg {
+        @include svgChanging;
+    }
+}
+@mixin hoveredMenu {
+    &:hover {
+        background-color: $menuHover-backgroundColor;
+    }
+    &:hover .title {
+        color: $sideBarHover-iconColor;
+    }
+    &:hover svg {
+        @include svgChanging;
+    }
+}
+
+@mixin mQ($arg) {
+    @media screen and (max-width: $arg) {
+        @content;
+    }
+}

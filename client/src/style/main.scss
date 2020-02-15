@@ -1,0 +1,15 @@
+@font-face {
+    font-family: RobotoRegular;
+    src: url('../fonts/Roboto/Roboto-Regular.ttf');
+}
+
+$header-height: 93px;
+$navbar-width: 90px;
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: RobotoRegular;
+    margin: 0;
+}
