@@ -50,11 +50,11 @@ main {
     @include mQmax(750px) {
         margin-left: 0;
     }
-    .profile-form {
+    .personal-form {
         padding-top: 24px;
         color: $h2-font-color;
         @include mQmin(420px) {
-            .profile-blocks {
+            .personal-blocks {
                 width: 90%;
                 max-width: 1400px;
                 margin: 20px auto;
@@ -64,7 +64,7 @@ main {
                 padding-bottom: 38px;
             }
         }
-        .profile-form-h2 {
+        .personal-form-h2 {
             font-size: 16px;
             font-weight: 100;
             letter-spacing: 6px;
@@ -72,7 +72,7 @@ main {
             text-align: center;
             margin: 28px 0;
         }
-        .profile-form-field {
+        .personal-form-field {
             @include centerElement;
             flex-direction: column;
             align-self: flex-start;
@@ -91,7 +91,7 @@ main {
                     top: 66px;
                     left: 44px;
                 }
-                .profile-photo {
+                .personal-photo {
                     display: block;
                     width: 214px;
                     height: 214px;
@@ -179,11 +179,11 @@ main {
             z-index: 10;
         }
         @include mQmin(990px) {
-            .profile-blocks {
+            .personal-blocks {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
             }
-            .profile-form-h2 {
+            .personal-form-h2 {
                 grid-column: 1 / -1;
 
                 font-size: 28px;

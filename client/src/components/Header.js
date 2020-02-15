@@ -11,8 +11,8 @@ import { Container, Row, Figure, Button } from 'react-bootstrap';
 
 const Header = (props) => {
     const handleAvatarClick = (event) => {
-        if (props.location.pathname !== '/profile') {
-            props.history.push('/profile');
+        if (props.location.pathname !== '/personal') {
+            props.history.push('/personal');
         }
     };
 
@@ -33,7 +33,7 @@ const Header = (props) => {
                 >
                     <Figure.Image
                         src={Avatar}
-                        alt='Profile'
+                        alt='Avatar'
                         roundedCircle
                         width={70}
                         height={70}

@@ -6,10 +6,12 @@ import './Navbar.scss';
 import Logout from './Logout';
 
 import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
-import { ReactComponent as ProfileIcon } from './icons/profile.svg';
+import { ReactComponent as PersonalIcon } from './icons/personal.svg';
 import { ReactComponent as FinanceIcon } from './icons/finances.svg';
 import { ReactComponent as InfoIcon } from './icons/info.svg';
 import { ReactComponent as YogaIcon } from './icons/yoga.svg';
+import { ReactComponent as EventIcon } from './icons/event.svg';
+import { ReactComponent as QuestionsIcon } from './icons/questions.svg';
 
 const PageNavigation = (props) => {
     return (
@@ -21,9 +23,9 @@ const PageNavigation = (props) => {
                 </NavLink>
             </li>
             <li>
-                <NavLink exact to="/profile" className="link">
-                    <div className="menu-icon"><ProfileIcon /></div>
-                    <span className="title">Profile</span>
+                <NavLink exact to="/personal" className="link">
+                    <div className="menu-icon"><PersonalIcon /></div>
+                    <span className="title">Personal Data</span>
                 </NavLink>
             </li>
             <li>
@@ -39,9 +41,15 @@ const PageNavigation = (props) => {
                 </NavLink>
             </li>
             <li>
-                <NavLink exact to="/finances" className="link">
-                    <div className="menu-icon"><FinanceIcon /></div>
+                <NavLink exact to="/events" className="link">
+                    <div className="menu-icon"><EventIcon /></div>
                     <span className="title">Events</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink exact to="/questions" className="link">
+                    <div className="menu-icon"><QuestionsIcon /></div>
+                    <span className="title">Personal Questions</span>
                 </NavLink>
             </li>
             <li>

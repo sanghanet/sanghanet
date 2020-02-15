@@ -21,7 +21,7 @@ const mongourl = DB_URL;
 app.use(express.static('app'));
 app.use('/loading', express.static('app'));
 app.use('/dashboard', express.static('app'));
-app.use('/profile', express.static('app'));
+app.use('/personal', express.static('app'));
 app.use('/finances', express.static('app'));
 app.use('/queries', express.static('app'));
 
