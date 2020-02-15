@@ -9,6 +9,7 @@ import { ReactComponent as DashboardIcon } from './icons/dashboard.svg';
 import { ReactComponent as ProfileIcon } from './icons/profile.svg';
 import { ReactComponent as FinanceIcon } from './icons/finances.svg';
 import { ReactComponent as InfoIcon } from './icons/info.svg';
+import { ReactComponent as YogaIcon } from './icons/yoga.svg';
 
 const PageNavigation = (props) => {
     return (
@@ -26,9 +27,21 @@ const PageNavigation = (props) => {
                 </NavLink>
             </li>
             <li>
+                <NavLink exact to="/yoga" className="link">
+                    <div className="menu-icon"><YogaIcon /></div>
+                    <span className="title">Yoga</span>
+                </NavLink>
+            </li>
+            <li>
                 <NavLink exact to="/finances" className="link">
                     <div className="menu-icon"><FinanceIcon /></div>
                     <span className="title">Finances</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink exact to="/finances" className="link">
+                    <div className="menu-icon"><FinanceIcon /></div>
+                    <span className="title">Events</span>
                 </NavLink>
             </li>
             <li>
