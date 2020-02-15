@@ -1,5 +1,6 @@
 import React from 'react';
 import './Navbar_Header.scss';
+import version from '../version';
 
 const Footer = (props) => {
     return (
@@ -12,7 +13,10 @@ const Footer = (props) => {
                     <span>Miklos Ballo</span>
                 </p>
             </div>
-            <p>v0.0.1</p>
+            <div>
+                <p>{ version.date }</p>
+                <p>{ version.hash }</p>
+            </div>
         </footer>
     );
 };
