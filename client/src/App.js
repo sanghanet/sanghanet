@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import PrivateRoute from './components/PrivateRoute';
-import Login from './pages/Login';
-import LoginFailed from './pages/LoginFailed';
-import Loading from './pages/Loading';
-import Dashboard from './pages/Dashboard';
-import Personal from './pages/Personal';
-import Yoga from './pages/Yoga';
-import Finances from './pages/Finances';
-import Events from './pages/Events';
-import Questions from './pages/Questions';
-import Queries from './pages/Queries';
+import Login from './pages/Login/Login';
+import LoginFailed from './pages/LoginFailed/LoginFailed';
+import Loading from './pages/Loading/Loading';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Personal from './pages/Personal/Personal';
+import Yoga from './pages/Yoga/Yoga';
+import Finances from './pages/Finances/Finances';
+import Events from './pages/Events/Events';
+import Questions from './pages/Questions/Questions';
+import Queries from './pages/Queries/Queries';
 
 class App extends Component {
     render () {

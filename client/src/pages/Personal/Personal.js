@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Header from '../components/Header';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Header from '../../components/Header';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 import './Personal.scss';
-import ArrowDown from '../components/icons/arrow-down.svg';
-import ArrowUp from '../components/icons/arrow-up.svg';
-import Plus from '../components/icons/plus.svg';
+import ArrowDown from '../../components/icons/arrow-down.svg';
+import ArrowUp from '../../components/icons/arrow-up.svg';
+import Plus from '../../components/icons/plus.svg';
 
 class Personal extends React.Component {
     state = {
