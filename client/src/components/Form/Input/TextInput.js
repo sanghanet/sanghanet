@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './TextInput.scss';
+
+import { Form } from 'react-bootstrap';
+
 class TextInput extends Component {
     render () {
         return (
-            <div className="personal-form-field">
-                <label htmlFor="firstName">{this.props.inputTitle}</label>
-                <input type="text" id="firstName" name="firstName" required></input>
-            </div>
+            <Form.Group>
+                <Form.Label htmlFor="firstName">{this.props.inputTitle}</Form.Label>
+                <Form.Control type="text" id="firstName" name="firstName" required></Form.Control>
+            </Form.Group>
         );
     }
 }

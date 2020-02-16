@@ -1,0 +1,13 @@
+div.container {
+    margin-top: 50px;
+    width: 80%;
+
+    .form-container {
+        color: #d6d6d6;
+
+        #grid > div {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}

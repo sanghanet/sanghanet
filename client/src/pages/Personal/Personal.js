@@ -3,7 +3,6 @@ import React from 'react';
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
-import { Container } from 'react-bootstrap';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import TextInput from '../../components/Form/Input/TextInput';
@@ -11,7 +10,6 @@ import TextInput from '../../components/Form/Input/TextInput';
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
 import ArrowUp from '../../components/icons/arrow-up.svg';
-import Plus from '../../components/icons/plus.svg';
 
 class Personal extends React.Component {
     state = {
@@ -43,11 +41,15 @@ class Personal extends React.Component {
             <div>
                 <Header activePage="Personal" />
                 <Navbar />
-                <Container as='main'>
+                <main className='position-relative d-flex'>
                     <FormContainer formTitle='RANDOM SHIT'>
-                        <TextInput inputTitle='random title'/>
+                        <div rows={2}> { /* with two columns */ }
+                            <TextInput inputTitle='random title'/>
+                            <TextInput inputTitle='other title'/>
+                            <TextInput inputTitle='noch eine'/>
+                        </div>
                     </FormContainer>
-                    <form className="personal-form">
+                    {/* <form className="personal-form">
                         <div className="general-data personal-blocks">
                             <h2 className="personal-form-h2">GENERAL DATA</h2>
                             <div className="personal-form-field avatar">
@@ -149,8 +151,8 @@ class Personal extends React.Component {
                                 </div>
                             </details>
                         </div>
-                    </form>
-                </Container>
+                    </form> */}
+                </main>
                 <Footer />
             </div>
         );
