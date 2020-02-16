@@ -43,7 +43,7 @@ class Personal extends React.Component {
                 <Navbar />
                 <main className='position-relative d-flex'>
                     <FormContainer formTitle='general data'>
-                        <div rows={2}> { /* with two columns */ }
+                        <div>
                             <TextInput
                                 inputTitle='First name'
                             />

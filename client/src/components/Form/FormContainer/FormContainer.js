@@ -6,14 +6,6 @@ import { Container, Form } from 'react-bootstrap';
 import './FormContainer.scss';
 
 class FormContainer extends Component {
-    componentDidMount () {
-        const gridChild = document.getElementById('grid').children[0];
-
-        gridChild.style = `
-            grid-template-rows: repeat(${this.props.rows}, 1fr);
-        `;
-    }
-
     render () {
         return (
             <Container className='position-absolute'>
@@ -30,7 +22,6 @@ class FormContainer extends Component {
 
 FormContainer.propTypes = {
     formTitle: PropTypes.string,
-    rows: PropTypes.number,
     children: PropTypes.element.isRequired
 };
 
