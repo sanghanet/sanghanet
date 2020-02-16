@@ -44,6 +44,13 @@ class Personal extends React.Component {
                 <main className='position-relative d-flex'>
                     <FormContainer formTitle='general data'>
                         <div>
+                            <div className="avatar">
+                                <input type="file" accept="image/*" name="image" id="file" onChange={this.loadFile}></input>
+                                <label htmlFor="file" id="file-upload">
+                                    <p className="upload-text">Click here to<br />upload your photo</p>
+                                    <img id="output" className="personal-photo" alt=""></img>
+                                </label>
+                            </div>
                             <Input
                                 inputTitle='First name'
                                 type='text'

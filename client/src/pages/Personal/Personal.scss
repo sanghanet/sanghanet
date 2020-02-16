@@ -51,148 +51,156 @@ main {
     @include mQmax(750px) {
         margin-left: 0;
     }
-    .personal-form {
-        padding-top: 24px;
-        color: $h2-font-color;
-        @include mQmin(420px) {
-            .personal-blocks {
-                width: 90%;
-                max-width: 1400px;
-                margin: 20px auto;
-                background-color: #272326;
-                border: $input-border;
-                border-radius: 10px;
-                padding-bottom: 38px;
-            }
-        }
-        .personal-form-h2 {
-            font-size: 16px;
-            font-weight: 100;
-            letter-spacing: 6px;
-            word-spacing: 10px;
-            text-align: center;
-            margin: 28px 0;
-        }
-        .personal-form-field {
-            @include centerElement;
-            flex-direction: column;
-            align-self: flex-start;
-            margin: 20px;
-            #file-upload {
-                width: 214px;
-                height: 214px;
-                margin: auto;
-                cursor: pointer;
 
-                position: relative;
-                .upload-text {
-                    text-align: center;
-                    font-style: italic;
-                    position: absolute;
-                    top: 66px;
-                    left: 44px;
-                }
-                .personal-photo {
-                    display: block;
-                    width: 214px;
-                    height: 214px;
-                    margin: auto;
-                    border: 14px solid $salmon;
-                    border-radius: 10px;
+    .avatar {
+        grid-row: span 2;
 
-                    position: absolute;
-                    bottom: 0;
-                }
-            }
-            label:not(#file-upload), input, select {
-                height: 44px;
-                width: 80%;
-                min-width: 300px;
-                line-height: 44px;
-                color: $lable-input-font-color;
-                padding-left: 14px;
-            }
-            label:not(#file-upload) {
-                background-color: $salmon;
-                border: $input-border;
-                border-top-left-radius: 2px;
-                border-top-right-radius: 2px;
-            }
-            input, select {
-                background-color: $input-backgroundColor;
-                border: none;
-                border-right: $input-border;
-                border-bottom: $input-border;
-                border-left: $input-border;
-                border-bottom-right-radius: 2px;
-                border-bottom-left-radius: 2px;
-                -webkit-appearance: none;
-            }
-            input[type="date"]::-webkit-inner-spin-button,
-            input[type="date"]::-webkit-calendar-picker-indicator {
-                display: none;
-                -webkit-appearance: none;
-            }
-
-            &.em-name {
-                @include mQmax(340px) {
-                    margin: 20px 0;
-                }
-            }
-        }
-        summary:focus { outline: none; }
-        summary::-webkit-details-marker { display: none;}
-        summary label { position: relative; }
-        summary label, summary input { margin: auto; }
-        .arrow {
-            width: 14px;
-            height: 14px;
-            position: absolute;
-            top: 16px;
-            right: 10px;
-        }
-        .em-field {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-        details div:first-of-type { margin-top: -21px; }
-
-        .white-belt {background-color: white;color: #000;}
-        .yellow-belt { background-color: yellow; color: #000; }
-        .orange-belt { background-color: orange; color: #000; }
-        .green-belt { background-color: green; }
-        .blue-belt { background-color: blue; }
-        .brown-belt { background-color: brown; }
-        .black-belt { background-color: black; }
-
-        .books {
-            position: relative;
-            font-style: italic;
-            cursor: pointer;
-        }
-        .plus {
-            display: inline-block;
-            width: 32px;
-            height: 32px;
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            z-index: 10;
-        }
-        @include mQmin(990px) {
-            .personal-blocks {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .personal-form-h2 {
-                grid-column: 1 / -1;
-
-                font-size: 28px;
-            }
-            .avatar {
-                grid-column: 1;
-                grid-row: 2 / 4;
-            }
+        @include mQmax(990px) {
+            grid-row: span 1;
         }
     }
+//     .personal-form {
+//         padding-top: 24px;
+//         color: $h2-font-color;
+//         @include mQmin(420px) {
+//             .personal-blocks {
+//                 width: 90%;
+//                 max-width: 1400px;
+//                 margin: 20px auto;
+//                 background-color: #272326;
+//                 border: $input-border;
+//                 border-radius: 10px;
+//                 padding-bottom: 38px;
+//             }
+//         }
+//         .personal-form-h2 {
+//             font-size: 16px;
+//             font-weight: 100;
+//             letter-spacing: 6px;
+//             word-spacing: 10px;
+//             text-align: center;
+//             margin: 28px 0;
+//         }
+//         .personal-form-field {
+//             @include centerElement;
+//             flex-direction: column;
+//             align-self: flex-start;
+//             margin: 20px;
+//             #file-upload {
+//                 width: 214px;
+//                 height: 214px;
+//                 margin: auto;
+//                 cursor: pointer;
+
+//                 position: relative;
+//                 .upload-text {
+//                     text-align: center;
+//                     font-style: italic;
+//                     position: absolute;
+//                     top: 66px;
+//                     left: 44px;
+//                 }
+//                 .personal-photo {
+//                     display: block;
+//                     width: 214px;
+//                     height: 214px;
+//                     margin: auto;
+//                     border: 14px solid $salmon;
+//                     border-radius: 10px;
+
+//                     position: absolute;
+//                     bottom: 0;
+//                 }
+//             }
+//             label:not(#file-upload), input, select {
+//                 height: 44px;
+//                 width: 80%;
+//                 min-width: 300px;
+//                 line-height: 44px;
+//                 color: $lable-input-font-color;
+//                 padding-left: 14px;
+//             }
+//             label:not(#file-upload) {
+//                 background-color: $salmon;
+//                 border: $input-border;
+//                 border-top-left-radius: 2px;
+//                 border-top-right-radius: 2px;
+//             }
+//             input, select {
+//                 background-color: $input-backgroundColor;
+//                 border: none;
+//                 border-right: $input-border;
+//                 border-bottom: $input-border;
+//                 border-left: $input-border;
+//                 border-bottom-right-radius: 2px;
+//                 border-bottom-left-radius: 2px;
+//                 -webkit-appearance: none;
+//             }
+//             input[type="date"]::-webkit-inner-spin-button,
+//             input[type="date"]::-webkit-calendar-picker-indicator {
+//                 display: none;
+//                 -webkit-appearance: none;
+//             }
+
+//             &.em-name {
+//                 @include mQmax(340px) {
+//                     margin: 20px 0;
+//                 }
+//             }
+//         }
+//         summary:focus { outline: none; }
+//         summary::-webkit-details-marker { display: none;}
+//         summary label { position: relative; }
+//         summary label, summary input { margin: auto; }
+//         .arrow {
+//             width: 14px;
+//             height: 14px;
+//             position: absolute;
+//             top: 16px;
+//             right: 10px;
+//         }
+//         .em-field {
+//             margin-top: 0;
+//             margin-bottom: 0;
+//         }
+//         details div:first-of-type { margin-top: -21px; }
+
+//         .white-belt {background-color: white;color: #000;}
+//         .yellow-belt { background-color: yellow; color: #000; }
+//         .orange-belt { background-color: orange; color: #000; }
+//         .green-belt { background-color: green; }
+//         .blue-belt { background-color: blue; }
+//         .brown-belt { background-color: brown; }
+//         .black-belt { background-color: black; }
+
+//         .books {
+//             position: relative;
+//             font-style: italic;
+//             cursor: pointer;
+//         }
+//         .plus {
+//             display: inline-block;
+//             width: 32px;
+//             height: 32px;
+//             position: absolute;
+//             right: 5px;
+//             top: 5px;
+//             z-index: 10;
+//         }
+//         @include mQmin(990px) {
+//             .personal-blocks {
+//                 display: grid;
+//                 grid-template-columns: repeat(2, 1fr);
+//             }
+//             .personal-form-h2 {
+//                 grid-column: 1 / -1;
+
+//                 font-size: 28px;
+//             }
+//             .avatar {
+//                 grid-column: 1;
+//                 grid-row: 2 / 4;
+//             }
+//         }
+//     }
 }
