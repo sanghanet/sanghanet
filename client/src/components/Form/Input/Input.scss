@@ -11,11 +11,16 @@ div.form-group {
         background: #cb4a58;
     }
 
-    input.form-control {
+    .form-control {
         height: 46px;
         background: transparent;
         border: 1px solid #969494;
         border-radius: 0;
         color: #d6d6d6;
+        -webkit-appearance: none;
+
+        &::placeholder {
+            color: #fff;
+        }
     }
 }

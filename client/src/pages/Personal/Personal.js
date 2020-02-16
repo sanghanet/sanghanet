@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
-import TextInput from '../../components/Form/Input/TextInput';
+import Input from '../../components/Form/Input/Input';
 
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
@@ -44,14 +44,24 @@ class Personal extends React.Component {
                 <main className='position-relative d-flex'>
                     <FormContainer formTitle='general data'>
                         <div>
-                            <TextInput
+                            <Input
                                 inputTitle='First name'
+                                type='text'
+                                inputValue='Baby'
                             />
-                            <TextInput
+                            <Input
                                 inputTitle='Last name'
+                                type='text'
+                                inputValue='Yoda'
                             />
-                            <TextInput
-                                inputTitle='Something else'
+                            <Input
+                                inputTitle='Date of birth'
+                                type='date'
+                            />
+                            <Input
+                                inputTitle='Gender'
+                                type='select'
+                                optionsForSelect={['Female', 'Male', 'Other']}
                             />
                         </div>
                     </FormContainer>

@@ -1,3 +1,5 @@
+@import '../../../style/mixins';
+
 div.container {
     margin-top: 50px;
     width: 90%;
@@ -12,6 +14,10 @@ div.container {
         #grid > div {
             display: grid;
             grid-template-columns: 1fr 1fr;
+
+            @include mQ(990px) {
+                grid-template-columns: 1fr;
+            }
         }
     }
 }
