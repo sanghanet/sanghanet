@@ -18,7 +18,7 @@ class FormContainer extends Component {
         return (
             <Container className='position-absolute'>
                 <Form className="form-container">
-                    <h2 className="text-center">{this.props.formTitle}</h2>
+                    <h2 className="text-center">{this.props.formTitle.toUpperCase()}</h2>
                     <div id='grid'>
                         {this.props.children}
                     </div>

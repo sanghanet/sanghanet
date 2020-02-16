@@ -1,9 +1,13 @@
 div.container {
     margin-top: 50px;
     width: 80%;
+    background-color: #272326;
+    border: 1px solid #969494;
+    border-radius: 10px;
 
     .form-container {
         color: #d6d6d6;
+        padding: 40px;
 
         #grid > div {
             display: grid;

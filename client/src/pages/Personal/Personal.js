@@ -42,11 +42,17 @@ class Personal extends React.Component {
                 <Header activePage="Personal" />
                 <Navbar />
                 <main className='position-relative d-flex'>
-                    <FormContainer formTitle='RANDOM SHIT'>
+                    <FormContainer formTitle='general data'>
                         <div rows={2}> { /* with two columns */ }
-                            <TextInput inputTitle='random title'/>
-                            <TextInput inputTitle='other title'/>
-                            <TextInput inputTitle='noch eine'/>
+                            <TextInput
+                                inputTitle='First name'
+                            />
+                            <TextInput
+                                inputTitle='Last name'
+                            />
+                            <TextInput
+                                inputTitle='Something else'
+                            />
                         </div>
                     </FormContainer>
                     {/* <form className="personal-form">

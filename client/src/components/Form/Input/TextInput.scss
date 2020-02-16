@@ -1,5 +1,21 @@
 div.form-group {
     width: 90%;
     display: block;
-    margin: auto;
+    margin: 15px auto;
+
+    label.form-label {
+        border: 1px solid #969494;
+        width: 100%;
+        padding: 10px;
+        margin: 0;
+        background: #cb4a58;
+    }
+
+    input.form-control {
+        height: 46px;
+        background: transparent;
+        border: 1px solid #969494;
+        border-radius: 0;
+        color: #d6d6d6;
+    }
 }
