@@ -3,6 +3,10 @@ import React from 'react';
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
+import { Container } from 'react-bootstrap';
+
+import FormContainer from '../../components/Form/FormContainer/FormContainer';
+import TextInput from '../../components/Form/Input/TextInput';
 
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
@@ -39,7 +43,10 @@ class Personal extends React.Component {
             <div>
                 <Header activePage="Personal" />
                 <Navbar />
-                <main>
+                <Container as='main'>
+                    <FormContainer formTitle='RANDOM SHIT'>
+                        <TextInput inputTitle='random title'/>
+                    </FormContainer>
                     <form className="personal-form">
                         <div className="general-data personal-blocks">
                             <h2 className="personal-form-h2">GENERAL DATA</h2>
@@ -143,7 +150,7 @@ class Personal extends React.Component {
                             </details>
                         </div>
                     </form>
-                </main>
+                </Container>
                 <Footer />
             </div>
         );
