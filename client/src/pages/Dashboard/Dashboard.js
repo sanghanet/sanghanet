@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
 import ComingSoon from '../../components/ComingSoon/ComingSoon';
 
 class Dashboard extends React.Component {
@@ -43,6 +44,7 @@ class Dashboard extends React.Component {
                 <main className="align">
                     <ComingSoon pageName = "Dashboard" isPlural = {false}/>
                 </main>
+                <Footer />
             </div>
         );
     }
