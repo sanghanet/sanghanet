@@ -5,13 +5,20 @@ $dark: #2d1c27; // ex. login Buddha logo
 // $dark-purple: #3C1928; //maybe button
 $darkgray: #484848;
 $lightgray: #eeefee;
-$white: rgb(19, 0, 0);
+$white: #fff;
 
-$main-background:#262626;
+$main-bg:#262626;
 $searchField-color: #e8e3e3;
-$sideBar-backgroundColor: #484848;
+$sideBar-bg: #484848;
 $sideBar-iconColor: #c9c9c9;
 $sideBarHover-iconColor: #fff;
-$sideBarHover-backgroundColor: #343434;
+$sideBarHover-bg: #343434;
 
-$menuHover-backgroundColor: #252525;
+$menuHover-bg: #252525;
+
+// Form
+$h2-fontColor: #d6d6d6;
+$label-bg: #cb2e46;
+$input-bg: #4d4c4c;
+$input-border: 1px solid #969494;
+$formContainer-bg: #170912;

@@ -3,9 +3,7 @@
     src: url('./fonts/Roboto/Roboto-Regular.ttf');
 }
 @import './style/colors';
-
-$header-height: 93px;
-$navbar-width: 90px;
+@import './style/mixins';
 
 * {
     box-sizing: border-box;
@@ -15,6 +13,11 @@ body {
     margin: 0;
 }
 main {
-    min-height: 100vh;
-    background-color: $main-background;
+    min-height: calc(100vh - 93px);
+    margin-top: $header-height;
+    padding-top: 50px;
+    background-color: $main-bg;
+    @include minQ(767px) {
+        margin-left: 110px;
+    }
 }

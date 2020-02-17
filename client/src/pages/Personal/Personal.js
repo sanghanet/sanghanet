@@ -6,14 +6,15 @@ import Footer from '../../components/Footer/Footer';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import Input from '../../components/Form/Input/Input';
-
+import { Row, Col } from 'react-bootstrap';
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
 import ArrowUp from '../../components/icons/arrow-up.svg';
 
 class Personal extends React.Component {
     state = {
-        openDetails: false
+        openDetails: false,
+        firtsName: 'Baby'
     }
 
     componentDidMount () {
@@ -36,13 +37,53 @@ class Personal extends React.Component {
         image.src = this.state.openDetails ? ArrowUp : ArrowDown;
     };
 
+    handleFirstName = (newValue) => {
+        this.setState({ firtsName: newValue });
+    };
+
     render () {
+        const { firtsName } = this.state;
         return (
             <div>
                 <Header activePage="Personal" />
                 <Navbar />
-                <main className='position-relative d-flex'>
-                    <FormContainer formTitle='general data'>
+                <main>
+                    <FormContainer formTitle="general data">
+                        <Row>
+                            <Col>
+                                Avatar
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Input
+                                inputTitle="First name"
+                                type="text"
+                                inputId="first-name"
+                                inputValue={firtsName}
+                                placeholder=""
+                                editInput={this.handleFirstName}
+                            />
+                            <Input
+                                inputTitle="Last name"
+                                type="text"
+                                inputId="last-name"
+                                inputValue="Yoda"
+                                placeholder=""
+                            />
+                        </Row>
+                        <Row>
+                            <Input
+                                inputTitle="Gender"
+                                type="select"
+                                optionsForSelect={['Female', 'Male', 'Other']}
+                            />
+                            <Input
+                                inputTitle="Date of birth"
+                                type="date"
+                            />
+                        </Row>
+                    </FormContainer>
+                    {/* <FormContainer formTitle='general data'>
                         <div>
                             <div className="avatar">
                                 <input type="file" accept="image/*" name="image" id="file" onChange={this.loadFile}></input>
@@ -52,26 +93,26 @@ class Personal extends React.Component {
                                 </label>
                             </div>
                             <Input
-                                inputTitle='First name'
-                                type='text'
-                                inputValue='Baby'
+                                inputTitle="First name"
+                                type="text"
+                                inputValue="Baby"
                             />
                             <Input
-                                inputTitle='Last name'
-                                type='text'
-                                inputValue='Yoda'
+                                inputTitle="Last name"
+                                type="text"
+                                inputValue="Yoda"
                             />
                             <Input
-                                inputTitle='Date of birth'
-                                type='date'
+                                inputTitle="Date of birth"
+                                type="date"
                             />
                             <Input
-                                inputTitle='Gender'
-                                type='select'
+                                inputTitle="Gender"
+                                type="select"
                                 optionsForSelect={['Female', 'Male', 'Other']}
                             />
                         </div>
-                    </FormContainer>
+                    </FormContainer> */}
                     {/* <form className="personal-form">
                         <div className="general-data personal-blocks">
                             <h2 className="personal-form-h2">GENERAL DATA</h2>

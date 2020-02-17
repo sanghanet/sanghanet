@@ -1,64 +1,65 @@
-@font-face {
-    font-family: RobotoRegular;
-    src: url('../../fonts/Roboto/Roboto-Regular.ttf');
-}
+@import '../../style/colors';
+@import '../../style/mixins';
 
-$h2-font-color: #d6d6d6;
-$lable-input-font-color: #fff;
-$salmon: #cb4a58;
-$input-backgroundColor: #484848;
-$input-border: 1px solid #969494;
-@mixin centerElement {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-// @include centerElement;
-@mixin mQmax($arg) {
-    @media screen and (max-width: $arg) {
-        @content;
-    }
-}
-// @include mQmax(750px) {
+
+
+
+
+// @mixin centerElement {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
 // }
-@mixin mQmin($arg) {
-    @media screen and (min-width: $arg) {
-        @content;
-    }
-}
-// @include mQmin(750px) {
+// // @include centerElement;
+// @mixin mQmax($arg) {
+//     @media screen and (max-width: $arg) {
+//         @content;
+//     }
 // }
+// // @include mQmax(750px) {
+// // }
+// @mixin mQmin($arg) {
+//     @media screen and (min-width: $arg) {
+//         @content;
+//     }
+// }
+// // @include mQmin(750px) {
+// // }
 
-#file {
-    display: none;
-}
-* {
-    box-sizing: border-box;
-}
-main {
-    font-family: RobotoRegular;
-    margin-top: 93px;
-    margin-left: 110px;
-    justify-content: center;
-    ::-moz-selection {
-        color: #fff;
-        background: #725e68;
-    }
-    ::selection {
-        color: #fff;
-        background: #725e68;
-    }
-    @include mQmax(750px) {
-        margin-left: 0;
-    }
 
-    .avatar {
-        grid-row: span 2;
 
-        @include mQmax(990px) {
-            grid-row: span 1;
-        }
-    }
+// #file {
+//     display: none;
+// }
+// * {
+//     box-sizing: border-box;
+// }
+// main {
+//     font-family: RobotoRegular;
+//     margin-top: 93px;
+//     margin-left: 110px;
+//     justify-content: center;
+//     ::-moz-selection {
+//         color: #fff;
+//         background: #725e68;
+//     }
+//     ::selection {
+//         color: #fff;
+//         background: #725e68;
+//     }
+//     @include mQmax(750px) {
+//         margin-left: 0;
+//     }
+
+//     .avatar {
+//         grid-row: span 2;
+
+//         @include mQmax(990px) {
+//             grid-row: span 1;
+//         }
+//     }
+
+// ***************Ildiko-previous****************
 //     .personal-form {
 //         padding-top: 24px;
 //         color: $h2-font-color;
@@ -203,4 +204,4 @@ main {
 //             }
 //         }
 //     }
-}
+// }
