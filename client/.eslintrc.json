@@ -1,31 +1,31 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true
+    'env': {
+        'browser': true,
+        'es6': true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "standard"
+    'extends': [
+        'plugin:react/recommended',
+        'standard'
     ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+    'globals': {
+        'Atomics': 'readonly',
+        'SharedArrayBuffer': 'readonly'
     },
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
+    'parser': 'babel-eslint',
+    'parserOptions': {
+        'ecmaFeatures': {
+            'jsx': true
         },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
+        'ecmaVersion': 2018,
+        'sourceType': 'module'
     },
-    "plugins": [
-        "react"
+    'plugins': [
+        'react'
     ],
-    "rules": {
-        "indent": ["error", 4, { "SwitchCase": 1 }],
-        "semi": ["error", "always"],
-        "react/jsx-wrap-multilines": ["error", { "return": "parens-new-line" }],
-        "arrow-parens": ["error", "always"]
+    'rules': {
+        'indent': ['error', 4, { 'SwitchCase': 1 }],
+        'semi': ['error', 'always'],
+        'react/jsx-wrap-multilines': ['error', { 'return': 'parens-new-line' }],
+        'arrow-parens': ['error', 'always']
     }
 }

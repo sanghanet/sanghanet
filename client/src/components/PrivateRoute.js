@@ -12,7 +12,7 @@ const PrivateRoute = (props) => {
         <Route {...rest} render={ (props) => (
             user && isActive
                 ? <Component {...props} />
-                : <Redirect to="/" />
+                : <Redirect to='/' />
         )} />
     );
 };

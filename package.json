@@ -1,28 +1,28 @@
 {
-  "name": "sanghanet",
-  "version": "1.0.0",
-  "description": "This package exists only to hold eslint and It's dependency",
-  "main": "n.a",
-  "scripts": {
-    "dev": "sed -i 's/DEV_SERVER.*/DEV_SERVER = 1/' server/.env.atlas; concurrently \"cd client && npm start\" \"cd server && npm run atlas\"",
-    "build": "sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' server/.env.atlas; cd client; npm run build; cd ../server; npm run atlas",
-    "killnode": "start killnode.bat",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "./deploy.sh"
+  'name': 'sanghanet',
+  'version': '1.0.0',
+  'description': 'This package exists only to hold eslint and It's dependency',
+  'main': 'n.a',
+  'scripts': {
+    'dev': 'sed -i 's/DEV_SERVER.*/DEV_SERVER = 1/' server/.env.atlas; concurrently \'cd client && npm start\' \'cd server && npm run atlas\'',
+    'build': 'sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' server/.env.atlas; cd client; npm run build; cd ../server; npm run atlas',
+    'killnode': 'start killnode.bat',
+    'test': 'echo \'Error: no test specified\' && exit 1',
+    'deploy': './deploy.sh'
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/dizsmek/sanghanet#readme",
-  "dependencies": {},
-  "devDependencies": {
-    "concurrently": "^5.0.2",
-    "eslint": "^6.7.1",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^10.0.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-standard": "^4.0.1"
+  'keywords': [],
+  'author': '',
+  'license': 'ISC',
+  'homepage': 'https://bitbucket.org/dizsmek/sanghanet#readme',
+  'dependencies': {},
+  'devDependencies': {
+    'concurrently': '^5.0.2',
+    'eslint': '^6.7.1',
+    'eslint-config-standard': '^14.1.0',
+    'eslint-plugin-import': '^2.18.2',
+    'eslint-plugin-node': '^10.0.0',
+    'eslint-plugin-promise': '^4.2.1',
+    'eslint-plugin-react': '^7.16.0',
+    'eslint-plugin-standard': '^4.0.1'
   }
 }

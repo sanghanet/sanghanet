@@ -1,11 +1,11 @@
-import React from 'react';
-import { ReactComponent as Buddha } from '../media/sangha_logo.svg';
-import GoogleLogo from '../media/google_logo.png';
-import './Login.scss';
+import React from "react";
+import { ReactComponent as Buddha } from "../media/sangha_logo.svg";
+import GoogleLogo from "../media/google_logo.png";
+import "./Login.scss";
 
 const Login = (props) => {
     return (
-        <div className='login'>
+        <div className="login">
             <header>
                 <h1>Welcome to SanghaNet</h1>
             </header>

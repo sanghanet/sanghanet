@@ -15,8 +15,8 @@ class Input extends Component {
                 {!isSelect && (
                     <Form.Control
                         type={this.props.type}
-                        id="firstName"
-                        name="firstName"
+                        id='firstName'
+                        name='firstName'
                         placeholder={this.props.placeholder}
                         value={this.props.inputValue}
                         required
@@ -26,7 +26,7 @@ class Input extends Component {
                 {isSelect && (
                     <Form.Control
                         as='select'
-                        id="firstName"
+                        id='firstName'
                         placeholder={this.props.placeholder}
                         required
                     >

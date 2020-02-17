@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import Header from '../../components/Header/Header';
-import Navbar from '../../components/Navbar/Navbar';
-import ComingSoon from '../../components/ComingSoon/ComingSoon';
+import Header from "../../components/Header/Header";
+import Navbar from "../../components/Navbar/Navbar";
+import ComingSoon from "../../components/ComingSoon/ComingSoon";
 
 class Dashboard extends React.Component {
     constructor (props) {
@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
     }
 
     fetchData = () => {
-        fetch('http://localhost:4000/userList', { method: 'GET' })
+        fetch("http://localhost:4000/userList", { method: "GET" })
             .then((res) => {
                 return res.json();
             }).then((data) => {

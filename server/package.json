@@ -1,26 +1,26 @@
 {
-  "name": "server",
-  "version": "0.0.1",
-  "description": "",
-  "main": "src/server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "local": "NODE_ENV=local nodemon src/server.js",
-    "atlas": "NODE_ENV=atlas nodemon src/server.js"
+  'name': 'server',
+  'version': '0.0.1',
+  'description': '',
+  'main': 'src/server.js',
+  'scripts': {
+    'test': 'echo \'Error: no test specified\' && exit 1',
+    'local': 'NODE_ENV=local nodemon src/server.js',
+    'atlas': 'NODE_ENV=atlas nodemon src/server.js'
   },
-  "author": "Danko Denes, Jozsa Benjamin, Ildiko Rigo, Miklos Ballo",
-  "license": "ISC",
-  "dependencies": {
-    "connect-mongo": "^3.2.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.0",
-    "google-auth-library": "^5.7.0",
-    "log4js": "^6.1.0",
-    "mongoose": "^5.7.12",
-    "passport-google": "^0.3.0",
-    "passport-google-oauth": "^2.0.0",
-    "uuid": "^3.3.3"
+  'author': 'Danko Denes, Jozsa Benjamin, Ildiko Rigo, Miklos Ballo',
+  'license': 'ISC',
+  'dependencies': {
+    'connect-mongo': '^3.2.0',
+    'cors': '^2.8.5',
+    'dotenv': '^8.2.0',
+    'express': '^4.17.1',
+    'express-session': '^1.17.0',
+    'google-auth-library': '^5.7.0',
+    'log4js': '^6.1.0',
+    'mongoose': '^5.7.12',
+    'passport-google': '^0.3.0',
+    'passport-google-oauth': '^2.0.0',
+    'uuid': '^3.3.3'
   }
 }

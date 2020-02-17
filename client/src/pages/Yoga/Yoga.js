@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Header from '../../components/Header/Header';
-import Navbar from '../../components/Navbar/Navbar';
-import ComingSoon from '../../components/ComingSoon/ComingSoon';
+import Header from "../../components/Header/Header";
+import Navbar from "../../components/Navbar/Navbar";
+import ComingSoon from "../../components/ComingSoon/ComingSoon";
 
 const Yoga = (props) => {
     return (
-        <div className='grid-container'>
+        <div className="grid-container">
             <Header activePage="Yoga"/>
             <Navbar/>
             <main className="align">

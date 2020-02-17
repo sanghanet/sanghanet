@@ -17,7 +17,7 @@
 		background: -moz-linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
 		background: -webkit-linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
 		background: linear-gradient(63deg, rgba(218,77,81,1) 0%, rgba(230,71,147,1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#da4d51",endColorstr="#e64793",GradientType=1);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#da4d51',endColorstr='#e64793',GradientType=1);
 	}
 	h1 {
 		color: #fff;
@@ -28,7 +28,7 @@
 }
 
 .login-main {
-	background-color: $main-background;
+	background-color: #929292;
 	.buddha {
 		position: absolute;
 		top: 50%;
