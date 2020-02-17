@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import "./SearchBar.scss";
-import { ReactComponent as Search } from "../icons/search.svg";
+import './SearchBar.scss';
+import { ReactComponent as Search } from '../icons/search.svg';
 
 class SearchBar extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            inputValue: "",
+            inputValue: '',
             dataList: null
         };
     }
@@ -19,18 +19,18 @@ class SearchBar extends Component {
 
     onEnter = (e) => {
         if (e.keyCode === 13) {
-            if (this.state.inputValue !== "") {
+            if (this.state.inputValue !== '') {
                 this.handleSearch();
             }
         }
     }
 
     onFocus = (e) => {
-        e.target.addEventListener("keyup", this.onEnter);
+        e.target.addEventListener('keyup', this.onEnter);
     }
 
     onBlur = (e) => {
-        e.target.removeEventListener("keyup", this.onEnter);
+        e.target.removeEventListener('keyup', this.onEnter);
     }
 
     handleSearch = () => {
@@ -38,21 +38,21 @@ class SearchBar extends Component {
         let userNames = null;
         let foundUsers = null;
 
-        if (this.state.inputValue !== "") {
+        if (this.state.inputValue !== '') {
             userNames = users.map((user) => {
                 return `${user.firstName} ${user.lastName}`;
             });
 
             foundUsers = userNames.filter((name) => name.toLowerCase().includes(this.state.inputValue.toLowerCase()));
 
-            this.setState({ inputValue: "" });
+            this.setState({ inputValue: '' });
 
             console.dir(foundUsers);
         }
     }
 
     componentDidMount () {
-        fetch("http://localhost:4000/userList")
+        fetch('http://localhost:4000/userList')
             .then((res) => {
                 return res.json();
             }).then((data) => {

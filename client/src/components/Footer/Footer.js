@@ -5,7 +5,7 @@ import './Footer.scss';
 const Footer = (props) => {
     return (
         <footer className='footer position-absolute p-0 m-0'>
-            <div className='credential-box'>
+            <div className="credential-box">
                 <p>Made by:
                     <span>Ildiko Rigo</span>
                     <span>Denes Danko</span>
@@ -13,7 +13,7 @@ const Footer = (props) => {
                     <span>Miklos Ballo</span>
                 </p>
             </div>
-            <div className='git-box'>
+            <div className="git-box">
                 <p>{ version.date }</p>
                 <p>{ version.hash }</p>
             </div>

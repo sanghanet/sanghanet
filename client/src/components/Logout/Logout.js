@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import { ReactComponent as LogoutIcon } from "../icons/logout.svg";
+import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 
 const Logout = (props) => {
     const handleClick = (event) => {
         sessionStorage.clear();
-        fetch("/api/logout")
+        fetch('/api/logout')
             .then((res) => {
-                if (res.ok) { window.location.href = "/"; }
+                if (res.ok) { window.location.href = '/'; }
             })
             .catch((err) => {
                 console.log(err.message);
-                window.location.href = "/";
+                window.location.href = '/';
             });
     };
     return (

@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 class LoginFailed extends React.Component {
     componentDidMount () {
-        setTimeout(() => { window.location.href = "/"; }, 3000);
+        setTimeout(() => { window.location.href = '/'; }, 3000);
     }
 
     render () {
