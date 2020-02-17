@@ -41,6 +41,10 @@ class Personal extends React.Component {
         this.setState({ firtsName: newValue });
     };
 
+    handleSubmitFirstName = () => {
+        console.log(`Send data to backend: ${this.state.firtsName}`);
+    };
+
     render () {
         const { firtsName } = this.state;
         return (
@@ -62,6 +66,7 @@ class Personal extends React.Component {
                                 inputValue={firtsName}
                                 placeholder=""
                                 editInput={this.handleFirstName}
+                                submitFirstName={this.handleSubmitFirstName}
                             />
                             <Input
                                 inputTitle="Last name"

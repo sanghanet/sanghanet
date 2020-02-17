@@ -14,10 +14,15 @@ class Input extends Component {
         this.props.editInput(event.target.value);
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.submitFirstName();
+    }
+
     render () {
         return (
             <Col xm={12} lg={6}>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <InputGroup className="d-flex justify-content-between input-group-label">
                         <Form.Label>
                             {this.props.inputTitle}
@@ -95,7 +100,8 @@ Input.propTypes = {
     // optionsForSelect: PropTypes.array,
     inputValue: PropTypes.string,
     inputId: PropTypes.string,
-    editInput: PropTypes.func.isRequired
+    editInput: PropTypes.func.isRequired,
+    submitFirstName: PropTypes.func.isRequired
 };
 
 export default Input;
