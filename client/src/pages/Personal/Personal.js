@@ -83,36 +83,6 @@ class Personal extends React.Component {
                             />
                         </Row>
                     </FormContainer>
-                    {/* <FormContainer formTitle='general data'>
-                        <div>
-                            <div className="avatar">
-                                <input type="file" accept="image/*" name="image" id="file" onChange={this.loadFile}></input>
-                                <label htmlFor="file" id="file-upload">
-                                    <p className="upload-text">Click here to<br />upload your photo</p>
-                                    <img id="output" className="personal-photo" alt=""></img>
-                                </label>
-                            </div>
-                            <Input
-                                inputTitle="First name"
-                                type="text"
-                                inputValue="Baby"
-                            />
-                            <Input
-                                inputTitle="Last name"
-                                type="text"
-                                inputValue="Yoda"
-                            />
-                            <Input
-                                inputTitle="Date of birth"
-                                type="date"
-                            />
-                            <Input
-                                inputTitle="Gender"
-                                type="select"
-                                optionsForSelect={['Female', 'Male', 'Other']}
-                            />
-                        </div>
-                    </FormContainer> */}
                     {/* <form className="personal-form">
                         <div className="general-data personal-blocks">
                             <h2 className="personal-form-h2">GENERAL DATA</h2>
