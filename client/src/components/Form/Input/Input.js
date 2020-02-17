@@ -28,8 +28,8 @@ class Input extends Component {
                             {this.props.inputTitle}
                         </Form.Label>
                         <InputGroup.Append>
-                            <button className="form-button">
-                                <Save className="form-icon" />
+                            <button className="form-button" disabled>
+                                <Save className="form-icon-edit"/>
                             </button>
                             <button className="form-button">
                                 <Visible className="form-icon" />

@@ -27,6 +27,11 @@ div form {
     .form-button {
         @include buttonReset;
         padding: 0 18px;
+        border-left: 1px solid gray;
+        color: inherit;
+        &:disabled {
+            opacity: 0.5;
+        }
     }
     .form-icon {
         fill: $white;
