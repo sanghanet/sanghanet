@@ -11,7 +11,7 @@ class InputDropdown extends Component {
 
         return (
             <Col xm={12} lg={6}>
-                <Accordion>
+                <Accordion className="input-dropdown">
                     <Accordion.Toggle>
                         {headerInput}
                     </Accordion.Toggle>
