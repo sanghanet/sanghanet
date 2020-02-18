@@ -9,10 +9,14 @@ class InputDropdown extends Component {
     render () {
         const { headerInput, bodyInputs } = this.props;
 
+        const preventToggle = (e) => {
+            e.preventDefault();
+        };
+
         return (
             <Col xm={12} lg={6}>
                 <Accordion className="input-dropdown">
-                    <Accordion.Toggle>
+                    <Accordion.Toggle onClick={this.preventToggle}>
                         {headerInput}
                     </Accordion.Toggle>
                     <Accordion.Collapse>

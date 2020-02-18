@@ -20,14 +20,16 @@
         }
     }
 
-    &>div.collapse {
-        &>div>div {
-            max-width: 100%;
-            padding: 0;
-
-            form {
-                margin: 0;
-                width: 100%;
+    &>div {
+        &.collapse, &.collapsing {
+            &>div>div {
+                max-width: 100%;
+                padding: 0;
+    
+                form {
+                    margin: 0;
+                    width: 100%;
+                }
             }
         }
     }
