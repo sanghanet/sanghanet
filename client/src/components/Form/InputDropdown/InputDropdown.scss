@@ -1,0 +1,36 @@
+.input-dropdown {
+    width: 90%;
+    margin: auto;
+
+    &>button {
+        width: 100%;
+        background: none;
+        border: none;
+
+        padding: 0;
+
+        &>div {
+            max-width: 100%;
+            padding: 0;
+
+            form {
+                margin: 0;
+                width: 100%;
+            }
+        }
+    }
+
+    &>div {
+        &.collapse, &.collapsing {
+            &>div>div {
+                max-width: 100%;
+                padding: 0;
+    
+                form {
+                    margin: 0;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

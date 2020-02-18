@@ -4,14 +4,18 @@ import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 
+import FormContainer from '../../components/Form/FormContainer/FormContainer';
+import Input from '../../components/Form/Input/Input';
+import { Row, Col } from 'react-bootstrap';
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
 import ArrowUp from '../../components/icons/arrow-up.svg';
-import Plus from '../../components/icons/plus.svg';
+import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 
 class Personal extends React.Component {
     state = {
-        openDetails: false
+        openDetails: false,
+        firtsName: 'Baby'
     }
 
     componentDidMount () {
@@ -34,13 +38,80 @@ class Personal extends React.Component {
         image.src = this.state.openDetails ? ArrowUp : ArrowDown;
     };
 
+    handleFirstName = (newValue) => {
+        this.setState({ firtsName: newValue });
+    };
+
+    handleSubmitFirstName = () => {
+        console.log(`Send data to backend: ${this.state.firtsName}`);
+    };
+
     render () {
+        const { firtsName } = this.state;
         return (
             <div>
                 <Header activePage="Personal" />
                 <Navbar />
                 <main>
-                    <form className="personal-form">
+                    <FormContainer formTitle="general data">
+                        <Row>
+                            <Col>
+                                Avatar
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Input
+                                inputTitle="First name"
+                                type="text"
+                                inputId="first-name"
+                                inputValue={firtsName}
+                                placeholder=""
+                                editInput={this.handleFirstName}
+                                submitFirstName={this.handleSubmitFirstName}
+                            />
+                            <Input
+                                inputTitle="Last name"
+                                type="text"
+                                inputId="last-name"
+                                inputValue="Yoda"
+                                placeholder=""
+                            />
+                        </Row>
+                        <Row>
+                            <Input
+                                inputTitle="Gender"
+                                type="select"
+                                optionsForSelect={['Female', 'Male', 'Other']}
+                            />
+                            <Input
+                                inputTitle="Date of birth"
+                                type="date"
+                            />
+                        </Row>
+                        <Row>
+                            <InputDropdown
+                                headerInput={
+                                    <Input
+                                        inputTitle="header"
+                                        type="text"
+                                    />
+                                }
+                                bodyInputs={[
+                                    <Input
+                                        key={1}
+                                        inputTitle="body 1"
+                                        type="text"
+                                    />,
+                                    <Input
+                                        key={2}
+                                        inputTitle="body 2"
+                                        type="text"
+                                    />
+                                ]}
+                            />
+                        </Row>
+                    </FormContainer>
+                    {/* <form className="personal-form">
                         <div className="general-data personal-blocks">
                             <h2 className="personal-form-h2">GENERAL DATA</h2>
                             <div className="personal-form-field avatar">
@@ -142,7 +213,7 @@ class Personal extends React.Component {
                                 </div>
                             </details>
                         </div>
-                    </form>
+                    </form> */}
                 </main>
                 <Footer />
             </div>
