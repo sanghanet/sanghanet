@@ -89,20 +89,26 @@ class Personal extends React.Component {
                             />
                         </Row>
                         <Row>
-                            <InputDropdown>
-                                <Input
-                                    inputTitle="header"
-                                    type="text"
-                                />
-                                <Input
-                                    inputTitle="body"
-                                    type="text"
-                                />
-                                <Input
-                                    inputTitle="body"
-                                    type="text"
-                                />
-                            </InputDropdown>
+                            <InputDropdown
+                                headerInput={
+                                    <Input
+                                        inputTitle="header"
+                                        type="text"
+                                    />
+                                }
+                                bodyInputs={[
+                                    <Input
+                                        key={1}
+                                        inputTitle="body 1"
+                                        type="text"
+                                    />,
+                                    <Input
+                                        key={2}
+                                        inputTitle="body 2"
+                                        type="text"
+                                    />
+                                ]}
+                            />
                         </Row>
                     </FormContainer>
                     {/* <form className="personal-form">
