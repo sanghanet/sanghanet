@@ -10,6 +10,7 @@ import { Row, Col } from 'react-bootstrap';
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
 import ArrowUp from '../../components/icons/arrow-up.svg';
+import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 
 class Personal extends React.Component {
     state = {
@@ -85,6 +86,28 @@ class Personal extends React.Component {
                             <Input
                                 inputTitle="Date of birth"
                                 type="date"
+                            />
+                        </Row>
+                        <Row>
+                            <InputDropdown
+                                headerInput={
+                                    <Input
+                                        inputTitle="header"
+                                        type="text"
+                                    />
+                                }
+                                bodyInputs={[
+                                    <Input
+                                        key={1}
+                                        inputTitle="body 1"
+                                        type="text"
+                                    />,
+                                    <Input
+                                        key={2}
+                                        inputTitle="body 2"
+                                        type="text"
+                                    />
+                                ]}
                             />
                         </Row>
                     </FormContainer>
