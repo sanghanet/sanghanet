@@ -6,12 +6,12 @@ import './InputDropdown.scss';
 import { Col, Accordion } from 'react-bootstrap';
 
 class InputDropdown extends Component {
+    preventToggle = (e) => {
+        e.preventDefault();
+    }
+
     render () {
         const { headerInput, bodyInputs } = this.props;
-
-        const preventToggle = (e) => {
-            e.preventDefault();
-        };
 
         return (
             <Col xm={12} lg={6}>
