@@ -128,7 +128,7 @@ app.post('/api/user', (req, res) => {
 app.get('/api/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
-            log.info(`Session deletion failed: ${err}`);
+            log.error(`Session deletion failed: ${err}`);
             res.status(500).send();
         }
     });
