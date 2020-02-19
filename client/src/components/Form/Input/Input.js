@@ -23,8 +23,9 @@ class Input extends Component {
         return (
             <Col xm={12} lg={6}>
                 <Form onSubmit={this.handleSubmit}>
-                    <InputGroup className="d-flex justify-content-between input-group-label">
-                        <Form.Label>
+                    <InputGroup className="input-group-label">
+                        <Form.Label className="d-flex">
+                            <img className="dropdown-arrow"/>
                             {this.props.inputTitle}
                         </Form.Label>
                         <InputGroup.Append>
@@ -101,7 +102,9 @@ Input.propTypes = {
     inputValue: PropTypes.string,
     inputId: PropTypes.string,
     editInput: PropTypes.func.isRequired,
-    submitFirstName: PropTypes.func.isRequired
+    submitFirstName: PropTypes.func.isRequired,
+
+    inDropdown: PropTypes.bool
 };
 
 export default Input;

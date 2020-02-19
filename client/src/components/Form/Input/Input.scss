@@ -14,6 +14,14 @@ div form {
         background: $label-bg;
         border-top-right-radius: 2px;
         border-top-left-radius: 2px;
+        display: grid;
+        grid-template-columns: 1fr 55px 55px;
+
+        .form-label {
+            .dropdown-arrow {
+                display: none;
+            }
+        }
     }
     .input-group-field {
         background: $input-bg;

@@ -1,12 +1,8 @@
 .input-dropdown {
     &>div {
-        // height: 94px;
+        margin-top: 15px;
         overflow: hidden;
-        transition: all .3s;
-
-        // &.open {
-        //     height: 200px;
-        // }
+        transition: height .3s;
 
         &>div {
             max-width: 100%;
@@ -16,9 +12,15 @@
                 margin-bottom: 0;
                 margin-top: 0;
     
-                div {
+                .input-group {
                     border-radius: 0;
                 }
+            }
+
+            &:first-child .dropdown-arrow {
+                display: block;
+                width: 12px;
+                margin: 0 10px;
             }
         }
     }
