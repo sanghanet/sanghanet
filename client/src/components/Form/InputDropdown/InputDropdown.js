@@ -9,7 +9,7 @@ class InputDropdown extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            open: false
+            open: this.props.open
         };
     }
 
@@ -22,7 +22,7 @@ class InputDropdown extends Component {
 
         this.collapsedHeight = this.dropdown.children[0].clientHeight;
         this.expandedHeight = this.collapsedHeight * this.dropdown.children.length;
-        this.dropdown.style.height = `${this.collapsedHeight}px`;
+        this.dropdown.style.height = this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
     }
 
     toggleInputs = () => {
@@ -31,13 +31,10 @@ class InputDropdown extends Component {
     }
 
     render () {
-        const { headerInput, bodyInputs } = this.props;
-
         return (
             <Col xm={12} lg={6} className='input-dropdown'>
                 <div id='dropdown' onClick={this.toggleInputs}>
-                    {headerInput}
-                    {bodyInputs.map((input) => { return input; })}
+                    {this.props.children.map((input) => { return input; })}
                 </div>
             </Col>
         );
@@ -45,8 +42,8 @@ class InputDropdown extends Component {
 }
 
 InputDropdown.propTypes = {
-    headerInput: PropTypes.element.isRequired,
-    bodyInputs: PropTypes.array.isRequired
+    children: PropTypes.element.isRequired,
+    open: PropTypes.bool.isRequired
 };
 
 export default InputDropdown;
