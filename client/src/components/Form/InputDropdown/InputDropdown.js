@@ -27,7 +27,7 @@ class InputDropdown extends Component {
 
     toggleInputs = () => {
         this.setState((state) => ({ open: !state.open }));
-        this.dropdown.style.height = this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
+        this.dropdown.style.height = !this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
     }
 
     render () {
