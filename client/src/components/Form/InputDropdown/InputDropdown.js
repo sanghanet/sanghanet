@@ -30,19 +30,20 @@ class InputDropdown extends Component {
         this.dropdown.style.height = this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
 
         this.arrowIcons[0].src = this.state.open ? DownArrow : UpArrow;
+        this.arrowIcons[0].parentElement.addEventListener('click', this.toggleInputs);
     }
 
-    toggleInputs = () => {
+    toggleInputs = (e) => {
         this.setState((state) => ({ open: !state.open }));
 
-        this.dropdown.style.height = !this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
-        this.arrowIcons[0].src = this.state.open ? UpArrow : DownArrow;
+        this.dropdown.style.height = this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
+        this.arrowIcons[0].src = this.state.open ? DownArrow : UpArrow;
     }
 
     render () {
         return (
             <Col xm={12} lg={6} className='input-dropdown'>
-                <div id='dropdown' onClick={this.toggleInputs}>
+                <div id='dropdown'>
                     {this.props.children.map((input) => { return input; })}
                 </div>
             </Col>
