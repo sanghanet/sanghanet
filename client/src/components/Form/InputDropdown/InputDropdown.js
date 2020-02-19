@@ -23,21 +23,21 @@ class InputDropdown extends Component {
 
     componentDidMount () {
         this.dropdown = document.getElementById('dropdown');
-        this.arrowIcons = document.querySelectorAll('#dropdown .dropdown-arrow');
+        this.arrowIcon = document.querySelectorAll('#dropdown .dropdown-arrow')[0];
 
         this.collapsedHeight = this.dropdown.children[0].clientHeight;
         this.expandedHeight = this.collapsedHeight * this.dropdown.children.length;
         this.dropdown.style.height = this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
 
-        this.arrowIcons[0].src = this.state.open ? DownArrow : UpArrow;
-        this.arrowIcons[0].parentElement.addEventListener('click', this.toggleInputs);
+        this.arrowIcon.src = this.state.open ? DownArrow : UpArrow;
+        this.arrowIcon.parentElement.addEventListener('click', this.toggleInputs);
     }
 
     toggleInputs = (e) => {
         this.setState((state) => ({ open: !state.open }));
 
         this.dropdown.style.height = this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
-        this.arrowIcons[0].src = this.state.open ? DownArrow : UpArrow;
+        this.arrowIcon.src = this.state.open ? DownArrow : UpArrow;
     }
 
     render () {
