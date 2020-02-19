@@ -95,12 +95,10 @@ class Personal extends React.Component {
                                     type="text"
                                 />
                                 <Input
-                                    key={1}
                                     inputTitle="body 1"
                                     type="text"
                                 />
                                 <Input
-                                    key={2}
                                     inputTitle="body 2"
                                     type="text"
                                 />
