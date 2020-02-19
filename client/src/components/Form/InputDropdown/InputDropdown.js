@@ -3,29 +3,25 @@ import PropTypes from 'prop-types';
 
 import './InputDropdown.scss';
 
-import { Col, Accordion } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 class InputDropdown extends Component {
-    button = null;
-
     componentDidMount () {
-        this.button = document.getElementsByClassName('accordion')[0].firstChild;
-        this.button.onclick = null;
-        this.button.addEventListener('click', (e) => { e.preventDefault(); });
-        console.dir(this.button);
+        // const label = document.getElementById('dropdown').firstChild.firstChild.firstChild;
+        const dropdown = document.getElementById('dropdown');
+        dropdown.addEventListener('click', this.toggleInputs);
     }
 
-    preventToggle = (e) => {
-        console.dir(this.button);
-        this.button.nextSibling.classList.remove('collapsing');
+    toggleInputs = (e) => {
+        e.currentTarget.classList.toggle('open');
     }
 
     render () {
         const { headerInput, bodyInputs } = this.props;
 
         return (
-            <Col xm={12} lg={6}>
-                <Accordion className="input-dropdown">
+            <Col xm={12} lg={6} className='input-dropdown'>
+                {/* <Accordion className="input-dropdown">
                     <Accordion.Toggle onClick={this.preventToggle}>
                         {headerInput}
                     </Accordion.Toggle>
@@ -34,7 +30,11 @@ class InputDropdown extends Component {
                             {bodyInputs.map((input) => { return input; })}
                         </div>
                     </Accordion.Collapse>
-                </Accordion>
+                </Accordion> */}
+                <div id='dropdown'>
+                    {headerInput}
+                    {bodyInputs.map((input) => { return input; })}
+                </div>
             </Col>
         );
     }
