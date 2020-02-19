@@ -6,8 +6,18 @@ import './InputDropdown.scss';
 import { Col, Accordion } from 'react-bootstrap';
 
 class InputDropdown extends Component {
+    button = null;
+
+    componentDidMount () {
+        this.button = document.getElementsByClassName('accordion')[0].firstChild;
+        this.button.onclick = null;
+        this.button.addEventListener('click', (e) => { e.preventDefault(); });
+        console.dir(this.button);
+    }
+
     preventToggle = (e) => {
-        e.preventDefault();
+        console.dir(this.button);
+        this.button.nextSibling.classList.remove('collapsing');
     }
 
     render () {
