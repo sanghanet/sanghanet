@@ -1,11 +1,12 @@
 .input-dropdown {
     &>div {
-        height: 94px;
+        // height: 94px;
         overflow: hidden;
+        transition: all .3s;
 
-        &.open {
-            height: fit-content;
-        }
+        // &.open {
+        //     height: 200px;
+        // }
 
         &>div {
             max-width: 100%;

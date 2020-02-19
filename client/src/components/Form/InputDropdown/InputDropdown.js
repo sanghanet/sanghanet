@@ -6,14 +6,28 @@ import './InputDropdown.scss';
 import { Col } from 'react-bootstrap';
 
 class InputDropdown extends Component {
-    componentDidMount () {
-        // const label = document.getElementById('dropdown').firstChild.firstChild.firstChild;
-        const dropdown = document.getElementById('dropdown');
-        dropdown.addEventListener('click', this.toggleInputs);
+    constructor (props) {
+        super(props);
+        this.state = {
+            open: false
+        };
     }
 
-    toggleInputs = (e) => {
-        e.currentTarget.classList.toggle('open');
+    dropdown = null;
+    collapsedHeight = 0;
+    expandedHeight = 0;
+
+    componentDidMount () {
+        this.dropdown = document.getElementById('dropdown');
+
+        this.collapsedHeight = this.dropdown.children[0].clientHeight;
+        this.expandedHeight = this.collapsedHeight * this.dropdown.children.length;
+        this.dropdown.style.height = `${this.collapsedHeight}px`;
+    }
+
+    toggleInputs = () => {
+        this.setState((state) => ({ open: !state.open }));
+        this.dropdown.style.height = this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
     }
 
     render () {
@@ -21,17 +35,7 @@ class InputDropdown extends Component {
 
         return (
             <Col xm={12} lg={6} className='input-dropdown'>
-                {/* <Accordion className="input-dropdown">
-                    <Accordion.Toggle onClick={this.preventToggle}>
-                        {headerInput}
-                    </Accordion.Toggle>
-                    <Accordion.Collapse>
-                        <div>
-                            {bodyInputs.map((input) => { return input; })}
-                        </div>
-                    </Accordion.Collapse>
-                </Accordion> */}
-                <div id='dropdown'>
+                <div id='dropdown' onClick={this.toggleInputs}>
                     {headerInput}
                     {bodyInputs.map((input) => { return input; })}
                 </div>
