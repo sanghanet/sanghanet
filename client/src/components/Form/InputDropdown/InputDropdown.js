@@ -36,7 +36,7 @@ class InputDropdown extends Component {
         this.setState((state) => ({ open: !state.open }));
 
         this.dropdown.style.height = !this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
-        this.arrowIcons[0].src = this.state.open ? DownArrow : UpArrow;
+        this.arrowIcons[0].src = this.state.open ? UpArrow : DownArrow;
     }
 
     render () {
