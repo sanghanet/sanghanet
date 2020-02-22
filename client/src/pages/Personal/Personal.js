@@ -91,16 +91,18 @@ class Personal extends React.Component {
                         <Row>
                             <InputDropdown open={false} >
                                 <Input
-                                    inputTitle="header"
+                                    formId="first-dropdown-item"
+                                    inputTitle="Name"
                                     type="text"
                                 />
                                 <Input
-                                    inputTitle="body 1"
-                                    type="text"
+                                    inputTitle="Email"
+                                    type="email"
                                 />
                                 <Input
-                                    inputTitle="body 2"
-                                    type="text"
+                                    formId="last-dropdown-item"
+                                    inputTitle="Mobile"
+                                    type="tel"
                                 />
                             </InputDropdown>
                         </Row>

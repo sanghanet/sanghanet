@@ -22,15 +22,18 @@ class Input extends Component {
     render () {
         return (
             <Col xm={12} lg={6}>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit} id={this.props.formId}>
                     <InputGroup className="input-group-label">
                         <Form.Label className="d-flex">
                             <img className="dropdown-arrow"/>
                             {this.props.inputTitle}
                         </Form.Label>
                         <InputGroup.Append>
-                            <button className="form-button" disabled>
-                                <Save className="form-icon-edit"/>
+                            <button className="form-button">
+                                <Edit className="form-icon" />
+                            </button>
+                            <button className="form-button">
+                                <Save className="form-icon"/>
                             </button>
                             <button className="form-button">
                                 <Visible className="form-icon" />
@@ -48,11 +51,6 @@ class Input extends Component {
                             onChange={this.handleChange}
                             required
                         ></Form.Control>
-                        <InputGroup.Append>
-                            <Form.Label htmlFor={this.props.inputId}>
-                                <Edit className="form-icon-edit" />
-                            </Form.Label>
-                        </InputGroup.Append>
                     </InputGroup>
                 </Form>
             </Col>
@@ -95,6 +93,7 @@ class Input extends Component {
 // }
 
 Input.propTypes = {
+    formId: PropTypes.string,
     inputTitle: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
@@ -103,8 +102,8 @@ Input.propTypes = {
     inputId: PropTypes.string,
     editInput: PropTypes.func.isRequired,
     submitFirstName: PropTypes.func.isRequired,
-
-    inDropdown: PropTypes.bool
+    inDropdown: PropTypes.bool,
+    inputRef: PropTypes.string
 };
 
 export default Input;

@@ -15,7 +15,7 @@ div form {
         border-top-right-radius: 2px;
         border-top-left-radius: 2px;
         display: grid;
-        grid-template-columns: 1fr 55px 55px;
+        grid-template-columns: 1fr repeat(3, 55px);
 
         .form-label {
             .dropdown-arrow {
@@ -42,11 +42,6 @@ div form {
         }
     }
     .form-icon {
-        fill: $white;
-        width: 24px;
-        height: 24px;
-    }
-    .form-icon-edit {
         fill: $white;
         width: 18px;
         height: 18px;
