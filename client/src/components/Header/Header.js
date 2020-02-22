@@ -37,6 +37,7 @@ const Header = (props) => {
                         roundedCircle
                         width={70}
                         height={70}
+                        className="d-none d-sm-flex"
                     />
                     <Figure.Caption bsPrefix='avatar-name d-none d-sm-flex' as='h2'>
                         {sessionStorage.user}
