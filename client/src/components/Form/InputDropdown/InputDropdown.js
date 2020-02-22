@@ -44,7 +44,7 @@ class InputDropdown extends Component {
         return (
             <Col xm={12} lg={6} className='input-dropdown'>
                 <div id='dropdown'>
-                    {this.props.children.map((input) => { return input; })}
+                    {this.props.children}
                 </div>
             </Col>
         );

@@ -10,7 +10,7 @@ class Loading extends React.Component {
                 if (user.name && user.isActive) {
                     sessionStorage.setItem('user', user.name);
                     sessionStorage.setItem('isActive', user.isActive);
-                    sessionStorage.setItem('isAdmin', user.isAdmin);
+                    sessionStorage.setItem('isSuperuser', user.isSuperuser);
                     window.location.href = '/personal';
                 } else {
                     window.location.href = '/loginfailed';

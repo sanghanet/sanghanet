@@ -25,7 +25,7 @@ class Input extends Component {
                 <Form onSubmit={this.handleSubmit} id={this.props.formId}>
                     <InputGroup className="input-group-label">
                         <Form.Label className="d-flex">
-                            <img className="dropdown-arrow"/>
+                            <img className="dropdown-arrow" alt="" />
                             {this.props.inputTitle}
                         </Form.Label>
                         <InputGroup.Append>
@@ -100,8 +100,8 @@ Input.propTypes = {
     // optionsForSelect: PropTypes.array,
     inputValue: PropTypes.string,
     inputId: PropTypes.string,
-    editInput: PropTypes.func.isRequired,
-    submitFirstName: PropTypes.func.isRequired,
+    editInput: PropTypes.func,
+    submitFirstName: PropTypes.func,
     inDropdown: PropTypes.bool,
     inputRef: PropTypes.string
 };

@@ -54,58 +54,62 @@ class Personal extends React.Component {
                 <Navbar />
                 <main>
                     <FormContainer formTitle="general data">
-                        <Row>
-                            <Col>
-                                Avatar
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Input
-                                inputTitle="First name"
-                                type="text"
-                                inputId="first-name"
-                                inputValue={firtsName}
-                                placeholder=""
-                                editInput={this.handleFirstName}
-                                submitFirstName={this.handleSubmitFirstName}
-                            />
-                            <Input
-                                inputTitle="Last name"
-                                type="text"
-                                inputId="last-name"
-                                inputValue="Yoda"
-                                placeholder=""
-                            />
-                        </Row>
-                        <Row>
-                            <Input
-                                inputTitle="Gender"
-                                type="select"
-                                optionsForSelect={['Female', 'Male', 'Other']}
-                            />
-                            <Input
-                                inputTitle="Date of birth"
-                                type="date"
-                            />
-                        </Row>
-                        <Row>
-                            <InputDropdown open={false} >
+                        <React.Fragment>
+                            <Row>
+                                <Col>
+                                    Avatar
+                                </Col>
+                            </Row>
+                            <Row>
                                 <Input
-                                    formId="first-dropdown-item"
-                                    inputTitle="Name"
+                                    inputTitle="First name"
                                     type="text"
+                                    inputId="first-name"
+                                    inputValue={firtsName}
+                                    placeholder=""
+                                    editInput={this.handleFirstName}
+                                    submitFirstName={this.handleSubmitFirstName}
                                 />
                                 <Input
-                                    inputTitle="Email"
-                                    type="email"
+                                    inputTitle="Last name"
+                                    type="text"
+                                    inputId="last-name"
+                                    inputValue="Yoda"
+                                    placeholder=""
+                                />
+                            </Row>
+                            <Row>
+                                <Input
+                                    inputTitle="Gender"
+                                    type="select"
+                                    optionsForSelect={['Female', 'Male', 'Other']}
                                 />
                                 <Input
-                                    formId="last-dropdown-item"
-                                    inputTitle="Mobile"
-                                    type="tel"
+                                    inputTitle="Date of birth"
+                                    type="date"
                                 />
-                            </InputDropdown>
-                        </Row>
+                            </Row>
+                            <Row>
+                                <InputDropdown open={false} >
+                                    <React.Fragment>
+                                        <Input
+                                            formId="first-dropdown-item"
+                                            inputTitle="Name"
+                                            type="text"
+                                        />
+                                        <Input
+                                            inputTitle="Email"
+                                            type="email"
+                                        />
+                                        <Input
+                                            formId="last-dropdown-item"
+                                            inputTitle="Mobile"
+                                            type="tel"
+                                        />
+                                    </React.Fragment>
+                                </InputDropdown>
+                            </Row>
+                        </React.Fragment>
                     </FormContainer>
                     {/* <form className="personal-form">
                         <div className="general-data personal-blocks">

@@ -12,6 +12,7 @@ import Finances from './pages/Finances/Finances';
 import Events from './pages/Events/Events';
 import Questions from './pages/Questions/Questions';
 import Queries from './pages/Queries/Queries';
+import Superuser from './pages/Superuser/Superuser';
 
 class App extends Component {
     render () {
@@ -28,6 +29,7 @@ class App extends Component {
                     <PrivateRoute path='/events' component={Events}/>
                     <PrivateRoute path='/questions' component={Questions}/>
                     <PrivateRoute path='/queries' component={Queries}/>
+                    <PrivateRoute path='/superuser' component={Superuser}/>
                 </Switch>
             </BrowserRouter>
         );

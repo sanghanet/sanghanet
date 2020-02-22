@@ -12,6 +12,7 @@ import { ReactComponent as InfoIcon } from '../icons/info.svg';
 import { ReactComponent as YogaIcon } from '../icons/yoga.svg';
 import { ReactComponent as EventIcon } from '../icons/event.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
+import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
 
 const PageNavigation = (props) => {
     return (
@@ -58,6 +59,15 @@ const PageNavigation = (props) => {
                     <span className="title">Queries</span>
                 </NavLink>
             </li>
+            { sessionStorage.isSuperuser === 'true'
+                ? <li>
+                    <NavLink exact to="/superuser" className="link">
+                        <div className="menu-icon"><SuperuserIcon /></div>
+                        <span className="title">Superuser</span>
+                    </NavLink>
+                </li>
+                : null
+            }
             <li>
                 <Logout />
             </li>

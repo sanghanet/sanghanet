@@ -122,7 +122,7 @@ app.get('/passport', (req, res, next) => {
 app.post('/api/user', (req, res) => {
     const user = req.user;
     log.info(req.ip, user);
-    res.json({ name: `${user.firstName} ${user.lastName}`, isActive: user.isActive, isAdmin: user.isAdmin });
+    res.json({ name: `${user.firstName} ${user.lastName}`, isActive: user.isActive, isSuperuser: user.isSuperuser });
 });
 
 app.get('/api/logout', (req, res) => {
