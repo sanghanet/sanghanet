@@ -54,10 +54,10 @@ passport.use(new GoogleStrategy({
     clientSecret: CLIENT_SECRET,
     callbackURL: `http://localhost:${PORT}/passport`
 }, (identifier, refreshtoken, profile, done) => {
-    log.info(profile.emails);
+    log.info(profile);
     User.findOne({ email: profile.emails[0].value })
         .then((userObject) => {
-            log.trace(userObject);
+            log.info(userObject);
             return userObject && userObject.isActive
                 ? done(null, userObject)
                 : done(null, null);
@@ -87,6 +87,11 @@ app.post('/auth',
         { scope: ['profile', 'email'] }
     )
 );
+
+// app.get('/passport',
+//     passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/loginfiled` }),
+//     (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); }
+// );
 
 app.get('/passport', (req, res, next) => {
     passport.authenticate(

@@ -1,5 +1,5 @@
 const { log4js } = require('./logManager');
-const log = log4js.getLogger('src/config.js');
+const log = log4js.getLogger('config.js');
 
 const fatalError = (errorMessage) => {
     log.fatal(errorMessage);
