@@ -17,7 +17,7 @@ main {
     margin-top: $header-height;
     padding-top: 50px;
     background-color: $main-bg;
-    @include minQ(767px) {
+    @include minQ(768px) {
         margin-left: 110px;
     }
 }
