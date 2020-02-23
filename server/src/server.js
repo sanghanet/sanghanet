@@ -42,7 +42,7 @@ passport.deserializeUser((user, done) => {
                 log.info('deserialization failed');
                 done(null, null);
             } else {
-                log.info(`deserialized user as: ${identifiedUserObject.firstName} ${identifiedUserObject.lastName}`);
+                log.info(`deserialized user as: ${identifiedUserObject.email}`);
                 done(null, identifiedUserObject);
             }
             done(null, null);
@@ -61,7 +61,7 @@ passport.use(new GoogleStrategy({
             return userObject && userObject.isActive
                 ? done(null, userObject)
                 : done(null, null);
-        });
+        }); // catch to handle DB errors with return done(err) ??
 }));
 
 app.use(session({
@@ -81,33 +81,29 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.post('/auth',
-    passport.authenticate(
-        'google',
-        { scope: ['profile', 'email'] }
-    )
+// Email is enough, because we use our custom profile data.
+app.post('/auth', passport.authenticate('google', { scope: ['email'] }));
+
+app.get('/passport',
+    passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/loginfailed` }),
+    (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); }
 );
 
-// app.get('/passport',
-//     passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/loginfiled` }),
-//     (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); }
-// );
-
-app.get('/passport', (req, res, next) => {
-    passport.authenticate(
-        'google',
-        (err, user) => {
-            if (err) {
-                res.status(500).send(err);
-            } else if (!user) {
-                res.redirect('/');
-            } else if (user) {
-                req.logIn(user, (err) => { res.status(500).send(err); });
-                res.redirect(`http://localhost:${APP_PORT}/loading`);
-            }
-        }
-    )(req, res, next);
-});
+// app.get('/passport', (req, res, next) => {
+//     passport.authenticate(
+//         'google',
+//         (err, user) => {
+//             if (err) {
+//                 res.status(500).send(err);
+//             } else if (!user) {
+//                 res.redirect('/');
+//             } else if (user) {
+//                 req.logIn(user, (err) => { res.status(500).send(err); });
+//                 res.redirect(`http://localhost:${APP_PORT}/loading`);
+//             }
+//         }
+//     )(req, res, next);
+// });
 
 app.post('/api/user', (req, res) => {
     const user = req.user;
@@ -116,6 +112,7 @@ app.post('/api/user', (req, res) => {
 });
 
 app.get('/api/logout', (req, res) => {
+    log.info(req.session);
     req.session.destroy((err) => {
         if (err) {
             log.error(`Session deletion failed: ${err}`);
