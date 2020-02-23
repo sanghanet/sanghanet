@@ -44,7 +44,7 @@ const Header = (props) => {
                     </Figure.Caption>
                 </Figure>
                 {/* <SearchBar className='d-md-flex d-none'/> */}
-                <h1 className='page-name'>{props.activePage}</h1>
+                <h1 className='page-name m-0'>{props.activePage}</h1>
 
                 <Button className='search-icon' variant='outline-light'>
                     <SearchIcon/>
