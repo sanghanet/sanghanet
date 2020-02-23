@@ -13,8 +13,6 @@
 ```
       DEV_SERVER = 1
       DB_URL=mongodb://localhost:test/27017
-      DB_NAME=test
-      COLL_NAME=users
       PORT=4000
       CLIENT_ID=55347337253-aglrjccot9o1n7s2caborv6gnee634pf.apps.googleusercontent.com
       CLIENT_SECRET = <???>
