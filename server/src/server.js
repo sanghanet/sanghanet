@@ -29,14 +29,14 @@ app.use('/queries', express.static('app'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-passport.serializeUser((user, done) => {
-    log.info(`serialize ${user._id}`);
-    done(null, user._id);
+passport.serializeUser((userID, done) => {
+    log.info(`serialize ${userID}`);
+    done(null, userID);
 });
 
-passport.deserializeUser((user, done) => {
-    log.info(`deserialize ${user}`);
-    User.findOne({ _id: mongoose.Types.ObjectId(user) })
+passport.deserializeUser((userID, done) => {
+    log.info(`deserialize ${userID}`);
+    User.findOne({ _id: mongoose.Types.ObjectId(userID) })
         .then((identifiedUserObject) => {
             if (!identifiedUserObject) {
                 log.info('deserialization failed');
@@ -59,7 +59,7 @@ passport.use(new GoogleStrategy({
         .then((userObject) => {
             log.info(userObject);
             return userObject && userObject.isActive
-                ? done(null, userObject)
+                ? done(null, userObject._id)
                 : done(null, null);
         }); // catch to handle DB errors with return done(err) ??
 }));
@@ -88,22 +88,6 @@ app.get('/passport',
     passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/loginfailed` }),
     (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); }
 );
-
-// app.get('/passport', (req, res, next) => {
-//     passport.authenticate(
-//         'google',
-//         (err, user) => {
-//             if (err) {
-//                 res.status(500).send(err);
-//             } else if (!user) {
-//                 res.redirect('/');
-//             } else if (user) {
-//                 req.logIn(user, (err) => { res.status(500).send(err); });
-//                 res.redirect(`http://localhost:${APP_PORT}/loading`);
-//             }
-//         }
-//     )(req, res, next);
-// });
 
 app.post('/api/user', (req, res) => {
     const user = req.user;
