@@ -25,6 +25,15 @@ class Personal extends React.Component {
                 e.preventDefault();
             });
         }
+
+        fetch('http://localhost:4000/userList')
+            .then((res) => {
+                return res.json();
+            }).then((data) => {
+                console.dir(data);
+            }).catch((err) => {
+                throw new Error(err.message);
+            });
     }
 
     loadFile = (event) => {
