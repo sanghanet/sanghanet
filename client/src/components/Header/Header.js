@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import './Header.scss';
 import Avatar from '../icons/avatar.jpg';
-import SearchBar from '../Search/SearchBar';
+// import SearchBar from '../Search/SearchBar';
 import Navbar from '../Navbar/Navbar';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
@@ -28,7 +28,7 @@ const Header = (props) => {
         <Container fluid className='header d-flex p-0' as='header'>
             <Row className='d-flex'>
                 <Figure
-                    bsPrefix='avatar-container d-md-flex d-grid m-0'
+                    bsPrefix='avatar-container d-none d-md-flex d-grid m-0'
                     onClick={handleAvatarClick}
                 >
                     <Figure.Image
@@ -37,15 +37,16 @@ const Header = (props) => {
                         roundedCircle
                         width={70}
                         height={70}
+                        className="d-none d-sm-flex"
                     />
                     <Figure.Caption bsPrefix='avatar-name d-none d-sm-flex' as='h2'>
                         {sessionStorage.user}
                     </Figure.Caption>
                 </Figure>
-                <SearchBar className='d-md-flex d-none'/>
-                <h1 className='page-name m-0 d-none d-md-flex'>{props.activePage}</h1>
+                {/* <SearchBar className='d-md-flex d-none'/> */}
+                <h1 className='page-name m-0'>{props.activePage}</h1>
 
-                <Button className='search-icon d-flex d-md-none' variant='outline-light'>
+                <Button className='search-icon' variant='outline-light'>
                     <SearchIcon/>
                 </Button>
 

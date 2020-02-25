@@ -22,10 +22,10 @@
         .avatar-container {
             align-items: center;
 
-            @media screen and (max-width: 767px) {
-                position: absolute;
-                left: 7%;
-            }
+            // @media screen and (max-width: 767px) {
+            //     position: absolute;
+            //     left: 7%;
+            // }
 
             img {
                 margin: 0 10px 0 0;
@@ -54,7 +54,7 @@
         }
 
         .page-name {
-            width: 125px;
+            width: fit-content;
             justify-content: flex-end;
             font-size: 1.4em;
             font-weight: 100;
@@ -69,6 +69,11 @@
                 svg {
                     fill: #000;
                 }
+            }
+
+            @media screen and (max-width: 767px) {
+                position: absolute;
+                left: 0;
             }
 
             svg {
