@@ -52,14 +52,14 @@ class SearchBar extends Component {
     }
 
     componentDidMount () {
-        fetch('http://localhost:4000/userList')
-            .then((res) => {
-                return res.json();
-            }).then((data) => {
-                this.setState({ dataList: data });
-            }).catch((err) => {
-                throw new Error(err.message);
-            });
+        // fetch('http://localhost:4000/userList')
+        //     .then((res) => {
+        //         return res.json();
+        //     }).then((data) => {
+        //         this.setState({ dataList: data });
+        //     }).catch((err) => {
+        //         throw new Error(err.message);
+        //     });
     }
 
     render () {

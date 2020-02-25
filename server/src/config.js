@@ -1,5 +1,5 @@
 const { log4js } = require('./logManager');
-const log = log4js.getLogger('src/config.js');
+const log = log4js.getLogger('config.js');
 
 const fatalError = (errorMessage) => {
     log.fatal(errorMessage);
@@ -17,8 +17,6 @@ const env = require('dotenv').config({ path: envPath });
 
 const variablesToExport = {
     SESSION_SECRET: process.env.SESSION_SECRET,
-    DB_NAME: process.env.DB_NAME,
-    COLL_NAME: process.env.COLL_NAME,
     DB_URL: process.env.DB_URL,
     PORT: process.env.PORT,
     CLIENT_ID: process.env.CLIENT_ID,

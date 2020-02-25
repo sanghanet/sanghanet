@@ -13,17 +13,6 @@ class Dashboard extends React.Component {
         };
     }
 
-    fetchData = () => {
-        fetch('http://localhost:4000/userList', { method: 'GET' })
-            .then((res) => {
-                return res.json();
-            }).then((data) => {
-                this.printUserList(data);
-            }).catch((err) => {
-                throw new Error(err.message);
-            });
-    }
-
     printUserList = (userArray) => {
         const result = userArray.map((value, index) => {
             return (
