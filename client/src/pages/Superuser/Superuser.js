@@ -8,18 +8,25 @@ import Footer from '../../components/Footer/Footer';
 import { Table } from 'react-bootstrap';
 
 class Superuser extends Component {
+    state = {
+        userData: null
+    }
+
     componentDidMount () {
         fetch('http://localhost:4000/userList')
             .then((res) => {
                 return res.json();
             }).then((data) => {
-                console.dir(data);
+                this.setState({ userData: data });
+                console.dir(this.state.userData);
             }).catch((err) => {
                 throw new Error(err.message);
             });
     }
 
     render () {
+        const { userData } = this.state;
+
         return (
             <div>
                 <Header activePage="Superuser" />
@@ -28,25 +35,23 @@ class Superuser extends Component {
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
+                                <th>Email</th>
+                                <th>isActive</th>
+                                <th>isSuperuser</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
+                            {
+                                userData ? (
+                                    userData.map((user, key) => (
+                                        <tr key={ key }>
+                                            <td>{user.email}</td>
+                                            <td>{String(user.isActive)}</td>
+                                            <td>{String(user.isSuperuser)}</td>
+                                        </tr>
+                                    ))
+                                ) : (null)
+                            }
                         </tbody>
                     </Table>
                 </main>
