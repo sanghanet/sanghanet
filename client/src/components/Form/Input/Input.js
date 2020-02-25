@@ -14,11 +14,12 @@ class Input extends Component {
         super(props);
         this.textInput = React.createRef();
         this.state = {
-            editDisabled: true
+            readOnly: true
         };
     }
 
     handleChange = (event) => {
+        console.dir(event.key);
         this.props.onChange(event.target.value);
     }
 
@@ -28,14 +29,12 @@ class Input extends Component {
     }
 
     handleEdit = (event) => {
-        console.log('edit clicked');
-        this.setState((oldState) => ({ editDisabled: !oldState.editDisabled }));
-        // this.textInput.current.focus();
+        if (this.state.readOnly) this.textInput.current.focus();
+        this.setState((oldState) => ({ readOnly: !oldState.readOnly }));
     }
 
     render () {
         const { formId, inputTitle, type, inputId, inputValue, placeholder } = this.props;
-        const { editDisabled } = this.state;
         return (
             <Col xm={12} lg={6}>
                 <Form onSubmit={this.handleSubmit} id={formId}>
@@ -49,10 +48,10 @@ class Input extends Component {
                                 <Edit className="form-icon" />
                             </button>
                             <button className="form-button">
-                                <Save className="form-icon"/>
+                                <Visible className="form-icon" />
                             </button>
                             <button className="form-button">
-                                <Visible className="form-icon" />
+                                <Save className="form-icon"/>
                             </button>
                         </InputGroup.Append>
                     </InputGroup>
@@ -65,11 +64,10 @@ class Input extends Component {
                             placeholder={placeholder}
                             aria-label={inputId}
                             onChange={this.handleChange}
+                            ref={this.textInput}
+                            readOnly={this.state.readOnly}
                             required
-                            disabled={editDisabled}
-                            // inputRef={(ref) => { this.textInput = ref }}
                         ></Form.Control>
-                        {/* <input type="text" ref={this.textInput} />AAAAAA */}
                     </InputGroup>
                 </Form>
             </Col>

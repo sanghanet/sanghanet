@@ -57,6 +57,7 @@ class Personal extends React.Component {
 
     render () {
         const { firstName, lastName } = this.state;
+
         return (
             <div>
                 <Header activePage="Personal" />
