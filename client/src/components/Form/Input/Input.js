@@ -10,26 +10,42 @@ import { ReactComponent as Visible } from '../formIcons/visible.svg';
 import { Col, Form, InputGroup } from 'react-bootstrap';
 
 class Input extends Component {
+    constructor (props) {
+        super(props);
+        this.textInput = React.createRef();
+        this.state = {
+            editDisabled: true
+        };
+    }
+
     handleChange = (event) => {
-        this.props.editInput(event.target.value);
+        this.props.onChange(event.target.value);
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.submitFirstName();
+        this.props.submit();
+    }
+
+    handleEdit = (event) => {
+        console.log('edit clicked');
+        this.setState((oldState) => ({ editDisabled: !oldState.editDisabled }));
+        // this.textInput.current.focus();
     }
 
     render () {
+        const { formId, inputTitle, type, inputId, inputValue, placeholder } = this.props;
+        const { editDisabled } = this.state;
         return (
             <Col xm={12} lg={6}>
-                <Form onSubmit={this.handleSubmit} id={this.props.formId}>
+                <Form onSubmit={this.handleSubmit} id={formId}>
                     <InputGroup className="input-group-label">
                         <Form.Label className="d-flex">
                             <img className="dropdown-arrow" alt="" />
-                            {this.props.inputTitle}
+                            {inputTitle}
                         </Form.Label>
                         <InputGroup.Append>
-                            <button className="form-button">
+                            <button className="form-button" onClick={this.handleEdit}>
                                 <Edit className="form-icon" />
                             </button>
                             <button className="form-button">
@@ -42,15 +58,18 @@ class Input extends Component {
                     </InputGroup>
                     <InputGroup className="input-group-field">
                         <Form.Control
-                            type={this.props.type}
-                            id={this.props.inputId}
-                            name={this.props.inputId}
-                            value={this.props.inputValue}
-                            placeholder={this.props.placeholder}
-                            aria-label={this.props.inputId}
+                            type={type}
+                            id={inputId}
+                            name={inputId}
+                            value={inputValue}
+                            placeholder={placeholder}
+                            aria-label={inputId}
                             onChange={this.handleChange}
                             required
+                            disabled={editDisabled}
+                            // inputRef={(ref) => { this.textInput = ref }}
                         ></Form.Control>
+                        {/* <input type="text" ref={this.textInput} />AAAAAA */}
                     </InputGroup>
                 </Form>
             </Col>
@@ -100,8 +119,8 @@ Input.propTypes = {
     // optionsForSelect: PropTypes.array,
     inputValue: PropTypes.string,
     inputId: PropTypes.string,
-    editInput: PropTypes.func,
-    submitFirstName: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
+    submit: PropTypes.func.isRequired,
     inDropdown: PropTypes.bool,
     inputRef: PropTypes.string
 };

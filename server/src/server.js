@@ -24,6 +24,7 @@ app.use('/dashboard', express.static('app'));
 app.use('/personal', express.static('app'));
 app.use('/finances', express.static('app'));
 app.use('/queries', express.static('app'));
+app.use('/superuser', express.static('app'));
 
 // configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));

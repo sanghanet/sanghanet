@@ -10,12 +10,13 @@ import { Row, Col } from 'react-bootstrap';
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
 import ArrowUp from '../../components/icons/arrow-up.svg';
-import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
+// import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 
 class Personal extends React.Component {
     state = {
         openDetails: false,
-        firtsName: 'Baby'
+        firstName: 'Baby',
+        lastName: 'Yoda'
     }
 
     componentDidMount () {
@@ -38,16 +39,24 @@ class Personal extends React.Component {
         image.src = this.state.openDetails ? ArrowUp : ArrowDown;
     };
 
-    handleFirstName = (newValue) => {
-        this.setState({ firtsName: newValue });
+    handleChangeFirstName = (newValue) => {
+        this.setState({ firstName: newValue });
     };
 
     handleSubmitFirstName = () => {
-        console.log(`Send data to backend: ${this.state.firtsName}`);
+        console.log(`Send data to backend: ${this.state.firstName}`);
+    };
+
+    handleChangeLastName = (newValue) => {
+        this.setState({ lastName: newValue });
+    };
+
+    handleSubmitLastName = () => {
+        console.log(`Send data to backend: ${this.state.lastName}`);
     };
 
     render () {
-        const { firtsName } = this.state;
+        const { firstName, lastName } = this.state;
         return (
             <div>
                 <Header activePage="Personal" />
@@ -65,20 +74,22 @@ class Personal extends React.Component {
                                     inputTitle="First name"
                                     type="text"
                                     inputId="first-name"
-                                    inputValue={firtsName}
+                                    inputValue={firstName}
                                     placeholder=""
-                                    editInput={this.handleFirstName}
-                                    submitFirstName={this.handleSubmitFirstName}
+                                    onChange={this.handleChangeFirstName}
+                                    submit={this.handleSubmitFirstName}
                                 />
                                 <Input
                                     inputTitle="Last name"
                                     type="text"
                                     inputId="last-name"
-                                    inputValue="Yoda"
+                                    inputValue={lastName}
                                     placeholder=""
+                                    onChange={this.handleChangeLastName}
+                                    submit={this.handleSubmitLastName}
                                 />
                             </Row>
-                            <Row>
+                            {/* <Row>
                                 <Input
                                     inputTitle="Gender"
                                     type="select"
@@ -108,7 +119,7 @@ class Personal extends React.Component {
                                         />
                                     </React.Fragment>
                                 </InputDropdown>
-                            </Row>
+                            </Row> */}
                         </React.Fragment>
                     </FormContainer>
                     {/* <form className="personal-form">
