@@ -46,11 +46,11 @@ class Superuser extends Component {
                                 userData ? (
                                     userData.map((user, key) => (
                                         <tr key={ key }>
-                                            {/* show full email address only when it is shortened */}
+                                            {/* show full email address on hover when it's shortened */}
                                             <td title={user.email.length > 30 ? user.email : null}>
                                                 {
                                                     // if email address is too long, shorten it.
-                                                    user.email.length > 30 ? (
+                                                    user.email.length > 30 && window.innerWidth < 600 ? (
                                                         `${user.email.substring(0, 25)}...`
                                                     ) : (user.email)
                                                 }
