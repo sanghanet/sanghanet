@@ -36,8 +36,8 @@ class Superuser extends Component {
                         <thead>
                             <tr>
                                 <th>Email</th>
-                                <th>isActive</th>
-                                <th>isSuperuser</th>
+                                <th>Status</th>
+                                <th>Role</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,8 +46,12 @@ class Superuser extends Component {
                                     userData.map((user, key) => (
                                         <tr key={ key }>
                                             <td>{user.email}</td>
-                                            <td>{String(user.isActive)}</td>
-                                            <td>{String(user.isSuperuser)}</td>
+                                            <td>
+                                                {user.isActive ? 'active' : 'inactive'}
+                                            </td>
+                                            <td>
+                                                {user.isSuperuser ? 'superuser' : 'general user'}
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (null)
