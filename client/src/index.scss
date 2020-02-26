@@ -15,7 +15,7 @@ body {
 main {
     min-height: calc(100vh - 93px);
     margin-top: $header-height;
-    padding-top: 50px;
+    padding: 50px 0;
     background-color: $main-bg;
     @include minQ(768px) {
         margin-left: 110px;

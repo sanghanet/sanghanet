@@ -32,7 +32,7 @@ class Superuser extends Component {
                 <Header activePage="Superuser" />
                 <Navbar />
                 <main>
-                    <Table striped bordered hover variant="dark" responsive>
+                    <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
                                 <th>Email</th>
@@ -42,14 +42,18 @@ class Superuser extends Component {
                         </thead>
                         <tbody>
                             {
+                                // map through userData only if it's been defined
                                 userData ? (
                                     userData.map((user, key) => (
                                         <tr key={ key }>
+                                            {/* show full email address only when it is shortened */}
                                             <td title={user.email.length > 30 ? user.email : null}>
                                                 {
-                                                    user.email.length > 30 ? (`${user.email.substring(0, 25)}...`) : (user.email)
+                                                    // if email address is too long, shorten it.
+                                                    user.email.length > 30 ? (
+                                                        `${user.email.substring(0, 25)}...`
+                                                    ) : (user.email)
                                                 }
-                                                {/* {user.email} */}
                                             </td>
                                             <td>
                                                 {user.isActive ? 'active' : 'inactive'}

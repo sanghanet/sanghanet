@@ -1,15 +1,16 @@
-main {
+div>main {
     @media screen and (max-width: 650px) {
-        padding-top: 0 !important;
+        padding: 0;
     }
+
     table.table {
         width: 90%;
         margin: auto;
-    
+
         @media screen and (max-width: 650px) {
             width: 100%;
         }
-    
+
         @media screen and (max-width: 500px) {
             font-size: .6em;
         }
