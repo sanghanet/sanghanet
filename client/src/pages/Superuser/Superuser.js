@@ -32,7 +32,7 @@ class Superuser extends Component {
                 <Header activePage="Superuser" />
                 <Navbar />
                 <main>
-                    <Table striped bordered hover variant="dark">
+                    <Table striped bordered hover variant="dark" responsive>
                         <thead>
                             <tr>
                                 <th>Email</th>
@@ -45,7 +45,12 @@ class Superuser extends Component {
                                 userData ? (
                                     userData.map((user, key) => (
                                         <tr key={ key }>
-                                            <td>{user.email}</td>
+                                            <td title={user.email.length > 30 ? user.email : null}>
+                                                {
+                                                    user.email.length > 30 ? (`${user.email.substring(0, 25)}...`) : (user.email)
+                                                }
+                                                {/* {user.email} */}
+                                            </td>
                                             <td>
                                                 {user.isActive ? 'active' : 'inactive'}
                                             </td>
