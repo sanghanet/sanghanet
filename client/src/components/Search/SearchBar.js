@@ -23,7 +23,7 @@ class SearchBar extends Component {
 
     render () {
         return (
-            <div className="search-field d-none d-md-flex">
+            <div className="search-field">
                 <input
                     type="text"
                     placeholder={this.props.placeholder}

@@ -4,10 +4,39 @@ div>main {
     }
 
     .filter-box {
-        display: flex;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-rows: 1fr;
         margin-bottom: 20px;
+        margin-bottom: 20px;
+        color: #fff;
+
+        @media screen and (max-width: 900px) {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+
+        .form-text {
+            text-align: center;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:first-child {
+                flex-wrap: wrap;
+                grid-column: span 1;
+
+                @media screen and (max-width: 900px) {
+                    grid-column: span 2;
+                }
+            }
+        }
     }
+
+
 
     table.table {
         width: 90%;

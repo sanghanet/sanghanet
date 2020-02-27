@@ -24,18 +24,22 @@ $sideBarHover-iconColor: #fff;
 
 .search-field {
     border-bottom: 1px solid $searchField-color;
-    display: flex;
     align-items: center;
     font-size: 12px;
     width: fit-content;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
 
     input {
-        max-width: 28vw;
+        width: 100%;
         height: 30px;
         color: #fff;
         background: transparent;
         border:none;
         letter-spacing: 1px;
+        font-size: 20px;
         &:focus{ outline: 0 none; }
         &::placeholder {
             color: inherit;

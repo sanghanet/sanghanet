@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
-import { Table } from 'react-bootstrap';
+import { Table, Form } from 'react-bootstrap';
 
 class Superuser extends Component {
     state = {
@@ -42,14 +42,32 @@ class Superuser extends Component {
                 <Header activePage="Superuser" />
                 <Navbar />
                 <main>
-                    <div className="filter-box">
-                        <SearchBar
-                            handleSearch={this.handleEmailSearch}
-                            handleInputChange={this.handleEmailSearchChange}
-                            inputValue={this.state.emailSearchValue}
-                            placeholder="Type email address"
-                        />
-                    </div>
+                    <Form className="filter-box">
+                        <Form.Group>
+                            <SearchBar
+                                handleSearch={this.handleEmailSearch}
+                                handleInputChange={this.handleEmailSearchChange}
+                                inputValue={this.state.emailSearchValue}
+                            />
+                            <Form.Text>Search for an email address</Form.Text>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Status</Form.Label>
+                            <select>
+                                <option>All</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                            </select>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Role</Form.Label>
+                            <select>
+                                <option>All</option>
+                                <option>General user</option>
+                                <option>Superuser</option>
+                            </select>
+                        </Form.Group>
+                    </Form>
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
@@ -64,7 +82,7 @@ class Superuser extends Component {
                                 userData ? (
                                     userData.map((user, key) => (
                                         // filter emails on search
-                                        user.email.includes(this.state.emailSearchValue) ? (
+                                        user.email.toLowerCase().includes(this.state.emailSearchValue.toLowerCase()) ? (
                                             <tr key={ key }>
                                                 <td>
                                                     {
