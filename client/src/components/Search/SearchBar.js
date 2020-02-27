@@ -26,7 +26,7 @@ class SearchBar extends Component {
             <div className="search-field d-none d-md-flex">
                 <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder={this.props.placeholder}
                     onChange={this.handleInputChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
@@ -45,7 +45,8 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
     handleSearch: PropTypes.func.isRequired,
     handleInputChange: PropTypes.func.isRequired,
-    inputValue: PropTypes.string.isRequired
+    inputValue: PropTypes.string.isRequired,
+    placeholder: PropTypes.string
 };
 
 export default SearchBar;

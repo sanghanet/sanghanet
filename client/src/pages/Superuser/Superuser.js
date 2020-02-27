@@ -42,11 +42,14 @@ class Superuser extends Component {
                 <Header activePage="Superuser" />
                 <Navbar />
                 <main>
-                    <SearchBar
-                        handleSearch={this.handleEmailSearch}
-                        handleInputChange={this.handleEmailSearchChange}
-                        inputValue={this.state.emailSearchValue}
-                    />
+                    <div className="filter-box">
+                        <SearchBar
+                            handleSearch={this.handleEmailSearch}
+                            handleInputChange={this.handleEmailSearchChange}
+                            inputValue={this.state.emailSearchValue}
+                            placeholder="Type email address"
+                        />
+                    </div>
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
@@ -60,10 +63,10 @@ class Superuser extends Component {
                                 // map through userData only if it's been defined
                                 userData ? (
                                     userData.map((user, key) => (
+                                        // filter emails on search
                                         user.email.includes(this.state.emailSearchValue) ? (
                                             <tr key={ key }>
-                                                {/* show full email address on hover when it's shortened */}
-                                                <td title={user.email.length > 30 ? user.email : null}>
+                                                <td>
                                                     {
                                                         // if email address is too long, shorten it.
                                                         user.email.length > 30 && window.innerWidth < 600 ? (
