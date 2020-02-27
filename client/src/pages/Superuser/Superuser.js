@@ -4,12 +4,14 @@ import './Superuser.scss';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
+import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
 import { Table } from 'react-bootstrap';
 
 class Superuser extends Component {
     state = {
-        userData: null
+        userData: null,
+        emailSearchValue: ''
     }
 
     componentDidMount () {
@@ -24,6 +26,14 @@ class Superuser extends Component {
             });
     }
 
+    handleEmailSearch = () => {
+        console.log('search handled');
+    }
+
+    handleEmailSearchChange = (inputValue) => {
+        this.setState({ emailSearchValue: inputValue });
+    }
+
     render () {
         const { userData } = this.state;
 
@@ -32,6 +42,11 @@ class Superuser extends Component {
                 <Header activePage="Superuser" />
                 <Navbar />
                 <main>
+                    <SearchBar
+                        handleSearch={this.handleEmailSearch}
+                        handleInputChange={this.handleEmailSearchChange}
+                        inputValue={this.state.emailSearchValue}
+                    />
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
@@ -45,23 +60,25 @@ class Superuser extends Component {
                                 // map through userData only if it's been defined
                                 userData ? (
                                     userData.map((user, key) => (
-                                        <tr key={ key }>
-                                            {/* show full email address on hover when it's shortened */}
-                                            <td title={user.email.length > 30 ? user.email : null}>
-                                                {
-                                                    // if email address is too long, shorten it.
-                                                    user.email.length > 30 && window.innerWidth < 600 ? (
-                                                        `${user.email.substring(0, 25)}...`
-                                                    ) : (user.email)
-                                                }
-                                            </td>
-                                            <td>
-                                                {user.isActive ? 'active' : 'inactive'}
-                                            </td>
-                                            <td>
-                                                {user.isSuperuser ? 'superuser' : 'general user'}
-                                            </td>
-                                        </tr>
+                                        user.email.includes(this.state.emailSearchValue) ? (
+                                            <tr key={ key }>
+                                                {/* show full email address on hover when it's shortened */}
+                                                <td title={user.email.length > 30 ? user.email : null}>
+                                                    {
+                                                        // if email address is too long, shorten it.
+                                                        user.email.length > 30 && window.innerWidth < 600 ? (
+                                                            `${user.email.substring(0, 25)}...`
+                                                        ) : (user.email)
+                                                    }
+                                                </td>
+                                                <td>
+                                                    {user.isActive ? 'active' : 'inactive'}
+                                                </td>
+                                                <td>
+                                                    {user.isSuperuser ? 'superuser' : 'general user'}
+                                                </td>
+                                            </tr>
+                                        ) : (null)
                                     ))
                                 ) : (null)
                             }
