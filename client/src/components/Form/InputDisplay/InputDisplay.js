@@ -9,9 +9,9 @@ import { ReactComponent as Visible } from '../formIcons/visible.svg';
 import { Col } from 'react-bootstrap';
 
 const InputDisplay = (props) => {
-    const clickHandler = () => {
-        console.log('edit clicked');
-    };
+    // const clickHandler = () => {
+    //     console.log(props.showPopup());
+    // };
 
     return (
         <Col xm={12} lg={6}>
@@ -24,7 +24,7 @@ const InputDisplay = (props) => {
                 </div>
                 <div className="display-input">
                     <p className="display-title">{props.inputValue || 'Input Value'}</p>
-                    <button className="display-button edit-button" onClick={clickHandler}>
+                    <button className="display-button edit-button" onClick={props.clickHandler}>
                         <Edit className="display-icon edit-icon" />
                     </button>
                 </div>

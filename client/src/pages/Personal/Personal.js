@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import Input from '../../components/Form/Input/Input';
-// import InputPopup from '../../components/Form/InputPopup/InputPopup';
+import InputPopup from '../../components/Form/InputPopup/InputPopup';
 import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
 import { Row, Col } from 'react-bootstrap';
 import './Personal.scss';
@@ -16,6 +16,7 @@ import ArrowUp from '../../components/icons/arrow-up.svg';
 
 class Personal extends React.Component {
     state = {
+        showPopup: false,
         openDetails: false,
         firstName: 'Baby',
         lastName: 'Yoda'
@@ -49,22 +50,27 @@ class Personal extends React.Component {
         console.log(`Send data to backend: ${this.state.firstName}`);
     };
 
-    handleChangeLastName = (newValue) => {
-        this.setState({ lastName: newValue });
-    };
+    togglePopup = () => {
+        console.log('Show popup here');
+        this.setState((oldState) => ({ showPopup: !oldState.showPopup }));
+    }
+    // handleChangeLastName = (newValue) => {
+    //     this.setState({ lastName: newValue });
+    // };
 
-    handleSubmitLastName = () => {
-        console.log(`Send data to backend: ${this.state.lastName}`);
-    };
+    // handleSubmitLastName = () => {
+    //     console.log(`Send data to backend: ${this.state.lastName}`);
+    // };
 
     render () {
-        const { firstName, lastName } = this.state;
+        const { firstName, lastName, showPopup } = this.state;
 
         return (
             <div>
                 <Header activePage="Personal" />
                 <Navbar />
                 <main>
+                    { showPopup && <InputPopup onClose={this.togglePopup} /> }
                     <FormContainer formTitle="general data">
                         <React.Fragment>
                             <Row>
@@ -84,12 +90,8 @@ class Personal extends React.Component {
                                 />
                                 <InputDisplay
                                     inputTitle="Last name"
-                                    type="text"
-                                    inputId="last-name"
                                     inputValue={lastName}
-                                    placeholder=""
-                                    onChange={this.handleChangeLastName}
-                                    submit={this.handleSubmitLastName}
+                                    clickHandler={this.togglePopup}
                                 />
                             </Row>
                             {/* <Row>
