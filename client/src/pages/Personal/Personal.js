@@ -6,6 +6,8 @@ import Footer from '../../components/Footer/Footer';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import Input from '../../components/Form/Input/Input';
+// import InputPopup from '../../components/Form/InputPopup/InputPopup';
+import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
 import { Row, Col } from 'react-bootstrap';
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
@@ -80,7 +82,7 @@ class Personal extends React.Component {
                                     onChange={this.handleChangeFirstName}
                                     submit={this.handleSubmitFirstName}
                                 />
-                                <Input
+                                <InputDisplay
                                     inputTitle="Last name"
                                     type="text"
                                     inputId="last-name"
