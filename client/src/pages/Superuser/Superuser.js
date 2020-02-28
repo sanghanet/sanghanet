@@ -28,7 +28,7 @@ class Superuser extends Component {
     }
 
     renderUsers = () => {
-        const { userData, statusFilter, emailSearchValue } = this.state;
+        const { userData, statusFilter, roleFilter, emailSearchValue } = this.state;
 
         return (
             // map through userData only if it's been defined
@@ -38,22 +38,25 @@ class Superuser extends Component {
                     user.email.toLowerCase().includes(emailSearchValue.toLowerCase()) ? (
                         // filter status
                         (user.isActive && !(statusFilter === 'inactive')) || (!user.isActive && !(statusFilter === 'active')) ? (
-                            <tr key={ key }>
-                                <td>
-                                    {
-                                        // if email address is too long, shorten it.
-                                        user.email.length > 30 && window.innerWidth < 600 ? (
-                                            `${user.email.substring(0, 25)}...`
-                                        ) : (user.email)
-                                    }
-                                </td>
-                                <td>
-                                    {user.isActive ? 'active' : 'inactive'}
-                                </td>
-                                <td>
-                                    {user.isSuperuser ? 'superuser' : 'general user'}
-                                </td>
-                            </tr>
+                            // filter role
+                            (user.isSuperuser && !(roleFilter === 'general')) || (!user.isSuperuser && !(roleFilter === 'super')) ? (
+                                <tr key={ key }>
+                                    <td>
+                                        {
+                                            // if email address is too long, shorten it.
+                                            user.email.length > 30 && window.innerWidth < 600 ? (
+                                                `${user.email.substring(0, 25)}...`
+                                            ) : (user.email)
+                                        }
+                                    </td>
+                                    <td>
+                                        {user.isActive ? 'active' : 'inactive'}
+                                    </td>
+                                    <td>
+                                        {user.isSuperuser ? 'superuser' : 'general user'}
+                                    </td>
+                                </tr>
+                            ) : (null)
                         ) : (null)
                     ) : (null)
                 ))
