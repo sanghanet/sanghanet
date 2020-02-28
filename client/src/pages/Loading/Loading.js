@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { Spinner } from 'react-bootstrap';
+import './Loading.scss';
+
 class Loading extends React.Component {
     componentDidMount () {
         fetch('/api/user', { method: 'POST' })
@@ -24,7 +27,10 @@ class Loading extends React.Component {
 
     render () {
         return (
-            <h1>LOADING...</h1>
+            <div className="loading-box">
+                <Spinner animation="border" />
+                <h1>Loading...</h1>
+            </div>
         );
     }
 };

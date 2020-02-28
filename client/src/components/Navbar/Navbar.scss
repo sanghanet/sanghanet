@@ -50,6 +50,7 @@ ul {
     position: fixed;
     display: flex;
     scrollbar-width: none;
+    box-shadow: 10px 0px 15px -5px rgba(0,0,0,0.75);
 
     @media screen and (max-width: 767px) {
         display: none;

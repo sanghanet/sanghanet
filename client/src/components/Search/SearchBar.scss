@@ -52,8 +52,7 @@ $sideBarHover-iconColor: #fff;
         fill: $sideBar-iconColor;
         @include buttonReset;
         svg {
-            width: 36px;
-            height: 36px;
+            width: 20px;
         }
         &:hover {
             fill: $sideBarHover-iconColor;

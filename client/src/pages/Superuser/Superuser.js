@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './Superuser.scss';
+import { ReactComponent as Cross } from '../../components/icons/cross.svg';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -88,6 +89,10 @@ class Superuser extends Component {
         }
     }
 
+    handleIconClick = () => {
+        this.setState({ emailSearchValue: '' });
+    }
+
     handleRolechange = (e) => {
         switch (e.target.options.selectedIndex) {
             case 0:
@@ -115,7 +120,9 @@ class Superuser extends Component {
                             <SearchBar
                                 handleSearch={this.handleEmailSearch}
                                 handleInputChange={this.handleEmailSearchChange}
+                                handleIconClick={this.handleIconClick}
                                 inputValue={this.state.emailSearchValue}
+                                icon={<Cross />}
                             />
                             <Form.Text>Search for an email address</Form.Text>
                         </Form.Group>

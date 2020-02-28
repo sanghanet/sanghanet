@@ -17,10 +17,6 @@ class SearchBar extends Component {
         this.props.handleInputChange(e.target.value);
     }
 
-    handleSearch = () => {
-        this.props.handleSearch();
-    }
-
     render () {
         return (
             <div className="search-field">
@@ -33,9 +29,9 @@ class SearchBar extends Component {
                     value={this.props.inputValue}
                 />
                 <button
-                    onClick={this.handleSearch}
+                    onClick={this.props.handleIconClick}
                 >
-                    <Search />
+                    {this.props.icon}
                 </button>
             </div>
         );
@@ -45,8 +41,10 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
     handleSearch: PropTypes.func.isRequired,
     handleInputChange: PropTypes.func.isRequired,
+    handleIconClick: PropTypes.func,
     inputValue: PropTypes.string.isRequired,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    icon: PropTypes.element
 };
 
 export default SearchBar;
