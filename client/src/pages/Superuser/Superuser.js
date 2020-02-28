@@ -11,7 +11,9 @@ import { Table, Form } from 'react-bootstrap';
 class Superuser extends Component {
     state = {
         userData: null,
-        emailSearchValue: ''
+        emailSearchValue: '',
+        statusFilter: 'all',
+        roleFilter: 'all'
     }
 
     componentDidMount () {
@@ -34,6 +36,34 @@ class Superuser extends Component {
         this.setState({ emailSearchValue: inputValue });
     }
 
+    handleStatuschange = (e) => {
+        switch (e.target.options.selectedIndex) {
+            case 0:
+                this.setState({ statusFilter: 'all' });
+                break;
+            case 1:
+                this.setState({ statusFilter: 'active' });
+                break;
+            case 2:
+                this.setState({ statusFilter: 'inactive' });
+                break;
+        }
+    }
+
+    handleRolechange = (e) => {
+        switch (e.target.options.selectedIndex) {
+            case 0:
+                this.setState({ roleFilter: 'all' });
+                break;
+            case 1:
+                this.setState({ roleFilter: 'general' });
+                break;
+            case 2:
+                this.setState({ roleFilter: 'super' });
+                break;
+        }
+    }
+
     render () {
         const { userData } = this.state;
 
@@ -52,19 +82,43 @@ class Superuser extends Component {
                             <Form.Text>Search for an email address</Form.Text>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Status</Form.Label>
-                            <select>
-                                <option>All</option>
-                                <option>Active</option>
-                                <option>Inactive</option>
+                            <Form.Label htmlFor="statusSelect">Status</Form.Label>
+                            <select id="statusSelect" onChange={this.handleStatuschange}>
+                                <option
+                                    selected={this.state.statusFilter.includes('all')}
+                                >
+                                    All
+                                </option>
+                                <option
+                                    selected={this.state.statusFilter.includes('active')}
+                                >
+                                    Active
+                                </option>
+                                <option
+                                    selected={this.state.statusFilter.includes('inactive')}
+                                >
+                                    Inactive
+                                </option>
                             </select>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Role</Form.Label>
-                            <select>
-                                <option>All</option>
-                                <option>General user</option>
-                                <option>Superuser</option>
+                            <Form.Label htmlFor="roleSelect">Role</Form.Label>
+                            <select id="roleSelect">
+                                <option
+                                    selected={this.state.roleFilter.includes('all')}
+                                >
+                                    All
+                                </option>
+                                <option
+                                    selected={this.state.roleFilter.includes('general')}
+                                >
+                                    General user
+                                </option>
+                                <option
+                                    selected={this.state.roleFilter.includes('super')}
+                                >
+                                    Superuser
+                                </option>
                             </select>
                         </Form.Group>
                     </Form>
@@ -81,7 +135,7 @@ class Superuser extends Component {
                                 // map through userData only if it's been defined
                                 userData ? (
                                     userData.map((user, key) => (
-                                        // filter emails on search
+                                        // filter emails
                                         user.email.toLowerCase().includes(this.state.emailSearchValue.toLowerCase()) ? (
                                             <tr key={ key }>
                                                 <td>
