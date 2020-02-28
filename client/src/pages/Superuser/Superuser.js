@@ -77,6 +77,8 @@ class Superuser extends Component {
             case 2:
                 this.setState({ statusFilter: 'inactive' });
                 break;
+            default:
+                break;
         }
     }
 
@@ -90,6 +92,8 @@ class Superuser extends Component {
                 break;
             case 2:
                 this.setState({ roleFilter: 'super' });
+                break;
+            default:
                 break;
         }
     }
