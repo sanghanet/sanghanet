@@ -110,8 +110,6 @@ app.get('/userList', (req, res) => {
     res.set({ 'Access-Control-Allow-Origin': '*' });
     User.find({}, 'email isActive isSuperuser')
         .then((userList) => {
-            console.log('here is the user list: ');
-            console.info(userList);
             res.json(userList);
         });
 });
