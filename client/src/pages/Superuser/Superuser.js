@@ -22,10 +22,40 @@ class Superuser extends Component {
                 return res.json();
             }).then((data) => {
                 this.setState({ userData: data });
-                console.dir(this.state.userData);
             }).catch((err) => {
                 throw new Error(err.message);
             });
+    }
+
+    renderUsers = () => {
+        const { userData } = this.state;
+
+        return (
+            // map through userData only if it's been defined
+            userData ? (
+                userData.map((user, key) => (
+                    // filter emails
+                    user.email.toLowerCase().includes(this.state.emailSearchValue.toLowerCase()) ? (
+                        <tr key={ key }>
+                            <td>
+                                {
+                                    // if email address is too long, shorten it.
+                                    user.email.length > 30 && window.innerWidth < 600 ? (
+                                        `${user.email.substring(0, 25)}...`
+                                    ) : (user.email)
+                                }
+                            </td>
+                            <td>
+                                {user.isActive ? 'active' : 'inactive'}
+                            </td>
+                            <td>
+                                {user.isSuperuser ? 'superuser' : 'general user'}
+                            </td>
+                        </tr>
+                    ) : (null)
+                ))
+            ) : (null)
+        );
     }
 
     handleEmailSearch = () => {
@@ -65,8 +95,6 @@ class Superuser extends Component {
     }
 
     render () {
-        const { userData } = this.state;
-
         return (
             <div>
                 <Header activePage="Superuser" />
@@ -131,32 +159,7 @@ class Superuser extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                                // map through userData only if it's been defined
-                                userData ? (
-                                    userData.map((user, key) => (
-                                        // filter emails
-                                        user.email.toLowerCase().includes(this.state.emailSearchValue.toLowerCase()) ? (
-                                            <tr key={ key }>
-                                                <td>
-                                                    {
-                                                        // if email address is too long, shorten it.
-                                                        user.email.length > 30 && window.innerWidth < 600 ? (
-                                                            `${user.email.substring(0, 25)}...`
-                                                        ) : (user.email)
-                                                    }
-                                                </td>
-                                                <td>
-                                                    {user.isActive ? 'active' : 'inactive'}
-                                                </td>
-                                                <td>
-                                                    {user.isSuperuser ? 'superuser' : 'general user'}
-                                                </td>
-                                            </tr>
-                                        ) : (null)
-                                    ))
-                                ) : (null)
-                            }
+                            {this.renderUsers()}
                         </tbody>
                     </Table>
                 </main>
