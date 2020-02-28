@@ -111,42 +111,18 @@ class Superuser extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label htmlFor="statusSelect">Status</Form.Label>
-                            <select id="statusSelect" onChange={this.handleStatuschange}>
-                                <option
-                                    selected={this.state.statusFilter.includes('all')}
-                                >
-                                    All
-                                </option>
-                                <option
-                                    selected={this.state.statusFilter.includes('active')}
-                                >
-                                    Active
-                                </option>
-                                <option
-                                    selected={this.state.statusFilter.includes('inactive')}
-                                >
-                                    Inactive
-                                </option>
+                            <select defaultValue={this.state.statusFilter} id="statusSelect" onChange={this.handleStatuschange}>
+                                <option>all</option>
+                                <option>active</option>
+                                <option>inactive</option>
                             </select>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label htmlFor="roleSelect">Role</Form.Label>
-                            <select id="roleSelect">
-                                <option
-                                    selected={this.state.roleFilter.includes('all')}
-                                >
-                                    All
-                                </option>
-                                <option
-                                    selected={this.state.roleFilter.includes('general')}
-                                >
-                                    General user
-                                </option>
-                                <option
-                                    selected={this.state.roleFilter.includes('super')}
-                                >
-                                    Superuser
-                                </option>
+                            <select defaultValue={this.state.roleFilter} id="roleSelect">
+                                <option>all</option>
+                                <option>general user</option>
+                                <option>superuser</option>
                             </select>
                         </Form.Group>
                     </Form>
