@@ -36,6 +36,7 @@ class Superuser extends Component {
                 userData.map((user, key) => (
                     // filter emails
                     user.email.toLowerCase().includes(emailSearchValue.toLowerCase()) ? (
+                        // filter status
                         (user.isActive && !(statusFilter === 'inactive')) || (!user.isActive && !(statusFilter === 'active')) ? (
                             <tr key={ key }>
                                 <td>
