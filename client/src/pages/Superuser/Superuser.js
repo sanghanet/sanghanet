@@ -129,7 +129,7 @@ class Superuser extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label htmlFor="roleSelect">Role</Form.Label>
-                            <select defaultValue={this.state.roleFilter} id="roleSelect">
+                            <select defaultValue={this.state.roleFilter} id="roleSelect" onChange={this.handleRolechange}>
                                 <option>all</option>
                                 <option>general user</option>
                                 <option>superuser</option>
