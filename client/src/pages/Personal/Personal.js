@@ -17,7 +17,8 @@ class Personal extends React.Component {
     state = {
         openDetails: false,
         firstName: 'Baby',
-        lastName: 'Yoda'
+        lastName: 'Yoda',
+        lastNameIsVisible: true
     }
 
     componentDidMount () {
@@ -49,12 +50,17 @@ class Personal extends React.Component {
     };
 
     handleSaveLastName = (newValue) => {
-        // TODO: Store user's last name in BE. In case of failure, display warning
+        // TODO: Store user's last name in BE. In case of failure, display warning.
         this.setState({ lastName: newValue });
     };
 
+    handleLastNameVisibility = () => {
+        // TODO: change visibility in BE. In case of failure, display warning.
+        this.setState((oldState) => ({ lastNameIsVisible: !oldState.lastNameIsVisible }));
+    }
+
     render () {
-        const { firstName, lastName } = this.state;
+        const { firstName, lastName, lastNameIsVisible } = this.state;
 
         return (
             <div>
@@ -83,6 +89,8 @@ class Personal extends React.Component {
                                     inputValue={lastName}
                                     inputId="last-name"
                                     inputValueSave={this.handleSaveLastName}
+                                    inputIsVisible={lastNameIsVisible}
+                                    inputVisibility={this.handleLastNameVisibility}
                                 />
                             </Row>
                             {/* <Row>

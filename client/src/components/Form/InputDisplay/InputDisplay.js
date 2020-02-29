@@ -5,7 +5,7 @@ import InputPopup from '../InputPopup/InputPopup';
 import './InputDisplay.scss';
 import { ReactComponent as Edit } from '../formIcons/edit.svg';
 import { ReactComponent as Visible } from '../formIcons/visible.svg';
-// import { ReactComponent as Invisible } from '../formIcons/invisible.svg';
+import { ReactComponent as Invisible } from '../formIcons/invisible.svg';
 
 import { Col } from 'react-bootstrap';
 
@@ -29,8 +29,11 @@ const InputDisplay = (props) => {
                 <div className="display-container">
                     <div className="display-label">
                         <p className="display-title">{props.inputTitle}</p>
-                        <button className="display-button visible-button">
-                            <Visible className="display-icon visible-icon" />
+                        <button className="display-button visible-button" onClick={props.inputVisibility}>
+                            {props.inputIsVisible
+                                ? <Visible className="display-icon visible-icon" />
+                                : <Invisible className="display-icon visible-icon" />
+                            }
                         </button>
                     </div>
                     <div className="display-input">
@@ -49,7 +52,9 @@ InputDisplay.propTypes = {
     inputTitle: PropTypes.string.isRequired,
     inputValue: PropTypes.string,
     inputId: PropTypes.string.isRequired,
-    inputValueSave: PropTypes.func.isRequired
+    inputValueSave: PropTypes.func.isRequired,
+    inputVisibility: PropTypes.func.isRequired,
+    inputIsVisible: PropTypes.bool.isRequired
 };
 
 export default InputDisplay;
