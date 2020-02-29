@@ -89,7 +89,8 @@ class Superuser extends Component {
         }
     }
 
-    handleIconClick = () => {
+    handleIconClick = (e) => {
+        e.preventDefault();
         this.setState({ emailSearchValue: '' });
     }
 
