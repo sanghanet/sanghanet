@@ -1,60 +1,40 @@
 @import '../../../style/colors';
 @import '../../../style/mixins';
 
-div form {
-    width: 90%;
-    margin: 15px auto;
-
-    .input-group {
+.modal-container {
+    @include minQ(767px) {
+        padding-left: 110px;
+        max-width: 732px !important;
+    }
+    .modal-content {
+        background-color: $modal-bg;
+    }
+    div form {
+        label.form-label {
+            color: $white;
+            width: 90%;
+            font-size: 24px;
+        }
+        .form-control {
+            font-size: 20px;
+            background: transparent;
+            border: none;
+            -webkit-appearance: none;
+            color: $white;
+        }
+    }
+    .close {
         color: $white;
-        border: 1px solid #969494;
-        border-radius: 0;
-    }
-    .input-group-label {
-        background: $label-bg;
-        border-top-right-radius: 2px;
-        border-top-left-radius: 2px;
-        display: grid;
-        grid-template-columns: 1fr repeat(3, 55px);
-
-        .form-label {
-            .dropdown-arrow {
-                display: none;
-            }
+        &:hover {
+            color: $white;
         }
     }
-    .input-group-field {
-        background: $input-bg;
-        border-bottom-right-radius: 2px;
-        border-bottom-left-radius: 2px;
-    }
-    label.form-label {
-        padding: 10px;
-        margin: 0;
-    }
-    .form-button {
-        @include buttonReset;
-        padding: 0 18px;
-        border-left: 1px solid gray;
-        color: inherit;
-        &:disabled {
-            opacity: 0.5;
-        }
-    }
-    .form-icon {
-        fill: $white;
-        width: 18px;
-        height: 18px;
-    }
-    .form-control { //ezt nem neztem at
-        height: 46px;
-        background: transparent;
-        border: none;
-        color: #d6d6d6;
-        -webkit-appearance: none;
-        &:focus {
-            background: $input-bg;
-            color: inherit;
+    .btn-primary {
+        background-color: $label-bg;
+        border-color: $label-bg;
+        &:hover, &:active {
+            background-color: darken($label-bg, 6) !important;
+            border-color: darken($label-bg, 6) !important;
         }
     }
 }

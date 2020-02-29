@@ -1,3 +1,4 @@
+/* This Input is obsolete. Might be used later. */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -75,6 +76,15 @@ class Input extends Component {
     }
 }
 
+/* <Input
+    inputTitle="First name"
+    type="text"
+    inputId="first-name"
+    inputValue={firstName}
+    placeholder=""
+    onChange={this.handleChangeFirstName}
+    submit={this.handleSubmitFirstName}
+/> */
 Input.propTypes = {
     formId: PropTypes.string,
     inputTitle: PropTypes.string.isRequired,

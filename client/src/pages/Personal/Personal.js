@@ -5,7 +5,6 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
-import Input from '../../components/Form/Input/Input';
 import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
 import { Row, Col } from 'react-bootstrap';
 import './Personal.scss';
@@ -18,6 +17,7 @@ class Personal extends React.Component {
         openDetails: false,
         firstName: 'Baby',
         lastName: 'Yoda',
+        firstNameIsVisible: true,
         lastNameIsVisible: true
     }
 
@@ -41,13 +41,15 @@ class Personal extends React.Component {
         image.src = this.state.openDetails ? ArrowUp : ArrowDown;
     };
 
-    handleChangeFirstName = (newValue) => {
+    handleSaveFirstName = (newValue) => {
+        // TODO: Store user's first name in BE. In case of failure, display warning.
         this.setState({ firstName: newValue });
     };
 
-    handleSubmitFirstName = () => {
-        console.log(`Send data to backend: ${this.state.firstName}`);
-    };
+    handleFirstNameVisibility = () => {
+        // TODO: change visibility in BE. In case of failure, display warning.
+        this.setState((oldState) => ({ firstNameIsVisible: !oldState.firstNameIsVisible }));
+    }
 
     handleSaveLastName = (newValue) => {
         // TODO: Store user's last name in BE. In case of failure, display warning.
@@ -60,7 +62,7 @@ class Personal extends React.Component {
     }
 
     render () {
-        const { firstName, lastName, lastNameIsVisible } = this.state;
+        const { firstName, lastName, firstNameIsVisible, lastNameIsVisible } = this.state;
 
         return (
             <div>
@@ -75,14 +77,13 @@ class Personal extends React.Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Input
+                                <InputDisplay
                                     inputTitle="First name"
-                                    type="text"
-                                    inputId="first-name"
                                     inputValue={firstName}
-                                    placeholder=""
-                                    onChange={this.handleChangeFirstName}
-                                    submit={this.handleSubmitFirstName}
+                                    inputId="first-name"
+                                    inputValueSave={this.handleSaveFirstName}
+                                    inputIsVisible={firstNameIsVisible}
+                                    inputVisibility={this.handleFirstNameVisibility}
                                 />
                                 <InputDisplay
                                     inputTitle="Last name"

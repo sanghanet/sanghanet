@@ -37,7 +37,7 @@ const InputDisplay = (props) => {
                         </button>
                     </div>
                     <div className="display-input">
-                        <p className="display-title">{props.inputValue || 'Input Value'}</p>
+                        <p className="display-title">{props.inputValue || 'Enter a new value'}</p>
                         <button className="display-button edit-button" onClick={handleShow}>
                             <Edit className="display-icon edit-icon" />
                         </button>

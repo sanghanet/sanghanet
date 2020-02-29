@@ -29,8 +29,9 @@ class InputPopup extends Component {
         const { modalShow, modalTitle, modalId } = this.props;
 
         return (
-            <Modal show={modalShow} onHide={this.handleClose}>
-                <Form onSubmit={this.handleSubmit}>
+            /* autoFocus works only if Modal animation={false} */
+            <Modal show={modalShow} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'}>
+                <Form onSubmit={this.handleSubmit} autoComplete='off'>
                     <Modal.Header closeButton>
                         <Form.Label htmlFor={modalId}>{modalTitle}</Form.Label>
                     </Modal.Header>
@@ -47,7 +48,7 @@ class InputPopup extends Component {
                         <Button variant="secondary" onClick={this.handleClose}>
                             Cancel
                         </Button>
-                        <Button variant="primary" onClick={this.handleSubmit}>
+                        <Button onClick={this.handleSubmit}>
                             Save
                         </Button>
                     </Modal.Footer>
