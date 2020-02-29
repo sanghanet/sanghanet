@@ -29,23 +29,24 @@ class InputPopup extends Component {
     //     this.setState((oldState) => ({ readOnly: !oldState.readOnly }));
     // }
 
-    handleClose = () => {
-        console.dir('Handle Close');
-        this.props.onClose();
+    handleSave = () => {
+        console.dir('Handle Save');
     }
 
     render () {
+        const { modalShow, modalTitle, modalValue, modalClose } = this.props;
+
         return (
-            <Modal show onHide={this.handleClose}>
+            <Modal show={modalShow} onHide={modalClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>{modalTitle}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+                <Modal.Body>{modalValue}</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={this.handleClose}>
+                    <Button variant="secondary" onClick={modalClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={this.handleClose}>
+                    <Button variant="primary" onClick={this.handleSave}>
                         Save
                     </Button>
                 </Modal.Footer>
@@ -100,7 +101,10 @@ InputPopup.propTypes = {
     // submit: PropTypes.func.isRequired,
     // inDropdown: PropTypes.bool,
     // inputRef: PropTypes.string,
-    onClose: PropTypes.func.isRequired
+    modalShow: PropTypes.bool.isRequired,
+    modalTitle: PropTypes.string,
+    modalValue: PropTypes.string,
+    modalClose: PropTypes.func.isRequired
 };
 
 export default InputPopup;
