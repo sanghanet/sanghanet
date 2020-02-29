@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import './SearchBar.scss';
-import { ReactComponent as Search } from '../icons/search.svg';
 
 class SearchBar extends Component {
     constructor (props) {
