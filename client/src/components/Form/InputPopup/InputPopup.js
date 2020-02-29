@@ -3,108 +3,67 @@ import PropTypes from 'prop-types';
 
 import './InputPopup.scss';
 
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 
 class InputPopup extends Component {
-    // constructor (props) {
-    //     super(props);
-    //     this.textInput = React.createRef();
-    //     this.state = {
-    //         readOnly: true
-    //     };
-    // }
+    state = {
+        currentValue: this.props.modalValue
+    }
 
-    // handleChange = (event) => {
-    //     console.dir(event.key);
-    //     this.props.onChange(event.target.value);
-    // }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.modalValueSave(this.state.currentValue);
+        this.props.modalClose();
+    }
 
-    // handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     this.props.submit();
-    // }
+    handleChange = (event) => {
+        this.setState({ currentValue: event.target.value });
+    }
 
-    // handleEdit = (event) => {
-    //     if (this.state.readOnly) this.textInput.current.focus();
-    //     this.setState((oldState) => ({ readOnly: !oldState.readOnly }));
-    // }
-
-    handleSave = () => {
-        console.dir('Handle Save');
+    handleClose = () => {
+        this.setState({ currentValue: this.props.modalValue });
+        this.props.modalClose();
     }
 
     render () {
-        const { modalShow, modalTitle, modalValue, modalClose } = this.props;
+        const { modalShow, modalTitle, modalId } = this.props;
 
         return (
-            <Modal show={modalShow} onHide={modalClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{modalTitle}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>{modalValue}</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={modalClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={this.handleSave}>
-                        Save
-                    </Button>
-                </Modal.Footer>
+            <Modal show={modalShow} onHide={this.handleClose}>
+                <Form onSubmit={this.handleSubmit}>
+                    <Modal.Header closeButton>
+                        <Form.Label htmlFor={modalId}>{modalTitle}</Form.Label>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Control
+                            type='text'
+                            id={modalId}
+                            value={this.state.currentValue}
+                            onChange={this.handleChange}
+                            autoFocus
+                        ></Form.Control>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleClose}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={this.handleSubmit}>
+                            Save
+                        </Button>
+                    </Modal.Footer>
+                </Form>
             </Modal>
         );
     }
 }
-// class Input extends Component {
-//     render () {
-//         const isSelect = this.props.type === 'select';
-
-//         return (
-//             <Form.Group>
-//                 <Form.Label>{this.props.inputTitle}</Form.Label>
-//                 {!isSelect && (
-//                     <Form.Control
-//                         type={this.props.type}
-//                         id="firstName"
-//                         name="firstName"
-//                         placeholder={this.props.placeholder}
-//                         value={this.props.inputValue}
-//                         required
-//                     >
-//                     </Form.Control>
-//                 )}
-//                 {isSelect && (
-//                     <Form.Control
-//                         as="select"
-//                         id="firstName"
-//                         placeholder={this.props.placeholder}
-//                         required
-//                     >
-//                         {this.props.optionsForSelect.map((option, index) => {
-//                             return <option key={index}>{option}</option>;
-//                         })}
-//                     </Form.Control>
-//                 )}
-//             </Form.Group>
-//         );
-//     }
-// }
 
 InputPopup.propTypes = {
-    // formId: PropTypes.string,
-    // inputTitle: PropTypes.string.isRequired,
-    // type: PropTypes.string.isRequired,
-    // placeholder: PropTypes.string,
-    // // optionsForSelect: PropTypes.array,
-    // inputValue: PropTypes.string,
-    // inputId: PropTypes.string,
-    // onChange: PropTypes.func.isRequired,
-    // submit: PropTypes.func.isRequired,
-    // inDropdown: PropTypes.bool,
-    // inputRef: PropTypes.string,
     modalShow: PropTypes.bool.isRequired,
     modalTitle: PropTypes.string,
     modalValue: PropTypes.string,
-    modalClose: PropTypes.func.isRequired
+    modalClose: PropTypes.func.isRequired,
+    modalId: PropTypes.string.isRequired,
+    modalValueSave: PropTypes.func.isRequired
 };
 
 export default InputPopup;

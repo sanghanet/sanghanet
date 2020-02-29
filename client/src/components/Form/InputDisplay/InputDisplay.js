@@ -10,7 +10,6 @@ import { ReactComponent as Visible } from '../formIcons/visible.svg';
 import { Col } from 'react-bootstrap';
 
 const InputDisplay = (props) => {
-
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -23,6 +22,8 @@ const InputDisplay = (props) => {
                 modalTitle={props.inputTitle}
                 modalValue={props.inputValue || 'Input Value'}
                 modalClose={handleClose}
+                modalId={props.inputId}
+                modalValueSave={props.inputValueSave}
             />
             <Col xm={12} lg={6}>
                 <div className="display-container">
@@ -46,7 +47,9 @@ const InputDisplay = (props) => {
 
 InputDisplay.propTypes = {
     inputTitle: PropTypes.string.isRequired,
-    inputValue: PropTypes.string
+    inputValue: PropTypes.string,
+    inputId: PropTypes.string.isRequired,
+    inputValueSave: PropTypes.func.isRequired
 };
 
 export default InputDisplay;

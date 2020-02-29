@@ -48,13 +48,10 @@ class Personal extends React.Component {
         console.log(`Send data to backend: ${this.state.firstName}`);
     };
 
-    // handleChangeLastName = (newValue) => {
-    //     this.setState({ lastName: newValue });
-    // };
-
-    // handleSubmitLastName = () => {
-    //     console.log(`Send data to backend: ${this.state.lastName}`);
-    // };
+    handleSaveLastName = (newValue) => {
+        // TODO: Store user's last name in BE. In case of failure, display warning
+        this.setState({ lastName: newValue });
+    };
 
     render () {
         const { firstName, lastName } = this.state;
@@ -84,6 +81,8 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="Last name"
                                     inputValue={lastName}
+                                    inputId="last-name"
+                                    inputValueSave={this.handleSaveLastName}
                                 />
                             </Row>
                             {/* <Row>
