@@ -45,7 +45,7 @@ class Superuser extends Component {
                                 <tr key={ key }>
                                     <td>
                                         {
-                                            // if email address is too long, shorten it.
+                                            // take out the end of the email addresses
                                             user.email.substring(0, user.email.indexOf('@'))
                                         }
                                     </td>
@@ -167,14 +167,21 @@ class Superuser extends Component {
                                 <th>Role</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <td colSpan={3}>
-                                <Button className="add-user-btn" variant="dark" onClick={this.addUser}>
-                                    <Plus />
-                                    Add user
-                                </Button>
-                            </td>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td colSpan={3}>
+                                    <Button className="add-user-btn" variant="dark" onClick={this.addUser}>
+                                        <Plus />
+                                        Add user
+                                    </Button>
+                                </td>
+                            </tr>
                             {this.renderUsers()}
+                            <tr>
+                                <td colSpan={3}>
+                                    There is no such user...
+                                </td>
+                            </tr>
                         </tbody>
                     </Table>
                 </main>
