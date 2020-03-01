@@ -112,6 +112,9 @@ class Superuser extends Component {
             statusFilter: 'all',
             roleFilter: 'all'
         });
+
+        document.getElementById('statusSelect').selectedIndex = 0;
+        document.getElementById('roleSelect').selectedIndex = 0;
     }
 
     render () {
@@ -133,7 +136,7 @@ class Superuser extends Component {
                         <Form.Group>
                             <Form.Label htmlFor="statusSelect">Status</Form.Label>
                             <select defaultValue={this.state.statusFilter} id="statusSelect" onChange={this.handleStatuschange}>
-                                <option selected>all</option>
+                                <option>all</option>
                                 <option>active</option>
                                 <option>inactive</option>
                             </select>
