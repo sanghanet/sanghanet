@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './Superuser.scss';
 import { ReactComponent as Cross } from '../../components/icons/cross.svg';
+import { ReactComponent as Plus } from '../../components/icons/plus.svg';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -67,6 +68,11 @@ class Superuser extends Component {
         this.setState({ emailFilterValue: inputValue });
     }
 
+    handleIconClick = (event) => {
+        event.preventDefault();
+        this.setState({ emailFilterValue: '' });
+    }
+
     handleStatuschange = (event) => {
         switch (event.target.options.selectedIndex) {
             case 0:
@@ -81,11 +87,6 @@ class Superuser extends Component {
             default:
                 break;
         }
-    }
-
-    handleIconClick = (event) => {
-        event.preventDefault();
-        this.setState({ emailFilterValue: '' });
     }
 
     handleRolechange = (event) => {
@@ -115,25 +116,32 @@ class Superuser extends Component {
         document.getElementById('roleSelect').selectedIndex = 0;
     }
 
+    addUser = () => {
+        console.log('This function will add a user');
+    }
+
     render () {
+        const { emailFilterValue, statusFilter, roleFilter } = this.state;
+
         return (
             <div>
                 <Header activePage="Superuser" />
                 <Navbar />
                 <main>
+                    {/* --- Form for filters --- */}
                     <Form className="filter-box">
                         <Form.Group>
                             <SearchBar
                                 handleInputChange={this.handleEmailFilterChange}
                                 handleIconClick={this.handleIconClick}
-                                inputValue={this.state.emailFilterValue}
+                                inputValue={emailFilterValue}
                                 icon={<Cross />}
                             />
                             <Form.Text>Filter by email address</Form.Text>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label htmlFor="statusSelect">Status</Form.Label>
-                            <select defaultValue={this.state.statusFilter} id="statusSelect" onChange={this.handleStatuschange}>
+                            <select defaultValue={statusFilter} id="statusSelect" onChange={this.handleStatuschange}>
                                 <option>all</option>
                                 <option>active</option>
                                 <option>inactive</option>
@@ -141,7 +149,7 @@ class Superuser extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label htmlFor="roleSelect">Role</Form.Label>
-                            <select defaultValue={this.state.roleFilter} id="roleSelect" onChange={this.handleRolechange}>
+                            <select defaultValue={roleFilter} id="roleSelect" onChange={this.handleRolechange}>
                                 <option>all</option>
                                 <option>general user</option>
                                 <option>superuser</option>
@@ -149,6 +157,8 @@ class Superuser extends Component {
                         </Form.Group>
                         <Button variant="dark" onClick={this.resetFilters}>Reset filters</Button>
                     </Form>
+
+                    {/* --- Table --- */}
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
@@ -158,6 +168,12 @@ class Superuser extends Component {
                             </tr>
                         </thead>
                         <tbody>
+                            <td colSpan={3}>
+                                <Button className="add-user-btn" variant="dark" onClick={this.addUser}>
+                                    <Plus />
+                                    Add user
+                                </Button>
+                            </td>
                             {this.renderUsers()}
                         </tbody>
                     </Table>
