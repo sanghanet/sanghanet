@@ -18,6 +18,8 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
+const router = require('./routers/router');
+
 app.use(express.static('app'));
 app.use('/loading', express.static('app'));
 app.use('/dashboard', express.static('app'));
@@ -89,22 +91,7 @@ app.get('/passport',
     (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); }
 );
 
-app.post('/api/user', (req, res) => {
-    const user = req.user;
-    log.info(req.ip, user);
-    res.json({ name: `${user.firstName} ${user.lastName}`, isActive: user.isActive, isSuperuser: user.isSuperuser });
-});
-
-app.get('/api/logout', (req, res) => {
-    log.info(req.session);
-    req.session.destroy((err) => {
-        if (err) {
-            log.error(`Session deletion failed: ${err}`);
-            res.status(500).send();
-        }
-    });
-    res.status(200).send();
-});
+app.use('/', router);
 
 const runServer = async () => {
     await initDBConnection();
