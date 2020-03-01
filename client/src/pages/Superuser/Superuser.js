@@ -7,7 +7,7 @@ import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
-import { Table, Form } from 'react-bootstrap';
+import { Table, Form, Button } from 'react-bootstrap';
 
 class Superuser extends Component {
     state = {
@@ -106,6 +106,14 @@ class Superuser extends Component {
         }
     }
 
+    resetFilters = () => {
+        this.setState({
+            emailFilterValue: '',
+            statusFilter: 'all',
+            roleFilter: 'all'
+        });
+    }
+
     render () {
         return (
             <div>
@@ -125,7 +133,7 @@ class Superuser extends Component {
                         <Form.Group>
                             <Form.Label htmlFor="statusSelect">Status</Form.Label>
                             <select defaultValue={this.state.statusFilter} id="statusSelect" onChange={this.handleStatuschange}>
-                                <option>all</option>
+                                <option selected>all</option>
                                 <option>active</option>
                                 <option>inactive</option>
                             </select>
@@ -138,6 +146,7 @@ class Superuser extends Component {
                                 <option>superuser</option>
                             </select>
                         </Form.Group>
+                        <Button variant="dark" onClick={this.resetFilters}>Reset filters</Button>
                     </Form>
                     <Table striped bordered hover variant="dark">
                         <thead>

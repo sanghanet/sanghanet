@@ -5,15 +5,15 @@ div>main {
 
     .filter-box {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
-        grid-template-rows: 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 3fr 1fr;
         margin-bottom: 20px;
         margin-bottom: 20px;
         color: #fff;
 
         @media screen and (max-width: 900px) {
             grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
+            grid-template-rows: 3fr 1fr 1fr;
         }
 
         .form-text {
@@ -27,10 +27,10 @@ div>main {
 
             &:first-child {
                 flex-wrap: wrap;
-                grid-column: span 1;
+                grid-column: span 2;
 
                 @media screen and (max-width: 900px) {
-                    grid-column: span 2;
+                    grid-column: span 4;
                 }
             }
 
@@ -38,6 +38,15 @@ div>main {
                 color: white;
                 background-color: #262626;
                 padding: 10px;
+            }
+        }
+
+        .btn {
+            grid-column-start: 2;
+            grid-column-end: 4;
+
+            @media screen and (max-width: 900px) {
+                grid-column-start: 1;
             }
         }
     }
