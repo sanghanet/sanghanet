@@ -12,7 +12,7 @@ import { Table, Form } from 'react-bootstrap';
 class Superuser extends Component {
     state = {
         userData: null,
-        emailSearchValue: '',
+        emailFilterValue: '',
         statusFilter: 'all',
         roleFilter: 'all'
     }
@@ -29,14 +29,14 @@ class Superuser extends Component {
     }
 
     renderUsers = () => {
-        const { userData, statusFilter, roleFilter, emailSearchValue } = this.state;
+        const { userData, statusFilter, roleFilter, emailFilterValue } = this.state;
 
         return (
             // map through userData only if it's been defined
             userData ? (
                 userData.map((user, key) => (
                     // filter emails
-                    user.email.toLowerCase().includes(emailSearchValue.toLowerCase()) ? (
+                    user.email.toLowerCase().includes(emailFilterValue.toLowerCase()) ? (
                         // filter status
                         (user.isActive && !(statusFilter === 'inactive')) || (!user.isActive && !(statusFilter === 'active')) ? (
                             // filter role
@@ -65,12 +65,8 @@ class Superuser extends Component {
         );
     }
 
-    handleEmailSearch = () => {
-        console.log('search handled');
-    }
-
-    handleEmailSearchChange = (inputValue) => {
-        this.setState({ emailSearchValue: inputValue });
+    handleEmailFilterChange = (inputValue) => {
+        this.setState({ emailFilterValue: inputValue });
     }
 
     handleStatuschange = (e) => {
@@ -91,7 +87,7 @@ class Superuser extends Component {
 
     handleIconClick = (e) => {
         e.preventDefault();
-        this.setState({ emailSearchValue: '' });
+        this.setState({ emailFilterValue: '' });
     }
 
     handleRolechange = (e) => {
@@ -119,13 +115,12 @@ class Superuser extends Component {
                     <Form className="filter-box">
                         <Form.Group>
                             <SearchBar
-                                handleSearch={this.handleEmailSearch}
-                                handleInputChange={this.handleEmailSearchChange}
+                                handleInputChange={this.handleEmailFilterChange}
                                 handleIconClick={this.handleIconClick}
-                                inputValue={this.state.emailSearchValue}
+                                inputValue={this.state.emailFilterValue}
                                 icon={<Cross />}
                             />
-                            <Form.Text>Search for an email address</Form.Text>
+                            <Form.Text>Filter by email address</Form.Text>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label htmlFor="statusSelect">Status</Form.Label>
