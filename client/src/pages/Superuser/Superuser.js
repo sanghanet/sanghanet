@@ -45,9 +45,7 @@ class Superuser extends Component {
                                     <td>
                                         {
                                             // if email address is too long, shorten it.
-                                            user.email.length > 30 && window.innerWidth < 600 ? (
-                                                `${user.email.substring(0, 25)}...`
-                                            ) : (user.email)
+                                            user.email.substring(0, user.email.indexOf('@'))
                                         }
                                     </td>
                                     <td>

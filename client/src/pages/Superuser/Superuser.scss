@@ -29,9 +29,13 @@ div>main {
                 flex-wrap: wrap;
                 grid-column: span 2;
 
-                @media screen and (max-width: 900px) {
-                    grid-column: span 4;
+                .search-field {
+                    margin-bottom: 0;
                 }
+            }
+
+            @media screen and (max-width: 900px) {
+                grid-column: span 4;
             }
 
             select {
