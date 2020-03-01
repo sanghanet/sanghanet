@@ -67,8 +67,8 @@ class Superuser extends Component {
         this.setState({ emailFilterValue: inputValue });
     }
 
-    handleStatuschange = (e) => {
-        switch (e.target.options.selectedIndex) {
+    handleStatuschange = (event) => {
+        switch (event.target.options.selectedIndex) {
             case 0:
                 this.setState({ statusFilter: 'all' });
                 break;
@@ -83,13 +83,13 @@ class Superuser extends Component {
         }
     }
 
-    handleIconClick = (e) => {
-        e.preventDefault();
+    handleIconClick = (event) => {
+        event.preventDefault();
         this.setState({ emailFilterValue: '' });
     }
 
-    handleRolechange = (e) => {
-        switch (e.target.options.selectedIndex) {
+    handleRolechange = (event) => {
+        switch (event.target.options.selectedIndex) {
             case 0:
                 this.setState({ roleFilter: 'all' });
                 break;
