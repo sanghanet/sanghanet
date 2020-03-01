@@ -29,35 +29,43 @@ class Superuser extends Component {
             });
     }
 
+    checkFilters = (user) => {
+        const { statusFilter, roleFilter, emailFilterValue } = this.state;
+
+        const passedEmailFilter = user.email.toLowerCase().includes(emailFilterValue.toLowerCase());
+        const passedStatusFilter = (user.isActive && statusFilter !== 'inactive') || (!user.isActive && statusFilter !== 'active');
+        const passedRoleFilter = (user.isSuperuser && roleFilter !== 'general') || (!user.isSuperuser && roleFilter !== 'super');
+
+        if (passedEmailFilter && passedStatusFilter && passedRoleFilter) {
+            return true;
+        }
+
+        return false;
+    }
+
     renderUsers = () => {
-        const { userData, statusFilter, roleFilter, emailFilterValue } = this.state;
+        const { userData } = this.state;
 
         return (
             // map through userData only if it's been defined
             userData ? (
                 userData.map((user, key) => (
-                    // filter emails
-                    user.email.toLowerCase().includes(emailFilterValue.toLowerCase()) ? (
-                        // filter status
-                        (user.isActive && statusFilter !== 'inactive') || (!user.isActive && statusFilter !== 'active') ? (
-                            // filter role
-                            (user.isSuperuser && roleFilter !== 'general') || (!user.isSuperuser && roleFilter !== 'super') ? (
-                                <tr key={ key }>
-                                    <td>
-                                        {
-                                            // take out the end of the email addresses
-                                            user.email.substring(0, user.email.indexOf('@'))
-                                        }
-                                    </td>
-                                    <td>
-                                        {user.isActive ? 'active' : 'inactive'}
-                                    </td>
-                                    <td>
-                                        {user.isSuperuser ? 'superuser' : 'general user'}
-                                    </td>
-                                </tr>
-                            ) : (null)
-                        ) : (null)
+                    // check if user passes all filters
+                    (this.checkFilters(user)) ? (
+                        <tr key={ key }>
+                            <td>
+                                {
+                                    // take out the end of the email addresses
+                                    user.email.substring(0, user.email.indexOf('@'))
+                                }
+                            </td>
+                            <td>
+                                {user.isActive ? 'active' : 'inactive'}
+                            </td>
+                            <td>
+                                {user.isSuperuser ? 'superuser' : 'general user'}
+                            </td>
+                        </tr>
                     ) : (null)
                 ))
             ) : (null)
