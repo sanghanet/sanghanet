@@ -185,11 +185,6 @@ class Superuser extends Component {
                                 </td>
                             </tr>
                             {this.renderUsers()}
-                            <tr>
-                                <td colSpan={3}>
-                                    There is no such user...
-                                </td>
-                            </tr>
                         </tbody>
                     </Table>
                 </main>
