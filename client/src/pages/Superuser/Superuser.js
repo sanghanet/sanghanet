@@ -38,9 +38,9 @@ class Superuser extends Component {
                     // filter emails
                     user.email.toLowerCase().includes(emailFilterValue.toLowerCase()) ? (
                         // filter status
-                        (user.isActive && !(statusFilter === 'inactive')) || (!user.isActive && !(statusFilter === 'active')) ? (
+                        (user.isActive && statusFilter !== 'inactive') || (!user.isActive && statusFilter !== 'active') ? (
                             // filter role
-                            (user.isSuperuser && !(roleFilter === 'general')) || (!user.isSuperuser && !(roleFilter === 'super')) ? (
+                            (user.isSuperuser && roleFilter !== 'general') || (!user.isSuperuser && roleFilter !== 'super') ? (
                                 <tr key={ key }>
                                     <td>
                                         {
