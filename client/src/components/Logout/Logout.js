@@ -5,7 +5,7 @@ import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 const Logout = (props) => {
     const handleClick = (event) => {
         sessionStorage.clear();
-        fetch('/user/logout')
+        fetch('/api/logout')
             .then((res) => {
                 if (res.ok) { window.location.href = '/'; }
             })

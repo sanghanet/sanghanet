@@ -5,7 +5,7 @@ import './Loading.scss';
 
 class Loading extends React.Component {
     componentDidMount () {
-        fetch('/user/login', { method: 'POST' })
+        fetch('/api/user', { method: 'POST' })
             .then((res) => {
                 if (res.ok) { return res.json(res.body); }
             })
