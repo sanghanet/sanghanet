@@ -32,7 +32,7 @@
     .btn-primary {
         background-color: $label-bg;
         border-color: $label-bg;
-        &:hover, &:active {
+        &:hover, &:active, &:focus {
             background-color: darken($label-bg, 6) !important;
             border-color: darken($label-bg, 6) !important;
         }
