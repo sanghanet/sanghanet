@@ -1,0 +1,38 @@
+@import '../../../style/colors';
+@import '../../../style/mixins';
+
+.display-container {
+    width: 90%;
+    margin: 15px auto;
+    color: $white;
+    .display-title {
+        margin: 0;
+        padding: 10px;
+    }
+    .display-button {
+        @include buttonReset;
+        padding: 0 18px;
+        border-left: 1px solid gray;
+        .display-icon {
+            fill: $white;
+            width: 18px;
+            height: 18px;
+        }
+    }
+    .display-label {
+        background: $label-bg;
+        border: 1px solid #969494;
+        border-top-right-radius: 2px;
+        border-top-left-radius: 2px;
+        display: grid;
+        grid-template-columns: 1fr repeat(1, 55px);
+    }
+    .display-input {
+        background: $input-bg;
+        border: 1px solid #969494;
+        border-bottom-right-radius: 2px;
+        border-bottom-left-radius: 2px;
+        display: grid;
+        grid-template-columns: 1fr repeat(1, 55px);
+    }
+}

@@ -1,0 +1,40 @@
+@import '../../../style/colors';
+@import '../../../style/mixins';
+
+.modal-container {
+    @include minQ(767px) {
+        padding-left: 110px;
+        max-width: 732px !important;
+    }
+    .modal-content {
+        background-color: $modal-bg;
+    }
+    div form {
+        label.form-label {
+            color: $white;
+            width: 90%;
+            font-size: 24px;
+        }
+        .form-control {
+            font-size: 20px;
+            background: transparent;
+            border: none;
+            -webkit-appearance: none;
+            color: $white;
+        }
+    }
+    .close {
+        color: $white;
+        &:hover {
+            color: $white;
+        }
+    }
+    .btn-primary {
+        background-color: $label-bg;
+        border-color: $label-bg;
+        &:hover, &:active, &:focus {
+            background-color: darken($label-bg, 6) !important;
+            border-color: darken($label-bg, 6) !important;
+        }
+    }
+}
