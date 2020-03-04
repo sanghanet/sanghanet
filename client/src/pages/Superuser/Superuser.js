@@ -19,7 +19,7 @@ class Superuser extends Component {
     }
 
     componentDidMount () {
-        fetch('http://localhost:4000/userList')
+        fetch('/userlist', { method: 'POST' })
             .then((res) => {
                 return res.json();
             }).then((data) => {
