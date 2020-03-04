@@ -7,11 +7,13 @@ const log = log4js.getLogger('routers/routes.js');
 const userController = require('../controllers/user.controller');
 
 router.use((req, res, next) => {
-    log.info(`[${req.ip}] ${req.method} ${req.url}, ${req.user.email}`);
+    // this can be uncommented once ticket #45 is solved
+    // log.info(`[${req.ip}] ${req.method} ${req.url}, ${req.user.email}`);
     next();
 });
 
 router.post('/user/login', userController.login);
 router.get('/user/logout', userController.logout);
+router.post('/userlist', userController.userList);
 
 module.exports = router;

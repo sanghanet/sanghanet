@@ -93,14 +93,6 @@ app.get('/passport',
 
 app.use('/', router);
 
-app.get('/userList', (req, res) => {
-    res.set({ 'Access-Control-Allow-Origin': '*' });
-    User.find({}, 'email isActive isSuperuser')
-        .then((userList) => {
-            res.json(userList);
-        });
-});
-
 const runServer = async () => {
     await initDBConnection();
     app.listen(PORT, async () => {
