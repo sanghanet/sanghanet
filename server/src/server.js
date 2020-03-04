@@ -1,6 +1,4 @@
-const { APP_PORT, PORT, SESSION_SECRET, CLIENT_ID, CLIENT_SECRET } = require('./config');
-
-const uuidv4 = require('uuid/v4');
+const { APP_PORT, PORT, CLIENT_ID, CLIENT_SECRET } = require('./config');
 
 const log4js = require('log4js');
 const log = log4js.getLogger('server.js');
@@ -12,8 +10,7 @@ const { initDBConnection, mongoose } = require('./controllers/mongoDB.controller
 const { User } = require('./models/user.model');
 
 const bodyParser = require('body-parser');
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const sessionMiddleware = require('./controllers/session.controller');
 
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -67,19 +64,7 @@ passport.use(new GoogleStrategy({
         }); // catch to handle DB errors with return done(err) ??
 }));
 
-app.use(session({
-    genid: () => uuidv4(),
-    secret: SESSION_SECRET,
-    store: new MongoStore({
-        mongooseConnection: mongoose.connection
-    }),
-    cookie: {
-        maxAge: 120000,
-        secure: false
-    },
-    name: 'Sanghanet.backend',
-    saveUninitialized: false
-}));
+app.use(sessionMiddleware);
 
 app.use(passport.initialize());
 app.use(passport.session());
