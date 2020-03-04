@@ -5,17 +5,20 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
-import Input from '../../components/Form/Input/Input';
+import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
 import { Row, Col } from 'react-bootstrap';
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
 import ArrowUp from '../../components/icons/arrow-up.svg';
-import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
+// import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 
 class Personal extends React.Component {
     state = {
         openDetails: false,
-        firtsName: 'Baby'
+        firstName: 'Baby',
+        lastName: 'Yoda',
+        firstNameIsVisible: true,
+        lastNameIsVisible: true
     }
 
     componentDidMount () {
@@ -38,16 +41,29 @@ class Personal extends React.Component {
         image.src = this.state.openDetails ? ArrowUp : ArrowDown;
     };
 
-    handleFirstName = (newValue) => {
-        this.setState({ firtsName: newValue });
+    handleSaveFirstName = (newValue) => {
+        // TODO: Store user's first name in BE. In case of failure, display warning.
+        this.setState({ firstName: newValue });
     };
 
-    handleSubmitFirstName = () => {
-        console.log(`Send data to backend: ${this.state.firtsName}`);
+    handleFirstNameVisibility = () => {
+        // TODO: change visibility in BE. In case of failure, display warning.
+        this.setState((oldState) => ({ firstNameIsVisible: !oldState.firstNameIsVisible }));
+    }
+
+    handleSaveLastName = (newValue) => {
+        // TODO: Store user's last name in BE. In case of failure, display warning.
+        this.setState({ lastName: newValue });
     };
+
+    handleLastNameVisibility = () => {
+        // TODO: change visibility in BE. In case of failure, display warning.
+        this.setState((oldState) => ({ lastNameIsVisible: !oldState.lastNameIsVisible }));
+    }
 
     render () {
-        const { firtsName } = this.state;
+        const { firstName, lastName, firstNameIsVisible, lastNameIsVisible } = this.state;
+
         return (
             <div>
                 <Header activePage="Personal" />
@@ -61,24 +77,24 @@ class Personal extends React.Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Input
+                                <InputDisplay
                                     inputTitle="First name"
-                                    type="text"
+                                    inputValue={firstName}
                                     inputId="first-name"
-                                    inputValue={firtsName}
-                                    placeholder=""
-                                    editInput={this.handleFirstName}
-                                    submitFirstName={this.handleSubmitFirstName}
+                                    inputValueSave={this.handleSaveFirstName}
+                                    inputIsVisible={firstNameIsVisible}
+                                    inputVisibility={this.handleFirstNameVisibility}
                                 />
-                                <Input
+                                <InputDisplay
                                     inputTitle="Last name"
-                                    type="text"
+                                    inputValue={lastName}
                                     inputId="last-name"
-                                    inputValue="Yoda"
-                                    placeholder=""
+                                    inputValueSave={this.handleSaveLastName}
+                                    inputIsVisible={lastNameIsVisible}
+                                    inputVisibility={this.handleLastNameVisibility}
                                 />
                             </Row>
-                            <Row>
+                            {/* <Row>
                                 <Input
                                     inputTitle="Gender"
                                     type="select"
@@ -108,7 +124,7 @@ class Personal extends React.Component {
                                         />
                                     </React.Fragment>
                                 </InputDropdown>
-                            </Row>
+                            </Row> */}
                         </React.Fragment>
                     </FormContainer>
                     {/* <form className="personal-form">
