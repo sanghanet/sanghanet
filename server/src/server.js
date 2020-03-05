@@ -52,7 +52,7 @@ passport.deserializeUser((userID, done) => {
 passport.use(new GoogleStrategy({
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
-    callbackURL: `http://localhost:${PORT}/passport`
+    callbackURL: `http://localhost:${PORT}/auth/passport`
 }, (identifier, refreshtoken, profile, done) => {
     log.info(profile);
     User.findOne({ email: profile.emails[0].value })
@@ -70,9 +70,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Email is enough, because we use our custom profile data.
-app.post('/auth', passport.authenticate('google', { scope: ['email'] }));
+app.post('/auth/google', passport.authenticate('google', { scope: ['email'] }));
 
-app.get('/passport',
+app.get('/auth/passport',
     passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/loginfailed` }),
     (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); }
 );
