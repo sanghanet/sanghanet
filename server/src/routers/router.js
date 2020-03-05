@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const log4js = require('log4js');
-const log = log4js.getLogger('routers/routes.js');
+const log = log4js.getLogger('routers/router.js');
 
 const userController = require('../controllers/user.controller');
 
