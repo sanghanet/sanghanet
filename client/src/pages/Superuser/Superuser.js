@@ -14,7 +14,6 @@ class Superuser extends Component {
     state = {
         userData: null,
         emailFilterValue: '',
-        statusFilter: 'all',
         roleFilter: 'all'
     }
 
@@ -24,23 +23,19 @@ class Superuser extends Component {
                 return res.json();
             }).then((data) => {
                 this.setState({ userData: data });
+                console.dir(this.state.userData);
             }).catch((err) => {
                 throw new Error(err.message);
             });
     }
 
     checkFilters = (user) => {
-        const { statusFilter, roleFilter, emailFilterValue } = this.state;
+        const { roleFilter, emailFilterValue } = this.state;
 
         const passedEmailFilter = user.email.toLowerCase().includes(emailFilterValue.toLowerCase());
-        const passedStatusFilter = (user.isActive && statusFilter !== 'inactive') || (!user.isActive && statusFilter !== 'active');
         const passedRoleFilter = (user.isSuperuser && roleFilter !== 'general') || (!user.isSuperuser && roleFilter !== 'super');
 
-        if (passedEmailFilter && passedStatusFilter && passedRoleFilter) {
-            return true;
-        }
-
-        return false;
+        return passedEmailFilter && passedRoleFilter;
     }
 
     renderUsers = () => {
@@ -53,14 +48,12 @@ class Superuser extends Component {
                     // check if user passes all filters
                     (this.checkFilters(user)) ? (
                         <tr key={ key }>
+                            <td>{`${user.firstName} ${user.lastName}`}</td>
                             <td>
                                 {
                                     // take out the end of the email addresses
                                     user.email.substring(0, user.email.indexOf('@'))
                                 }
-                            </td>
-                            <td>
-                                {user.isActive ? 'active' : 'inactive'}
                             </td>
                             <td>
                                 {user.isSuperuser ? 'superuser' : 'general user'}
@@ -79,22 +72,6 @@ class Superuser extends Component {
     handleIconClick = (event) => {
         event.preventDefault();
         this.setState({ emailFilterValue: '' });
-    }
-
-    handleStatuschange = (event) => {
-        switch (event.target.options.selectedIndex) {
-            case 0:
-                this.setState({ statusFilter: 'all' });
-                break;
-            case 1:
-                this.setState({ statusFilter: 'active' });
-                break;
-            case 2:
-                this.setState({ statusFilter: 'inactive' });
-                break;
-            default:
-                break;
-        }
     }
 
     handleRolechange = (event) => {
@@ -116,11 +93,9 @@ class Superuser extends Component {
     resetFilters = () => {
         this.setState({
             emailFilterValue: '',
-            statusFilter: 'all',
             roleFilter: 'all'
         });
 
-        document.getElementById('statusSelect').selectedIndex = 0;
         document.getElementById('roleSelect').selectedIndex = 0;
     }
 
@@ -129,7 +104,7 @@ class Superuser extends Component {
     }
 
     render () {
-        const { emailFilterValue, statusFilter, roleFilter } = this.state;
+        const { emailFilterValue, roleFilter } = this.state;
 
         return (
             <div>
@@ -148,14 +123,6 @@ class Superuser extends Component {
                             <Form.Text>Filter by email address</Form.Text>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="statusSelect">Status</Form.Label>
-                            <select defaultValue={statusFilter} id="statusSelect" onChange={this.handleStatuschange}>
-                                <option>all</option>
-                                <option>active</option>
-                                <option>inactive</option>
-                            </select>
-                        </Form.Group>
-                        <Form.Group>
                             <Form.Label htmlFor="roleSelect">Role</Form.Label>
                             <select defaultValue={roleFilter} id="roleSelect" onChange={this.handleRolechange}>
                                 <option>all</option>
@@ -170,9 +137,9 @@ class Superuser extends Component {
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
+                                <th>Name</th>
                                 <th>Email</th>
                                 <th>Status</th>
-                                <th>Role</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">

@@ -20,8 +20,8 @@ module.exports.logout = (req, res) => {
 };
 
 module.exports.userList = (req, res) => {
-    // res.set({ 'Access-Control-Allow-Origin': '*' });
-    User.find({}, 'email isActive isSuperuser')
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    User.find({}, 'email isSuperuser firstName lastName')
         .then((userList) => {
             res.json(userList);
         })
