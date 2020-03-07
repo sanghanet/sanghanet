@@ -2,6 +2,14 @@
 @import '../../../style/mixins';
 
 .modal-container {
+    option {
+        background-color: $modal-bg;
+    }
+    // #birthday::-webkit-inner-spin-button,
+    // #birthday::-webkit-calendar-picker-indicator {
+    //     display: none;
+    //     -webkit-appearance: none;
+    // }
     @include minQ(767px) {
         padding-left: 110px;
         max-width: 732px !important;

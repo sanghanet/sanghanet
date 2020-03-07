@@ -16,9 +16,17 @@ class Personal extends React.Component {
     state = {
         openDetails: false,
         firstName: 'Baby',
-        lastName: 'Yoda',
         firstNameIsVisible: true,
-        lastNameIsVisible: true
+        lastName: 'Yoda',
+        lastNameIsVisible: true,
+        spiritualName: 'Jedi Master',
+        spiritualNameIsVisible: true,
+        birthday: '07-31-1987',
+        birthdayIsVisible: true,
+        gender: 'Female',
+        genderIsVisible: true,
+        level: 'Intermediate',
+        levelIsVisible: true
     }
 
     componentDidMount () {
@@ -61,8 +69,55 @@ class Personal extends React.Component {
         this.setState((oldState) => ({ lastNameIsVisible: !oldState.lastNameIsVisible }));
     }
 
+    handleSaveBirthday = (newValue) => {
+        // TODO: Store user's last name in BE. In case of failure, display warning.
+        this.setState({ birthday: newValue });
+    };
+
+    handleBirthdayVisibility = () => {
+        // TODO: change visibility in BE. In case of failure, display warning.
+        this.setState((oldState) => ({ birthdayIsVisible: !oldState.birthdayIsVisible }));
+    }
+
+    handleSaveSpiritualName = (newValue) => {
+        // TODO: Store user's last name in BE. In case of failure, display warning.
+        this.setState({ spiritualName: newValue });
+    };
+
+    handleSpiritualNameVisibility = () => {
+        // TODO: change visibility in BE. In case of failure, display warning.
+        this.setState((oldState) => ({ spiritualNameIsVisible: !oldState.spiritualNameIsVisible }));
+    }
+
+    handleSaveGender = (newValue) => {
+        // TODO: Store user's last name in BE. In case of failure, display warning.
+        this.setState({ gender: newValue });
+    };
+
+    handleGenderVisibility = () => {
+        // TODO: change visibility in BE. In case of failure, display warning.
+        this.setState((oldState) => ({ genderIsVisible: !oldState.genderIsVisible }));
+    }
+
+    handleSaveLevel = (newValue) => {
+        // TODO: Store user's last name in BE. In case of failure, display warning.
+        this.setState({ level: newValue });
+    };
+
+    handleLevelVisibility = () => {
+        // TODO: change visibility in BE. In case of failure, display warning.
+        this.setState((oldState) => ({ levelIsVisible: !oldState.levelIsVisible }));
+    }
+
     render () {
-        const { firstName, lastName, firstNameIsVisible, lastNameIsVisible } = this.state;
+        const {
+            firstName, firstNameIsVisible,
+            lastName, lastNameIsVisible,
+            birthday, birthdayIsVisible,
+            spiritualName, spiritualNameIsVisible,
+            gender, genderIsVisible,
+            level, levelIsVisible
+        } = this.state;
 
         return (
             <div>
@@ -84,6 +139,7 @@ class Personal extends React.Component {
                                     inputValueSave={this.handleSaveFirstName}
                                     inputIsVisible={firstNameIsVisible}
                                     inputVisibility={this.handleFirstNameVisibility}
+                                    inputType="text"
                                 />
                                 <InputDisplay
                                     inputTitle="Last name"
@@ -92,20 +148,52 @@ class Personal extends React.Component {
                                     inputValueSave={this.handleSaveLastName}
                                     inputIsVisible={lastNameIsVisible}
                                     inputVisibility={this.handleLastNameVisibility}
-                                />
-                            </Row>
-                            {/* <Row>
-                                <Input
-                                    inputTitle="Gender"
-                                    type="select"
-                                    optionsForSelect={['Female', 'Male', 'Other']}
-                                />
-                                <Input
-                                    inputTitle="Date of birth"
-                                    type="date"
+                                    inputType="text"
                                 />
                             </Row>
                             <Row>
+                                <InputDisplay
+                                    inputTitle="Spiritual name"
+                                    inputValue={spiritualName}
+                                    inputId="spiritual-name"
+                                    inputValueSave={this.handleSaveSpiritualName}
+                                    inputIsVisible={spiritualNameIsVisible}
+                                    inputVisibility={this.handleSpiritualNameVisibility}
+                                    inputType="text"
+                                />
+                                <InputDisplay
+                                    inputTitle="Date of birth"
+                                    inputValue={birthday}
+                                    inputId="birthday"
+                                    inputValueSave={this.handleSaveBirthday}
+                                    inputIsVisible={birthdayIsVisible}
+                                    inputVisibility={this.handleBirthdayVisibility}
+                                    inputType="date"
+                                />
+                            </Row>
+                            <Row>
+                                <InputDisplay
+                                    inputTitle="Gender"
+                                    inputValue={gender}
+                                    inputId="gender"
+                                    inputValueSave={this.handleSaveGender}
+                                    inputIsVisible={genderIsVisible}
+                                    inputVisibility={this.handleGenderVisibility}
+                                    inputFieldAs="select"
+                                    optionsForSelect={['Female', 'Male', 'Other']}
+                                />
+                                <InputDisplay
+                                    inputTitle="Level of study"
+                                    inputValue={level}
+                                    inputId="level"
+                                    inputValueSave={this.handleSaveLevel}
+                                    inputIsVisible={levelIsVisible}
+                                    inputVisibility={this.handleLevelVisibility}
+                                    inputFieldAs="select"
+                                    optionsForSelect={['Beginner', 'Intermediate', 'Advanced']}
+                                />
+                            </Row>
+                            {/* <Row>
                                 <InputDropdown open={false} >
                                     <React.Fragment>
                                         <Input

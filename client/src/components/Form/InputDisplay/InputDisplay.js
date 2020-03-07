@@ -14,30 +14,45 @@ const InputDisplay = (props) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const {
+        inputTitle,
+        inputValue,
+        inputId,
+        inputValueSave,
+        inputType,
+        inputFieldAs,
+        optionsForSelect,
+        inputVisibility,
+        inputIsVisible
+    } = props;
 
     return (
+
         <React.Fragment>
             <InputPopup
                 modalShow={show}
-                modalTitle={props.inputTitle}
-                modalValue={props.inputValue || 'Input Value'}
+                modalTitle={inputTitle}
+                modalValue={inputValue || 'Input Value'}
                 modalClose={handleClose}
-                modalId={props.inputId}
-                modalValueSave={props.inputValueSave}
+                modalId={inputId}
+                modalValueSave={inputValueSave}
+                modalInputType={inputType}
+                modalInputAs={inputFieldAs}
+                options={optionsForSelect}
             />
             <Col xm={12} lg={6}>
                 <div className="display-container">
                     <div className="display-label">
-                        <p className="display-title">{props.inputTitle}</p>
-                        <button className="display-button visible-button" onClick={props.inputVisibility}>
-                            {props.inputIsVisible
+                        <p className="display-title">{inputTitle}</p>
+                        <button className="display-button visible-button" onClick={inputVisibility}>
+                            {inputIsVisible
                                 ? <Visible className="display-icon visible-icon" />
                                 : <Invisible className="display-icon visible-icon" />
                             }
                         </button>
                     </div>
                     <div className="display-input">
-                        <p className="display-title">{props.inputValue || 'Enter a new value'}</p>
+                        <p className="display-title">{inputValue || 'Enter a new value'}</p>
                         <button className="display-button edit-button" onClick={handleShow}>
                             <Edit className="display-icon edit-icon" />
                         </button>
@@ -54,7 +69,10 @@ InputDisplay.propTypes = {
     inputId: PropTypes.string.isRequired,
     inputValueSave: PropTypes.func.isRequired,
     inputVisibility: PropTypes.func.isRequired,
-    inputIsVisible: PropTypes.bool.isRequired
+    inputIsVisible: PropTypes.bool.isRequired,
+    inputType: PropTypes.string,
+    inputFieldAs: PropTypes.string,
+    optionsForSelect: PropTypes.array
 };
 
 export default InputDisplay;
