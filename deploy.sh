@@ -30,5 +30,7 @@ sed -i 's/PORT.*/PORT = process.env.PORT/' $DEPLOY_DIR/.env.atlas
 echo "5) set application URL in server.js"
 sed -i 's/http:\/\/localhost:${PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/controllers/passport.controller.js
 sed -i 's/http:\/\/localhost:${APP_PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/server.js
+echo "POST BUILD DONE"
 
 echo "SanghaNet build is ready for manual deployment to Heroku from " $DEPLOY_DIR
+cd $DEPLOY_DIR

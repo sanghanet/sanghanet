@@ -12,7 +12,7 @@ const sessionMiddleware = session({
         mongooseConnection: mongoose.connection
     }),
     cookie: {
-        maxAge: 120000,
+        maxAge: 1000 * 60 * 2, // 1000 * 60 * X === X minutes
         secure: false
     },
     name: 'Sanghanet.backend',
