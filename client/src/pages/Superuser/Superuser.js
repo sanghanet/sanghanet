@@ -130,7 +130,7 @@ class Superuser extends Component {
                                 <option>superuser</option>
                             </select>
                         </Form.Group>
-                        <Button variant="dark" onClick={this.resetFilters}>Reset filters</Button>
+                        <Button variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
                     </Form>
 
                     {/* --- Table --- */}
@@ -144,8 +144,8 @@ class Superuser extends Component {
                         </thead>
                         <tbody id="tableBody">
                             <tr>
-                                <td colSpan={3}>
-                                    <Button className="add-user-btn" variant="dark" onClick={this.addUser}>
+                                <td colSpan={3} className="p-0">
+                                    <Button className="add-user-btn" variant="success" onClick={this.addUser}>
                                         <Plus />
                                         Add user
                                     </Button>
