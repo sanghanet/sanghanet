@@ -39,7 +39,7 @@ passport.use(new GoogleStrategy({
         .then((userObject) => {
             log.info(userObject);
             return userObject && userObject.isActive
-                ? done(null, userObject._id)
+                ? done(null, userObject.id)
                 : done(null, null);
         }); // catch to handle DB errors with return done(err) ??
 }));

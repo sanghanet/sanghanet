@@ -1,4 +1,4 @@
-const { APP_PORT, PORT } = require('./config');
+const { PORT } = require('./config');
 
 const log4js = require('log4js');
 const log = log4js.getLogger('server.js');
@@ -11,8 +11,9 @@ const { initDBConnection } = require('./controllers/mongoDB.controller');
 const bodyParser = require('body-parser');
 const sessionMiddleware = require('./controllers/session.controller');
 
-const passport = require('./controllers/passport.controller');
+const passport = require('passport');
 
+const authRouter = require('./routers/auth.router');
 const router = require('./routers/router');
 
 app.use(express.static('app'));
@@ -32,14 +33,7 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Email is enough, because we use our custom profile data.
-app.post('/auth/google', passport.authenticate('google', { scope: ['email'] }));
-
-app.get('/auth/passport',
-    passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/loginfailed` }),
-    (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); }
-);
-
+app.use('/auth', authRouter);
 app.use('/', router);
 
 const runServer = async () => {
