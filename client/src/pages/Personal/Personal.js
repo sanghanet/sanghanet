@@ -49,64 +49,15 @@ class Personal extends React.Component {
         image.src = this.state.openDetails ? ArrowUp : ArrowDown;
     };
 
-    handleSaveFirstName = (newValue) => {
+    handleItemSave = (newValue, id) => {
         // TODO: Store user's first name in BE. In case of failure, display warning.
-        this.setState({ firstName: newValue });
+        this.setState({ [id]: newValue });
     };
 
-    handleFirstNameVisibility = () => {
+    handleItemVisibility = (id) => {
         // TODO: change visibility in BE. In case of failure, display warning.
-        this.setState((oldState) => ({ firstNameIsVisible: !oldState.firstNameIsVisible }));
-    }
-
-    handleSaveLastName = (newValue) => {
-        // TODO: Store user's last name in BE. In case of failure, display warning.
-        this.setState({ lastName: newValue });
-    };
-
-    handleLastNameVisibility = () => {
-        // TODO: change visibility in BE. In case of failure, display warning.
-        this.setState((oldState) => ({ lastNameIsVisible: !oldState.lastNameIsVisible }));
-    }
-
-    handleSaveBirthday = (newValue) => {
-        // TODO: Store user's last name in BE. In case of failure, display warning.
-        this.setState({ birthday: newValue });
-    };
-
-    handleBirthdayVisibility = () => {
-        // TODO: change visibility in BE. In case of failure, display warning.
-        this.setState((oldState) => ({ birthdayIsVisible: !oldState.birthdayIsVisible }));
-    }
-
-    handleSaveSpiritualName = (newValue) => {
-        // TODO: Store user's last name in BE. In case of failure, display warning.
-        this.setState({ spiritualName: newValue });
-    };
-
-    handleSpiritualNameVisibility = () => {
-        // TODO: change visibility in BE. In case of failure, display warning.
-        this.setState((oldState) => ({ spiritualNameIsVisible: !oldState.spiritualNameIsVisible }));
-    }
-
-    handleSaveGender = (newValue) => {
-        // TODO: Store user's last name in BE. In case of failure, display warning.
-        this.setState({ gender: newValue });
-    };
-
-    handleGenderVisibility = () => {
-        // TODO: change visibility in BE. In case of failure, display warning.
-        this.setState((oldState) => ({ genderIsVisible: !oldState.genderIsVisible }));
-    }
-
-    handleSaveLevel = (newValue) => {
-        // TODO: Store user's last name in BE. In case of failure, display warning.
-        this.setState({ level: newValue });
-    };
-
-    handleLevelVisibility = () => {
-        // TODO: change visibility in BE. In case of failure, display warning.
-        this.setState((oldState) => ({ levelIsVisible: !oldState.levelIsVisible }));
+        const isVisible = `${[id]}IsVisible`;
+        this.setState((oldState) => ({ [isVisible]: !oldState[isVisible] }));
     }
 
     render () {
@@ -135,19 +86,19 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="First name"
                                     inputValue={firstName}
-                                    inputId="first-name"
-                                    inputValueSave={this.handleSaveFirstName}
+                                    inputId="firstName" // value should be the same as inputValue value
+                                    inputValueSave={this.handleItemSave}
                                     inputIsVisible={firstNameIsVisible}
-                                    inputVisibility={this.handleFirstNameVisibility}
+                                    inputVisibility={this.handleItemVisibility}
                                     inputType="text"
                                 />
                                 <InputDisplay
                                     inputTitle="Last name"
                                     inputValue={lastName}
-                                    inputId="last-name"
-                                    inputValueSave={this.handleSaveLastName}
+                                    inputId="lastName"
+                                    inputValueSave={this.handleItemSave}
                                     inputIsVisible={lastNameIsVisible}
-                                    inputVisibility={this.handleLastNameVisibility}
+                                    inputVisibility={this.handleItemVisibility}
                                     inputType="text"
                                 />
                             </Row>
@@ -155,19 +106,19 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="Spiritual name"
                                     inputValue={spiritualName}
-                                    inputId="spiritual-name"
-                                    inputValueSave={this.handleSaveSpiritualName}
+                                    inputId="spiritualName"
+                                    inputValueSave={this.handleItemSave}
                                     inputIsVisible={spiritualNameIsVisible}
-                                    inputVisibility={this.handleSpiritualNameVisibility}
+                                    inputVisibility={this.handleItemVisibility}
                                     inputType="text"
                                 />
                                 <InputDisplay
                                     inputTitle="Date of birth"
                                     inputValue={birthday}
                                     inputId="birthday"
-                                    inputValueSave={this.handleSaveBirthday}
+                                    inputValueSave={this.handleItemSave}
                                     inputIsVisible={birthdayIsVisible}
-                                    inputVisibility={this.handleBirthdayVisibility}
+                                    inputVisibility={this.handleItemVisibility}
                                     inputType="date"
                                 />
                             </Row>
@@ -176,9 +127,9 @@ class Personal extends React.Component {
                                     inputTitle="Gender"
                                     inputValue={gender}
                                     inputId="gender"
-                                    inputValueSave={this.handleSaveGender}
+                                    inputValueSave={this.handleItemSave}
                                     inputIsVisible={genderIsVisible}
-                                    inputVisibility={this.handleGenderVisibility}
+                                    inputVisibility={this.handleItemVisibility}
                                     inputFieldAs="select"
                                     optionsForSelect={['Female', 'Male', 'Other']}
                                 />
@@ -186,9 +137,9 @@ class Personal extends React.Component {
                                     inputTitle="Level of study"
                                     inputValue={level}
                                     inputId="level"
-                                    inputValueSave={this.handleSaveLevel}
+                                    inputValueSave={this.handleItemSave}
                                     inputIsVisible={levelIsVisible}
-                                    inputVisibility={this.handleLevelVisibility}
+                                    inputVisibility={this.handleItemVisibility}
                                     inputFieldAs="select"
                                     optionsForSelect={['Beginner', 'Intermediate', 'Advanced']}
                                 />

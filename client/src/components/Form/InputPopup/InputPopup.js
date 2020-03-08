@@ -12,7 +12,7 @@ class InputPopup extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.modalValueSave(this.state.currentValue);
+        this.props.modalValueSave(this.state.currentValue, this.props.modalId);
         this.props.modalClose();
     }
 
@@ -72,7 +72,7 @@ InputPopup.propTypes = {
     modalValue: PropTypes.string,
     modalClose: PropTypes.func.isRequired,
     modalId: PropTypes.string.isRequired,
-    modalValueSave: PropTypes.func.isRequired,
+    modalValueSave: PropTypes.func,
     modalInputType: PropTypes.string,
     modalInputAs: PropTypes.string,
     options: PropTypes.array

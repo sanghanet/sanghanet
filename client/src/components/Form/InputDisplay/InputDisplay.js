@@ -44,7 +44,7 @@ const InputDisplay = (props) => {
                 <div className="display-container">
                     <div className="display-label">
                         <p className="display-title">{inputTitle}</p>
-                        <button className="display-button visible-button" onClick={inputVisibility}>
+                        <button className="display-button visible-button" onClick={ () => inputVisibility(inputId) }>
                             {inputIsVisible
                                 ? <Visible className="display-icon visible-icon" />
                                 : <Invisible className="display-icon visible-icon" />
@@ -67,8 +67,8 @@ InputDisplay.propTypes = {
     inputTitle: PropTypes.string.isRequired,
     inputValue: PropTypes.string,
     inputId: PropTypes.string.isRequired,
-    inputValueSave: PropTypes.func.isRequired,
-    inputVisibility: PropTypes.func.isRequired,
+    inputValueSave: PropTypes.func,
+    inputVisibility: PropTypes.func,
     inputIsVisible: PropTypes.bool.isRequired,
     inputType: PropTypes.string,
     inputFieldAs: PropTypes.string,
