@@ -6,7 +6,8 @@ import Footer from '../../components/Footer/Footer';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
-import { Row, Col } from 'react-bootstrap';
+import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
+import { Row } from 'react-bootstrap';
 import './Personal.scss';
 import ArrowDown from '../../components/icons/arrow-down.svg';
 import ArrowUp from '../../components/icons/arrow-up.svg';
@@ -37,11 +38,6 @@ class Personal extends React.Component {
             });
         }
     }
-
-    loadFile = (event) => {
-        const image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-    };
 
     toggleDetails = (event) => {
         this.setState((state) => ({ openDetails: !state.openDetails }));
@@ -77,16 +73,13 @@ class Personal extends React.Component {
                 <main>
                     <FormContainer formTitle="general data">
                         <React.Fragment>
-                            <Row>
-                                <Col>
-                                    Avatar
-                                </Col>
-                            </Row>
+                            <InputAvatar />
                             <Row>
                                 <InputDisplay
                                     inputTitle="First name"
                                     inputValue={firstName}
-                                    inputId="firstName" // value should be the same as inputValue value
+                                    // inputId value should be the same as inputValue value
+                                    inputId="firstName"
                                     inputValueSave={this.handleItemSave}
                                     inputIsVisible={firstNameIsVisible}
                                     inputVisibility={this.handleItemVisibility}
