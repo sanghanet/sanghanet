@@ -159,38 +159,7 @@ class Personal extends React.Component {
                             </Row> */}
                         </React.Fragment>
                     </FormContainer>
-                    {/* <form className="personal-form">
-                        <div className="general-data personal-blocks">
-                            <h2 className="personal-form-h2">GENERAL DATA</h2>
-                            <div className="personal-form-field avatar">
-                                <input type="file" accept="image/*" name="image" id="file" onChange={this.loadFile}></input>
-                                <label htmlFor="file" id="file-upload">
-                                    <p className="upload-text">Click here to<br />upload your photo</p>
-                                    <img id="output" className="personal-photo" alt=""></img>
-                                </label>
-                            </div>
-                            <div className="personal-form-field">
-                                <label htmlFor="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" required></input>
-                            </div>
-                            <div className="personal-form-field">
-                                <label htmlFor="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" required></input>
-                            </div>
-                            <div className="personal-form-field select-container">
-                                <label htmlFor="gender">Gender</label>
-                                <select id="gender" required>
-                                    <option value="female">Female</option>
-                                    <option value="male">Male</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div className="personal-form-field">
-                                <label htmlFor="birthDate">Date of Birth</label>
-                                <input type="date" id="birthDate" name="birthDate" min="1920-01-01" max="2020-01-01" required></input>
-                            </div>
-                        </div>
-                        <div className="contact-details personal-blocks">
+                    {/* <div className="contact-details personal-blocks">
                             <h2 className="personal-form-h2">CONTACT DETAILS</h2>
                             <div className="personal-form-field">
                                 <label htmlFor="email">Email</label>
