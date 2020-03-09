@@ -12,7 +12,7 @@ class InputPopup extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.modalValueSave(this.state.currentValue);
+        this.props.modalValueSave(this.state.currentValue, this.props.modalId);
         this.props.modalClose();
     }
 
@@ -26,7 +26,7 @@ class InputPopup extends Component {
     }
 
     render () {
-        const { modalShow, modalTitle, modalId } = this.props;
+        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, options } = this.props;
 
         return (
             /* autoFocus works only if Modal animation={false} */
@@ -37,12 +37,20 @@ class InputPopup extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Control
-                            type='text'
+                            as={modalInputAs}
+                            type={modalInputType}
                             id={modalId}
                             value={this.state.currentValue}
                             onChange={this.handleChange}
                             autoFocus
-                        ></Form.Control>
+                        >
+                            { options
+                                ? options.map((option, index) => {
+                                    return (<option value={option} key={index}>{option}</option>);
+                                })
+                                : null
+                            }
+                        </Form.Control>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>
@@ -64,7 +72,10 @@ InputPopup.propTypes = {
     modalValue: PropTypes.string,
     modalClose: PropTypes.func.isRequired,
     modalId: PropTypes.string.isRequired,
-    modalValueSave: PropTypes.func.isRequired
+    modalValueSave: PropTypes.func,
+    modalInputType: PropTypes.string,
+    modalInputAs: PropTypes.string,
+    options: PropTypes.array
 };
 
 export default InputPopup;
