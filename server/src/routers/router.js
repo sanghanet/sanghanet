@@ -17,6 +17,6 @@ router.use((req, res, next) => {
 
 router.post('/user/login', userController.login);
 router.get('/user/logout', userController.logout);
-router.post('/userlist', userController.userList);
+router.post('/handleAccessList', userController.handleAccessList);
 
 module.exports = router;

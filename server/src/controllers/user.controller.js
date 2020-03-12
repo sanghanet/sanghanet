@@ -19,7 +19,7 @@ module.exports.logout = (req, res) => {
     res.status(200).send();
 };
 
-module.exports.userList = (req, res) => {
+module.exports.handleAccessList = (req, res) => {
     res.set({ 'Access-Control-Allow-Origin': '*' });
     User.find({}, 'email isSuperuser firstName lastName')
         .then((userList) => {

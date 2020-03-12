@@ -18,12 +18,11 @@ class Superuser extends Component {
     }
 
     componentDidMount () {
-        fetch('/userlist', { method: 'POST' })
+        fetch('/handleAccessList', { method: 'POST' })
             .then((res) => {
                 return res.json();
             }).then((data) => {
                 this.setState({ userData: data });
-                console.dir(this.state.userData);
             }).catch((err) => {
                 throw new Error(err.message);
             });
