@@ -12,7 +12,7 @@ const Login = (props) => {
             {/* main is a div here to discard general main style */}
             <div className="login-main">
                 <Buddha className="buddha" />
-                <form method="POST" action="/auth" className="login-btn">
+                <form method="POST" action="/auth/google" className="login-btn">
                     <button>
                         <img src={GoogleLogo} alt="Google logo"/>
                         <span>Sign in</span>

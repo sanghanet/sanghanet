@@ -1,0 +1,52 @@
+@import '../../../style/colors';
+
+.container .avatar-container .avatar-col {
+    max-width: 270px;
+    height: 270px;
+    background-color: $input-bg;
+    border: 10px solid $label-bg;
+    border-radius: 6px;
+    padding-right: 0;
+    padding-left: 0;
+
+    .display-input {
+        position: relative;
+        #file {
+            width: 250px;
+            height: 250px;
+            color: transparent;
+
+            position: absolute;
+            top: 0;
+            &::-webkit-file-upload-button {
+                visibility: hidden;
+            }
+        }
+        #file-upload {
+            width: 250px;
+            height: 250px;
+            cursor: pointer;
+
+            position: absolute;
+            top: 0;
+
+            .upload-text {
+                margin: 0;
+                padding-top: 92px;
+                text-align: center;
+                font-style: italic;
+                color: $white;
+            }
+            .hide-text {
+                color: transparent;
+            }
+            .personal-photo {
+                width: 250px;
+                height: 250px;
+
+                position: absolute;
+                top: 0;
+            }
+        }
+    }
+}
