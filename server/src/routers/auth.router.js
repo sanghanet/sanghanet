@@ -10,6 +10,7 @@ const passport = require('../controllers/passport.controller');
 
 authRouter.use((req, res, next) => {
     if (req.user) { // If browser already has a session ID, like user opened a new TAB to login again
+        log.info(`[${req.ip}] ${req.method} ${req.url} user already authenticated`);
         res.redirect(`http://localhost:${APP_PORT}/loading`);
     } else {
         log.info(`[${req.ip}] ${req.method} ${req.url}`);

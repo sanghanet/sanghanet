@@ -15,7 +15,6 @@ passport.serializeUser((userID, done) => {
 });
 
 passport.deserializeUser((userID, done) => {
-    log.info(`deserialize ${userID}`);
     User.findOne({ _id: mongoose.Types.ObjectId(userID) })
         .then((identifiedUserObject) => {
             if (!identifiedUserObject) {
@@ -25,8 +24,8 @@ passport.deserializeUser((userID, done) => {
                 log.info(`deserialized user as: ${identifiedUserObject.email}`);
                 done(null, identifiedUserObject);
             }
-            done(null, null);
-        });
+        })
+        .catch(err => { log.fatal(err); });
 });
 
 passport.use(new GoogleStrategy({
@@ -34,14 +33,13 @@ passport.use(new GoogleStrategy({
     clientSecret: CLIENT_SECRET,
     callbackURL: `http://localhost:${PORT}/auth/passport`
 }, (identifier, refreshtoken, profile, done) => {
-    log.info(profile);
     User.findOne({ email: profile.emails[0].value })
         .then((userObject) => {
-            log.info(userObject);
             return userObject && userObject.isActive
                 ? done(null, userObject.id)
                 : done(null, null);
-        }); // catch to handle DB errors with return done(err) ??
+        })
+        .catch(err => { log.fatal(err); });
 }));
 
 module.exports = passport;

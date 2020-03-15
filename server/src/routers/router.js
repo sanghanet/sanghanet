@@ -7,16 +7,17 @@ const log = log4js.getLogger('routers/router.js');
 const userController = require('../controllers/user.controller');
 
 router.use((req, res, next) => {
-    if (!req.user) { // session cookie has expired
-        res.redirect('/');
-    } else {
-        log.info(`[${req.ip}] ${req.method} ${req.url}, ${req.user.email}`);
+    if (req.isAuthenticated()) { // session cookie has expired ??
+        log.info(`[${req.ip}] ${req.method} ${req.url}, ${req.user.email}, authenticated.`);
         next();
+    } else {
+        log.warn(`[${req.ip}] ${req.method} ${req.url} Request not authenticated, redirect!`);
+        res.redirect('/');
     }
 });
 
-router.post('/user/login', userController.login);
-router.get('/user/logout', userController.logout);
-router.post('/handleAccessList', userController.handleAccessList);
+router.post('/login', userController.login);
+router.get('/logout', userController.logout);
+router.post('/listusers', userController.listUsers);
 
 module.exports = router;

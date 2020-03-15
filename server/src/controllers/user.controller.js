@@ -4,12 +4,10 @@ const { User } = require('../models/user.model');
 
 module.exports.login = (req, res) => {
     const user = req.user;
-    log.info(req.ip, user);
     res.json({ name: `${user.firstName} ${user.lastName}`, isActive: user.isActive, isSuperuser: user.isSuperuser });
 };
 
 module.exports.logout = (req, res) => {
-    log.info(req.session);
     req.session.destroy((err) => {
         if (err) {
             log.error(`Session deletion failed: ${err}`);
@@ -19,14 +17,12 @@ module.exports.logout = (req, res) => {
     res.status(200).send();
 };
 
-module.exports.handleAccessList = (req, res) => {
-    res.set({ 'Access-Control-Allow-Origin': '*' });
-    User.find({}, 'email isSuperuser firstName lastName')
-        .then((userList) => {
-            res.json(userList);
-        })
-        .catch((error) => {
-            log.error(error);
-            res.status(500).send();
-        });
+module.exports.listUsers = async (req, res, next) => {
+    try {
+        const users = await User.find({}, 'email isSuperuser firstName lastName');
+        // res.set({ 'Access-Control-Allow-Origin': '*' });
+        res.json(users);
+    } catch (err) {
+        next(err);
+    }
 };

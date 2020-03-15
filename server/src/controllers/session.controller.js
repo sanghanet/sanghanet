@@ -15,6 +15,7 @@ const sessionMiddleware = session({
         maxAge: 1000 * 60 * 2, // 1000 * 60 * X === X minutes
         secure: false
     },
+    rolling: true,
     name: 'Sanghanet.backend',
     saveUninitialized: false
 });

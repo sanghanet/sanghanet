@@ -17,14 +17,19 @@ class Superuser extends Component {
         roleFilter: 'all'
     }
 
-    componentDidMount () {
-        fetch('/handleAccessList', { method: 'POST' })
+    async componentDidMount () {
+        fetch('/user/listusers', { method: 'POST' })
             .then((res) => {
-                return res.json();
+                if (res.redirected) {
+                    window.location.href = res.url;
+                } else {
+                    return res.json();
+                }
             }).then((data) => {
                 this.setState({ userData: data });
             }).catch((err) => {
-                throw new Error(err.message);
+                console.log(err.message);
+                // throw new Error(err.message);
             });
     }
 
