@@ -16,6 +16,7 @@ div.container {
     border: 1px solid #969494;
     border-radius: 10px;
     padding-bottom: 24px;
+    margin-bottom: 30px;
     @include maxQ(520px) {
         width: 100%;
         background-color: transparent;

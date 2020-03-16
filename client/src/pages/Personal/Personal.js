@@ -7,11 +7,11 @@ import Footer from '../../components/Footer/Footer';
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
+import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 import { Row } from 'react-bootstrap';
 import './Personal.scss';
-import ArrowDown from '../../components/icons/arrow-down.svg';
-import ArrowUp from '../../components/icons/arrow-up.svg';
-// import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
+// import ArrowDown from '../../components/icons/arrow-down.svg';
+// import ArrowUp from '../../components/icons/arrow-up.svg';
 
 class Personal extends React.Component {
     state = {
@@ -27,22 +27,21 @@ class Personal extends React.Component {
         gender: 'Female',
         genderIsVisible: true,
         level: 'Intermediate',
-        levelIsVisible: true
+        levelIsVisible: true,
+        email: 'name@gmail.com',
+        emailIsVisible: true,
+        mobile: '30/88 77 087',
+        mobileIsVisible: true,
+        address: '1064 Budapest, Rozsa u. 23 B45',
+        addressIsVisible: true,
+        dropdownIsVisible: true,
+        emName: 'My emergency contact',
+        emMobile: '30/33 77 888',
+        emEmail: 'emergency.email@info.com'
     }
 
-    componentDidMount () {
-        const detailsTags = document.getElementsByTagName('details');
-        for (let i = 0; i < detailsTags.length; i++) {
-            detailsTags[i].addEventListener('click', (e) => {
-                e.preventDefault();
-            });
-        }
-    }
-
-    toggleDetails = (event) => {
-        this.setState((state) => ({ openDetails: !state.openDetails }));
-        const image = event.currentTarget.lastElementChild;
-        image.src = this.state.openDetails ? ArrowUp : ArrowDown;
+    toggleDetails = () => {
+        this.setState((oldState) => ({ openDetails: !oldState.openDetails }));
     };
 
     handleItemSave = (newValue, id) => {
@@ -58,12 +57,18 @@ class Personal extends React.Component {
 
     render () {
         const {
+            openDetails,
             firstName, firstNameIsVisible,
             lastName, lastNameIsVisible,
             birthday, birthdayIsVisible,
             spiritualName, spiritualNameIsVisible,
             gender, genderIsVisible,
-            level, levelIsVisible
+            level, levelIsVisible,
+            email, emailIsVisible,
+            mobile, mobileIsVisible,
+            address, addressIsVisible,
+            dropdownIsVisible,
+            emName, emMobile, emEmail
         } = this.state;
 
         return (
@@ -71,7 +76,7 @@ class Personal extends React.Component {
                 <Header activePage="Personal" />
                 <Navbar />
                 <main>
-                    <FormContainer formTitle="general data">
+                    <FormContainer formTitle="general data" mb-4>
                         <React.Fragment>
                             <InputAvatar />
                             <Row>
@@ -137,7 +142,58 @@ class Personal extends React.Component {
                                     optionsForSelect={['Beginner', 'Intermediate', 'Advanced']}
                                 />
                             </Row>
-                            {/* <Row>
+                        </React.Fragment>
+                    </FormContainer>
+                    <FormContainer formTitle="contact details">
+                        <React.Fragment>
+                            <Row>
+                                <InputDisplay
+                                    inputTitle="Email"
+                                    inputValue={email}
+                                    inputId="email"
+                                    inputValueSave={this.handleItemSave}
+                                    inputIsVisible={emailIsVisible}
+                                    inputVisibility={this.handleItemVisibility}
+                                    inputType="email"
+                                />
+                                <InputDisplay
+                                    inputTitle="Mobile"
+                                    inputValue={mobile}
+                                    inputId="mobile"
+                                    inputValueSave={this.handleItemSave}
+                                    inputIsVisible={mobileIsVisible}
+                                    inputVisibility={this.handleItemVisibility}
+                                    inputType="tel"
+                                />
+                            </Row>
+                            <Row>
+                                <InputDisplay
+                                    inputTitle="Address"
+                                    inputValue={address}
+                                    inputId="address"
+                                    inputValueSave={this.handleItemSave}
+                                    inputIsVisible={addressIsVisible}
+                                    inputVisibility={this.handleItemVisibility}
+                                    inputType="text"
+                                />
+                                <InputDropdown
+                                    dropdownTitle="Emergency Contact"
+                                    dropdownId="dropdown"
+                                    inputArray={[
+                                        { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text' },
+                                        { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile' },
+                                        { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'email' }
+                                    ]}
+                                    inputValueSave={this.handleItemSave}
+                                    dropdownIsVisible={dropdownIsVisible}
+                                    dropdownVisibility={this.handleItemVisibility}
+                                    dropdownArrow={openDetails}
+                                    toggleDropdown={this.toggleDetails}
+                                />
+                            </Row>
+                        </React.Fragment>
+                    </FormContainer>
+                    {/* <Row>
                                 <InputDropdown open={false} >
                                     <React.Fragment>
                                         <Input
@@ -157,8 +213,6 @@ class Personal extends React.Component {
                                     </React.Fragment>
                                 </InputDropdown>
                             </Row> */}
-                        </React.Fragment>
-                    </FormContainer>
                     {/* <div className="contact-details personal-blocks">
                             <h2 className="personal-form-h2">CONTACT DETAILS</h2>
                             <div className="personal-form-field">
@@ -175,11 +229,11 @@ class Personal extends React.Component {
                             </div>
                             <details open={this.state.openDetails}>
                                 <summary className="personal-form-field em-name">
-                                    <label htmlFor="emName" onClick={this.toggleDetails}>
+                                    <label htmlFor="Emergency Contact Name" onClick={this.toggleDetails}>
                                         Emergency contact
                                         <img src={ArrowUp} className="arrow" alt=""></img>
                                     </label>
-                                    <input type="text" id="emName" name="emName" placeholder="Contact Name"></input>
+                                    <input type="text" id="Emergency Contact Name" name="Emergency Contact Name" placeholder="Contact Name"></input>
                                 </summary>
                                 <div className="personal-form-field em-field">
                                     <label htmlFor="em-email">Email</label>

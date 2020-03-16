@@ -10,6 +10,11 @@ class InputPopup extends Component {
         currentValue: this.props.modalValue
     }
 
+    componentDidMount () {
+        console.log(this.state.currentValue);
+        this.setState({ currentValue: this.props.modalValue });
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.modalValueSave(this.state.currentValue, this.props.modalId);
@@ -71,11 +76,12 @@ InputPopup.propTypes = {
     modalTitle: PropTypes.string,
     modalValue: PropTypes.string,
     modalClose: PropTypes.func.isRequired,
-    modalId: PropTypes.string.isRequired,
+    modalId: PropTypes.string,
     modalValueSave: PropTypes.func,
     modalInputType: PropTypes.string,
     modalInputAs: PropTypes.string,
-    options: PropTypes.array
+    options: PropTypes.array,
+    inputArray: PropTypes.array
 };
 
 export default InputPopup;
