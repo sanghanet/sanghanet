@@ -71,11 +71,12 @@ InputPopup.propTypes = {
     modalTitle: PropTypes.string,
     modalValue: PropTypes.string,
     modalClose: PropTypes.func.isRequired,
-    modalId: PropTypes.string.isRequired,
+    modalId: PropTypes.string,
     modalValueSave: PropTypes.func,
     modalInputType: PropTypes.string,
     modalInputAs: PropTypes.string,
-    options: PropTypes.array
+    options: PropTypes.array,
+    inputArray: PropTypes.array
 };
 
 export default InputPopup;
