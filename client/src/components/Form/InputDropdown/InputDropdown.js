@@ -13,10 +13,13 @@ const InputDropdown = (props) => {
     const [show, setShow] = useState(false);
     const [activeKey, setKey] = useState(null);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setKey(null);
+        setShow(false);
+    };
     const handleShow = (key) => {
-        setShow(true);
         setKey(key);
+        setShow(true);
     };
 
     const {
@@ -54,11 +57,12 @@ const InputDropdown = (props) => {
                     modalClose={handleClose}
                     modalValueSave={inputValueSave}
                     modalId={inputArray[activeKey].inputId}
+                    modalInputType={inputArray[activeKey].inputType}
                 />)
                 : null
             }
             <Col xm={12} lg={6}>
-                <Accordion defaultActiveKey="0">
+                <Accordion>
                     <Card>
                         <Card.Header>
                             <Accordion.Toggle as={Button} variant="link" eventKey="0" onClick={ () => toggleDropdown() }>
@@ -100,56 +104,3 @@ InputDropdown.propTypes = {
 };
 
 export default InputDropdown;
-
-// import UpArrow from '../../icons/arrow-up.svg';
-// import DownArrow from '../../icons/arrow-down.svg';
-
-// import { Col } from 'react-bootstrap';
-
-// class InputDropdown extends Component {
-//     constructor (props) {
-//         super(props);
-//         this.state = {
-//             open: this.props.open
-//         };
-//     }
-
-//     dropdown = null;
-//     arrowIcon = null;
-//     collapsedHeight = 0;
-//     expandedHeight = 0;
-
-//     componentDidMount () {
-//         this.dropdown = document.getElementById('dropdown');
-//         this.arrowIcon = document.querySelectorAll('#dropdown .dropdown-arrow')[0];
-
-//         this.collapsedHeight = this.dropdown.children[0].clientHeight;
-//         this.expandedHeight = this.collapsedHeight * this.dropdown.children.length;
-//         this.dropdown.style.height = this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
-
-//         this.arrowIcon.src = this.state.open ? DownArrow : UpArrow;
-//         this.arrowIcon.parentElement.addEventListener('click', this.toggleInputs);
-//     }
-
-//     toggleInputs = (e) => {
-//         this.setState((state) => ({ open: !state.open }));
-
-//         this.dropdown.style.height = this.state.open ? `${this.expandedHeight}px` : `${this.collapsedHeight}px`;
-//         this.arrowIcon.src = this.state.open ? DownArrow : UpArrow;
-//     }
-
-//     render () {
-//         return (
-//             <Col xm={12} lg={6} className='input-dropdown'>
-//                 <div id='dropdown'>
-//                     {this.props.children}
-//                 </div>
-//             </Col>
-//         );
-//     }
-// }
-
-// InputDropdown.propTypes = {
-//     children: PropTypes.element.isRequired,
-//     open: PropTypes.bool.isRequired
-// };

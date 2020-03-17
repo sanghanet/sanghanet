@@ -10,8 +10,6 @@ import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 import { Row } from 'react-bootstrap';
 import './Personal.scss';
-// import ArrowDown from '../../components/icons/arrow-down.svg';
-// import ArrowUp from '../../components/icons/arrow-up.svg';
 
 class Personal extends React.Component {
     state = {
@@ -193,98 +191,6 @@ class Personal extends React.Component {
                             </Row>
                         </React.Fragment>
                     </FormContainer>
-                    {/* <Row>
-                                <InputDropdown open={false} >
-                                    <React.Fragment>
-                                        <Input
-                                            formId="first-dropdown-item"
-                                            inputTitle="Name"
-                                            type="text"
-                                        />
-                                        <Input
-                                            inputTitle="Email"
-                                            type="email"
-                                        />
-                                        <Input
-                                            formId="last-dropdown-item"
-                                            inputTitle="Mobile"
-                                            type="tel"
-                                        />
-                                    </React.Fragment>
-                                </InputDropdown>
-                            </Row> */}
-                    {/* <div className="contact-details personal-blocks">
-                            <h2 className="personal-form-h2">CONTACT DETAILS</h2>
-                            <div className="personal-form-field">
-                                <label htmlFor="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="my.name@gmail.com" required></input>
-                            </div>
-                            <div className="personal-form-field">
-                                <label htmlFor="mobile">Mobile</label>
-                                <input type="tel" id="mobile" name="mobile" placeholder="70/66 89 456" maxLength="20" required></input>
-                            </div>
-                            <div className="personal-form-field">
-                                <label htmlFor="address">Address</label>
-                                <input type="text" id="address" name="address" placeholder="1045 Budapest, Rozsa u. 25/8"></input>
-                            </div>
-                            <details open={this.state.openDetails}>
-                                <summary className="personal-form-field em-name">
-                                    <label htmlFor="Emergency Contact Name" onClick={this.toggleDetails}>
-                                        Emergency contact
-                                        <img src={ArrowUp} className="arrow" alt=""></img>
-                                    </label>
-                                    <input type="text" id="Emergency Contact Name" name="Emergency Contact Name" placeholder="Contact Name"></input>
-                                </summary>
-                                <div className="personal-form-field em-field">
-                                    <label htmlFor="em-email">Email</label>
-                                    <input type="email" id="em-email" name="em-email" placeholder="her.name@gmail.com"></input>
-                                </div>
-                                <div className="personal-form-field em-field">
-                                    <label htmlFor="emMobile" className="em-mobile-lable">Mobile</label>
-                                    <input type="tel" id="emMobile" name="emMobile" placeholder="70/77 23 456" maxLength="20"></input>
-                                </div>
-                            </details>
-                        </div>
-                        <div className="yoga-ranking personal-blocks">
-                            <h2 className="personal-form-h2">YOGA RANKING</h2>
-                            <div className="personal-form-field">
-                                <label htmlFor="meditation">Meditation score</label>
-                                <input type="number" id="meditation" name="meditation" min="1" max="100"></input>
-                            </div>
-                            <div className="personal-form-field select-container">
-                                <label htmlFor="martial-art">Martial Art Belt</label>
-                                <select id="martial-art">
-                                    <option value="white" className="white-belt">White</option>
-                                    <option value="yellow" className="yellow-belt">Yellow</option>
-                                    <option value="orange" className="orange-belt">Orange</option>
-                                    <option value="green" className="green-belt">Green</option>
-                                    <option value="blue" className="blue-belt">Blue</option>
-                                    <option value="brown" className="brown-belt">Brown</option>
-                                    <option value="black" className="black-belt">Black</option>
-                                </select>
-                            </div>
-                            <details open={this.state.openDetails}>
-                                <summary className="personal-form-field em-name">
-                                    <label htmlFor="book" onClick={this.toggleDetails}>
-                                        Books
-                                        <img src={ArrowUp} className="arrow" alt=""></img>
-                                    </label>
-                                </summary>
-                                <div className="personal-form-field em-field">
-                                    <label htmlFor="book" className="books">
-                                        Click to add a new book...
-                                        <img src={Plus} alt="" className="plus"></img>
-                                    </label>
-                                </div>
-                                <div className="personal-form-field em-field">
-                                    <input type="text" id="book" name="book" placeholder="Author and title of the book..."></input>
-                                </div>
-                                <div className="personal-form-field em-field">
-                                    <input type="text" name="book" placeholder="Author and title of the book..."></input>
-                                </div>
-                            </details>
-                        </div>
-                    </form> */}
                 </main>
                 <Footer />
             </div>
