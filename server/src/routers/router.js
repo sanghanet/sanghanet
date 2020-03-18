@@ -11,8 +11,8 @@ router.use((req, res, next) => {
         log.info(`[${req.ip}] ${req.method} ${req.url}, ${req.user.email}, authenticated.`);
         next();
     } else {
-        log.warn(`[${req.ip}] ${req.method} ${req.url} Request not authenticated, redirect!`);
-        res.redirect('/');
+        log.warn(`[${req.ip}] ${req.method} ${req.url} Request not authenticated, send 403 Forbidden!`);
+        res.status(403).send();
     }
 });
 

@@ -14,13 +14,12 @@ module.exports.logout = (req, res) => {
             res.status(500).send();
         }
     });
-    res.status(200).send();
+    res.status(200).send('OK');
 };
 
 module.exports.listUsers = async (req, res, next) => {
     try {
         const users = await User.find({}, 'email isSuperuser firstName lastName');
-        // res.set({ 'Access-Control-Allow-Origin': '*' });
         res.json(users);
     } catch (err) {
         next(err);

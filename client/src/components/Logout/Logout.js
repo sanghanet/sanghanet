@@ -1,16 +1,17 @@
 import React from 'react';
+import Client from '../../components/Client';
 
 import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 
 const Logout = (props) => {
     const handleClick = (event) => {
-        fetch('/user/logout')
+        Client.fetch('/user/logout')
             .then((res) => {
                 sessionStorage.clear();
                 if (res.ok) { window.location.href = '/'; }
             })
+            // eslint-disable-next-line handle-callback-err
             .catch((err) => {
-                console.log(err.message);
                 sessionStorage.clear();
                 window.location.href = '/';
             });

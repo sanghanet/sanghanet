@@ -10,6 +10,8 @@ import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
 import { Table, Form, Button } from 'react-bootstrap';
 
+import Client from '../../components/Client';
+
 class Superuser extends Component {
     state = {
         userData: null,
@@ -18,18 +20,12 @@ class Superuser extends Component {
     }
 
     async componentDidMount () {
-        fetch('/user/listusers', { method: 'POST' })
-            .then((res) => {
-                if (res.redirected) {
-                    window.location.href = res.url;
-                } else {
-                    return res.json();
-                }
-            }).then((data) => {
+        Client.fetch('/user/listusers', { method: 'POST' })
+            .then((data) => {
                 this.setState({ userData: data });
+            // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
-                console.log(err.message);
-                // throw new Error(err.message);
+                // Give warning to the user or handle error here..
             });
     }
 
