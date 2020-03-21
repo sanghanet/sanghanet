@@ -38,7 +38,7 @@ const InputDropdown = (props) => {
             return (
                 <Card.Body key={index}>
                     <div className="display-input">
-                        <p className="display-title">{item.inputValue}</p>
+                        <p className="display-title">{item.inputValue || 'Enter a new value'}</p>
                         <button className="display-button edit-button" onClick={() => handleShow(index)}>
                             <Edit className="display-icon edit-icon" />
                         </button>

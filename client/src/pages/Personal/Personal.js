@@ -8,6 +8,7 @@ import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
+import Client from '../../components/Client';
 import { Row } from 'react-bootstrap';
 import './Personal.scss';
 
@@ -36,6 +37,29 @@ class Personal extends React.Component {
         emName: 'My emergency contact',
         emMobile: '30/33 77 888',
         emEmail: 'emergency.email@info.com'
+    }
+
+    componentDidMount () {
+        Client.fetch('/user/personal', { method: 'GET' })
+            .then((data) => {
+                this.setState({
+                    firstName: data[0].firstName,
+                    lastName: data[0].lastName,
+                    birthday: data[0].birthday,
+                    gender: data[0].gender,
+                    email: data[0].email,
+                    mobile: data[0].mobile,
+                    spiritualName: data[0].spiritualName,
+                    level: data[0].level,
+                    address: data[0].address,
+                    emName: data[0].emName,
+                    emMobile: data[0].emMobile,
+                    emEmail: data[0].emEmail
+                });
+            // eslint-disable-next-line handle-callback-err
+            }).catch((err) => {
+                // Give warning to the user or handle error here..
+            });
     }
 
     toggleDetails = () => {

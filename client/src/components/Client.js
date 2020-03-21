@@ -14,7 +14,7 @@ function makeAPICall (url, options = {}, skipDefaults) {
 }
 
 function checkStatus (response) {
-    if (response.redirected) { // Former session is still alive..
+    if (response.redirected) { // Former session is still alive.
         window.location.href = response.url;
     } else if (response.status >= 200 && response.status < 300) {
         return response;

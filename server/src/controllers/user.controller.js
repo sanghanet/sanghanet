@@ -25,3 +25,15 @@ module.exports.listUsers = async (req, res, next) => {
         next(err);
     }
 };
+
+module.exports.personal = async (req, res, next) => {
+    try {
+        const user = await User.find(
+            { email: req.user.email },
+            'firstName lastName birthday gender email mobile spiritualName level address emName emMobile emEmail'
+        );
+        res.json(user);
+    } catch (err) {
+        next(err);
+    }
+};
