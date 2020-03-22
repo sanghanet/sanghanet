@@ -23,9 +23,10 @@ const InputDisplay = (props) => {
         inputFieldAs,
         optionsForSelect,
         inputVisibility,
-        inputIsVisible
+        inputIsVisible,
+        toDisable
     } = props;
-
+    console.log(typeof toDisable);
     return (
 
         <React.Fragment>
@@ -72,7 +73,8 @@ InputDisplay.propTypes = {
     inputIsVisible: PropTypes.bool.isRequired,
     inputType: PropTypes.string,
     inputFieldAs: PropTypes.string,
-    optionsForSelect: PropTypes.array
+    optionsForSelect: PropTypes.array,
+    toDisable: PropTypes.instanceOf(Set)
 };
 
 export default InputDisplay;

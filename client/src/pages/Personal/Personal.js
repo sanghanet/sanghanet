@@ -111,6 +111,7 @@ class Personal extends React.Component {
                                     inputIsVisible={firstNameIsVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
+                                    toDisable={ new Set(['visibility', 'edit']) }
                                 />
                                 <InputDisplay
                                     inputTitle="Last name"
