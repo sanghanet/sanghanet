@@ -20,5 +20,6 @@ router.post('/login', userController.login);
 router.get('/logout', userController.logout);
 router.post('/listusers', userController.listUsers);
 router.get('/personal', userController.personal);
+router.put('/saveitem', userController.saveitem);
 
 module.exports = router;

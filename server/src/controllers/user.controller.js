@@ -45,3 +45,17 @@ module.exports.personal = async (req, res, next) => {
         next(err);
     }
 };
+
+module.exports.saveitem = async (req, res, next) => {
+    try {
+        const user = await User.findOneAndUpdate(
+            { email: req.user.email },
+            req.body,
+            { new: true, useFindAndModify: false}
+        );
+        const key = Object.keys(req.body)[0];
+        res.json({ [key]: user[key] });
+    } catch (err) {
+        next(err);
+    }
+};

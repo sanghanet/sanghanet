@@ -75,7 +75,20 @@ class Personal extends React.Component {
 
     handleItemSave = (newValue, id) => {
         // TODO: Store user's first name in BE. In case of failure, display warning.
-        this.setState({ [id]: newValue });
+        Client.fetch('/user/saveitem', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: `{"${id}": "${newValue}"}`
+        })
+            .then((data) => {
+                this.setState((oldState) => ({
+                    ...oldState,
+                    ...data
+                }));
+            // eslint-disable-next-line handle-callback-err
+            }).catch((err) => {
+                // Give warning to the user or handle error here..
+            });
     };
 
     handleItemVisibility = (id) => {
@@ -99,7 +112,8 @@ class Personal extends React.Component {
             dropdownVisible,
             emName, emMobile, emEmail
         } = this.state;
-
+        // used to change name in the Header
+        sessionStorage.setItem('user', `${firstName} ${lastName}`);
         return (
             <div>
                 <Header activePage="Personal" />

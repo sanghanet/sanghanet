@@ -10,6 +10,10 @@ class InputPopup extends Component {
         currentValue: this.props.modalValue
     }
 
+    componentDidMount () {
+        this.setState({ currentValue: this.props.modalValue });
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.modalValueSave(this.state.currentValue, this.props.modalId);

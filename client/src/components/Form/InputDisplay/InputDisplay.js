@@ -30,17 +30,20 @@ const InputDisplay = (props) => {
     return (
 
         <React.Fragment>
-            <InputPopup
-                modalShow={show}
-                modalTitle={inputTitle}
-                modalValue={inputValue || 'Input Value'}
-                modalClose={handleClose}
-                modalId={inputId}
-                modalValueSave={inputValueSave}
-                modalInputType={inputType}
-                modalInputAs={inputFieldAs}
-                options={optionsForSelect}
-            />
+            { show
+                ? (<InputPopup
+                    modalShow={show}
+                    modalTitle={inputTitle}
+                    modalValue={inputValue || 'Enter a value'}
+                    modalClose={handleClose}
+                    modalId={inputId}
+                    modalValueSave={inputValueSave}
+                    modalInputType={inputType}
+                    modalInputAs={inputFieldAs}
+                    options={optionsForSelect}
+                />)
+                : null
+            }
             <Col xm={12} lg={6}>
                 <div className="display-container">
                     <div className="display-label">
