@@ -111,7 +111,7 @@ class Personal extends React.Component {
                                     inputIsVisible={firstNameIsVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
-                                    toDisable={ new Set(['visibility', 'edit']) }
+                                    toDisable={ new Set(['visibility']) }
                                 />
                                 <InputDisplay
                                     inputTitle="Last name"
@@ -121,6 +121,7 @@ class Personal extends React.Component {
                                     inputIsVisible={lastNameIsVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
+                                    toDisable={ new Set(['visibility']) }
                                 />
                             </Row>
                             <Row>
@@ -132,6 +133,7 @@ class Personal extends React.Component {
                                     inputIsVisible={spiritualNameIsVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
+                                    toDisable={ new Set(['visibility']) }
                                 />
                                 <InputDisplay
                                     inputTitle="Date of birth"
@@ -178,6 +180,7 @@ class Personal extends React.Component {
                                     inputIsVisible={emailIsVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="email"
+                                    toDisable={ new Set(['edit']) }
                                 />
                                 <InputDisplay
                                     inputTitle="Mobile"

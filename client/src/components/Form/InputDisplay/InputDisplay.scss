@@ -13,6 +13,11 @@
         @include buttonReset;
         padding: 0 18px;
         border-left: 1px solid gray;
+        &:disabled {
+            .display-icon {
+                fill: $disabled;
+            }
+        }
         .display-icon {
             fill: $white;
             width: 18px;

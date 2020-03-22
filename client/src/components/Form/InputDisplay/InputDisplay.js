@@ -26,7 +26,7 @@ const InputDisplay = (props) => {
         inputIsVisible,
         toDisable
     } = props;
-    console.log(typeof toDisable);
+
     return (
 
         <React.Fragment>
@@ -45,7 +45,11 @@ const InputDisplay = (props) => {
                 <div className="display-container">
                     <div className="display-label">
                         <p className="display-title">{inputTitle}</p>
-                        <button className="display-button visible-button" onClick={ () => inputVisibility(inputId) }>
+                        <button
+                            className="display-button visible-button"
+                            onClick={ () => inputVisibility(inputId) }
+                            disabled ={ toDisable && toDisable.has('visibility') }
+                        >
                             {inputIsVisible
                                 ? <Visible className="display-icon visible-icon" />
                                 : <Invisible className="display-icon visible-icon" />
@@ -54,7 +58,11 @@ const InputDisplay = (props) => {
                     </div>
                     <div className="display-input">
                         <p className="display-title">{inputValue || 'Enter a new value'}</p>
-                        <button className="display-button edit-button" onClick={handleShow}>
+                        <button
+                            className="display-button edit-button"
+                            onClick={handleShow}
+                            disabled ={ toDisable && toDisable.has('edit') }
+                        >
                             <Edit className="display-icon edit-icon" />
                         </button>
                     </div>
