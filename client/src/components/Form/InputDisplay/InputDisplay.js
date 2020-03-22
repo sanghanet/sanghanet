@@ -23,7 +23,7 @@ const InputDisplay = (props) => {
         inputFieldAs,
         optionsForSelect,
         inputVisibility,
-        inputIsVisible,
+        inputVisible,
         toDisable
     } = props;
 
@@ -50,14 +50,14 @@ const InputDisplay = (props) => {
                             onClick={ () => inputVisibility(inputId) }
                             disabled ={ toDisable && toDisable.has('visibility') }
                         >
-                            {inputIsVisible
+                            {inputVisible
                                 ? <Visible className="display-icon visible-icon" />
                                 : <Invisible className="display-icon visible-icon" />
                             }
                         </button>
                     </div>
                     <div className="display-input">
-                        <p className="display-title">{inputValue || 'Enter a new value'}</p>
+                        <p className="display-title">{inputValue || 'Enter a value'}</p>
                         <button
                             className="display-button edit-button"
                             onClick={handleShow}
@@ -78,7 +78,7 @@ InputDisplay.propTypes = {
     inputId: PropTypes.string.isRequired,
     inputValueSave: PropTypes.func,
     inputVisibility: PropTypes.func,
-    inputIsVisible: PropTypes.bool.isRequired,
+    inputVisible: PropTypes.bool.isRequired,
     inputType: PropTypes.string,
     inputFieldAs: PropTypes.string,
     optionsForSelect: PropTypes.array,

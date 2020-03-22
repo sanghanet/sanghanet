@@ -30,7 +30,15 @@ module.exports.personal = async (req, res, next) => {
     try {
         const user = await User.find(
             { email: req.user.email },
-            'firstName lastName birthday gender email mobile spiritualName level address emName emMobile emEmail'
+            // eslint-disable-next-line no-multi-str
+            'firstName lastName spiritualName\
+            birthday  birthdayVisible\
+            gender genderVisible\
+            email emailVisible\
+            mobile mobileVisible\
+            level levelVisible\
+            address addressVisible\
+            emName emMobile emEmail emContactVisible'
         );
         res.json(user);
     } catch (err) {
