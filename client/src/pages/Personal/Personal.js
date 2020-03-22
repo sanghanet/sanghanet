@@ -33,10 +33,10 @@ class Personal extends React.Component {
         mobileVisible: false,
         address: '',
         addressVisible: false,
-        dropdownVisible: false,
         emName: '',
         emMobile: '',
-        emEmail: ''
+        emEmail: '',
+        emContactVisible: false
     }
 
     componentDidMount () {
@@ -61,7 +61,7 @@ class Personal extends React.Component {
                     emName: data[0].emName,
                     emMobile: data[0].emMobile,
                     emEmail: data[0].emEmail,
-                    dropdownVisible: data[0].emContactVisible
+                    emContactVisible: data[0].emContactVisible
                 });
             // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
@@ -73,6 +73,13 @@ class Personal extends React.Component {
         this.setState((oldState) => ({ openDetails: !oldState.openDetails }));
     };
 
+    updateItem = (data) => {
+        this.setState((oldState) => ({
+            ...oldState,
+            ...data
+        }));
+    };
+
     handleItemSave = (newValue, id) => {
         // TODO: Store user's first name in BE. In case of failure, display warning.
         Client.fetch('/user/saveitem', {
@@ -81,10 +88,7 @@ class Personal extends React.Component {
             body: `{"${id}": "${newValue}"}`
         })
             .then((data) => {
-                this.setState((oldState) => ({
-                    ...oldState,
-                    ...data
-                }));
+                this.updateItem(data);
             // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
                 // Give warning to the user or handle error here..
@@ -94,7 +98,17 @@ class Personal extends React.Component {
     handleItemVisibility = (id) => {
         // TODO: change visibility in BE. In case of failure, display warning.
         const Visible = `${[id]}Visible`;
-        this.setState((oldState) => ({ [Visible]: !oldState[Visible] }));
+        Client.fetch('/user/savevisibility', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: `{"${Visible}": "${!this.state[Visible]}"}`
+        })
+            .then((data) => {
+                this.updateItem(data);
+            // eslint-disable-next-line handle-callback-err
+            }).catch((err) => {
+                // Give warning to the user or handle error here..
+            });
     }
 
     render () {
@@ -109,7 +123,7 @@ class Personal extends React.Component {
             email, emailVisible,
             mobile, mobileVisible,
             address, addressVisible,
-            dropdownVisible,
+            emContactVisible,
             emName, emMobile, emEmail
         } = this.state;
         // used to change name in the Header
@@ -225,14 +239,14 @@ class Personal extends React.Component {
                                 />
                                 <InputDropdown
                                     dropdownTitle="Emergency Contact"
-                                    dropdownId="dropdown"
+                                    dropdownId="emContact"
                                     inputArray={[
                                         { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text' },
                                         { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile' },
                                         { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'email' }
                                     ]}
                                     inputValueSave={this.handleItemSave}
-                                    dropdownVisible={dropdownVisible}
+                                    dropdownVisible={emContactVisible}
                                     dropdownVisibility={this.handleItemVisibility}
                                     dropdownArrow={openDetails}
                                     toggleDropdown={this.toggleDetails}
