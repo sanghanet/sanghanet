@@ -5,14 +5,24 @@
     width: 90%;
     margin: 15px auto;
     color: $white;
+    @include maxQ(415px) {
+        width: 100%;
+    }
     .display-title {
         margin: 0;
         padding: 10px;
+        min-width: 204px;
+        overflow-x: hidden;
     }
     .display-button {
         @include buttonReset;
         padding: 0 18px;
         border-left: 1px solid gray;
+        &:disabled {
+            .display-icon {
+                fill: $disabled;
+            }
+        }
         .display-icon {
             fill: $white;
             width: 18px;

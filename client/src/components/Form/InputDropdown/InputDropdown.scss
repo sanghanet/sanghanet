@@ -8,6 +8,9 @@
     width: 90%;
     margin: 15px auto;
     border: none;
+    @include maxQ(415px) {
+        width: 100%;
+    }
 }
 
 .accordion>.card>.card-header {
@@ -23,6 +26,8 @@
         text-decoration: none;
         color: $white;
         text-align: left;
+        min-width: 204px;
+        overflow-x: hidden;
         &:hover {
             text-decoration: none;
             color: $white;
@@ -54,14 +59,14 @@
         color: $white;
     }
     .display-input {
-        height: 44px;
+        min-height: 44px;
         border: 1px solid #969494;
         display: grid;
         grid-template-columns: 1fr repeat(1, 55px);
     }
     .edit-button {
         @include buttonReset;
-        height: 44px;
+        min-height: 44px;
         border-left: 1px solid gray;
         svg {
             fill: $white;

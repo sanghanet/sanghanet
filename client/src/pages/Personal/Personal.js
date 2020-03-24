@@ -8,67 +8,126 @@ import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
+import Client from '../../components/Client';
 import { Row } from 'react-bootstrap';
 import './Personal.scss';
 
 class Personal extends React.Component {
     state = {
         openDetails: false,
-        firstName: 'Baby',
-        firstNameIsVisible: true,
-        lastName: 'Yoda',
-        lastNameIsVisible: true,
-        spiritualName: 'Jedi Master',
-        spiritualNameIsVisible: true,
-        birthday: '07-31-1987',
-        birthdayIsVisible: true,
-        gender: 'Female',
-        genderIsVisible: true,
-        level: 'Intermediate',
-        levelIsVisible: true,
-        email: 'name@gmail.com',
-        emailIsVisible: true,
-        mobile: '30/88 77 087',
-        mobileIsVisible: true,
-        address: '1064 Budapest, Rozsa u. 23 B45',
-        addressIsVisible: true,
-        dropdownIsVisible: true,
-        emName: 'My emergency contact',
-        emMobile: '30/33 77 888',
-        emEmail: 'emergency.email@info.com'
+        firstName: '',
+        firstNameVisible: true,
+        lastName: '',
+        lastNameVisible: true,
+        spiritualName: '',
+        spiritualNameVisible: true,
+        birthday: '',
+        birthdayVisible: false,
+        gender: '',
+        genderVisible: false,
+        level: '',
+        levelVisible: false,
+        email: '',
+        emailVisible: false,
+        mobile: '',
+        mobileVisible: false,
+        address: '',
+        addressVisible: false,
+        emName: '',
+        emMobile: '',
+        emEmail: '',
+        emContactVisible: false
+    }
+
+    componentDidMount () {
+        Client.fetch('/user/personal')
+            .then((data) => {
+                this.setState({
+                    firstName: data[0].firstName,
+                    lastName: data[0].lastName,
+                    spiritualName: data[0].spiritualName,
+                    birthday: data[0].birthday,
+                    birthdayVisible: data[0].birthdayVisible,
+                    gender: data[0].gender,
+                    genderVisible: data[0].genderVisible,
+                    email: data[0].email,
+                    emailVisible: data[0].emailVisible,
+                    mobile: data[0].mobile,
+                    mobileVisible: data[0].mobileVisible,
+                    level: data[0].level,
+                    levelVisible: data[0].levelVisible,
+                    address: data[0].address,
+                    addressVisible: data[0].addressVisible,
+                    emName: data[0].emName,
+                    emMobile: data[0].emMobile,
+                    emEmail: data[0].emEmail,
+                    emContactVisible: data[0].emContactVisible
+                });
+            // eslint-disable-next-line handle-callback-err
+            }).catch((err) => {
+                // Give warning to the user or handle error here..
+            });
     }
 
     toggleDetails = () => {
         this.setState((oldState) => ({ openDetails: !oldState.openDetails }));
     };
 
+    updateItem = (data) => {
+        this.setState((oldState) => ({
+            ...oldState,
+            ...data
+        }));
+    };
+
     handleItemSave = (newValue, id) => {
         // TODO: Store user's first name in BE. In case of failure, display warning.
-        this.setState({ [id]: newValue });
+        Client.fetch('/user/saveitem', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: `{"${id}": "${newValue}"}`
+        })
+            .then((data) => {
+                this.updateItem(data);
+            // eslint-disable-next-line handle-callback-err
+            }).catch((err) => {
+                // Give warning to the user or handle error here..
+            });
     };
 
     handleItemVisibility = (id) => {
         // TODO: change visibility in BE. In case of failure, display warning.
-        const isVisible = `${[id]}IsVisible`;
-        this.setState((oldState) => ({ [isVisible]: !oldState[isVisible] }));
+        const Visible = `${[id]}Visible`;
+        Client.fetch('/user/savevisibility', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: `{"${Visible}": "${!this.state[Visible]}"}`
+        })
+            .then((data) => {
+                this.updateItem(data);
+            // eslint-disable-next-line handle-callback-err
+            }).catch((err) => {
+                // Give warning to the user or handle error here..
+            });
     }
 
     render () {
         const {
             openDetails,
-            firstName, firstNameIsVisible,
-            lastName, lastNameIsVisible,
-            birthday, birthdayIsVisible,
-            spiritualName, spiritualNameIsVisible,
-            gender, genderIsVisible,
-            level, levelIsVisible,
-            email, emailIsVisible,
-            mobile, mobileIsVisible,
-            address, addressIsVisible,
-            dropdownIsVisible,
+            firstName, firstNameVisible,
+            lastName, lastNameVisible,
+            birthday, birthdayVisible,
+            spiritualName, spiritualNameVisible,
+            gender, genderVisible,
+            level, levelVisible,
+            email, emailVisible,
+            mobile, mobileVisible,
+            address, addressVisible,
+            emContactVisible,
             emName, emMobile, emEmail
         } = this.state;
-
+        // used to change name in the Header
+        sessionStorage.setItem('user', `${firstName} ${lastName}`);
         return (
             <div>
                 <Header activePage="Personal" />
@@ -84,18 +143,20 @@ class Personal extends React.Component {
                                     // inputId value should be the same as inputValue value
                                     inputId="firstName"
                                     inputValueSave={this.handleItemSave}
-                                    inputIsVisible={firstNameIsVisible}
+                                    inputVisible={firstNameVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
+                                    toDisable={ new Set(['visibility']) }
                                 />
                                 <InputDisplay
                                     inputTitle="Last name"
                                     inputValue={lastName}
                                     inputId="lastName"
                                     inputValueSave={this.handleItemSave}
-                                    inputIsVisible={lastNameIsVisible}
+                                    inputVisible={lastNameVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
+                                    toDisable={ new Set(['visibility']) }
                                 />
                             </Row>
                             <Row>
@@ -104,16 +165,17 @@ class Personal extends React.Component {
                                     inputValue={spiritualName}
                                     inputId="spiritualName"
                                     inputValueSave={this.handleItemSave}
-                                    inputIsVisible={spiritualNameIsVisible}
+                                    inputVisible={spiritualNameVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
+                                    toDisable={ new Set(['visibility']) }
                                 />
                                 <InputDisplay
                                     inputTitle="Date of birth"
                                     inputValue={birthday}
                                     inputId="birthday"
                                     inputValueSave={this.handleItemSave}
-                                    inputIsVisible={birthdayIsVisible}
+                                    inputVisible={birthdayVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="date"
                                 />
@@ -124,7 +186,7 @@ class Personal extends React.Component {
                                     inputValue={gender}
                                     inputId="gender"
                                     inputValueSave={this.handleItemSave}
-                                    inputIsVisible={genderIsVisible}
+                                    inputVisible={genderVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputFieldAs="select"
                                     optionsForSelect={['Female', 'Male', 'Other']}
@@ -134,7 +196,7 @@ class Personal extends React.Component {
                                     inputValue={level}
                                     inputId="level"
                                     inputValueSave={this.handleItemSave}
-                                    inputIsVisible={levelIsVisible}
+                                    inputVisible={levelVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputFieldAs="select"
                                     optionsForSelect={['Beginner', 'Intermediate', 'Advanced']}
@@ -150,16 +212,17 @@ class Personal extends React.Component {
                                     inputValue={email}
                                     inputId="email"
                                     inputValueSave={this.handleItemSave}
-                                    inputIsVisible={emailIsVisible}
+                                    inputVisible={emailVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="email"
+                                    toDisable={ new Set(['edit']) }
                                 />
                                 <InputDisplay
                                     inputTitle="Mobile"
                                     inputValue={mobile}
                                     inputId="mobile"
                                     inputValueSave={this.handleItemSave}
-                                    inputIsVisible={mobileIsVisible}
+                                    inputVisible={mobileVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="tel"
                                 />
@@ -170,20 +233,20 @@ class Personal extends React.Component {
                                     inputValue={address}
                                     inputId="address"
                                     inputValueSave={this.handleItemSave}
-                                    inputIsVisible={addressIsVisible}
+                                    inputVisible={addressVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
                                 />
                                 <InputDropdown
                                     dropdownTitle="Emergency Contact"
-                                    dropdownId="dropdown"
+                                    dropdownId="emContact"
                                     inputArray={[
                                         { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text' },
                                         { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile' },
                                         { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'email' }
                                     ]}
                                     inputValueSave={this.handleItemSave}
-                                    dropdownIsVisible={dropdownIsVisible}
+                                    dropdownVisible={emContactVisible}
                                     dropdownVisibility={this.handleItemVisibility}
                                     dropdownArrow={openDetails}
                                     toggleDropdown={this.toggleDetails}

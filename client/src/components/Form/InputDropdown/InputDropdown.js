@@ -25,7 +25,7 @@ const InputDropdown = (props) => {
     const {
         dropdownTitle,
         dropdownId,
-        dropdownIsVisible,
+        dropdownVisible,
         dropdownVisibility,
         dropdownArrow,
         toggleDropdown,
@@ -38,7 +38,7 @@ const InputDropdown = (props) => {
             return (
                 <Card.Body key={index}>
                     <div className="display-input">
-                        <p className="display-title">{item.inputValue}</p>
+                        <p className="display-title">{item.inputValue || 'Enter a value'}</p>
                         <button className="display-button edit-button" onClick={() => handleShow(index)}>
                             <Edit className="display-icon edit-icon" />
                         </button>
@@ -73,7 +73,7 @@ const InputDropdown = (props) => {
                                 }
                             </Accordion.Toggle>
                             <button className="display-button visible-button" onClick={ () => dropdownVisibility(dropdownId) }>
-                                {dropdownIsVisible
+                                {dropdownVisible
                                     ? <Visible className="display-icon visible-icon" />
                                     : <Invisible className="display-icon visible-icon" />
                                 }
@@ -96,7 +96,7 @@ InputDropdown.propTypes = {
     dropdownId: PropTypes.string.isRequired,
     inputValueSave: PropTypes.func,
     dropdownVisibility: PropTypes.func,
-    dropdownIsVisible: PropTypes.bool.isRequired,
+    dropdownVisible: PropTypes.bool.isRequired,
     inputFieldAs: PropTypes.string,
     dropdownArrow: PropTypes.bool,
     toggleDropdown: PropTypes.func,

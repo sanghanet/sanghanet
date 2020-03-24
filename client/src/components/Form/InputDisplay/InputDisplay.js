@@ -23,37 +23,49 @@ const InputDisplay = (props) => {
         inputFieldAs,
         optionsForSelect,
         inputVisibility,
-        inputIsVisible
+        inputVisible,
+        toDisable
     } = props;
 
     return (
 
         <React.Fragment>
-            <InputPopup
-                modalShow={show}
-                modalTitle={inputTitle}
-                modalValue={inputValue || 'Input Value'}
-                modalClose={handleClose}
-                modalId={inputId}
-                modalValueSave={inputValueSave}
-                modalInputType={inputType}
-                modalInputAs={inputFieldAs}
-                options={optionsForSelect}
-            />
+            { show
+                ? (<InputPopup
+                    modalShow={show}
+                    modalTitle={inputTitle}
+                    modalValue={inputValue || 'Enter a value'}
+                    modalClose={handleClose}
+                    modalId={inputId}
+                    modalValueSave={inputValueSave}
+                    modalInputType={inputType}
+                    modalInputAs={inputFieldAs}
+                    options={optionsForSelect}
+                />)
+                : null
+            }
             <Col xm={12} lg={6}>
                 <div className="display-container">
                     <div className="display-label">
                         <p className="display-title">{inputTitle}</p>
-                        <button className="display-button visible-button" onClick={ () => inputVisibility(inputId) }>
-                            {inputIsVisible
+                        <button
+                            className="display-button visible-button"
+                            onClick={ () => inputVisibility(inputId) }
+                            disabled ={ toDisable && toDisable.has('visibility') }
+                        >
+                            {inputVisible
                                 ? <Visible className="display-icon visible-icon" />
                                 : <Invisible className="display-icon visible-icon" />
                             }
                         </button>
                     </div>
                     <div className="display-input">
-                        <p className="display-title">{inputValue || 'Enter a new value'}</p>
-                        <button className="display-button edit-button" onClick={handleShow}>
+                        <p className="display-title">{inputValue || 'Enter a value'}</p>
+                        <button
+                            className="display-button edit-button"
+                            onClick={handleShow}
+                            disabled ={ toDisable && toDisable.has('edit') }
+                        >
                             <Edit className="display-icon edit-icon" />
                         </button>
                     </div>
@@ -69,10 +81,11 @@ InputDisplay.propTypes = {
     inputId: PropTypes.string.isRequired,
     inputValueSave: PropTypes.func,
     inputVisibility: PropTypes.func,
-    inputIsVisible: PropTypes.bool.isRequired,
+    inputVisible: PropTypes.bool.isRequired,
     inputType: PropTypes.string,
     inputFieldAs: PropTypes.string,
-    optionsForSelect: PropTypes.array
+    optionsForSelect: PropTypes.array,
+    toDisable: PropTypes.instanceOf(Set)
 };
 
 export default InputDisplay;
