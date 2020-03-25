@@ -9,6 +9,7 @@ import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 import Client from '../../components/Client';
+import Alert from '../../components/Alert/Alert';
 import { Row } from 'react-bootstrap';
 import './Personal.scss';
 
@@ -36,7 +37,9 @@ class Personal extends React.Component {
         emName: '',
         emMobile: '',
         emEmail: '',
-        emContactVisible: false
+        emContactVisible: false,
+        showAlert: false,
+        alertMessage: ''
     }
 
     componentDidMount () {
@@ -105,10 +108,13 @@ class Personal extends React.Component {
         })
             .then((data) => {
                 this.updateItem(data);
-            // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
-                // Give warning to the user or handle error here..
+                this.setState({ showAlert: true, alertMessage: err.message });
             });
+    }
+
+    closeAlert = () => {
+        this.setState({ showAlert: false, alertMessage: '' });
     }
 
     render () {
@@ -124,7 +130,8 @@ class Personal extends React.Component {
             mobile, mobileVisible,
             address, addressVisible,
             emContactVisible,
-            emName, emMobile, emEmail
+            emName, emMobile, emEmail,
+            showAlert, alertMessage
         } = this.state;
         // used to change name in the Header
         sessionStorage.setItem('user', `${firstName} ${lastName}`);
@@ -133,6 +140,14 @@ class Personal extends React.Component {
                 <Header activePage="Personal" />
                 <Navbar />
                 <main>
+                    { showAlert
+                        ? <Alert
+                            alertShow={showAlert}
+                            alertClose={this.closeAlert}
+                            alertMsg={alertMessage}
+                        />
+                        : null
+                    }
                     <FormContainer formTitle="general data" mb-4>
                         <React.Fragment>
                             <InputAvatar />

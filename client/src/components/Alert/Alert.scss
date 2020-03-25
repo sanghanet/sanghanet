@@ -1,0 +1,15 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.toast {
+    position: fixed;
+    top: 118px;
+    right: 19px;
+    z-index: 10;
+    .error-alert {
+        fill: $primary;
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+    }
+}
