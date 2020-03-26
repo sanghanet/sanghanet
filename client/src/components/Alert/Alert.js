@@ -7,10 +7,10 @@ import { ReactComponent as Error } from '../icons/errorAlert.svg';
 // import { ReactComponent as Warning } from '../icons/warningAlert.svg';
 
 function Alert (props) {
-    const { alertShow, alertClose, alertMsg } = props;
+    const { alertClose, alertMsg } = props;
 
     return (
-        <Toast onClose={alertClose} show={alertShow} delay={4000} autohide>
+        <Toast onClose={alertClose} show={true} delay={4000} autohide>
             <Toast.Header>
                 <Error className="error-alert" />
                 <strong className="mr-auto">Error notification</strong>
@@ -21,7 +21,6 @@ function Alert (props) {
 }
 
 Alert.propTypes = {
-    alertShow: PropTypes.bool.isRequired,
     alertClose: PropTypes.func.isRequired,
     alertMsg: PropTypes.string
 };

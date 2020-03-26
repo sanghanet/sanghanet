@@ -11,7 +11,6 @@ import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
 import { Row } from 'react-bootstrap';
-import './Personal.scss';
 
 class Personal extends React.Component {
     state = {
@@ -84,7 +83,6 @@ class Personal extends React.Component {
     };
 
     handleItemSave = (newValue, id) => {
-        // TODO: Store user's first name in BE. In case of failure, display warning.
         Client.fetch('/user/saveitem', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -92,14 +90,12 @@ class Personal extends React.Component {
         })
             .then((data) => {
                 this.updateItem(data);
-            // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
-                // Give warning to the user or handle error here..
+                this.setState({ showAlert: true, alertMessage: err.message });
             });
     };
 
     handleItemVisibility = (id) => {
-        // TODO: change visibility in BE. In case of failure, display warning.
         const Visible = `${[id]}Visible`;
         Client.fetch('/user/savevisibility', {
             method: 'PUT',
@@ -142,7 +138,6 @@ class Personal extends React.Component {
                 <main>
                     { showAlert
                         ? <Alert
-                            alertShow={showAlert}
                             alertClose={this.closeAlert}
                             alertMsg={alertMessage}
                         />
