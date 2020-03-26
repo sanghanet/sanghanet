@@ -38,7 +38,8 @@ class Personal extends React.Component {
         emEmail: '',
         emContactVisible: false,
         showAlert: false,
-        alertMessage: ''
+        alertMessage: '',
+        alertType: ''
     }
 
     componentDidMount () {
@@ -65,9 +66,8 @@ class Personal extends React.Component {
                     emEmail: data[0].emEmail,
                     emContactVisible: data[0].emContactVisible
                 });
-            // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
-                // Give warning to the user or handle error here..
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
     }
 
@@ -78,7 +78,10 @@ class Personal extends React.Component {
     updateItem = (data) => {
         this.setState((oldState) => ({
             ...oldState,
-            ...data
+            ...data,
+            showAlert: true,
+            alertMessage: 'Data saved successfully!',
+            alertType: 'Info'
         }));
     };
 
@@ -91,7 +94,7 @@ class Personal extends React.Component {
             .then((data) => {
                 this.updateItem(data);
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
     };
 
@@ -105,12 +108,12 @@ class Personal extends React.Component {
             .then((data) => {
                 this.updateItem(data);
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
     }
 
     closeAlert = () => {
-        this.setState({ showAlert: false, alertMessage: '' });
+        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     }
 
     render () {
@@ -127,7 +130,7 @@ class Personal extends React.Component {
             address, addressVisible,
             emContactVisible,
             emName, emMobile, emEmail,
-            showAlert, alertMessage
+            showAlert, alertMessage, alertType
         } = this.state;
         // used to change name in the Header
         sessionStorage.setItem('user', `${firstName} ${lastName}`);
@@ -140,6 +143,7 @@ class Personal extends React.Component {
                         ? <Alert
                             alertClose={this.closeAlert}
                             alertMsg={alertMessage}
+                            alertType={alertType}
                         />
                         : null
                     }
