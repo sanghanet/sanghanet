@@ -9,8 +9,8 @@ import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 import Client from '../../components/Client';
+import Alert from '../../components/Alert/Alert';
 import { Row } from 'react-bootstrap';
-import './Personal.scss';
 
 class Personal extends React.Component {
     state = {
@@ -36,7 +36,10 @@ class Personal extends React.Component {
         emName: '',
         emMobile: '',
         emEmail: '',
-        emContactVisible: false
+        emContactVisible: false,
+        showAlert: false,
+        alertMessage: '',
+        alertType: ''
     }
 
     componentDidMount () {
@@ -63,9 +66,8 @@ class Personal extends React.Component {
                     emEmail: data[0].emEmail,
                     emContactVisible: data[0].emContactVisible
                 });
-            // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
-                // Give warning to the user or handle error here..
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
     }
 
@@ -76,12 +78,14 @@ class Personal extends React.Component {
     updateItem = (data) => {
         this.setState((oldState) => ({
             ...oldState,
-            ...data
+            ...data,
+            showAlert: true,
+            alertMessage: 'Data saved successfully!',
+            alertType: 'Info'
         }));
     };
 
     handleItemSave = (newValue, id) => {
-        // TODO: Store user's first name in BE. In case of failure, display warning.
         Client.fetch('/user/saveitem', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -89,14 +93,12 @@ class Personal extends React.Component {
         })
             .then((data) => {
                 this.updateItem(data);
-            // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
-                // Give warning to the user or handle error here..
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
     };
 
     handleItemVisibility = (id) => {
-        // TODO: change visibility in BE. In case of failure, display warning.
         const Visible = `${[id]}Visible`;
         Client.fetch('/user/savevisibility', {
             method: 'PUT',
@@ -105,10 +107,13 @@ class Personal extends React.Component {
         })
             .then((data) => {
                 this.updateItem(data);
-            // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
-                // Give warning to the user or handle error here..
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
+    }
+
+    closeAlert = () => {
+        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     }
 
     render () {
@@ -124,7 +129,8 @@ class Personal extends React.Component {
             mobile, mobileVisible,
             address, addressVisible,
             emContactVisible,
-            emName, emMobile, emEmail
+            emName, emMobile, emEmail,
+            showAlert, alertMessage, alertType
         } = this.state;
         // used to change name in the Header
         sessionStorage.setItem('user', `${firstName} ${lastName}`);
@@ -133,6 +139,14 @@ class Personal extends React.Component {
                 <Header activePage="Personal" />
                 <Navbar />
                 <main>
+                    { showAlert
+                        ? <Alert
+                            alertClose={this.closeAlert}
+                            alertMsg={alertMessage}
+                            alertType={alertType}
+                        />
+                        : null
+                    }
                     <FormContainer formTitle="general data" mb-4>
                         <React.Fragment>
                             <InputAvatar />

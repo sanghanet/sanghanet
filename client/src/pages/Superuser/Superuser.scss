@@ -60,7 +60,7 @@ div>main {
         }
     }
 
-    
+
 
     table.table {
         width: 90%;
@@ -91,7 +91,10 @@ div>main {
         }
     }
 
-    @include maxQ(650px) {
-        padding-top: 0;
-    }
+    // @Misu: main>div is generally applied, so is the below maxQ.
+    // This style overwrites the Personal page css - padding-top there
+    // should be 50px. Please style Superuser with classNames.
+    // @include maxQ(650px) {
+    //     padding-top: 0;
+    // }
 }

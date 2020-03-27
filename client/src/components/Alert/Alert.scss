@@ -1,0 +1,36 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.toast {
+    position: fixed;
+    top: 118px;
+    right: 19px;
+    z-index: 10;
+    .alert-icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+    }
+    .error {
+        fill: $error;
+    }
+    .warning {
+        fill: $warning;
+    }
+    .info {
+        fill: $info;
+    }
+    .toast-header {
+        background-color: $alertBackground;
+        color: $white;
+        strong {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+    }
+    .toast-body {
+        background-color: $alertBackground;
+        color: $white;
+    }
+}
