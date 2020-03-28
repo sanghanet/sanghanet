@@ -32,7 +32,6 @@ class AddUserPopup extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Control
-                            id='email'
                             type='text'
                             value={this.state.currentValue}
                             onChange={this.handleChange}

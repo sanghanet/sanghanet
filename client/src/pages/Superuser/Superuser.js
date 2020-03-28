@@ -9,7 +9,8 @@ import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
-import AddUserPopup from './AddUserPopup/AddUserPopup';
+import AddUserPopup from './Popup/AddUserPopup';
+import EditUserPopup from './Popup/EditUserPopup';
 import { Table, Form, Button } from 'react-bootstrap';
 
 import Client from '../../components/Client';
@@ -19,7 +20,9 @@ class Superuser extends Component {
         userData: null,
         textFilterValue: '',
         roleFilter: 'all',
-        showPopup: false
+        showAddUserPopup: false,
+        showEditUserPopup: false,
+        editedUser: null
     }
 
     async componentDidMount () {
@@ -65,7 +68,7 @@ class Superuser extends Component {
                                 {user.isSuperuser ? 'superuser' : 'general user'}
                             </td>
                             <td>
-                                <Button variant='outline-primary'>
+                                <Button variant='outline-primary' onClick={this.editUser} id={ key }>
                                     <Edit className='edit-user'/>
                                 </Button>
                             </td>
@@ -111,25 +114,50 @@ class Superuser extends Component {
     }
 
     addUser = () => {
-        this.setState({ showPopup: true });
+        this.setState({ showAddUserPopup: true });
+    }
+
+    editUser = (event) => {
+        const userList = this.state.userData;
+
+        this.setState({
+            editedUser: userList[event.currentTarget.id]
+        });
+
+        console.dir(this.state.editedUser);
+
+        this.setState({
+            showEditUserPopup: true
+        });
     }
 
     handlePopupClose = () => {
-        this.setState({ showPopup: false });
+        this.setState({
+            showAddUserPopup: false,
+            showEditUserPopup: false
+        });
     }
 
     render () {
-        const { textFilterValue, roleFilter, showPopup } = this.state;
+        const { textFilterValue, roleFilter, showAddUserPopup, showEditUserPopup, editedUser } = this.state;
 
         return (
             <div>
-                {showPopup
+                {showAddUserPopup
                     ? (
                         <AddUserPopup
-                            modalShow={showPopup}
+                            modalShow={showAddUserPopup}
+                            modalClose={this.handlePopupClose}
+                            user={editedUser}
+                        />
+                    ) : null }
+                {showEditUserPopup
+                    ? (
+                        <EditUserPopup
+                            modalShow={showEditUserPopup}
                             modalClose={this.handlePopupClose}
                         />
-                    ) : null}
+                    ) : null }
                 <Header activePage="Superuser" />
                 <Navbar />
                 <main>
