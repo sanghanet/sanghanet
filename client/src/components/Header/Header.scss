@@ -142,12 +142,11 @@
                 right: -90vw;
             }
             width: 60vw;
-            height: 100vh;
+            height: calc(100vh - 93px);;
             overflow: scroll;
             border-bottom-left-radius: 5px;
-            padding-top: $header-height;
             background-color: $sideBar-bg;
-            top: 0;
+            top: $header-height;
             right: -60vw;
 
             transition: right .5s;
