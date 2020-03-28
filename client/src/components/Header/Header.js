@@ -19,8 +19,10 @@ const Header = (props) => {
     const handleHamburgerClick = () => {
         const slider = document.getElementsByClassName('slider')[0];
         const hamburger = document.getElementsByClassName('burger-lines')[0];
+        const headerShim = document.getElementsByClassName('header-shim')[0];
 
         slider.classList.toggle('slideIn');
+        headerShim.classList.toggle('slideIn');
         hamburger.classList.toggle('activeBurger');
     };
 
@@ -55,9 +57,10 @@ const Header = (props) => {
                     onClick={handleHamburgerClick}
                 >
                     <input type='checkbox' />
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div className='header-shim'></div>
+                    <div className='hamburger-line'></div>
+                    <div className='hamburger-line'></div>
+                    <div className='hamburger-line'></div>
                 </button>
                 <div className='slider position-absolute'>
                     <Navbar navStyle="hamburger" />

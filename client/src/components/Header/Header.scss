@@ -100,10 +100,24 @@
 
             transition: background-color .5s,
                         width .5s;
+            .header-shim {
+                height: $header-height;
+                position: absolute;
+                @include maxQ(480px) {
+                    width: 90vw;
+                    right: -90vw;
+                }
+                width: 60vw;
+                right: -60vw;
+                background-color: $sideBar-bg;
 
-            &:hover div { background-color: #fff; }
-
-            div {
+                transition: right .5s;
+                &.slideIn {
+                    right: 0;
+                }
+            }
+            &:hover .hamburger-line { background-color: $white; }
+            .hamburger-line {
                 width: 30px;
                 height: 1px;
                 margin: 4px 0;
@@ -142,8 +156,8 @@
                 right: -90vw;
             }
             width: 60vw;
-            height: calc(100vh - 93px);;
-            overflow: scroll;
+            height: calc(100vh - 93px);
+            overflow-y: scroll;
             border-bottom-left-radius: 5px;
             background-color: $sideBar-bg;
             top: $header-height;
