@@ -8,6 +8,7 @@ import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
+import AddUserPopup from './AddUserPopup/AddUserPopup';
 import { Table, Form, Button } from 'react-bootstrap';
 
 import Client from '../../components/Client';
@@ -16,7 +17,8 @@ class Superuser extends Component {
     state = {
         userData: null,
         textFilterValue: '',
-        roleFilter: 'all'
+        roleFilter: 'all',
+        showPopup: false
     }
 
     async componentDidMount () {
@@ -103,14 +105,25 @@ class Superuser extends Component {
     }
 
     addUser = () => {
-        console.log('This function will add a user');
+        this.setState({ showPopup: true });
+    }
+
+    handlePopupClose = () => {
+        this.setState({ showPopup: false });
     }
 
     render () {
-        const { textFilterValue, roleFilter } = this.state;
+        const { textFilterValue, roleFilter, showPopup } = this.state;
 
         return (
             <div>
+                {showPopup
+                    ? (
+                        <AddUserPopup
+                            modalShow={showPopup}
+                            modalClose={this.handlePopupClose}
+                        />
+                    ) : null}
                 <Header activePage="Superuser" />
                 <Navbar />
                 <main>
@@ -142,7 +155,7 @@ class Superuser extends Component {
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Status</th>
+                                <th>Role</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
