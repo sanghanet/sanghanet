@@ -69,12 +69,11 @@
             border: none;
             margin-right: 10px;
             padding: 15px 30px;
+            box-shadow: none;
 
-            &:hover {
-                svg {
-                    fill: #000;
-                }
-            }
+            &:hover { background: none; }
+            &:focus:active { box-shadow: none !important; }
+            &:active { background: none !important; }
 
             @media screen and (max-width: 767px) {
                 position: absolute;
