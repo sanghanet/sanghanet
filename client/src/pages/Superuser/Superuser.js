@@ -118,16 +118,11 @@ class Superuser extends Component {
     }
 
     editUser = (event) => {
-        const userList = this.state.userData;
+        const user = this.state.userData[event.currentTarget.id];
 
         this.setState({
-            editedUser: userList[event.currentTarget.id]
-        });
-
-        console.dir(this.state.editedUser);
-
-        this.setState({
-            showEditUserPopup: true
+            showEditUserPopup: true,
+            editedUser: user
         });
     }
 
@@ -156,6 +151,7 @@ class Superuser extends Component {
                         <EditUserPopup
                             modalShow={showEditUserPopup}
                             modalClose={this.handlePopupClose}
+                            user={this.state.editedUser}
                         />
                     ) : null }
                 <Header activePage="Superuser" />

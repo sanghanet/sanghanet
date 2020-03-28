@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './EditUserPopup.scss';
+
 import { Modal, Button, Form } from 'react-bootstrap';
 
 class AddUserPopup extends Component {
     state = {
-        currentValue: ''
-    }
-
-    handleChange = (event) => {
-        this.setState({ currentValue: event.target.value });
-        console.dir(this.props.user);
+        selectedRole: this.props.user.isSuperuser ? 'superuser' : 'general user'
     }
 
     handleClose = () => {
@@ -29,20 +26,26 @@ class AddUserPopup extends Component {
             <Modal show={modalShow} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'}>
                 <Form onSubmit={this.handleSubmit} autoComplete='off'>
                     <Modal.Header closeButton>
-                        <Form.Label>Edit user</Form.Label>
+                        <Form.Label>{`${this.props.user.firstName} ${this.props.user.lastName}`}</Form.Label>
                     </Modal.Header>
                     <Modal.Body>
+                        <Form.Label htmlFor='role'>Role</Form.Label>
                         <Form.Control
-                            id='email'
+                            as='select'
+                            defaultValue={this.state.selectedRole}
+                            id='role'
                             type='text'
-                            value={this.state.currentValue}
-                            onChange={this.handleChange}
-                            autoFocus
-                            placeholder='email address'
+                            value={this.state.role}
+                            onChange={this.handleRoleChange}
                         >
+                            <option>superuser</option>
+                            <option>general user</option>
                         </Form.Control>
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button variant='danger' onClick={this.handleClose}>
+                            Delete user
+                        </Button>
                         <Button variant="secondary" onClick={this.handleClose}>
                             Cancel
                         </Button>
