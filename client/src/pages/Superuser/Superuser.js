@@ -109,7 +109,7 @@ class Superuser extends Component {
         return (
             <div>
                 <Header activePage="Superuser" />
-                <Navbar />
+                <Navbar navStyle="sidenav"/>
                 <main>
                     {/* --- Form for filters --- */}
                     <Form className="filter-box">

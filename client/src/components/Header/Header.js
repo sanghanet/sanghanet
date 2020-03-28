@@ -19,8 +19,10 @@ const Header = (props) => {
     const handleHamburgerClick = () => {
         const slider = document.getElementsByClassName('slider')[0];
         const hamburger = document.getElementsByClassName('burger-lines')[0];
+        const headerShim = document.getElementsByClassName('header-shim')[0];
 
         slider.classList.toggle('slideIn');
+        headerShim.classList.toggle('slideIn');
         hamburger.classList.toggle('activeBurger');
     };
 
@@ -28,7 +30,7 @@ const Header = (props) => {
         <Container fluid className='header d-flex p-0' as='header'>
             <Row className='d-flex'>
                 <Figure
-                    bsPrefix='avatar-container d-none d-md-flex d-grid m-0'
+                    className='avatar-container d-none d-md-flex m-0'
                     onClick={handleAvatarClick}
                 >
                     <Figure.Image
@@ -39,7 +41,7 @@ const Header = (props) => {
                         height={70}
                         className="d-none d-sm-flex"
                     />
-                    <Figure.Caption bsPrefix='avatar-name d-none d-sm-flex' as='h2'>
+                    <Figure.Caption className='avatar-name d-none d-sm-flex' as='h2'>
                         {sessionStorage.user}
                     </Figure.Caption>
                 </Figure>
@@ -51,16 +53,17 @@ const Header = (props) => {
                 </Button>
 
                 <button
-                    className='burger-lines p-0 d-flex d-md-none position-absolute'
+                    className='burger-lines d-md-none position-absolute'
                     onClick={handleHamburgerClick}
                 >
                     <input type='checkbox' />
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div className='header-shim'></div>
+                    <div className='hamburger-line'></div>
+                    <div className='hamburger-line'></div>
+                    <div className='hamburger-line'></div>
                 </button>
                 <div className='slider position-absolute'>
-                    <Navbar />
+                    <Navbar navStyle="hamburger" />
                 </div>
             </Row>
         </Container>

@@ -8,7 +8,7 @@ const Events = (props) => {
     return (
         <div className='grid-container'>
             <Header activePage="Events"/>
-            <Navbar/>
+            <Navbar navStyle="sidenav" />
             <main className="align">
                 <ComingSoon pageName = "Events" isPlural = {true}/>
             </main>
