@@ -54,10 +54,7 @@
         }
         &:hover {
             text-decoration: none;
-            // TO BE REDONE
-            &:hover {
-                border-bottom: 1px solid $sideBar-border;
-            }
+            border-bottom: 1px solid $sideBar-border !important;
         }
         @include hoveredElement;
     }
@@ -101,11 +98,7 @@
         flex-direction: row;
         justify-content: flex-start;
         &:hover {
-            border-bottom: none;
-            // TO BE REDONE
-            &:hover {
-                border-top: 1px solid $sideBar-border;
-            }
+            border-bottom: none !important;
         }
         .title {
             margin-left: 20px;
