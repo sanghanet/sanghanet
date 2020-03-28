@@ -3,6 +3,7 @@ ul {
     background: #484848;
     list-style: none;
     flex-direction: column;
+    z-index: 1;
 
     @media screen and (max-width: 767px) {
         display: flex;
