@@ -38,7 +38,6 @@ class Superuser extends Component {
                                     fullName.toLowerCase().includes(textFilterValue.toLowerCase());
         const passedRoleFilter = (user.isSuperuser && roleFilter !== 'general') || (!user.isSuperuser && roleFilter !== 'super');
 
-        console.dir(fullName);
         return passedEmailFilter && passedRoleFilter;
     }
 
