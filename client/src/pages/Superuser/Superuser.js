@@ -15,7 +15,7 @@ import Client from '../../components/Client';
 class Superuser extends Component {
     state = {
         userData: null,
-        emailFilterValue: '',
+        textFilterValue: '',
         roleFilter: 'all'
     }
 
@@ -30,11 +30,15 @@ class Superuser extends Component {
     }
 
     checkFilters = (user) => {
-        const { roleFilter, emailFilterValue } = this.state;
+        const { roleFilter, textFilterValue } = this.state;
+        const fullName = `${user.firstName} ${user.lastName}`;
 
-        const passedEmailFilter = user.email.toLowerCase().includes(emailFilterValue.toLowerCase());
+        // eslint-disable-next-line no-multi-spaces
+        const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
+                                    fullName.toLowerCase().includes(textFilterValue.toLowerCase());
         const passedRoleFilter = (user.isSuperuser && roleFilter !== 'general') || (!user.isSuperuser && roleFilter !== 'super');
 
+        console.dir(fullName);
         return passedEmailFilter && passedRoleFilter;
     }
 
@@ -66,12 +70,12 @@ class Superuser extends Component {
     }
 
     handleEmailFilterChange = (inputValue) => {
-        this.setState({ emailFilterValue: inputValue });
+        this.setState({ textFilterValue: inputValue });
     }
 
     handleIconClick = (event) => {
         event.preventDefault();
-        this.setState({ emailFilterValue: '' });
+        this.setState({ textFilterValue: '' });
     }
 
     handleRolechange = (event) => {
@@ -92,7 +96,7 @@ class Superuser extends Component {
 
     resetFilters = () => {
         this.setState({
-            emailFilterValue: '',
+            textFilterValue: '',
             roleFilter: 'all'
         });
 
@@ -104,7 +108,7 @@ class Superuser extends Component {
     }
 
     render () {
-        const { emailFilterValue, roleFilter } = this.state;
+        const { textFilterValue, roleFilter } = this.state;
 
         return (
             <div>
@@ -117,10 +121,10 @@ class Superuser extends Component {
                             <SearchBar
                                 handleInputChange={this.handleEmailFilterChange}
                                 handleIconClick={this.handleIconClick}
-                                inputValue={emailFilterValue}
+                                inputValue={textFilterValue}
                                 icon={<Cross />}
                             />
-                            <Form.Text>Filter by email address</Form.Text>
+                            <Form.Text>Filter by name or email address</Form.Text>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label htmlFor="roleSelect">Role</Form.Label>
