@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './Superuser.scss';
 import { ReactComponent as Cross } from '../../components/icons/cross.svg';
 import { ReactComponent as Plus } from '../../components/icons/plus.svg';
+import { ReactComponent as Edit } from '../../components/Form/formIcons/edit.svg';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -62,6 +63,11 @@ class Superuser extends Component {
                             </td>
                             <td>
                                 {user.isSuperuser ? 'superuser' : 'general user'}
+                            </td>
+                            <td>
+                                <Button variant='outline-primary'>
+                                    <Edit className='edit-user'/>
+                                </Button>
                             </td>
                         </tr>
                     ) : (null)
@@ -156,11 +162,12 @@ class Superuser extends Component {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
                             <tr>
-                                <td colSpan={3} className="p-0">
+                                <td colSpan={4} className="p-0">
                                     <Button className="add-user-btn" variant="success" onClick={this.addUser}>
                                         <Plus />
                                         Add user

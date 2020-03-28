@@ -1,100 +1,112 @@
 @import '../../style/colors';
 @import '../../style/mixins';
 
-div>main {
-    .filter-box {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 3fr 1fr;
-        margin-bottom: 40px;
-        color: $white;
+.filter-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 3fr 1fr;
+    margin-bottom: 40px;
+    color: $white;
 
-        .form-text {
-            text-align: center;
+    .form-text {
+        text-align: center;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:first-child {
+            flex-wrap: wrap;
+            grid-column: span 2;
+
+            .search-field {
+                margin-bottom: 0;
+            }
         }
 
+        select {
+            color: $white;
+            background-color: $main-bg;
+            padding: 10px;
+            margin: 0 10px;
+        }
+
+        label {
+            margin: 10px;
+        }
+    }
+
+    .btn {
+        grid-column-start: 2;
+        width: 80%;
+        margin: auto;
+    }
+
+    @include maxQ(900px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 3fr 1fr 1fr;
+
         .form-group {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &:first-child {
-                flex-wrap: wrap;
-                grid-column: span 2;
-
-                .search-field {
-                    margin-bottom: 0;
-                }
-            }
-
-            select {
-                color: $white;
-                background-color: $main-bg;
-                padding: 10px;
-                margin: 0 10px;
-            }
-
-            label {
-                margin: 10px;
-            }
+            grid-column: span 4;
         }
 
         .btn {
-            grid-column-start: 2;
-            width: 80%;
-            margin: auto;
-        }
-
-        @include maxQ(900px) {
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 3fr 1fr 1fr;
-
-            .form-group {
-                grid-column: span 4;
-            }
-
-            .btn {
-                grid-column-start: 1;
-                grid-column-end: 3;
-            }
+            grid-column-start: 1;
+            grid-column-end: 3;
         }
     }
+}
 
 
 
-    table.table {
-        width: 90%;
-        margin: auto;
+table.table {
+    width: 90%;
+    margin: auto;
 
-        tbody tr:first-child td {
+    th:last-child {
+        width: 20px;
+    }
 
-            .add-user-btn {
-                width: 100%;
-                height: 49px;
-                display: flex;
-                align-items: center;
-                border-radius: 0;
+    tbody tr:first-child td {
 
-                svg {
-                    width: 20px;
-                    margin-right: 10px;
-                }
-            }
-        }
-
-        @include maxQ(767px) {
+        .add-user-btn {
             width: 100%;
-        }
+            height: 49px;
+            display: flex;
+            align-items: center;
+            border-radius: 0;
 
-        @include maxQ(500px) {
-            font-size: .6em;
+            svg {
+                width: 20px;
+                margin-right: 10px;
+            }
         }
     }
 
-    // @Misu: main>div is generally applied, so is the below maxQ.
-    // This style overwrites the Personal page css - padding-top there
-    // should be 50px. Please style Superuser with classNames.
-    // @include maxQ(650px) {
-    //     padding-top: 0;
-    // }
+    td {
+        &:last-child {
+            padding: 0;
+        }
+
+        &>button {
+            border-radius: 0;
+            border: none;
+            height: 47px;
+
+            .edit-user {
+                width: 20px;
+                fill: $white;
+            }
+        }
+    }
+
+    @include maxQ(767px) {
+        width: 100%;
+    }
+
+    @include maxQ(500px) {
+        font-size: .6em;
+    }
 }
