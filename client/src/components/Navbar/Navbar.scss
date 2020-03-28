@@ -22,7 +22,6 @@
         }
         .active {
             background-color: $sideBarHover-bg;
-            border-bottom: 2px solid $sideBar-border;
             .title {
                 color: $sideBarHover-iconColor;
             }
@@ -78,6 +77,9 @@
     }
     .link {
         min-height: 102px;
+    }
+    .active {
+        border-bottom: 2px solid $sideBar-border;
     }
 }
 
