@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 import './Superuser.scss';
 import { ReactComponent as Cross } from '../../components/icons/cross.svg';
 import { ReactComponent as Plus } from '../../components/icons/plus.svg';
+import { ReactComponent as Edit } from '../../components/Form/formIcons/edit.svg';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
+import AddUserPopup from './Popup/AddUserPopup';
+import EditUserPopup from './Popup/EditUserPopup';
 import { Table, Form, Button } from 'react-bootstrap';
 
 import Client from '../../components/Client';
@@ -15,8 +18,11 @@ import Client from '../../components/Client';
 class Superuser extends Component {
     state = {
         userData: null,
-        emailFilterValue: '',
-        roleFilter: 'all'
+        textFilterValue: '',
+        roleFilter: 'all',
+        showAddUserPopup: false,
+        showEditUserPopup: false,
+        editedUser: null
     }
 
     async componentDidMount () {
@@ -30,9 +36,12 @@ class Superuser extends Component {
     }
 
     checkFilters = (user) => {
-        const { roleFilter, emailFilterValue } = this.state;
+        const { roleFilter, textFilterValue } = this.state;
+        const fullName = `${user.firstName} ${user.lastName}`;
 
-        const passedEmailFilter = user.email.toLowerCase().includes(emailFilterValue.toLowerCase());
+        // eslint-disable-next-line no-multi-spaces
+        const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
+                                    fullName.toLowerCase().includes(textFilterValue.toLowerCase());
         const passedRoleFilter = (user.isSuperuser && roleFilter !== 'general') || (!user.isSuperuser && roleFilter !== 'super');
 
         return passedEmailFilter && passedRoleFilter;
@@ -58,6 +67,11 @@ class Superuser extends Component {
                             <td>
                                 {user.isSuperuser ? 'superuser' : 'general user'}
                             </td>
+                            <td>
+                                <Button variant='outline-primary' onClick={this.editUser} id={ key }>
+                                    <Edit className='edit-user'/>
+                                </Button>
+                            </td>
                         </tr>
                     ) : (null)
                 ))
@@ -66,12 +80,12 @@ class Superuser extends Component {
     }
 
     handleEmailFilterChange = (inputValue) => {
-        this.setState({ emailFilterValue: inputValue });
+        this.setState({ textFilterValue: inputValue });
     }
 
     handleIconClick = (event) => {
         event.preventDefault();
-        this.setState({ emailFilterValue: '' });
+        this.setState({ textFilterValue: '' });
     }
 
     handleRolechange = (event) => {
@@ -92,7 +106,7 @@ class Superuser extends Component {
 
     resetFilters = () => {
         this.setState({
-            emailFilterValue: '',
+            textFilterValue: '',
             roleFilter: 'all'
         });
 
@@ -100,14 +114,46 @@ class Superuser extends Component {
     }
 
     addUser = () => {
-        console.log('This function will add a user');
+        this.setState({ showAddUserPopup: true });
+    }
+
+    editUser = (event) => {
+        const user = this.state.userData[event.currentTarget.id];
+
+        this.setState({
+            showEditUserPopup: true,
+            editedUser: user
+        });
+    }
+
+    handlePopupClose = () => {
+        this.setState({
+            showAddUserPopup: false,
+            showEditUserPopup: false
+        });
     }
 
     render () {
-        const { emailFilterValue, roleFilter } = this.state;
+        const { textFilterValue, roleFilter, showAddUserPopup, showEditUserPopup, editedUser } = this.state;
 
         return (
             <div>
+                {showAddUserPopup
+                    ? (
+                        <AddUserPopup
+                            modalShow={showAddUserPopup}
+                            modalClose={this.handlePopupClose}
+                            user={editedUser}
+                        />
+                    ) : null }
+                {showEditUserPopup
+                    ? (
+                        <EditUserPopup
+                            modalShow={showEditUserPopup}
+                            modalClose={this.handlePopupClose}
+                            user={this.state.editedUser}
+                        />
+                    ) : null }
                 <Header activePage="Superuser" />
                 <Navbar navStyle="sidenav"/>
                 <main>
@@ -117,10 +163,10 @@ class Superuser extends Component {
                             <SearchBar
                                 handleInputChange={this.handleEmailFilterChange}
                                 handleIconClick={this.handleIconClick}
-                                inputValue={emailFilterValue}
+                                inputValue={textFilterValue}
                                 icon={<Cross />}
                             />
-                            <Form.Text>Filter by email address</Form.Text>
+                            <Form.Text>Filter by name or email address</Form.Text>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label htmlFor="roleSelect">Role</Form.Label>
@@ -139,12 +185,13 @@ class Superuser extends Component {
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Status</th>
+                                <th>Role</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
                             <tr>
-                                <td colSpan={3} className="p-0">
+                                <td colSpan={4} className="p-0">
                                     <Button className="add-user-btn" variant="success" onClick={this.addUser}>
                                         <Plus />
                                         Add user
