@@ -9,7 +9,7 @@ const Queries = (props) => {
     return (
         <div>
             <Header activePage="Queries" />
-            <Navbar />
+            <Navbar navStyle="sidenav"/>
             <main className="align">
                 <ComingSoon pageName = "Queries" isPlural = {true}/>
             </main>

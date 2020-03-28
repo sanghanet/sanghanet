@@ -14,9 +14,11 @@ import { ReactComponent as EventIcon } from '../icons/event.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
 
-const PageNavigation = (props) => {
+const Navbar = (props) => {
+    const { activePage, navStyle } = props;
+    // navStyle has two CSS id: sidenav, hamburger
     return (
-        <ul onClick={props.activePage} className="p-0 m-0">
+        <ul onClick={activePage} className="navigation" id={navStyle}>
             <li>
                 <NavLink exact to="/dashboard" className="link">
                     <div className="menu-icon"><DashboardIcon /></div>
@@ -75,8 +77,9 @@ const PageNavigation = (props) => {
     );
 };
 
-PageNavigation.propTypes = {
-    activePage: PropTypes.func
+Navbar.propTypes = {
+    activePage: PropTypes.func,
+    navStyle: PropTypes.string.isRequired
 };
 
-export default PageNavigation;
+export default Navbar;

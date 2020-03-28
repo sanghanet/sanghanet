@@ -34,10 +34,12 @@ $navbar-width: 110px;
 }
 @mixin hoveredElement {
     &:hover {
-        background-color: $sideBarHover-backgroundColor;
+        background-color: $sideBarHover-bg;
+        border-bottom: 2px solid $sideBar-border;
     }
     &:hover .title {
         color: $sideBarHover-iconColor;
+        font-size: 13px;
     }
     &:hover svg {
         @include svgChanging;

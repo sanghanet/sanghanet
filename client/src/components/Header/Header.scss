@@ -1,3 +1,6 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
 .header {
     position: fixed;
     justify-content: center;
@@ -46,6 +49,7 @@
                 margin: 20px 0;
                 font-size: 1.4em;
                 font-weight: 100;
+                color: $white;
 
                 @media screen and (max-width: 767px) {
                     font-size: 14px;
@@ -85,15 +89,15 @@
         }
 
         .burger-lines {
-            width: 110px;
-            height: 93px;
+            @include buttonReset;
+            width: $navbar-width;
+            height: $header-height;
             right: 0;
             z-index: 10;
+
+            @include centerElement;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            background-color: transparent;
+
             transition: background-color .5s,
                         width .5s;
 
@@ -120,7 +124,6 @@
                 z-index: 2;
 
                 position: absolute;
-                right: 0;
                 &:checked ~ div:nth-last-child(3) {
                     transform: rotate(45deg) translate(8px, 4px);
                 }
@@ -131,22 +134,28 @@
                     transform: rotate(-45deg) translate(8px, -4px);
                 }
             }
-
-            &.activeBurger {
-                background-color: #484848;
-                width: 60vw;
-            }
         }
 
         .slider {
+            @include maxQ(480px) {
+                width: 90vw;
+                right: -90vw;
+            }
             width: 60vw;
-            height: calc(100vh - 93px);
+            height: 100vh;
             overflow: scroll;
-            top: 93px;
+            border-bottom-left-radius: 5px;
+            padding-top: $header-height;
+            background-color: $sideBar-bg;
+            top: 0;
             right: -60vw;
 
             transition: right .5s;
 
+            scrollbar-width: none;
+            &::-webkit-scrollbar {
+                display: none;
+            }
             &.slideIn {
                 right: 0;
             }

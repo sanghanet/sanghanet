@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <Header activePage="Dashboard" />
-                <Navbar />
+                <Navbar navStyle="sidenav" />
                 <main className="align">
                     <ComingSoon pageName = "Dashboard" isPlural = {false}/>
                 </main>
