@@ -16,7 +16,9 @@ const Header = (props) => {
         }
     };
 
-    const handleHamburgerClick = () => {
+    const handleHamburgerClick = (event) => {
+        if (event.target.className.includes('header-shim')) return;
+
         const slider = document.getElementsByClassName('slider')[0];
         const hamburger = document.getElementsByClassName('burger-lines')[0];
         const headerShim = document.getElementsByClassName('header-shim')[0];
