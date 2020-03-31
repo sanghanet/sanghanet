@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
@@ -13,23 +13,22 @@ import { ReactComponent as YogaIcon } from '../icons/yoga.svg';
 import { ReactComponent as EventIcon } from '../icons/event.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
-import { Component } from 'react';
 
 class Navbar extends Component {
     constructor (props) {
         super(props);
         this.state = {
             scrollPos: 0
-        }
+        };
     }
 
-    activePage = props.activePage;
-    navStyle = props.navStyle;
+    activePage = this.props.activePage;
+    navStyle = this.props.navStyle;
     // navStyle has two CSS id: sidenav, hamburger
 
-    render() {
+    render () {
         return (
-            <ul onClick={activePage} className="navigation" id={navStyle}>
+            <ul onClick={this.activePage} className="navigation" id={this.navStyle}>
                 <li>
                     <NavLink exact to="/dashboard" className="link">
                         <div className="menu-icon"><DashboardIcon /></div>
