@@ -8,10 +8,9 @@ import { ReactComponent as Warning } from '../icons/warningAlert.svg';
 
 function Alert (props) {
     // alertType can be Error, Warning and Info
-    // delay={4000} autohide
     const { alertClose, alertMsg, alertType } = props;
     return (
-        <Toast onClose={alertClose} show={true}>
+        <Toast onClose={alertClose} show={true} delay={4000} autohide>
             <Toast.Header>
                 {
                     {

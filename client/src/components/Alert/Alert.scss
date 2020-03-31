@@ -2,8 +2,9 @@
 @import '../../style/mixins';
 
 .toast {
-    border: 1px solid #6a6a6a;
-    border-radius: none;
+    border: 1px solid #6a6a6a !important;
+    border-radius: none !important;
+    box-shadow: 1px 1px $darkgray !important;
     position: fixed;
     top: 118px;
     right: 19px;
