@@ -41,7 +41,7 @@ class AddUserPopup extends Component {
                             >
                             </Form.Control>
                             <InputGroup.Append>
-                                <InputGroup.Text>@example.com</InputGroup.Text>
+                                <InputGroup.Text>@gmail.com</InputGroup.Text>
                             </InputGroup.Append>
                         </InputGroup>
                     </Modal.Body>
