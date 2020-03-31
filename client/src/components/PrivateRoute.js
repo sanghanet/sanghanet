@@ -11,7 +11,7 @@ const PrivateRoute = (props) => {
         // Otherwise, redirect the user to / page
         <Route {...rest} render={ (props) => (
             user && isActive
-                ? <Component {...props} />
+                ? <Component navbarScrollPos={props.navbarScrollPos} {...props} />
                 : <Redirect to="/" />
         )} />
     );
@@ -19,7 +19,8 @@ const PrivateRoute = (props) => {
 
 PrivateRoute.propTypes = {
     component: PropTypes.func.isRequired,
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
+    navbarScrollPos: PropTypes.number
 };
 
 export default PrivateRoute;

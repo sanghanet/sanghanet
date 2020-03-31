@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -11,6 +12,10 @@ class Dashboard extends React.Component {
         this.state = {
             list: null
         };
+    }
+
+    log = () => {
+        console.log(this.props.navbarScrollPos);
     }
 
     printUserList = (userArray) => {
@@ -30,7 +35,7 @@ class Dashboard extends React.Component {
             <div>
                 <Header activePage="Dashboard" />
                 <Navbar navStyle="sidenav" />
-                <main className="align">
+                <main className="align" onClick={this.log}>
                     <ComingSoon pageName = "Dashboard" isPlural = {false}/>
                 </main>
                 <Footer />
@@ -38,5 +43,9 @@ class Dashboard extends React.Component {
         );
     }
 }
+
+Dashboard.propTypes = {
+    navbarScrollPos: PropTypes.number
+};
 
 export default Dashboard;
