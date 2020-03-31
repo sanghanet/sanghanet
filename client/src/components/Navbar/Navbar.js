@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
+import ScrollStop from './ScrollStop';
 import './Navbar.scss';
 import Logout from '../Logout/Logout';
 
@@ -22,13 +23,24 @@ class Navbar extends Component {
         };
     }
 
-    activePage = this.props.activePage;
+    sideNav = null;
+
+    componentDidMount () {
+        this.sideNav = document.getElementById('sidenav');
+
+        ScrollStop(this.sideNav, () => {
+            this.setState({ scrollPos: this.sideNav.scrollTop });
+            console.log(this.state.scrollPos);
+        }
+        );
+    }
+
     navStyle = this.props.navStyle;
     // navStyle has two CSS id: sidenav, hamburger
 
     render () {
         return (
-            <ul onClick={this.activePage} className="navigation" id={this.navStyle}>
+            <ul onClick={this.setScroll} className="navigation" id={this.navStyle}>
                 <li>
                     <NavLink exact to="/dashboard" className="link">
                         <div className="menu-icon"><DashboardIcon /></div>
@@ -89,7 +101,6 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    activePage: PropTypes.func,
     navStyle: PropTypes.string.isRequired
 };
 
