@@ -151,7 +151,7 @@ class Superuser extends Component {
                         <EditUserPopup
                             modalShow={showEditUserPopup}
                             modalClose={this.handlePopupClose}
-                            user={this.state.editedUser}
+                            user={editedUser}
                         />
                     ) : null }
                 <Header activePage="Superuser" />

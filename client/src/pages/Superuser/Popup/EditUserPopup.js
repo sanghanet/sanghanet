@@ -19,23 +19,27 @@ class AddUserPopup extends Component {
         this.props.modalClose();
     }
 
+    handleRoleChange = () => {
+        console.log('role has been changed');
+    }
+
     render () {
-        const { modalShow } = this.props;
+        const { modalShow, user } = this.props;
+        const { selectedRole } = this.state;
 
         return (
             <Modal show={modalShow} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'}>
                 <Form onSubmit={this.handleSubmit} autoComplete='off'>
                     <Modal.Header closeButton>
-                        <Form.Label>{`${this.props.user.firstName} ${this.props.user.lastName}`}</Form.Label>
+                        <Form.Label>{`${user.firstName} ${user.lastName}`}</Form.Label>
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Label htmlFor='role'>Role</Form.Label>
                         <Form.Control
                             as='select'
-                            defaultValue={this.state.selectedRole}
+                            defaultValue={selectedRole}
                             id='role'
                             type='text'
-                            value={this.state.role}
                             onChange={this.handleRoleChange}
                         >
                             <option>superuser</option>
