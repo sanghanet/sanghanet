@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, InputGroup } from 'react-bootstrap';
 
 class AddUserPopup extends Component {
     state = {
@@ -31,14 +31,19 @@ class AddUserPopup extends Component {
                         <Form.Label>Add user</Form.Label>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form.Control
-                            type='text'
-                            value={this.state.currentValue}
-                            onChange={this.handleChange}
-                            autoFocus
-                            placeholder='email address'
-                        >
-                        </Form.Control>
+                        <InputGroup>
+                            <Form.Control
+                                type='text'
+                                value={this.state.currentValue}
+                                onChange={this.handleChange}
+                                autoFocus
+                                placeholder='email address'
+                            >
+                            </Form.Control>
+                            <InputGroup.Append>
+                                <InputGroup.Text>@example.com</InputGroup.Text>
+                            </InputGroup.Append>
+                        </InputGroup>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>
