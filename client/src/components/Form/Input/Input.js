@@ -6,7 +6,6 @@ import './Input.scss';
 import { ReactComponent as Edit } from '../formIcons/edit.svg';
 import { ReactComponent as Save } from '../formIcons/save.svg';
 import { ReactComponent as Visible } from '../formIcons/visible.svg';
-// import { ReactComponent as Invisible } from '../formIcons/invisible.svg';
 
 import { Col, Form, InputGroup } from 'react-bootstrap';
 
@@ -90,7 +89,6 @@ Input.propTypes = {
     inputTitle: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
-    // optionsForSelect: PropTypes.array,
     inputValue: PropTypes.string,
     inputId: PropTypes.string,
     onChange: PropTypes.func.isRequired,
