@@ -65,7 +65,7 @@ table.table {
     width: 90%;
     margin: auto;
 
-    th:last-child {
+    .icon-column {
         width: 20px;
     }
 
@@ -86,7 +86,7 @@ table.table {
     }
 
     td {
-        &:last-child {
+        &.icon-cell {
             padding: 0;
         }
 

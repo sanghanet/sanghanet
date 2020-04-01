@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './EditUserPopup.scss';
-
 import { Modal, Button, Form } from 'react-bootstrap';
 
 class AddUserPopup extends Component {
@@ -34,7 +32,7 @@ class AddUserPopup extends Component {
                         <Form.Label>{`${user.firstName} ${user.lastName}`}</Form.Label>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form.Label htmlFor='role'>Role</Form.Label>
+                        <Form.Label htmlFor='role' className="m-0">Role</Form.Label>
                         <Form.Control
                             as='select'
                             defaultValue={selectedRole}
@@ -47,9 +45,6 @@ class AddUserPopup extends Component {
                         </Form.Control>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant='danger' onClick={this.handleClose}>
-                            Delete user
-                        </Button>
                         <Button variant="secondary" onClick={this.handleClose}>
                             Cancel
                         </Button>

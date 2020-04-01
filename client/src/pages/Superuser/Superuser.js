@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './Superuser.scss';
 import { ReactComponent as Cross } from '../../components/icons/cross.svg';
 import { ReactComponent as Plus } from '../../components/icons/plus.svg';
+import { ReactComponent as Bin } from '../../components/icons/bin.svg';
 import { ReactComponent as Edit } from '../../components/Form/formIcons/edit.svg';
 
 import Header from '../../components/Header/Header';
@@ -67,9 +68,14 @@ class Superuser extends Component {
                             <td>
                                 {user.isSuperuser ? 'superuser' : 'general user'}
                             </td>
-                            <td>
+                            <td className="icon-cell">
                                 <Button variant='outline-primary' onClick={this.editUser} id={ key }>
                                     <Edit className='edit-user'/>
+                                </Button>
+                            </td>
+                            <td className="icon-cell">
+                                <Button variant='danger' id={ key }>
+                                    <Bin className='edit-user'/>
                                 </Button>
                             </td>
                         </tr>
@@ -186,12 +192,13 @@ class Superuser extends Component {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th></th>
+                                <th className="icon-column"></th>
+                                <th className="icon-column"></th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
                             <tr>
-                                <td colSpan={4} className="p-0">
+                                <td colSpan={5} className="p-0">
                                     <Button className="add-user-btn" variant="success" onClick={this.addUser}>
                                         <Plus />
                                         Add user
