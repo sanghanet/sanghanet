@@ -4,7 +4,6 @@ import './Superuser.scss';
 import { ReactComponent as Cross } from '../../components/icons/cross.svg';
 import { ReactComponent as Plus } from '../../components/icons/plus.svg';
 import { ReactComponent as Bin } from '../../components/icons/bin.svg';
-import { ReactComponent as Edit } from '../../components/Form/formIcons/edit.svg';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -30,9 +29,9 @@ class Superuser extends Component {
         Client.fetch('/user/listusers', { method: 'POST' })
             .then((data) => {
                 this.setState({ userData: data });
-            // eslint-disable-next-line handle-callback-err
             }).catch((err) => {
                 // Give warning to the user or handle error here..
+                console.error(err);
             });
     }
 
@@ -65,17 +64,12 @@ class Superuser extends Component {
                                     user.email.substring(0, user.email.indexOf('@'))
                                 }
                             </td>
-                            <td>
+                            <td onClick={this.editUser} id={key} className="role-cells">
                                 {user.isSuperuser ? 'superuser' : 'general user'}
                             </td>
                             <td className="icon-cell">
-                                <Button variant='outline-primary' onClick={this.editUser} id={ key }>
-                                    <Edit className='edit-user'/>
-                                </Button>
-                            </td>
-                            <td className="icon-cell">
-                                <Button variant='danger' id={ key }>
-                                    <Bin className='edit-user'/>
+                                <Button variant='outline-danger' id={ key }>
+                                    <Bin className='delete-user'/>
                                 </Button>
                             </td>
                         </tr>
@@ -192,7 +186,6 @@ class Superuser extends Component {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th className="icon-column"></th>
                                 <th className="icon-column"></th>
                             </tr>
                         </thead>
