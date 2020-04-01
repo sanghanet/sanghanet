@@ -23,25 +23,3 @@ div.container {
         border: none;
     }
 }
-
-// div.container {
-//     margin-top: 50px;
-//     width: 90%;
-//     background-color: #272326;
-//     border: 1px solid #969494;
-//     border-radius: 10px;
-
-//     .form-container {
-//         color: #d6d6d6;
-//         padding: 40px;
-
-//         #grid > div {
-//             display: grid;
-//             grid-template-columns: 1fr 1fr;
-
-//             @include mQ(990px) {
-//                 grid-template-columns: 1fr;
-//             }
-//         }
-//     }
-// }
