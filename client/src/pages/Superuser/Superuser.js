@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import './Superuser.scss';
 import { ReactComponent as Cross } from '../../components/icons/cross.svg';
@@ -154,8 +155,13 @@ class Superuser extends Component {
                             user={this.state.editedUser}
                         />
                     ) : null }
+
                 <Header activePage="Superuser" />
-                <Navbar navStyle="sidenav"/>
+                <Navbar
+                    navbarScrollPosUpdate={this.props.navbarScrollPosUpdate}
+                    navbarScrollPos={this.props.navbarScrollPos}
+                    navStyle="sidenav"
+                />
                 <main>
                     {/* --- Form for filters --- */}
                     <Form className="filter-box">
@@ -206,6 +212,11 @@ class Superuser extends Component {
             </div>
         );
     }
+};
+
+Superuser.propTypes = {
+    navbarScrollPos: PropTypes.number,
+    navbarScrollPosUpdate: PropTypes.func
 };
 
 export default Superuser;

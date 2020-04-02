@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-import ScrollStop from './ScrollStop';
+// import ScrollStop from './ScrollStop';
 import './Navbar.scss';
 import Logout from '../Logout/Logout';
 
@@ -16,23 +16,25 @@ import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
 
 class Navbar extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            scrollPos: 0
-        };
+    componentDidMount () {
+        const { navbarScrollPos } = this.props;
+        this.sideNav = document.getElementById('sidenav');
+        this.sideNav.scrollTop = navbarScrollPos;
     }
 
     sideNav = null;
 
-    componentDidMount () {
-        this.sideNav = document.getElementById('sidenav');
+    updateScrollPos = () => {
+        this.props.navbarScrollPosUpdate(4);
+    }
 
-        ScrollStop(this.sideNav, () => {
-            this.setState({ scrollPos: this.sideNav.scrollTop });
-            console.log(this.state.scrollPos);
+    handleNavigation = (event) => {
+        event.preventDefault();
+        this.updateScrollPos();
+
+        if (window.location.pathname !== event.currentTarget.pathname) {
+            window.location.href = event.currentTarget.pathname;
         }
-        );
     }
 
     navStyle = this.props.navStyle;
@@ -40,52 +42,52 @@ class Navbar extends Component {
 
     render () {
         return (
-            <ul onClick={this.setScroll} className="navigation" id={this.navStyle}>
+            <ul className="navigation" id={this.navStyle}>
                 <li>
-                    <NavLink exact to="/dashboard" className="link">
+                    <NavLink exact to="/dashboard" className="link" onClick={this.handleNavigation}>
                         <div className="menu-icon"><DashboardIcon /></div>
                         <span className="title">Dashboard</span>
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink exact to="/personal" className="link">
+                    <NavLink exact to="/personal" className="link" onClick={this.handleNavigation}>
                         <div className="menu-icon"><PersonalIcon /></div>
                         <span className="title">Personal Data</span>
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink exact to="/yoga" className="link">
+                    <NavLink exact to="/yoga" className="link" onClick={this.handleNavigation}>
                         <div className="menu-icon"><YogaIcon /></div>
                         <span className="title">Yoga</span>
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink exact to="/finances" className="link">
+                    <NavLink exact to="/finances" className="link" onClick={this.handleNavigation}>
                         <div className="menu-icon"><FinanceIcon /></div>
                         <span className="title">Finances</span>
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink exact to="/events" className="link">
+                    <NavLink exact to="/events" className="link" onClick={this.handleNavigation}>
                         <div className="menu-icon"><EventIcon /></div>
                         <span className="title">Events</span>
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink exact to="/questions" className="link">
+                    <NavLink exact to="/questions" className="link" onClick={this.handleNavigation}>
                         <div className="menu-icon"><QuestionsIcon /></div>
                         <span className="title">Personal Questions</span>
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink exact to="/queries" className="link">
+                    <NavLink exact to="/queries" className="link" onClick={this.handleNavigation}>
                         <div className="menu-icon"><InfoIcon /></div>
                         <span className="title">Queries</span>
                     </NavLink>
                 </li>
                 { sessionStorage.isSuperuser === 'true'
                     ? <li>
-                        <NavLink exact to="/superuser" className="link">
+                        <NavLink exact to="/superuser" className="link" onClick={this.handleNavigation}>
                             <div className="menu-icon"><SuperuserIcon /></div>
                             <span className="title">Superuser</span>
                         </NavLink>
@@ -101,7 +103,9 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    navStyle: PropTypes.string.isRequired
+    navStyle: PropTypes.string.isRequired,
+    navbarScrollPos: PropTypes.number,
+    navbarScrollPosUpdate: PropTypes.func
 };
 
 export default Navbar;

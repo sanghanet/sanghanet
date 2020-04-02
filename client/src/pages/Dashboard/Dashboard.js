@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Header from '../../components/Header/Header';
@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import ComingSoon from '../../components/ComingSoon/ComingSoon';
 
-class Dashboard extends React.Component {
+class Dashboard extends Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -34,7 +34,11 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <Header activePage="Dashboard" />
-                <Navbar navStyle="sidenav" />
+                <Navbar
+                    navbarScrollPosUpdate={this.props.navbarScrollPosUpdate}
+                    navbarScrollPos={this.props.navbarScrollPos}
+                    navStyle="sidenav"
+                />
                 <main className="align" onClick={this.log}>
                     <ComingSoon pageName = "Dashboard" isPlural = {false}/>
                 </main>
@@ -45,7 +49,8 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-    navbarScrollPos: PropTypes.number
+    navbarScrollPos: PropTypes.number,
+    navbarScrollPosUpdate: PropTypes.func
 };
 
 export default Dashboard;
