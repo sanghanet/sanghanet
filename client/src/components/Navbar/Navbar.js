@@ -25,15 +25,15 @@ class Navbar extends Component {
     sideNav = null;
 
     updateScrollPos = () => {
-        this.props.navbarScrollPosUpdate(4);
+        this.props.navbarScrollPosUpdate(this.sideNav.scrollTop);
     }
 
     handleNavigation = (event) => {
         event.preventDefault();
-        this.updateScrollPos();
 
         if (window.location.pathname !== event.currentTarget.pathname) {
             window.location.href = event.currentTarget.pathname;
+            this.updateScrollPos();
         }
     }
 

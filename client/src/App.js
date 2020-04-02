@@ -23,7 +23,7 @@ class App extends Component {
     }
 
     navbarScrollPosUpdate = (newScrollPos) => {
-        // this.setState({ navbarScrollPos: newScrollPos });
+        this.setState({ navbarScrollPos: newScrollPos });
         console.log(newScrollPos);
     }
 
