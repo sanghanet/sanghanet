@@ -34,12 +34,7 @@ class App extends Component {
                     <Route exact path='/' component={Login} />
                     <Route path='/loading' component={Loading} />
                     <Route path='/loginfailed' component={LoginFailed} />
-                    <PrivateRoute
-                        path='/dashboard'
-                        component={Dashboard}
-                        navbarScrollPosUpdate={this.navbarScrollPosUpdate}
-                        navbarScrollPos={this.state.navbarScrollPos}
-                    />
+                    <PrivateRoute path='/dashboard' component={Dashboard} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
                     <PrivateRoute path='/personal' component={Personal} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
                     <PrivateRoute path='/yoga' component={Yoga} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
                     <PrivateRoute path='/finances' component={Finances} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
