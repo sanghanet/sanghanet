@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import PrivateRoute from './components/PrivateRoute';
 import Login from './pages/Login/Login';
@@ -15,17 +16,21 @@ import Queries from './pages/Queries/Queries';
 import Superuser from './pages/Superuser/Superuser';
 
 class App extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            navbarScrollPos: 0
-        };
-    }
+    // constructor (props) {
+    //     super(props);
+    //     this.state = {
+    //         navbarScrollPos: 0
+    //     };
+    // }
 
-    navbarScrollPosUpdate = (newScrollPos) => {
-        this.setState({ navbarScrollPos: newScrollPos });
-        console.log(newScrollPos);
-    }
+    // componentDidMount () {
+    //     console.log(this.state.navbarScrollPos);
+    // }
+
+    // navbarScrollPosUpdate = (newScrollPos) => {
+    //     this.setState({ navbarScrollPos: newScrollPos });
+    //     // console.log(newScrollPos);
+    // }
 
     render () {
         return (
@@ -34,18 +39,23 @@ class App extends Component {
                     <Route exact path='/' component={Login} />
                     <Route path='/loading' component={Loading} />
                     <Route path='/loginfailed' component={LoginFailed} />
-                    <PrivateRoute path='/dashboard' component={Dashboard} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
-                    <PrivateRoute path='/personal' component={Personal} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
-                    <PrivateRoute path='/yoga' component={Yoga} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
-                    <PrivateRoute path='/finances' component={Finances} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
-                    <PrivateRoute path='/events' component={Events} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
-                    <PrivateRoute path='/questions' component={Questions} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
-                    <PrivateRoute path='/queries' component={Queries} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
-                    <PrivateRoute path='/superuser' component={Superuser} navbarScrollPosUpdate={this.navbarScrollPosUpdate} navbarScrollPos={this.state.navbarScrollPos}/>
+                    <PrivateRoute path='/dashboard' component={Dashboard} navbarScrollPosUpdate={this.props.navbarScrollPosUpdate} navbarScrollPos={this.props.navbarScrollPos}/>
+                    <PrivateRoute path='/personal' component={Personal} navbarScrollPosUpdate={this.props.navbarScrollPosUpdate} navbarScrollPos={this.props.navbarScrollPos}/>
+                    <PrivateRoute path='/yoga' component={Yoga} navbarScrollPosUpdate={this.props.navbarScrollPosUpdate} navbarScrollPos={this.props.navbarScrollPos}/>
+                    <PrivateRoute path='/finances' component={Finances} navbarScrollPosUpdate={this.props.navbarScrollPosUpdate} navbarScrollPos={this.props.navbarScrollPos}/>
+                    <PrivateRoute path='/events' component={Events} navbarScrollPosUpdate={this.props.navbarScrollPosUpdate} navbarScrollPos={this.props.navbarScrollPos}/>
+                    <PrivateRoute path='/questions' component={Questions} navbarScrollPosUpdate={this.props.navbarScrollPosUpdate} navbarScrollPos={this.props.navbarScrollPos}/>
+                    <PrivateRoute path='/queries' component={Queries} navbarScrollPosUpdate={this.props.navbarScrollPosUpdate} navbarScrollPos={this.props.navbarScrollPos}/>
+                    <PrivateRoute path='/superuser' component={Superuser} navbarScrollPosUpdate={this.props.navbarScrollPosUpdate} navbarScrollPos={this.props.navbarScrollPos}/>
                 </Switch>
             </BrowserRouter>
         );
     }
+};
+
+App.propTypes = {
+    navbarScrollPos: PropTypes.number,
+    navbarScrollPosUpdate: PropTypes.func
 };
 
 export default App;
