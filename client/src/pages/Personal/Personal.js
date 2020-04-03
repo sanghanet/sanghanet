@@ -154,6 +154,12 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="First name"
                                     inputValue={firstName}
+                                    validation={{
+                                        required: true,
+                                        minLength: 2,
+                                        maxLength: 32,
+                                        pattern: '^[A-Z][A-Za-z ]*'
+                                    }}
                                     // inputId value should be the same as inputValue value
                                     inputId="firstName"
                                     inputValueSave={this.handleItemSave}

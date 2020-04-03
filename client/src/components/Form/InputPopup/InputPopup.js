@@ -7,17 +7,46 @@ import { Modal, Button, Form } from 'react-bootstrap';
 
 class InputPopup extends Component {
     state = {
-        currentValue: this.props.modalValue
+        currentValue: this.props.modalValue,
+        errorMsg: ''
+    }
+
+    validation = (input) => {
+        if (input.validity.valid) {
+            this.setState({ errorMsg: '' }); return true;
+        } else if (input.validity.valueMissing) {
+            this.setState({ errorMsg: 'Value is required!' });
+        } else if (input.validity.typeMismatch) {
+            this.setState({ errorMsg: 'Enter a valid input type!' });
+        } else if (input.validity.patternMismatch) {
+            this.setState({ errorMsg: 'Invalid pattern!' });
+        } else if (input.validity.tooLong) {
+            this.setState({ errorMsg: 'Too long input!' }); // You will never get this error msg
+        } else if (input.validity.tooShort) {
+            this.setState({ errorMsg: 'Too short input!' });
+        } else if (input.validity.rangeUnderflow) {
+            this.setState({ errorMsg: 'Too low number!' });
+        } else if (input.validity.rangeOverflow) {
+            this.setState({ errorMsg: 'Too big number!' });
+        } else if (input.validity.badInput) {
+            this.setState({ errorMsg: 'Please enter a number!' });
+        }
+        return false;
     }
 
     handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.modalValueSave(this.state.currentValue, this.props.modalId);
-        this.props.modalClose();
+        event.preventDefault(); // event.target is the button here
+        const input = document.querySelector('.form-control'); // input field
+        if (this.validation(input)) {
+            this.props.modalValueSave(this.state.currentValue, this.props.modalId);
+            this.props.modalClose();
+        };
     }
 
     handleChange = (event) => {
-        this.setState({ currentValue: event.target.value });
+        const input = event.target; // event.target is the input field
+        this.validation(input);
+        this.setState({ currentValue: input.value });
     }
 
     handleClose = () => {
@@ -26,7 +55,8 @@ class InputPopup extends Component {
     }
 
     render () {
-        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, options } = this.props;
+        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, options, validation } = this.props;
+        const { currentValue, errorMsg } = this.state;
 
         return (
             /* autoFocus works only if Modal animation={false} */
@@ -40,9 +70,10 @@ class InputPopup extends Component {
                             as={modalInputAs}
                             type={modalInputType}
                             id={modalId}
-                            value={this.state.currentValue}
+                            value={currentValue}
                             onChange={this.handleChange}
                             autoFocus
+                            {...validation}
                         >
                             { options
                                 ? options.map((option, index) => {
@@ -51,6 +82,7 @@ class InputPopup extends Component {
                                 : null
                             }
                         </Form.Control>
+                        <span className="error" aria-live="polite">{errorMsg}</span>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>
@@ -76,7 +108,8 @@ InputPopup.propTypes = {
     modalInputType: PropTypes.string,
     modalInputAs: PropTypes.string,
     options: PropTypes.array,
-    inputArray: PropTypes.array
+    inputArray: PropTypes.array,
+    validation: PropTypes.object
 };
 
 export default InputPopup;
