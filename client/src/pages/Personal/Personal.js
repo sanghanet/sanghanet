@@ -12,6 +12,10 @@ import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
 import { Row } from 'react-bootstrap';
 
+const namePattern = '^[A-ZÁÉÚŐÓÜÖÍ][A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí ]*$';
+const addressPattern = '^[0-9]{4} [A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí0-9.,/\\s-]*$';
+const mobilePattern = '[0-9]{2}/[0-9]{2}-[0-9]{2}-[0-9]{3}';
+
 class Personal extends React.Component {
     state = {
         openDetails: false,
@@ -158,7 +162,7 @@ class Personal extends React.Component {
                                         required: true,
                                         minLength: 2,
                                         maxLength: 32,
-                                        pattern: '^[A-Z][A-Za-z ]*'
+                                        pattern: namePattern
                                     }}
                                     // inputId value should be the same as inputValue value
                                     inputId="firstName"
@@ -171,6 +175,12 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="Last name"
                                     inputValue={lastName}
+                                    validation={{
+                                        required: true,
+                                        minLength: 2,
+                                        maxLength: 32,
+                                        pattern: namePattern
+                                    }}
                                     inputId="lastName"
                                     inputValueSave={this.handleItemSave}
                                     inputVisible={lastNameVisible}
@@ -183,6 +193,12 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="Spiritual name"
                                     inputValue={spiritualName}
+                                    validation={{
+                                        required: true,
+                                        minLength: 2,
+                                        maxLength: 32,
+                                        pattern: namePattern
+                                    }}
                                     inputId="spiritualName"
                                     inputValueSave={this.handleItemSave}
                                     inputVisible={spiritualNameVisible}
@@ -193,6 +209,10 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="Date of birth"
                                     inputValue={birthday}
+                                    validation={{
+                                        min: '1910-01-01',
+                                        max: '2002-01-01'
+                                    }}
                                     inputId="birthday"
                                     inputValueSave={this.handleItemSave}
                                     inputVisible={birthdayVisible}
@@ -209,17 +229,20 @@ class Personal extends React.Component {
                                     inputVisible={genderVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputFieldAs="select"
-                                    optionsForSelect={['Female', 'Male', 'Other']}
+                                    // empty string - if one does not want to indicate gender
+                                    optionsForSelect={['', 'Female', 'Male', 'Other']}
                                 />
                                 <InputDisplay
                                     inputTitle="Level of study"
                                     inputValue={level}
                                     inputId="level"
-                                    inputValueSave={this.handleItemSave}
                                     inputVisible={levelVisible}
                                     inputVisibility={this.handleItemVisibility}
-                                    inputFieldAs="select"
-                                    optionsForSelect={['Beginner', 'Intermediate', 'Advanced']}
+                                    toDisable={ new Set(['edit']) }
+                                    // since field is non-editable below props are meaningless
+                                    // inputValueSave={this.handleItemSave}
+                                    // inputFieldAs="select"
+                                    // optionsForSelect={['Beginner', 'Intermediate', 'Advanced']}
                                 />
                             </Row>
                         </React.Fragment>
@@ -231,31 +254,42 @@ class Personal extends React.Component {
                                     inputTitle="Email"
                                     inputValue={email}
                                     inputId="email"
-                                    inputValueSave={this.handleItemSave}
                                     inputVisible={emailVisible}
                                     inputVisibility={this.handleItemVisibility}
-                                    inputType="email"
                                     toDisable={ new Set(['edit']) }
+                                    // since field is non-editable below props are meaningless
+                                    // inputValueSave={this.handleItemSave}
+                                    // inputType="email"
                                 />
                                 <InputDisplay
                                     inputTitle="Mobile"
                                     inputValue={mobile}
+                                    validation={{
+                                        pattern: mobilePattern
+                                    }}
                                     inputId="mobile"
                                     inputValueSave={this.handleItemSave}
                                     inputVisible={mobileVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="tel"
+                                    placeholder="70/44-66-052"
                                 />
                             </Row>
                             <Row>
                                 <InputDisplay
                                     inputTitle="Address"
                                     inputValue={address}
+                                    validation={{
+                                        minLength: 2,
+                                        maxLength: 62,
+                                        pattern: addressPattern
+                                    }}
                                     inputId="address"
                                     inputValueSave={this.handleItemSave}
                                     inputVisible={addressVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
+                                    placeholder="1055 Budapest, Csalogany u. 26 B/12"
                                 />
                                 <InputDropdown
                                     dropdownTitle="Emergency Contact"
