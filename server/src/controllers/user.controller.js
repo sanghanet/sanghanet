@@ -31,8 +31,9 @@ module.exports.personal = async (req, res, next) => {
         const user = await User.find(
             { email: req.user.email },
             // eslint-disable-next-line no-multi-str
-            'firstName lastName spiritualName\
-            birthday  birthdayVisible\
+            'firstName lastName\
+            profileImg spiritualName\
+            birthday birthdayVisible\
             gender genderVisible\
             email emailVisible\
             mobile mobileVisible\
