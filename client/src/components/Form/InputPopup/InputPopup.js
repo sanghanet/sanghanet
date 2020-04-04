@@ -55,7 +55,7 @@ class InputPopup extends Component {
     }
 
     render () {
-        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, options, validation, placeholder } = this.props;
+        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, modalOptions, modalValidation, modalPlaceholder } = this.props;
         const { currentValue, errorMsg } = this.state;
 
         return (
@@ -73,11 +73,11 @@ class InputPopup extends Component {
                             value={currentValue}
                             onChange={this.handleChange}
                             autoFocus
-                            {...validation}
-                            placeholder={placeholder}
+                            {...modalValidation}
+                            placeholder={modalPlaceholder}
                         >
-                            { options
-                                ? options.map((option, index) => {
+                            { modalOptions
+                                ? modalOptions.map((option, index) => {
                                     return (<option value={option} key={index}>{option}</option>);
                                 })
                                 : null
@@ -108,10 +108,10 @@ InputPopup.propTypes = {
     modalValueSave: PropTypes.func,
     modalInputType: PropTypes.string,
     modalInputAs: PropTypes.string,
-    options: PropTypes.array,
+    modalOptions: PropTypes.array,
     inputArray: PropTypes.array,
-    validation: PropTypes.object,
-    placeholder: PropTypes.string
+    modalValidation: PropTypes.object,
+    modalPlaceholder: PropTypes.string
 };
 
 export default InputPopup;

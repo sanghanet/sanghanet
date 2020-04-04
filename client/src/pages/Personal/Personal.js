@@ -12,7 +12,13 @@ import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
 import { Row } from 'react-bootstrap';
 
-const namePattern = '^[A-ZÁÉÚŐÓÜÖÍ][A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí ]*$';
+const namePattern = '^[A-ZÁÉÚŐÓÜÖÍ][A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí.\\s-]*$';
+const nameValidationRule = {
+    required: true,
+    minLength: 2,
+    maxLength: 32,
+    pattern: namePattern
+};
 const addressPattern = '^[0-9]{4} [A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí0-9.,/\\s-]*$';
 const mobilePattern = '[0-9]{2}/[0-9]{2}-[0-9]{2}-[0-9]{3}';
 
@@ -158,12 +164,7 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="First name"
                                     inputValue={firstName}
-                                    validation={{
-                                        required: true,
-                                        minLength: 2,
-                                        maxLength: 32,
-                                        pattern: namePattern
-                                    }}
+                                    validation={nameValidationRule}
                                     // inputId value should be the same as inputValue value
                                     inputId="firstName"
                                     inputValueSave={this.handleItemSave}
@@ -175,12 +176,7 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="Last name"
                                     inputValue={lastName}
-                                    validation={{
-                                        required: true,
-                                        minLength: 2,
-                                        maxLength: 32,
-                                        pattern: namePattern
-                                    }}
+                                    validation={nameValidationRule}
                                     inputId="lastName"
                                     inputValueSave={this.handleItemSave}
                                     inputVisible={lastNameVisible}
@@ -193,12 +189,7 @@ class Personal extends React.Component {
                                 <InputDisplay
                                     inputTitle="Spiritual name"
                                     inputValue={spiritualName}
-                                    validation={{
-                                        required: true,
-                                        minLength: 2,
-                                        maxLength: 32,
-                                        pattern: namePattern
-                                    }}
+                                    validation={nameValidationRule}
                                     inputId="spiritualName"
                                     inputValueSave={this.handleItemSave}
                                     inputVisible={spiritualNameVisible}
@@ -295,9 +286,9 @@ class Personal extends React.Component {
                                     dropdownTitle="Emergency Contact"
                                     dropdownId="emContact"
                                     inputArray={[
-                                        { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text' },
-                                        { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile' },
-                                        { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'email' }
+                                        { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text', validation: nameValidationRule },
+                                        { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile', validation: { pattern: mobilePattern }, placeholder: '70/44-66-052' },
+                                        { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'text', placeholder: 'info@gmail.com' }
                                     ]}
                                     inputValueSave={this.handleItemSave}
                                     dropdownVisible={emContactVisible}

@@ -42,9 +42,9 @@ const InputDisplay = (props) => {
                     modalValueSave={inputValueSave}
                     modalInputType={inputType}
                     modalInputAs={inputFieldAs}
-                    options={optionsForSelect}
-                    validation={validation}
-                    placeholder={placeholder}
+                    modalOptions={optionsForSelect}
+                    modalValidation={validation}
+                    modalPlaceholder={placeholder}
                 />)
                 : null
             }
