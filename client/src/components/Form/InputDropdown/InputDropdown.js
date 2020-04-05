@@ -58,6 +58,8 @@ const InputDropdown = (props) => {
                     modalValueSave={inputValueSave}
                     modalId={inputArray[activeKey].inputId}
                     modalInputType={inputArray[activeKey].inputType}
+                    modalValidation={inputArray[activeKey].validation}
+                    modalFormat={inputArray[activeKey].format}
                 />)
                 : null
             }
