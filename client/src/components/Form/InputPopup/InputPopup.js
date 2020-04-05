@@ -55,7 +55,7 @@ class InputPopup extends Component {
     }
 
     render () {
-        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, modalOptions, modalValidation, modalPlaceholder } = this.props;
+        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, modalOptions, modalValidation, modalFormat } = this.props;
         const { currentValue, errorMsg } = this.state;
 
         return (
@@ -66,6 +66,7 @@ class InputPopup extends Component {
                         <Form.Label htmlFor={modalId}>{modalTitle}</Form.Label>
                     </Modal.Header>
                     <Modal.Body>
+                        <span className="hint">Example: {modalFormat}</span>
                         <Form.Control
                             as={modalInputAs}
                             type={modalInputType}
@@ -74,7 +75,6 @@ class InputPopup extends Component {
                             onChange={this.handleChange}
                             autoFocus
                             {...modalValidation}
-                            placeholder={modalPlaceholder}
                         >
                             { modalOptions
                                 ? modalOptions.map((option, index) => {
@@ -111,7 +111,7 @@ InputPopup.propTypes = {
     modalOptions: PropTypes.array,
     inputArray: PropTypes.array,
     modalValidation: PropTypes.object,
-    modalPlaceholder: PropTypes.string
+    modalFormat: PropTypes.string
 };
 
 export default InputPopup;

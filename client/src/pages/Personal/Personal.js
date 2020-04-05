@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
+import { nameValidationRule, addressPattern, mobilePattern } from '../../components/ValidationRule';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
@@ -11,16 +12,6 @@ import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
 import { Row } from 'react-bootstrap';
-
-const namePattern = '^[A-ZÁÉÚŐÓÜÖÍ][A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí.\\s-]*$';
-const nameValidationRule = {
-    required: true,
-    minLength: 2,
-    maxLength: 32,
-    pattern: namePattern
-};
-const addressPattern = '^[0-9]{4} [A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí0-9.,/\\s-]*$';
-const mobilePattern = '[0-9]{2}/[0-9]{2}-[0-9]{2}-[0-9]{3}';
 
 class Personal extends React.Component {
     state = {
@@ -172,6 +163,7 @@ class Personal extends React.Component {
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
                                     toDisable={ new Set(['visibility']) }
+                                    format="Maria-Luiza"
                                 />
                                 <InputDisplay
                                     inputTitle="Last name"
@@ -183,6 +175,7 @@ class Personal extends React.Component {
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
                                     toDisable={ new Set(['visibility']) }
+                                    format="Dr. Ribeiro"
                                 />
                             </Row>
                             <Row>
@@ -196,6 +189,7 @@ class Personal extends React.Component {
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
                                     toDisable={ new Set(['visibility']) }
+                                    format="Flower Power"
                                 />
                                 <InputDisplay
                                     inputTitle="Date of birth"
@@ -209,6 +203,7 @@ class Personal extends React.Component {
                                     inputVisible={birthdayVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="date"
+                                    format="month/day/year"
                                 />
                             </Row>
                             <Row>
@@ -263,7 +258,7 @@ class Personal extends React.Component {
                                     inputVisible={mobileVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="tel"
-                                    placeholder="70/44-66-052"
+                                    format="70/44-66-052"
                                 />
                             </Row>
                             <Row>
@@ -280,15 +275,15 @@ class Personal extends React.Component {
                                     inputVisible={addressVisible}
                                     inputVisibility={this.handleItemVisibility}
                                     inputType="text"
-                                    placeholder="1055 Budapest, Csalogany u. 26 B/12"
+                                    format="1055 Budapest, Csalogany u. 26 B/12"
                                 />
                                 <InputDropdown
                                     dropdownTitle="Emergency Contact"
                                     dropdownId="emContact"
                                     inputArray={[
-                                        { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text', validation: nameValidationRule },
-                                        { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile', validation: { pattern: mobilePattern }, placeholder: '70/44-66-052' },
-                                        { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'text', placeholder: 'info@gmail.com' }
+                                        { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text', validation: nameValidationRule, format: 'Maria Doe' },
+                                        { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile', validation: { pattern: mobilePattern }, format: '70/44-66-052' },
+                                        { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'text', format: 'maria.doe@gmail.com' }
                                     ]}
                                     inputValueSave={this.handleItemSave}
                                     dropdownVisible={emContactVisible}

@@ -25,12 +25,18 @@
             -webkit-appearance: none;
             color: $white;
         }
-        .error {
+        .error, .hint {
             display: block;
             min-height: 24px;
-            color: $error;
             letter-spacing: 1px;
             font-weight: 400;
+        }
+        .error {
+            color: $error;
+        }
+        .hint {
+            color: $disabled;
+            padding-bottom: 8px;
         }
     }
     .close {
