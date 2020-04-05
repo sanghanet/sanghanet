@@ -9,7 +9,7 @@ const Queries = (props) => {
     return (
         <div>
             <Header activePage="Queries" />
-            <Navbar navbarScrollPos={250} navStyle="sidenav" />
+            <Navbar navbarScrollPos={300} navStyle="sidenav" />
             <main className="align">
                 <ComingSoon pageName = "Queries" isPlural = {true}/>
             </main>

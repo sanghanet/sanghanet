@@ -156,7 +156,7 @@ class Superuser extends Component {
                     ) : null }
 
                 <Header activePage="Superuser" />
-                <Navbar navbarScrollPos={250} navStyle="sidenav" />
+                <Navbar navbarScrollPos={300} navStyle="sidenav" />
                 <main>
                     {/* --- Form for filters --- */}
                     <Form className="filter-box">
