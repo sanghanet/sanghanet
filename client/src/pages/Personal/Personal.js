@@ -41,7 +41,7 @@ class Personal extends React.Component {
         showAlert: false,
         alertMessage: '',
         alertType: ''
-    }
+    };
 
     componentDidMount () {
         Client.fetch('/user/personal')
@@ -71,7 +71,7 @@ class Personal extends React.Component {
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
-    }
+    };
 
     toggleDetails = () => {
         this.setState((oldState) => ({ openDetails: !oldState.openDetails }));
@@ -112,15 +112,23 @@ class Personal extends React.Component {
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
-    }
+    };
 
     fileSizeError = () => {
         this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'Error' });
-    }
+    };
+
+    uploadError = (errMsg) => {
+        this.setState({ showAlert: true, alertMessage: errMsg, alertType: 'Error' });
+    };
+
+    updateProfileImg = (newImg) => {
+        this.setState({ profileImg: newImg });
+    };
 
     closeAlert = () => {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
-    }
+    };
 
     render () {
         const {
@@ -158,7 +166,9 @@ class Personal extends React.Component {
                         <React.Fragment>
                             <InputAvatar
                                 profileImg={profileImg}
+                                updateProfileImg={this.updateProfileImg}
                                 fileSizeError={this.fileSizeError}
+                                uploadError={this.uploadError}
                             />
                             <Row>
                                 <InputDisplay
