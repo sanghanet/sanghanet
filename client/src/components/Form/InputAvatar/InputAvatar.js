@@ -30,10 +30,9 @@ const InputAvatar = (props) => {
         //     const image = document.getElementById('avatar');
         //     image.src = URL.createObjectURL(uploadedImg);
         // }
-        // // once the photo is uploaded make the text transparent
-        // const uploadText = document.getElementById('upload-text');
-        // uploadText.className = 'hide-text';
     };
+
+    const uploadText = (profileImg) ? 'hide-text' : 'upload-text';
 
     return (
         <Row className="d-flex justify-content-center avatar-container">
@@ -41,7 +40,7 @@ const InputAvatar = (props) => {
                 <div className="display-input">
                     <input type="file" accept="image/*" name="image" id="file" onChange={loadFile}></input>
                     <label htmlFor="file" id="file-upload">
-                        <p id="upload-text" className="upload-text">Click here to<br />upload your photo</p>
+                        <p id="upload-text" className={uploadText}>Click here to<br />upload your photo</p>
                         <img src={`images/${profileImg}`} id="avatar" className="personal-photo" alt=""></img>
                     </label>
                 </div>
