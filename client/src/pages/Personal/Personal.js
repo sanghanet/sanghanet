@@ -114,6 +114,10 @@ class Personal extends React.Component {
             });
     }
 
+    fileSizeError = () => {
+        this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'Error' });
+    }
+
     closeAlert = () => {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     }
@@ -152,7 +156,10 @@ class Personal extends React.Component {
                     }
                     <FormContainer formTitle="general data" mb-4>
                         <React.Fragment>
-                            <InputAvatar profileImg={profileImg} />
+                            <InputAvatar
+                                profileImg={profileImg}
+                                fileSizeError={this.fileSizeError}
+                            />
                             <Row>
                                 <InputDisplay
                                     inputTitle="First name"

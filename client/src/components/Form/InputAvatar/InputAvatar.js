@@ -6,18 +6,23 @@ import './InputAvatar.scss';
 import { Row, Col } from 'react-bootstrap';
 // user can't delete the photo - we might want to leave it like that; photo is mandatory
 const InputAvatar = (props) => {
-    const { profileImg } = props;
+    const { profileImg, fileSizeError } = props;
 
     const loadFile = (event) => {
         const uploadedImg = event.target.files[0];
-        // to ensure that user did not Cancel the upload
-        if (uploadedImg !== undefined) {
-            const image = document.getElementById('avatar');
-            image.src = URL.createObjectURL(uploadedImg);
+        if (uploadedImg.size < 100) { // 1048576 = 1 MB 1024*1024 byte
+            console.dir(uploadedImg); // name
+        } else {
+            fileSizeError();
         }
-        // once the photo is uploaded make the text transparent
-        const uploadText = document.getElementById('upload-text');
-        uploadText.className = 'hide-text';
+        // to ensure that user did not Cancel the upload
+        // if (uploadedImg !== undefined) {
+        //     const image = document.getElementById('avatar');
+        //     image.src = URL.createObjectURL(uploadedImg);
+        // }
+        // // once the photo is uploaded make the text transparent
+        // const uploadText = document.getElementById('upload-text');
+        // uploadText.className = 'hide-text';
     };
 
     return (
@@ -36,7 +41,8 @@ const InputAvatar = (props) => {
 };
 
 InputAvatar.propTypes = {
-    profileImg: PropTypes.string.isRequired
+    profileImg: PropTypes.string.isRequired,
+    fileSizeError: PropTypes.func.isRequired
 };
 
 export default InputAvatar;
