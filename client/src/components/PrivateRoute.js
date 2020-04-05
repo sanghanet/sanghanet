@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = (props) => {
-    const { component: Component, navbarScrollPos, navbarScrollPosUpdate, ...rest } = props;
+    const { component: Component, ...rest } = props;
     const user = sessionStorage.getItem('user');
     const isActive = sessionStorage.getItem('isActive');
 
@@ -12,11 +12,7 @@ const PrivateRoute = (props) => {
         // Otherwise, redirect the user to / page
         <Route {...rest} render={ (props) => (
             user && isActive
-                ? <Component
-                    navbarScrollPosUpdate={navbarScrollPosUpdate}
-                    navbarScrollPos={navbarScrollPos}
-                    {...props}
-                />
+                ? <Component {...props} />
                 : <Redirect to="/" />
         )} />
     );
@@ -24,9 +20,7 @@ const PrivateRoute = (props) => {
 
 PrivateRoute.propTypes = {
     component: PropTypes.func.isRequired,
-    path: PropTypes.string.isRequired,
-    navbarScrollPos: PropTypes.number,
-    navbarScrollPosUpdate: PropTypes.func
+    path: PropTypes.string.isRequired
 };
 
 export default PrivateRoute;

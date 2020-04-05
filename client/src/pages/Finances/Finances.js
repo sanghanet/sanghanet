@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -10,22 +9,13 @@ const Finances = (props) => {
     return (
         <div className='grid-container'>
             <Header activePage="Finances"/>
-            <Navbar
-                navbarScrollPosUpdate={props.navbarScrollPosUpdate}
-                navbarScrollPos={props.navbarScrollPos}
-                navStyle="sidenav"
-            />
+            <Navbar navbarScrollPos={150} navStyle="sidenav" />
             <main className="align">
                 <ComingSoon pageName = "Finances" isPlural = {true}/>
             </main>
             <Footer />
         </div>
     );
-};
-
-Finances.propTypes = {
-    navbarScrollPos: PropTypes.number,
-    navbarScrollPosUpdate: PropTypes.func
 };
 
 export default Finances;

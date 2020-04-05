@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -138,11 +137,7 @@ class Personal extends React.Component {
         return (
             <div>
                 <Header activePage="Personal" />
-                <Navbar
-                    navbarScrollPosUpdate={this.props.navbarScrollPosUpdate}
-                    navbarScrollPos={this.props.navbarScrollPos}
-                    navStyle="sidenav"
-                />
+                <Navbar navbarScrollPos={250} navStyle="sidenav" />
                 <main>
                     { showAlert
                         ? <Alert
@@ -279,10 +274,5 @@ class Personal extends React.Component {
         );
     };
 }
-
-Personal.propTypes = {
-    navbarScrollPos: PropTypes.number,
-    navbarScrollPosUpdate: PropTypes.func
-};
 
 export default Personal;
