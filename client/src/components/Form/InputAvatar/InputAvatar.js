@@ -10,13 +10,13 @@ const InputAvatar = (props) => {
     const { profileImg, fileSizeError, uploadError, updateProfileImg } = props;
 
     const loadFile = (event) => {
-        const uploadedImg = event.target.files[0];
-        if (uploadedImg.size < 1048576) { // 1048576 = 1 MB 1024*1024 byte
-            Client.fetch('/user/uploadprofileimg', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: `{"profileImg": "${uploadedImg.name}"}`
-            })
+        const imageToUpload = event.target.files[0];
+        if (!imageToUpload) return;
+        if (imageToUpload.size < 1048576) { // 1048576 = 1 MB 1024*1024 byte
+            const formData = new FormData();
+            formData.append('file', imageToUpload);
+
+            Client.fetch('/user/uploadprofileimg', { method: 'POST', body: formData }, true) // skipDefault Headers
                 .then((data) => {
                     updateProfileImg(data.profileImg);
                 }).catch((err) => {
@@ -25,11 +25,6 @@ const InputAvatar = (props) => {
         } else {
             fileSizeError();
         }
-        // to ensure that user did not Cancel the upload
-        // if (uploadedImg !== undefined) {
-        //     const image = document.getElementById('avatar');
-        //     image.src = URL.createObjectURL(uploadedImg);
-        // }
     };
 
     const uploadText = (profileImg) ? 'hide-text' : 'upload-text';
