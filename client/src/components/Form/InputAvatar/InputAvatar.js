@@ -33,7 +33,7 @@ const InputAvatar = (props) => {
         <Row className="d-flex justify-content-center avatar-container">
             <Col className="mx-auto my-4 avatar-col">
                 <div className="display-input">
-                    <input type="file" accept="image/*" name="image" id="file" onChange={loadFile}></input>
+                    <input type="file" accept=".png, .jpg, .jpeg, .svg, .webp" name="image" id="file" onChange={loadFile}></input>
                     <label htmlFor="file" id="file-upload">
                         <p id="upload-text" className={uploadText}>Click here to<br />upload your photo</p>
                         <img src={`images/${profileImg}`} id="avatar" className="personal-photo" alt=""></img>

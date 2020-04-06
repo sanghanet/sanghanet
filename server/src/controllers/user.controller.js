@@ -1,5 +1,7 @@
 const log4js = require('log4js');
 const formidable = require('formidable');
+const uuidv4 = require('uuid/v4');
+var fs = require('fs');
 
 const log = log4js.getLogger('controllers/user.controller.js');
 const { User } = require('../models/user.model');
@@ -65,16 +67,49 @@ module.exports.updateItemAndVisibility = async (req, res, next) => {
 
 module.exports.uploadProfileImg = async (req, res, next) => {
     const form = formidable.IncomingForm({ multiples: false });
+    let fileName = '';
+    const filePath = '../client/public/images/';
     form.parse(req)
         .on('field', (name, field) => {
             log.warn('Fields are invalid in this message type', name, field);
         })
         .on('fileBegin', (name, file) => {
-            file.path = '../client/public/images/' + file.name;
+            let extension = '';
+            if (file.name.endsWith('.png')) {
+                extension = '.png';
+            } else if (file.name.endsWith('.jpg')) {
+                extension = '.jpg';
+            } else if (file.name.endsWith('.jpeg')) {
+                extension = '.jpeg';
+            } else if (file.name.endsWith('.svg')) {
+                extension = '.svg';
+            } else if (file.name.endsWith('.webp')) {
+                extension = '.webp';
+            }
+            fileName = uuidv4().slice(-12) + extension;
+            file.path = filePath + fileName;
         })
-        .on('file', (name, file) => {
+        .on('file', async (name, file) => {
             log.info(`File: ${file.name}, ${file.size} byte, ${file.type}`);
-            res.json({ profileImg: file.name });
+            try {
+                const user = await User.findOneAndUpdate(
+                    { email: req.user.email },
+                    { profileImg: fileName },
+                    { useFindAndModify: false }
+                );
+                res.json({ profileImg: fileName });
+                log.info(`User new profile image is: ${fileName}`);
+                const removeFile = filePath + user.profileImg;
+                fs.unlink(removeFile, (err) => {
+                    if (err) {
+                        log.warn(`Failed to delete profile image: ${removeFile}`);
+                        return;
+                    }
+                    log.info(`Removed profile image: ${removeFile}`);
+                });
+            } catch (err) {
+                next(err);
+            }
         })
         .on('aborted', () => {
             log.info('Request aborted by the user');
@@ -86,30 +121,4 @@ module.exports.uploadProfileImg = async (req, res, next) => {
         .on('end', () => {
             log.info('Upload successful.');
         });
-
-    // form.parse(req, (err, fields, files) => {
-    //     if (err) {
-    //         next(err);
-    //         return;
-    //     }
-    //     log.info(`File: ${files.file.name}, ${files.file.size} byte, ${files.file.type}`);
-    //     // log.info(`Path: ${files.file.path}`); // Temporary file to be uploaded...
-    //     res.json({ profileImg: files.file.name });
-    // });
-
-    // console.log(req.body);
-    // res.status(200).send('OK');
-
-    // res.status(500).send({ error: 'Test only' });
-    // try {
-    //     const user = await User.findOneAndUpdate(
-    //         { email: req.user.email },
-    //         req.body,
-    //         { new: true, useFindAndModify: false }
-    //     );
-    //     const key = Object.keys(req.body)[0];
-    //     res.json({ [key]: user[key] });
-    // } catch (err) {
-    //     next(err);
-    // }
 };
