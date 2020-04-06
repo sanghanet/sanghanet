@@ -1,3 +1,5 @@
+const { PROFILES_PATH } = require('../config');
+
 const log4js = require('log4js');
 const formidable = require('formidable');
 const uuidv4 = require('uuid/v4');
@@ -68,7 +70,6 @@ module.exports.updateItemAndVisibility = async (req, res, next) => {
 module.exports.uploadProfileImg = async (req, res, next) => {
     const form = formidable.IncomingForm({ multiples: false });
     let fileName = '';
-    const filePath = '../client/public/images/';
     form.parse(req)
         .on('field', (name, field) => {
             log.warn('Fields are invalid in this message type', name, field);
@@ -87,7 +88,7 @@ module.exports.uploadProfileImg = async (req, res, next) => {
                 extension = '.webp';
             }
             fileName = uuidv4().slice(-12) + extension;
-            file.path = filePath + fileName;
+            file.path = PROFILES_PATH + fileName;
         })
         .on('file', async (name, file) => {
             log.info(`File: ${file.name}, ${file.size} byte, ${file.type}`);
@@ -99,7 +100,7 @@ module.exports.uploadProfileImg = async (req, res, next) => {
                 );
                 res.json({ profileImg: fileName });
                 log.info(`User new profile image is: ${fileName}`);
-                const removeFile = filePath + user.profileImg;
+                const removeFile = PROFILES_PATH + user.profileImg;
                 fs.unlink(removeFile, (err) => {
                     if (err) {
                         log.warn(`Failed to delete profile image: ${removeFile}`);
