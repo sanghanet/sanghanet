@@ -196,7 +196,7 @@ class Personal extends React.Component {
                                     inputValue={birthday}
                                     validation={{
                                         min: '1910-01-01',
-                                        max: '2002-01-01'
+                                        max: '2002-01-01' // current year minus 18
                                     }}
                                     inputId="birthday"
                                     inputValueSave={this.handleItemSave}

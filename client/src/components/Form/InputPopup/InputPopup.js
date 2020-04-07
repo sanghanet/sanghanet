@@ -66,7 +66,7 @@ class InputPopup extends Component {
                         <Form.Label htmlFor={modalId}>{modalTitle}</Form.Label>
                     </Modal.Header>
                     <Modal.Body>
-                        <span className="hint">Example: {modalFormat}</span>
+                        <span className="hint">Required format: {modalFormat}</span>
                         <Form.Control
                             as={modalInputAs}
                             type={modalInputType}
