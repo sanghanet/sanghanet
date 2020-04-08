@@ -72,7 +72,7 @@ module.exports.uploadProfileImg = async (req, res, next) => {
     let fileName = '';
     form.parse(req)
         .on('field', (name, field) => {
-            log.warn('Fields are invalid in this message type', name, field);
+            log.warn('Fields are invalid at this URL.', name, field);
         })
         .on('fileBegin', (name, file) => {
             let extension = '';
@@ -100,7 +100,7 @@ module.exports.uploadProfileImg = async (req, res, next) => {
                 );
                 res.json({ profileImg: fileName });
                 log.info(`User new profile image is: ${fileName}`);
-                const removeFile = PROFILES_PATH + user.profileImg;
+                const removeFile = PROFILES_PATH + user.profileImg; // former profile img
                 fs.unlink(removeFile, (err) => {
                     if (err) {
                         log.warn(`Failed to delete profile image: ${removeFile}`);

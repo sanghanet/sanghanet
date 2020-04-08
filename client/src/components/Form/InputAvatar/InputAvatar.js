@@ -7,7 +7,7 @@ import './InputAvatar.scss';
 import { Row, Col } from 'react-bootstrap';
 // user can't delete the photo - we might want to leave it like that; photo is mandatory
 const InputAvatar = (props) => {
-    const { profileImg, fileSizeError, uploadError, updateProfileImg } = props;
+    const { profileImg, uploadError, updateProfileImg } = props;
 
     const loadFile = (event) => {
         const imageToUpload = event.target.files[0];
@@ -23,7 +23,7 @@ const InputAvatar = (props) => {
                     uploadError(err.message);
                 });
         } else {
-            fileSizeError();
+            uploadError('Upload a file smaller than 1MB!');
         }
     };
 
@@ -36,7 +36,10 @@ const InputAvatar = (props) => {
                     <input type="file" accept=".png, .jpg, .jpeg, .svg, .webp" name="image" id="file" onChange={loadFile}></input>
                     <label htmlFor="file" id="file-upload">
                         <p id="upload-text" className={uploadText}>Click here to<br />upload your photo</p>
-                        <img src={`images/${profileImg}`} id="avatar" className="personal-photo" alt=""></img>
+                        { profileImg
+                            ? <img src={`images/${profileImg}`} id="avatar" className="personal-photo" alt="" />
+                            : null
+                        }
                     </label>
                 </div>
             </Col>
@@ -46,9 +49,8 @@ const InputAvatar = (props) => {
 
 InputAvatar.propTypes = {
     profileImg: PropTypes.string.isRequired,
-    fileSizeError: PropTypes.func.isRequired,
     updateProfileImg: PropTypes.func.isRequired,
-    uploadError: PropTypes.func
+    uploadError: PropTypes.func.isRequired
 };
 
 export default InputAvatar;

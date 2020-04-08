@@ -114,10 +114,6 @@ class Personal extends React.Component {
             });
     };
 
-    fileSizeError = () => {
-        this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'Error' });
-    };
-
     uploadError = (errMsg) => {
         this.setState({ showAlert: true, alertMessage: errMsg, alertType: 'Error' });
     };
@@ -167,7 +163,6 @@ class Personal extends React.Component {
                             <InputAvatar
                                 profileImg={profileImg}
                                 updateProfileImg={this.updateProfileImg}
-                                fileSizeError={this.fileSizeError}
                                 uploadError={this.uploadError}
                             />
                             <Row>
