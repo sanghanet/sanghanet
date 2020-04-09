@@ -19,6 +19,7 @@ class Navbar extends Component {
     componentDidMount () {
         const { navbarScrollPos } = this.props;
         document.getElementById('sidenav').scrollTop = navbarScrollPos;
+        document.getElementsByClassName('slider')[0].scrollTop = navbarScrollPos;
     }
 
     navStyle = this.props.navStyle;
