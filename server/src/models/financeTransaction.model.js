@@ -1,11 +1,11 @@
-const { mongoose } = require('../controllers/mongoDB.controller');
+const mongoose = require('mongoose');
 
 const FinanceTransactionSchema = mongoose.Schema({
     amount: Number,
     currency: String,
     pocket: String,
     entryDate: Date,
-    originatorId: Object,
+    originatorId: mongoose.ObjectId,
     paymentMethod: String,
     effectiveFrom: Date,
     deletion: {
@@ -16,4 +16,4 @@ const FinanceTransactionSchema = mongoose.Schema({
     }
 });
 
-module.exports.FinanceTransaction = mongoose.model('FinanceTransaction', FinanceTransactionSchema);
+module.exports.FinanceTransactionSchema = FinanceTransactionSchema;

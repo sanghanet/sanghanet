@@ -1,19 +1,19 @@
-const { mongoose } = require('../controllers/mongoDB.controller');
-const { FinanceTransaction } = require('./financeTransaction.model');
+const mongoose = require('mongoose');
+const { FinanceTransactionSchema } = require('./financeTransaction.model');
 
 const FinanceSchema = mongoose.Schema({
     userId: Object,
     transactionArchive: {
-        membership: [{ FinanceTransaction }],
-        rent: [{ FinanceTransaction }],
-        event: [{ FinanceTransaction }],
-        angel: [{ FinanceTransaction }]
+        membership: [FinanceTransactionSchema],
+        rent: [FinanceTransactionSchema],
+        event: [FinanceTransactionSchema],
+        angel: [FinanceTransactionSchema]
     },
     transactionBuffer: {
-        membership: [{ FinanceTransaction }],
-        rent: [{ FinanceTransaction }],
-        event: [{ FinanceTransaction }],
-        angel: [{ FinanceTransaction }]
+        membership: [FinanceTransactionSchema],
+        rent: [FinanceTransactionSchema],
+        event: [FinanceTransactionSchema],
+        angel: [FinanceTransactionSchema]
     },
     pockets: {
         membership: {
@@ -59,4 +59,4 @@ const FinanceSchema = mongoose.Schema({
     }
 });
 
-module.exports.FinanceAccount = mongoose.model('financeAccount', FinanceSchema);
+module.exports.FinanceAccountSchema = FinanceSchema;
