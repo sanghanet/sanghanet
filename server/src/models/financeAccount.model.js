@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const { FinanceTransactionSchema } = require('./financeTransaction.model');
 
 const FinanceSchema = mongoose.Schema({
-    userId: Object,
+    userId: mongoose.ObjectId,
+    userName: String,
     transactionArchive: {
         membership: [FinanceTransactionSchema],
         rent: [FinanceTransactionSchema],
@@ -18,42 +19,42 @@ const FinanceSchema = mongoose.Schema({
     pockets: {
         membership: {
             currentBalance: {
-                value: Number,
-                isValid: Boolean
+                value: { type: Number, default: 0 },
+                isValid: { type: Boolean, default: false }
             },
             rollingBalance: {
-                value: Number,
-                isValid: Boolean
+                value: { type: Number, default: 0 },
+                isValid: { type: Boolean, default: false }
             }
         },
         rent: {
             currentBalance: {
-                value: Number,
-                isValid: Boolean
+                value: { type: Number, default: 0 },
+                isValid: { type: Boolean, default: false }
             },
             rollingBalance: {
-                value: Number,
-                isValid: Boolean
+                value: { type: Number, default: 0 },
+                isValid: { type: Boolean, default: false }
             }
         },
         event: {
             currentBalance: {
-                value: Number,
-                isValid: Boolean
+                value: { type: Number, default: 0 },
+                isValid: { type: Boolean, default: false }
             },
             rollingBalance: {
-                value: Number,
-                isValid: Boolean
+                value: { type: Number, default: 0 },
+                isValid: { type: Boolean, default: false }
             }
         },
         angel: {
             currentBalance: {
-                value: Number,
-                isValid: Boolean
+                value: { type: Number, default: 0 },
+                isValid: { type: Boolean, default: false }
             },
             rollingBalance: {
-                value: Number,
-                isValid: Boolean
+                value: { type: Number, default: 0 },
+                isValid: { type: Boolean, default: false }
             }
         }
     }
