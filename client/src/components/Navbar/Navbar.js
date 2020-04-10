@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-// import ScrollStop from './ScrollStop';
 import './Navbar.scss';
 import Logout from '../Logout/Logout';
 
@@ -17,11 +16,41 @@ import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
 
 class Navbar extends Component {
     componentDidMount () {
-        const { navbarScrollPos, hamburgerScrollPos } = this.props;
-        document.getElementById('sidenav').scrollTop = navbarScrollPos;
-        document.getElementsByClassName('slider')[0].scrollTop = hamburgerScrollPos;
+        const desktopMenu = document.getElementById('sidenav');
+        const hamburgerMenu = document.getElementsByClassName('slider')[0];
 
-        console.dir(hamburgerScrollPos);
+        switch (window.location.pathname) {
+            case '/finances':
+                hamburgerMenu.scrollTop = 50;
+                desktopMenu.scrollTop = 150;
+                break;
+
+            case '/events':
+                hamburgerMenu.scrollTop = 130;
+                desktopMenu.scrollTop = 250;
+                break;
+
+            case '/questions':
+                hamburgerMenu.scrollTop = 210;
+                desktopMenu.scrollTop = 300;
+                break;
+
+            case '/queries':
+                hamburgerMenu.scrollTop = 500;
+                desktopMenu.scrollTop = 300;
+                break;
+
+            case '/superuser':
+                hamburgerMenu.scrollTop = 500;
+                desktopMenu.scrollTop = 300;
+                break;
+
+            default:
+                hamburgerMenu.scrollTop = 0;
+                break;
+        }
+
+        console.log();
     }
 
     navStyle = this.props.navStyle;
@@ -90,10 +119,7 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    navStyle: PropTypes.string.isRequired,
-    // at least one of them is required
-    navbarScrollPos: PropTypes.number,
-    hamburgerScrollPos: PropTypes.number
+    navStyle: PropTypes.string.isRequired
 };
 
 export default Navbar;

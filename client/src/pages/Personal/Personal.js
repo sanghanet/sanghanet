@@ -137,7 +137,7 @@ class Personal extends React.Component {
         return (
             <div>
                 <Header activePage="Personal" />
-                <Navbar navbarScrollPos={0} navStyle="sidenav" />
+                <Navbar navStyle="sidenav" />
                 <main>
                     { showAlert
                         ? <Alert

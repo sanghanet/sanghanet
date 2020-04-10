@@ -9,7 +9,7 @@ const Yoga = (props) => {
     return (
         <div className='grid-container'>
             <Header activePage="Yoga"/>
-            <Navbar navbarScrollPos={50} navStyle="sidenav" />
+            <Navbar navStyle="sidenav" />
             <main className="align">
                 <ComingSoon pageName = "Yoga" isPlural = {false}/>
             </main>

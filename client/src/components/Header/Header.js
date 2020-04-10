@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -10,8 +10,6 @@ import { ReactComponent as SearchIcon } from '../icons/search.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
 
 const Header = (props) => {
-    const [hamburgerScrollPos, setHamburgerScrollPos] = useState(0);
-
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/personal') {
             props.history.push('/personal');
@@ -19,8 +17,6 @@ const Header = (props) => {
     };
 
     const handleHamburgerClick = (event) => {
-        updateHamburgerScrollPos();
-
         if (event.target.className.includes('header-shim')) return;
 
         const slider = document.getElementsByClassName('slider')[0];
@@ -30,30 +26,6 @@ const Header = (props) => {
         slider.classList.toggle('slideIn');
         headerShim.classList.toggle('slideIn');
         hamburger.classList.toggle('activeBurger');
-    };
-
-    const updateHamburgerScrollPos = () => {
-        switch (props.activePage) {
-            case 'Finances':
-                setHamburgerScrollPos(50);
-                break;
-
-            case 'Events':
-                setHamburgerScrollPos(130);
-                break;
-
-            case 'Questions':
-                setHamburgerScrollPos(210);
-                break;
-
-            case 'Queries' || 'Superuser':
-                setHamburgerScrollPos(500);
-                break;
-
-            default:
-                setHamburgerScrollPos(0);
-                break;
-        }
     };
 
     return (
@@ -93,7 +65,7 @@ const Header = (props) => {
                     <div className='hamburger-line'></div>
                 </button>
                 <div className='slider position-absolute'>
-                    <Navbar hamburgerScrollPos={hamburgerScrollPos} navStyle="hamburger" />
+                    <Navbar navStyle="hamburger" />
                 </div>
             </Row>
         </Container>

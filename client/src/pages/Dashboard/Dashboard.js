@@ -10,7 +10,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <Header activePage="Dashboard" />
-                <Navbar navbarScrollPos={0} navStyle="sidenav" />
+                <Navbar navStyle="sidenav" />
                 <main className="align" onClick={this.log}>
                     <ComingSoon pageName = "Dashboard" isPlural = {false}/>
                 </main>
