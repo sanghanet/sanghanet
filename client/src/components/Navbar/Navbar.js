@@ -17,9 +17,11 @@ import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
 
 class Navbar extends Component {
     componentDidMount () {
-        const { navbarScrollPos } = this.props;
+        const { navbarScrollPos, hamburgerScrollPos } = this.props;
         document.getElementById('sidenav').scrollTop = navbarScrollPos;
-        // document.getElementsByClassName('slider')[0].scrollTop = navbarScrollPos;
+        document.getElementsByClassName('slider')[0].scrollTop = hamburgerScrollPos;
+
+        console.dir(hamburgerScrollPos);
     }
 
     navStyle = this.props.navStyle;
@@ -89,7 +91,9 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
     navStyle: PropTypes.string.isRequired,
-    navbarScrollPos: PropTypes.number
+    // at least one of them is required
+    navbarScrollPos: PropTypes.number,
+    hamburgerScrollPos: PropTypes.number
 };
 
 export default Navbar;
