@@ -19,7 +19,7 @@ class Navbar extends Component {
     componentDidMount () {
         const { navbarScrollPos } = this.props;
         document.getElementById('sidenav').scrollTop = navbarScrollPos;
-        document.getElementsByClassName('slider')[0].scrollTop = navbarScrollPos;
+        // document.getElementsByClassName('slider')[0].scrollTop = navbarScrollPos;
     }
 
     navStyle = this.props.navStyle;
@@ -89,7 +89,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
     navStyle: PropTypes.string.isRequired,
-    navbarScrollPos: PropTypes.number.isRequired
+    navbarScrollPos: PropTypes.number
 };
 
 export default Navbar;
