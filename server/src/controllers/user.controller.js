@@ -19,7 +19,7 @@ module.exports.logout = (req, res) => {
 
 module.exports.listUsers = async (req, res, next) => {
     try {
-        const users = await User.find({}, 'email isSuperuser firstName lastName');
+        const users = await User.find({}, 'email isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin firstName lastName');
         res.json(users);
     } catch (err) {
         next(err);

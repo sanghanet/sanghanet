@@ -65,6 +65,19 @@ table.table {
     width: 90%;
     margin: auto;
 
+    .role-cells {
+        display: flex;
+        flex-wrap: wrap;
+
+        svg {
+            width: 18px;
+            justify-content: space-between;
+            align-content: space-between;
+            margin: 3px;
+            fill: $white;
+        }
+    }
+
     .icon-column {
         width: 20px;
     }

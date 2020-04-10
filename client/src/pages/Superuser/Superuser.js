@@ -4,6 +4,11 @@ import './Superuser.scss';
 import { ReactComponent as Cross } from '../../components/icons/cross.svg';
 import { ReactComponent as Plus } from '../../components/icons/plus.svg';
 import { ReactComponent as Bin } from '../../components/icons/bin.svg';
+import { ReactComponent as SuperuserIcon } from '../../components/icons/superman.svg';
+import { ReactComponent as FinanceAdminIcon } from '../../components/icons/finances.svg';
+import { ReactComponent as EventAdminIcon } from '../../components/icons/event.svg';
+import { ReactComponent as YogaAdminIcon } from '../../components/icons/yoga.svg';
+import { ReactComponent as GeneralUserIcon } from '../../components/icons/personal.svg';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -19,7 +24,12 @@ class Superuser extends Component {
     state = {
         userData: null,
         textFilterValue: '',
-        roleFilter: 'all',
+        roleFilter: {
+            showSuperuser: true,
+            showFinanceAdmin: true,
+            showEventAdmin: true,
+            showYogaAdmin: true
+        },
         showAddUserPopup: false,
         showEditUserPopup: false,
         editedUser: null
@@ -42,7 +52,13 @@ class Superuser extends Component {
         // eslint-disable-next-line no-multi-spaces
         const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
                                     fullName.toLowerCase().includes(textFilterValue.toLowerCase());
-        const passedRoleFilter = (user.isSuperuser && roleFilter !== 'general') || (!user.isSuperuser && roleFilter !== 'super');
+        // eslint-disable-next-line no-multi-spaces
+        // const passedRoleFilter =    (user.isSuperuser && roleFilter.showSuperuser) ||
+        //                             (user.isFinanceAdmin && roleFilter.showFinanceAdmin) ||
+        //                             (user.isEventAdmin && roleFilter.showEventAdmin) ||
+        //                             (user.isYogaAdmin && roleFilter.showYogaAdmin);
+
+        const passedRoleFilter = true;
 
         return passedEmailFilter && passedRoleFilter;
     }
@@ -65,7 +81,11 @@ class Superuser extends Component {
                                 }
                             </td>
                             <td onClick={this.editUser} id={key} className="role-cells">
-                                {user.isSuperuser ? 'superuser' : 'general user'}
+                                { user.isSuperuser && <SuperuserIcon/> }
+                                { user.isFinanceAdmin && <FinanceAdminIcon/> }
+                                { user.isEventAdmin && <EventAdminIcon/> }
+                                { user.isYogaAdmin && <YogaAdminIcon/> }
+                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon/> }
                             </td>
                             <td className="icon-cell">
                                 <Button variant='outline-danger' id={ key }>
