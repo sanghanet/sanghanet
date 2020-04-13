@@ -28,7 +28,8 @@ class Superuser extends Component {
             showSuperuser: true,
             showFinanceAdmin: true,
             showEventAdmin: true,
-            showYogaAdmin: true
+            showYogaAdmin: true,
+            showGeneralUser: true
         },
         showAddUserPopup: false,
         showEditUserPopup: false,
@@ -53,12 +54,11 @@ class Superuser extends Component {
         const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
                                     fullName.toLowerCase().includes(textFilterValue.toLowerCase());
         // eslint-disable-next-line no-multi-spaces
-        // const passedRoleFilter =    (user.isSuperuser && roleFilter.showSuperuser) ||
-        //                             (user.isFinanceAdmin && roleFilter.showFinanceAdmin) ||
-        //                             (user.isEventAdmin && roleFilter.showEventAdmin) ||
-        //                             (user.isYogaAdmin && roleFilter.showYogaAdmin);
-
-        const passedRoleFilter = true;
+        const passedRoleFilter =    (user.isSuperuser && roleFilter.showSuperuser) ||
+                                    (user.isFinanceAdmin && roleFilter.showFinanceAdmin) ||
+                                    (user.isEventAdmin && roleFilter.showEventAdmin) ||
+                                    (user.isYogaAdmin && roleFilter.showYogaAdmin) ||
+                                    (!(user.isSuperuser && user.isFinanceAdmin && user.isEventAdmin && user.isYogaAdmin) && roleFilter.showGeneralUser);
 
         return passedEmailFilter && passedRoleFilter;
     }
@@ -109,19 +109,19 @@ class Superuser extends Component {
     }
 
     handleRolechange = (event) => {
-        switch (event.target.options.selectedIndex) {
-            case 0:
-                this.setState({ roleFilter: 'all' });
-                break;
-            case 1:
-                this.setState({ roleFilter: 'general' });
-                break;
-            case 2:
-                this.setState({ roleFilter: 'super' });
-                break;
-            default:
-                break;
-        }
+        // switch (event.target.options.selectedIndex) {
+        //     case 0:
+        //         this.setState({ roleFilter: 'all' });
+        //         break;
+        //     case 1:
+        //         this.setState({ roleFilter: 'general' });
+        //         break;
+        //     case 2:
+        //         this.setState({ roleFilter: 'super' });
+        //         break;
+        //     default:
+        //         break;
+        // }
     }
 
     resetFilters = () => {
@@ -154,7 +154,7 @@ class Superuser extends Component {
     }
 
     render () {
-        const { textFilterValue, roleFilter, showAddUserPopup, showEditUserPopup, editedUser } = this.state;
+        const { textFilterValue, showAddUserPopup, showEditUserPopup, editedUser } = this.state;
 
         return (
             <div>
@@ -188,13 +188,13 @@ class Superuser extends Component {
                             />
                             <Form.Text>Filter by name or email address</Form.Text>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label htmlFor="roleSelect">Role</Form.Label>
-                            <select defaultValue={roleFilter} id="roleSelect" onChange={this.handleRolechange}>
-                                <option>all</option>
-                                <option>general user</option>
-                                <option>superuser</option>
-                            </select>
+                        <Form.Group controlId="roleSelect">
+                            <Form.Label>Role</Form.Label>
+                            <Form.Check id='general' type='checkbox' label='general user'/>
+                            <Form.Check id='superuser' type='checkbox' label='superuser'/>
+                            <Form.Check id='finance' type='checkbox' label='finance admin'/>
+                            <Form.Check id='event' type='checkbox' label='event admin'/>
+                            <Form.Check id='yoga' type='checkbox' label='yoga admin'/>
                         </Form.Group>
                         <Button variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
                     </Form>
