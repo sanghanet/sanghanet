@@ -14,8 +14,8 @@
     &::-webkit-scrollbar {
         display: none;
     }
+
     li {
-        border-bottom: 1px solid $sideBar-border;
         text-align: center;
         button {
             @include buttonReset;
@@ -32,7 +32,6 @@
         }
     }
     #logout-li {
-        border-top: 1px solid $sideBar-border;
         margin-top: auto;
     }
     .link {
@@ -58,7 +57,6 @@
         }
         &:hover {
             text-decoration: none;
-            border-bottom: 1px solid $sideBar-border !important;
         }
         @include hoveredElement;
     }
@@ -77,9 +75,6 @@
     }
     .link {
         min-height: 102px;
-    }
-    .active {
-        border-bottom: 1px solid $sideBar-border;
     }
 }
 
