@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const { mongoose } = require('../controllers/mongoDB.controller');
 const { FinanceTransactionSchema } = require('./financeTransaction.model');
 
 const FinanceSchema = mongoose.Schema({
@@ -60,4 +60,4 @@ const FinanceSchema = mongoose.Schema({
     }
 });
 
-module.exports.FinanceAccountSchema = FinanceSchema;
+module.exports.Account = mongoose.model('Finance Account', FinanceSchema);
