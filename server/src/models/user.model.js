@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const { mongoose } = require('../controllers/mongoDB.controller');
 
 const UserSchema = mongoose.Schema({
     isActive: Boolean,
