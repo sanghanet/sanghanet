@@ -31,6 +31,10 @@
             }
         }
     }
+    #logout-li {
+        border-top: 1px solid $sideBar-border;
+        margin-top: auto;
+    }
     .link {
         @include centerElement;
         flex-direction: column;

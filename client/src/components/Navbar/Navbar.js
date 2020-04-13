@@ -70,7 +70,7 @@ const Navbar = (props) => {
                 </li>
                 : null
             }
-            <li>
+            <li id="logout-li">
                 <Logout />
             </li>
         </ul>
