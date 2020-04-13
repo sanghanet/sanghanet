@@ -4,11 +4,15 @@ const UserSchema = mongoose.Schema({
     isActive: Boolean,
     firstName: String,
     lastName: String,
+    profileImg: String,
     email: String,
     emailVisible: Boolean,
     gender: String,
     genderVisible: Boolean,
     isSuperuser: Boolean,
+    isFinanceAdmin: Boolean,
+    isEventAdmin: Boolean,
+    isYogaAdmin: Boolean,
     mobile: String,
     mobileVisible: Boolean,
     birthday: String,
@@ -25,8 +29,7 @@ const UserSchema = mongoose.Schema({
     emName: String,
     emMobile: String,
     emEmail: String,
-    emContactVisible: Boolean,
-    profileImg: String
+    emContactVisible: Boolean
 });
 
 // users collection contains User documents based on UserSchema
