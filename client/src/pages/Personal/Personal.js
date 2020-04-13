@@ -16,6 +16,7 @@ import { Row } from 'react-bootstrap';
 class Personal extends React.Component {
     state = {
         openDetails: false,
+        profileImg: '',
         firstName: '',
         firstNameVisible: true,
         lastName: '',
@@ -41,7 +42,7 @@ class Personal extends React.Component {
         showAlert: false,
         alertMessage: '',
         alertType: ''
-    }
+    };
 
     componentDidMount () {
         Client.fetch('/user/personal')
@@ -49,6 +50,7 @@ class Personal extends React.Component {
                 this.setState({
                     firstName: data[0].firstName,
                     lastName: data[0].lastName,
+                    profileImg: data[0].profileImg,
                     spiritualName: data[0].spiritualName,
                     birthday: data[0].birthday,
                     birthdayVisible: data[0].birthdayVisible,
@@ -70,7 +72,7 @@ class Personal extends React.Component {
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
-    }
+    };
 
     toggleDetails = () => {
         this.setState((oldState) => ({ openDetails: !oldState.openDetails }));
@@ -111,15 +113,24 @@ class Personal extends React.Component {
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
-    }
+    };
+
+    uploadError = (errMsg) => {
+        this.setState({ showAlert: true, alertMessage: errMsg, alertType: 'Error' });
+    };
+
+    updateProfileImg = (newImg) => {
+        this.setState({ profileImg: newImg });
+    };
 
     closeAlert = () => {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
-    }
+    };
 
     render () {
         const {
             openDetails,
+            profileImg,
             firstName, firstNameVisible,
             lastName, lastNameVisible,
             birthday, birthdayVisible,
@@ -150,7 +161,11 @@ class Personal extends React.Component {
                     }
                     <FormContainer formTitle="general data" mb-4>
                         <React.Fragment>
-                            <InputAvatar />
+                            <InputAvatar
+                                profileImg={profileImg}
+                                updateProfileImg={this.updateProfileImg}
+                                uploadError={this.uploadError}
+                            />
                             <Row>
                                 <InputDisplay
                                     inputTitle="First name"

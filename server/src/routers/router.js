@@ -22,5 +22,6 @@ router.post('/listusers', userController.listUsers);
 router.get('/personal', userController.personal);
 router.put('/saveitem', userController.updateItemAndVisibility);
 router.put('/savevisibility', userController.updateItemAndVisibility);
+router.post('/uploadprofileimg', userController.uploadProfileImg);
 
 module.exports = router;

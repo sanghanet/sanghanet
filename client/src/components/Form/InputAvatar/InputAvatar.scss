@@ -11,6 +11,9 @@
 
     .display-input {
         position: relative;
+        &:focus {
+            outline:none;
+        }
         #file {
             width: 250px;
             height: 250px;
@@ -20,6 +23,9 @@
             top: 0;
             &::-webkit-file-upload-button {
                 visibility: hidden;
+            }
+            &:focus {
+                outline:none;
             }
         }
         #file-upload {
@@ -38,14 +44,18 @@
                 color: $white;
             }
             .hide-text {
-                color: transparent;
+                display: none;
             }
             .personal-photo {
                 width: 250px;
                 height: 250px;
+                object-fit: cover;
 
                 position: absolute;
                 top: 0;
+                &:focus {
+                    outline:none;
+                }
             }
         }
     }

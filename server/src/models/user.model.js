@@ -25,7 +25,8 @@ const UserSchema = mongoose.Schema({
     emName: String,
     emMobile: String,
     emEmail: String,
-    emContactVisible: Boolean
+    emContactVisible: Boolean,
+    profileImg: String
 });
 
 // users collection contains User documents based on UserSchema
