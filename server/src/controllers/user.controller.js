@@ -101,13 +101,15 @@ module.exports.uploadProfileImg = async (req, res, next) => {
                 res.json({ profileImg: fileName });
                 log.info(`User new profile image is: ${fileName}`);
                 const removeFile = PROFILES_PATH + user.profileImg; // former profile img
-                fs.unlink(removeFile, (err) => {
-                    if (err) {
-                        log.warn(`Failed to delete profile image: ${removeFile}`);
-                        return;
-                    }
-                    log.info(`Removed profile image: ${removeFile}`);
-                });
+                if (user.profileImg) {
+                    fs.unlink(removeFile, (err) => {
+                        if (err) {
+                            log.warn(`Failed to delete profile image: ${removeFile}`);
+                            return;
+                        }
+                        log.info(`Removed profile image: ${removeFile}`);
+                    });
+                }
             } catch (err) {
                 next(err);
             }
