@@ -152,7 +152,7 @@
                 right: -90vw;
             }
             width: 60vw;
-            height: calc(100vh - 93px);
+            max-height: calc(100vh - 93px);
             overflow-y: scroll;
             border-bottom-left-radius: 5px;
             background-color: $sideBar-bg;

@@ -24,7 +24,9 @@ const InputDisplay = (props) => {
         optionsForSelect,
         inputVisibility,
         inputVisible,
-        toDisable
+        toDisable,
+        validation,
+        format
     } = props;
 
     return (
@@ -40,7 +42,9 @@ const InputDisplay = (props) => {
                     modalValueSave={inputValueSave}
                     modalInputType={inputType}
                     modalInputAs={inputFieldAs}
-                    options={optionsForSelect}
+                    modalOptions={optionsForSelect}
+                    modalValidation={validation}
+                    modalFormat={format}
                 />)
                 : null
             }
@@ -85,7 +89,9 @@ InputDisplay.propTypes = {
     inputType: PropTypes.string,
     inputFieldAs: PropTypes.string,
     optionsForSelect: PropTypes.array,
-    toDisable: PropTypes.instanceOf(Set)
+    toDisable: PropTypes.instanceOf(Set),
+    validation: PropTypes.object,
+    format: PropTypes.string
 };
 
 export default InputDisplay;
