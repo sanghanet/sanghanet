@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './EditUserPopup.scss';
-
 import { Modal, Button, Form } from 'react-bootstrap';
 
 class AddUserPopup extends Component {
@@ -19,23 +17,27 @@ class AddUserPopup extends Component {
         this.props.modalClose();
     }
 
+    handleRoleChange = () => {
+        console.log('role has been changed');
+    }
+
     render () {
-        const { modalShow } = this.props;
+        const { modalShow, user } = this.props;
+        const { selectedRole } = this.state;
 
         return (
             <Modal show={modalShow} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'}>
                 <Form onSubmit={this.handleSubmit} autoComplete='off'>
                     <Modal.Header closeButton>
-                        <Form.Label>{`${this.props.user.firstName} ${this.props.user.lastName}`}</Form.Label>
+                        <Form.Label>{`${user.firstName} ${user.lastName}`}</Form.Label>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form.Label htmlFor='role'>Role</Form.Label>
+                        <Form.Label htmlFor='role' className="m-0">Role</Form.Label>
                         <Form.Control
                             as='select'
-                            defaultValue={this.state.selectedRole}
+                            defaultValue={selectedRole}
                             id='role'
                             type='text'
-                            value={this.state.role}
                             onChange={this.handleRoleChange}
                         >
                             <option>superuser</option>
@@ -43,9 +45,6 @@ class AddUserPopup extends Component {
                         </Form.Control>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant='danger' onClick={this.handleClose}>
-                            Delete user
-                        </Button>
                         <Button variant="secondary" onClick={this.handleClose}>
                             Cancel
                         </Button>

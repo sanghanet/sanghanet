@@ -65,7 +65,20 @@ table.table {
     width: 90%;
     margin: auto;
 
-    th:last-child {
+    .role-cells {
+        display: flex;
+        flex-wrap: wrap;
+
+        svg {
+            width: 18px;
+            justify-content: space-between;
+            align-content: space-between;
+            margin: 3px;
+            fill: $white;
+        }
+    }
+
+    .icon-column {
         width: 20px;
     }
 
@@ -86,7 +99,7 @@ table.table {
     }
 
     td {
-        &:last-child {
+        &.icon-cell {
             padding: 0;
         }
 
@@ -95,7 +108,7 @@ table.table {
             border: none;
             height: 47px;
 
-            .edit-user {
+            .delete-user {
                 width: 20px;
                 fill: $white;
             }
