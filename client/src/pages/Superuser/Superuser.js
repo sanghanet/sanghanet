@@ -28,8 +28,7 @@ class Superuser extends Component {
             showSuperuser: true,
             showFinanceAdmin: true,
             showEventAdmin: true,
-            showYogaAdmin: true,
-            showGeneralUser: true
+            showYogaAdmin: true
         },
         showAddUserPopup: false,
         showEditUserPopup: false,
@@ -58,7 +57,10 @@ class Superuser extends Component {
                                     (user.isFinanceAdmin && roleFilter.showFinanceAdmin) ||
                                     (user.isEventAdmin && roleFilter.showEventAdmin) ||
                                     (user.isYogaAdmin && roleFilter.showYogaAdmin) ||
-                                    (!(user.isSuperuser && user.isFinanceAdmin && user.isEventAdmin && user.isYogaAdmin) && roleFilter.showGeneralUser);
+                                    (
+                                        !(user.isSuperuser && user.isFinanceAdmin && user.isEventAdmin && user.isYogaAdmin) &&
+                                        !(roleFilter.isSuperuser && roleFilter.isFinanceAdmin && roleFilter.isEventAdmin && roleFilter.isYogaAdmin)
+                                    );
 
         return passedEmailFilter && passedRoleFilter;
     }
@@ -108,7 +110,7 @@ class Superuser extends Component {
         this.setState({ textFilterValue: '' });
     }
 
-    handleRolechange = (event) => {
+    handleRoleChange = (event) => {
         // switch (event.target.options.selectedIndex) {
         //     case 0:
         //         this.setState({ roleFilter: 'all' });
@@ -122,6 +124,7 @@ class Superuser extends Component {
         //     default:
         //         break;
         // }
+        console.dir(event);
     }
 
     resetFilters = () => {
@@ -154,7 +157,7 @@ class Superuser extends Component {
     }
 
     render () {
-        const { textFilterValue, showAddUserPopup, showEditUserPopup, editedUser } = this.state;
+        const { textFilterValue, showAddUserPopup, showEditUserPopup, editedUser, roleFilter } = this.state;
 
         return (
             <div>
@@ -188,13 +191,12 @@ class Superuser extends Component {
                             />
                             <Form.Text>Filter by name or email address</Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="roleSelect">
+                        <Form.Group>
                             <Form.Label>Role</Form.Label>
-                            <Form.Check id='general' type='checkbox' label='general user'/>
-                            <Form.Check id='superuser' type='checkbox' label='superuser'/>
-                            <Form.Check id='finance' type='checkbox' label='finance admin'/>
-                            <Form.Check id='event' type='checkbox' label='event admin'/>
-                            <Form.Check id='yoga' type='checkbox' label='yoga admin'/>
+                            <Form.Check checked={roleFilter.showSuperuser} onChange={this.handleRoleChange} id='superuser' type='checkbox' label='superuser'/>
+                            <Form.Check checked={roleFilter.showFinanceAdmin} onChange={this.handleRoleChange} id='finance' type='checkbox' label='finance admin'/>
+                            <Form.Check checked={roleFilter.showEventAdmin} onChange={this.handleRoleChange} id='event' type='checkbox' label='event admin'/>
+                            <Form.Check checked={roleFilter.showYogaAdmin} onChange={this.handleRoleChange} id='yoga' type='checkbox' label='yoga admin'/>
                         </Form.Group>
                         <Button variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
                     </Form>
