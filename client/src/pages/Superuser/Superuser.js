@@ -81,10 +81,10 @@ class Superuser extends Component {
                                 }
                             </td>
                             <td onClick={this.editUser} id={key} className="role-cells">
-                                { user.isSuperuser && <SuperuserIcon/> }
-                                { user.isFinanceAdmin && <FinanceAdminIcon/> }
-                                { user.isEventAdmin && <EventAdminIcon/> }
-                                { user.isYogaAdmin && <YogaAdminIcon/> }
+                                { user.isSuperuser && <SuperuserIcon title='superuser'/> }
+                                { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin'/> }
+                                { user.isEventAdmin && <EventAdminIcon title='event admin'/> }
+                                { user.isYogaAdmin && <YogaAdminIcon title='yoga admin'/> }
                                 { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon/> }
                             </td>
                             <td className="icon-cell">
