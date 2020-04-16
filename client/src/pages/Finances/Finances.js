@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
-import ComingSoon from '../../components/ComingSoon/ComingSoon';
+import FinanceDashboard from '../../components/FinanceDashboard/FinanceDashboard';
 
 const Finances = (props) => {
     return (
@@ -11,7 +11,7 @@ const Finances = (props) => {
             <Header activePage="Finances"/>
             <Navbar navStyle="sidenav"/>
             <main className="align">
-                <ComingSoon pageName = "Finances" isPlural = {true}/>
+                <FinanceDashboard/>
             </main>
             <Footer />
         </div>

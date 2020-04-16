@@ -2,6 +2,7 @@ const { mongoose } = require('../controllers/mongoDB.controller');
 const { FinanceTransactionSchema } = require('./financeTransaction.model');
 
 const FinanceSchema = mongoose.Schema({
+    currency: String,
     userId: mongoose.ObjectId,
     userName: String,
     transactionArchive: {
