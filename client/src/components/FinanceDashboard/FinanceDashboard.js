@@ -14,11 +14,10 @@ class FinanceDashboard extends React.Component {
         Client.fetch('/user/financeoverview')
             .then((res) => {
                 const entries = [];
-                console.log(res[0]);
                 const pockets = Object.entries(res[0].pockets);
                 for (const pocket of pockets) {
                     entries.push(
-                        <div key = {pocket[0]} >{`Current balance of ${pocket[0]} pocket: ${pocket[1].currentBalance.value} ${res[0].currency}`}</div>
+                        <div key = {pocket[0]} >{`Current balance of ${pocket[0]} pocket: ${pocket[1].currentBalance} ${res[0].currency}`}</div>
                     );
                 }
                 this.setState({ balances: entries });

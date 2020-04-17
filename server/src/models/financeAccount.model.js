@@ -19,44 +19,20 @@ const FinanceSchema = mongoose.Schema({
     },
     pockets: {
         membership: {
-            currentBalance: {
-                value: { type: Number, default: 0 },
-                isValid: { type: Boolean, default: false }
-            },
-            rollingBalance: {
-                value: { type: Number, default: 0 },
-                isValid: { type: Boolean, default: false }
-            }
+            currentBalance: { type: Number, default: 0 },
+            rollingBalance: { type: Number, default: 0 }
         },
         rent: {
-            currentBalance: {
-                value: { type: Number, default: 0 },
-                isValid: { type: Boolean, default: false }
-            },
-            rollingBalance: {
-                value: { type: Number, default: 0 },
-                isValid: { type: Boolean, default: false }
-            }
+            currentBalance: { type: Number, default: 0 },
+            rollingBalance: { type: Number, default: 0 }
         },
         event: {
-            currentBalance: {
-                value: { type: Number, default: 0 },
-                isValid: { type: Boolean, default: false }
-            },
-            rollingBalance: {
-                value: { type: Number, default: 0 },
-                isValid: { type: Boolean, default: false }
-            }
+            currentBalance: { type: Number, default: 0 },
+            rollingBalance: { type: Number, default: 0 }
         },
         angel: {
-            currentBalance: {
-                value: { type: Number, default: 0 },
-                isValid: { type: Boolean, default: false }
-            },
-            rollingBalance: {
-                value: { type: Number, default: 0 },
-                isValid: { type: Boolean, default: false }
-            }
+            currentBalance: { type: Number, default: 0 },
+            rollingBalance: { type: Number, default: 0 }
         }
     }
 });
