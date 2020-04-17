@@ -105,7 +105,7 @@ class Navbar extends Component {
                     </li>
                     : null
                 }
-                <li>
+                <li id="logout-li">
                     <Logout />
                 </li>
             </ul>

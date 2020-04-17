@@ -1,17 +1,14 @@
-$searchField-color: #fff;
-$sideBar-iconColor: #c9c9c9;
-$sideBarHover-iconColor: #fff;
+@import '../../style/colors';
+@import '../../style/mixins';
+
+$searchField-color: $white;
+$sideBar-iconColor: $sideBar-iconColor;
+$sideBarHover-iconColor: $white;
 
 @mixin customFocus {
     &:focus {
         outline: 0 none;
-        fill: #fff;
-    }
-}
-
-@mixin mQ($arg) {
-    @media screen and (max-width: $arg) {
-        @content;
+        fill: $white;
     }
 }
 
@@ -35,7 +32,7 @@ $sideBarHover-iconColor: #fff;
     input {
         width: 100%;
         height: 30px;
-        color: #fff;
+        color: $white;
         background: transparent;
         border:none;
         letter-spacing: 1px;

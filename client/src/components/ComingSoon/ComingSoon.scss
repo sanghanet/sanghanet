@@ -1,14 +1,16 @@
+@import '../../style/mixins';
+@import '../../style/colors';
 
 .comingSoon {
-    color: #e8e3e3;
-    background-color: #484848;
+    color: $searchField-color;
+    background-color: $darkgray;
     margin: auto;
     width: fit-content;
     padding: 15px 18px;
     border-radius: 5px;
     font-size: 150%;
 
-    @media screen and (max-width: 350px) {
+    @include maxQ(350px) {
         font-size: 140%;
     }
 }

@@ -12,20 +12,6 @@ class FormContainer extends Component {
                 <h2 className="form-title">{this.props.formTitle.toUpperCase()}</h2>
                 {this.props.children}
             </Container>
-            // <Form>
-            //     <Container>
-            //         <h2 className="form-title">{this.props.formTitle.toUpperCase()}</h2>
-            //         {this.props.children}
-            //     </Container>
-            // </Form>
-            // <Container className="position-absolute">
-            //     <Form className="form-container">
-            //         <h2 className="text-center">{this.props.formTitle.toUpperCase()}</h2>
-            //         <div id="grid">
-            //             {this.props.children}
-            //         </div>
-            //     </Form>
-            // </Container>
         );
     }
 }

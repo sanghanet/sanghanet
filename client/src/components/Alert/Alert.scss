@@ -2,6 +2,9 @@
 @import '../../style/mixins';
 
 .toast {
+    border: 1px solid #6a6a6a !important;
+    border-radius: none !important;
+    box-shadow: 1px 1px $darkgray !important;
     position: fixed;
     top: 118px;
     right: 19px;
@@ -23,6 +26,9 @@
     .toast-header {
         background-color: $alertBackground;
         color: $white;
+        button.close {
+            color: $white;
+        }
         strong {
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -30,7 +36,7 @@
         }
     }
     .toast-body {
-        background-color: $alertBackground;
+        background-color: #2e2e2e;
         color: $white;
     }
 }

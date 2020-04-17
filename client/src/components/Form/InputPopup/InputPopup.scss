@@ -25,6 +25,19 @@
             -webkit-appearance: none;
             color: $white;
         }
+        .error, .hint {
+            display: block;
+            min-height: 24px;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+        .error {
+            color: $error;
+        }
+        .hint {
+            color: $disabled;
+            padding-bottom: 8px;
+        }
     }
     .close {
         color: $white;

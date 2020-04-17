@@ -8,6 +8,7 @@
     width: 90%;
     margin: 15px auto;
     border: none;
+    border-radius: 2px;
     @include maxQ(415px) {
         width: 100%;
     }
