@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
@@ -14,71 +14,106 @@ import { ReactComponent as EventIcon } from '../icons/event.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
 
-const Navbar = (props) => {
-    const { activePage, navStyle } = props;
-    // navStyle has two CSS id: sidenav, hamburger
-    return (
-        <ul onClick={activePage} className="navigation" id={navStyle}>
-            <li>
-                <NavLink exact to="/dashboard" className="link">
-                    <div className="menu-icon"><DashboardIcon /></div>
-                    <span className="title">Dashboard</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink exact to="/personal" className="link">
-                    <div className="menu-icon"><PersonalIcon /></div>
-                    <span className="title">Personal Data</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink exact to="/yoga" className="link">
-                    <div className="menu-icon"><YogaIcon /></div>
-                    <span className="title">Yoga</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink exact to="/finances" className="link">
-                    <div className="menu-icon"><FinanceIcon /></div>
-                    <span className="title">Finances</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink exact to="/events" className="link">
-                    <div className="menu-icon"><EventIcon /></div>
-                    <span className="title">Events</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink exact to="/questions" className="link">
-                    <div className="menu-icon"><QuestionsIcon /></div>
-                    <span className="title">Personal Questions</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink exact to="/queries" className="link">
-                    <div className="menu-icon"><InfoIcon /></div>
-                    <span className="title">Queries</span>
-                </NavLink>
-            </li>
-            { sessionStorage.isSuperuser === 'true'
-                ? <li>
-                    <NavLink exact to="/superuser" className="link">
-                        <div className="menu-icon"><SuperuserIcon /></div>
-                        <span className="title">Superuser</span>
+class Navbar extends Component {
+    componentDidMount () {
+        const desktopMenu = document.getElementById('sidenav');
+        const hamburgerMenu = document.getElementsByClassName('slider')[0];
+
+        switch (window.location.pathname) {
+            case '/finances':
+                hamburgerMenu.scrollTop = 50;
+                desktopMenu.scrollTop = 150;
+                break;
+
+            case '/events':
+                hamburgerMenu.scrollTop = 130;
+                desktopMenu.scrollTop = 250;
+                break;
+
+            case '/questions':
+                hamburgerMenu.scrollTop = 210;
+                desktopMenu.scrollTop = 300;
+                break;
+
+            case '/queries':
+                hamburgerMenu.scrollTop = 500;
+                desktopMenu.scrollTop = 300;
+                break;
+
+            case '/superuser':
+                hamburgerMenu.scrollTop = 500;
+                desktopMenu.scrollTop = 300;
+                break;
+
+            default:
+                hamburgerMenu.scrollTop = 0;
+                break;
+        }
+    }
+
+    render () {
+        return (
+            <ul className="navigation" id={this.props.navStyle}>
+                <li>
+                    <NavLink exact to="/dashboard" className="link">
+                        <div className="menu-icon"><DashboardIcon /></div>
+                        <span className="title">Dashboard</span>
                     </NavLink>
                 </li>
-                : null
-            }
-            <li id="logout-li">
-                <Logout />
-            </li>
-        </ul>
-    );
-};
+                <li>
+                    <NavLink exact to="/personal" className="link">
+                        <div className="menu-icon"><PersonalIcon /></div>
+                        <span className="title">Personal Data</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink exact to="/yoga" className="link">
+                        <div className="menu-icon"><YogaIcon /></div>
+                        <span className="title">Yoga</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink exact to="/finances" className="link">
+                        <div className="menu-icon"><FinanceIcon /></div>
+                        <span className="title">Finances</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink exact to="/events" className="link">
+                        <div className="menu-icon"><EventIcon /></div>
+                        <span className="title">Events</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink exact to="/questions" className="link">
+                        <div className="menu-icon"><QuestionsIcon /></div>
+                        <span className="title">Personal Questions</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink exact to="/queries" className="link">
+                        <div className="menu-icon"><InfoIcon /></div>
+                        <span className="title">Queries</span>
+                    </NavLink>
+                </li>
+                { sessionStorage.isSuperuser === 'true'
+                    ? <li>
+                        <NavLink exact to="/superuser" className="link">
+                            <div className="menu-icon"><SuperuserIcon /></div>
+                            <span className="title">Superuser</span>
+                        </NavLink>
+                    </li>
+                    : null
+                }
+                <li id="logout-li">
+                    <Logout />
+                </li>
+            </ul>
+        );
+    }
+}
 
 Navbar.propTypes = {
-    activePage: PropTypes.func,
     navStyle: PropTypes.string.isRequired
 };
 

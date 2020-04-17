@@ -23,8 +23,8 @@ class App extends Component {
                     <Route path='/loading' component={Loading} />
                     <Route path='/loginfailed' component={LoginFailed} />
                     <PrivateRoute path='/dashboard' component={Dashboard}/>
-                    <PrivateRoute path='/personal' component={Personal} />
-                    <PrivateRoute path='/yoga' component={Yoga} />
+                    <PrivateRoute path='/personal' component={Personal}/>
+                    <PrivateRoute path='/yoga' component={Yoga}/>
                     <PrivateRoute path='/finances' component={Finances}/>
                     <PrivateRoute path='/events' component={Events}/>
                     <PrivateRoute path='/questions' component={Questions}/>

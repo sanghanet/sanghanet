@@ -9,7 +9,7 @@ const Questions = (props) => {
     return (
         <div className='grid-container'>
             <Header activePage="Questions"/>
-            <Navbar navStyle="sidenav"/>
+            <Navbar navStyle="sidenav" />
             <main className="align">
                 <ComingSoon pageName = "Questions" isPlural = {true}/>
             </main>

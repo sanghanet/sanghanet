@@ -6,6 +6,7 @@ const PrivateRoute = (props) => {
     const { component: Component, ...rest } = props;
     const user = sessionStorage.getItem('user');
     const isActive = sessionStorage.getItem('isActive');
+
     return (
         // Show the component only when user is known & active
         // Otherwise, redirect the user to / page

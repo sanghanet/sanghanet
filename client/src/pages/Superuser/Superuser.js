@@ -177,8 +177,9 @@ class Superuser extends Component {
                             user={editedUser}
                         />
                     ) : null }
+
                 <Header activePage="Superuser" />
-                <Navbar navStyle="sidenav"/>
+                <Navbar navStyle="sidenav" />
                 <main>
                     {/* --- Form for filters --- */}
                     <Form className="filter-box">
