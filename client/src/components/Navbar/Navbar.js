@@ -49,16 +49,11 @@ class Navbar extends Component {
                 hamburgerMenu.scrollTop = 0;
                 break;
         }
-
-        console.log();
     }
-
-    navStyle = this.props.navStyle;
-    // navStyle has two CSS id: sidenav, hamburger
 
     render () {
         return (
-            <ul className="navigation" id={this.navStyle}>
+            <ul className="navigation" id={this.props.navStyle}>
                 <li>
                     <NavLink exact to="/dashboard" className="link">
                         <div className="menu-icon"><DashboardIcon /></div>
