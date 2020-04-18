@@ -51,7 +51,7 @@ class Input extends Component {
                                 <Visible className="form-icon" />
                             </button>
                             <button className="form-button">
-                                <Save className="form-icon"/>
+                                <Save className="form-icon" />
                             </button>
                         </InputGroup.Append>
                     </InputGroup>

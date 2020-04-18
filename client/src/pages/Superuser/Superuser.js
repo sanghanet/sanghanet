@@ -83,15 +83,15 @@ class Superuser extends Component {
                                 }
                             </td>
                             <td onClick={this.editUser} id={key} className="role-cells">
-                                { user.isSuperuser && <SuperuserIcon title='superuser'/> }
-                                { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin'/> }
-                                { user.isEventAdmin && <EventAdminIcon title='event admin'/> }
-                                { user.isYogaAdmin && <YogaAdminIcon title='yoga admin'/> }
-                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon/> }
+                                { user.isSuperuser && <SuperuserIcon title='superuser' /> }
+                                { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
+                                { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
+                                { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
+                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon /> }
                             </td>
                             <td className="icon-cell">
                                 <Button variant='outline-danger' id={ key }>
-                                    <Bin className='delete-user'/>
+                                    <Bin className='delete-user' />
                                 </Button>
                             </td>
                         </tr>
@@ -194,10 +194,10 @@ class Superuser extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Role</Form.Label>
-                            <Form.Check checked={roleFilter.showSuperuser} onChange={this.handleRoleChange} id='superuser' type='checkbox' label='superuser'/>
-                            <Form.Check checked={roleFilter.showFinanceAdmin} onChange={this.handleRoleChange} id='finance' type='checkbox' label='finance admin'/>
-                            <Form.Check checked={roleFilter.showEventAdmin} onChange={this.handleRoleChange} id='event' type='checkbox' label='event admin'/>
-                            <Form.Check checked={roleFilter.showYogaAdmin} onChange={this.handleRoleChange} id='yoga' type='checkbox' label='yoga admin'/>
+                            <Form.Check checked={roleFilter.showSuperuser} onChange={this.handleRoleChange} id='superuser' type='checkbox' label='superuser' />
+                            <Form.Check checked={roleFilter.showFinanceAdmin} onChange={this.handleRoleChange} id='finance' type='checkbox' label='finance admin' />
+                            <Form.Check checked={roleFilter.showEventAdmin} onChange={this.handleRoleChange} id='event' type='checkbox' label='event admin' />
+                            <Form.Check checked={roleFilter.showYogaAdmin} onChange={this.handleRoleChange} id='yoga' type='checkbox' label='yoga admin' />
                         </Form.Group>
                         <Button variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
                     </Form>

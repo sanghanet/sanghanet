@@ -12,7 +12,7 @@ class Dashboard extends Component {
                 <Header activePage="Dashboard" />
                 <Navbar navStyle="sidenav" />
                 <main className="align">
-                    <ComingSoon pageName = "Dashboard" isPlural = {false}/>
+                    <ComingSoon pageName = "Dashboard" isPlural = {false} />
                 </main>
                 <Footer />
             </div>

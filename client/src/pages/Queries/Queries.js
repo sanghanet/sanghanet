@@ -11,7 +11,7 @@ const Queries = (props) => {
             <Header activePage="Queries" />
             <Navbar navStyle="sidenav" />
             <main className="align">
-                <ComingSoon pageName = "Queries" isPlural = {true}/>
+                <ComingSoon pageName = "Queries" isPlural = {true} />
             </main>
             <Footer />
         </div>

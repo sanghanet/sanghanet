@@ -7,10 +7,10 @@ import ComingSoon from '../../components/ComingSoon/ComingSoon';
 const Events = (props) => {
     return (
         <div className='grid-container'>
-            <Header activePage="Events"/>
+            <Header activePage="Events" />
             <Navbar navStyle="sidenav" />
             <main className="align">
-                <ComingSoon pageName = "Events" isPlural = {true}/>
+                <ComingSoon pageName = "Events" isPlural = {true} />
             </main>
         </div>
     );

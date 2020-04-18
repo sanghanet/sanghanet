@@ -51,7 +51,7 @@ const Header = (props) => {
                 <h1 className='page-name m-0'>{props.activePage}</h1>
 
                 <Button className='search-icon' variant='outline-light'>
-                    <SearchIcon/>
+                    <SearchIcon />
                 </Button>
 
                 <button

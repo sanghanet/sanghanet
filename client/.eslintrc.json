@@ -26,6 +26,7 @@
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "semi": ["error", "always"],
         "react/jsx-wrap-multilines": ["error", { "return": "parens-new-line" }],
+        "react/jsx-tag-spacing": ["error", { "beforeSelfClosing": "always", "afterOpening": "never" }],
         "arrow-parens": ["error", "always"]
     }
 }
