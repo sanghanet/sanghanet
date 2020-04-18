@@ -6,6 +6,21 @@ const { User } = require('../src/models/user.model');
 const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 
 const { Account } = require('../src/models/financeAccount.model');
+const { FinanceTransactionSchema } = require('../src/models/financeTransaction.model');
+const FinanceTransaction = mongoose.model('Finance Transaction', FinanceTransactionSchema);
+
+const generateRandomTransactions = (pocket) => {
+    const randomTransactions = [];
+    for (let i = 0; i < 10; i++) {
+        randomTransactions.push(new FinanceTransaction({
+            amount: Math.floor(Math.random() * 100000) - 50000,
+            description: 'Randomly generated test transaction',
+            currency: 'HUF',
+            pocket: pocket
+        }));
+    }
+    return randomTransactions;
+};
 
 const wipeAccounts = async () => {
     await Account.deleteMany({})
@@ -32,7 +47,19 @@ const singleAccountCreationPromise = (element) => {
     return Account.create({
         userId: element._id,
         userName: `${element.firstName} ${element.lastName}`,
-        currency: 'HUF'
+        currency: 'HUF',
+        transactionBuffer: {
+            membership: generateRandomTransactions('membership'),
+            rent: generateRandomTransactions('rent'),
+            event: generateRandomTransactions('event'),
+            angel: generateRandomTransactions('angel')
+        },
+        transactionArchive: {
+            membership: generateRandomTransactions('membership'),
+            rent: generateRandomTransactions('rent'),
+            event: generateRandomTransactions('event'),
+            angel: generateRandomTransactions('angel')
+        }
     });
 };
 

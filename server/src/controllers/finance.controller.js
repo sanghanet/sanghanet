@@ -12,3 +12,13 @@ module.exports.getFinanceOverview = async (req, res) => {
         res.send(err);
     }
 };
+
+module.exports.getFinanceTransactions = async (req, res) => {
+    try {
+        const result = await Account.find({ userId: req.user._id }, 'transactionBuffer');
+        res.json(result);
+    } catch (err) {
+        log.error(err);
+        res.send(err);
+    }
+};
