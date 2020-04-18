@@ -27,7 +27,7 @@
 
    When setting up env.atlas:
 
-      Use DB_URL: mongodb+srv://<username>:<password>@cluster0-deyq5.gcp.mongodb.net/test?retryWrites=true&w=majority
+      Use DB_URL = mongodb+srv://<username>:<password>@cluster0-deyq5.gcp.mongodb.net/test?retryWrites=true&w=majority
 
       Your access has to be set up and your IP whitelisted before you can remotely connect using above URL.
 
