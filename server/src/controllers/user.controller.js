@@ -1,4 +1,4 @@
-const { PROFILES_PATH } = require('../config');
+const { PROFILES_PATH, APP_PORT } = require('../config');
 
 const log4js = require('log4js');
 const formidable = require('formidable');
@@ -7,10 +7,21 @@ var fs = require('fs');
 
 const log = log4js.getLogger('controllers/user.controller.js');
 const { User } = require('../models/user.model');
+const { RegisteredUser } = require('../models/registered.user.model');
 
-module.exports.login = (req, res) => {
-    const user = req.user;
-    res.json({ name: `${user.firstName} ${user.lastName}`, isActive: user.isActive, isSuperuser: user.isSuperuser });
+module.exports.login = async (req, res, next) => {
+    try {
+        const registeredUser = await RegisteredUser.find({ email: req.user.email }, 'profileImg firstName lastName email');
+        if (registeredUser.length) {
+            log.warn(registeredUser);
+            return res.redirect(`http://localhost:${APP_PORT}/registration`);
+            // return res.status(200).send('Nincs user');
+        }
+        log.warn(registeredUser);
+        res.json({ name: `${registeredUser.firstName} ${registeredUser.lastName}`, isActive: true, isSuperuser: true });
+    } catch (err) {
+        next(err);
+    }
 };
 
 module.exports.logout = (req, res) => {
