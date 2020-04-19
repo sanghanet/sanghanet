@@ -25,4 +25,4 @@ const RegisteredUserSchema = mongoose.Schema({
     emContactVisible: Boolean
 });
 
-module.exports.RegisteredUser = mongoose.model('registered users', RegisteredUserSchema);
+module.exports.RegisteredUser = mongoose.model('RegisteredUser', RegisteredUserSchema);

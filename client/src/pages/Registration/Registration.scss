@@ -1,0 +1,72 @@
+@import '../../style/colors';
+
+.registration {
+	height: 100vh;
+
+	display: grid;
+	grid-template-rows: 1fr 6fr;
+	header {
+		width: 100%;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		/* gradient */
+		background: rgb(218,77,81);
+		background: $gradient-background;
+	}
+	h1 {
+		margin: 0;
+		color: #fff;
+		font-size: 26px;
+		font-weight: bold;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+}
+
+.registration-main {
+	background-color: $main-bg;
+	.buddha {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 50vh;
+		z-index: 1;
+		fill:#15040c;
+	}
+	// .registration-btn {
+	// 	position: absolute;
+	// 	top: 55%;
+	// 	left: 50%;
+	// 	transform: translate(-50%, -50%);
+	// 	background: #fff;
+	// 	border-radius: 5px;
+	// 	z-index: 2;
+	// 	width: 150px;
+	// 	display: flex;
+	// 	justify-content: center;
+
+	// 	button {
+	// 		background: none;
+	// 		color: inherit;
+	// 		border: none;
+	// 		padding: 0;
+	// 		font: inherit;
+	// 		cursor: pointer;
+	// 		outline: inherit;
+	// 		display: flex;
+	// 		align-items: center;
+	// 		padding: 0 15px 0 0;
+	// 		span {
+	// 			font-size: 20px;
+	// 		}
+	// 	}
+	// 	img {
+	// 		width: 40px;
+	// 		padding: 10px;
+	// 		box-sizing: content-box;
+	// 	}
+	// }
+}
