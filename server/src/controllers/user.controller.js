@@ -14,9 +14,9 @@ module.exports.login = async (req, res, next) => {
         const registeredUser = await RegisteredUser.find({ email: req.user.email }, 'firstName lastName');
         if (registeredUser.length === 0) { // registeredUser gives empty array if user not found in DB
             log.info(`User registration: ${req.user.email}`);
-            return res.json({ name: null, isActive: true, isSuperuser: true });
+            return res.json({ name: null, isSuperuser: true });
         }
-        res.json({ name: `${registeredUser.firstName} ${registeredUser.lastName}`, isActive: true, isSuperuser: true });
+        res.json({ name: `${registeredUser.firstName} ${registeredUser.lastName}`, isSuperuser: true });
     } catch (err) {
         next(err);
     }

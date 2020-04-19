@@ -10,14 +10,12 @@ class Loading extends React.Component {
                 if (res.ok) { return res.json(res.body); }
             })
             .then((user) => {
-                if (user.name && user.isActive) {
+                if (user.name) {
                     sessionStorage.setItem('user', user.name);
-                    sessionStorage.setItem('isActive', user.isActive);
                     sessionStorage.setItem('isSuperuser', user.isSuperuser);
                     window.location.href = '/personal';
                 } else if (!user.name) {
                     sessionStorage.setItem('user', 'Unknown');
-                    sessionStorage.setItem('isActive', user.isActive);
                     sessionStorage.setItem('isSuperuser', user.isSuperuser);
                     window.location.href = '/registration';
                 } else {
