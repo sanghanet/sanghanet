@@ -13,17 +13,18 @@ class Registration extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        const { firstName, lastName, spiritualName } = this.state;
         Client.fetch('/user/registration', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: `{
-                "firstName": "${this.state.firstName}",
-                "lastName": "${this.state.lastName}",
-                "spiritualName": "${this.state.spiritualName}"
+                "firstName": "${firstName}",
+                "lastName": "${lastName}",
+                "spiritualName": "${spiritualName}"
             }`
         })
-            .then((res) => {
-                if (res.ok) { return res.json(res.body); }
+            .then(() => {
+                window.location.href = '/personal';
             })
             .catch((err) => {
                 console.log(err.message);
@@ -41,7 +42,7 @@ class Registration extends Component {
     }
 
     handleClose = () => {
-        // this.setState({ currentValue: this.props.modalValue });
+        document.location.replace('/');
     }
 
     render () {

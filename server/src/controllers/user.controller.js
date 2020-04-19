@@ -13,7 +13,7 @@ module.exports.login = async (req, res, next) => {
     try {
         const registeredUser = await RegisteredUser.find({ email: req.user.email }, 'firstName lastName');
         if (registeredUser.length === 0) { // registeredUser gives empty array if user not found in DB
-            log.info(`User registration: ${req.user.email}`);
+            log.info(`Following user not register yet: ${req.user.email}`);
             return res.json({ name: 'Unknown', isSuperuser: true });
         }
         res.json({ name: `${registeredUser.firstName} ${registeredUser.lastName}`, isSuperuser: true });
@@ -23,8 +23,36 @@ module.exports.login = async (req, res, next) => {
 };
 
 module.exports.registration = async (req, res, next) => {
-    log.error('registration started!!!:', req.body);
-    res.status(200).send('OK');
+    log.info('Registration started.');
+    try {
+        const registeredUser = await RegisteredUser.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            profileImg: 'myPhoto.png',
+            email: req.user.email,
+            emailVisible: false,
+            gender: '',
+            genderVisible: false,
+            mobile: '',
+            mobileVisible: false,
+            birthday: '',
+            birthdayVisible: false,
+            spiritualName: req.body.spiritualName,
+            level: '',
+            levelVisible: false,
+            address: '',
+            addressVisible: false,
+            emName: '',
+            emMobile: '',
+            emEmail: '',
+            emContactVisible: false
+        });
+        log.info(`Registration successful!\n${registeredUser}`);
+        res.status(201).send('Created');
+    } catch (error) {
+        log.error(error);
+        res.status(500).send('Creation failed');
+    }
 };
 
 module.exports.logout = (req, res) => {
@@ -48,7 +76,7 @@ module.exports.listUsers = async (req, res, next) => {
 
 module.exports.personal = async (req, res, next) => {
     try {
-        const user = await User.find(
+        const registeredUser = await RegisteredUser.find(
             { email: req.user.email },
             // eslint-disable-next-line no-multi-str
             'firstName lastName\
@@ -61,7 +89,7 @@ module.exports.personal = async (req, res, next) => {
             address addressVisible\
             emName emMobile emEmail emContactVisible'
         );
-        res.json(user);
+        res.json(registeredUser);
     } catch (err) {
         next(err);
     }
