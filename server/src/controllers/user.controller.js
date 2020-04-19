@@ -22,6 +22,11 @@ module.exports.login = async (req, res, next) => {
     }
 };
 
+module.exports.registration = async (req, res, next) => {
+    log.error('registration started!!!:', req.body);
+    res.status(200).send('OK');
+};
+
 module.exports.logout = (req, res) => {
     req.session.destroy((err) => {
         if (err) {

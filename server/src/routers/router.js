@@ -17,6 +17,7 @@ router.use((req, res, next) => {
 });
 
 router.post('/login', userController.login);
+router.post('/registration', userController.registration);
 router.get('/logout', userController.logout);
 router.post('/listusers', userController.listUsers);
 router.get('/personal', userController.personal);
