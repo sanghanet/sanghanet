@@ -1,0 +1,11 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.overview{
+    background-color: $sideBar-bg;
+    color: $searchField-color;
+    margin: auto;
+    width: fit-content;
+    padding: 15px;
+    border-radius: 8px;
+}

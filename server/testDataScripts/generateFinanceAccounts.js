@@ -29,7 +29,11 @@ const getUserList = async () => {
 };
 
 const singleAccountCreationPromise = (element) => {
-    return Account.create({ userId: element._id, userName: `${element.firstName} ${element.lastName}` });
+    return Account.create({
+        userId: element._id,
+        userName: `${element.firstName} ${element.lastName}`,
+        currency: 'HUF'
+    });
 };
 
 const getCreationPromises = (userArray) => {
