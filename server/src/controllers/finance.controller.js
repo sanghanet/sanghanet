@@ -1,11 +1,11 @@
 const log4js = require('log4js');
 const log = log4js.getLogger('controllers/finance.controller.js');
 
-const { Account } = require('../models/financeAccount.model');
+const { FinanceAccount } = require('../models/FinanceAccount.model');
 
 module.exports.getFinanceOverview = async (req, res) => {
     try {
-        const result = await Account.find({ userId: req.user._id }, 'pockets currency');
+        const result = await FinanceAccount.find({ userId: req.user._id }, 'pockets currency');
         res.json(result);
     } catch (err) {
         log.error(err);
@@ -15,7 +15,7 @@ module.exports.getFinanceOverview = async (req, res) => {
 
 module.exports.getFinanceTransactions = async (req, res) => {
     try {
-        const result = await Account.find({ userId: req.user._id }, 'transactionBuffer');
+        const result = await FinanceAccount.find({ userId: req.user._id }, 'transactionBuffer');
         res.json(result);
     } catch (err) {
         log.error(err);

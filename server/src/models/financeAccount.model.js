@@ -1,7 +1,7 @@
 const { mongoose } = require('../controllers/mongoDB.controller');
 const { FinanceTransactionSchema } = require('./financeTransaction.model');
 
-const FinanceSchema = mongoose.Schema({
+const FinanceAccountSchema = mongoose.Schema({
     currency: String,
     userId: mongoose.ObjectId,
     userName: String,
@@ -37,4 +37,4 @@ const FinanceSchema = mongoose.Schema({
     }
 });
 
-module.exports.Account = mongoose.model('Finance Account', FinanceSchema);
+module.exports.FinanceAccount = mongoose.model('FinanceAccount', FinanceAccountSchema);

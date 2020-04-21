@@ -5,7 +5,7 @@ const { mongoose } = require('../src/controllers/mongoDB.controller');
 const { User } = require('../src/models/user.model');
 const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 
-const { Account } = require('../src/models/financeAccount.model');
+const { FinanceAccount } = require('../src/models/FinanceAccount.model');
 const { FinanceTransactionSchema } = require('../src/models/financeTransaction.model');
 const FinanceTransaction = mongoose.model('Finance Transaction', FinanceTransactionSchema);
 
@@ -23,7 +23,7 @@ const generateRandomTransactions = (pocket) => {
 };
 
 const wipeAccounts = async () => {
-    await Account.deleteMany({})
+    await FinanceAccount.deleteMany({})
         .then(() => { log.info('Finance accounts wiped successfully!'); })
         .catch((error) => {
             log.error(error);
@@ -44,7 +44,7 @@ const getUserList = async () => {
 };
 
 const singleAccountCreationPromise = (element) => {
-    return Account.create({
+    return FinanceAccount.create({
         userId: element._id,
         userName: `${element.firstName} ${element.lastName}`,
         currency: 'HUF',
