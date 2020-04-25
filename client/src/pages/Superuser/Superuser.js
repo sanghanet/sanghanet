@@ -16,23 +16,28 @@ import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
 import AddUserPopup from './Popup/AddUserPopup';
 import EditUserPopup from './Popup/EditUserPopup';
+import Checkbox from '../../components/Form/Checkbox/Checkbox';
 import { Table, Form, Button } from 'react-bootstrap';
 
 import Client from '../../components/Client';
 
 class Superuser extends Component {
-    state = {
-        userData: null,
-        textFilterValue: '',
-        roleFilter: {
-            showSuperuser: true,
-            showFinanceAdmin: true,
-            showEventAdmin: true,
-            showYogaAdmin: true
-        },
-        showAddUserPopup: false,
-        showEditUserPopup: false,
-        editedUser: null
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            userData: null,
+            textFilterValue: '',
+            roleFilter: {
+                showSuperuser: true,
+                showFinanceAdmin: false,
+                showEventAdmin: true,
+                showYogaAdmin: true
+            },
+            showAddUserPopup: false,
+            showEditUserPopup: false,
+            editedUser: null
+        };
     }
 
     async componentDidMount () {
@@ -111,19 +116,7 @@ class Superuser extends Component {
     }
 
     handleRoleChange = (event) => {
-        // switch (event.target.options.selectedIndex) {
-        //     case 0:
-        //         this.setState({ roleFilter: 'all' });
-        //         break;
-        //     case 1:
-        //         this.setState({ roleFilter: 'general' });
-        //         break;
-        //     case 2:
-        //         this.setState({ roleFilter: 'super' });
-        //         break;
-        //     default:
-        //         break;
-        // }
+        event.preventDefault();
         console.dir(event);
     }
 
@@ -157,7 +150,16 @@ class Superuser extends Component {
     }
 
     render () {
-        const { textFilterValue, showAddUserPopup, showEditUserPopup, editedUser, roleFilter } = this.state;
+        const {
+            textFilterValue,
+            showAddUserPopup,
+            showEditUserPopup,
+            editedUser//,
+            // showSuperuser,
+            // showFinanceAdmin,
+            // showEventAdmin,
+            // showYogaAdmin
+        } = this.state;
 
         return (
             <div>
@@ -192,12 +194,12 @@ class Superuser extends Component {
                             />
                             <Form.Text>Filter by name or email address</Form.Text>
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group controlId="roleFilter">
                             <Form.Label>Role</Form.Label>
-                            <Form.Check checked={roleFilter.showSuperuser} onChange={this.handleRoleChange} id='superuser' type='checkbox' label='superuser' />
-                            <Form.Check checked={roleFilter.showFinanceAdmin} onChange={this.handleRoleChange} id='finance' type='checkbox' label='finance admin' />
-                            <Form.Check checked={roleFilter.showEventAdmin} onChange={this.handleRoleChange} id='event' type='checkbox' label='event admin' />
-                            <Form.Check checked={roleFilter.showYogaAdmin} onChange={this.handleRoleChange} id='yoga' type='checkbox' label='yoga admin' />
+                            <Checkbox value="superuser" checked={true} handleChange={this.handleRoleChange} />
+                            <Checkbox value="finance admin" checked={false} handleChange={this.handleRoleChange} />
+                            <Checkbox value="event admin" checked={true} handleChange={this.handleRoleChange} />
+                            <Checkbox value="yoga admin" checked={true} handleChange={this.handleRoleChange} />
                         </Form.Group>
                         <Button variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
                     </Form>
