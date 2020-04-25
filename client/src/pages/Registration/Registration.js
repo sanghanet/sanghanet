@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { ReactComponent as Buddha } from '../media/sangha_logo.svg';
 import { Button, Form } from 'react-bootstrap';
 import './Registration.scss';
 import Client from '../../components/Client';
+import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
+import FormContainer from '../../components/Form/FormContainer/FormContainer';
+// import '../../components/Form/InputDisplay/InputDisplay.scss';
 
 class Registration extends Component {
     state = {
+        profileImg: '',
         firstName: '',
         lastName: '',
         spiritualName: ''
@@ -13,11 +16,12 @@ class Registration extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { firstName, lastName, spiritualName } = this.state;
+        const { profileImg, firstName, lastName, spiritualName } = this.state;
         Client.fetch('/user/registration', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: `{
+                "profileImg": "${profileImg}"
                 "firstName": "${firstName}",
                 "lastName": "${lastName}",
                 "spiritualName": "${spiritualName}"
@@ -45,50 +49,72 @@ class Registration extends Component {
         document.location.replace('/');
     }
 
+    updateProfileImg = (newImg) => {
+        this.setState({ profileImg: newImg });
+    };
+
+    // uploadError = (errMsg) => {
+    //     this.setState({ showAlert: true, alertMessage: errMsg, alertType: 'Error' });
+    // };
+
     render () {
-        const { firstName, lastName, spiritualName } = this.state;
+        const { profileImg, firstName, lastName, spiritualName } = this.state;
 
         return (
             <div className='registration'>
                 <header>
                     <h1>Registration to SanghaNet</h1>
                 </header>
-                {/* main is a div here to discard general main style */}
-                <div className="registration-main">
-                    <Buddha className="buddha" />
+                <FormContainer formTitle="">
                     <Form onSubmit={this.handleSubmit} autoComplete='off'>
-                        <Form.Label htmlFor="firstName">First Name</Form.Label>
+                        <InputAvatar
+                            profileImg={profileImg}
+                            updateProfileImg={this.updateProfileImg}
+                            // uploadError={this.uploadError}
+                        />
+                        <Form.Label htmlFor="firstName" className="display-label">
+                            <p className="display-title">First Name</p>
+                        </Form.Label>
                         <Form.Control
+                            className="display-input"
                             type="text"
                             id="firstName"
                             value={firstName}
                             onChange={this.handleChange}
                             autoFocus
                         ></Form.Control>
-                        <Form.Label htmlFor="lastName">Last Name</Form.Label>
+                        <Form.Label htmlFor="lastName" className="display-label">
+                            <p className="display-title">Last Name</p>
+                        </Form.Label>
                         <Form.Control
+                            className="display-input"
                             type="text"
                             id="lastName"
                             value={lastName}
                             onChange={this.handleChange}
                             autoFocus
                         ></Form.Control>
-                        <Form.Label htmlFor="spiritualName">Spiritual Name</Form.Label>
+                        <Form.Label htmlFor="spiritualName" className="display-label">
+                            <p className="display-title">Spiritual Name (in case you have it)</p>
+                        </Form.Label>
                         <Form.Control
+                            className="display-input"
                             type="text"
                             id="spiritualName"
                             value={spiritualName}
                             onChange={this.handleChange}
                             autoFocus
                         ></Form.Control>
-                        <Button variant="secondary" onClick={this.handleClose}>
-                            Cancel
-                        </Button>
-                        <Button onClick={this.handleSubmit}>
-                            Registration
-                        </Button>
+                        <div className="regForm-btns">
+                            <Button variant="outline-secondary" onClick={this.handleClose}>
+                                Leave
+                            </Button>
+                            <Button onClick={this.handleSubmit} variant="outline-success" className="reg-btn">
+                                Registration
+                            </Button>
+                        </div>
                     </Form>
-                </div>
+                </FormContainer>
             </div>
         );
     }

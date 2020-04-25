@@ -1,16 +1,16 @@
 @import '../../style/colors';
+@import '../../style/mixins';
 
 .registration {
-	height: 100vh;
-
-	display: grid;
-	grid-template-rows: 1fr 6fr;
+	min-height: calc(104px + 100vh);
+	background-color: $main-bg;
+	padding-bottom: 50px;
+	color: $white;
 	header {
 		width: 100%;
+		height: $header-height-start;
 
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		@include centerElement;
 
 		/* gradient */
 		background: rgb(218,77,81);
@@ -23,19 +23,70 @@
 		font-weight: bold;
 		font-family: Arial, Helvetica, sans-serif;
 	}
+	div.container {
+		max-width: 800px;
+	}
+	form {
+		width: 90%;
+		margin: auto;
+		@include maxQ(415px) {
+			width: 100%;
+		}
+	}
+	.display-label {
+		display: block;
+		margin: 16px 0 0;
+        background: $label-bg;
+        border: 1px solid #969494;
+        border-top-right-radius: 2px;
+        border-top-left-radius: 2px;
+	}
+	.display-title {
+        margin: 0;
+		padding: 7px;
+    }
+    .display-input {
+        background: $input-bg;
+		border: 1px solid #969494;
+		border-radius: 0;
+        border-bottom-right-radius: 2px;
+        border-bottom-left-radius: 2px;
+	}
+	.regForm-btns {
+		margin: 40px 0;
+		display: flex;
+		justify-content: center;
+	}
+	.btn {
+		height: 54px;
+		width: 154px;
+		letter-spacing: 2px;
+		font-size: 20px;
+	}
+	.reg-btn {
+		margin-left: 58px;
+	}
+	// .reg-btn {
+	// 	background-color: $primary;
+	// 	border-color: $primary;
+	// 	margin-left: 58px;
+	// 	&:hover {
+	// 		background-color: lighten($primary, 4);
+	// 	}
+	// }
 }
 
-.registration-main {
-	background-color: $main-bg;
-	.buddha {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		height: 50vh;
-		z-index: 1;
-		fill:#15040c;
-	}
+// .registration-main {
+// 	background-color: $main-bg;
+// 	.buddha {
+// 		position: absolute;
+// 		top: 50%;
+// 		left: 50%;
+// 		transform: translate(-50%, -50%);
+// 		height: 50vh;
+// 		z-index: 1;
+// 		fill:#15040c;
+// 	}
 	// .registration-btn {
 	// 	position: absolute;
 	// 	top: 55%;
@@ -69,4 +120,4 @@
 	// 		box-sizing: content-box;
 	// 	}
 	// }
-}
+// }
