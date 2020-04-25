@@ -89,6 +89,7 @@ class Registration extends Component {
                             type="text"
                             id="firstName"
                             value={firstName}
+                            placeholder="Start with capital letter, enter minimum 2 characters."
                             onChange={this.handleChange}
                             {...nameValidationRule}
                         ></Form.Control>
@@ -101,6 +102,7 @@ class Registration extends Component {
                             type="text"
                             id="lastName"
                             value={lastName}
+                            placeholder="Start with capital letter, enter minimum 2 characters."
                             onChange={this.handleChange}
                             {...nameValidationRule}
                         ></Form.Control>
@@ -113,6 +115,7 @@ class Registration extends Component {
                             type="text"
                             id="spiritualName"
                             value={spiritualName}
+                            placeholder="Start with capital letter, enter minimum 2 characters."
                             onChange={this.handleChange}
                             {...nameValidationRule}
                         ></Form.Control>
