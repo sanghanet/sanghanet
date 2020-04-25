@@ -10,6 +10,7 @@ class InputPopup extends Component {
         currentValue: this.props.modalValue,
         errorMsg: ''
     }
+    // TODO: refactor validation with ValidationRule.js; Rename ValidationRule.js file
 
     validation = (input) => {
         if (input.validity.valid) {

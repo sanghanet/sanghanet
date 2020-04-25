@@ -24,35 +24,91 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.registration = async (req, res, next) => {
     log.info('Registration started.');
-    try {
-        const registeredUser = await RegisteredUser.create({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            profileImg: 'myPhoto.png',
-            email: req.user.email,
-            emailVisible: false,
-            gender: '',
-            genderVisible: false,
-            mobile: '',
-            mobileVisible: false,
-            birthday: '',
-            birthdayVisible: false,
-            spiritualName: req.body.spiritualName,
-            level: '',
-            levelVisible: false,
-            address: '',
-            addressVisible: false,
-            emName: '',
-            emMobile: '',
-            emEmail: '',
-            emContactVisible: false
+    const form = formidable.IncomingForm({ multiples: false });
+    let fileName = '';
+    form.parse(req)
+        .on('field', (name, field) => {
+            log.warn('Field:', name, field);
+        })
+        .on('fileBegin', (name, file) => {
+            let extension = '';
+            if (file.name.endsWith('.png')) {
+                extension = '.png';
+            } else if (file.name.endsWith('.jpg')) {
+                extension = '.jpg';
+            } else if (file.name.endsWith('.jpeg')) {
+                extension = '.jpeg';
+            } else if (file.name.endsWith('.svg')) {
+                extension = '.svg';
+            } else if (file.name.endsWith('.webp')) {
+                extension = '.webp';
+            }
+            fileName = uuidv4().slice(-12) + extension;
+            file.path = PROFILES_PATH + fileName;
+        })
+        .on('file', async (name, file) => {
+            log.info(`File: ${file.name}, ${file.size} byte, ${file.type}`);
+            try {
+                const user = await User.findOneAndUpdate(
+                    { email: req.user.email },
+                    { profileImg: fileName },
+                    { useFindAndModify: false }
+                );
+                res.json({ profileImg: fileName });
+                log.info(`User new profile image is: ${fileName}`);
+                const removeFile = PROFILES_PATH + user.profileImg; // former profile img
+                if (user.profileImg) {
+                    fs.unlink(removeFile, (err) => {
+                        if (err) {
+                            log.warn(`Failed to delete profile image: ${removeFile}`);
+                            return;
+                        }
+                        log.info(`Removed profile image: ${removeFile}`);
+                    });
+                }
+            } catch (err) {
+                next(err);
+            }
+        })
+        .on('aborted', () => {
+            log.info('Request aborted by the user');
+            res.status(500).send({ error: 'Request Aborted.' });
+        })
+        .on('error', (err) => {
+            next(err);
+        })
+        .on('end', () => {
+            log.info('Upload successful.');
         });
-        log.info(`Registration successful!\n${registeredUser}`);
-        res.status(201).send('Created');
-    } catch (error) {
-        log.error(error);
-        res.status(500).send('Creation failed');
-    }
+    // try {
+    //     const registeredUser = await RegisteredUser.create({
+    //         firstName: req.body.firstName,
+    //         lastName: req.body.lastName,
+    //         profileImg: 'myPhoto.png',
+    //         email: req.user.email,
+    //         emailVisible: false,
+    //         gender: '',
+    //         genderVisible: false,
+    //         mobile: '',
+    //         mobileVisible: false,
+    //         birthday: '',
+    //         birthdayVisible: false,
+    //         spiritualName: req.body.spiritualName,
+    //         level: '',
+    //         levelVisible: false,
+    //         address: '',
+    //         addressVisible: false,
+    //         emName: '',
+    //         emMobile: '',
+    //         emEmail: '',
+    //         emContactVisible: false
+    //     });
+    //     log.info(`Registration successful!\n${registeredUser}`);
+    //     res.status(201).send('Created');
+    // } catch (error) {
+    //     log.error(error);
+    //     res.status(500).send('Creation failed');
+    // }
 };
 
 module.exports.logout = (req, res) => {

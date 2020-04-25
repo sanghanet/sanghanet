@@ -10,7 +10,7 @@ import { nameValidationRule, validationError } from '../../components/Validation
 
 class Registration extends Component {
     state = {
-        profileImg: '',
+        profileImgURL: '',
         firstName: '',
         lastName: '',
         spiritualName: 'None',
@@ -22,17 +22,18 @@ class Registration extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { profileImg, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg } = this.state;
-        if (!(firstNameValidationMsg || lastNameValidationMsg || spiritualNameValidationMsg)) {
+
+        const { profileImgURL, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg } = this.state;
+        if (!(firstNameValidationMsg || lastNameValidationMsg || spiritualNameValidationMsg || profileImgURL === '')) {
+            const formData = new FormData();
+            formData.append('profileImgBlob', null);
+            formData.append('firstName', firstName);
+            formData.append('lastName', lastName);
+            formData.append('spiritualName', spiritualName);
+            console.dir(formData);
             Client.fetch('/user/registration', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: `{
-                    "profileImg": "${profileImg}",
-                    "firstName": "${firstName}",
-                    "lastName": "${lastName}",
-                    "spiritualName": "${spiritualName}"
-                }`
+                body: formData
             })
                 .then(() => {
                     window.location.href = '/personal';
@@ -64,22 +65,28 @@ class Registration extends Component {
     }
 
     updateProfileImg = (newImg) => {
-        this.setState({ profileImg: newImg });
+        // this.setState({ profileImgURL: newImg });
     };
+
+    handleLoadImg = (event) => {
+        // console.dir(event.target.files);
+        // TODO: check size and Cancel
+        this.setState({ profileImgURL: URL.createObjectURL(event.target.files[0]) });
+    }
 
     // uploadError = (errMsg) => {
     //     this.setState({ showAlert: true, alertMessage: errMsg, alertType: 'Error' });
     // };
 
     render () {
-        const { profileImg, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg, showAlert } = this.state;
+        const { profileImgURL, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg, showAlert } = this.state;
 
         return (
             <div className='registration'>
                 { showAlert
                     ? <Alert
                         alertClose={this.closeAlert}
-                        alertMsg='Fill in all fields with valid data!'
+                        alertMsg='Insert valid data and/or add your photo!'
                         alertType='Error'
                     />
                     : null
@@ -90,9 +97,10 @@ class Registration extends Component {
                 <FormContainer formTitle="">
                     <Form onSubmit={this.handleSubmit} autoComplete='off'>
                         <InputAvatar
-                            profileImg={profileImg}
-                            updateProfileImg={this.updateProfileImg}
+                            profileImgURL={profileImgURL}
+                            updateProfileImgURL={this.updateProfileImg}
                             // uploadError={this.uploadError}
+                            loadImg={this.handleLoadImg}
                         />
                         <Form.Label htmlFor="firstName" className="display-label">
                             <p className="display-title">First Name</p>
@@ -134,6 +142,8 @@ class Registration extends Component {
                         ></Form.Control>
                         <span className="error" aria-live="polite">{spiritualNameValidationMsg}</span>
                         <div className="regForm-btns">
+                            {// FIXME: Buttons on mobile view do not display nice
+                            }
                             <Button variant="outline-secondary" onClick={this.handleClose}>
                                 Leave
                             </Button>

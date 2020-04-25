@@ -7,7 +7,7 @@ import './InputAvatar.scss';
 import { Row, Col } from 'react-bootstrap';
 // user can't delete the photo - we might want to leave it like that; photo is mandatory
 const InputAvatar = (props) => {
-    const { profileImg, uploadError, updateProfileImg } = props;
+    const { profileImgURL, uploadError, updateProfileImgURL, loadImg } = props;
 
     const loadFile = (event) => {
         const imageToUpload = event.target.files[0];
@@ -18,7 +18,7 @@ const InputAvatar = (props) => {
 
             Client.fetch('/user/uploadprofileimg', { method: 'POST', body: formData }, true) // skipDefault Headers
                 .then((data) => {
-                    updateProfileImg(data.profileImg);
+                    updateProfileImgURL(data.profileImgURL);
                 }).catch((err) => {
                     uploadError(err.message);
                 });
@@ -27,17 +27,23 @@ const InputAvatar = (props) => {
         }
     };
 
-    const uploadText = (profileImg) ? 'hide-text' : 'upload-text';
-
+    const uploadText = (profileImgURL) ? 'hide-text' : 'upload-text';
+    // FIXME: Avatar has an upper border.
     return (
         <Row className="d-flex justify-content-center avatar-container">
             <Col className="mx-auto my-4 avatar-col">
                 <div className="display-input">
-                    <input type="file" accept=".png, .jpg, .jpeg, .svg, .webp" name="image" id="file" onChange={loadFile}></input>
+                    <input
+                        type="file"
+                        accept=".png, .jpg, .jpeg, .svg, .webp"
+                        name="image"
+                        id="file"
+                        onChange={loadImg || loadFile}
+                    ></input>
                     <label htmlFor="file" id="file-upload">
                         <p id="upload-text" className={uploadText}>Click here to<br />upload your photo</p>
-                        { profileImg
-                            ? <img src={`images/${profileImg}`} id="avatar" className="personal-photo" alt="" />
+                        { profileImgURL
+                            ? <img src={profileImgURL} id="avatar" className="personal-photo" alt="" />
                             : null
                         }
                     </label>
@@ -48,9 +54,10 @@ const InputAvatar = (props) => {
 };
 
 InputAvatar.propTypes = {
-    profileImg: PropTypes.string.isRequired,
-    updateProfileImg: PropTypes.func.isRequired,
-    uploadError: PropTypes.func.isRequired
+    profileImgURL: PropTypes.string.isRequired,
+    updateProfileImgURL: PropTypes.func.isRequired,
+    uploadError: PropTypes.func.isRequired,
+    loadImg: PropTypes.func
 };
 
 export default InputAvatar;
