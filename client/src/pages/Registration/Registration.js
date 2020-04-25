@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import './Registration.scss';
 import Client from '../../components/Client';
+import Alert from '../../components/Alert/Alert';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import { nameValidationRule, validationError } from '../../components/ValidationRule';
@@ -13,37 +14,41 @@ class Registration extends Component {
         firstName: '',
         lastName: '',
         spiritualName: '',
-        firstNameValidationMsg: '',
-        lastNameValidationMsg: '',
-        spiritualNameValidationMsg: ''
+        firstNameValidationMsg: null,
+        lastNameValidationMsg: null,
+        spiritualNameValidationMsg: null,
+        showAlert: false
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { profileImg, firstName, lastName, spiritualName } = this.state;
-        Client.fetch('/user/registration', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: `{
-                "profileImg": "${profileImg}"
-                "firstName": "${firstName}",
-                "lastName": "${lastName}",
-                "spiritualName": "${spiritualName}"
-            }`
-        })
-            .then(() => {
-                window.location.href = '/personal';
+        const { profileImg, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg } = this.state;
+        if (!(firstNameValidationMsg || lastNameValidationMsg || spiritualNameValidationMsg)) {
+            Client.fetch('/user/registration', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: `{
+                    "profileImg": "${profileImg}"
+                    "firstName": "${firstName}",
+                    "lastName": "${lastName}",
+                    "spiritualName": "${spiritualName}"
+                }`
             })
-            .catch((err) => {
-                console.log(err.message);
-                window.location.href = '/';
-            });
-
-        // if (this.validation(input)) {
-        //     this.props.modalValueSave(this.state.currentValue, this.props.modalId);
-        //     this.props.modalClose();
-        // };
+                .then(() => {
+                    window.location.href = '/personal';
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                    window.location.href = '/';
+                });
+        } else {
+            this.setState({ showAlert: true });
+        }
     }
+
+    closeAlert = () => {
+        this.setState({ showAlert: false });
+    };
 
     handleChange = (event) => {
         const input = event.target;
@@ -67,10 +72,18 @@ class Registration extends Component {
     // };
 
     render () {
-        const { profileImg, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg } = this.state;
+        const { profileImg, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg, showAlert } = this.state;
 
         return (
             <div className='registration'>
+                { showAlert
+                    ? <Alert
+                        alertClose={this.closeAlert}
+                        alertMsg='Fill in all fields with valid data!'
+                        alertType='Error'
+                    />
+                    : null
+                }
                 <header>
                     <h1>Registration to SanghaNet</h1>
                 </header>
