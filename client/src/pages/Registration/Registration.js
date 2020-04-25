@@ -13,7 +13,7 @@ class Registration extends Component {
         profileImg: '',
         firstName: '',
         lastName: '',
-        spiritualName: '',
+        spiritualName: 'None',
         firstNameValidationMsg: null,
         lastNameValidationMsg: null,
         spiritualNameValidationMsg: null,
@@ -28,7 +28,7 @@ class Registration extends Component {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: `{
-                    "profileImg": "${profileImg}"
+                    "profileImg": "${profileImg}",
                     "firstName": "${firstName}",
                     "lastName": "${lastName}",
                     "spiritualName": "${spiritualName}"
@@ -121,7 +121,7 @@ class Registration extends Component {
                         ></Form.Control>
                         <span className="error" aria-live="polite">{lastNameValidationMsg}</span>
                         <Form.Label htmlFor="spiritualName" className="display-label">
-                            <p className="display-title">Spiritual Name (in case you have it)</p>
+                            <p className="display-title">Spiritual Name in case you have it, otherwise &quot;None&quot;</p>
                         </Form.Label>
                         <Form.Control
                             className="display-input"
