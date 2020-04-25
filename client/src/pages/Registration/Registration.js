@@ -4,6 +4,7 @@ import './Registration.scss';
 import Client from '../../components/Client';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
+import { nameValidationRule, validationError } from '../../components/ValidationRule';
 // import '../../components/Form/InputDisplay/InputDisplay.scss';
 
 class Registration extends Component {
@@ -11,7 +12,10 @@ class Registration extends Component {
         profileImg: '',
         firstName: '',
         lastName: '',
-        spiritualName: ''
+        spiritualName: '',
+        firstNameValidationMsg: '',
+        lastNameValidationMsg: '',
+        spiritualNameValidationMsg: ''
     };
 
     handleSubmit = (event) => {
@@ -42,7 +46,12 @@ class Registration extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({ [event.target.id]: event.target.value });
+        const input = event.target;
+        this.setState(
+            {
+                [input.id]: input.value,
+                [input.id + 'ValidationMsg']: validationError(input)
+            });
     }
 
     handleClose = () => {
@@ -58,7 +67,7 @@ class Registration extends Component {
     // };
 
     render () {
-        const { profileImg, firstName, lastName, spiritualName } = this.state;
+        const { profileImg, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg } = this.state;
 
         return (
             <div className='registration'>
@@ -81,8 +90,9 @@ class Registration extends Component {
                             id="firstName"
                             value={firstName}
                             onChange={this.handleChange}
-                            autoFocus
+                            {...nameValidationRule}
                         ></Form.Control>
+                        <span className="error" aria-live="polite">{firstNameValidationMsg}</span>
                         <Form.Label htmlFor="lastName" className="display-label">
                             <p className="display-title">Last Name</p>
                         </Form.Label>
@@ -92,8 +102,9 @@ class Registration extends Component {
                             id="lastName"
                             value={lastName}
                             onChange={this.handleChange}
-                            autoFocus
+                            {...nameValidationRule}
                         ></Form.Control>
+                        <span className="error" aria-live="polite">{lastNameValidationMsg}</span>
                         <Form.Label htmlFor="spiritualName" className="display-label">
                             <p className="display-title">Spiritual Name (in case you have it)</p>
                         </Form.Label>
@@ -103,8 +114,9 @@ class Registration extends Component {
                             id="spiritualName"
                             value={spiritualName}
                             onChange={this.handleChange}
-                            autoFocus
+                            {...nameValidationRule}
                         ></Form.Control>
+                        <span className="error" aria-live="polite">{spiritualNameValidationMsg}</span>
                         <div className="regForm-btns">
                             <Button variant="outline-secondary" onClick={this.handleClose}>
                                 Leave
