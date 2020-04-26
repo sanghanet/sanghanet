@@ -9,7 +9,7 @@ import { nameValidationRule, validationError } from '../../components/Validation
 
 class Registration extends Component {
     state = {
-        profileImgURL: null,
+        profileImgURL: '',
         profileImgBlob: null,
         firstName: '',
         lastName: '',

@@ -1,4 +1,4 @@
-const { PROFILES_PATH } = require('../config');
+const { SERVER_ROOT } = require('../config');
 
 const log4js = require('log4js');
 const formidable = require('formidable');
@@ -25,10 +25,11 @@ module.exports.login = async (req, res, next) => {
 module.exports.registration = async (req, res, next) => {
     log.info('Registration started.');
     const form = formidable.IncomingForm({ multiples: true });
-    let fileName = '';
+    const dataToStore = {};
     form.parse(req)
         .on('field', (name, field) => {
             log.warn('Field:', name, field);
+            dataToStore[name] = field;
         })
         .on('fileBegin', (name, file) => {
             let extension = '';
@@ -43,32 +44,13 @@ module.exports.registration = async (req, res, next) => {
             } else if (file.name.endsWith('.webp')) {
                 extension = '.webp';
             }
-            fileName = uuidv4().slice(-12) + extension;
-            file.path = PROFILES_PATH + fileName;
+            const fileName = 'images/' + uuidv4().slice(-12) + extension;
+            file.path = SERVER_ROOT + fileName;
+            dataToStore.profileImg = fileName;
         })
         .on('file', async (name, file) => {
             log.info(`File: ${file.name}, ${file.size} byte, ${file.type}`);
-            try {
-                const user = await User.findOneAndUpdate(
-                    { email: req.user.email },
-                    { profileImg: fileName },
-                    { useFindAndModify: false }
-                );
-                res.json({ profileImg: fileName });
-                log.info(`User new profile image is: ${fileName}`);
-                const removeFile = PROFILES_PATH + user.profileImg; // former profile img
-                if (user.profileImg) {
-                    fs.unlink(removeFile, (err) => {
-                        if (err) {
-                            log.warn(`Failed to delete profile image: ${removeFile}`);
-                            return;
-                        }
-                        log.info(`Removed profile image: ${removeFile}`);
-                    });
-                }
-            } catch (err) {
-                next(err);
-            }
+            log.info(`User new profile image is: ${dataToStore.profileImg}`);
         })
         .on('aborted', () => {
             log.info('Request aborted by the user');
@@ -77,38 +59,39 @@ module.exports.registration = async (req, res, next) => {
         .on('error', (err) => {
             next(err);
         })
-        .on('end', () => {
+        .on('end', async () => {
             log.info('Upload successful.');
+            try {
+                // TODO: try out default Schema, and create only reg. fields here.
+                await RegisteredUser.create({
+                    firstName: dataToStore.firstName,
+                    lastName: dataToStore.lastName,
+                    profileImg: dataToStore.profileImg,
+                    email: req.user.email,
+                    emailVisible: false,
+                    gender: '',
+                    genderVisible: false,
+                    mobile: '',
+                    mobileVisible: false,
+                    birthday: '',
+                    birthdayVisible: false,
+                    spiritualName: dataToStore.spiritualName,
+                    level: '',
+                    levelVisible: false,
+                    address: '',
+                    addressVisible: false,
+                    emName: '',
+                    emMobile: '',
+                    emEmail: '',
+                    emContactVisible: false
+                });
+                log.info('Registration successful!');
+                res.status(201).send('Created');
+            } catch (error) {
+                log.error(error);
+                res.status(500).send('Creation failed');
+            }
         });
-    // try {
-    //     const registeredUser = await RegisteredUser.create({
-    //         firstName: req.body.firstName,
-    //         lastName: req.body.lastName,
-    //         profileImg: 'myPhoto.png',
-    //         email: req.user.email,
-    //         emailVisible: false,
-    //         gender: '',
-    //         genderVisible: false,
-    //         mobile: '',
-    //         mobileVisible: false,
-    //         birthday: '',
-    //         birthdayVisible: false,
-    //         spiritualName: req.body.spiritualName,
-    //         level: '',
-    //         levelVisible: false,
-    //         address: '',
-    //         addressVisible: false,
-    //         emName: '',
-    //         emMobile: '',
-    //         emEmail: '',
-    //         emContactVisible: false
-    //     });
-    //     log.info(`Registration successful!\n${registeredUser}`);
-    //     res.status(201).send('Created');
-    // } catch (error) {
-    //     log.error(error);
-    //     res.status(500).send('Creation failed');
-    // }
 };
 
 module.exports.logout = (req, res) => {
@@ -185,20 +168,20 @@ module.exports.uploadProfileImg = async (req, res, next) => {
             } else if (file.name.endsWith('.webp')) {
                 extension = '.webp';
             }
-            fileName = uuidv4().slice(-12) + extension;
-            file.path = PROFILES_PATH + fileName;
+            fileName = 'images/' + uuidv4().slice(-12) + extension;
+            file.path = SERVER_ROOT + fileName;
         })
         .on('file', async (name, file) => {
             log.info(`File: ${file.name}, ${file.size} byte, ${file.type}`);
             try {
-                const user = await User.findOneAndUpdate(
+                const user = await RegisteredUser.findOneAndUpdate(
                     { email: req.user.email },
                     { profileImg: fileName },
                     { useFindAndModify: false }
                 );
                 res.json({ profileImg: fileName });
                 log.info(`User new profile image is: ${fileName}`);
-                const removeFile = PROFILES_PATH + user.profileImg; // former profile img
+                const removeFile = SERVER_ROOT + user.profileImg; // former profile img
                 if (user.profileImg) {
                     fs.unlink(removeFile, (err) => {
                         if (err) {
