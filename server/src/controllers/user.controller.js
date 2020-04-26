@@ -24,7 +24,7 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.registration = async (req, res, next) => {
     log.info('Registration started.');
-    const form = formidable.IncomingForm({ multiples: false });
+    const form = formidable.IncomingForm({ multiples: true });
     let fileName = '';
     form.parse(req)
         .on('field', (name, field) => {

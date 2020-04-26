@@ -7,7 +7,7 @@ import './InputAvatar.scss';
 import { Row, Col } from 'react-bootstrap';
 // user can't delete the photo - we might want to leave it like that; photo is mandatory
 const InputAvatar = (props) => {
-    const { profileImgURL, uploadError, updateProfileImgURL, loadImg } = props;
+    const { profileImgURL, uploadError, updateProfileImg } = props;
 
     const loadFile = (event) => {
         const imageToUpload = event.target.files[0];
@@ -18,7 +18,7 @@ const InputAvatar = (props) => {
 
             Client.fetch('/user/uploadprofileimg', { method: 'POST', body: formData }, true) // skipDefault Headers
                 .then((data) => {
-                    updateProfileImgURL(data.profileImgURL);
+                    updateProfileImg(data.profileImgURL);
                 }).catch((err) => {
                     uploadError(err.message);
                 });
@@ -38,7 +38,7 @@ const InputAvatar = (props) => {
                         accept=".png, .jpg, .jpeg, .svg, .webp"
                         name="image"
                         id="file"
-                        onChange={loadImg || loadFile}
+                        onChange={updateProfileImg || loadFile}
                     ></input>
                     <label htmlFor="file" id="file-upload">
                         <p id="upload-text" className={uploadText}>Click here to<br />upload your photo</p>
@@ -54,10 +54,9 @@ const InputAvatar = (props) => {
 };
 
 InputAvatar.propTypes = {
-    profileImgURL: PropTypes.string.isRequired,
-    updateProfileImgURL: PropTypes.func.isRequired,
-    uploadError: PropTypes.func.isRequired,
-    loadImg: PropTypes.func
+    profileImgURL: PropTypes.string,
+    updateProfileImg: PropTypes.func,
+    uploadError: PropTypes.func
 };
 
 export default InputAvatar;

@@ -6,49 +6,49 @@ import Alert from '../../components/Alert/Alert';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import { nameValidationRule, validationError } from '../../components/ValidationRule';
-// import '../../components/Form/InputDisplay/InputDisplay.scss';
 
 class Registration extends Component {
     state = {
-        profileImgURL: '',
+        profileImgURL: null,
+        profileImgBlob: null,
         firstName: '',
         lastName: '',
         spiritualName: 'None',
         firstNameValidationMsg: null,
         lastNameValidationMsg: null,
         spiritualNameValidationMsg: null,
-        showAlert: false
+        showAlert: false,
+        alertMessage: '',
+        alertType: ''
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
 
-        const { profileImgURL, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg } = this.state;
-        if (!(firstNameValidationMsg || lastNameValidationMsg || spiritualNameValidationMsg || profileImgURL === '')) {
+        const { profileImgBlob, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg } = this.state;
+        if (!(firstNameValidationMsg || lastNameValidationMsg || spiritualNameValidationMsg || !profileImgBlob)) {
             const formData = new FormData();
-            formData.append('profileImgBlob', null);
+            formData.append('profileImage', profileImgBlob);
             formData.append('firstName', firstName);
             formData.append('lastName', lastName);
             formData.append('spiritualName', spiritualName);
-            console.dir(formData);
             Client.fetch('/user/registration', {
                 method: 'POST',
                 body: formData
-            })
+            }, true) // skipDefault Headers
                 .then(() => {
                     window.location.href = '/personal';
                 })
                 .catch((err) => {
-                    console.log(err.message);
-                    window.location.href = '/';
+                    this.setState({ showAlert: true, alertMessage: `${err.message}. Try again later.`, alertType: 'Error' });
                 });
         } else {
-            this.setState({ showAlert: true });
+            this.setState({ showAlert: true, alertMessage: 'Insert valid data and/or add your photo!', alertType: 'Error' });
         }
     }
 
     closeAlert = () => {
-        this.setState({ showAlert: false });
+        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     };
 
     handleChange = (event) => {
@@ -64,30 +64,36 @@ class Registration extends Component {
         document.location.replace('/');
     }
 
-    updateProfileImg = (newImg) => {
-        // this.setState({ profileImgURL: newImg });
+    updateProfileImg = (event) => {
+        // TODO: check size and Cancel
+        const file = event.target.files[0];
+        this.setState({
+            profileImgURL: URL.createObjectURL(file),
+            profileImgBlob: file
+        });
     };
 
-    handleLoadImg = (event) => {
-        // console.dir(event.target.files);
-        // TODO: check size and Cancel
-        this.setState({ profileImgURL: URL.createObjectURL(event.target.files[0]) });
-    }
-
-    // uploadError = (errMsg) => {
-    //     this.setState({ showAlert: true, alertMessage: errMsg, alertType: 'Error' });
-    // };
-
     render () {
-        const { profileImgURL, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg, showAlert } = this.state;
+        const {
+            profileImgURL,
+            firstName,
+            lastName,
+            spiritualName,
+            firstNameValidationMsg,
+            lastNameValidationMsg,
+            spiritualNameValidationMsg,
+            showAlert,
+            alertMessage,
+            alertType
+        } = this.state;
 
         return (
             <div className='registration'>
                 { showAlert
                     ? <Alert
                         alertClose={this.closeAlert}
-                        alertMsg='Insert valid data and/or add your photo!'
-                        alertType='Error'
+                        alertMsg={alertMessage}
+                        alertType={alertType}
                     />
                     : null
                 }
@@ -98,9 +104,7 @@ class Registration extends Component {
                     <Form onSubmit={this.handleSubmit} autoComplete='off'>
                         <InputAvatar
                             profileImgURL={profileImgURL}
-                            updateProfileImgURL={this.updateProfileImg}
-                            // uploadError={this.uploadError}
-                            loadImg={this.handleLoadImg}
+                            updateProfileImg={this.updateProfileImg}
                         />
                         <Form.Label htmlFor="firstName" className="display-label">
                             <p className="display-title">First Name</p>
