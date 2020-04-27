@@ -43,7 +43,7 @@ class Registration extends Component {
                     this.setState({ showAlert: true, alertMessage: `${err.message}. Try again later.`, alertType: 'Error' });
                 });
         } else {
-            this.setState({ showAlert: true, alertMessage: 'Insert valid data and/or add your photo!', alertType: 'Error' });
+            this.setState({ showAlert: true, alertMessage: 'All 4 fields are mandatory!', alertType: 'Error' });
         }
     }
 
@@ -65,12 +65,20 @@ class Registration extends Component {
     }
 
     updateProfileImg = (event) => {
-        // TODO: check size and Cancel
         const file = event.target.files[0];
-        this.setState({
-            profileImgURL: URL.createObjectURL(file),
-            profileImgBlob: file
-        });
+        if (!file) return;
+        if (!file.name.match(/\.(jpg|jpeg|png|svg|webp)$/)) {
+            this.setState({ showAlert: true, alertMessage: 'Please select valid photo.', alertType: 'Error' });
+            return;
+        }
+        if (file.size < 1048576) { // 1048576 = 1 MB 1024*1024 byte
+            this.setState({
+                profileImgURL: URL.createObjectURL(file),
+                profileImgBlob: file
+            });
+        } else {
+            this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'Error' });
+        }
     };
 
     render () {

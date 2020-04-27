@@ -118,6 +118,10 @@ class Personal extends React.Component {
     updateProfileImg = (event) => {
         const imageToUpload = event.target.files[0];
         if (!imageToUpload) return;
+        if (!imageToUpload.name.match(/\.(jpg|jpeg|png|svg|webp)$/)) {
+            this.setState({ showAlert: true, alertMessage: 'Please select valid photo.', alertType: 'Error' });
+            return false;
+        }
         if (imageToUpload.size < 1048576) { // 1048576 = 1 MB 1024*1024 byte
             const formData = new FormData();
             formData.append('file', imageToUpload);

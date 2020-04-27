@@ -9,7 +9,6 @@ const InputAvatar = (props) => {
     const { profileImgURL, updateProfileImg } = props;
 
     const uploadText = (profileImgURL) ? 'hide-text' : 'upload-text';
-    // FIXME: Avatar has an upper border.
     return (
         <Row className="d-flex justify-content-center avatar-container">
             <Col className="mx-auto my-4 avatar-col">
