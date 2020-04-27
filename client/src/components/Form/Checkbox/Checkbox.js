@@ -5,7 +5,7 @@ import './Checkbox.scss';
 
 const Checkbox = (props) => {
     return (
-        <div onClick={props.handleChange} className={props.checked ? 'checked' : 'unchecked'}>
+        <div id={props.id} onClick={props.handleChange} className={props.checked ? 'checked' : 'unchecked'}>
             {props.value}
         </div>
     );
@@ -14,7 +14,8 @@ const Checkbox = (props) => {
 Checkbox.propTypes = {
     value: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
-    handleChange: PropTypes.func.isRequired
+    handleChange: PropTypes.func.isRequired,
+    id: PropTypes.string
 };
 
 export default Checkbox;

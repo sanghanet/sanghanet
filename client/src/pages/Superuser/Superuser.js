@@ -116,8 +116,15 @@ class Superuser extends Component {
     }
 
     handleRoleChange = (event) => {
-        event.preventDefault();
-        console.dir(event);
+        // TODO solve this with using the '...' syntax
+        const tempRoleState = Object.assign({}, this.state.roleFilter);
+        const propertyToChange = event.target.id;
+        tempRoleState[event.target.id] = !tempRoleState[event.target.id];
+
+        console.log(`${propertyToChange} was ${this.state.roleFilter[propertyToChange]}`);
+        this.setState({ roleFilter: tempRoleState }, () => {
+            console.log(`${propertyToChange} changed to ${this.state.roleFilter[propertyToChange]}`);
+        });
     }
 
     resetFilters = () => {
@@ -154,11 +161,8 @@ class Superuser extends Component {
             textFilterValue,
             showAddUserPopup,
             showEditUserPopup,
-            editedUser//,
-            // showSuperuser,
-            // showFinanceAdmin,
-            // showEventAdmin,
-            // showYogaAdmin
+            editedUser,
+            roleFilter
         } = this.state;
 
         return (
@@ -196,10 +200,30 @@ class Superuser extends Component {
                         </Form.Group>
                         <Form.Group controlId="roleFilter">
                             <Form.Label>Role</Form.Label>
-                            <Checkbox value="superuser" checked={true} handleChange={this.handleRoleChange} />
-                            <Checkbox value="finance admin" checked={false} handleChange={this.handleRoleChange} />
-                            <Checkbox value="event admin" checked={true} handleChange={this.handleRoleChange} />
-                            <Checkbox value="yoga admin" checked={true} handleChange={this.handleRoleChange} />
+                            <Checkbox
+                                id="showSuperuser"
+                                value="superuser"
+                                checked={roleFilter.showSuperuser}
+                                handleChange={this.handleRoleChange}
+                            />
+                            <Checkbox
+                                id="showFinanceAdmin"
+                                value="finance admin"
+                                checked={roleFilter.showFinanceAdmin}
+                                handleChange={this.handleRoleChange}
+                            />
+                            <Checkbox
+                                id="showEventAdmin"
+                                value="event admin"
+                                checked={roleFilter.showEventAdmin}
+                                handleChange={this.handleRoleChange}
+                            />
+                            <Checkbox
+                                id="showYogaAdmin"
+                                value="yoga admin"
+                                checked={roleFilter.showYogaAdmin}
+                                handleChange={this.handleRoleChange}
+                            />
                         </Form.Group>
                         <Button variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
                     </Form>
