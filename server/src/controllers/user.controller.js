@@ -62,28 +62,12 @@ module.exports.registration = async (req, res, next) => {
         .on('end', async () => {
             log.info('Upload successful.');
             try {
-                // TODO: try out default Schema, and create only reg. fields here.
                 await RegisteredUser.create({
                     firstName: dataToStore.firstName,
                     lastName: dataToStore.lastName,
                     profileImg: dataToStore.profileImg,
                     email: req.user.email,
-                    emailVisible: false,
-                    gender: '',
-                    genderVisible: false,
-                    mobile: '',
-                    mobileVisible: false,
-                    birthday: '',
-                    birthdayVisible: false,
-                    spiritualName: dataToStore.spiritualName,
-                    level: '',
-                    levelVisible: false,
-                    address: '',
-                    addressVisible: false,
-                    emName: '',
-                    emMobile: '',
-                    emEmail: '',
-                    emContactVisible: false
+                    spiritualName: dataToStore.spiritualName
                 });
                 log.info('Registration successful!');
                 res.status(201).send('Created');
