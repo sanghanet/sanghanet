@@ -30,7 +30,7 @@ class Superuser extends Component {
             textFilterValue: '',
             roleFilter: {
                 showSuperuser: true,
-                showFinanceAdmin: false,
+                showFinanceAdmin: true,
                 showEventAdmin: true,
                 showYogaAdmin: true
             },
@@ -130,10 +130,13 @@ class Superuser extends Component {
     resetFilters = () => {
         this.setState({
             textFilterValue: '',
-            roleFilter: 'all'
+            roleFilter: {
+                showSuperuser: true,
+                showFinanceAdmin: true,
+                showEventAdmin: true,
+                showYogaAdmin: true
+            }
         });
-
-        document.getElementById('roleSelect').selectedIndex = 0;
     }
 
     addUser = () => {
