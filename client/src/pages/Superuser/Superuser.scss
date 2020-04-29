@@ -3,10 +3,12 @@
 
 .filter-box {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 3fr 1fr;
     grid-template-rows: 3fr 1fr;
-    margin-bottom: 40px;
     color: $white;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 40px;
 
     .form-text {
         text-align: center;
@@ -17,13 +19,20 @@
         align-items: center;
         justify-content: center;
 
-        &:first-child {
+        &.search-bar {
             flex-wrap: wrap;
             grid-column: span 2;
 
             .search-field {
                 margin-bottom: 0;
             }
+        }
+
+        &.role-filter {
+            margin: auto;
+            width: 90%;
+            display: flex;
+            flex-wrap: nowrap;
         }
 
         select {
@@ -44,17 +53,15 @@
         margin: auto;
     }
 
-    @include maxQ(900px) {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 3fr 1fr 1fr;
+    @include maxQ(1110px) {
+        grid-template-rows: 3fr 2fr 1fr;
 
-        .form-group {
-            grid-column: span 4;
+        .role-filter, .reset-button {
+            grid-column: span 2;
         }
 
-        .btn {
-            grid-column-start: 1;
-            grid-column-end: 3;
+        .reset-button {
+            width: 40%;
         }
     }
 }
@@ -73,7 +80,7 @@ table.table {
             width: 18px;
             justify-content: space-between;
             align-content: space-between;
-            margin: 3px;
+            margin: 1px;
             fill: $white;
         }
     }

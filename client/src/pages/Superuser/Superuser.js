@@ -189,7 +189,7 @@ class Superuser extends Component {
                 <main>
                     {/* --- Form for filters --- */}
                     <Form className="filter-box">
-                        <Form.Group>
+                        <Form.Group className="search-bar">
                             <SearchBar
                                 handleInputChange={this.handleEmailFilterChange}
                                 handleIconClick={this.handleIconClick}
@@ -198,8 +198,7 @@ class Superuser extends Component {
                             />
                             <Form.Text>Filter by name or email address</Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="roleFilter">
-                            <Form.Label>Role</Form.Label>
+                        <Form.Group className="role-filter">
                             <Checkbox
                                 id="showSuperuser"
                                 value="superuser"
@@ -225,7 +224,7 @@ class Superuser extends Component {
                                 handleChange={this.handleRoleChange}
                             />
                         </Form.Group>
-                        <Button variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
+                        <Button className="reset-button" variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
                     </Form>
 
                     {/* --- Table --- */}

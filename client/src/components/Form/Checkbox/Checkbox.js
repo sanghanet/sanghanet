@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Button } from 'react-bootstrap';
+
 import './Checkbox.scss';
 
 const Checkbox = (props) => {
     return (
-        <div id={props.id} onClick={props.handleChange} className={props.checked ? 'checked' : 'unchecked'}>
+        <Button variant={props.checked ? 'primary' : 'outline-primary'} id={props.id} onClick={props.handleChange} className='checkbox'>
             {props.value}
-        </div>
+        </Button>
     );
 };
 
