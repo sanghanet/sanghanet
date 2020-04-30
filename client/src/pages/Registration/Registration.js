@@ -6,7 +6,9 @@ import Alert from '../../components/Alert/Alert';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import { nameValidationRule, validationError } from '../../components/ValidationRule';
-
+// TODO: TEST IT: not user but members: GenerateFinanceAccounts.js
+// TODO: members should get userId after registration
+// TODO: registration should generate financial data skeleton
 class Registration extends Component {
     state = {
         profileImgURL: '',

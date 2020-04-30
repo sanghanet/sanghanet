@@ -2,7 +2,7 @@ const log4js = require('log4js');
 const log = log4js.getLogger('generateFinanceAccounts.js');
 const { mongoose } = require('../src/controllers/mongoDB.controller');
 
-const { User } = require('../src/models/user.model');
+const { Member } = require('../src/models/member.model');
 const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 
 const { Account } = require('../src/models/financeAccount.model');
@@ -19,7 +19,7 @@ const wipeAccounts = async () => {
 const getUserList = async () => {
     let userArray = null;
     try {
-        userArray = await User.find({});
+        userArray = await Member.find({});
         log.info('Users fetched!');
     } catch (error) {
         log.error(error);
@@ -63,4 +63,4 @@ executeWipeandBuild()
     .catch((error) => {
         log.error(error);
         mongoose.disconnect();
-    });
+});
