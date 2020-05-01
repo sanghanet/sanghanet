@@ -78,7 +78,10 @@ module.exports.registration = async (req, res, next) => {
                     { useFindAndModify: false }
                 );
 
-                const account = await Account.create({});
+                const account = await Account.create({
+                    userId: registration._id,
+                    email: req.user.email
+                });
 
                 Promise.all([registration, membersUpdate, account])
                     .then((results) => {
