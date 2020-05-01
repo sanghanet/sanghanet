@@ -7,7 +7,9 @@ var fs = require('fs');
 
 const log = log4js.getLogger('controllers/user.controller.js');
 const { User } = require('../models/user.model');
+const { Member } = require('../models/member.model');
 const { RegisteredUser } = require('../models/registered.user.model');
+const { Account } = require('../models/financeAccount.model');
 
 module.exports.login = async (req, res, next) => {
     try {
@@ -62,15 +64,27 @@ module.exports.registration = async (req, res, next) => {
         .on('end', async () => {
             log.info('Upload successful.');
             try {
-                await RegisteredUser.create({
+                const registration = await RegisteredUser.create({
                     firstName: dataToStore.firstName,
                     lastName: dataToStore.lastName,
                     profileImg: dataToStore.profileImg,
                     email: req.user.email,
                     spiritualName: dataToStore.spiritualName
                 });
-                log.info('Registration successful!');
-                res.status(201).send('Created');
+
+                const membersUpdate = await Member.findOneAndUpdate(
+                    { email: req.user.email },
+                    { registered: true },
+                    { useFindAndModify: false }
+                );
+
+                const account = await Account.create({});
+
+                Promise.all([registration, membersUpdate, account])
+                    .then((results) => {
+                        log.info('Registration successful!');
+                        res.status(201).send('Created');
+                    });
             } catch (error) {
                 log.error(error);
                 res.status(500).send('Creation failed');
@@ -89,6 +103,7 @@ module.exports.logout = (req, res) => {
 };
 
 module.exports.listUsers = async (req, res, next) => {
+    // FIXME: User should be changed to Member - Ildi
     try {
         const users = await User.find({}, 'email isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin firstName lastName');
         res.json(users);
@@ -120,6 +135,7 @@ module.exports.personal = async (req, res, next) => {
 
 module.exports.updateItemAndVisibility = async (req, res, next) => {
     try {
+        // FIXME: User should be changed to Member - Ildi
         const user = await User.findOneAndUpdate(
             { email: req.user.email },
             req.body,
