@@ -85,7 +85,7 @@
 
 # wipe and re-build finance accounts
 
-   You can wipe and re-build the exising finance accounts for all users by using the command `npm run buildfinance` in the root directory.
+   You can wipe and re-build the exising finance accounts for all members by using the command `npm run buildfinance` in the root directory.
    This functionality is intended to facilitate re-population of the finance accounts in case a change is needed in the account models.
    It uses the Finance and Transaction models in the server/src/models directory.
 

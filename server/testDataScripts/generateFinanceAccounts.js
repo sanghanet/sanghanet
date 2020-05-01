@@ -29,7 +29,7 @@ const getUserList = async () => {
 };
 
 const singleAccountCreationPromise = (element) => {
-    return Account.create({ userId: element._id, userName: `${element.firstName} ${element.lastName}` });
+    return Account.create({ userId: element._id, email: element.email });
 };
 
 const getCreationPromises = (userArray) => {
@@ -53,7 +53,7 @@ const executeWipeandBuild = async () => {
     Promise.all(AccountCreationPromises)
         .then((res) => {
             res.forEach(element => {
-                log.info(`Account successfully created for ${element.userName}`);
+                log.info(`Account successfully created for ${element.email}`);
             });
         })
         .then(mongoose.disconnect);
@@ -63,4 +63,4 @@ executeWipeandBuild()
     .catch((error) => {
         log.error(error);
         mongoose.disconnect();
-});
+    });

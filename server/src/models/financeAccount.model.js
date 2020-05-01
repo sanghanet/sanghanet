@@ -3,7 +3,7 @@ const { FinanceTransactionSchema } = require('./financeTransaction.model');
 
 const FinanceSchema = mongoose.Schema({
     userId: mongoose.ObjectId,
-    userName: String,
+    email: String,
     transactionArchive: {
         membership: [FinanceTransactionSchema],
         rent: [FinanceTransactionSchema],
