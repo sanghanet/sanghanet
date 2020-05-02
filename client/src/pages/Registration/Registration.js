@@ -154,8 +154,6 @@ class Registration extends Component {
                         ></Form.Control>
                         <span className="error" aria-live="polite">{spiritualNameValidationMsg}</span>
                         <div className="regForm-btns">
-                            {// FIXME: Buttons on mobile view do not display nice
-                            }
                             <Button variant="outline-secondary" onClick={this.handleClose}>
                                 Leave
                             </Button>

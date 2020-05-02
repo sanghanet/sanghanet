@@ -6,6 +6,7 @@ const uuidv4 = require('uuid/v4');
 var fs = require('fs');
 
 const log = log4js.getLogger('controllers/user.controller.js');
+// FIXME: delete the below User once the users collection is not used any more - reported by Ildiko
 const { User } = require('../models/user.model');
 const { Member } = require('../models/member.model');
 const { RegisteredUser } = require('../models/registered.user.model');
@@ -106,7 +107,7 @@ module.exports.logout = (req, res) => {
 };
 
 module.exports.listUsers = async (req, res, next) => {
-    // FIXME: User should be changed to Member - Ildi
+    // FIXME: User should be changed to Member - reported by Ildiko
     try {
         const users = await User.find({}, 'email isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin firstName lastName');
         res.json(users);
@@ -138,8 +139,7 @@ module.exports.personal = async (req, res, next) => {
 
 module.exports.updateItemAndVisibility = async (req, res, next) => {
     try {
-        // FIXME: User should be changed to Member - Ildi
-        const user = await User.findOneAndUpdate(
+        const user = await RegisteredUser.findOneAndUpdate(
             { email: req.user.email },
             req.body,
             { new: true, useFindAndModify: false }
