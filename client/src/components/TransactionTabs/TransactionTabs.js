@@ -3,14 +3,14 @@ import Client from '../../components/Client';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import TransactionTable from '../TransactionTable/TransactionTable';
+import './TransactionTabs.scss';
 
 class TransactionTabs extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            tabs: null,
             serverTransactionData: null,
-            tabcontrols: null
+            errorState: null
         };
     }
 
@@ -27,6 +27,7 @@ class TransactionTabs extends React.Component {
             });
         } catch (error) {
             console.log(error);
+            this.setState({ errorState: error });
         }
     }
 
@@ -37,7 +38,7 @@ class TransactionTabs extends React.Component {
             console.log(pocket[0]);
             tabs.push(
                 <Tab title = {pocket[0]} eventKey = {pocket[0]} key = {pocket[0]}>
-                    <TransactionTable transactionArray = {pocket[1]}/>
+                    <TransactionTable transactionArray = {pocket[1]} errorState = {this.state.errorState}/>
                 </Tab>
             );
         }
@@ -46,8 +47,8 @@ class TransactionTabs extends React.Component {
 
     render () {
         return (
-            <Tabs defaultActiveKey = {'membership'} onClick = {() => { console.log('Selected'); }} >
-                {this.state.serverTransactionData ? this.generateTabs() : <Tab title = "Loading"/>}
+            <Tabs className = 'MainTabs'>
+                {this.state.serverTransactionData ? this.generateTabs() : <Tab title = {`Sorry there was an issue! ${this.state.errorState}`} eventKey = 'error'/>}
             </Tabs>
         );
     }

@@ -6,7 +6,8 @@ class FinanceDashboard extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            balances: []
+            balances: [],
+            fetchError: null
         };
     }
 
@@ -24,13 +25,14 @@ class FinanceDashboard extends React.Component {
             })
             .catch((err) => {
                 console.log(err);
+                this.setState({ fetchError: `Sorry an error has occured! ${err}` });
             });
     }
 
     render () {
         return (
             <div className = "overview" >
-                {this.state.balances}
+                {this.state.fetchError ? this.state.fetchError : this.state.balances}
             </div>
         );
     };
