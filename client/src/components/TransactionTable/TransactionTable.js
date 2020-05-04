@@ -1,11 +1,28 @@
 import React from 'react';
-import Client from '../../components/Client';
 import Table from 'react-bootstrap/Table';
+import PropTypes from 'prop-types';
 
 class TransactionTable extends React.Component {
     constructor (props) {
         super(props);
-        this.state = {};
+        this.state = {
+            rows: null
+        };
+    }
+
+    componentDidMount () {
+        const rows = [];
+        for (const transaction of this.props.transactionArray) {
+            rows.push(
+                <tr key = {transaction._id}>
+                    <td>{transaction.description}</td>
+                    <td>{transaction.amount} {transaction.currency}</td>
+                </tr>
+            );
+        }
+        this.setState({
+            rows: rows
+        });
     }
 
     render () {
@@ -13,23 +30,20 @@ class TransactionTable extends React.Component {
             <Table hover bordered variant="dark">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Description</th>
-                        <th>Transaction date</th>
                         <th>Amount</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Test Description</td>
-                        <td>1986.02.20</td>
-                        <td>5000 HUF</td>
-                    </tr>
+                    {this.state.rows}
                 </tbody>
             </Table>
         );
     }
 }
+
+TransactionTable.propTypes = {
+    transactionArray: PropTypes.array.isRequired
+};
 
 export default TransactionTable;

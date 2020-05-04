@@ -7,27 +7,47 @@ import TransactionTable from '../TransactionTable/TransactionTable';
 class TransactionTabs extends React.Component {
     constructor (props) {
         super(props);
-        this.state = {};
+        this.state = {
+            tabs: null,
+            serverTransactionData: null,
+            tabcontrols: null
+        };
     }
 
     componentDidMount () {
-        Client.fetch('/user/financetransactions')
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
+        this.getTransactions();
+    }
+
+    async getTransactions () {
+        try {
+            const result = await Client.fetch('/user/financetransactions');
+            console.log(result);
+            this.setState({
+                serverTransactionData: result
             });
-    };
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    generateTabs = () => {
+        const tabs = [];
+        const pockets = Object.entries(this.state.serverTransactionData[0].transactionBuffer);
+        for (const pocket of pockets) {
+            console.log(pocket[0]);
+            tabs.push(
+                <Tab title = {pocket[0]} eventKey = {pocket[0]} key = {pocket[0]}>
+                    <TransactionTable transactionArray = {pocket[1]}/>
+                </Tab>
+            );
+        }
+        return tabs;
+    }
 
     render () {
         return (
-            <Tabs defaultActiveKey = "test">
-                <Tab title="Test" eventKey = "test" >
-                    <TransactionTable/>
-                </Tab>
-                <Tab>TEST2</Tab>
-                <Tab>TEST3</Tab>
+            <Tabs defaultActiveKey = {'membership'} onClick = {() => { console.log('Selected'); }} >
+                {this.state.serverTransactionData ? this.generateTabs() : <Tab title = "Loading"/>}
             </Tabs>
         );
     }
