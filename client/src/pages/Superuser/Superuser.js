@@ -41,6 +41,7 @@ class Superuser extends Component {
     }
 
     async componentDidMount () {
+        // TODO: change /user/listusers to /superuser/listusers
         Client.fetch('/user/listusers', { method: 'POST' })
             .then((data) => {
                 this.setState({ userData: data });
@@ -62,9 +63,12 @@ class Superuser extends Component {
                                     (user.isFinanceAdmin && roleFilter.showFinanceAdmin) ||
                                     (user.isEventAdmin && roleFilter.showEventAdmin) ||
                                     (user.isYogaAdmin && roleFilter.showYogaAdmin) ||
+                                    // show every kind of user if all filters are set to true
+                                    (roleFilter.showSuperuser && roleFilter.showFinanceAdmin && roleFilter.showEventAdmin && roleFilter.showYogaAdmin) ||
+                                    // show general users only if all special role filters are set to false
                                     (
-                                        !(user.isSuperuser && user.isFinanceAdmin && user.isEventAdmin && user.isYogaAdmin) &&
-                                        !(roleFilter.isSuperuser && roleFilter.isFinanceAdmin && roleFilter.isEventAdmin && roleFilter.isYogaAdmin)
+                                        !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) &&
+                                        !(roleFilter.showSuperuser || roleFilter.showFinanceAdmin || roleFilter.showEventAdmin || roleFilter.showYogaAdmin)
                                     );
 
         return passedEmailFilter && passedRoleFilter;
@@ -118,13 +122,8 @@ class Superuser extends Component {
     handleRoleChange = (event) => {
         // TODO solve this with using the '...' syntax
         const tempRoleState = Object.assign({}, this.state.roleFilter);
-        const propertyToChange = event.target.id;
         tempRoleState[event.target.id] = !tempRoleState[event.target.id];
-
-        console.log(`${propertyToChange} was ${this.state.roleFilter[propertyToChange]}`);
-        this.setState({ roleFilter: tempRoleState }, () => {
-            console.log(`${propertyToChange} changed to ${this.state.roleFilter[propertyToChange]}`);
-        });
+        this.setState({ roleFilter: tempRoleState });
     }
 
     resetFilters = () => {
