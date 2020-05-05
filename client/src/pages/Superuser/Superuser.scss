@@ -54,7 +54,7 @@
     }
 
     @include maxQ(1110px) {
-        grid-template-rows: 3fr 2fr 1fr;
+        grid-template-rows: 4fr 3fr 1fr;
 
         .role-filter, .reset-button {
             grid-column: span 2;
@@ -75,9 +75,10 @@ table.table {
     .role-cells {
         display: flex;
         flex-wrap: wrap;
+        border: none;
 
         svg {
-            width: 18px;
+            width: 15px;
             justify-content: space-between;
             align-content: space-between;
             margin: 1px;
@@ -85,7 +86,11 @@ table.table {
         }
     }
 
-    .icon-column {
+    .role-icon-column {
+        min-width: 60px;
+    }
+
+    .delete-icon-column {
         width: 20px;
     }
 

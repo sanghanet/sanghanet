@@ -234,8 +234,8 @@ class Superuser extends Component {
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Role</th>
-                                <th className="icon-column"></th>
+                                <th className="role-icon-column">Role</th>
+                                <th className="delete-icon-column"></th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
