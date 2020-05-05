@@ -1,0 +1,86 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.registration {
+	min-height: calc(104px + 100vh);
+	background-color: $main-bg;
+	padding-bottom: 50px;
+	color: $white;
+	header {
+		width: 100%;
+		height: $header-height-start;
+		background: $gradient-background;
+
+		@include centerElement;
+	}
+	h1 {
+		margin: 0;
+		color: #fff;
+		text-align: center;
+		font-size: 26px;
+		font-weight: bold;
+		font-family: Arial, Helvetica, sans-serif;
+		@include maxQ(414px) {
+			font-weight: 400;
+			padding: 10px;
+		}
+	}
+	div.container {
+		max-width: 800px;
+	}
+	form {
+		width: 90%;
+		margin: auto;
+		@include maxQ(415px) {
+			width: 100%;
+		}
+	}
+	.display-label {
+		display: block;
+		margin: 16px 0 0;
+        background: $label-bg;
+        border: 1px solid #969494;
+        border-top-right-radius: 2px;
+        border-top-left-radius: 2px;
+	}
+	.display-title {
+        margin: 0;
+		padding: 7px;
+    }
+    .display-input {
+        background: $input-bg;
+		border: 1px solid #969494;
+		border-radius: 0;
+        border-bottom-right-radius: 2px;
+		border-bottom-left-radius: 2px;
+		color: $white;
+		&:focus {
+			background: $input-bg;
+			color: inherit;
+		}
+	}
+	.regForm-btns {
+		margin: 40px 0;
+		display: flex;
+		justify-content: center;
+	}
+	.btn {
+		height: 54px;
+		width: 154px;
+		letter-spacing: 2px;
+		font-size: 20px;
+	}
+	.reg-btn {
+		margin-left: 58px;
+		@include maxQ(375px) {
+			margin-left: 28px;
+		}
+	}
+	.error {
+		display: block;
+		min-height: 24px;
+		letter-spacing: 1px;
+		font-weight: 400;
+		color: $error;
+	}
+}

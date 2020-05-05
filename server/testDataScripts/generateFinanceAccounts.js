@@ -2,7 +2,7 @@ const log4js = require('log4js');
 const log = log4js.getLogger('generateFinanceAccounts.js');
 const { mongoose } = require('../src/controllers/mongoDB.controller');
 
-const { User } = require('../src/models/user.model');
+const { Member } = require('../src/models/member.model');
 const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 
 const { Account } = require('../src/models/financeAccount.model');
@@ -19,7 +19,7 @@ const wipeAccounts = async () => {
 const getUserList = async () => {
     let userArray = null;
     try {
-        userArray = await User.find({});
+        userArray = await Member.find({});
         log.info('Users fetched!');
     } catch (error) {
         log.error(error);
@@ -31,6 +31,7 @@ const getUserList = async () => {
 const singleAccountCreationPromise = (element) => {
     return Account.create({
         userId: element._id,
+        email: element.email,
         userName: `${element.firstName} ${element.lastName}`,
         currency: 'HUF'
     });
@@ -57,7 +58,7 @@ const executeWipeandBuild = async () => {
     Promise.all(AccountCreationPromises)
         .then((res) => {
             res.forEach(element => {
-                log.info(`Account successfully created for ${element.userName}`);
+                log.info(`Account successfully created for ${element.email}`);
             });
         })
         .then(mongoose.disconnect);

@@ -5,6 +5,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Login from './pages/Login/Login';
 import LoginFailed from './pages/LoginFailed/LoginFailed';
 import Loading from './pages/Loading/Loading';
+import Registration from './pages/Registration/Registration';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Personal from './pages/Personal/Personal';
 import Yoga from './pages/Yoga/Yoga';
@@ -22,6 +23,7 @@ class App extends Component {
                     <Route exact path='/' component={Login} />
                     <Route path='/loading' component={Loading} />
                     <Route path='/loginfailed' component={LoginFailed} />
+                    <PrivateRoute path='/registration' component={Registration} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />
                     <PrivateRoute path='/personal' component={Personal} />
                     <PrivateRoute path='/yoga' component={Yoga} />

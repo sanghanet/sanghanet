@@ -33,4 +33,4 @@ const UserSchema = mongoose.Schema({
 });
 
 // users collection contains User documents based on UserSchema
-module.exports.User = mongoose.model('users', UserSchema);
+module.exports.User = mongoose.model('User', UserSchema);

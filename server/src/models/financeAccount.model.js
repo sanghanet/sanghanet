@@ -4,7 +4,7 @@ const { FinanceTransactionSchema } = require('./financeTransaction.model');
 const FinanceSchema = mongoose.Schema({
     currency: String,
     userId: mongoose.ObjectId,
-    userName: String,
+    email: String,
     transactionArchive: {
         membership: [FinanceTransactionSchema],
         rent: [FinanceTransactionSchema],
@@ -37,4 +37,4 @@ const FinanceSchema = mongoose.Schema({
     }
 });
 
-module.exports.Account = mongoose.model('Finance Account', FinanceSchema);
+module.exports.Account = mongoose.model('FinanceAccount', FinanceSchema);
