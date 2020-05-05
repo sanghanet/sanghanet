@@ -1,71 +1,108 @@
 @import '../../style/colors';
 @import '../../style/mixins';
 
-.filter-box {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-rows: 3fr 1fr;
-    color: $white;
+.su-filter-accordion.accordion {
     width: 90%;
-    margin: auto;
-    margin-bottom: 40px;
+    margin: 0 auto 30px;
 
-    .form-text {
-        text-align: center;
-    }
+    .card {
+        background: none;
+        border: 1px solid #a5a5a5;
 
-    .form-group {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        .card-header {
+            padding: 0;
 
-        &.search-bar {
-            flex-wrap: wrap;
-            grid-column: span 2;
-
-            .search-field {
-                margin-bottom: 0;
+            .btn {
+                width: 100%;
+                border-radius: 0;
+                text-align: left;
             }
         }
 
-        &.role-filter {
-            margin: auto;
-            width: 90%;
-            display: flex;
-            flex-wrap: nowrap;
-        }
+        .card-body {
+            padding: 0;
 
-        select {
-            color: $white;
-            background-color: $main-bg;
-            padding: 10px;
-            margin: 0 10px;
-        }
-
-        label {
-            margin: 10px;
-        }
-    }
-
-    .btn {
-        grid-column-start: 2;
-        width: 80%;
-        margin: auto;
-    }
-
-    @include maxQ(1110px) {
-        grid-template-rows: 4fr 3fr 1fr;
-
-        .role-filter, .reset-button {
-            grid-column: span 2;
-        }
-
-        .reset-button {
-            width: 40%;
+            .filter-box {
+                display: grid;
+                grid-template-columns: 3fr 1fr;
+                grid-template-rows: 3fr 1fr;
+                color: $white;
+                margin: auto;
+                margin-bottom: 10px;
+            
+                .form-text {
+                    text-align: center;
+                }
+            
+                .form-group {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+            
+                    &.search-bar {
+                        flex-wrap: wrap;
+                        grid-column: span 2;
+            
+                        .search-field {
+                            margin-bottom: 0;
+            
+                            @include maxQ(605px) {
+                                // the label of the search field is a <small> tag
+                                &+small {
+                                    font-size: 11px;
+                                }
+                            }
+                        }
+                    }
+            
+                    &.role-filter {
+                        margin: auto;
+                        width: 90%;
+                        display: flex;
+                        flex-wrap: nowrap;
+            
+                        .btn {
+                            line-height: 1;
+            
+                            @include maxQ(605px) {
+                                font-size: 11px;
+                            }
+                        }
+                    }
+            
+                    select {
+                        color: $white;
+                        background-color: $main-bg;
+                        padding: 10px;
+                        margin: 0 10px;
+                    }
+            
+                    label {
+                        margin: 10px;
+                    }
+                }
+            
+                .btn {
+                    grid-column-start: 2;
+                    width: 80%;
+                    margin: auto;
+                }
+            
+                @include maxQ(1110px) {
+                    grid-template-rows: 4fr 3fr 1fr;
+            
+                    .role-filter, .reset-button {
+                        grid-column: span 2;
+                    }
+            
+                    .reset-button {
+                        width: 40%;
+                    }
+                }
+            }
         }
     }
 }
-
 
 
 table.table {

@@ -17,7 +17,7 @@ import Footer from '../../components/Footer/Footer';
 import AddUserPopup from './Popup/AddUserPopup';
 import EditUserPopup from './Popup/EditUserPopup';
 import Checkbox from '../../components/Form/Checkbox/Checkbox';
-import { Table, Form, Button } from 'react-bootstrap';
+import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
 
 import Client from '../../components/Client';
 
@@ -189,44 +189,57 @@ class Superuser extends Component {
                 <Navbar navStyle="sidenav" />
                 <main>
                     {/* --- Form for filters --- */}
-                    <Form className="filter-box">
-                        <Form.Group className="search-bar">
-                            <SearchBar
-                                handleInputChange={this.handleEmailFilterChange}
-                                handleIconClick={this.handleIconClick}
-                                inputValue={textFilterValue}
-                                icon={<Cross />}
-                            />
-                            <Form.Text>Filter by name or email address</Form.Text>
-                        </Form.Group>
-                        <Form.Group className="role-filter">
-                            <Checkbox
-                                id="showSuperuser"
-                                value="superuser"
-                                checked={roleFilter.showSuperuser}
-                                handleChange={this.handleRoleChange}
-                            />
-                            <Checkbox
-                                id="showFinanceAdmin"
-                                value="finance admin"
-                                checked={roleFilter.showFinanceAdmin}
-                                handleChange={this.handleRoleChange}
-                            />
-                            <Checkbox
-                                id="showEventAdmin"
-                                value="event admin"
-                                checked={roleFilter.showEventAdmin}
-                                handleChange={this.handleRoleChange}
-                            />
-                            <Checkbox
-                                id="showYogaAdmin"
-                                value="yoga admin"
-                                checked={roleFilter.showYogaAdmin}
-                                handleChange={this.handleRoleChange}
-                            />
-                        </Form.Group>
-                        <Button className="reset-button" variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
-                    </Form>
+                    <Accordion className="su-filter-accordion">
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Button} variant="primary" eventKey="0">
+                                    Filter users
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                    <Form className="filter-box">
+                                        <Form.Group className="search-bar">
+                                            <SearchBar
+                                                handleInputChange={this.handleEmailFilterChange}
+                                                handleIconClick={this.handleIconClick}
+                                                inputValue={textFilterValue}
+                                                icon={<Cross />}
+                                            />
+                                            <Form.Text>Filter by name or email address</Form.Text>
+                                        </Form.Group>
+                                        <Form.Group className="role-filter">
+                                            <Checkbox
+                                                id="showSuperuser"
+                                                value="superuser"
+                                                checked={roleFilter.showSuperuser}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                            <Checkbox
+                                                id="showFinanceAdmin"
+                                                value="finance admin"
+                                                checked={roleFilter.showFinanceAdmin}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                            <Checkbox
+                                                id="showEventAdmin"
+                                                value="event admin"
+                                                checked={roleFilter.showEventAdmin}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                            <Checkbox
+                                                id="showYogaAdmin"
+                                                value="yoga admin"
+                                                checked={roleFilter.showYogaAdmin}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                        </Form.Group>
+                                        <Button className="reset-button" variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
+                                    </Form>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
 
                     {/* --- Table --- */}
                     <Table striped bordered hover variant="dark">
