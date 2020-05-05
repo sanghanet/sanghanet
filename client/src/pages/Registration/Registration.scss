@@ -9,12 +9,9 @@
 	header {
 		width: 100%;
 		height: $header-height-start;
+		background: $gradient-background;
 
 		@include centerElement;
-
-		/* gradient */
-		background: rgb(218,77,81);
-		background: $gradient-background;
 	}
 	h1 {
 		margin: 0;
