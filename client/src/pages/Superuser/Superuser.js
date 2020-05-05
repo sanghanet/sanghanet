@@ -120,7 +120,6 @@ class Superuser extends Component {
     }
 
     handleRoleChange = (event) => {
-        // TODO solve this with using the '...' syntax
         const tempRoleState = Object.assign({}, this.state.roleFilter);
         tempRoleState[event.target.id] = !tempRoleState[event.target.id];
         this.setState({ roleFilter: tempRoleState });
