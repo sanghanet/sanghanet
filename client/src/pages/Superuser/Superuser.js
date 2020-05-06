@@ -29,10 +29,11 @@ class Superuser extends Component {
             userData: null,
             textFilterValue: '',
             roleFilter: {
-                showSuperuser: true,
-                showFinanceAdmin: true,
-                showEventAdmin: true,
-                showYogaAdmin: true
+                filterSuperuser: false,
+                filterFinanceAdmin: false,
+                filterEventAdmin: false,
+                filterYogaAdmin: false,
+                filterNoRole: false
             },
             showAddUserPopup: false,
             showEditUserPopup: false,
@@ -46,7 +47,7 @@ class Superuser extends Component {
             .then((data) => {
                 this.setState({ userData: data });
             }).catch((err) => {
-                // Give warning to the user or handle error here..
+                // TODO: Give warning to the user or handle error here..
                 console.error(err);
             });
     }
@@ -59,16 +60,14 @@ class Superuser extends Component {
         const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
                                     fullName.toLowerCase().includes(textFilterValue.toLowerCase());
         // eslint-disable-next-line no-multi-spaces
-        const passedRoleFilter =    (user.isSuperuser && roleFilter.showSuperuser) ||
-                                    (user.isFinanceAdmin && roleFilter.showFinanceAdmin) ||
-                                    (user.isEventAdmin && roleFilter.showEventAdmin) ||
-                                    (user.isYogaAdmin && roleFilter.showYogaAdmin) ||
-                                    // show every kind of user if all filters are set to true
-                                    (roleFilter.showSuperuser && roleFilter.showFinanceAdmin && roleFilter.showEventAdmin && roleFilter.showYogaAdmin) ||
-                                    // show general users only if all special role filters are set to false
+        const passedRoleFilter =    !(roleFilter.filterSuperuser || roleFilter.filterFinanceAdmin || roleFilter.filterEventAdmin || roleFilter.filterYogaAdmin || roleFilter.filterNoRole) ||
+                                    (user.isSuperuser && roleFilter.filterSuperuser) ||
+                                    (user.isFinanceAdmin && roleFilter.filterFinanceAdmin) ||
+                                    (user.isEventAdmin && roleFilter.filterEventAdmin) ||
+                                    (user.isYogaAdmin && roleFilter.filterYogaAdmin) ||
                                     (
                                         !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) &&
-                                        !(roleFilter.showSuperuser || roleFilter.showFinanceAdmin || roleFilter.showEventAdmin || roleFilter.showYogaAdmin)
+                                        roleFilter.filterNoRole
                                     );
 
         return passedEmailFilter && passedRoleFilter;
@@ -96,7 +95,7 @@ class Superuser extends Component {
                                 { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
                                 { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
                                 { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
-                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon /> }
+                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
                             </td>
                             <td className="icon-cell">
                                 <Button variant='outline-danger' id={ key }>
@@ -129,10 +128,11 @@ class Superuser extends Component {
         this.setState({
             textFilterValue: '',
             roleFilter: {
-                showSuperuser: true,
-                showFinanceAdmin: true,
-                showEventAdmin: true,
-                showYogaAdmin: true
+                filterSuperuser: false,
+                filterFinanceAdmin: false,
+                filterEventAdmin: false,
+                filterYogaAdmin: false,
+                filterNoRole: false
             }
         });
     }
@@ -210,27 +210,33 @@ class Superuser extends Component {
                                         </Form.Group>
                                         <Form.Group className="role-filter">
                                             <Checkbox
-                                                id="showSuperuser"
+                                                id="filterSuperuser"
                                                 value="superuser"
-                                                checked={roleFilter.showSuperuser}
+                                                checked={roleFilter.filterSuperuser}
                                                 handleChange={this.handleRoleChange}
                                             />
                                             <Checkbox
-                                                id="showFinanceAdmin"
+                                                id="filterFinanceAdmin"
                                                 value="finance admin"
-                                                checked={roleFilter.showFinanceAdmin}
+                                                checked={roleFilter.filterFinanceAdmin}
                                                 handleChange={this.handleRoleChange}
                                             />
                                             <Checkbox
-                                                id="showEventAdmin"
+                                                id="filterEventAdmin"
                                                 value="event admin"
-                                                checked={roleFilter.showEventAdmin}
+                                                checked={roleFilter.filterEventAdmin}
                                                 handleChange={this.handleRoleChange}
                                             />
                                             <Checkbox
-                                                id="showYogaAdmin"
+                                                id="filterYogaAdmin"
                                                 value="yoga admin"
-                                                checked={roleFilter.showYogaAdmin}
+                                                checked={roleFilter.filterYogaAdmin}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                            <Checkbox
+                                                id="filterNoRole"
+                                                value="no role"
+                                                checked={roleFilter.filterNoRole}
                                                 handleChange={this.handleRoleChange}
                                             />
                                         </Form.Group>
