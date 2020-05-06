@@ -2,6 +2,7 @@
 @import '../../style/mixins';
 
 .su-filter-accordion.accordion {
+    font-size: .7rem;
     width: 90%;
     margin: 0 auto 30px;
 
@@ -14,6 +15,7 @@
             height: 50px;
 
             .btn {
+                font-size: .8rem;
                 width: 100%;
                 height: 100%;
                 border-radius: 0;
@@ -51,7 +53,7 @@
                             @include maxQ(605px) {
                                 // the label of the search field is a <small> tag
                                 &+small {
-                                    font-size: 11px;
+                                    font-size: .7rem;
                                 }
                             }
                         }
@@ -64,10 +66,11 @@
                         flex-wrap: nowrap;
             
                         .btn {
+                            font-size: .8rem;
                             line-height: 1;
             
-                            @include maxQ(605px) {
-                                font-size: 11px;
+                            @include maxQ(870px) {
+                                font-size: .7rem;
                             }
                         }
                     }
@@ -104,29 +107,23 @@
             }
         }
     }
+
+    @include maxQ(767px) {
+        width: 100%;
+    }
 }
 
 
 table.table {
+    font-size: .8rem;
     width: 90%;
     margin: auto;
 
-    .role-cells {
-        display: flex;
-        flex-wrap: wrap;
-        border: none;
-
-        svg {
-            width: 15px;
-            justify-content: space-between;
-            align-content: space-between;
-            margin: 1px;
-            fill: $white;
-        }
-    }
-
     .role-icon-column {
-        min-width: 60px;
+        padding: 0;
+        vertical-align: middle;
+        text-align: center;
+        min-width: 40px;
     }
 
     .delete-icon-column {
@@ -136,6 +133,7 @@ table.table {
     tbody tr:first-child td {
 
         .add-user-btn {
+            font-size: inherit;
             width: 100%;
             height: 49px;
             display: flex;
@@ -143,14 +141,28 @@ table.table {
             border-radius: 0;
 
             svg {
-                width: 20px;
+                width: 1rem;
                 margin-right: 10px;
             }
         }
     }
 
     td {
-        &.icon-cell {
+        vertical-align: middle;
+        
+        &.role-cells {
+            padding: 0;
+            text-align: center;
+
+            svg {
+                display: inline-block;
+                width: .7rem;
+                margin: 1px;
+                fill: $white;
+            }
+        }
+
+        &.delete-icon-cell {
             padding: 0;
         }
 
@@ -160,7 +172,7 @@ table.table {
             height: 47px;
 
             .delete-user {
-                width: 20px;
+                width: .9rem;
                 fill: $white;
             }
         }
@@ -168,9 +180,6 @@ table.table {
 
     @include maxQ(767px) {
         width: 100%;
-    }
-
-    @include maxQ(500px) {
-        font-size: .6em;
+        font-size: .6rem;
     }
 }

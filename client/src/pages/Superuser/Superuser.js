@@ -97,7 +97,7 @@ class Superuser extends Component {
                                 { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
                                 { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
                             </td>
-                            <td className="icon-cell">
+                            <td className="delete-icon-cell">
                                 <Button variant='outline-danger' id={ key }>
                                     <Bin className='delete-user' />
                                 </Button>
