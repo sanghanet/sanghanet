@@ -36,7 +36,7 @@ class Superuser extends Component {
     }
 
     async componentDidMount () {
-        Client.fetch('/su/listmembers')
+        Client.fetch('/su/listmembers', { method: 'POST' })
             .then((data) => {
                 this.setState({ userData: data });
             }).catch((err) => {

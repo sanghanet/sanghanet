@@ -16,6 +16,6 @@ router.use((req, res, next) => {
     }
 });
 
-router.get('/listmembers', superuserController.listMembers);
+router.post('/listmembers', superuserController.listMembers);
 
 module.exports = router;
