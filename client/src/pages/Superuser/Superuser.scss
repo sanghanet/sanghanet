@@ -161,9 +161,14 @@ table.table {
 
             svg {
                 display: inline-block;
-                width: .7rem;
-                margin: 1px;
+                width: 1rem;
+                margin: 3px;
                 fill: $white;
+
+                @include maxQ(767px) {
+                    width: .7rem;
+                    margin: 2px;
+                }
             }
         }
 
