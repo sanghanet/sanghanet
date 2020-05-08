@@ -130,10 +130,19 @@ table.table {
     margin: auto;
 
     .role-icon-column {
+        width: 110px;
         padding: 0;
         vertical-align: middle;
         text-align: center;
         min-width: 40px;
+        
+        @include maxQ(500px) {
+            width: 60px;
+        }
+
+        @include maxQ(400px) {
+            width: 40px;
+        }
     }
 
     .delete-icon-column {
