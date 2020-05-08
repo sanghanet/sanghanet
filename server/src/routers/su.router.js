@@ -7,7 +7,7 @@ const log = log4js.getLogger('routers/su.router.js');
 const superuserController = require('../controllers/superuser.controller');
 
 router.use((req, res, next) => {
-    if (req.isAuthenticated()) { // session cookie has expired ??
+    if (req.isAuthenticated() && req.user.isSuperuser) { // session cookie has expired ??
         log.info(`[${req.ip}] ${req.method} ${req.url}, ${req.user.email}, authenticated.`);
         next();
     } else {
