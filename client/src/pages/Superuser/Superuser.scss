@@ -46,6 +46,8 @@
                     &.search-bar {
                         flex-wrap: wrap;
                         grid-column: span 2;
+                        width: 100%;
+                        margin: auto;
             
                         .search-field {
                             margin-bottom: 0;
@@ -57,6 +59,9 @@
                                 }
                             }
                         }
+
+                        @include minQ(1500px) { width: 80%; }
+                        @include minQ(1920px) { width: 60%; }
                     }
             
                     &.role-filter {
