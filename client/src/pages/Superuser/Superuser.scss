@@ -77,6 +77,10 @@
                             @include maxQ(870px) {
                                 font-size: .7rem;
                             }
+
+                            @include maxQ(400px) {
+                                font-size: .6rem;
+                            }
                         }
                     }
             
@@ -107,6 +111,7 @@
             
                     .reset-button {
                         width: 40%;
+                        font-size: .8rem;
                     }
                 }
             }
