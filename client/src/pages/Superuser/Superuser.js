@@ -260,9 +260,9 @@ class Superuser extends Component {
                         <tbody id="tableBody">
                             <tr>
                                 <td colSpan={5} className="p-0">
-                                    <Button className="add-user-btn" variant="success" onClick={this.addUser}>
+                                    <Button className="add-member-btn" variant="success" onClick={this.addUser}>
                                         <Plus />
-                                        Add user
+                                        Add member
                                     </Button>
                                 </td>
                             </tr>
