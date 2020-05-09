@@ -3,7 +3,7 @@ const { PORT, CLIENT_ID, CLIENT_SECRET } = require('../config');
 const passport = require('passport');
 
 const { mongoose } = require('./mongoDB.controller');
-const { User } = require('../models/user.model');
+const { Member } = require('../models/member.model');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const log4js = require('log4js');
@@ -15,7 +15,7 @@ passport.serializeUser((userID, done) => {
 });
 
 passport.deserializeUser((userID, done) => {
-    User.findOne({ _id: mongoose.Types.ObjectId(userID) })
+    Member.findOne({ _id: mongoose.Types.ObjectId(userID) })
         .then((identifiedUserObject) => {
             if (!identifiedUserObject) {
                 log.info('deserialization failed');
@@ -33,9 +33,9 @@ passport.use(new GoogleStrategy({
     clientSecret: CLIENT_SECRET,
     callbackURL: `http://localhost:${PORT}/auth/passport`
 }, (identifier, refreshtoken, profile, done) => {
-    User.findOne({ email: profile.emails[0].value })
+    Member.findOne({ email: profile.emails[0].value })
         .then((userObject) => {
-            return userObject && userObject.isActive
+            return userObject
                 ? done(null, userObject.id)
                 : done(null, null);
         })

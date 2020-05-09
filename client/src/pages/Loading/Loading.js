@@ -10,7 +10,6 @@ class Loading extends React.Component {
             .then((user) => {
                 if (user.name) {
                     sessionStorage.setItem('user', user.name);
-                    sessionStorage.setItem('isSuperuser', user.isSuperuser);
                     if (user.name === 'Unknown') {
                         window.location.href = '/registration';
                     } else {
