@@ -16,23 +16,29 @@ import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
 import AddUserPopup from './Popup/AddUserPopup';
 import EditUserPopup from './Popup/EditUserPopup';
-import { Table, Form, Button } from 'react-bootstrap';
+import Checkbox from '../../components/Form/Checkbox/Checkbox';
+import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
 
 import Client from '../../components/Client';
 
 class Superuser extends Component {
-    state = {
-        userData: null,
-        textFilterValue: '',
-        roleFilter: {
-            showSuperuser: true,
-            showFinanceAdmin: true,
-            showEventAdmin: true,
-            showYogaAdmin: true
-        },
-        showAddUserPopup: false,
-        showEditUserPopup: false,
-        editedUser: null
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            userData: null,
+            textFilterValue: '',
+            roleFilter: {
+                filterSuperuser: false,
+                filterFinanceAdmin: false,
+                filterEventAdmin: false,
+                filterYogaAdmin: false,
+                filterNoRole: false
+            },
+            showAddUserPopup: false,
+            showEditUserPopup: false,
+            editedUser: null
+        };
     }
 
     async componentDidMount () {
@@ -40,7 +46,7 @@ class Superuser extends Component {
             .then((data) => {
                 this.setState({ userData: data });
             }).catch((err) => {
-                // Give warning to the user or handle error here..
+                // TODO: Give warning to the user or handle error here..
                 console.error(err);
             });
     }
@@ -52,13 +58,14 @@ class Superuser extends Component {
         const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
                                     user.label.toLowerCase().includes(textFilterValue.toLowerCase());
         // eslint-disable-next-line no-multi-spaces
-        const passedRoleFilter =    (user.isSuperuser && roleFilter.showSuperuser) ||
-                                    (user.isFinanceAdmin && roleFilter.showFinanceAdmin) ||
-                                    (user.isEventAdmin && roleFilter.showEventAdmin) ||
-                                    (user.isYogaAdmin && roleFilter.showYogaAdmin) ||
+        const passedRoleFilter =    !(roleFilter.filterSuperuser || roleFilter.filterFinanceAdmin || roleFilter.filterEventAdmin || roleFilter.filterYogaAdmin || roleFilter.filterNoRole) ||
+                                    (user.isSuperuser && roleFilter.filterSuperuser) ||
+                                    (user.isFinanceAdmin && roleFilter.filterFinanceAdmin) ||
+                                    (user.isEventAdmin && roleFilter.filterEventAdmin) ||
+                                    (user.isYogaAdmin && roleFilter.filterYogaAdmin) ||
                                     (
-                                        !(user.isSuperuser && user.isFinanceAdmin && user.isEventAdmin && user.isYogaAdmin) &&
-                                        !(roleFilter.isSuperuser && roleFilter.isFinanceAdmin && roleFilter.isEventAdmin && roleFilter.isYogaAdmin)
+                                        !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) &&
+                                        roleFilter.filterNoRole
                                     );
 
         return passedEmailFilter && passedRoleFilter;
@@ -86,9 +93,9 @@ class Superuser extends Component {
                                 { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
                                 { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
                                 { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
-                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon /> }
+                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
                             </td>
-                            <td className="icon-cell">
+                            <td className="delete-icon-cell">
                                 <Button variant='outline-danger' id={ key }>
                                     <Bin className='delete-user' />
                                 </Button>
@@ -110,29 +117,22 @@ class Superuser extends Component {
     }
 
     handleRoleChange = (event) => {
-        // switch (event.target.options.selectedIndex) {
-        //     case 0:
-        //         this.setState({ roleFilter: 'all' });
-        //         break;
-        //     case 1:
-        //         this.setState({ roleFilter: 'general' });
-        //         break;
-        //     case 2:
-        //         this.setState({ roleFilter: 'super' });
-        //         break;
-        //     default:
-        //         break;
-        // }
-        console.dir(event);
+        const tempRoleState = Object.assign({}, this.state.roleFilter);
+        tempRoleState[event.target.id] = !tempRoleState[event.target.id];
+        this.setState({ roleFilter: tempRoleState });
     }
 
     resetFilters = () => {
         this.setState({
             textFilterValue: '',
-            roleFilter: 'all'
+            roleFilter: {
+                filterSuperuser: false,
+                filterFinanceAdmin: false,
+                filterEventAdmin: false,
+                filterYogaAdmin: false,
+                filterNoRole: false
+            }
         });
-
-        document.getElementById('roleSelect').selectedIndex = 0;
     }
 
     addUser = () => {
@@ -156,7 +156,13 @@ class Superuser extends Component {
     }
 
     render () {
-        const { textFilterValue, showAddUserPopup, showEditUserPopup, editedUser, roleFilter } = this.state;
+        const {
+            textFilterValue,
+            showAddUserPopup,
+            showEditUserPopup,
+            editedUser,
+            roleFilter
+        } = this.state;
 
         return (
             <div>
@@ -181,25 +187,63 @@ class Superuser extends Component {
                 <Navbar navStyle="sidenav" />
                 <main>
                     {/* --- Form for filters --- */}
-                    <Form className="filter-box">
-                        <Form.Group>
-                            <SearchBar
-                                handleInputChange={this.handleEmailFilterChange}
-                                handleIconClick={this.handleIconClick}
-                                inputValue={textFilterValue}
-                                icon={<Cross />}
-                            />
-                            <Form.Text>Filter by name or email address</Form.Text>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Role</Form.Label>
-                            <Form.Check checked={roleFilter.showSuperuser} onChange={this.handleRoleChange} id='superuser' type='checkbox' label='superuser' />
-                            <Form.Check checked={roleFilter.showFinanceAdmin} onChange={this.handleRoleChange} id='finance' type='checkbox' label='finance admin' />
-                            <Form.Check checked={roleFilter.showEventAdmin} onChange={this.handleRoleChange} id='event' type='checkbox' label='event admin' />
-                            <Form.Check checked={roleFilter.showYogaAdmin} onChange={this.handleRoleChange} id='yoga' type='checkbox' label='yoga admin' />
-                        </Form.Group>
-                        <Button variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
-                    </Form>
+                    <Accordion className="su-filter-accordion">
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Button} variant="primary" eventKey="0">
+                                    Filter members
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                    <Form className="filter-box">
+                                        <Form.Group className="search-bar">
+                                            <SearchBar
+                                                handleInputChange={this.handleEmailFilterChange}
+                                                handleIconClick={this.handleIconClick}
+                                                inputValue={textFilterValue}
+                                                icon={<Cross />}
+                                            />
+                                            <Form.Text>Filter by name or email address</Form.Text>
+                                        </Form.Group>
+                                        <Form.Group className="role-filter">
+                                            <Checkbox
+                                                id="filterSuperuser"
+                                                value="superuser"
+                                                checked={roleFilter.filterSuperuser}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                            <Checkbox
+                                                id="filterFinanceAdmin"
+                                                value="finance admin"
+                                                checked={roleFilter.filterFinanceAdmin}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                            <Checkbox
+                                                id="filterEventAdmin"
+                                                value="event admin"
+                                                checked={roleFilter.filterEventAdmin}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                            <Checkbox
+                                                id="filterYogaAdmin"
+                                                value="yoga admin"
+                                                checked={roleFilter.filterYogaAdmin}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                            <Checkbox
+                                                id="filterNoRole"
+                                                value="no role"
+                                                checked={roleFilter.filterNoRole}
+                                                handleChange={this.handleRoleChange}
+                                            />
+                                        </Form.Group>
+                                        <Button className="reset-button" variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
+                                    </Form>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
 
                     {/* --- Table --- */}
                     <Table striped bordered hover variant="dark">
@@ -207,16 +251,16 @@ class Superuser extends Component {
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Role</th>
-                                <th className="icon-column"></th>
+                                <th className="role-icon-column">Role</th>
+                                <th className="delete-icon-column"></th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
                             <tr>
                                 <td colSpan={5} className="p-0">
-                                    <Button className="add-user-btn" variant="success" onClick={this.addUser}>
+                                    <Button className="add-member-btn" variant="success" onClick={this.addUser}>
                                         <Plus />
-                                        Add user
+                                        Add member
                                     </Button>
                                 </td>
                             </tr>

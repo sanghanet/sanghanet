@@ -8,6 +8,23 @@
 * {
     box-sizing: border-box;
 }
+
+html {
+    font-size: 20px;
+
+    @include maxQ(500px) {
+        font-size: 12px;
+    }
+
+    @include maxQ(870px) {
+        font-size: 15px;
+    }
+
+    @include maxQ(1300px) {
+        font-size: 18px;
+    }
+}
+
 body {
     font-family: RobotoRegular;
     margin: 0;

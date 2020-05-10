@@ -1,78 +1,79 @@
 @import '../../../style/colors';
 @import '../../../style/mixins';
 
-.accordion {
+.input-accordion.accordion {
     box-sizing: border-box;
-}
-.accordion>.card {
-    width: 90%;
-    margin: 15px auto;
-    border: none;
-    border-radius: 2px;
-    @include maxQ(415px) {
-        width: 100%;
-    }
-}
 
-.accordion>.card>.card-header {
-    background-color: $label-bg;
-    height: 88px;
-    padding: 0;
-    border: 1px solid #969494;
-    display: grid;
-    grid-template-columns: 1fr repeat(1, 55px);
-    .btn-link {
-        padding: 0;
-        margin-left: 10px;
-        text-decoration: none;
-        color: $white;
-        text-align: left;
-        min-width: 204px;
-        overflow-x: hidden;
-        &:hover {
-            text-decoration: none;
-            color: $white;
+    &>.card {
+        width: 90%;
+        margin: 15px auto;
+        border: none;
+        border-radius: 2px;
+        @include maxQ(415px) { width: 100%; }
+
+        &>.card-header {
+            background-color: $label-bg;
+            height: 88px;
+            padding: 0;
+            border: 1px solid #969494;
+            display: grid;
+            grid-template-columns: 1fr repeat(1, 55px);
+
+            .btn-link {
+                padding: 0;
+                margin-left: 10px;
+                text-decoration: none;
+                color: $white;
+                text-align: left;
+                min-width: 204px;
+                overflow-x: hidden;
+                &:hover {
+                    text-decoration: none;
+                    color: $white;
+                }
+                svg {
+                    width: 14px;
+                    height: 14px;
+                    margin-left: 16px;
+                }
+            }
+            .visible-button {
+                @include buttonReset;
+                padding: 0 18px;
+                border-left: 1px solid gray;
+                height: 88px;
+                svg {
+                    fill: $white;
+                    width: 18px;
+                    height: 18px;
+                }
+            }
         }
-        svg {
-            width: 14px;
-            height: 14px;
-            margin-left: 16px;
-        }
-    }
-    .visible-button {
-        @include buttonReset;
-        padding: 0 18px;
-        border-left: 1px solid gray;
-        height: 88px;
-        svg {
-            fill: $white;
-            width: 18px;
-            height: 18px;
-        }
-    }
-}
-.card-body {
-    background-color: $input-bg;
-    padding: 0 !important;
-    .display-title {
-        margin: 0;
-        padding: 10px;
-        color: $white;
-    }
-    .display-input {
-        min-height: 44px;
-        border: 1px solid #969494;
-        display: grid;
-        grid-template-columns: 1fr repeat(1, 55px);
-    }
-    .edit-button {
-        @include buttonReset;
-        min-height: 44px;
-        border-left: 1px solid gray;
-        svg {
-            fill: $white;
-            width: 18px;
-            height: 18px;
+
+        .card-body {
+            background-color: $input-bg;
+            padding: 0 !important;
+            .display-title {
+                margin: 0;
+                padding: 10px;
+                color: $white;
+            }
+            .display-input {
+                min-height: 44px;
+                border: 1px solid #969494;
+                display: grid;
+                grid-template-columns: 1fr repeat(1, 55px);
+            }
+            .edit-button {
+                @include buttonReset;
+                min-height: 44px;
+                border-left: 1px solid gray;
+                svg {
+                    fill: $white;
+                    width: 18px;
+                    height: 18px;
+                }
+            }
         }
     }
 }

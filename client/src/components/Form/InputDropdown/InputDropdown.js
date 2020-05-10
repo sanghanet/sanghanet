@@ -64,7 +64,7 @@ const InputDropdown = (props) => {
                 : null
             }
             <Col xm={12} lg={6}>
-                <Accordion>
+                <Accordion className="input-accordion">
                     <Card>
                         <Card.Header>
                             <Accordion.Toggle as={Button} variant="link" eventKey="0" onClick={ () => toggleDropdown() }>

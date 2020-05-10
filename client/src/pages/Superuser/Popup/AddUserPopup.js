@@ -28,7 +28,7 @@ class AddUserPopup extends Component {
             <Modal show={modalShow} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'}>
                 <Form onSubmit={this.handleSubmit} autoComplete='off'>
                     <Modal.Header closeButton>
-                        <Form.Label>Add user</Form.Label>
+                        <Form.Label>Add member</Form.Label>
                     </Modal.Header>
                     <Modal.Body>
                         <InputGroup>
