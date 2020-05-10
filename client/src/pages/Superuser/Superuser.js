@@ -36,7 +36,7 @@ class Superuser extends Component {
     }
 
     async componentDidMount () {
-        Client.fetch('/user/listusers', { method: 'POST' })
+        Client.fetch('/su/listmembers', { method: 'POST' })
             .then((data) => {
                 this.setState({ userData: data });
             }).catch((err) => {
@@ -47,11 +47,10 @@ class Superuser extends Component {
 
     checkFilters = (user) => {
         const { roleFilter, textFilterValue } = this.state;
-        const fullName = `${user.firstName} ${user.lastName}`;
 
         // eslint-disable-next-line no-multi-spaces
         const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
-                                    fullName.toLowerCase().includes(textFilterValue.toLowerCase());
+                                    user.label.toLowerCase().includes(textFilterValue.toLowerCase());
         // eslint-disable-next-line no-multi-spaces
         const passedRoleFilter =    (user.isSuperuser && roleFilter.showSuperuser) ||
                                     (user.isFinanceAdmin && roleFilter.showFinanceAdmin) ||
@@ -75,7 +74,7 @@ class Superuser extends Component {
                     // check if user passes all filters
                     (this.checkFilters(user)) ? (
                         <tr key={ key }>
-                            <td>{`${user.firstName} ${user.lastName}`}</td>
+                            <td>{user.label}</td>
                             <td>
                                 {
                                     // take out the end of the email addresses
