@@ -193,7 +193,7 @@ class Superuser extends Component {
                         <Card>
                             <Card.Header>
                                 <Accordion.Toggle as={Button} variant="primary" eventKey="0">
-                                    Filter users
+                                    Filter members
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
