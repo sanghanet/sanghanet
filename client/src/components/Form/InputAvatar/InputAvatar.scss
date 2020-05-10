@@ -11,6 +11,7 @@
 
     .display-input {
         position: relative;
+        border: none;
         &:focus {
             outline:none;
         }
@@ -41,7 +42,6 @@
                 padding-top: 92px;
                 text-align: center;
                 font-style: italic;
-                color: $white;
             }
             .hide-text {
                 display: none;

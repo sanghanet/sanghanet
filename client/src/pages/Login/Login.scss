@@ -1,16 +1,13 @@
 @import '../../style/colors';
+@import '../../style/mixins';
 
 .login {
 	height: 100vh;
-
-	display: grid;
-	grid-template-rows: 1fr 6fr;
+	background-color: $main-bg;
 	header {
 		width: 100%;
-
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		height: $header-height-start;
+		@include centerElement;
 
 		/* gradient */
 		background: rgb(218,77,81);
@@ -35,6 +32,9 @@
 		height: 50vh;
 		z-index: 1;
 		fill:#15040c;
+		@include orientation(landscape) {
+			top: 60%;
+		}
 	}
 	.login-btn {
 		position: absolute;
@@ -47,7 +47,9 @@
 		width: 150px;
 		display: flex;
 		justify-content: center;
-
+		@include orientation(landscape) {
+			top: 64%;
+		}
 		button {
 			background: none;
 			color: inherit;

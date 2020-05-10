@@ -96,15 +96,12 @@ class Navbar extends Component {
                         <span className="title">Queries</span>
                     </NavLink>
                 </li>
-                { sessionStorage.isSuperuser === 'true'
-                    ? <li>
-                        <NavLink exact to="/superuser" className="link">
-                            <div className="menu-icon"><SuperuserIcon /></div>
-                            <span className="title">Superuser</span>
-                        </NavLink>
-                    </li>
-                    : null
-                }
+                <li>
+                    <NavLink exact to="/superuser" className="link">
+                        <div className="menu-icon"><SuperuserIcon /></div>
+                        <span className="title">Superuser</span>
+                    </NavLink>
+                </li>
                 <li id="logout-li">
                     <Logout />
                 </li>

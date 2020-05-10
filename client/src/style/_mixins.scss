@@ -1,4 +1,5 @@
 $header-height: 93px;
+$header-height-start: 104px;
 $navbar-width: 110px;
 
 @mixin resetList {
@@ -63,6 +64,11 @@ $navbar-width: 110px;
 }
 @mixin minQ($arg) {
     @media screen and (min-width: $arg) {
+        @content;
+    }
+}
+@mixin orientation($direction) {
+    @media (orientation: landscape) {
         @content;
     }
 }

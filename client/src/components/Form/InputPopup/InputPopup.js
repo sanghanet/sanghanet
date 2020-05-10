@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import { validationError } from '../../ValidationRule';
 import './InputPopup.scss';
 
 import { Modal, Button, Form } from 'react-bootstrap';
@@ -12,26 +12,14 @@ class InputPopup extends Component {
     }
 
     validation = (input) => {
-        if (input.validity.valid) {
-            this.setState({ errorMsg: '' }); return true;
-        } else if (input.validity.valueMissing) {
-            this.setState({ errorMsg: 'Value is required!' });
-        } else if (input.validity.typeMismatch) {
-            this.setState({ errorMsg: 'Enter a valid input type!' });
-        } else if (input.validity.patternMismatch) {
-            this.setState({ errorMsg: 'Invalid pattern!' });
-        } else if (input.validity.tooLong) {
-            this.setState({ errorMsg: 'Too long input!' }); // You will never get this error msg
-        } else if (input.validity.tooShort) {
-            this.setState({ errorMsg: 'Too short input!' });
-        } else if (input.validity.rangeUnderflow) {
-            this.setState({ errorMsg: 'Too low number!' });
-        } else if (input.validity.rangeOverflow) {
-            this.setState({ errorMsg: 'Too big number!' });
-        } else if (input.validity.badInput) {
-            this.setState({ errorMsg: 'Please enter a number!' });
+        const valErr = validationError(input);
+        if (valErr) {
+            this.setState({ errorMsg: valErr });
+            return false;
+        } else {
+            this.setState({ errorMsg: '' });
+            return true;
         }
-        return false;
     }
 
     handleSubmit = (event) => {
