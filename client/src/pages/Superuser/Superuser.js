@@ -9,6 +9,7 @@ import { ReactComponent as FinanceAdminIcon } from '../../components/icons/finan
 import { ReactComponent as EventAdminIcon } from '../../components/icons/event.svg';
 import { ReactComponent as YogaAdminIcon } from '../../components/icons/yoga.svg';
 import { ReactComponent as GeneralUserIcon } from '../../components/icons/personal.svg';
+import { ReactComponent as VerifiedIcon } from '../../components/icons/verified.svg';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -81,7 +82,10 @@ class Superuser extends Component {
                     // check if user passes all filters
                     (this.checkFilters(user)) ? (
                         <tr key={ key }>
-                            <td>{user.label}</td>
+                            <td className="name-cells">
+                                <span>{user.label}</span>
+                                {user.registered && <VerifiedIcon />}
+                            </td>
                             <td>
                                 {
                                     // take out the end of the email addresses
