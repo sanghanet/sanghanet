@@ -7,8 +7,10 @@ const PrivateRoute = (props) => {
     const user = sessionStorage.getItem('user');
 
     return (
-        // Show the component only when user is known & active
+        // Show the component only when user is known
         // Otherwise, redirect the user to / page
+        // TODO: test unknown user
+        // FIXME: clarify rest and props - which one goes where
         <Route {...rest} render={ (props) => (
             user
                 ? <Component {...props} />

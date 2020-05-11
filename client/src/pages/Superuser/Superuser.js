@@ -17,6 +17,7 @@ import Footer from '../../components/Footer/Footer';
 import AddUserPopup from './Popup/AddUserPopup';
 import EditUserPopup from './Popup/EditUserPopup';
 import Checkbox from '../../components/Form/Checkbox/Checkbox';
+import BasicDialog from '../../components/Form/Dialog/BasicDialog';
 import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
 
 import Client from '../../components/Client';
@@ -37,7 +38,8 @@ class Superuser extends Component {
             },
             showAddUserPopup: false,
             showEditUserPopup: false,
-            editedUser: null
+            editedUser: null,
+            showDeleteDialog: true
         };
     }
 
@@ -71,6 +73,10 @@ class Superuser extends Component {
         return passedEmailFilter && passedRoleFilter;
     }
 
+    handleDelete = () => {
+        return console.log('DELETE');
+    }
+
     renderUsers = () => {
         const { userData } = this.state;
 
@@ -96,7 +102,7 @@ class Superuser extends Component {
                                 { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
                             </td>
                             <td className="delete-icon-cell">
-                                <Button variant='outline-danger' id={ key }>
+                                <Button variant='outline-danger' id={ key } onClick={this.handleDelete}>
                                     <Bin className='delete-user' />
                                 </Button>
                             </td>
@@ -161,7 +167,8 @@ class Superuser extends Component {
             showAddUserPopup,
             showEditUserPopup,
             editedUser,
-            roleFilter
+            roleFilter,
+            showDeleteDialog
         } = this.state;
 
         return (
@@ -182,7 +189,14 @@ class Superuser extends Component {
                             user={editedUser}
                         />
                     ) : null }
-
+                { showDeleteDialog
+                    ? <BasicDialog
+                        title = 'Delete member'
+                        message = 'Are you sure you want to delete XX?'
+                        reject = 'No'
+                        accept = 'Delete'
+                    /> : null
+                }
                 <Header activePage="Superuser" />
                 <Navbar navStyle="sidenav" />
                 <main>
