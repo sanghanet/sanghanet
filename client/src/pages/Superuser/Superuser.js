@@ -39,7 +39,7 @@ class Superuser extends Component {
             showAddUserPopup: false,
             showEditUserPopup: false,
             editedUser: null,
-            showDeleteDialog: true
+            showDeleteDialog: false
         };
     }
 
@@ -48,7 +48,7 @@ class Superuser extends Component {
             .then((data) => {
                 this.setState({ userData: data });
             }).catch((err) => {
-                // TODO: Give warning to the user or handle error here..
+                // TODO: Give warning to the user or handle error here.
                 console.error(err);
             });
     }
@@ -73,8 +73,9 @@ class Superuser extends Component {
         return passedEmailFilter && passedRoleFilter;
     }
 
-    handleDelete = () => {
-        return console.log('DELETE');
+    handleDelete = (event) => {
+        const user = this.state.userData[event.currentTarget.id];
+        this.setState({ showDeleteDialog: true, editedUser: user.email });
     }
 
     renderUsers = () => {
@@ -192,7 +193,9 @@ class Superuser extends Component {
                 { showDeleteDialog
                     ? <BasicDialog
                         title = 'Delete member'
-                        message = 'Are you sure you want to delete XX?'
+                        message = 'Are you sure you want to delete '
+                        memberToBeDeleted = {this.deleteName}
+                        user={editedUser}
                         reject = 'No'
                         accept = 'Delete'
                     /> : null

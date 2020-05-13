@@ -48,7 +48,7 @@ class InputPopup extends Component {
 
         return (
             /* autoFocus works only if Modal animation={false} */
-            <Modal show={modalShow} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'}>
+            <Modal show={modalShow} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'} className="input-popup">
                 <Form onSubmit={this.handleSubmit} autoComplete='off'>
                     <Modal.Header closeButton>
                         <Form.Label htmlFor={modalId}>{modalTitle}</Form.Label>
