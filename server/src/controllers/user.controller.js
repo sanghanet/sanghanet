@@ -1,11 +1,12 @@
 const { SERVER_ROOT } = require('../config');
 
 const log4js = require('log4js');
+const log = log4js.getLogger('controllers/user.controller.js');
+
 const formidable = require('formidable');
 const uuidv4 = require('uuid/v4');
-var fs = require('fs');
+const fs = require('fs');
 
-const log = log4js.getLogger('controllers/user.controller.js');
 const { Member } = require('../models/member.model');
 const { RegisteredUser } = require('../models/registered.user.model');
 const { Account } = require('../models/financeAccount.model');

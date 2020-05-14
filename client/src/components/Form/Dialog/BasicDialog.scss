@@ -8,7 +8,7 @@
     .modal-header span {
         color: $white;
     }
-    .modal-body span {
+    .msg {
         color: $disabled;
     }
     .random-no {
@@ -31,6 +31,13 @@
             -moz-appearance: textfield;
         }
     }
+    .error {
+        display: block;
+        min-height: 24px;
+        letter-spacing: 1px;
+        font-weight: 400;
+        color: $error;
+    }
     .btn-primary {
         background-color: $label-bg !important;
         border-color: $label-bg !important;
@@ -43,6 +50,8 @@
             border-color: lighten($label-bg, 6) !important;
         }
     }
+
+}
     // option {
     //     background-color: $modal-bg;
     // }
@@ -94,4 +103,3 @@
     //         border-color: darken($label-bg, 6) !important;
     //     }
     // }
-}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { validationError } from '../../ValidationRule';
+
 import './BasicDialog.scss';
 
 import Modal from 'react-bootstrap/Modal';
@@ -8,18 +10,25 @@ import Form from 'react-bootstrap/Form';
 
 class BasicDialog extends Component {
     state = {
-        showDialog: true,
-        randomNumber: null,
-        isDisabled: true
+        randomNumber: Math.floor(1000 + Math.random() * 9000),
+        isDisabled: true,
+        errorMsg: ''
     }
 
-    componentDidMount () {
-        const fourDigit = Math.floor(1000 + Math.random() * 9000);
-        this.setState({ randomNumber: fourDigit });
+    validation = (input) => {
+        const valErr = validationError(input);
+        if (valErr) {
+            this.setState({ errorMsg: valErr });
+        } else {
+            this.setState({ errorMsg: '' });
+        }
     }
 
     handleChange = (event) => {
-        const value = parseInt(event.target.value);
+        const input = event.target;
+        this.validation(input);
+
+        const value = parseInt(input.value);
         if (value === this.state.randomNumber) {
             this.setState({ isDisabled: false });
         } else {
@@ -27,29 +36,29 @@ class BasicDialog extends Component {
         }
     }
 
-    handleSubmit = (event) => {
-        console.log('SUBMITED');
+    handleDelete = (event) => {
+        console.log('SUBMITED From Basic Dialog');
+        this.props.deleteMember();
     }
 
     handleClose = () => {
-        console.log('CLOSED');
-        this.setState({ showDialog: true });
+        this.props.closeDialog();
     }
 
     render () {
         const { title, message, user, reject, accept } = this.props;
-        const { randomNumber, isDisabled, showDialog } = this.state;
+        const { randomNumber, isDisabled, errorMsg } = this.state;
 
         return (
             /* autoFocus works only if Modal animation={false} */
-            <Modal show={showDialog} onHide={this.handleClose} animation={false} autoFocus dialogClassName={'modal-container'} className="basic-dialog">
-                <Form onSubmit={this.handleSubmit} autoComplete='off'>
+            <Modal show={true} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'} className="basic-dialog">
+                <Form onSubmit={this.handleDelete} autoComplete='off'>
                     <Modal.Header closeButton>
                         <span>{title}</span>
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Label htmlFor="digits-label">
-                            <span>{`${message} ${user}? To confirm, enter these four digits:`}&nbsp;</span>
+                            <span className="msg">{`${message} ${user}? To confirm, enter these four digits:`}&nbsp;</span>
                             <span className="random-no">{randomNumber}</span>
                         </Form.Label>
                         <Form.Control
@@ -61,12 +70,13 @@ class BasicDialog extends Component {
                             placeholder={user}
                             autoFocus
                         ></Form.Control>
+                        <span className="error" aria-live="polite">{errorMsg}</span>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>
                             {reject}
                         </Button>
-                        <Button onClick={this.handleSubmit} disabled={isDisabled}>
+                        <Button onClick={this.handleDelete} disabled={isDisabled}>
                             {accept}
                         </Button>
                     </Modal.Footer>
@@ -81,7 +91,9 @@ BasicDialog.propTypes = {
     message: PropTypes.string.isRequired,
     user: PropTypes.string,
     reject: PropTypes.string.isRequired,
-    accept: PropTypes.string.isRequired
+    accept: PropTypes.string.isRequired,
+    closeDialog: PropTypes.func.isRequired,
+    deleteMember: PropTypes.func.isRequired
 };
 
 export default BasicDialog;

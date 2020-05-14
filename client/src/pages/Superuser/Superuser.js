@@ -73,9 +73,31 @@ class Superuser extends Component {
         return passedEmailFilter && passedRoleFilter;
     }
 
-    handleDelete = (event) => {
+    openDelete = (event) => {
         const user = this.state.userData[event.currentTarget.id];
         this.setState({ showDeleteDialog: true, editedUser: user.email });
+    }
+
+    handleDeleteMember = () => {
+        Client.fetch('/su/deletemembers', {
+            method: 'DELETE'
+            // headers: { 'Content-Type': 'application/json' },
+            // body: `{"${Visible}": "${!this.state[Visible]}"}`
+        })
+            .then((data) => {
+                this.setState({ userData: data });
+                console.log('removed');
+                // this.updateItem(data);
+            }).catch((err) => {
+                console.error(err);
+                // this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+            });
+
+        this.setState({ showDeleteDialog: false });
+    }
+
+    handleCloseDialog = () => {
+        this.setState({ showDeleteDialog: false });
     }
 
     renderUsers = () => {
@@ -103,7 +125,7 @@ class Superuser extends Component {
                                 { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
                             </td>
                             <td className="delete-icon-cell">
-                                <Button variant='outline-danger' id={ key } onClick={this.handleDelete}>
+                                <Button variant='outline-danger' id={ key } onClick={this.openDelete}>
                                     <Bin className='delete-user' />
                                 </Button>
                             </td>
@@ -194,10 +216,11 @@ class Superuser extends Component {
                     ? <BasicDialog
                         title = 'Delete member'
                         message = 'Are you sure you want to delete '
-                        memberToBeDeleted = {this.deleteName}
+                        deleteMember = {this.handleDeleteMember}
                         user={editedUser}
                         reject = 'No'
                         accept = 'Delete'
+                        closeDialog = {this.handleCloseDialog}
                     /> : null
                 }
                 <Header activePage="Superuser" />
