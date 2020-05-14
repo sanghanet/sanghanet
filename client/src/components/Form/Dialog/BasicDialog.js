@@ -37,7 +37,6 @@ class BasicDialog extends Component {
     }
 
     handleDelete = (event) => {
-        console.log('SUBMITED From Basic Dialog');
         this.props.deleteMember();
     }
 

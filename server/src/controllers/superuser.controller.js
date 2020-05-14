@@ -12,13 +12,15 @@ module.exports.listMembers = async (req, res, next) => {
 };
 
 module.exports.deleteMember = async (req, res, next) => {
-    log.fatal();
-    // try {
-    //     await Member.findOneAndRemove(
-    //         { email: req.user.email }
-    //     );
-    //     res.json();
-    // } catch (err) {
-    //     next(err);
-    // }
+    log.info(`${req.user.email} deleted ${req.body.remove}.`);
+    // TODO: if user registered:true then delete it from registereduser and financialaccounts etc. collections
+    try {
+        const member = await Member.findOneAndDelete(
+            { email: req.body.remove }
+        );
+        log.fatal(member); // registered: false
+        res.status(200).send('OK');
+    } catch (err) {
+        next(err);
+    }
 };

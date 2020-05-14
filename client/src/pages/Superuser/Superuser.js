@@ -43,7 +43,7 @@ class Superuser extends Component {
         };
     }
 
-    async componentDidMount () {
+    componentDidMount () {
         Client.fetch('/su/listmembers', { method: 'POST' })
             .then((data) => {
                 this.setState({ userData: data });
@@ -79,17 +79,19 @@ class Superuser extends Component {
     }
 
     handleDeleteMember = () => {
-        Client.fetch('/su/deletemembers', {
-            method: 'DELETE'
-            // headers: { 'Content-Type': 'application/json' },
-            // body: `{"${Visible}": "${!this.state[Visible]}"}`
+        console.log('SUBMITED From SU');
+        Client.fetch('/su/deletemember', {
+            method: 'DELETE',
+            body: `{"remove": "${this.state.editedUser}"}`
         })
             .then((data) => {
-                this.setState({ userData: data });
+                // this.setState({ userData: data });
                 console.log('removed');
+                // TODO: delete the deleted user from this.state.userData
                 // this.updateItem(data);
             }).catch((err) => {
                 console.error(err);
+                // TODO: in case of error show alert
                 // this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
 
