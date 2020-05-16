@@ -14,6 +14,12 @@
     .random-no {
         color: $error !important;
     }
+    .email {
+        color: $disabled;
+        background-color: #6d6d6d;
+        padding: 2px 8px 6px;
+        border-radius: 8px;
+    }
     .form-control {
         color: $white;
         background: transparent;

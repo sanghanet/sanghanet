@@ -57,7 +57,9 @@ class BasicDialog extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Label htmlFor="digits-label">
-                            <span className="msg">{`${message} ${user}? To confirm, enter these four digits:`}&nbsp;</span>
+                            <span className="msg">{message}</span>
+                            <span className="email">{user}</span>
+                            <span className="msg">? <br></br>To confirm, enter these four digits:&nbsp;</span>
                             <span className="random-no">{randomNumber}</span>
                         </Form.Label>
                         <Form.Control

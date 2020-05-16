@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Alert from '../../components/Alert/Alert';
 
 import './Superuser.scss';
 import { ReactComponent as Cross } from '../../components/icons/cross.svg';
@@ -39,7 +40,10 @@ class Superuser extends Component {
             showAddUserPopup: false,
             showEditUserPopup: false,
             editedUser: null,
-            showDeleteDialog: false
+            showDeleteDialog: false,
+            showAlert: false,
+            alertMessage: '',
+            alertType: ''
         };
     }
 
@@ -85,14 +89,13 @@ class Superuser extends Component {
             body: `{"remove": "${this.state.editedUser}"}`
         })
             .then((data) => {
-                // this.setState({ userData: data });
-                console.log('removed');
-                // TODO: delete the deleted user from this.state.userData
-                // this.updateItem(data);
+                if (data.deleted) {
+                    this.setState({ userData: this.state.userData.filter((member) => member.email !== data.deleted) });
+                } else {
+                    this.setState({ showAlert: true, alertMessage: 'Delete failed. Refresh the page or try it later.', alertType: 'Error' });
+                }
             }).catch((err) => {
-                console.error(err);
-                // TODO: in case of error show alert
-                // this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
 
         this.setState({ showDeleteDialog: false });
@@ -186,6 +189,10 @@ class Superuser extends Component {
         });
     }
 
+    closeAlert = () => {
+        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
+    };
+
     render () {
         const {
             textFilterValue,
@@ -193,11 +200,22 @@ class Superuser extends Component {
             showEditUserPopup,
             editedUser,
             roleFilter,
-            showDeleteDialog
+            showDeleteDialog,
+            showAlert,
+            alertMessage,
+            alertType
         } = this.state;
 
         return (
             <div>
+                { showAlert
+                    ? <Alert
+                        alertClose={this.closeAlert}
+                        alertMsg={alertMessage}
+                        alertType={alertType}
+                    />
+                    : null
+                }
                 {showAddUserPopup
                     ? (
                         <AddUserPopup
@@ -217,7 +235,7 @@ class Superuser extends Component {
                 { showDeleteDialog
                     ? <BasicDialog
                         title = 'Delete member'
-                        message = 'Are you sure you want to delete '
+                        message = 'Delete '
                         deleteMember = {this.handleDeleteMember}
                         user={editedUser}
                         reject = 'No'
