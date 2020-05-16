@@ -83,7 +83,6 @@ class Superuser extends Component {
     }
 
     handleDeleteMember = () => {
-        console.log('SUBMITED From SU');
         Client.fetch('/su/deletemember', {
             method: 'DELETE',
             body: `{"remove": "${this.state.editedUser}"}`

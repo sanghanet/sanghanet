@@ -1,6 +1,6 @@
 const { Member } = require('../models/member.model');
-// const { Account } = require('../models/financeAccount.model');
-// const { RegisteredUser } = require('../models/registered.user.model');
+const { Account } = require('../models/financeAccount.model');
+const { RegisteredUser } = require('../models/registered.user.model');
 const log4js = require('log4js');
 const log = log4js.getLogger('controllers/user.controller.js');
 
@@ -15,31 +15,33 @@ module.exports.listMembers = async (req, res, next) => {
 
 module.exports.deleteMember = async (req, res, next) => {
     log.info(`${req.user.email} deleted ${req.body.remove}.`);
-    // TODO: if user registered: true then delete it from registereduser and financialaccounts etc. collections
     try {
-        const memberToDelete = await Member.findOneAndDelete( // returns whole object if successful
+        const memberToDelete = await Member.findOneAndDelete( // returns whole object if successful or null
             { email: req.body.remove }
         );
         const msg = memberToDelete ? req.body.remove : null;
-        res.json({ deleted: msg });
-        // log.fatal(user.registered);
-        // const deleteRegistration = (deleteUser.registered) ? await RegisteredUser.findOneAndDelete(
-        //     { email: req.body.remove }
-        // ) : null;
-        // const deleteFinance = (deleteUser.registered) ? await Account.findOneAndDelete(
-        //     { email: req.body.remove }
-        // ) : null;
+        res.json({ deleted: msg }); // SU page
 
-        // Promise.all([deleteRegistration, deleteFinance, deleteUser])
-        //     .then((results) => {
-        //         log.info('Delete successful!');
-        //         res.status(200).send('Deleted');
-        //     });
-        // const members = await Member.find({}, 'email isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin label registered');
-        // res.json(members);
+        if (memberToDelete && memberToDelete.registered) {
+            log.info(`${req.body.remove}: deleting registration and finance.`);
+
+            RegisteredUser.findOneAndDelete({ email: req.body.remove })
+                .then((userObj) => {
+                    log.info(`${req.body.remove}: registration deleted!`);
+                })
+                .catch((err) => {
+                    log.error(`${req.body.remove}: delete registration failed: (${err})`);
+                });
+            Account.findOneAndDelete({ email: req.body.remove })
+                .then((userObj) => {
+                    log.info(`${req.body.remove}: finance data deleted!`);
+                })
+                .catch((err) => {
+                    log.error(`${req.body.remove}: delete finance data failed: (${err})`);
+                });
+        }
     } catch (err) {
-        next(err);
         log.error(err);
-        res.status(500).send('Delete failed.');
+        next(err);
     }
 };
