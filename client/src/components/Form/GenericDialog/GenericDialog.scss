@@ -1,0 +1,44 @@
+@import '../../../style/colors';
+@import '../../../style/mixins';
+
+.basic-dialog .modal-container {
+    .modal-content {
+        background-color: $modal-bg;
+    }
+    .modal-header h3 {
+        color: $white;
+        font-size: 24px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        margin-bottom: 0;
+    }
+    .modal-header span {
+        color: $white;
+    }
+    .form-control {
+        color: $white;
+        background: transparent;
+        font-size: 20px;
+        border: none;
+    }
+    .error {
+        display: block;
+        min-height: 24px;
+        letter-spacing: 1px;
+        font-weight: 400;
+        color: $error;
+    }
+    .btn-primary {
+        background-color: $label-bg !important;
+        border-color: $label-bg !important;
+        &:hover, &:active, &:focus {
+            background-color: darken($label-bg, 6) !important;
+            border-color: darken($label-bg, 6) !important;
+        }
+        &:disabled {
+            background-color: lighten($label-bg, 6) !important;
+            border-color: lighten($label-bg, 6) !important;
+        }
+    }
+
+}
