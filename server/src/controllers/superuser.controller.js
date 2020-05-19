@@ -14,13 +14,14 @@ module.exports.listMembers = async (req, res, next) => {
 };
 
 module.exports.deleteMember = async (req, res, next) => {
-    log.info(`${req.user.email} deleted ${req.body.remove}.`);
+    log.info(`${req.user.email} is deleting ${req.body.remove}.`);
     try {
         const memberToDelete = await Member.findOneAndDelete( // returns whole object if successful or null
             { email: req.body.remove }
         );
         const msg = memberToDelete ? req.body.remove : null;
         res.json({ deleted: msg }); // SU page
+        log.info(`Deleted: ${msg}`);
 
         if (memberToDelete && memberToDelete.registered) {
             log.info(`${req.body.remove}: deleting registration and finance.`);
