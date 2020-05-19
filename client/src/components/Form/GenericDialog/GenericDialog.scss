@@ -1,7 +1,7 @@
 @import '../../../style/colors';
 @import '../../../style/mixins';
 
-.basic-dialog .modal-container {
+.generic-dialog .modal-container {
     .modal-content {
         background-color: $modal-bg;
     }
@@ -15,19 +15,6 @@
     .modal-header span {
         color: $white;
     }
-    .form-control {
-        color: $white;
-        background: transparent;
-        font-size: 20px;
-        border: none;
-    }
-    .error {
-        display: block;
-        min-height: 24px;
-        letter-spacing: 1px;
-        font-weight: 400;
-        color: $error;
-    }
     .btn-primary {
         background-color: $label-bg !important;
         border-color: $label-bg !important;
@@ -40,5 +27,4 @@
             border-color: lighten($label-bg, 6) !important;
         }
     }
-
 }

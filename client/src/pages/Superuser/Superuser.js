@@ -18,7 +18,7 @@ import Footer from '../../components/Footer/Footer';
 import AddUserPopup from './Popup/AddUserPopup';
 import EditUserPopup from './Popup/EditUserPopup';
 import Checkbox from '../../components/Form/Checkbox/Checkbox';
-import BasicDialog from '../../components/Form/Dialog/BasicDialog';
+import DeleteDialog from './DeleteDialog/DeleteDialog';
 import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
 
 import Client from '../../components/Client';
@@ -232,15 +232,11 @@ class Superuser extends Component {
                         />
                     ) : null }
                 { showDeleteDialog &&
-                     <BasicDialog
-                         title = 'Delete member'
-                         message = 'Delete '
-                         deleteMember = {this.handleDeleteMember}
-                         user={editedUser}
-                         reject = 'No'
-                         accept = 'Delete'
-                         closeDialog = {this.handleCloseDialog}
-                     />
+                    <DeleteDialog
+                        user={editedUser}
+                        closeDialog = {this.handleCloseDialog}
+                        deleteMember = {this.handleDeleteMember}
+                    />
                 }
                 <Header activePage="Superuser" />
                 <Navbar navStyle="sidenav" />
