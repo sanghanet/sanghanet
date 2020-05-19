@@ -82,7 +82,7 @@ class Superuser extends Component {
         this.setState({ showDeleteDialog: true, editedUser: user.email });
     }
 
-    handleDeleteMember = () => {
+    handleDeleteMember = (event) => {
         Client.fetch('/su/deletemember', {
             method: 'DELETE',
             body: `{"remove": "${this.state.editedUser}"}`

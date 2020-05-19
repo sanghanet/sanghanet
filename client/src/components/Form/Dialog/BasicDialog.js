@@ -19,16 +19,21 @@ class BasicDialog extends Component {
         const valErr = validationError(input);
         if (valErr) {
             this.setState({ errorMsg: valErr });
+            return false;
         } else {
             this.setState({ errorMsg: '' });
+            return true;
         }
     }
 
     handleChange = (event) => {
         const input = event.target;
-        this.validation(input);
-
         const value = parseInt(input.value);
+
+        if (this.validation(input) && value !== this.state.randomNumber) {
+            this.setState({ errorMsg: 'Incorrect number!' });
+        };
+
         if (value === this.state.randomNumber) {
             this.setState({ isDisabled: false });
         } else {
@@ -37,7 +42,8 @@ class BasicDialog extends Component {
     }
 
     handleDelete = (event) => {
-        this.props.deleteMember();
+        if (!this.state.isDisabled) { this.props.deleteMember(); }
+        event.preventDefault();
     }
 
     handleClose = () => {
