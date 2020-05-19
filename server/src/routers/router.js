@@ -25,7 +25,6 @@ router.put('/saveitem', userController.updateItemAndVisibility);
 router.put('/savevisibility', userController.updateItemAndVisibility);
 router.post('/uploadprofileimg', userController.uploadProfileImg);
 
-router.get('/financeoverview', financeController.getFinanceOverview);
-router.get('/financetransactions', financeController.getFinanceTransactions);
+router.get('/financedata', financeController.getFinanceData);
 
 module.exports = router;

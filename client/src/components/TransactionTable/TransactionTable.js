@@ -6,23 +6,32 @@ class TransactionTable extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            rows: null
+            rows: null,
+            content: this.props.transactionArray
         };
     }
 
     componentDidMount () {
-        const rows = [];
-        for (const transaction of this.props.transactionArray) {
-            rows.push(
-                <tr key = {transaction._id}>
-                    <td>{transaction.description}</td>
-                    <td>{transaction.amount} {transaction.currency}</td>
-                </tr>
-            );
+        this.createRows();
+    }
+
+    createRows () {
+        try {
+            const rows = [];
+            for (const transaction of this.state.content) {
+                rows.push(
+                    <tr key = {transaction._id}>
+                        <td>{transaction.description}</td>
+                        <td>{transaction.amount} {transaction.currency}</td>
+                    </tr>
+                );
+            }
+            this.setState({
+                rows: rows
+            });
+        } catch (error) {
+            this.props.onError(error);
         }
-        this.setState({
-            rows: rows
-        });
     }
 
     render () {
@@ -43,7 +52,8 @@ class TransactionTable extends React.Component {
 }
 
 TransactionTable.propTypes = {
-    transactionArray: PropTypes.array.isRequired
+    transactionArray: PropTypes.array.isRequired,
+    onError: PropTypes.func.isRequired
 };
 
 export default TransactionTable;
