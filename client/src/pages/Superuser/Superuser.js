@@ -231,16 +231,16 @@ class Superuser extends Component {
                             user={editedUser}
                         />
                     ) : null }
-                { showDeleteDialog
-                    ? <BasicDialog
-                        title = 'Delete member'
-                        message = 'Delete '
-                        deleteMember = {this.handleDeleteMember}
-                        user={editedUser}
-                        reject = 'No'
-                        accept = 'Delete'
-                        closeDialog = {this.handleCloseDialog}
-                    /> : null
+                { showDeleteDialog &&
+                     <BasicDialog
+                         title = 'Delete member'
+                         message = 'Delete '
+                         deleteMember = {this.handleDeleteMember}
+                         user={editedUser}
+                         reject = 'No'
+                         accept = 'Delete'
+                         closeDialog = {this.handleCloseDialog}
+                     />
                 }
                 <Header activePage="Superuser" />
                 <Navbar navStyle="sidenav" />
