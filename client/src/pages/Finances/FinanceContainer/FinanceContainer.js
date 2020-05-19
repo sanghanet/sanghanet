@@ -1,9 +1,9 @@
 import React from 'react';
-import Client from '../../components/Client';
+import Client from '../../../components/Client';
 import './FinanceContainer.scss';
-import FinanceDashboard from '../FinanceDashboard/FinanceDashboard';
-import TransactionTabs from '../TransactionTabs/TransactionTabs';
-import Alert from '../Alert/Alert';
+import FinanceDashboard from '../../../components/FinanceDashboard/FinanceDashboard';
+import TransactionTabs from '../../../components/TransactionTabs/TransactionTabs';
+import Alert from '../../../components/Alert/Alert';
 
 class FinanceContainer extends React.Component {
     constructor (props) {
