@@ -9,7 +9,8 @@ class FinanceContainer extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            financeData: null
+            financeData: null,
+            errorState: null
         };
     }
 
@@ -37,26 +38,25 @@ class FinanceContainer extends React.Component {
     }
 
     render () {
-        if (this.state.errorState) {
-            return (
-                <Alert
-                    alertClose={() => { this.setState({ errorState: null }); }}
-                    alertMsg={'There was an error! ' + this.state.errorState.message}
-                    alertType={'Error'}
-                />
-            );
-        }
+        const { errorState, financeData } = this.state;
 
         return (
             <div>
-                {this.state.financeData ? <FinanceDashboard
-                    currency = {this.state.financeData[0].currency}
-                    financePockets = {this.state.financeData[0].pockets}
-                    onError = {this.onError}/> : <p>Loading ...</p>}
-                {this.state.financeData ? <TransactionTabs
-                    currency = {this.state.financeData[0].currency}
-                    transactionBuffer = {this.state.financeData[0].transactionBuffer}
-                    onError = {this.onError} /> : <p>Loading ...</p>}
+                {errorState && <Alert
+                    alertClose={() => { this.setState({ errorState: null }); }}
+                    alertMsg={'There was an error! ' + errorState.message}
+                    alertType={'Error'}
+                />}
+                <div>
+                    {this.state.financeData ? <FinanceDashboard
+                        currency = {financeData[0].currency}
+                        financePockets = {financeData[0].pockets}
+                        onError = {this.onError}/> : <p>Loading ...</p>}
+                    {financeData ? <TransactionTabs
+                        currency = {financeData[0].currency}
+                        transactionBuffer = {financeData[0].transactionBuffer}
+                        onError = {this.onError} /> : <p>Loading ...</p>}
+                </div>
             </div>
         );
     }
