@@ -29,6 +29,7 @@ class Superuser extends Component {
         this.state = {
             userData: null,
             textFilterValue: '',
+            registeredFilterValue: 'all',
             roleFilter: {
                 filterSuperuser: false,
                 filterFinanceAdmin: false,
@@ -53,7 +54,7 @@ class Superuser extends Component {
     }
 
     checkFilters = (user) => {
-        const { roleFilter, textFilterValue } = this.state;
+        const { roleFilter, textFilterValue, registeredFilterValue } = this.state;
 
         // eslint-disable-next-line no-multi-spaces
         const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
@@ -69,7 +70,11 @@ class Superuser extends Component {
                                         roleFilter.filterNoRole
                                     );
 
-        return passedEmailFilter && passedRoleFilter;
+        const passedRegisteredFilter = (registeredFilterValue === 'all') ||
+                                        (user.registered && registeredFilterValue !== 'unregistered') ||
+                                        (!user.registered && registeredFilterValue !== 'registered');
+
+        return passedEmailFilter && passedRoleFilter && passedRegisteredFilter;
     }
 
     renderUsers = () => {
@@ -121,9 +126,13 @@ class Superuser extends Component {
     }
 
     handleRoleChange = (event) => {
-        const tempRoleState = Object.assign({}, this.state.roleFilter);
+        const tempRoleState = { ...this.state.roleFilter };
         tempRoleState[event.target.id] = !tempRoleState[event.target.id];
         this.setState({ roleFilter: tempRoleState });
+    }
+
+    handleRegisteredFilterChange = (event) => {
+        this.setState({ registeredFilterValue: event.target[event.target.selectedIndex].text });
     }
 
     resetFilters = () => {
@@ -162,6 +171,7 @@ class Superuser extends Component {
     render () {
         const {
             textFilterValue,
+            registeredFilterValue,
             showAddUserPopup,
             showEditUserPopup,
             editedUser,
@@ -209,6 +219,15 @@ class Superuser extends Component {
                                                 icon={<Cross />}
                                             />
                                             <Form.Text>Filter by name or email address</Form.Text>
+                                        </Form.Group>
+                                        <Form.Group className="registered-filter">
+                                            <Form.Label>Show</Form.Label>
+                                            {/* TODO: add onChange method */}
+                                            <Form.Control onChange={this.handleRegisteredFilterChange} defaultValue={registeredFilterValue} as="select">
+                                                <option>all</option>
+                                                <option>registered</option>
+                                                <option>unregistered</option>
+                                            </Form.Control>
                                         </Form.Group>
                                         <Form.Group className="role-filter">
                                             <Checkbox
