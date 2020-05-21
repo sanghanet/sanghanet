@@ -222,7 +222,6 @@ class Superuser extends Component {
                                         </Form.Group>
                                         <Form.Group className="registered-filter">
                                             <Form.Label>Show</Form.Label>
-                                            {/* TODO: add onChange method */}
                                             <Form.Control onChange={this.handleRegisteredFilterChange} defaultValue={registeredFilterValue} as="select">
                                                 <option>all</option>
                                                 <option>registered</option>
