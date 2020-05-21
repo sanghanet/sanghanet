@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Alert from '../../components/Alert/Alert';
 
 import './Superuser.scss';
 import { ReactComponent as Cross } from '../../components/icons/cross.svg';
@@ -18,7 +19,7 @@ import Footer from '../../components/Footer/Footer';
 import AddUserPopup from './Popup/AddUserPopup';
 import EditUserPopup from './Popup/EditUserPopup';
 import Checkbox from '../../components/Form/Checkbox/Checkbox';
-import Alert from '../../components/Alert/Alert';
+import BasicDialog from '../../components/Form/Dialog/BasicDialog';
 import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
 
 import Client from '../../components/Client';
@@ -41,13 +42,14 @@ class Superuser extends Component {
             showAddUserPopup: false,
             showEditUserPopup: false,
             editedUser: null,
+            showDeleteDialog: false,
             showAlert: false,
             alertMessage: '',
             alertType: ''
         };
     }
 
-    async componentDidMount () {
+    componentDidMount () {
         Client.fetch('/su/listmembers', { method: 'POST' })
             .then((data) => {
                 this.setState({ userData: data });
@@ -80,6 +82,33 @@ class Superuser extends Component {
         return passedEmailFilter && passedRoleFilter && passedRegisteredFilter;
     }
 
+    openDelete = (event) => {
+        const user = this.state.userData[event.currentTarget.id];
+        this.setState({ showDeleteDialog: true, editedUser: user.email });
+    }
+
+    handleDeleteMember = (event) => {
+        Client.fetch('/su/deletemember', {
+            method: 'DELETE',
+            body: `{"remove": "${this.state.editedUser}"}`
+        })
+            .then((data) => {
+                if (data.deleted) {
+                    this.setState({ userData: this.state.userData.filter((member) => member.email !== data.deleted) });
+                } else {
+                    this.setState({ showAlert: true, alertMessage: 'Delete failed. Refresh the page or try it later.', alertType: 'Error' });
+                }
+            }).catch((err) => {
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+            });
+
+        this.setState({ showDeleteDialog: false });
+    }
+
+    handleCloseDialog = () => {
+        this.setState({ showDeleteDialog: false });
+    }
+
     renderUsers = () => {
         const { userData } = this.state;
 
@@ -108,7 +137,7 @@ class Superuser extends Component {
                                 { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
                             </td>
                             <td className="delete-icon-cell">
-                                <Button variant='outline-danger' id={ key }>
+                                <Button variant='outline-danger' id={ key } onClick={this.openDelete}>
                                     <Bin className='delete-user' />
                                 </Button>
                             </td>
@@ -183,6 +212,7 @@ class Superuser extends Component {
             showEditUserPopup,
             editedUser,
             roleFilter,
+            showDeleteDialog,
             showAlert,
             alertMessage,
             alertType
@@ -190,6 +220,14 @@ class Superuser extends Component {
 
         return (
             <div>
+                { showAlert
+                    ? <Alert
+                        alertClose={this.closeAlert}
+                        alertMsg={alertMessage}
+                        alertType={alertType}
+                    />
+                    : null
+                }
                 {showAddUserPopup
                     ? (
                         <AddUserPopup
@@ -206,7 +244,17 @@ class Superuser extends Component {
                             user={editedUser}
                         />
                     ) : null }
-
+                { showDeleteDialog &&
+                     <BasicDialog
+                         title = 'Delete member'
+                         message = 'Delete '
+                         deleteMember = {this.handleDeleteMember}
+                         user={editedUser}
+                         reject = 'No'
+                         accept = 'Delete'
+                         closeDialog = {this.handleCloseDialog}
+                     />
+                }
                 <Header activePage="Superuser" />
                 <Navbar navStyle="sidenav" />
                 <main>

@@ -1,0 +1,60 @@
+@import '../../../style/colors';
+@import '../../../style/mixins';
+
+.basic-dialog .modal-container {
+    .modal-content {
+        background-color: $modal-bg;
+    }
+    .modal-header span {
+        color: $white;
+    }
+    .msg {
+        color: $disabled;
+    }
+    .random-no {
+        color: $error !important;
+    }
+    .email {
+        color: $disabled;
+        background-color: #6d6d6d;
+        padding: 2px 8px 6px;
+        border-radius: 8px;
+    }
+    .form-control {
+        color: $white;
+        background: transparent;
+        font-size: 20px;
+        border: none;
+        -webkit-appearance: none;
+        /* Chrome, Safari, Edge, Opera */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Firefox */
+        &[type=number] {
+            -moz-appearance: textfield;
+        }
+    }
+    .error {
+        display: block;
+        min-height: 24px;
+        letter-spacing: 1px;
+        font-weight: 400;
+        color: $error;
+    }
+    .btn-primary {
+        background-color: $label-bg !important;
+        border-color: $label-bg !important;
+        &:hover, &:active, &:focus {
+            background-color: darken($label-bg, 6) !important;
+            border-color: darken($label-bg, 6) !important;
+        }
+        &:disabled {
+            background-color: lighten($label-bg, 6) !important;
+            border-color: lighten($label-bg, 6) !important;
+        }
+    }
+
+}
