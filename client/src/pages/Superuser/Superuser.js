@@ -18,6 +18,7 @@ import Footer from '../../components/Footer/Footer';
 import AddUserPopup from './Popup/AddUserPopup';
 import EditUserPopup from './Popup/EditUserPopup';
 import Checkbox from '../../components/Form/Checkbox/Checkbox';
+import Alert from '../../components/Alert/Alert';
 import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
 
 import Client from '../../components/Client';
@@ -39,7 +40,10 @@ class Superuser extends Component {
             },
             showAddUserPopup: false,
             showEditUserPopup: false,
-            editedUser: null
+            editedUser: null,
+            showAlert: false,
+            alertMessage: '',
+            alertType: ''
         };
     }
 
@@ -48,8 +52,7 @@ class Superuser extends Component {
             .then((data) => {
                 this.setState({ userData: data });
             }).catch((err) => {
-                // TODO: Give warning to the user or handle error here..
-                console.error(err);
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
     }
 
@@ -168,6 +171,10 @@ class Superuser extends Component {
         });
     }
 
+    closeAlert = () => {
+        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
+    }
+
     render () {
         const {
             textFilterValue,
@@ -175,7 +182,10 @@ class Superuser extends Component {
             showAddUserPopup,
             showEditUserPopup,
             editedUser,
-            roleFilter
+            roleFilter,
+            showAlert,
+            alertMessage,
+            alertType
         } = this.state;
 
         return (
@@ -200,6 +210,7 @@ class Superuser extends Component {
                 <Header activePage="Superuser" />
                 <Navbar navStyle="sidenav" />
                 <main>
+                    {showAlert && <Alert alertMsg={alertMessage} alertType={alertType} alertClose={this.closeAlert} />}
                     {/* --- Form for filters --- */}
                     <Accordion className="su-filter-accordion">
                         <Card>
