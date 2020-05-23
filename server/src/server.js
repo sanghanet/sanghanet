@@ -18,6 +18,7 @@ const router = require('./routers/router');
 const suRouter = require('./routers/su.router');
 
 app.use(express.static('app'));
+app.use('/registration', express.static('app'));
 app.use('/loading', express.static('app'));
 app.use('/dashboard', express.static('app'));
 app.use('/personal', express.static('app'));
