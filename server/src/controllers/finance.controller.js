@@ -1,7 +1,7 @@
 const log4js = require('log4js');
 const log = log4js.getLogger('controllers/finance.controller.js');
 
-const { FinanceAccount } = require('../models/FinanceAccount.model');
+const { FinanceAccount } = require('../models/financeAccount.model');
 
 module.exports.getFinanceData = async (req, res) => {
     try {
