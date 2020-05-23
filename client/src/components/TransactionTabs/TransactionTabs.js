@@ -9,6 +9,7 @@ class TransactionTabs extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
+            tabs: null
         };
     }
 

@@ -48,14 +48,18 @@ class FinanceContainer extends React.Component {
                     alertType={'Error'}
                 />}
                 <div>
-                    {this.state.financeData ? <FinanceDashboard
-                        currency = {financeData[0].currency}
-                        financePockets = {financeData[0].pockets}
-                        onError = {this.onError}/> : <p>Loading ...</p>}
-                    {financeData ? <TransactionTabs
-                        currency = {financeData[0].currency}
-                        transactionBuffer = {financeData[0].transactionBuffer}
-                        onError = {this.onError} /> : <p>Loading ...</p>}
+                    {financeData ? (
+                        <FinanceDashboard
+                            currency = {financeData[0].currency}
+                            financePockets = {financeData[0].pockets}
+                            onError = {this.onError}/>
+                    ) : (<p>Loading ...</p>) }
+                    {financeData ? (
+                        <TransactionTabs
+                            currency = {financeData[0].currency}
+                            transactionBuffer = {financeData[0].transactionBuffer}
+                            onError = {this.onError} />
+                    ) : (<p>Loading ...</p>) }
                 </div>
             </div>
         );

@@ -26,7 +26,7 @@ class FinanceDashboard extends React.Component {
             }
             this.setState({ balances: categories });
         } catch (error) {
-            this.setState({ errorState: error });
+            this.props.onError(error);
         }
     }
 
