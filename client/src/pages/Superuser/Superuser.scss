@@ -29,7 +29,7 @@
             .filter-box {
                 display: grid;
                 grid-template-columns: 3fr 1fr;
-                grid-template-rows: 3fr 1fr;
+                grid-template-rows: 2fr 2fr 1fr;
                 color: $white;
                 margin: auto;
                 margin-bottom: 10px;
@@ -83,16 +83,28 @@
                             }
                         }
                     }
-            
-                    select {
-                        color: $white;
-                        background-color: $main-bg;
-                        padding: 10px;
-                        margin: 0 10px;
-                    }
-            
-                    label {
-                        margin: 10px;
+
+                    &.registered-filter {
+                        width: 30%;
+                        grid-column: span 2;
+                        margin: auto;
+
+                        label {
+                            margin: auto 20px auto 0;
+                            font-size: .8rem;
+                        }
+
+                        select {
+                            padding: 0 10px;
+                            font-size: .8rem;
+                            height: 25px;
+                            background-color: #167bff;
+                            color: white;
+                        }
+
+                        @include maxQ(600px) {
+                            width: 80%;
+                        }
                     }
                 }
             
@@ -100,6 +112,11 @@
                     grid-column-start: 2;
                     width: 80%;
                     margin: auto;
+                }
+
+                .reset-button {
+                    margin: 10px auto;
+                    font-size: .8rem;
                 }
             
                 @include maxQ(1110px) {
@@ -168,6 +185,26 @@ table.table {
 
     td {
         vertical-align: middle;
+
+        &.name-cells {
+            position: relative;
+
+            svg {
+                width: .6rem;
+                height: .6rem;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+
+                @include minQ(500px) {
+                    width: .8rem;
+                    height: .8rem;
+                    position: relative;
+                    top: -5px;
+                    left: 5px;
+                }
+            }
+        }
         
         &.role-cells {
             padding: 0;
