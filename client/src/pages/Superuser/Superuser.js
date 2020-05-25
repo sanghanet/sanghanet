@@ -119,8 +119,20 @@ class Superuser extends Component {
         this.setState({ showAddAdminDialog: true, editedUser: user.email });
     }
 
-    handleAddAdminRoles = () => {
-        console.log('handleAddAdminRoles');
+    handleAddAdminRoles = (arrayRoles) => {
+        console.log('handleAddAdminRoles in SU', arrayRoles);
+        arrayRoles.map((role) => {
+            if (role.isFinanceAdmin) { return <FinanceAdminIcon title='finance admin' />; }
+            if (role.isEventAdmin) { return <EventAdminIcon title='event admin' />; }
+            if (role.isYogaAdmin) { return <YogaAdminIcon title='yoga admin' />; }
+            if (role.isSuperuser) { return <SuperuserIcon title='superuser' />; }
+        });
+
+        // 0: {isFinanceAdmin: false}
+        // 1: {isEventAdmin: true}
+        // 2: {isYogaAdmin: false}
+        // 3: {isSuperuser: false}
+
         // this.setState({ showAddAdminDialog: false });
     }
 
