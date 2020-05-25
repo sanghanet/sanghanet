@@ -17,7 +17,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
 import AddUserPopup from './Popup/AddUserPopup';
-import EditUserPopup from './Popup/EditUserPopup';
+import AddAdminRoles from './AddAdminRoles/AddAdminRoles';
 import Checkbox from '../../components/Form/Checkbox/Checkbox';
 import DeleteDialog from './DeleteDialog/DeleteDialog';
 import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
@@ -43,9 +43,14 @@ class Superuser extends Component {
             showEditUserPopup: false,
             editedUser: null,
             showDeleteDialog: false,
+            showAddAdminDialog: false,
             showAlert: false,
             alertMessage: '',
-            alertType: ''
+            alertType: '',
+            isSuperuser: false,
+            isFinanceAdmin: false,
+            isEventAdmin: false,
+            isYogaAdmin: false
         };
     }
 
@@ -105,8 +110,22 @@ class Superuser extends Component {
         this.setState({ showDeleteDialog: false });
     }
 
-    handleCloseDialog = () => {
+    handleCloseDeleteDialog = () => {
         this.setState({ showDeleteDialog: false });
+    }
+
+    openAddAdminRoles = (event) => {
+        const user = this.state.userData[event.currentTarget.id];
+        this.setState({ showAddAdminDialog: true, editedUser: user.email });
+    }
+
+    handleAddAdminRoles = () => {
+        console.log('handleAddAdminRoles');
+        // this.setState({ showAddAdminDialog: false });
+    }
+
+    handleCloseAdminRoles = () => {
+        this.setState({ showAddAdminDialog: false });
     }
 
     renderUsers = () => {
@@ -129,12 +148,14 @@ class Superuser extends Component {
                                     user.email.substring(0, user.email.indexOf('@'))
                                 }
                             </td>
-                            <td onClick={this.editUser} id={key} className="role-cells">
-                                { user.isSuperuser && <SuperuserIcon title='superuser' /> }
-                                { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
-                                { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
-                                { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
-                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
+                            <td onClick={this.openAddAdminRoles} id={key} className="role-cells">
+                                <Button>
+                                    { user.isSuperuser && <SuperuserIcon title='superuser' /> }
+                                    { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
+                                    { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
+                                    { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
+                                    { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
+                                </Button>
                             </td>
                             <td className="delete-icon-cell">
                                 <Button variant='outline-danger' id={ key } onClick={this.openDelete}>
@@ -184,14 +205,14 @@ class Superuser extends Component {
         this.setState({ showAddUserPopup: true });
     }
 
-    editUser = (event) => {
-        const user = this.state.userData[event.currentTarget.id];
+    // editUser = (event) => {
+    //     const user = this.state.userData[event.currentTarget.id];
 
-        this.setState({
-            showEditUserPopup: true,
-            editedUser: user
-        });
-    }
+    //     this.setState({
+    //         showEditUserPopup: true,
+    //         editedUser: user
+    //     });
+    // }
 
     handlePopupClose = () => {
         this.setState({
@@ -209,7 +230,7 @@ class Superuser extends Component {
             textFilterValue,
             registeredFilterValue,
             showAddUserPopup,
-            showEditUserPopup,
+            showAddAdminDialog,
             editedUser,
             roleFilter,
             showDeleteDialog,
@@ -220,6 +241,7 @@ class Superuser extends Component {
 
         return (
             <div>
+                {/* FIXME:showAlert is inserted twice */}
                 { showAlert
                     ? <Alert
                         alertClose={this.closeAlert}
@@ -236,25 +258,37 @@ class Superuser extends Component {
                             user={editedUser}
                         />
                     ) : null }
-                {showEditUserPopup
+                {/* {showEditUserPopup
                     ? (
                         <EditUserPopup
                             modalShow={showEditUserPopup}
                             modalClose={this.handlePopupClose}
                             user={editedUser}
                         />
-                    ) : null }
+                    ) : null } */}
+                { showAddAdminDialog &&
+                    <AddAdminRoles
+                        user={editedUser}
+                        closeDialog = {this.handleCloseAdminRoles}
+                        addAdminRoles = {this.handleAddAdminRoles}
+                    />
+                }
                 { showDeleteDialog &&
                     <DeleteDialog
                         user={editedUser}
-                        closeDialog = {this.handleCloseDialog}
+                        closeDialog = {this.handleCloseDeleteDialog}
                         deleteMember = {this.handleDeleteMember}
                     />
                 }
                 <Header activePage="Superuser" />
                 <Navbar navStyle="sidenav" />
                 <main>
-                    {showAlert && <Alert alertMsg={alertMessage} alertType={alertType} alertClose={this.closeAlert} />}
+                    { showAlert &&
+                        <Alert
+                            alertMsg={alertMessage}
+                            alertType={alertType}
+                            alertClose={this.closeAlert} />
+                    }
                     {/* --- Form for filters --- */}
                     <Accordion className="su-filter-accordion">
                         <Card>
