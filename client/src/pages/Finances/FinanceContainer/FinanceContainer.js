@@ -26,7 +26,7 @@ class FinanceContainer extends React.Component {
 
     getFinanceData = async () => {
         try {
-            const result = await Client.fetch('/user/financedata');
+            const result = await Client.fetch('/finance/financedata');
             this.setState({
                 financeData: result
             });

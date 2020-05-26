@@ -15,6 +15,7 @@ const passport = require('passport');
 
 const authRouter = require('./routers/auth.router');
 const router = require('./routers/router');
+const financeRouter = require('./routers/financeRouter');
 
 app.use(express.static('app'));
 app.use('/loading', express.static('app'));
@@ -35,6 +36,7 @@ app.use(passport.session());
 
 app.use('/auth', authRouter);
 app.use('/user', router);
+app.use('/finance', financeRouter);
 
 const runServer = async () => {
     await initDBConnection();
