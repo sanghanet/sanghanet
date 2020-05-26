@@ -52,7 +52,7 @@ class FinanceContainer extends React.Component {
                         <FinanceDashboard
                             currency = {financeData[0].currency}
                             financePockets = {financeData[0].pockets}
-                            onError = {this.onError}/>
+                            onError = {this.onError} />
                     ) : (<p>Loading ...</p>) }
                     {financeData ? (
                         <TransactionTabs
