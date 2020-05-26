@@ -12,6 +12,27 @@ module.exports.listMembers = async (req, res, next) => {
         next(err);
     }
 };
+module.exports.updateMember = async (req, res, next) => {
+    log.info(`${req.user.email} is updating ${req.body.update} roles!`);
+    try {
+        const memberRoleUpdate = await Member.findOneAndUpdate(
+            { email: req.body.update },
+            {
+                isSuperuser: req.body.isSuperuser,
+                isFinanceAdmin: req.body.isFinanceAdmin,
+                isEventAdmin: req.body.isEventAdmin,
+                isYogaAdmin: req.body.isYogaAdmin
+            },
+            { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
+        );
+        const msg = memberRoleUpdate ? req.body.update : null;
+        res.json({ updated: msg }); // SU page
+        log.info(`Updated: ${msg}`);
+    } catch (err) {
+        log.error(err);
+        next(err);
+    }
+};
 
 module.exports.deleteMember = async (req, res, next) => {
     log.info(`${req.user.email} is deleting ${req.body.remove}.`);

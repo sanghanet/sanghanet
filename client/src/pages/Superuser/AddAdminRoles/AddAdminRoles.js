@@ -48,7 +48,6 @@ class handleAddAdminRoles extends Component {
 
     render () {
         const { user, closeDialog } = this.props;
-        const { checkedFinAdmin, checkedEventAdmin, checkedYogaAdmin, checkedSuperuser } = this.state;
 
         return (
             <GenericDialog
@@ -59,28 +58,28 @@ class handleAddAdminRoles extends Component {
                 handleAccept = {this.setAddAdminRoles}
             >
                 <Form onSubmit={this.setAddAdminRoles} autoComplete='off' className="role-dialog">
-                    <Form.Label htmlFor="digits-label">
+                    <Form.Label>
                         <span className="msg">Add role to&nbsp;</span>
                         <span className="email">{user}</span>
                         <span className="msg">&nbsp;?</span>
                     </Form.Label>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="fin-admin" onChange={this.handleCheckedFin} checked={checkedFinAdmin} />
+                        <Form.Check.Input type="checkbox" id="fin-admin" onChange={this.handleCheckedFin} />
                         <Form.Check.Label htmlFor="fin-admin">Finance Admin</Form.Check.Label>
                         <FinanceAdminIcon />
                     </Form.Check>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="event-admin" onChange={this.handleCheckedEvent} checked={checkedEventAdmin} />
+                        <Form.Check.Input type="checkbox" id="event-admin" onChange={this.handleCheckedEvent} />
                         <Form.Check.Label htmlFor="event-admin">Event Admin</Form.Check.Label>
                         <EventAdminIcon />
                     </Form.Check>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="yoga-admin" onChange={this.handleCheckedYoga} checked={checkedYogaAdmin} />
+                        <Form.Check.Input type="checkbox" id="yoga-admin" onChange={this.handleCheckedYoga} />
                         <Form.Check.Label htmlFor="yoga-admin">Yoga Admin</Form.Check.Label>
                         <YogaAdminIcon />
                     </Form.Check>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="superuser" onChange={this.handleCheckedSu} checked={checkedSuperuser} />
+                        <Form.Check.Input type="checkbox" id="superuser" onChange={this.handleCheckedSu} />
                         <Form.Check.Label htmlFor="superuser">Superuser</Form.Check.Label>
                         <SuperuserIcon />
                     </Form.Check>

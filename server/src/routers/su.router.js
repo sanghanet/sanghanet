@@ -18,5 +18,6 @@ router.use((req, res, next) => {
 
 router.post('/listmembers', superuserController.listMembers);
 router.delete('/deletemember', superuserController.deleteMember);
+router.put('/updatemember', superuserController.updateMember);
 
 module.exports = router;

@@ -47,10 +47,10 @@ class Superuser extends Component {
             showAlert: false,
             alertMessage: '',
             alertType: '',
-            isSuperuser: false,
             isFinanceAdmin: false,
             isEventAdmin: false,
-            isYogaAdmin: false
+            isYogaAdmin: false,
+            isSuperuser: false
         };
     }
 
@@ -120,20 +120,39 @@ class Superuser extends Component {
     }
 
     handleAddAdminRoles = (arrayRoles) => {
-        console.log('handleAddAdminRoles in SU', arrayRoles);
-        arrayRoles.map((role) => {
-            if (role.isFinanceAdmin) { return <FinanceAdminIcon title='finance admin' />; }
-            if (role.isEventAdmin) { return <EventAdminIcon title='event admin' />; }
-            if (role.isYogaAdmin) { return <YogaAdminIcon title='yoga admin' />; }
-            if (role.isSuperuser) { return <SuperuserIcon title='superuser' />; }
-        });
+        // TODO: sending data to DB works only on second entry
+        // TODO: page is not re-rendered after DB update
+        // TODO: checkboxes on modal should remain checked;
+        // TODO: if you uncheck roles, these should dissapear; if nothing checked, than general user icon needed
+        console.log('handleAddAdminRoles in SU');
+        const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser, editedUser } = this.state;
 
-        // 0: {isFinanceAdmin: false}
-        // 1: {isEventAdmin: true}
-        // 2: {isYogaAdmin: false}
-        // 3: {isSuperuser: false}
+        Client.fetch('/su/updatemember', {
+            method: 'PUT',
+            body: `{
+                "update": "${editedUser}",
+                "isFinanceAdmin": "${isFinanceAdmin}",
+                "isEventAdmin": "${isEventAdmin}",
+                "isYogaAdmin": "${isYogaAdmin}",
+                "isSuperuser": "${isSuperuser}"
+            }`
+        })
+            .then((data) => {
+                if (data.updated) {
+                    this.setState({
+                        isFinanceAdmin: arrayRoles[0].isFinanceAdmin,
+                        isEventAdmin: arrayRoles[1].isEventAdmin,
+                        isYogaAdmin: arrayRoles[2].isYogaAdmin,
+                        isSuperuser: arrayRoles[3].isSuperuser
+                    });
+                } else {
+                    this.setState({ showAlert: true, alertMessage: 'Update failed. Refresh the page or try it later.', alertType: 'Error' });
+                }
+            }).catch((err) => {
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+            });
 
-        // this.setState({ showAddAdminDialog: false });
+        this.setState({ showAddAdminDialog: false });
     }
 
     handleCloseAdminRoles = () => {
@@ -160,8 +179,8 @@ class Superuser extends Component {
                                     user.email.substring(0, user.email.indexOf('@'))
                                 }
                             </td>
-                            <td onClick={this.openAddAdminRoles} id={key} className="role-cells">
-                                <Button>
+                            <td className="role-cells">
+                                <Button id={key} onClick={this.openAddAdminRoles}>
                                     { user.isSuperuser && <SuperuserIcon title='superuser' /> }
                                     { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
                                     { user.isEventAdmin && <EventAdminIcon title='event admin' /> }

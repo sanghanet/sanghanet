@@ -209,6 +209,7 @@ table.table {
         &.role-cells {
             padding: 0;
             text-align: center;
+            min-width: 134px;
             .btn {
                 width: 100%;
                 background-color: transparent;
@@ -219,7 +220,7 @@ table.table {
             svg {
                 display: inline-block;
                 width: 1rem;
-                margin: 3px;
+                margin: 4px;
                 fill: $white;
 
                 @include maxQ(767px) {
