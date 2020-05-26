@@ -37,8 +37,4 @@ const FinanceAccountSchema = mongoose.Schema({
     }
 });
 
-<<<<<<< HEAD
-module.exports.Account = mongoose.model('FinanceAccount', FinanceSchema);
-=======
 module.exports.FinanceAccount = mongoose.model('FinanceAccount', FinanceAccountSchema);
->>>>>>> finance-transaction-display
