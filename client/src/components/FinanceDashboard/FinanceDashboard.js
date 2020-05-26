@@ -1,30 +1,33 @@
 import React from 'react';
-import Client from '../../components/Client';
 import './FinanceDashboard.scss';
+import PropTypes from 'prop-types';
 
 class FinanceDashboard extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            balances: []
+            balances: [],
+            errorState: null
         };
     }
 
     componentDidMount () {
-        Client.fetch('/user/financeoverview')
-            .then((res) => {
-                const entries = [];
-                const pockets = Object.entries(res[0].pockets);
-                for (const pocket of pockets) {
-                    entries.push(
-                        <div key = {pocket[0]} >{`Current balance of ${pocket[0]} pocket: ${pocket[1].currentBalance} ${res[0].currency}`}</div>
-                    );
-                }
-                this.setState({ balances: entries });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        this.buildFinanceOverview(this.props.financePockets, this.props.currency);
+    }
+
+    buildFinanceOverview = (financeData, currency) => {
+        try {
+            const categories = [];
+            const pockets = Object.entries(financeData);
+            for (const pocket of pockets) {
+                categories.push(
+                    <div key = {pocket[0]} >{`Current balance of ${pocket[0]} pocket: ${pocket[1].currentBalance} ${currency}`}</div>
+                );
+            }
+            this.setState({ balances: categories });
+        } catch (error) {
+            this.props.onError(error);
+        }
     }
 
     render () {
@@ -35,5 +38,11 @@ class FinanceDashboard extends React.Component {
         );
     };
 }
+
+FinanceDashboard.propTypes = {
+    financePockets: PropTypes.object.isRequired,
+    currency: PropTypes.string.isRequired,
+    onError: PropTypes.func.isRequired
+};
 
 export default FinanceDashboard;

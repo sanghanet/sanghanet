@@ -5,7 +5,6 @@ const log4js = require('log4js');
 const log = log4js.getLogger('routers/router.js');
 
 const userController = require('../controllers/user.controller');
-const financeController = require('../controllers/finance.controller');
 
 router.use((req, res, next) => {
     if (req.isAuthenticated()) { // session cookie has expired ??
@@ -24,7 +23,5 @@ router.get('/personal', userController.personal);
 router.put('/saveitem', userController.updateItemAndVisibility);
 router.put('/savevisibility', userController.updateItemAndVisibility);
 router.post('/uploadprofileimg', userController.uploadProfileImg);
-
-router.get('/financeoverview', financeController.getFinanceOverview);
 
 module.exports = router;
