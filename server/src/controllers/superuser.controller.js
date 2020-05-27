@@ -13,6 +13,31 @@ module.exports.listMembers = async (req, res, next) => {
     }
 };
 
+module.exports.addMember = async (req, res, next) => {
+    const emailToAdd = req.body.email;
+    try {
+        Member.find({ email: emailToAdd }, (err, docs) => {
+            if (err) next(err);
+            if (docs.length) { // if address already exists in DB
+                res.json({ addedAddress: null, exists: true });
+            } else {
+                const member = new Member({ email: emailToAdd });
+                member.save((err) => {
+                    if (err) {
+                        res.json({ addedAddress: null, exists: false });
+                        log.info('addedAddress: null, exists: false');
+                    } else {
+                        res.json({ addedAddress: emailToAdd, exists: true });
+                        log.info(`addedAddress: ${emailToAdd}, exists: true`);
+                    }
+                });
+            }
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports.deleteMember = async (req, res, next) => {
     log.info(`${req.user.email} is deleting ${req.body.remove}.`);
     try {

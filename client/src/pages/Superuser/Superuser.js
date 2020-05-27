@@ -108,7 +108,16 @@ class Superuser extends Component {
     }
 
     handleAddMember = (emailAddress) => {
-        console.log(emailAddress);
+        Client.fetch('su/addmember', {
+            method: 'POST',
+            body: `{"email": "${emailAddress}"}`
+        })
+            .then((data) => {
+                console.dir(`${data.addedAddress} ${data.exists}`);
+            }).catch((err) => {
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+            });
+
         this.setState({ showAddMemberDialog: false });
     }
 
