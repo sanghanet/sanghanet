@@ -113,7 +113,15 @@ class Superuser extends Component {
             body: `{"email": "${emailAddress}"}`
         })
             .then((data) => {
-                console.dir(`${data.addedAddress} ${data.exists}`);
+                if (data.memberAdded) {
+                    this.setState({ showAlert: true, alertMessage: `${data.memberAdded.email} added`, alertType: 'Info' });
+                } else {
+                    if (data.exists) {
+                        this.setState({ showAlert: true, alertMessage: `${emailAddress} is already added.`, alertType: 'Warning' });
+                    } else {
+                        this.setState({ showAlert: true, alertMessage: `Couldn't add ${emailAddress}`, alertType: 'Error' });
+                    }
+                }
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
