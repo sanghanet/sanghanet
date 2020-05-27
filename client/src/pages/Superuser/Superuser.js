@@ -119,31 +119,31 @@ class Superuser extends Component {
         this.setState({ showAddAdminDialog: true, editedUser: user.email });
     }
 
-    handleAddAdminRoles = (arrayRoles) => {
+    handleAddAdminRoles = (roles) => {
         // TODO: sending data to DB works only on second entry
         // TODO: page is not re-rendered after DB update
         // TODO: checkboxes on modal should remain checked;
         // TODO: if you uncheck roles, these should dissapear; if nothing checked, than general user icon needed
         console.log('handleAddAdminRoles in SU');
-        const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser, editedUser } = this.state;
+        const { editedUser } = this.state;
 
         Client.fetch('/su/updatemember', {
             method: 'PUT',
             body: `{
                 "update": "${editedUser}",
-                "isFinanceAdmin": "${isFinanceAdmin}",
-                "isEventAdmin": "${isEventAdmin}",
-                "isYogaAdmin": "${isYogaAdmin}",
-                "isSuperuser": "${isSuperuser}"
+                "isFinanceAdmin": "${roles.isFinanceAdmin}",
+                "isEventAdmin": "${roles.isEventAdmin}",
+                "isYogaAdmin": "${roles.isYogaAdmin}",
+                "isSuperuser": "${roles.isSuperuser}"
             }`
         })
             .then((data) => {
                 if (data.updated) {
                     this.setState({
-                        isFinanceAdmin: arrayRoles[0].isFinanceAdmin,
-                        isEventAdmin: arrayRoles[1].isEventAdmin,
-                        isYogaAdmin: arrayRoles[2].isYogaAdmin,
-                        isSuperuser: arrayRoles[3].isSuperuser
+                        isFinanceAdmin: roles.isFinanceAdmin,
+                        isEventAdmin: roles.isEventAdmin,
+                        isYogaAdmin: roles.isYogaAdmin,
+                        isSuperuser: roles.isSuperuser
                     });
                 } else {
                     this.setState({ showAlert: true, alertMessage: 'Update failed. Refresh the page or try it later.', alertType: 'Error' });

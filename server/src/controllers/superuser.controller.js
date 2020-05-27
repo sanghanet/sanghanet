@@ -12,7 +12,8 @@ module.exports.listMembers = async (req, res, next) => {
         next(err);
     }
 };
-module.exports.updateMember = async (req, res, next) => {
+
+module.exports.updateMemberRole = async (req, res, next) => {
     log.info(`${req.user.email} is updating ${req.body.update} roles!`);
     try {
         const memberRoleUpdate = await Member.findOneAndUpdate(
@@ -25,6 +26,7 @@ module.exports.updateMember = async (req, res, next) => {
             },
             { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
         );
+
         const msg = memberRoleUpdate ? req.body.update : null;
         res.json({ updated: msg }); // SU page
         log.info(`Updated: ${msg}`);
@@ -32,6 +34,16 @@ module.exports.updateMember = async (req, res, next) => {
         log.error(err);
         next(err);
     }
+    // TODO: give back also these:
+    // const msg = memberRoleUpdate
+    //     ? {
+    //         updated: memberRoleUpdate.email,
+    //         isSu: memberRoleUpdate.isSuperuser,
+    //         isFin: memberRoleUpdate.isFinanceAdmin,
+    //         isEvent: memberRoleUpdate.isEventAdmin,
+    //         isYoga: memberRoleUpdate.isYogaAdmin
+    //     }
+    //     : { updated: null };
 };
 
 module.exports.deleteMember = async (req, res, next) => {

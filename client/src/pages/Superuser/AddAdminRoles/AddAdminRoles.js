@@ -37,13 +37,13 @@ class handleAddAdminRoles extends Component {
 
     setAddAdminRoles = () => {
         const { checkedFinAdmin, checkedEventAdmin, checkedYogaAdmin, checkedSuperuser } = this.state;
-        const arrayRoles = [
-            { isFinanceAdmin: checkedFinAdmin },
-            { isEventAdmin: checkedEventAdmin },
-            { isYogaAdmin: checkedYogaAdmin },
-            { isSuperuser: checkedSuperuser }
-        ];
-        this.props.addAdminRoles(arrayRoles);
+        const roles = {
+            isFinanceAdmin: checkedFinAdmin,
+            isEventAdmin: checkedEventAdmin,
+            isYogaAdmin: checkedYogaAdmin,
+            isSuperuser: checkedSuperuser
+        };
+        this.props.addAdminRoles(roles);
     }
 
     render () {
@@ -53,7 +53,7 @@ class handleAddAdminRoles extends Component {
             <GenericDialog
                 title = "Add admin role"
                 reject = 'Cancel'
-                accept = 'Add'
+                accept = 'Save'
                 handleClose = {closeDialog}
                 handleAccept = {this.setAddAdminRoles}
             >
@@ -64,18 +64,18 @@ class handleAddAdminRoles extends Component {
                         <span className="msg">&nbsp;?</span>
                     </Form.Label>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="fin-admin" onChange={this.handleCheckedFin} />
-                        <Form.Check.Label htmlFor="fin-admin">Finance Admin</Form.Check.Label>
+                        <Form.Check.Input type="checkbox" id="finance" onChange={this.handleCheckedFin} />
+                        <Form.Check.Label htmlFor="finance">Finance Admin</Form.Check.Label>
                         <FinanceAdminIcon />
                     </Form.Check>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="event-admin" onChange={this.handleCheckedEvent} />
-                        <Form.Check.Label htmlFor="event-admin">Event Admin</Form.Check.Label>
+                        <Form.Check.Input type="checkbox" id="event" onChange={this.handleCheckedEvent} />
+                        <Form.Check.Label htmlFor="event">Event Admin</Form.Check.Label>
                         <EventAdminIcon />
                     </Form.Check>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="yoga-admin" onChange={this.handleCheckedYoga} />
-                        <Form.Check.Label htmlFor="yoga-admin">Yoga Admin</Form.Check.Label>
+                        <Form.Check.Input type="checkbox" id="yoga" onChange={this.handleCheckedYoga} />
+                        <Form.Check.Label htmlFor="yoga">Yoga Admin</Form.Check.Label>
                         <YogaAdminIcon />
                     </Form.Check>
                     <Form.Check type="checkbox">
