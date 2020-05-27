@@ -116,20 +116,18 @@ class Superuser extends Component {
 
     openUpdateAdminRoles = (event) => {
         const user = this.state.userData[event.currentTarget.id];
-        this.setState({ showUpdateAdminDialog: true, editedUser: user.email });
         this.setState({
-            isFinanceAdmin: this.state.isFinanceAdmin,
-            isEventAdmin: this.state.isEventAdmin,
-            isYogaAdmin: this.state.isYogaAdmin,
-            isSuperuser: this.state.isSuperuser
+            showUpdateAdminDialog: true,
+            editedUser: user.email,
+            isFinanceAdmin: user.isFinanceAdmin,
+            isEventAdmin: user.isEventAdmin,
+            isYogaAdmin: user.isYogaAdmin,
+            isSuperuser: user.isSuperuser
         });
     }
 
     handleUpdateAdminRoles = (roles) => {
-        // TODO: sending data to DB works only on second entry
         // TODO: page is not re-rendered after DB update
-        // TODO: checkboxes on modal should remain checked;
-        // TODO: if you uncheck roles, these should dissapear; if nothing checked, than general user icon needed
         console.log('handleUpdateAdminRoles in SU');
         const { editedUser } = this.state;
 
@@ -273,7 +271,11 @@ class Superuser extends Component {
             showDeleteDialog,
             showAlert,
             alertMessage,
-            alertType
+            alertType,
+            isFinanceAdmin,
+            isEventAdmin,
+            isYogaAdmin,
+            isSuperuser
         } = this.state;
 
         return (
@@ -306,15 +308,16 @@ class Superuser extends Component {
                 { showUpdateAdminDialog &&
                     <UpdateAdminRoles
                         user={editedUser}
-                        closeDialog = {this.handleCloseAdminRoles}
+                        status = {[isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser]}
                         updateAdminRoles = {this.handleUpdateAdminRoles}
+                        closeDialog = {this.handleCloseAdminRoles}
                     />
                 }
                 { showDeleteDialog &&
                     <DeleteDialog
                         user={editedUser}
-                        closeDialog = {this.handleCloseDeleteDialog}
                         deleteMember = {this.handleDeleteMember}
+                        closeDialog = {this.handleCloseDeleteDialog}
                     />
                 }
                 <Header activePage="Superuser" />

@@ -10,8 +10,33 @@ module.exports.listMembers = async (req, res, next) => {
         res.json(users);
     } catch (err) {
         next(err);
+        log.error(err);
     }
 };
+// module.exports.memberRole = async (req, res, next) => {
+//     log.info(`${req.user.email} is fetching ${req.body.currentRole} current roles.`);
+//     try {
+//         const memberRoles = await Member.findOne(
+//             { email: req.body.currentRole },
+//             'isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin'
+//         );
+
+//         const msg = memberRoles
+//             ? {
+//                 retrieved: memberRoles.email,
+//                 isSu: memberRoles.isSuperuser,
+//                 isFin: memberRoles.isFinanceAdmin,
+//                 isEvent: memberRoles.isEventAdmin,
+//                 isYoga: memberRoles.isYogaAdmin
+//             }
+//             : { retrieved: null };
+//         res.json(msg);
+//         log.info(`Retrieved: ${msg}`);
+//     } catch (err) {
+//         next(err);
+//         log.error(err);
+//     }
+// };
 
 module.exports.updateMemberRole = async (req, res, next) => {
     log.info(`${req.user.email} is updating ${req.body.update} roles!`);
