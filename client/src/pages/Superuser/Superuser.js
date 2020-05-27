@@ -117,6 +117,12 @@ class Superuser extends Component {
     openUpdateAdminRoles = (event) => {
         const user = this.state.userData[event.currentTarget.id];
         this.setState({ showUpdateAdminDialog: true, editedUser: user.email });
+        this.setState({
+            isFinanceAdmin: this.state.isFinanceAdmin,
+            isEventAdmin: this.state.isEventAdmin,
+            isYogaAdmin: this.state.isYogaAdmin,
+            isSuperuser: this.state.isSuperuser
+        });
     }
 
     handleUpdateAdminRoles = (roles) => {

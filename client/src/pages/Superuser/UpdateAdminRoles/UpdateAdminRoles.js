@@ -59,7 +59,7 @@ class UpdateAdminRoles extends Component {
             >
                 <Form onSubmit={this.setUpdateAdminRoles} autoComplete='off' className="role-dialog">
                     <Form.Label>
-                        <span className="msg">Add role to&nbsp;</span>
+                        <span className="msg">Update role to&nbsp;</span>
                         <span className="email">{user}</span>
                         <span className="msg">&nbsp;?</span>
                     </Form.Label>
