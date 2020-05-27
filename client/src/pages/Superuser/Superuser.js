@@ -16,10 +16,9 @@ import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
-import AddUserPopup from './Popup/AddUserPopup';
-import EditUserPopup from './Popup/EditUserPopup';
 import Checkbox from '../../components/Form/Checkbox/Checkbox';
 import DeleteDialog from './DeleteDialog/DeleteDialog';
+import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
 import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
 
 import Client from '../../components/Client';
@@ -39,9 +38,7 @@ class Superuser extends Component {
                 filterYogaAdmin: false,
                 filterNoRole: false
             },
-            showAddUserPopup: false,
-            showEditUserPopup: false,
-            editedUser: null,
+            showAddMemberDialog: false,
             showDeleteDialog: false,
             showAlert: false,
             alertMessage: '',
@@ -87,6 +84,10 @@ class Superuser extends Component {
         this.setState({ showDeleteDialog: true, editedUser: user.email });
     }
 
+    openAddMember = () => {
+        this.setState({ showAddMemberDialog: true });
+    }
+
     handleDeleteMember = (event) => {
         Client.fetch('/su/deletemember', {
             method: 'DELETE',
@@ -105,8 +106,16 @@ class Superuser extends Component {
         this.setState({ showDeleteDialog: false });
     }
 
+    handleAddMember = (emailAddress) => {
+        console.log(emailAddress);
+        this.setState({ showAddMemberDialog: false });
+    }
+
     handleCloseDialog = () => {
-        this.setState({ showDeleteDialog: false });
+        this.setState({
+            showDeleteDialog: false,
+            showAddMemberDialog: false
+        });
     }
 
     renderUsers = () => {
@@ -114,37 +123,35 @@ class Superuser extends Component {
 
         return (
             // map through userData only if it's been defined
-            userData ? (
-                userData.map((user, key) => (
-                    // check if user passes all filters
-                    (this.checkFilters(user)) ? (
-                        <tr key={ key }>
-                            <td className="name-cells">
-                                <span>{user.label}</span>
-                                {user.registered && <VerifiedIcon />}
-                            </td>
-                            <td>
-                                {
-                                    // take out the end of the email addresses
-                                    user.email.substring(0, user.email.indexOf('@'))
-                                }
-                            </td>
-                            <td onClick={this.editUser} id={key} className="role-cells">
-                                { user.isSuperuser && <SuperuserIcon title='superuser' /> }
-                                { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
-                                { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
-                                { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
-                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
-                            </td>
-                            <td className="delete-icon-cell">
-                                <Button variant='outline-danger' id={ key } onClick={this.openDelete}>
-                                    <Bin className='delete-user' />
-                                </Button>
-                            </td>
-                        </tr>
-                    ) : (null)
-                ))
-            ) : (null)
+            userData.map((user, key) => (
+                // check if user passes all filters
+                (this.checkFilters(user)) ? (
+                    <tr key={ key }>
+                        <td className="name-cells">
+                            <span>{user.label}</span>
+                            {user.registered && <VerifiedIcon />}
+                        </td>
+                        <td>
+                            {
+                                // take out the end of the email addresses
+                                user.email.substring(0, user.email.indexOf('@'))
+                            }
+                        </td>
+                        <td onClick={this.editUser} id={key} className="role-cells">
+                            { user.isSuperuser && <SuperuserIcon title='superuser' /> }
+                            { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
+                            { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
+                            { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
+                            { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
+                        </td>
+                        <td className="delete-icon-cell">
+                            <Button variant='outline-danger' id={ key } onClick={this.openDelete}>
+                                <Bin className='delete-user' />
+                            </Button>
+                        </td>
+                    </tr>
+                ) : (null)
+            ))
         );
     }
 
@@ -180,36 +187,16 @@ class Superuser extends Component {
         });
     }
 
-    addUser = () => {
-        this.setState({ showAddUserPopup: true });
-    }
-
-    editUser = (event) => {
-        const user = this.state.userData[event.currentTarget.id];
-
-        this.setState({
-            showEditUserPopup: true,
-            editedUser: user
-        });
-    }
-
-    handlePopupClose = () => {
-        this.setState({
-            showAddUserPopup: false,
-            showEditUserPopup: false
-        });
-    }
-
     closeAlert = () => {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     }
 
     render () {
         const {
+            userData,
             textFilterValue,
             registeredFilterValue,
-            showAddUserPopup,
-            showEditUserPopup,
+            showAddMemberDialog,
             editedUser,
             roleFilter,
             showDeleteDialog,
@@ -220,30 +207,19 @@ class Superuser extends Component {
 
         return (
             <div>
-                { showAlert
-                    ? <Alert
+                { showAlert &&
+                    <Alert
                         alertClose={this.closeAlert}
                         alertMsg={alertMessage}
                         alertType={alertType}
                     />
-                    : null
                 }
-                {showAddUserPopup
-                    ? (
-                        <AddUserPopup
-                            modalShow={showAddUserPopup}
-                            modalClose={this.handlePopupClose}
-                            user={editedUser}
-                        />
-                    ) : null }
-                {showEditUserPopup
-                    ? (
-                        <EditUserPopup
-                            modalShow={showEditUserPopup}
-                            modalClose={this.handlePopupClose}
-                            user={editedUser}
-                        />
-                    ) : null }
+                {showAddMemberDialog &&
+                    <AddMemberDialog
+                        closeDialog = {this.handleCloseDialog}
+                        addMember = {this.handleAddMember}
+                    />
+                }
                 { showDeleteDialog &&
                     <DeleteDialog
                         user={editedUser}
@@ -335,13 +311,13 @@ class Superuser extends Component {
                         <tbody id="tableBody">
                             <tr>
                                 <td colSpan={5} className="p-0">
-                                    <Button className="add-member-btn" variant="success" onClick={this.addUser}>
+                                    <Button className="add-member-btn" variant="success" onClick={this.openAddMember}>
                                         <Plus />
                                         Add member
                                     </Button>
                                 </td>
                             </tr>
-                            {this.renderUsers()}
+                            {userData && this.renderUsers()}
                         </tbody>
                     </Table>
                 </main>
