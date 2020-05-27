@@ -7,11 +7,11 @@ import { ReactComponent as EventAdminIcon } from '../../../components/icons/even
 import { ReactComponent as YogaAdminIcon } from '../../../components/icons/yoga.svg';
 import { ReactComponent as SuperuserIcon } from '../../../components/icons/superman.svg';
 
-import './AddAdminRoles.scss';
+import './UpdateAdminRoles.scss';
 
 import Form from 'react-bootstrap/Form';
 
-class handleAddAdminRoles extends Component {
+class UpdateAdminRoles extends Component {
     state = {
         checkedFinAdmin: false,
         checkedEventAdmin: false,
@@ -35,7 +35,7 @@ class handleAddAdminRoles extends Component {
         this.setState({ checkedSuperuser: !this.state.checkedSuperuser });
     }
 
-    setAddAdminRoles = () => {
+    setUpdateAdminRoles = () => {
         const { checkedFinAdmin, checkedEventAdmin, checkedYogaAdmin, checkedSuperuser } = this.state;
         const roles = {
             isFinanceAdmin: checkedFinAdmin,
@@ -43,7 +43,7 @@ class handleAddAdminRoles extends Component {
             isYogaAdmin: checkedYogaAdmin,
             isSuperuser: checkedSuperuser
         };
-        this.props.addAdminRoles(roles);
+        this.props.updateAdminRoles(roles);
     }
 
     render () {
@@ -51,13 +51,13 @@ class handleAddAdminRoles extends Component {
 
         return (
             <GenericDialog
-                title = "Add admin role"
+                title = "Update admin role"
                 reject = 'Cancel'
                 accept = 'Save'
                 handleClose = {closeDialog}
-                handleAccept = {this.setAddAdminRoles}
+                handleAccept = {this.setUpdateAdminRoles}
             >
-                <Form onSubmit={this.setAddAdminRoles} autoComplete='off' className="role-dialog">
+                <Form onSubmit={this.setUpdateAdminRoles} autoComplete='off' className="role-dialog">
                     <Form.Label>
                         <span className="msg">Add role to&nbsp;</span>
                         <span className="email">{user}</span>
@@ -89,10 +89,10 @@ class handleAddAdminRoles extends Component {
     }
 }
 
-handleAddAdminRoles.propTypes = {
+UpdateAdminRoles.propTypes = {
     user: PropTypes.string.isRequired,
     closeDialog: PropTypes.func.isRequired,
-    addAdminRoles: PropTypes.func.isRequired
+    updateAdminRoles: PropTypes.func.isRequired
 };
 
-export default handleAddAdminRoles;
+export default UpdateAdminRoles;

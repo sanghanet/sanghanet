@@ -17,7 +17,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
 import AddUserPopup from './Popup/AddUserPopup';
-import AddAdminRoles from './AddAdminRoles/AddAdminRoles';
+import UpdateAdminRoles from './UpdateAdminRoles/UpdateAdminRoles';
 import Checkbox from '../../components/Form/Checkbox/Checkbox';
 import DeleteDialog from './DeleteDialog/DeleteDialog';
 import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
@@ -43,7 +43,7 @@ class Superuser extends Component {
             showEditUserPopup: false,
             editedUser: null,
             showDeleteDialog: false,
-            showAddAdminDialog: false,
+            showUpdateAdminDialog: false,
             showAlert: false,
             alertMessage: '',
             alertType: '',
@@ -114,17 +114,17 @@ class Superuser extends Component {
         this.setState({ showDeleteDialog: false });
     }
 
-    openAddAdminRoles = (event) => {
+    openUpdateAdminRoles = (event) => {
         const user = this.state.userData[event.currentTarget.id];
-        this.setState({ showAddAdminDialog: true, editedUser: user.email });
+        this.setState({ showUpdateAdminDialog: true, editedUser: user.email });
     }
 
-    handleAddAdminRoles = (roles) => {
+    handleUpdateAdminRoles = (roles) => {
         // TODO: sending data to DB works only on second entry
         // TODO: page is not re-rendered after DB update
         // TODO: checkboxes on modal should remain checked;
         // TODO: if you uncheck roles, these should dissapear; if nothing checked, than general user icon needed
-        console.log('handleAddAdminRoles in SU');
+        console.log('handleUpdateAdminRoles in SU');
         const { editedUser } = this.state;
 
         Client.fetch('/su/updatemember', {
@@ -152,11 +152,11 @@ class Superuser extends Component {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
 
-        this.setState({ showAddAdminDialog: false });
+        this.setState({ showUpdateAdminDialog: false });
     }
 
     handleCloseAdminRoles = () => {
-        this.setState({ showAddAdminDialog: false });
+        this.setState({ showUpdateAdminDialog: false });
     }
 
     renderUsers = () => {
@@ -180,7 +180,7 @@ class Superuser extends Component {
                                 }
                             </td>
                             <td className="role-cells">
-                                <Button id={key} onClick={this.openAddAdminRoles}>
+                                <Button id={key} onClick={this.openUpdateAdminRoles}>
                                     { user.isSuperuser && <SuperuserIcon title='superuser' /> }
                                     { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
                                     { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
@@ -261,7 +261,7 @@ class Superuser extends Component {
             textFilterValue,
             registeredFilterValue,
             showAddUserPopup,
-            showAddAdminDialog,
+            showUpdateAdminDialog,
             editedUser,
             roleFilter,
             showDeleteDialog,
@@ -297,11 +297,11 @@ class Superuser extends Component {
                             user={editedUser}
                         />
                     ) : null } */}
-                { showAddAdminDialog &&
-                    <AddAdminRoles
+                { showUpdateAdminDialog &&
+                    <UpdateAdminRoles
                         user={editedUser}
                         closeDialog = {this.handleCloseAdminRoles}
-                        addAdminRoles = {this.handleAddAdminRoles}
+                        updateAdminRoles = {this.handleUpdateAdminRoles}
                     />
                 }
                 { showDeleteDialog &&
