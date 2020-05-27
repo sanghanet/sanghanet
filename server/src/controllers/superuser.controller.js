@@ -22,7 +22,7 @@ module.exports.addMember = async (req, res, next) => {
                 res.json({ addedAddress: null, exists: true });
                 log.info(`Tried to add ${emailToAdd}, but it already exists in DB.`);
             } else {
-                const member = new Member({ email: emailToAdd });
+                const member = new Member({ email: emailToAdd, label: 'n/a' });
                 member.save((err) => {
                     if (err) {
                         res.json({ memberAdded: null, exists: false });

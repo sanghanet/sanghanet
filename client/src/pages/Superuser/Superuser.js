@@ -115,7 +115,7 @@ class Superuser extends Component {
             .then((data) => {
                 if (data.memberAdded) {
                     this.setState({
-                        userData: [data.memberAdded, ...this.state.userData],
+                        userData: [...this.state.userData, data.memberAdded],
                         showAlert: true,
                         alertMessage: `${data.memberAdded.email} added`,
                         alertType: 'Info'
