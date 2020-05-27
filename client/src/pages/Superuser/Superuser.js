@@ -114,7 +114,12 @@ class Superuser extends Component {
         })
             .then((data) => {
                 if (data.memberAdded) {
-                    this.setState({ showAlert: true, alertMessage: `${data.memberAdded.email} added`, alertType: 'Info' });
+                    this.setState({
+                        userData: [data.memberAdded, ...this.state.userData],
+                        showAlert: true,
+                        alertMessage: `${data.memberAdded.email} added`,
+                        alertType: 'Info'
+                    });
                 } else {
                     if (data.exists) {
                         this.setState({ showAlert: true, alertMessage: `${emailAddress} is already added.`, alertType: 'Warning' });
@@ -140,7 +145,6 @@ class Superuser extends Component {
         const { userData } = this.state;
 
         return (
-            // map through userData only if it's been defined
             userData.map((user, key) => (
                 // check if user passes all filters
                 (this.checkFilters(user)) ? (
