@@ -72,7 +72,8 @@ class Superuser extends Component {
                                         roleFilter.filterNoRole
                                     );
 
-        const passedRegisteredFilter = (registeredFilterValue === 'all') ||
+        // eslint-disable-next-line no-multi-spaces
+        const passedRegisteredFilter =  (registeredFilterValue === 'all') ||
                                         (user.registered && registeredFilterValue !== 'unregistered') ||
                                         (!user.registered && registeredFilterValue !== 'registered');
 
