@@ -13,30 +13,6 @@ module.exports.listMembers = async (req, res, next) => {
         log.error(err);
     }
 };
-// module.exports.memberRole = async (req, res, next) => {
-//     log.info(`${req.user.email} is fetching ${req.body.currentRole} current roles.`);
-//     try {
-//         const memberRoles = await Member.findOne(
-//             { email: req.body.currentRole },
-//             'isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin'
-//         );
-
-//         const msg = memberRoles
-//             ? {
-//                 retrieved: memberRoles.email,
-//                 isSu: memberRoles.isSuperuser,
-//                 isFin: memberRoles.isFinanceAdmin,
-//                 isEvent: memberRoles.isEventAdmin,
-//                 isYoga: memberRoles.isYogaAdmin
-//             }
-//             : { retrieved: null };
-//         res.json(msg);
-//         log.info(`Retrieved: ${msg}`);
-//     } catch (err) {
-//         next(err);
-//         log.error(err);
-//     }
-// };
 
 module.exports.updateMemberRole = async (req, res, next) => {
     log.info(`${req.user.email} is updating ${req.body.update} roles!`);
@@ -52,23 +28,21 @@ module.exports.updateMemberRole = async (req, res, next) => {
             { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
         );
 
-        const msg = memberRoleUpdate ? req.body.update : null;
-        res.json({ updated: msg }); // SU page
+        const msg = memberRoleUpdate
+            ? {
+                updated: memberRoleUpdate.email,
+                isFinance: memberRoleUpdate.isFinanceAdmin,
+                isEvent: memberRoleUpdate.isEventAdmin,
+                isYoga: memberRoleUpdate.isYogaAdmin,
+                isSuperuser: memberRoleUpdate.isSuperuser
+            }
+            : { updated: null };
+        res.json(msg);
         log.info(`Updated: ${msg}`);
     } catch (err) {
         log.error(err);
         next(err);
     }
-    // TODO: give back also these:
-    // const msg = memberRoleUpdate
-    //     ? {
-    //         updated: memberRoleUpdate.email,
-    //         isSu: memberRoleUpdate.isSuperuser,
-    //         isFin: memberRoleUpdate.isFinanceAdmin,
-    //         isEvent: memberRoleUpdate.isEventAdmin,
-    //         isYoga: memberRoleUpdate.isYogaAdmin
-    //     }
-    //     : { updated: null };
 };
 
 module.exports.deleteMember = async (req, res, next) => {
@@ -78,7 +52,7 @@ module.exports.deleteMember = async (req, res, next) => {
             { email: req.body.remove }
         );
         const msg = memberToDelete ? req.body.remove : null;
-        res.json({ deleted: msg }); // SU page
+        res.json({ deleted: msg });
         log.info(`Deleted: ${msg}`);
 
         if (memberToDelete && memberToDelete.registered) {
