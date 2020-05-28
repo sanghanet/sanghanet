@@ -16,7 +16,6 @@ class DeleteDialog extends Component {
     }
 
     customValidation = () => {
-        console.log('validating...');
         const { emailInputValue, labelInputValue } = this.state;
         const errorMsg = emailInputValue.includes('@') ? 'Leave \'@gmail.com\' off' : '';
         const isInvalid = !(!errorMsg.length && emailInputValue.length && labelInputValue.length);
