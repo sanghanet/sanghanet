@@ -13,7 +13,7 @@ module.exports.listMembers = async (req, res, next) => {
     }
 };
 
-module.exports.addMember = async (req, res, next) => {
+module.exports.addMember = (req, res, next) => {
     const emailToAdd = req.body.email;
     const labelToAdd = req.body.label;
     try {
