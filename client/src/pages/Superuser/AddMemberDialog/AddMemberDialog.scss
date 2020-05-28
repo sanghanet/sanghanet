@@ -1,6 +1,22 @@
 @import '../../../style/colors';
 @import '../../../style/mixins';
 
-.form-label {
-    color: $white;
+.add-member-dialog {
+    .form-label {
+        color: $white;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+    input.form-control {
+        color: $white;
+        border: 1px solid $white;
+        background-color: $input-bg;
+        font-size: .8rem;
+
+        &+.input-group-append span {
+            font-size: .8rem
+        }
+    }
 }

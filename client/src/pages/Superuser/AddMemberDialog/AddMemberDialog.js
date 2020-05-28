@@ -9,24 +9,29 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 class DeleteDialog extends Component {
     state = {
-        inputValue: '',
+        emailInputValue: '',
+        labelInputValue: '',
         errorMsg: ''
     }
 
-    handleChange = (event) => {
+    handleEmailChange = (event) => {
         const value = event.target.value;
         const errorMsg = value.includes('@') ? 'Leave \'@gmail.com\' off' : '';
-        this.setState({ inputValue: value, errorMsg: errorMsg });
+        this.setState({ emailInputValue: value, errorMsg: errorMsg });
+    }
+
+    handleLabelChange = (event) => {
+        this.setState({ labelInputValue: event.target.value });
     }
 
     handleAddMember = (event) => {
-        this.props.addMember(`${this.state.inputValue}@gmail.com`);
+        this.props.addMember(`${this.state.emailInputValue}@gmail.com`);
         event.preventDefault();
     }
 
     render () {
         const { closeDialog } = this.props;
-        const { errorMsg } = this.state;
+        const { errorMsg, emailInputValue, labelInputValue } = this.state;
 
         return (
             <GenericDialog
@@ -36,16 +41,14 @@ class DeleteDialog extends Component {
                 handleClose = {closeDialog}
                 handleAccept = {this.handleAddMember}
             >
-                <Form onSubmit={this.handleAddMember} autoComplete='off' className="delete-dialog">
-                    <Form.Label htmlFor="digits-label">
-                            Enter email address to add:
-                    </Form.Label>
+                <Form onSubmit={this.handleAddMember} autoComplete='off' className="add-member-dialog">
+                    <Form.Label htmlFor="email-input">Enter email address to add:</Form.Label>
                     <InputGroup>
                         <Form.Control
                             type="text"
-                            value={this.state.inputValue}
-                            id="digits-label"
-                            onChange={this.handleChange}
+                            value={emailInputValue}
+                            id="email-input"
+                            onChange={this.handleEmailChange}
                             autoFocus
                         >
                         </Form.Control>
@@ -53,6 +56,15 @@ class DeleteDialog extends Component {
                             <InputGroup.Text>@gmail.com</InputGroup.Text>
                         </InputGroup.Append>
                     </InputGroup>
+                    <Form.Label htmlFor="label-input">{'Enter new member\'s temporary name'}</Form.Label>
+                    {/* TODO: validate name */}
+                    <Form.Control
+                        type="text"
+                        value={labelInputValue}
+                        id="label-input"
+                        onChange={this.handleLabelChange}
+                    >
+                    </Form.Control>
                     <span className="error" aria-live="polite">{errorMsg}</span>
                 </Form>
             </GenericDialog>
