@@ -57,7 +57,6 @@ class DeleteDialog extends Component {
                         </InputGroup.Append>
                     </InputGroup>
                     <Form.Label htmlFor="label-input">{'Enter new member\'s temporary name'}</Form.Label>
-                    {/* TODO: validate name */}
                     <Form.Control
                         type="text"
                         value={labelInputValue}
