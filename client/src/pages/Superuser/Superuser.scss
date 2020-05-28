@@ -210,6 +210,9 @@ table.table {
             padding: 0;
             text-align: center;
             min-width: 134px;
+            @include minQ(767px) {
+                min-width: 200px;
+            }
             .btn {
                 width: 100%;
                 background-color: transparent;

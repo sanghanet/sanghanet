@@ -127,7 +127,6 @@ class Superuser extends Component {
     }
 
     handleUpdateAdminRoles = (roles) => {
-        // TODO: page does not re-rendered after DB update
         console.log('handleUpdateAdminRoles in SU');
         const { editedUser } = this.state;
 
@@ -143,12 +142,18 @@ class Superuser extends Component {
         })
             .then((data) => {
                 if (data.updated) {
-                    this.setState({
-                        isFinanceAdmin: data.isFinance,
-                        isEventAdmin: data.isEvent,
-                        isYogaAdmin: data.isYoga,
-                        isSuperuser: data.isSuperuser
-                    });
+                    // deep copy with data modification
+                    const newMembers = this.state.userData.map((member) => member.email === data.updated
+                        ? {
+                            ...member,
+                            isEventAdmin: data.isEvent,
+                            isFinanceAdmin: data.isFinance,
+                            isYogaAdmin: data.isYoga,
+                            isSuperuser: data.isSuperuser
+                        }
+                        : member
+                    );
+                    this.setState({ userData: newMembers });
                 } else {
                     this.setState({ showAlert: true, alertMessage: 'Update failed. Refresh the page or try it later.', alertType: 'Error' });
                 }

@@ -20,22 +20,18 @@ class UpdateAdminRoles extends Component {
     }
 
     handleCheckedFin = () => {
-        console.log(this.state.checkedFinAdmin);
         this.setState({ checkedFinAdmin: !this.state.checkedFinAdmin });
     }
 
     handleCheckedEvent = () => {
-        console.log(this.state.checkedEventAdmin);
         this.setState({ checkedEventAdmin: !this.state.checkedEventAdmin });
     }
 
     handleCheckedYoga = () => {
-        console.log(this.state.checkedYogaAdmin);
         this.setState({ checkedYogaAdmin: !this.state.checkedYogaAdmin });
     }
 
     handleCheckedSu = () => {
-        console.log(this.state.checkedSuperuser);
         this.setState({ checkedSuperuser: !this.state.checkedSuperuser });
     }
 
