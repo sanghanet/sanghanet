@@ -107,10 +107,10 @@ class Superuser extends Component {
         this.setState({ showDeleteDialog: false });
     }
 
-    handleAddMember = (emailAddress) => {
+    handleAddMember = (emailAddress, label) => {
         Client.fetch('su/addmember', {
             method: 'POST',
-            body: `{"email": "${emailAddress}"}`
+            body: `{"email": "${emailAddress}", "label": "${label}"}`
         })
             .then((data) => {
                 if (data.memberAdded) {

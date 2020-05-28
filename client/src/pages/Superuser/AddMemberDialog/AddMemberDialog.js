@@ -25,7 +25,7 @@ class DeleteDialog extends Component {
     }
 
     handleAddMember = (event) => {
-        this.props.addMember(`${this.state.emailInputValue}@gmail.com`);
+        this.props.addMember(`${this.state.emailInputValue}@gmail.com`, this.state.labelInputValue);
         event.preventDefault();
     }
 
