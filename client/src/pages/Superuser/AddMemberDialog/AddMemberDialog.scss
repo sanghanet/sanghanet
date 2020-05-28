@@ -6,9 +6,14 @@
         color: $white;
     }
 
-    .input-group {
-        margin-bottom: 20px;
+    .error {
+        color: $error;
+
+        &+.form-label {
+            margin-top: 20px;
+        }
     }
+
     input.form-control {
         color: $white;
         border: 1px solid $white;

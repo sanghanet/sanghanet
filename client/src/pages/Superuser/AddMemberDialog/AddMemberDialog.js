@@ -11,17 +11,27 @@ class DeleteDialog extends Component {
     state = {
         emailInputValue: '',
         labelInputValue: '',
+        isDisabled: true,
         errorMsg: ''
     }
 
+    customValidation = () => {
+        console.log('validating...');
+        const { emailInputValue, labelInputValue } = this.state;
+        const errorMsg = emailInputValue.includes('@') ? 'Leave \'@gmail.com\' off' : '';
+        const isInvalid = !(!errorMsg.length && emailInputValue.length && labelInputValue.length);
+        this.setState({
+            isDisabled: isInvalid,
+            errorMsg: errorMsg
+        });
+    }
+
     handleEmailChange = (event) => {
-        const value = event.target.value;
-        const errorMsg = value.includes('@') ? 'Leave \'@gmail.com\' off' : '';
-        this.setState({ emailInputValue: value, errorMsg: errorMsg });
+        this.setState({ emailInputValue: event.target.value }, this.customValidation);
     }
 
     handleLabelChange = (event) => {
-        this.setState({ labelInputValue: event.target.value });
+        this.setState({ labelInputValue: event.target.value }, this.customValidation);
     }
 
     handleAddMember = (event) => {
@@ -31,13 +41,14 @@ class DeleteDialog extends Component {
 
     render () {
         const { closeDialog } = this.props;
-        const { errorMsg, emailInputValue, labelInputValue } = this.state;
+        const { errorMsg, emailInputValue, labelInputValue, isDisabled } = this.state;
 
         return (
             <GenericDialog
                 title = "Add member"
                 reject = 'Cancel'
                 accept = 'Add'
+                acceptDisabled = {isDisabled}
                 handleClose = {closeDialog}
                 handleAccept = {this.handleAddMember}
             >
@@ -56,6 +67,7 @@ class DeleteDialog extends Component {
                             <InputGroup.Text>@gmail.com</InputGroup.Text>
                         </InputGroup.Append>
                     </InputGroup>
+                    <span className="error" aria-live="polite">{errorMsg}</span>
                     <Form.Label htmlFor="label-input">{'Enter new member\'s temporary name'}</Form.Label>
                     <Form.Control
                         type="text"
@@ -64,7 +76,6 @@ class DeleteDialog extends Component {
                         onChange={this.handleLabelChange}
                     >
                     </Form.Control>
-                    <span className="error" aria-live="polite">{errorMsg}</span>
                 </Form>
             </GenericDialog>
         );
