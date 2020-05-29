@@ -127,7 +127,6 @@ class Superuser extends Component {
     }
 
     handleUpdateAdminRoles = (roles) => {
-        console.log('handleUpdateAdminRoles in SU');
         const { editedUser } = this.state;
 
         Client.fetch('/su/updatemember', {
@@ -142,7 +141,7 @@ class Superuser extends Component {
         })
             .then((data) => {
                 if (data.updated) {
-                    // deep copy with data modification
+                    // deep copy with data update
                     const newMembers = this.state.userData.map((member) => member.email === data.updated
                         ? {
                             ...member,

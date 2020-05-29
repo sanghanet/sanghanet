@@ -18,6 +18,7 @@ class UpdateAdminRoles extends Component {
         checkedYogaAdmin: this.props.status[2],
         checkedSuperuser: this.props.status[3]
     }
+    // TODO: make one function
 
     handleCheckedFin = () => {
         this.setState({ checkedFinAdmin: !this.state.checkedFinAdmin });
