@@ -115,14 +115,14 @@ class Superuser extends Component {
     }
 
     openUpdateAdminRoles = (event) => {
-        const user = this.state.userData[event.currentTarget.id];
+        const member = this.state.userData[event.currentTarget.id];
         this.setState({
             showUpdateAdminDialog: true,
-            editedUser: user.email,
-            isFinanceAdmin: user.isFinanceAdmin,
-            isEventAdmin: user.isEventAdmin,
-            isYogaAdmin: user.isYogaAdmin,
-            isSuperuser: user.isSuperuser
+            editedUser: member.email,
+            isFinanceAdmin: member.isFinanceAdmin,
+            isEventAdmin: member.isEventAdmin,
+            isYogaAdmin: member.isYogaAdmin,
+            isSuperuser: member.isSuperuser
         });
     }
 
@@ -311,7 +311,7 @@ class Superuser extends Component {
                     ) : null } */}
                 { showUpdateAdminDialog &&
                     <UpdateAdminRoles
-                        user={editedUser}
+                        member = {editedUser}
                         status = {[isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser]}
                         updateAdminRoles = {this.handleUpdateAdminRoles}
                         closeDialog = {this.handleCloseAdminRoles}

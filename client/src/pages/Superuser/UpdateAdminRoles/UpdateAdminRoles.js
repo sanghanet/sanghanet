@@ -13,43 +13,32 @@ import Form from 'react-bootstrap/Form';
 
 class UpdateAdminRoles extends Component {
     state = {
-        checkedFinAdmin: this.props.status[0],
-        checkedEventAdmin: this.props.status[1],
-        checkedYogaAdmin: this.props.status[2],
-        checkedSuperuser: this.props.status[3]
-    }
-    // TODO: make one function
-
-    handleCheckedFin = () => {
-        this.setState({ checkedFinAdmin: !this.state.checkedFinAdmin });
+        financeChecked: this.props.status[0],
+        eventChecked: this.props.status[1],
+        yogaChecked: this.props.status[2],
+        superuserChecked: this.props.status[3]
     }
 
-    handleCheckedEvent = () => {
-        this.setState({ checkedEventAdmin: !this.state.checkedEventAdmin });
-    }
-
-    handleCheckedYoga = () => {
-        this.setState({ checkedYogaAdmin: !this.state.checkedYogaAdmin });
-    }
-
-    handleCheckedSu = () => {
-        this.setState({ checkedSuperuser: !this.state.checkedSuperuser });
+    handleChecked = (event) => {
+        const newstate = {};
+        newstate[`${event.target.id}Checked`] = !this.state[`${event.target.id}Checked`];
+        this.setState(newstate);
     }
 
     setUpdateAdminRoles = () => {
-        const { checkedFinAdmin, checkedEventAdmin, checkedYogaAdmin, checkedSuperuser } = this.state;
+        const { financeChecked, eventChecked, yogaChecked, superuserChecked } = this.state;
         const roles = {
-            isFinanceAdmin: checkedFinAdmin,
-            isEventAdmin: checkedEventAdmin,
-            isYogaAdmin: checkedYogaAdmin,
-            isSuperuser: checkedSuperuser
+            isFinanceAdmin: financeChecked,
+            isEventAdmin: eventChecked,
+            isYogaAdmin: yogaChecked,
+            isSuperuser: superuserChecked
         };
         this.props.updateAdminRoles(roles);
     }
 
     render () {
-        const { user, closeDialog } = this.props;
-        const { checkedFinAdmin, checkedEventAdmin, checkedYogaAdmin, checkedSuperuser } = this.state;
+        const { member, closeDialog } = this.props;
+        const { financeChecked, eventChecked, yogaChecked, superuserChecked } = this.state;
 
         return (
             <GenericDialog
@@ -62,26 +51,26 @@ class UpdateAdminRoles extends Component {
                 <Form onSubmit={this.setUpdateAdminRoles} autoComplete='off' className="role-dialog">
                     <Form.Label>
                         <span className="msg">Update role to&nbsp;</span>
-                        <span className="email">{user}</span>
+                        <span className="email">{member}</span>
                         <span className="msg">&nbsp;?</span>
                     </Form.Label>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="finance" onChange={this.handleCheckedFin} defaultChecked={checkedFinAdmin} />
+                        <Form.Check.Input type="checkbox" id="finance" onChange={this.handleChecked} defaultChecked={financeChecked} />
                         <Form.Check.Label htmlFor="finance">Finance Admin</Form.Check.Label>
                         <FinanceAdminIcon />
                     </Form.Check>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="event" onChange={this.handleCheckedEvent} defaultChecked={checkedEventAdmin} />
+                        <Form.Check.Input type="checkbox" id="event" onChange={this.handleChecked} defaultChecked={eventChecked} />
                         <Form.Check.Label htmlFor="event">Event Admin</Form.Check.Label>
                         <EventAdminIcon />
                     </Form.Check>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="yoga" onChange={this.handleCheckedYoga} defaultChecked={checkedYogaAdmin} />
+                        <Form.Check.Input type="checkbox" id="yoga" onChange={this.handleChecked} defaultChecked={yogaChecked} />
                         <Form.Check.Label htmlFor="yoga">Yoga Admin</Form.Check.Label>
                         <YogaAdminIcon />
                     </Form.Check>
                     <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="superuser" onChange={this.handleCheckedSu} defaultChecked={checkedSuperuser} />
+                        <Form.Check.Input type="checkbox" id="superuser" onChange={this.handleChecked} defaultChecked={superuserChecked} />
                         <Form.Check.Label htmlFor="superuser">Superuser</Form.Check.Label>
                         <SuperuserIcon />
                     </Form.Check>
@@ -92,7 +81,7 @@ class UpdateAdminRoles extends Component {
 }
 
 UpdateAdminRoles.propTypes = {
-    user: PropTypes.string.isRequired,
+    member: PropTypes.string.isRequired,
     closeDialog: PropTypes.func.isRequired,
     updateAdminRoles: PropTypes.func.isRequired,
     status: PropTypes.array.isRequired
