@@ -7,7 +7,7 @@ import './AddMemberDialog.scss';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-class DeleteDialog extends Component {
+class AddMemberDialog extends Component {
     state = {
         emailInputValue: '',
         labelInputValue: '',
@@ -81,9 +81,9 @@ class DeleteDialog extends Component {
     }
 }
 
-DeleteDialog.propTypes = {
+AddMemberDialog.propTypes = {
     closeDialog: PropTypes.func.isRequired,
     addMember: PropTypes.func.isRequired
 };
 
-export default DeleteDialog;
+export default AddMemberDialog;
