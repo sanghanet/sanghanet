@@ -11,12 +11,12 @@ function Alert (props) {
     const { alertClose, alertMsg, alertType } = props;
     return (
         <Toast onClose={alertClose} show={true} delay={4000} autohide>
-            <Toast.Header>
+            <Toast.Header className={alertType}>
                 {
                     {
-                        Error: <Error className={'error alert-icon'} />,
-                        Warning: <Warning className={'warning alert-icon'} />,
-                        Info: <Info className={'info alert-icon'} />
+                        Error: <Error className={'alert-icon'} />,
+                        Warning: <Warning className={'alert-icon'} />,
+                        Info: <Info className={'alert-icon'} />
                     }[alertType]
                 }
                 <strong className="mr-auto">{alertType} notification</strong>
