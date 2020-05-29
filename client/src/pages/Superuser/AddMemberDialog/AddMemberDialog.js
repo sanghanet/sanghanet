@@ -52,6 +52,15 @@ class AddMemberDialog extends Component {
                 handleAccept = {this.handleAddMember}
             >
                 <Form onSubmit={this.handleAddMember} autoComplete='off' className="add-member-dialog">
+                    <Form.Label htmlFor="label-input">{'Enter new member\'s name'}</Form.Label>
+                    <Form.Control
+                        className="label-input"
+                        type="text"
+                        value={labelInputValue}
+                        id="label-input"
+                        onChange={this.handleLabelChange}
+                    >
+                    </Form.Control>
                     <Form.Label htmlFor="email-input">Enter email address to add:</Form.Label>
                     <InputGroup>
                         <Form.Control
@@ -67,14 +76,6 @@ class AddMemberDialog extends Component {
                         </InputGroup.Append>
                     </InputGroup>
                     <span className="error" aria-live="polite">{errorMsg}</span>
-                    <Form.Label htmlFor="label-input">{'Enter new member\'s temporary name'}</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={labelInputValue}
-                        id="label-input"
-                        onChange={this.handleLabelChange}
-                    >
-                    </Form.Control>
                 </Form>
             </GenericDialog>
         );

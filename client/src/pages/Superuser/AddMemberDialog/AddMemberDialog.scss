@@ -8,10 +8,10 @@
 
     .error {
         color: $error;
+    }
 
-        &+.form-label {
-            margin-top: 20px;
-        }
+    .label-input {
+        margin-bottom: 20px;
     }
 
     input.form-control {
