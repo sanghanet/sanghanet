@@ -59,7 +59,7 @@ class AddMemberDialog extends Component {
                 handleAccept = {this.handleAddMember}
             >
                 <Form onSubmit={this.handleAddMember} autoComplete='off' className="add-member-dialog">
-                    <Form.Label htmlFor="label-input">{'Enter new member\'s name:'}</Form.Label>
+                    <Form.Label htmlFor="label-input">Name<span>*</span></Form.Label>
                     <Form.Control
                         className="label-input"
                         type="text"
@@ -69,7 +69,7 @@ class AddMemberDialog extends Component {
                         autoFocus
                     >
                     </Form.Control>
-                    <Form.Label htmlFor="email-input">Enter email address to add:</Form.Label>
+                    <Form.Label htmlFor="email-input">Email address<span>*</span></Form.Label>
                     <InputGroup>
                         <Form.Control
                             className={errorMsg.length ? 'email-input invalid' : 'email-input'}

@@ -4,6 +4,9 @@
 .add-member-dialog {
     .form-label {
         color: $white;
+        span {
+            color: $error;
+        }
     }
 
     .error {
@@ -12,7 +15,7 @@
         min-height: 1.5rem;
         letter-spacing: 1px;
         font-weight: 400;
-        color: #d84c51;
+        color: $error;
     }
 
     .label-input {
