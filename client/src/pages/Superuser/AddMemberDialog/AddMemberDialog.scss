@@ -7,7 +7,12 @@
     }
 
     .error {
-        color: $error;
+        font-size: 1rem;
+        display: block;
+        min-height: 1.5rem;
+        letter-spacing: 1px;
+        font-weight: 400;
+        color: #d84c51;
     }
 
     .label-input {
