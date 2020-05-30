@@ -10,6 +10,43 @@ module.exports.listMembers = async (req, res, next) => {
         res.json(users);
     } catch (err) {
         next(err);
+        log.error(err);
+    }
+};
+
+module.exports.updateMemberRole = async (req, res, next) => {
+    log.info(`${req.user.email} is updating ${req.body.update} roles!`);
+    try {
+        const memberRoleUpdate = await Member.findOneAndUpdate(
+            { email: req.body.update },
+            {
+                isSuperuser: req.body.isSuperuser,
+                isFinanceAdmin: req.body.isFinanceAdmin,
+                isEventAdmin: req.body.isEventAdmin,
+                isYogaAdmin: req.body.isYogaAdmin
+            },
+            { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
+        );
+
+        const msg = memberRoleUpdate
+            ? {
+                updated: memberRoleUpdate.email,
+                isFinance: memberRoleUpdate.isFinanceAdmin,
+                isEvent: memberRoleUpdate.isEventAdmin,
+                isYoga: memberRoleUpdate.isYogaAdmin,
+                isSuperuser: memberRoleUpdate.isSuperuser
+            }
+            : { updated: null };
+        res.json(msg);
+        log.info(`Updated user ${msg.updated}: \
+${msg.isFinance ? 'Finance, ' : ''} \
+${msg.isEvent ? 'Event, ' : ''} \
+${msg.isYoga ? 'Yoga, ' : ''} \
+${msg.isSuperuser ? 'Superuser' : ''}`
+        );
+    } catch (err) {
+        log.error(err);
+        next(err);
     }
 };
 
@@ -20,7 +57,7 @@ module.exports.deleteMember = async (req, res, next) => {
             { email: req.body.remove }
         );
         const msg = memberToDelete ? req.body.remove : null;
-        res.json({ deleted: msg }); // SU page
+        res.json({ deleted: msg });
         log.info(`Deleted: ${msg}`);
 
         if (memberToDelete && memberToDelete.registered) {

@@ -1,0 +1,29 @@
+@import '../../../style/colors';
+@import '../../../style/mixins';
+
+.role-dialog {
+    .msg {
+        color: $disabled;
+    }
+    .email {
+        color: $disabled;
+        background-color: #6d6d6d;
+        padding: 2px 8px 6px;
+        border-radius: 8px;
+    }
+    .form-check {
+        margin-left: 50px;
+    }
+    .form-check-input {
+        margin-top: .5rem;
+    }
+    .form-check-label {
+        color: $white;
+        min-width: 150px;
+    }
+    svg {
+        width: 1rem;
+        margin: 0 13px;
+        fill: $white;
+    }
+}
