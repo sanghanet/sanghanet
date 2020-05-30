@@ -13,10 +13,10 @@ import Form from 'react-bootstrap/Form';
 
 class UpdateAdminRoles extends Component {
     state = {
-        financeChecked: this.props.status[0],
-        eventChecked: this.props.status[1],
-        yogaChecked: this.props.status[2],
-        superuserChecked: this.props.status[3]
+        financeChecked: this.props.memberRoles.isFinanceAdmin,
+        eventChecked: this.props.memberRoles.isEventAdmin,
+        yogaChecked: this.props.memberRoles.isYogaAdmin,
+        superuserChecked: this.props.memberRoles.isSuperuser
     }
 
     handleChecked = (event) => {
@@ -37,7 +37,7 @@ class UpdateAdminRoles extends Component {
     }
 
     render () {
-        const { member, closeDialog } = this.props;
+        const { memberEmail, closeDialog } = this.props;
         const { financeChecked, eventChecked, yogaChecked, superuserChecked } = this.state;
 
         return (
@@ -51,7 +51,7 @@ class UpdateAdminRoles extends Component {
                 <Form onSubmit={this.setUpdateAdminRoles} autoComplete='off' className="role-dialog">
                     <Form.Label>
                         <span className="msg">Update role to&nbsp;</span>
-                        <span className="email">{member}</span>
+                        <span className="email">{memberEmail}</span>
                         <span className="msg">&nbsp;?</span>
                     </Form.Label>
                     <Form.Check type="checkbox">
@@ -81,10 +81,10 @@ class UpdateAdminRoles extends Component {
 }
 
 UpdateAdminRoles.propTypes = {
-    member: PropTypes.string.isRequired,
+    memberRoles: PropTypes.object.isRequired,
+    memberEmail: PropTypes.string.isRequired,
     closeDialog: PropTypes.func.isRequired,
-    updateAdminRoles: PropTypes.func.isRequired,
-    status: PropTypes.array.isRequired
+    updateAdminRoles: PropTypes.func.isRequired
 };
 
 export default UpdateAdminRoles;

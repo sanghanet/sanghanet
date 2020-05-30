@@ -47,10 +47,7 @@ class Superuser extends Component {
             showAlert: false,
             alertMessage: '',
             alertType: '',
-            isFinanceAdmin: false,
-            isEventAdmin: false,
-            isYogaAdmin: false,
-            isSuperuser: false
+            memberRoles: {}
         };
     }
 
@@ -119,10 +116,12 @@ class Superuser extends Component {
         this.setState({
             showUpdateAdminDialog: true,
             editedUser: member.email,
-            isFinanceAdmin: member.isFinanceAdmin,
-            isEventAdmin: member.isEventAdmin,
-            isYogaAdmin: member.isYogaAdmin,
-            isSuperuser: member.isSuperuser
+            memberRoles: {
+                isFinanceAdmin: member.isFinanceAdmin,
+                isEventAdmin: member.isEventAdmin,
+                isYogaAdmin: member.isYogaAdmin,
+                isSuperuser: member.isSuperuser
+            }
         });
     }
 
@@ -276,10 +275,7 @@ class Superuser extends Component {
             showAlert,
             alertMessage,
             alertType,
-            isFinanceAdmin,
-            isEventAdmin,
-            isYogaAdmin,
-            isSuperuser
+            memberRoles
         } = this.state;
 
         return (
@@ -311,8 +307,8 @@ class Superuser extends Component {
                     ) : null } */}
                 { showUpdateAdminDialog &&
                     <UpdateAdminRoles
-                        member = {editedUser}
-                        status = {[isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser]}
+                        memberEmail = {editedUser}
+                        memberRoles = {memberRoles}
                         updateAdminRoles = {this.handleUpdateAdminRoles}
                         closeDialog = {this.handleCloseAdminRoles}
                     />

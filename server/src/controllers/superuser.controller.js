@@ -38,7 +38,12 @@ module.exports.updateMemberRole = async (req, res, next) => {
             }
             : { updated: null };
         res.json(msg);
-        log.info(`Updated: ${msg}`);
+        log.info(`Updated user ${msg.updated}: \
+${msg.isFinance ? 'Finance, ' : ''} \
+${msg.isEvent ? 'Event, ' : ''} \
+${msg.isYoga ? 'Yoga, ' : ''} \
+${msg.isSuperuser ? 'Superuser' : ''}`
+        );
     } catch (err) {
         log.error(err);
         next(err);
