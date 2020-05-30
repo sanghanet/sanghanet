@@ -15,6 +15,7 @@ module.exports.listMembers = async (req, res, next) => {
 
 module.exports.addMember = (req, res, next) => {
     const emailToAdd = req.body.email;
+    log.info(`${req.user.email} is trying to add ${emailToAdd}...`);
     const labelToAdd = req.body.label;
     try {
         Member.find({ email: emailToAdd }, (err, docs) => {
