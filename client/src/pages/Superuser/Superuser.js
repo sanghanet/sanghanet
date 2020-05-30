@@ -243,15 +243,6 @@ class Superuser extends Component {
         this.setState({ showAddUserPopup: true });
     }
 
-    // editUser = (event) => {
-    //     const user = this.state.userData[event.currentTarget.id];
-
-    //     this.setState({
-    //         showEditUserPopup: true,
-    //         editedUser: user
-    //     });
-    // }
-
     handlePopupClose = () => {
         this.setState({
             showAddUserPopup: false,
@@ -280,15 +271,6 @@ class Superuser extends Component {
 
         return (
             <div>
-                {/* FIXME:showAlert is inserted twice */}
-                { showAlert
-                    ? <Alert
-                        alertClose={this.closeAlert}
-                        alertMsg={alertMessage}
-                        alertType={alertType}
-                    />
-                    : null
-                }
                 {showAddUserPopup
                     ? (
                         <AddUserPopup
@@ -297,14 +279,6 @@ class Superuser extends Component {
                             user={editedUser}
                         />
                     ) : null }
-                {/* {showEditUserPopup
-                    ? (
-                        <EditUserPopup
-                            modalShow={showEditUserPopup}
-                            modalClose={this.handlePopupClose}
-                            user={editedUser}
-                        />
-                    ) : null } */}
                 { showUpdateAdminDialog &&
                     <UpdateAdminRoles
                         memberEmail = {editedUser}
