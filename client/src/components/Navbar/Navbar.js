@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { Dropdown, DropdownButton, ButtonGroup } from 'react-bootstrap';
 
 import './Navbar.scss';
 import Logout from '../Logout/Logout';
@@ -101,6 +102,26 @@ class Navbar extends Component {
                         <div className="menu-icon"><SuperuserIcon /></div>
                         <span className="title">Superuser</span>
                     </NavLink>
+                </li>
+                <li>
+                    <DropdownButton
+                        as={ButtonGroup}
+                        key={'right'}
+                        id={'dropdown-button-drop-right'}
+                        drop={'right'}
+                        variant="secondary"
+                        title={
+                            <div className="link">
+                                <div className="menu-icon"><SuperuserIcon /></div>
+                                <span className="title">Admins</span>
+                            </div>
+                        }
+                    >
+                        <Dropdown.Item eventKey="1">Finance</Dropdown.Item>
+                        <Dropdown.Item eventKey="2">Yoga</Dropdown.Item>
+                        <Dropdown.Item eventKey="3">Event</Dropdown.Item>
+                        <Dropdown.Item eventKey="4">Superuser</Dropdown.Item>
+                    </DropdownButton>
                 </li>
                 <li id="logout-li">
                     <Logout />
