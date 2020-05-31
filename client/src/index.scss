@@ -38,4 +38,10 @@ main {
     @include minQ(768px) {
         margin-left: 110px;
     }
+
+    &>* {
+        max-width: 2000px;
+        margin-right: auto;
+        margin-left: auto;
+    }
 }
