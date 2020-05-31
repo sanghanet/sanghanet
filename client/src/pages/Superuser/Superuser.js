@@ -214,7 +214,7 @@ class Superuser extends Component {
                                 user.email.substring(0, user.email.indexOf('@'))
                             }
                         </td>
-                        <td onClick={this.editUser} className="role-cells">
+                        <td className="role-cells">
                             <Button id={key} onClick={this.openUpdateAdminRoles}>
                                 { user.isSuperuser && <SuperuserIcon title='superuser' /> }
                                 { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }

@@ -41,6 +41,7 @@ class AddMemberDialog extends Component {
     }
 
     handleAddMember = (event) => {
+        // TODO: check for invalidity and make submit work on enter
         this.props.addMember(`${this.state.emailInputValue}@gmail.com`, this.state.labelInputValue);
         event.preventDefault();
     }
