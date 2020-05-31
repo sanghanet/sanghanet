@@ -5,10 +5,25 @@ const { mongoose } = require('../src/controllers/mongoDB.controller');
 const { Member } = require('../src/models/member.model');
 const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 
-const { Account } = require('../src/models/financeAccount.model');
+const { FinanceAccount } = require('../src/models/FinanceAccount.model');
+const { FinanceTransactionSchema } = require('../src/models/financeTransaction.model');
+const FinanceTransaction = mongoose.model('Finance Transaction', FinanceTransactionSchema);
+
+const generateRandomTransactions = (pocket) => {
+    const randomTransactions = [];
+    for (let i = 0; i < 10; i++) {
+        randomTransactions.push(new FinanceTransaction({
+            amount: Math.floor(Math.random() * 100000) - 50000,
+            description: 'Randomly generated test transaction',
+            currency: 'HUF',
+            pocket: pocket
+        }));
+    }
+    return randomTransactions;
+};
 
 const wipeAccounts = async () => {
-    await Account.deleteMany({})
+    await FinanceAccount.deleteMany({})
         .then(() => { log.info('Finance accounts wiped successfully!'); })
         .catch((error) => {
             log.error(error);
@@ -29,11 +44,23 @@ const getUserList = async () => {
 };
 
 const singleAccountCreationPromise = (element) => {
-    return Account.create({
+    return FinanceAccount.create({
         userId: element._id,
         email: element.email,
         userName: `${element.firstName} ${element.lastName}`,
-        currency: 'HUF'
+        currency: 'HUF',
+        transactionBuffer: {
+            membership: generateRandomTransactions('membership'),
+            rent: generateRandomTransactions('rent'),
+            event: generateRandomTransactions('event'),
+            angel: generateRandomTransactions('angel')
+        },
+        transactionArchive: {
+            membership: generateRandomTransactions('membership'),
+            rent: generateRandomTransactions('rent'),
+            event: generateRandomTransactions('event'),
+            angel: generateRandomTransactions('angel')
+        }
     });
 };
 

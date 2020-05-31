@@ -16,6 +16,7 @@ import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/Search/SearchBar';
 import Footer from '../../components/Footer/Footer';
+import UpdateAdminRoles from './UpdateAdminRoles/UpdateAdminRoles';
 import Checkbox from '../../components/Form/Checkbox/Checkbox';
 import DeleteDialog from './DeleteDialog/DeleteDialog';
 import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
@@ -40,9 +41,11 @@ class Superuser extends Component {
             },
             showAddMemberDialog: false,
             showDeleteDialog: false,
+            showUpdateAdminDialog: false,
             showAlert: false,
             alertMessage: '',
-            alertType: ''
+            alertType: '',
+            memberRoles: {}
         };
     }
 
@@ -137,8 +140,60 @@ class Superuser extends Component {
     handleCloseDialog = () => {
         this.setState({
             showDeleteDialog: false,
-            showAddMemberDialog: false
+            showAddMemberDialog: false,
+            showUpdateAdminDialog: false
         });
+    }
+
+    openUpdateAdminRoles = (event) => {
+        const member = this.state.userData[event.currentTarget.id];
+        this.setState({
+            showUpdateAdminDialog: true,
+            editedUser: member.email,
+            memberRoles: {
+                isFinanceAdmin: member.isFinanceAdmin,
+                isEventAdmin: member.isEventAdmin,
+                isYogaAdmin: member.isYogaAdmin,
+                isSuperuser: member.isSuperuser
+            }
+        });
+    }
+
+    handleUpdateAdminRoles = (roles) => {
+        const { editedUser } = this.state;
+
+        Client.fetch('/su/updatemember', {
+            method: 'PUT',
+            body: `{
+                "update": "${editedUser}",
+                "isFinanceAdmin": "${roles.isFinanceAdmin}",
+                "isEventAdmin": "${roles.isEventAdmin}",
+                "isYogaAdmin": "${roles.isYogaAdmin}",
+                "isSuperuser": "${roles.isSuperuser}"
+            }`
+        })
+            .then((data) => {
+                if (data.updated) {
+                    // deep copy with data update
+                    const newMembers = this.state.userData.map((member) => member.email === data.updated
+                        ? {
+                            ...member,
+                            isEventAdmin: data.isEvent,
+                            isFinanceAdmin: data.isFinance,
+                            isYogaAdmin: data.isYoga,
+                            isSuperuser: data.isSuperuser
+                        }
+                        : member
+                    );
+                    this.setState({ userData: newMembers });
+                } else {
+                    this.setState({ showAlert: true, alertMessage: 'Update failed. Refresh the page or try it later.', alertType: 'Error' });
+                }
+            }).catch((err) => {
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+            });
+
+        this.setState({ showUpdateAdminDialog: false });
     }
 
     renderUsers = () => {
@@ -159,12 +214,14 @@ class Superuser extends Component {
                                 user.email.substring(0, user.email.indexOf('@'))
                             }
                         </td>
-                        <td onClick={this.editUser} id={key} className="role-cells">
-                            { user.isSuperuser && <SuperuserIcon title='superuser' /> }
-                            { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
-                            { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
-                            { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
-                            { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
+                        <td onClick={this.editUser} className="role-cells">
+                            <Button id={key} onClick={this.openUpdateAdminRoles}>
+                                { user.isSuperuser && <SuperuserIcon title='superuser' /> }
+                                { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
+                                { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
+                                { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
+                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
+                            </Button>
                         </td>
                         <td className="delete-icon-cell">
                             <Button variant='outline-danger' id={ key } onClick={this.openDelete}>
@@ -219,40 +276,48 @@ class Superuser extends Component {
             textFilterValue,
             registeredFilterValue,
             showAddMemberDialog,
+            showUpdateAdminDialog,
             editedUser,
             roleFilter,
             showDeleteDialog,
             showAlert,
             alertMessage,
-            alertType
+            alertType,
+            memberRoles
         } = this.state;
 
         return (
             <div>
-                { showAlert &&
-                    <Alert
-                        alertClose={this.closeAlert}
-                        alertMsg={alertMessage}
-                        alertType={alertType}
-                    />
-                }
                 {showAddMemberDialog &&
                     <AddMemberDialog
                         closeDialog = {this.handleCloseDialog}
                         addMember = {this.handleAddMember}
                     />
                 }
+                { showUpdateAdminDialog &&
+                    <UpdateAdminRoles
+                        memberEmail = {editedUser}
+                        memberRoles = {memberRoles}
+                        updateAdminRoles = {this.handleUpdateAdminRoles}
+                        closeDialog = {this.handleCloseDialog}
+                    />
+                }
                 { showDeleteDialog &&
                     <DeleteDialog
                         user={editedUser}
-                        closeDialog = {this.handleCloseDialog}
                         deleteMember = {this.handleDeleteMember}
+                        closeDialog = {this.handleCloseDialog}
                     />
                 }
                 <Header activePage="Superuser" />
                 <Navbar navStyle="sidenav" />
                 <main>
-                    {showAlert && <Alert alertMsg={alertMessage} alertType={alertType} alertClose={this.closeAlert} />}
+                    { showAlert &&
+                        <Alert
+                            alertMsg={alertMessage}
+                            alertType={alertType}
+                            alertClose={this.closeAlert} />
+                    }
                     {/* --- Form for filters --- */}
                     <Accordion className="su-filter-accordion">
                         <Card>

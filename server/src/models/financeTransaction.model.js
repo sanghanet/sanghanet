@@ -2,6 +2,7 @@ const { mongoose } = require('../controllers/mongoDB.controller');
 
 const FinanceTransactionSchema = mongoose.Schema({
     amount: { type: Number, default: 0 },
+    description: String,
     currency: String,
     pocket: String,
     entryDate: Date,

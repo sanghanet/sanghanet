@@ -9,32 +9,29 @@
     top: 118px;
     right: 19px;
     z-index: 10;
-    .alert-icon {
-        width: 18px;
-        height: 18px;
-        margin-right: 10px;
-    }
-    .error {
-        fill: $error;
-    }
-    .warning {
-        fill: $warning;
-    }
-    .info {
-        fill: $info;
-    }
+
     .toast-header {
-        background-color: $alertBackground;
         color: $white;
-        button.close {
-            color: $white;
-        }
+        &.Error { background: $error; }
+        &.Warning { background: $warning; }
+        &.Info { background: $info; }
+
+        button.close { color: $white; }
+
         strong {
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 500;
         }
+
+        .alert-icon {
+            fill: $white;
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+        }
     }
+
     .toast-body {
         background-color: #2e2e2e;
         color: $white;
