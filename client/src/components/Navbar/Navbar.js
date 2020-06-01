@@ -15,6 +15,17 @@ import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
 
 class Navbar extends Component {
+    state = {
+        showAdminPages: false
+    }
+
+    toggleAdminPages = () => {
+        document.getElementById('sidenav').childNodes[0].classList.toggle('slide-in');
+        document.getElementById('sidenav').childNodes[1].classList.toggle('slide-away');
+        console.dir(document.getElementById('sidenav').childNodes[1]);
+        this.setState((prevState) => ({ showAdminPages: !prevState.showAdminPages }));
+    }
+
     componentDidMount () {
         const desktopMenu = document.getElementById('sidenav');
         const hamburgerMenu = document.getElementsByClassName('slider')[0];
@@ -53,59 +64,71 @@ class Navbar extends Component {
 
     render () {
         return (
-            <ul className="navigation" id={this.props.navStyle}>
-                <li>
-                    <NavLink exact to="/dashboard" className="link">
-                        <div className="menu-icon"><DashboardIcon /></div>
-                        <span className="title">Dashboard</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/personal" className="link">
-                        <div className="menu-icon"><PersonalIcon /></div>
-                        <span className="title">Personal Data</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/yoga" className="link">
-                        <div className="menu-icon"><YogaIcon /></div>
-                        <span className="title">Yoga</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/finances" className="link">
-                        <div className="menu-icon"><FinanceIcon /></div>
-                        <span className="title">Finances</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/events" className="link">
-                        <div className="menu-icon"><EventIcon /></div>
-                        <span className="title">Events</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/questions" className="link">
-                        <div className="menu-icon"><QuestionsIcon /></div>
-                        <span className="title">Personal Questions</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/queries" className="link">
-                        <div className="menu-icon"><InfoIcon /></div>
-                        <span className="title">Queries</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/superuser" className="link">
-                        <div className="menu-icon"><SuperuserIcon /></div>
-                        <span className="title">Superuser</span>
-                    </NavLink>
-                </li>
-                <li id="logout-li">
-                    <Logout />
-                </li>
-            </ul>
+            <div className="navigation" id={this.props.navStyle}>
+                <ul className="admin-items">
+                    <li onClick={this.toggleAdminPages}>Back</li>
+                    <li>
+                        <NavLink exact to="/superuser" className="link">
+                            <div className="menu-icon"><DashboardIcon /></div>
+                            <span className="title">Superuser</span>
+                        </NavLink>
+                    </li>
+                </ul>
+                <ul className="general-items">
+                    <li>
+                        <NavLink exact to="/dashboard" className="link">
+                            <div className="menu-icon"><DashboardIcon /></div>
+                            <span className="title">Dashboard</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/personal" className="link">
+                            <div className="menu-icon"><PersonalIcon /></div>
+                            <span className="title">Personal Data</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/yoga" className="link">
+                            <div className="menu-icon"><YogaIcon /></div>
+                            <span className="title">Yoga</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/finances" className="link">
+                            <div className="menu-icon"><FinanceIcon /></div>
+                            <span className="title">Finances</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/events" className="link">
+                            <div className="menu-icon"><EventIcon /></div>
+                            <span className="title">Events</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/questions" className="link">
+                            <div className="menu-icon"><QuestionsIcon /></div>
+                            <span className="title">Personal Questions</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/queries" className="link">
+                            <div className="menu-icon"><InfoIcon /></div>
+                            <span className="title">Queries</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/superuser" className="link">
+                            <div className="menu-icon"><SuperuserIcon /></div>
+                            <span className="title">Superuser</span>
+                        </NavLink>
+                    </li>
+                    <li className="link admin-pages" onClick={this.toggleAdminPages}>Admin pages</li>
+                    <li id="logout-li">
+                        <Logout />
+                    </li>
+                </ul>
+            </div>
         );
     }
 }

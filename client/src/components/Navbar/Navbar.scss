@@ -2,11 +2,8 @@
 @import '../../style/mixins';
 
 .navigation {
-    @include resetList;
     background-color: $sideBar-bg;
     box-shadow: 10px 0px 15px -5px rgba(0, 0, 0, 0.749);
-    display: flex;
-    flex-direction: column;
     z-index: 1;
 
     overflow-y: scroll;
@@ -15,50 +12,94 @@
         display: none;
     }
 
-    li {
-        text-align: center;
-        button {
-            @include buttonReset;
-            align-items: center;
+    &#sidenav {
+        width: 220px;
+        left: -110px;
+    }
+
+    ul {
+        @include resetList;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        transition: .5s left;
+        position: absolute;
+        width: fit-content;
+
+        li {
+            text-align: center;
+            button {
+                @include buttonReset;
+                align-items: center;
+            }
+            .active {
+                background-color: $sideBarHover-bg;
+                .title {
+                    color: $sideBarHover-iconColor;
+                }
+                svg {
+                    @include svgChanging;
+                }
+            }
         }
-        .active {
-            background-color: $sideBarHover-bg;
-            .title {
-                color: $sideBarHover-iconColor;
+        #logout-li {
+            margin-top: auto;
+        }
+        .link {
+            @include centerElement;
+            flex-direction: column;
+            width: $navbar-width;
+            .menu-icon {
+                @include centerElement;
+                width: 50px;
+                height: 50px;
             }
             svg {
-                @include svgChanging;
+                fill: $sideBar-iconColor;
+                width: 30px;
+                height: 30px;
             }
+            .title {
+                padding: 0 5px;
+                color: $sideBar-iconColor;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            &:hover {
+                text-decoration: none;
+            }
+            @include hoveredElement;
         }
     }
-    #logout-li {
-        margin-top: auto;
+
+    .admin-items {
+        left: 0;
+
+        li:first-child {
+            color: $white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        &.slide-in {
+            left: 110px;
+        }
     }
-    .link {
-        @include centerElement;
-        flex-direction: column;
-        width: $navbar-width;
-        .menu-icon {
-            @include centerElement;
-            width: 50px;
-            height: 50px;
+
+    .general-items {
+        left: 110px;
+
+        .admin-pages {
+            color: $white;
+            cursor: pointer;
         }
-        svg {
-            fill: $sideBar-iconColor;
-            width: 30px;
-            height: 30px;
+
+        &.slide-away {
+            left: 220px;
         }
-        .title {
-            padding: 0 5px;
-            color: $sideBar-iconColor;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        &:hover {
-            text-decoration: none;
-        }
-        @include hoveredElement;
     }
 }
 
