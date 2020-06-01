@@ -70,6 +70,10 @@
                 text-decoration: none;
             }
             @include hoveredElement;
+
+            &:first-child {
+                cursor: pointer;
+            }
         }
     }
 
@@ -92,12 +96,7 @@
     .general-items {
         left: 110px;
 
-        .admin-pages {
-            color: $white;
-            cursor: pointer;
-        }
-
-        &.slide-away {
+        &.slide-out {
             left: 220px;
         }
     }
