@@ -72,6 +72,34 @@
     li {
         width: $navbar-width;
         min-height: 102px;
+        #admins {
+            cursor: pointer;
+        }
+        #dropdown {
+            @include resetList;
+            width: 86%;
+            position: absolute;
+            background-color: $lightgray;
+            border-radius: 4px;
+            overflow:hidden;
+
+            li {
+                min-height: 36px;
+                width: 100%;
+                padding: 4px 0;
+                &:hover {
+                    background-color: #adadad;
+                }
+                .dropdown-link {
+                    text-decoration: none;
+                }
+                .active {
+                    background-color: transparent;
+                    color: #030f65;
+                    font-weight: 600;
+                }
+            }
+        }
     }
     .link {
         min-height: 102px;
@@ -85,6 +113,32 @@
         min-height: 80px;
         border-bottom: none;
         border-top: 1px solid $sideBar-border;
+        #admins {
+            cursor: pointer;
+        }
+        #dropdown {
+            @include resetList;
+            position: absolute;
+            width: 70%;
+            background-color: $lightgray;
+            border-radius: 4px;
+            overflow:hidden;
+            li {
+                min-height: 36px;
+                padding: 10px 0;
+                &:hover {
+                    background-color: #adadad;
+                }
+                .dropdown-link {
+                    text-decoration: none;
+                }
+                .active {
+                    background-color: transparent;
+                    color: #030f65;
+                    font-weight: 600;
+                }
+            }
+        }
     }
     .link {
         width: 100%;
