@@ -106,28 +106,22 @@ class Navbar extends Component {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink exact to="/superuser" className="link">
-                        <div className="menu-icon"><SuperuserIcon /></div>
-                        <span className="title">Superuser</span>
-                    </NavLink>
-                </li>
-                <li>
                     <div className="link" id="admins" onClick={this.handleAdminsDropdown}>
                         <div className="menu-icon"><SuperuserIcon /></div>
                         <span className="title">Admins</span>
                         { dropdownVisible &&
                             (<ul id="dropdown" onMouseLeave={() => { this.setState({ dropdownVisible: false }); }}>
                                 <li>
-                                    <NavLink exact to="/finances" className="dropdown-link">Finance</NavLink>
+                                    <NavLink exact to="/admin/finance" className="dropdown-link">Finance</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink exact to="/events" className="dropdown-link">Events</NavLink>
+                                    <NavLink exact to="/admin/event" className="dropdown-link">Event</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink exact to="/yoga" className="dropdown-link">Yoga</NavLink>
+                                    <NavLink exact to="/admin/yoga" className="dropdown-link">Yoga</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink exact to="/superuser" className="dropdown-link">Superuser</NavLink>
+                                    <NavLink exact to="/admin/superuser" className="dropdown-link">Superuser</NavLink>
                                 </li>
                             </ul>)
                         }

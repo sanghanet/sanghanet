@@ -1,0 +1,35 @@
+@import '../../../../style/colors';
+@import '../../../../style/mixins';
+
+.add-member-dialog {
+    .form-label {
+        color: $white;
+        span {
+            color: $error;
+        }
+    }
+
+    .error {
+        font-size: 1rem;
+        display: block;
+        min-height: 1.5rem;
+        letter-spacing: 1px;
+        font-weight: 400;
+        color: $error;
+    }
+
+    .label-input {
+        margin-bottom: 20px;
+    }
+
+    input.form-control {
+        color: $white;
+        border: 1px solid $white;
+        background-color: $input-bg;
+        font-size: .8rem;
+
+        &+.input-group-append span {
+            font-size: .8rem
+        }
+    }
+}
