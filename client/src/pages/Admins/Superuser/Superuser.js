@@ -110,7 +110,7 @@ class Superuser extends Component {
     }
 
     handleAddMember = (emailAddress, label) => {
-        Client.fetch('su/addmember', {
+        Client.fetch('/su/addmember', {
             method: 'POST',
             body: `{"email": "${emailAddress}", "label": "${label}"}`
         })
