@@ -6,7 +6,7 @@ const log = log4js.getLogger('controllers/user.controller.js');
 
 module.exports.listMembers = async (req, res, next) => {
     try {
-        const users = await Member.find({}, 'email isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin label registered');
+        const users = await (await Member.find({}, 'email isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin label registered')).reverse();
         res.json(users);
     } catch (err) {
         next(err);
