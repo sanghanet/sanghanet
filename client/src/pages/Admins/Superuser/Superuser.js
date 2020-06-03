@@ -344,7 +344,7 @@ class Superuser extends Component {
                         handleRegisteredFilterChange={this.handleRegisteredFilterChange}
                         handleRoleChange={this.handleRoleChange}
                         resetFilters={this.resetFilters}
-                        testFilterValue={textFilterValue}
+                        textFilterValue={textFilterValue}
                         registeredFilterValue={registeredFilterValue}
                         roleFilter={roleFilter}
                     />
