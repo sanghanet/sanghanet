@@ -1,3 +1,5 @@
+// #region white
+/* ------------ Imports ------------ */
 import React, { Component } from 'react';
 import Client from '../../../components/Client';
 
@@ -22,6 +24,7 @@ import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
 
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+// #endregion
 
 class Superuser extends Component {
     constructor (props) {
@@ -48,6 +51,8 @@ class Superuser extends Component {
         };
     }
 
+    // #region yellow
+    /* ------------ General functions ------------ */
     componentDidMount () {
         Client.fetch('/su/listmembers', { method: 'POST' })
             .then((data) => {
@@ -57,31 +62,50 @@ class Superuser extends Component {
             });
     }
 
-    checkFilters = (user) => {
-        const { roleFilter, textFilterValue, registeredFilterValue } = this.state;
+    closeAlert = () => {
+        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
+    }
+    // #endregion
 
-        // eslint-disable-next-line no-multi-spaces
-        const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
-                                    user.label.toLowerCase().includes(textFilterValue.toLowerCase());
-        // eslint-disable-next-line no-multi-spaces
-        const passedRoleFilter =    !(roleFilter.filterSuperuser || roleFilter.filterFinanceAdmin || roleFilter.filterEventAdmin || roleFilter.filterYogaAdmin || roleFilter.filterNoRole) ||
-                                    (user.isSuperuser && roleFilter.filterSuperuser) ||
-                                    (user.isFinanceAdmin && roleFilter.filterFinanceAdmin) ||
-                                    (user.isEventAdmin && roleFilter.filterEventAdmin) ||
-                                    (user.isYogaAdmin && roleFilter.filterYogaAdmin) ||
-                                    (
-                                        !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) &&
-                                        roleFilter.filterNoRole
-                                    );
-
-        // eslint-disable-next-line no-multi-spaces
-        const passedRegisteredFilter =  (registeredFilterValue === 'all') ||
-                                        (user.registered && registeredFilterValue !== 'unregistered') ||
-                                        (!user.registered && registeredFilterValue !== 'registered');
-
-        return passedEmailFilter && passedRoleFilter && passedRegisteredFilter;
+    // #region red
+    /* ------------ FilterAccordion functions ------------ */
+    handleEmailFilterChange = (inputValue) => {
+        this.setState({ textFilterValue: inputValue });
     }
 
+    handleSearchIconClick = (event) => {
+        event.preventDefault();
+        this.setState({ textFilterValue: '' });
+    }
+
+    handleRegisteredFilterChange = (event) => {
+        this.setState({ registeredFilterValue: event.target[event.target.selectedIndex].text });
+    }
+
+    handleRoleChange = (event) => {
+        const tempRoleState = { ...this.state.roleFilter };
+        tempRoleState[event.target.id] = !tempRoleState[event.target.id];
+        this.setState({ roleFilter: tempRoleState });
+    }
+
+    resetFilters = () => {
+        this.setState({
+            textFilterValue: '',
+            roleFilter: {
+                filterSuperuser: false,
+                filterFinanceAdmin: false,
+                filterEventAdmin: false,
+                filterYogaAdmin: false,
+                filterNoRole: false
+            },
+            registeredFilterValue: 'all'
+        });
+    }
+    // #endregion
+
+    // #region lightgreen
+    /* ------------ Dialog functions ------------ */
+    // *** OPEN / CLOSE *** //
     openDelete = (event) => {
         const user = this.state.userData[event.currentTarget.id];
         this.setState({ showDeleteDialog: true, editedUser: user.email });
@@ -91,24 +115,29 @@ class Superuser extends Component {
         this.setState({ showAddMemberDialog: true });
     }
 
-    handleDeleteMember = (event) => {
-        Client.fetch('/su/deletemember', {
-            method: 'DELETE',
-            body: `{"remove": "${this.state.editedUser}"}`
-        })
-            .then((data) => {
-                if (data.deleted) {
-                    this.setState({ userData: this.state.userData.filter((member) => member.email !== data.deleted) });
-                } else {
-                    this.setState({ showAlert: true, alertMessage: 'Delete failed. Refresh the page or try it later.', alertType: 'Error' });
-                }
-            }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
-            });
-
-        this.setState({ showDeleteDialog: false });
+    openUpdateAdminRoles = (event) => {
+        const member = this.state.userData[event.currentTarget.id];
+        this.setState({
+            showUpdateAdminDialog: true,
+            editedUser: member.email,
+            memberRoles: {
+                isFinanceAdmin: member.isFinanceAdmin,
+                isEventAdmin: member.isEventAdmin,
+                isYogaAdmin: member.isYogaAdmin,
+                isSuperuser: member.isSuperuser
+            }
+        });
     }
 
+    handleCloseDialog = () => {
+        this.setState({
+            showDeleteDialog: false,
+            showAddMemberDialog: false,
+            showUpdateAdminDialog: false
+        });
+    }
+
+    // *** FETCH *** //
     handleAddMember = (emailAddress, label) => {
         Client.fetch('/su/addmember', {
             method: 'POST',
@@ -134,28 +163,6 @@ class Superuser extends Component {
             });
 
         this.setState({ showAddMemberDialog: false });
-    }
-
-    handleCloseDialog = () => {
-        this.setState({
-            showDeleteDialog: false,
-            showAddMemberDialog: false,
-            showUpdateAdminDialog: false
-        });
-    }
-
-    openUpdateAdminRoles = (event) => {
-        const member = this.state.userData[event.currentTarget.id];
-        this.setState({
-            showUpdateAdminDialog: true,
-            editedUser: member.email,
-            memberRoles: {
-                isFinanceAdmin: member.isFinanceAdmin,
-                isEventAdmin: member.isEventAdmin,
-                isYogaAdmin: member.isYogaAdmin,
-                isSuperuser: member.isSuperuser
-            }
-        });
     }
 
     handleUpdateAdminRoles = (roles) => {
@@ -195,6 +202,54 @@ class Superuser extends Component {
         this.setState({ showUpdateAdminDialog: false });
     }
 
+    handleDeleteMember = (event) => {
+        Client.fetch('/su/deletemember', {
+            method: 'DELETE',
+            body: `{"remove": "${this.state.editedUser}"}`
+        })
+            .then((data) => {
+                if (data.deleted) {
+                    this.setState({ userData: this.state.userData.filter((member) => member.email !== data.deleted) });
+                } else {
+                    this.setState({ showAlert: true, alertMessage: 'Delete failed. Refresh the page or try it later.', alertType: 'Error' });
+                }
+            }).catch((err) => {
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+            });
+
+        this.setState({ showDeleteDialog: false });
+    }
+    // #endregion
+
+    // #region blue
+    /* ------------ User rows ------------ */
+    // *** CHECK FILTERS *** //
+    checkFilters = (user) => {
+        const { roleFilter, textFilterValue, registeredFilterValue } = this.state;
+
+        // eslint-disable-next-line no-multi-spaces
+        const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
+                                    user.label.toLowerCase().includes(textFilterValue.toLowerCase());
+        // eslint-disable-next-line no-multi-spaces
+        const passedRoleFilter =    !(roleFilter.filterSuperuser || roleFilter.filterFinanceAdmin || roleFilter.filterEventAdmin || roleFilter.filterYogaAdmin || roleFilter.filterNoRole) ||
+                                    (user.isSuperuser && roleFilter.filterSuperuser) ||
+                                    (user.isFinanceAdmin && roleFilter.filterFinanceAdmin) ||
+                                    (user.isEventAdmin && roleFilter.filterEventAdmin) ||
+                                    (user.isYogaAdmin && roleFilter.filterYogaAdmin) ||
+                                    (
+                                        !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) &&
+                                        roleFilter.filterNoRole
+                                    );
+
+        // eslint-disable-next-line no-multi-spaces
+        const passedRegisteredFilter =  (registeredFilterValue === 'all') ||
+                                        (user.registered && registeredFilterValue !== 'unregistered') ||
+                                        (!user.registered && registeredFilterValue !== 'registered');
+
+        return passedEmailFilter && passedRoleFilter && passedRegisteredFilter;
+    }
+
+    // *** RENDER ROWS *** //
     renderUsers = () => {
         const { userData } = this.state;
 
@@ -232,44 +287,9 @@ class Superuser extends Component {
             ))
         );
     }
+    // #endregion
 
-    handleEmailFilterChange = (inputValue) => {
-        this.setState({ textFilterValue: inputValue });
-    }
-
-    handleSearchIconClick = (event) => {
-        event.preventDefault();
-        this.setState({ textFilterValue: '' });
-    }
-
-    handleRoleChange = (event) => {
-        const tempRoleState = { ...this.state.roleFilter };
-        tempRoleState[event.target.id] = !tempRoleState[event.target.id];
-        this.setState({ roleFilter: tempRoleState });
-    }
-
-    handleRegisteredFilterChange = (event) => {
-        this.setState({ registeredFilterValue: event.target[event.target.selectedIndex].text });
-    }
-
-    resetFilters = () => {
-        this.setState({
-            textFilterValue: '',
-            roleFilter: {
-                filterSuperuser: false,
-                filterFinanceAdmin: false,
-                filterEventAdmin: false,
-                filterYogaAdmin: false,
-                filterNoRole: false
-            },
-            registeredFilterValue: 'all'
-        });
-    }
-
-    closeAlert = () => {
-        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
-    }
-
+    // #region yellow
     render () {
         const {
             userData,
@@ -356,6 +376,7 @@ class Superuser extends Component {
             </div>
         );
     }
+    // #endregion
 };
 
 export default Superuser;
