@@ -18,8 +18,8 @@ import Header from '../../../components/Header/Header';
 import Navbar from '../../../components/Navbar/Navbar';
 import Footer from '../../../components/Footer/Footer';
 import FilterAccordion from './FilterAccordion/FilterAccordion';
-import UpdateAdminRoles from './UpdateAdminRoles/UpdateAdminRoles';
-import DeleteDialog from './DeleteDialog/DeleteDialog';
+import UpdateMemberRoleDialog from './UpdateMemberRoleDialog/UpdateMemberRoleDialog';
+import DeleteMemberDialog from './DeleteMemberDialog/DeleteMemberDialog';
 import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
 
 import Table from 'react-bootstrap/Table';
@@ -42,7 +42,7 @@ class Superuser extends Component {
                 filterNoRole: false
             },
             showAddMemberDialog: false,
-            showDeleteDialog: false,
+            showDeleteMemberDialog: false,
             showUpdateAdminDialog: false,
             showAlert: false,
             alertMessage: '',
@@ -108,14 +108,14 @@ class Superuser extends Component {
     // *** OPEN / CLOSE *** //
     openDelete = (event) => {
         const member = this.state.memberData[event.currentTarget.id];
-        this.setState({ showDeleteDialog: true, editedMember: member.email });
+        this.setState({ showDeleteMemberDialog: true, editedMember: member.email });
     }
 
     openAddMember = () => {
         this.setState({ showAddMemberDialog: true });
     }
 
-    openUpdateAdminRoles = (event) => {
+    openUpdateMemberRoleDialog = (event) => {
         const member = this.state.memberData[event.currentTarget.id];
         this.setState({
             showUpdateAdminDialog: true,
@@ -131,7 +131,7 @@ class Superuser extends Component {
 
     handleCloseDialog = () => {
         this.setState({
-            showDeleteDialog: false,
+            showDeleteMemberDialog: false,
             showAddMemberDialog: false,
             showUpdateAdminDialog: false
         });
@@ -158,7 +158,7 @@ class Superuser extends Component {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
 
-        this.setState({ showDeleteDialog: false });
+        this.setState({ showDeleteMemberDialog: false });
     }
 
     handleAddMember = (emailAddress, label) => {
@@ -188,7 +188,7 @@ class Superuser extends Component {
         this.setState({ showAddMemberDialog: false });
     }
 
-    handleUpdateAdminRoles = (roles) => {
+    handleUpdateMemberRoleDialog = (roles) => {
         const { editedMember } = this.state;
 
         Client.fetch('/su/updatemember', {
@@ -279,7 +279,7 @@ class Superuser extends Component {
                             }
                         </td>
                         <td className="role-cells">
-                            <Button id={key} onClick={this.openUpdateAdminRoles}>
+                            <Button id={key} onClick={this.openUpdateMemberRoleDialog}>
                                 { user.isSuperuser && <SuperuserIcon title='superuser' /> }
                                 { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
                                 { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
@@ -309,7 +309,7 @@ class Superuser extends Component {
             showUpdateAdminDialog,
             editedMember,
             roleFilter,
-            showDeleteDialog,
+            showDeleteMemberDialog,
             showAlert,
             alertMessage,
             alertType,
@@ -325,15 +325,15 @@ class Superuser extends Component {
                     />
                 }
                 { showUpdateAdminDialog &&
-                    <UpdateAdminRoles
+                    <UpdateMemberRoleDialog
                         memberEmail = {editedMember}
                         memberRoles = {memberRoles}
-                        updateAdminRoles = {this.handleUpdateAdminRoles}
+                        updateRole = {this.handleUpdateMemberRoleDialog}
                         closeDialog = {this.handleCloseDialog}
                     />
                 }
-                { showDeleteDialog &&
-                    <DeleteDialog
+                { showDeleteMemberDialog &&
+                    <DeleteMemberDialog
                         member={editedMember}
                         deleteMember = {this.handleDeleteMember}
                         closeDialog = {this.handleCloseDialog}

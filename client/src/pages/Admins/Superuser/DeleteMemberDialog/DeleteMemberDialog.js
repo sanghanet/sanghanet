@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { validationError } from '../../../../components/ValidationRule';
 import GenericDialog from '../../../../components/Form/GenericDialog/GenericDialog';
 
-import './DeleteDialog.scss';
+import './DeleteMemberDialog.scss';
 
 import Form from 'react-bootstrap/Form';
 
-class DeleteDialog extends Component {
+class DeleteMemberDialog extends Component {
     state = {
         randomNumber: Math.floor(1000 + Math.random() * 9000),
         isDisabled: true,
@@ -81,10 +81,10 @@ class DeleteDialog extends Component {
     }
 }
 
-DeleteDialog.propTypes = {
+DeleteMemberDialog.propTypes = {
     member: PropTypes.string.isRequired,
     closeDialog: PropTypes.func.isRequired,
     deleteMember: PropTypes.func.isRequired
 };
 
-export default DeleteDialog;
+export default DeleteMemberDialog;

@@ -7,11 +7,11 @@ import { ReactComponent as EventAdminIcon } from '../../../../components/icons/e
 import { ReactComponent as YogaAdminIcon } from '../../../../components/icons/yoga.svg';
 import { ReactComponent as SuperuserIcon } from '../../../../components/icons/superman.svg';
 
-import './UpdateAdminRoles.scss';
+import './UpdateMemberRoleDialog.scss';
 
 import Form from 'react-bootstrap/Form';
 
-class UpdateAdminRoles extends Component {
+class UpdateMemberRoleDialog extends Component {
     state = {
         financeChecked: this.props.memberRoles.isFinanceAdmin,
         eventChecked: this.props.memberRoles.isEventAdmin,
@@ -25,7 +25,7 @@ class UpdateAdminRoles extends Component {
         this.setState(newstate);
     }
 
-    setUpdateAdminRoles = () => {
+    setUpdateMemberRoleDialog = () => {
         const { financeChecked, eventChecked, yogaChecked, superuserChecked } = this.state;
         const roles = {
             isFinanceAdmin: financeChecked,
@@ -33,7 +33,7 @@ class UpdateAdminRoles extends Component {
             isYogaAdmin: yogaChecked,
             isSuperuser: superuserChecked
         };
-        this.props.updateAdminRoles(roles);
+        this.props.updateRole(roles);
     }
 
     render () {
@@ -46,9 +46,9 @@ class UpdateAdminRoles extends Component {
                 reject = 'Cancel'
                 accept = 'Save'
                 handleClose = {closeDialog}
-                handleAccept = {this.setUpdateAdminRoles}
+                handleAccept = {this.setUpdateMemberRoleDialog}
             >
-                <Form onSubmit={this.setUpdateAdminRoles} autoComplete='off' className="role-dialog">
+                <Form onSubmit={this.setUpdateMemberRoleDialog} autoComplete='off' className="role-dialog">
                     <Form.Label>
                         <span className="msg">Update role to&nbsp;</span>
                         <span className="email">{memberEmail}</span>
@@ -80,11 +80,11 @@ class UpdateAdminRoles extends Component {
     }
 }
 
-UpdateAdminRoles.propTypes = {
+UpdateMemberRoleDialog.propTypes = {
     memberRoles: PropTypes.object.isRequired,
     memberEmail: PropTypes.string.isRequired,
     closeDialog: PropTypes.func.isRequired,
-    updateAdminRoles: PropTypes.func.isRequired
+    updateRole: PropTypes.func.isRequired
 };
 
-export default UpdateAdminRoles;
+export default UpdateMemberRoleDialog;
