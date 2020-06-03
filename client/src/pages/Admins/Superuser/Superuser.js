@@ -31,7 +31,7 @@ class Superuser extends Component {
         super(props);
 
         this.state = {
-            userData: null,
+            memberData: null,
             textFilterValue: '',
             registeredFilterValue: 'all',
             roleFilter: {
@@ -56,7 +56,7 @@ class Superuser extends Component {
     componentDidMount () {
         Client.fetch('/su/listmembers', { method: 'POST' })
             .then((data) => {
-                this.setState({ userData: data });
+                this.setState({ memberData: data });
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
@@ -107,8 +107,8 @@ class Superuser extends Component {
     /* ------------ Dialog functions ------------ */
     // *** OPEN / CLOSE *** //
     openDelete = (event) => {
-        const user = this.state.userData[event.currentTarget.id];
-        this.setState({ showDeleteDialog: true, editedUser: user.email });
+        const member = this.state.memberData[event.currentTarget.id];
+        this.setState({ showDeleteDialog: true, editedMember: member.email });
     }
 
     openAddMember = () => {
@@ -116,10 +116,10 @@ class Superuser extends Component {
     }
 
     openUpdateAdminRoles = (event) => {
-        const member = this.state.userData[event.currentTarget.id];
+        const member = this.state.memberData[event.currentTarget.id];
         this.setState({
             showUpdateAdminDialog: true,
-            editedUser: member.email,
+            editedMember: member.email,
             memberRoles: {
                 isFinanceAdmin: member.isFinanceAdmin,
                 isEventAdmin: member.isEventAdmin,
@@ -138,6 +138,29 @@ class Superuser extends Component {
     }
 
     // *** FETCH *** //
+    handleDeleteMember = (event) => {
+        Client.fetch('/su/deletemember', {
+            method: 'DELETE',
+            body: `{"remove": "${this.state.editedMember}"}`
+        })
+            .then((data) => {
+                if (data.deleted) {
+                    this.setState({
+                        memberData: this.state.memberData.filter((member) => member.email !== data.deleted),
+                        showAlert: true,
+                        alertMessage: `${data.deleted} deleted`,
+                        alertType: 'Info'
+                    });
+                } else {
+                    this.setState({ showAlert: true, alertMessage: 'Delete failed. Refresh the page or try it later.', alertType: 'Error' });
+                }
+            }).catch((err) => {
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+            });
+
+        this.setState({ showDeleteDialog: false });
+    }
+
     handleAddMember = (emailAddress, label) => {
         Client.fetch('/su/addmember', {
             method: 'POST',
@@ -146,7 +169,7 @@ class Superuser extends Component {
             .then((data) => {
                 if (data.memberAdded) {
                     this.setState({
-                        userData: [data.memberAdded, ...this.state.userData],
+                        memberData: [data.memberAdded, ...this.state.memberData],
                         showAlert: true,
                         alertMessage: `${data.memberAdded.email} added`,
                         alertType: 'Info'
@@ -166,12 +189,12 @@ class Superuser extends Component {
     }
 
     handleUpdateAdminRoles = (roles) => {
-        const { editedUser } = this.state;
+        const { editedMember } = this.state;
 
         Client.fetch('/su/updatemember', {
             method: 'PUT',
             body: `{
-                "update": "${editedUser}",
+                "update": "${editedMember}",
                 "isFinanceAdmin": "${roles.isFinanceAdmin}",
                 "isEventAdmin": "${roles.isEventAdmin}",
                 "isYogaAdmin": "${roles.isYogaAdmin}",
@@ -181,7 +204,7 @@ class Superuser extends Component {
             .then((data) => {
                 if (data.updated) {
                     // deep copy with data update
-                    const newMembers = this.state.userData.map((member) => member.email === data.updated
+                    const newMembers = this.state.memberData.map((member) => member.email === data.updated
                         ? {
                             ...member,
                             isEventAdmin: data.isEvent,
@@ -191,7 +214,12 @@ class Superuser extends Component {
                         }
                         : member
                     );
-                    this.setState({ userData: newMembers });
+                    this.setState({
+                        memberData: newMembers,
+                        showAlert: true,
+                        alertMessage: `${data.updated} role updated`,
+                        alertType: 'Info'
+                    });
                 } else {
                     this.setState({ showAlert: true, alertMessage: 'Update failed. Refresh the page or try it later.', alertType: 'Error' });
                 }
@@ -200,24 +228,6 @@ class Superuser extends Component {
             });
 
         this.setState({ showUpdateAdminDialog: false });
-    }
-
-    handleDeleteMember = (event) => {
-        Client.fetch('/su/deletemember', {
-            method: 'DELETE',
-            body: `{"remove": "${this.state.editedUser}"}`
-        })
-            .then((data) => {
-                if (data.deleted) {
-                    this.setState({ userData: this.state.userData.filter((member) => member.email !== data.deleted) });
-                } else {
-                    this.setState({ showAlert: true, alertMessage: 'Delete failed. Refresh the page or try it later.', alertType: 'Error' });
-                }
-            }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
-            });
-
-        this.setState({ showDeleteDialog: false });
     }
     // #endregion
 
@@ -250,11 +260,11 @@ class Superuser extends Component {
     }
 
     // *** RENDER ROWS *** //
-    renderUsers = () => {
-        const { userData } = this.state;
+    renderMembers = () => {
+        const { memberData } = this.state;
 
         return (
-            userData.map((user, key) => (
+            memberData.map((user, key) => (
                 // check if user passes all filters
                 (this.checkFilters(user)) ? (
                     <tr key={ key }>
@@ -292,12 +302,12 @@ class Superuser extends Component {
     // #region yellow
     render () {
         const {
-            userData,
+            memberData,
             textFilterValue,
             registeredFilterValue,
             showAddMemberDialog,
             showUpdateAdminDialog,
-            editedUser,
+            editedMember,
             roleFilter,
             showDeleteDialog,
             showAlert,
@@ -316,7 +326,7 @@ class Superuser extends Component {
                 }
                 { showUpdateAdminDialog &&
                     <UpdateAdminRoles
-                        memberEmail = {editedUser}
+                        memberEmail = {editedMember}
                         memberRoles = {memberRoles}
                         updateAdminRoles = {this.handleUpdateAdminRoles}
                         closeDialog = {this.handleCloseDialog}
@@ -324,7 +334,7 @@ class Superuser extends Component {
                 }
                 { showDeleteDialog &&
                     <DeleteDialog
-                        user={editedUser}
+                        member={editedMember}
                         deleteMember = {this.handleDeleteMember}
                         closeDialog = {this.handleCloseDialog}
                     />
@@ -368,7 +378,7 @@ class Superuser extends Component {
                                     </Button>
                                 </td>
                             </tr>
-                            {userData && this.renderUsers()}
+                            {memberData && this.renderMembers()}
                         </tbody>
                     </Table>
                 </main>

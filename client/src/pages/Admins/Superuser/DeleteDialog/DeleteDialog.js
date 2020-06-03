@@ -46,7 +46,7 @@ class DeleteDialog extends Component {
     }
 
     render () {
-        const { user, closeDialog } = this.props;
+        const { member, closeDialog } = this.props;
         const { randomNumber, isDisabled, errorMsg } = this.state;
 
         return (
@@ -61,7 +61,7 @@ class DeleteDialog extends Component {
                 <Form onSubmit={this.handleDelete} autoComplete='off' className="delete-dialog">
                     <Form.Label htmlFor="digits-label">
                         <span className="msg">Delete&nbsp;</span>
-                        <span className="email">{user}</span>
+                        <span className="email">{member}</span>
                         <span className="msg">? <br></br>To confirm, enter these four digits:&nbsp;</span>
                         <span className="random-no">{randomNumber}</span>
                     </Form.Label>
@@ -71,7 +71,7 @@ class DeleteDialog extends Component {
                         onChange={this.handleChange}
                         min="1000"
                         max="9999"
-                        placeholder={user}
+                        placeholder={member}
                         autoFocus
                     ></Form.Control>
                     <span className="error" aria-live="polite">{errorMsg}</span>
@@ -82,7 +82,7 @@ class DeleteDialog extends Component {
 }
 
 DeleteDialog.propTypes = {
-    user: PropTypes.string.isRequired,
+    member: PropTypes.string.isRequired,
     closeDialog: PropTypes.func.isRequired,
     deleteMember: PropTypes.func.isRequired
 };
