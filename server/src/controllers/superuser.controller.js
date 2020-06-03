@@ -50,29 +50,24 @@ ${msg.isSuperuser ? 'Superuser' : ''}`
     }
 };
 
-module.exports.addMember = (req, res, next) => {
+module.exports.addMember = async (req, res, next) => {
     const emailToAdd = req.body.email;
     log.info(`${req.user.email} is trying to add ${emailToAdd}...`);
     const labelToAdd = req.body.label;
     try {
-        Member.find({ email: emailToAdd }, (err, docs) => {
-            if (err) next(err);
-            if (docs.length) { // if address already exists in DB
-                res.json({ addedAddress: null, exists: true });
-                log.info(`Tried to add ${emailToAdd}, but it already exists in DB.`);
-            } else {
-                const member = new Member({ email: emailToAdd, label: labelToAdd });
-                member.save((err) => {
-                    if (err) {
-                        res.json({ memberAdded: null, exists: false });
-                        log.error(`Couldn't add ${member.label} (${member.email}) \n${err}`);
-                    } else {
-                        res.json({ memberAdded: member, exists: true });
-                        log.info(`${member.label} (${member.email}) added.`);
-                    }
-                });
-            }
-        });
+        const member = await Member.find({ email: emailToAdd });
+        if (member.length > 0) { // if address already exists in DB
+            log.info(`Tried to add ${emailToAdd}, but it already exists in DB.`);
+            return res.json({ addedAddress: null, exists: true });
+        }
+        const newMember = await Member.create({ label: labelToAdd, email: emailToAdd });
+        if (newMember) {
+            log.info(`${newMember.label} (${newMember.email}) added.`);
+            res.json({ memberAdded: newMember, exists: true });
+        } else {
+            log.error(`Couldn't add ${newMember.label} (${newMember.email})`);
+            res.json({ memberAdded: null, exists: false });
+        }
     } catch (err) {
         next(err);
     }
