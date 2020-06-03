@@ -9,7 +9,7 @@ const fs = require('fs');
 
 const { Member } = require('../models/member.model');
 const { RegisteredUser } = require('../models/registered.user.model');
-const { Account } = require('../models/financeAccount.model');
+const { FinanceAccount } = require('../models/financeAccount.model');
 
 module.exports.login = async (req, res, next) => {
     try {
@@ -78,7 +78,7 @@ module.exports.registration = async (req, res, next) => {
                     { useFindAndModify: false }
                 );
 
-                const account = await Account.create({
+                const account = await FinanceAccount.create({
                     userId: registration._id,
                     email: req.user.email
                 });
