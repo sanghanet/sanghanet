@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import Alert from '../../../components/Alert/Alert';
-import Checkbox from '../../../components/Form/Checkbox/Checkbox';
 import Client from '../../../components/Client';
 
 import './Superuser.scss';
-import { ReactComponent as Cross } from '../../../components/icons/cross.svg';
 import { ReactComponent as Plus } from '../../../components/icons/plus.svg';
 import { ReactComponent as Bin } from '../../../components/icons/bin.svg';
 import { ReactComponent as SuperuserIcon } from '../../../components/icons/superman.svg';
@@ -14,14 +11,17 @@ import { ReactComponent as YogaAdminIcon } from '../../../components/icons/yoga.
 import { ReactComponent as GeneralUserIcon } from '../../../components/icons/personal.svg';
 import { ReactComponent as VerifiedIcon } from '../../../components/icons/verified.svg';
 
+import Alert from '../../../components/Alert/Alert';
 import Header from '../../../components/Header/Header';
 import Navbar from '../../../components/Navbar/Navbar';
-import SearchBar from '../../../components/Search/SearchBar';
 import Footer from '../../../components/Footer/Footer';
+import FilterAccordion from './FilterAccordion/FilterAccordion';
 import UpdateAdminRoles from './UpdateAdminRoles/UpdateAdminRoles';
 import DeleteDialog from './DeleteDialog/DeleteDialog';
 import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
-import { Table, Form, Button, Accordion, Card } from 'react-bootstrap';
+
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 class Superuser extends Component {
     constructor (props) {
@@ -237,7 +237,7 @@ class Superuser extends Component {
         this.setState({ textFilterValue: inputValue });
     }
 
-    handleIconClick = (event) => {
+    handleSearchIconClick = (event) => {
         event.preventDefault();
         this.setState({ textFilterValue: '' });
     }
@@ -261,7 +261,8 @@ class Superuser extends Component {
                 filterEventAdmin: false,
                 filterYogaAdmin: false,
                 filterNoRole: false
-            }
+            },
+            registeredFilterValue: 'all'
         });
     }
 
@@ -317,72 +318,16 @@ class Superuser extends Component {
                             alertType={alertType}
                             alertClose={this.closeAlert} />
                     }
-                    {/* --- Form for filters --- */}
-                    <Accordion className="su-filter-accordion">
-                        <Card>
-                            <Card.Header>
-                                <Accordion.Toggle as={Button} variant="primary" eventKey="0">
-                                    Filter members
-                                </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="0">
-                                <Card.Body>
-                                    <Form className="filter-box">
-                                        <Form.Group className="search-bar">
-                                            <SearchBar
-                                                handleInputChange={this.handleEmailFilterChange}
-                                                handleIconClick={this.handleIconClick}
-                                                inputValue={textFilterValue}
-                                                icon={<Cross />}
-                                            />
-                                            <Form.Text>Filter by name or email address</Form.Text>
-                                        </Form.Group>
-                                        <Form.Group className="registered-filter">
-                                            <Form.Label>Show</Form.Label>
-                                            <Form.Control onChange={this.handleRegisteredFilterChange} defaultValue={registeredFilterValue} as="select">
-                                                <option>all</option>
-                                                <option>registered</option>
-                                                <option>unregistered</option>
-                                            </Form.Control>
-                                        </Form.Group>
-                                        <Form.Group className="role-filter">
-                                            <Checkbox
-                                                id="filterSuperuser"
-                                                value="superuser"
-                                                checked={roleFilter.filterSuperuser}
-                                                handleChange={this.handleRoleChange}
-                                            />
-                                            <Checkbox
-                                                id="filterFinanceAdmin"
-                                                value="finance admin"
-                                                checked={roleFilter.filterFinanceAdmin}
-                                                handleChange={this.handleRoleChange}
-                                            />
-                                            <Checkbox
-                                                id="filterEventAdmin"
-                                                value="event admin"
-                                                checked={roleFilter.filterEventAdmin}
-                                                handleChange={this.handleRoleChange}
-                                            />
-                                            <Checkbox
-                                                id="filterYogaAdmin"
-                                                value="yoga admin"
-                                                checked={roleFilter.filterYogaAdmin}
-                                                handleChange={this.handleRoleChange}
-                                            />
-                                            <Checkbox
-                                                id="filterNoRole"
-                                                value="no role"
-                                                checked={roleFilter.filterNoRole}
-                                                handleChange={this.handleRoleChange}
-                                            />
-                                        </Form.Group>
-                                        <Button className="reset-button" variant="outline-primary" onClick={this.resetFilters}>Reset filters</Button>
-                                    </Form>
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                    </Accordion>
+                    <FilterAccordion
+                        handleEmailFilterChange={this.handleEmailFilterChange}
+                        handleSearchIconClick={this.handleSearchIconClick}
+                        handleRegisteredFilterChange={this.handleRegisteredFilterChange}
+                        handleRoleChange={this.handleRoleChange}
+                        resetFilters={this.resetFilters}
+                        testFilterValue={textFilterValue}
+                        registeredFilterValue={registeredFilterValue}
+                        roleFilter={roleFilter}
+                    />
 
                     {/* --- Table --- */}
                     <Table striped bordered hover variant="dark">
