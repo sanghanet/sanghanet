@@ -15,10 +15,6 @@ import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
 
 class Navbar extends Component {
-    state = {
-        dropdownVisible: false
-    }
-
     componentDidMount () {
         const desktopMenu = document.getElementById('sidenav');
         const hamburgerMenu = document.getElementsByClassName('slider')[0];
@@ -59,78 +55,87 @@ class Navbar extends Component {
         this.setState((prevState) => ({ dropdownVisible: !prevState.dropdownVisible }));
     }
 
+    demoClick = (event) => {
+        event.currentTarget.classList.toggle('show-submenu');
+    }
+
     render () {
-        const { dropdownVisible } = this.state;
+        const { navStyle } = this.props;
         return (
-            <ul className="navigation" id={this.props.navStyle}>
-                <li>
-                    <NavLink exact to="/dashboard" className="link">
-                        <div className="menu-icon"><DashboardIcon /></div>
-                        <span className="title">Dashboard</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/personal" className="link">
-                        <div className="menu-icon"><PersonalIcon /></div>
-                        <span className="title">Personal Data</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/yoga" className="link">
-                        <div className="menu-icon"><YogaIcon /></div>
-                        <span className="title">Yoga</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/finances" className="link">
-                        <div className="menu-icon"><FinanceIcon /></div>
-                        <span className="title">Finances</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/events" className="link">
-                        <div className="menu-icon"><EventIcon /></div>
-                        <span className="title">Events</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/questions" className="link">
-                        <div className="menu-icon"><QuestionsIcon /></div>
-                        <span className="title">Personal Questions</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink exact to="/queries" className="link">
-                        <div className="menu-icon"><InfoIcon /></div>
-                        <span className="title">Queries</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <div className="link" id="admins" onClick={this.handleAdminsDropdown}>
-                        <div className="menu-icon"><SuperuserIcon /></div>
-                        <span className="title">Admins</span>
-                        { dropdownVisible &&
-                            (<ul id="dropdown" onMouseLeave={() => { this.setState({ dropdownVisible: false }); }}>
-                                <li>
-                                    <NavLink exact to="/admin/finance" className="dropdown-link">Finance</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink exact to="/admin/event" className="dropdown-link">Event</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink exact to="/admin/yoga" className="dropdown-link">Yoga</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink exact to="/admin/superuser" className="dropdown-link">Superuser</NavLink>
-                                </li>
-                            </ul>)
-                        }
-                    </div>
-                </li>
-                <li id="logout-li">
-                    <Logout />
-                </li>
-            </ul>
+            <div id={navStyle}>
+                <div className={`${navStyle}-grid`} onClick={this.demoClick}>
+                    <ul className="main-menu">
+                        <li>
+                            <div className="link">
+                                <div className="menu-icon"><SuperuserIcon /></div>
+                                <span className="title">Admins</span>
+                            </div>
+                        </li>
+                        <li>
+                            <NavLink exact to="/dashboard" className="link">
+                                <div className="menu-icon"><DashboardIcon /></div>
+                                <span className="title">Dashboard</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/personal" className="link">
+                                <div className="menu-icon"><PersonalIcon /></div>
+                                <span className="title">Personal Data</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/yoga" className="link">
+                                <div className="menu-icon"><YogaIcon /></div>
+                                <span className="title">Yoga</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/finances" className="link">
+                                <div className="menu-icon"><FinanceIcon /></div>
+                                <span className="title">Finances</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/events" className="link">
+                                <div className="menu-icon"><EventIcon /></div>
+                                <span className="title">Events</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/questions" className="link">
+                                <div className="menu-icon"><QuestionsIcon /></div>
+                                <span className="title">Personal Questions</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/queries" className="link">
+                                <div className="menu-icon"><InfoIcon /></div>
+                                <span className="title">Queries</span>
+                            </NavLink>
+                        </li>
+                        <li id="logout-li">
+                            <Logout />
+                        </li>
+                    </ul>
+                    <ul className="sub-menu">
+                        <li>
+                            <div className="submenu-link">Back</div>
+                        </li>
+                        <li>
+                            <NavLink exact to="/admin/finance" className="submenu-link">Finance</NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/admin/event" className="submenu-link">Event</NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/admin/yoga" className="submenu-link">Yoga</NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/admin/superuser" className="submenu-link">Superuser</NavLink>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         );
     }
 }

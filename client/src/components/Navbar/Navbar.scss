@@ -1,13 +1,14 @@
 @import '../../style/colors';
 @import '../../style/mixins';
 
-.navigation {
-    @include resetList;
-    background-color: $sideBar-bg;
+#sidenav{
+    position: fixed;
+    top: 93px;
+    width: 110px;
+    height: calc(100vh - 93px);
+
+    background-color: burlywood;
     box-shadow: 10px 0px 15px -5px rgba(0, 0, 0, 0.749);
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
 
     overflow-y: scroll;
     scrollbar-width: none;
@@ -15,7 +16,47 @@
         display: none;
     }
 
-    li {
+    @include maxQ(767px) {
+        display: none;
+    }
+}
+
+.sidenav-grid {
+    width: 220px;
+    display: grid;
+    grid-template-columns: 110px 110px;
+
+    position: absolute;
+    left: 0px;
+    transition: left 0.5s;
+
+    background-color: $sideBar-bg;
+
+    .main-menu {
+        @include resetList;
+        li {
+            grid-column: 1;
+        }
+    }
+
+    .sub-menu {
+        @include resetList;
+        li {
+            grid-column: 2;
+        }
+    }
+}
+
+.show-submenu{
+    left: -110px;
+}
+
+#sidenav{
+    li{
+        width: 110px;
+        height: 110px;
+
+        display: flex;
         text-align: center;
         button {
             @include buttonReset;
@@ -30,131 +71,89 @@
                 @include svgChanging;
             }
         }
-    }
-    #logout-li {
-        margin-top: auto;
-    }
-    .link {
-        @include centerElement;
-        flex-direction: column;
-        width: $navbar-width;
-        .menu-icon {
+        .link {
             @include centerElement;
-            width: 50px;
-            height: 50px;
-        }
-        svg {
-            fill: $sideBar-iconColor;
-            width: 30px;
-            height: 30px;
-        }
-        .title {
-            padding: 0 5px;
-            color: $sideBar-iconColor;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        &:hover {
-            text-decoration: none;
-        }
-        @include hoveredElement;
-    }
-}
-
-#sidenav {
-    width: $navbar-width;
-    height: calc(100vh - 93px);
-    position: fixed;
-    @include maxQ(767px) {
-        display: none;
-    }
-    li {
-        width: $navbar-width;
-        min-height: 102px;
-        #admins {
-            cursor: pointer;
-        }
-        #dropdown {
-            @include resetList;
-            width: 86%;
-            position: absolute;
-            background-color: $lightgray;
-            border-radius: 4px;
-            overflow:hidden;
-
-            li {
-                min-height: 36px;
-                width: 100%;
-                padding: 4px 0;
-                &:hover {
-                    background-color: #adadad;
-                }
-                .dropdown-link {
-                    text-decoration: none;
-                }
-                .active {
-                    background-color: transparent;
-                    color: #030f65;
-                    font-weight: 600;
-                }
+            flex-direction: column;
+            width: $navbar-width;
+            .menu-icon {
+                @include centerElement;
+                width: 50px;
+                height: 50px;
             }
-        }
-    }
-    .link {
-        min-height: 102px;
-    }
-}
-
-#hamburger {
-    box-shadow: none;
-    li {
-        width: 100%;
-        min-height: 80px;
-        border-bottom: none;
-        border-top: 1px solid $sideBar-border;
-        #admins {
-            cursor: pointer;
-        }
-        #dropdown {
-            @include resetList;
-            position: absolute;
-            width: 70%;
-            background-color: $lightgray;
-            border-radius: 4px;
-            overflow:hidden;
-            li {
-                min-height: 36px;
-                padding: 10px 0;
-                &:hover {
-                    background-color: #adadad;
-                }
-                .dropdown-link {
-                    text-decoration: none;
-                }
-                .active {
-                    background-color: transparent;
-                    color: #030f65;
-                    font-weight: 600;
-                }
+            svg {
+                fill: $sideBar-iconColor;
+                width: 30px;
+                height: 30px;
             }
+            .title {
+                padding: 0 5px;
+                color: $sideBar-iconColor;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            &:hover {
+                text-decoration: none;
+            }
+            @include hoveredElement;
         }
-    }
-    .link {
-        width: 100%;
-        min-height: 80px;
-        padding: 0 0 0 26%;
-        @include maxQ(525px) {
-            padding: 0 0 0 16%;
-        }
-
-        flex-direction: row;
-        justify-content: flex-start;
-        &:hover {
-            border-bottom: none !important;
-        }
-        .title {
-            margin-left: 20px;
+        #logout-li {
+            //TODO: check If it works or not?
+            margin-top: auto;
         }
     }
 }
+
+
+// #hamburger {
+//     box-shadow: none;
+//     li {
+//         width: 100%;
+//         min-height: 80px;
+//         border-bottom: none;
+//         border-top: 1px solid $sideBar-border;
+//         #admins {
+//             cursor: pointer;
+//         }
+//         #dropdown {
+//             @include resetList;
+//             position: absolute;
+//             width: 70%;
+//             background-color: $lightgray;
+//             border-radius: 4px;
+//             overflow:hidden;
+//             li {
+//                 min-height: 36px;
+//                 padding: 10px 0;
+//                 &:hover {
+//                     background-color: #adadad;
+//                 }
+//                 .dropdown-link {
+//                     text-decoration: none;
+//                 }
+//                 .active {
+//                     background-color: transparent;
+//                     color: #030f65;
+//                     font-weight: 600;
+//                 }
+//             }
+//         }
+//     }
+//     .link {
+//         width: 100%;
+//         min-height: 80px;
+//         padding: 0 0 0 26%;
+//         @include maxQ(525px) {
+//             padding: 0 0 0 16%;
+//         }
+
+//         flex-direction: row;
+//         justify-content: flex-start;
+//         &:hover {
+//             border-bottom: none !important;
+//         }
+//         .title {
+//             margin-left: 20px;
+//         }
+//     }
+// }
