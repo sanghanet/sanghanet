@@ -21,34 +21,32 @@
     }
 }
 
-.sidenav-grid {
-    width: 220px;
-    display: grid;
-    grid-template-columns: 110px 110px;
-
-    position: absolute;
-    left: 0px;
-    transition: left 0.5s;
-
+.wrapper {
+    display: flex;
+    flex-direction: row;
     background-color: $sideBar-bg;
-
-    .main-menu {
-        @include resetList;
-        li {
-            grid-column: 1;
-        }
-    }
-
-    .sub-menu {
-        @include resetList;
-        li {
-            grid-column: 2;
-        }
-    }
+    height: 100%;
+    position: absolute;
+    left: 0;
+    transition: left 0.4s
 }
 
 .show-submenu{
     left: -110px;
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+.sub-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
 }
 
 #sidenav{
@@ -97,93 +95,93 @@
             }
             @include hoveredElement;
         }
-        #logout-li {
-            //TODO: check If it works or not?
-            margin-top: auto;
-        }
+    }
+    #logout-li {
+        margin-top: auto;
     }
 }
 
-#hamburger{
-    position: relative;
-    width: 100%;
-    height: 80vh;
+// #hamburger{
+//     position: relative;
+//     width: 100%;
+//     height: 80vh;
 
-    background-color: burlywood;
+//     background-color: burlywood;
 
-    overflow-y: scroll;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+//     overflow-y: scroll;
+//     scrollbar-width: none;
+//     &::-webkit-scrollbar {
+//         display: none;
+//     }
 
-    .hamburger-grid {
-        display: grid;
-        grid-template-columns: 60vh 60vh;
+//     .hamburger-grid {
+//         display: grid;
+//         grid-template-columns: 60vh 60vh;
 
-        position: absolute;
-        left: 0px;
-        transition: left 0.5s;
+//         position: absolute;
+//         left: 0px;
+//         transition: left 0.5s;
 
-        background-color: $sideBar-bg;
+//         background-color: $sideBar-bg;
 
-        .main-menu {
-            @include resetList;
-            li {
-                grid-column: 1;
+//         .main-menu {
+//             @include resetList;
+//             li {
+//                 grid-column: 1;
 
-                width: 100%;
-                height: 80px;
-                border-bottom: none;
-                border-top: 1px solid $sideBar-border;
-            }
-            .link {
-                width: 100%;
-                min-height: 80px;
-                padding: 0 0 0 26%;
-                @include maxQ(525px) {
-                    padding: 0 0 0 16%;
-                }
-                flex-direction: row;
-                justify-content: flex-start;
-                &:hover {
-                    border-bottom: none !important;
-                }
-                .title {
-                    margin-left: 20px;
-                }
-                .menu-icon {
-                    @include centerElement;
-                    width: 50px;
-                    height: 50px;
-                }
-                svg {
-                    fill: $sideBar-iconColor;
-                    width: 30px;
-                    height: 30px;
-                }
-                .title {
-                    padding: 0 5px;
-                    color: $sideBar-iconColor;
-                    font-size: 12px;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                }
-                &:hover {
-                    text-decoration: none;
-                }
-                @include hoveredElement;
-            }
-        }
+//                 width: 100%;
+//                 height: 80px;
+//                 border-bottom: none;
+//                 border-top: 1px solid $sideBar-border;
+//             }
+//             .link {
+//                 width: 100%;
+//                 min-height: 80px;
+//                 padding: 0 0 0 26%;
+//                 @include maxQ(525px) {
+//                     padding: 0 0 0 16%;
+//                 }
+//                 flex-direction: row;
+//                 justify-content: flex-start;
+//                 &:hover {
+//                     border-bottom: none !important;
+//                 }
+//                 .title {
+//                     margin-left: 20px;
+//                 }
+//                 .menu-icon {
+//                     @include centerElement;
+//                     width: 50px;
+//                     height: 50px;
+//                 }
+//                 svg {
+//                     fill: $sideBar-iconColor;
+//                     width: 30px;
+//                     height: 30px;
+//                 }
+//                 .title {
+//                     padding: 0 5px;
+//                     color: $sideBar-iconColor;
+//                     font-size: 12px;
+//                     text-transform: uppercase;
+//                     letter-spacing: 1px;
+//                 }
+//                 &:hover {
+//                     text-decoration: none;
+//                 }
+//                 @include hoveredElement;
+//             }
+//         }
 
-        .sub-menu {
-            @include resetList;
-            li {
-                grid-column: 2;
-            }
-        }
-    }
-    .show-submenu{
-        left: -60vh;
-    }
-}
+//         .sub-menu {
+//             @include resetList;
+//             li {
+//                 grid-column: 2;
+//             }
+//         }
+//     }
+//     .show-submenu{
+//         left: -60vh;
+//     }
+// }
+

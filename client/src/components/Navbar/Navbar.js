@@ -63,7 +63,7 @@ class Navbar extends Component {
         const { navStyle } = this.props;
         return (
             <div id={navStyle}>
-                <div className={`${navStyle}-grid`} onClick={this.demoClick}>
+                <div className="wrapper" onClick={this.demoClick}>
                     <ul className="main-menu">
                         <li>
                             <div className="link">
