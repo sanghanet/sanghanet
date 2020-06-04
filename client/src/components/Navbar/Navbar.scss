@@ -104,56 +104,86 @@
     }
 }
 
+#hamburger{
+    position: relative;
+    width: 100%;
+    height: 80vh;
 
-// #hamburger {
-//     box-shadow: none;
-//     li {
-//         width: 100%;
-//         min-height: 80px;
-//         border-bottom: none;
-//         border-top: 1px solid $sideBar-border;
-//         #admins {
-//             cursor: pointer;
-//         }
-//         #dropdown {
-//             @include resetList;
-//             position: absolute;
-//             width: 70%;
-//             background-color: $lightgray;
-//             border-radius: 4px;
-//             overflow:hidden;
-//             li {
-//                 min-height: 36px;
-//                 padding: 10px 0;
-//                 &:hover {
-//                     background-color: #adadad;
-//                 }
-//                 .dropdown-link {
-//                     text-decoration: none;
-//                 }
-//                 .active {
-//                     background-color: transparent;
-//                     color: #030f65;
-//                     font-weight: 600;
-//                 }
-//             }
-//         }
-//     }
-//     .link {
-//         width: 100%;
-//         min-height: 80px;
-//         padding: 0 0 0 26%;
-//         @include maxQ(525px) {
-//             padding: 0 0 0 16%;
-//         }
+    background-color: burlywood;
 
-//         flex-direction: row;
-//         justify-content: flex-start;
-//         &:hover {
-//             border-bottom: none !important;
-//         }
-//         .title {
-//             margin-left: 20px;
-//         }
-//     }
-// }
+    overflow-y: scroll;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hamburger-grid {
+        display: grid;
+        grid-template-columns: 60vh 60vh;
+
+        position: absolute;
+        left: 0px;
+        transition: left 0.5s;
+
+        background-color: $sideBar-bg;
+
+        .main-menu {
+            @include resetList;
+            li {
+                grid-column: 1;
+
+                width: 100%;
+                height: 80px;
+                border-bottom: none;
+                border-top: 1px solid $sideBar-border;
+            }
+            .link {
+                width: 100%;
+                min-height: 80px;
+                padding: 0 0 0 26%;
+                @include maxQ(525px) {
+                    padding: 0 0 0 16%;
+                }
+                flex-direction: row;
+                justify-content: flex-start;
+                &:hover {
+                    border-bottom: none !important;
+                }
+                .title {
+                    margin-left: 20px;
+                }
+                .menu-icon {
+                    @include centerElement;
+                    width: 50px;
+                    height: 50px;
+                }
+                svg {
+                    fill: $sideBar-iconColor;
+                    width: 30px;
+                    height: 30px;
+                }
+                .title {
+                    padding: 0 5px;
+                    color: $sideBar-iconColor;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                &:hover {
+                    text-decoration: none;
+                }
+                @include hoveredElement;
+            }
+        }
+
+        .sub-menu {
+            @include resetList;
+            li {
+                grid-column: 2;
+            }
+        }
+    }
+    .show-submenu{
+        left: -60vh;
+    }
+}
