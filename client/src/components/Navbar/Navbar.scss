@@ -10,6 +10,7 @@
     background-color: $sideBar-bg;
     box-shadow: 10px 0px 15px -5px rgba(0, 0, 0, 0.749);
 
+    // TODO: scrollbar mixin
     overflow-y: scroll;
     scrollbar-width: none;
     &::-webkit-scrollbar {
@@ -19,85 +20,96 @@
     @include maxQ(767px) {
         display: none;
     }
-}
 
-.wrapper {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    transition: left 0.4s
-}
-
-.show-submenu{
-    left: -110px;
-}
-
-.main-menu {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    margin: 0;
-}
-
-.sub-menu {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    margin: 0;
-}
-
-#sidenav{
-    li{
-        width: 110px;
-        height: 110px;
-
+    .wrapper {
         display: flex;
-        text-align: center;
-        button {
-            @include buttonReset;
-            align-items: center;
-        }
-        .active {
-            background-color: $sideBarHover-bg;
-            .title {
-                color: $sideBarHover-iconColor;
-            }
-            svg {
-                @include svgChanging;
-            }
-        }
-        .link {
-            @include centerElement;
+        flex-direction: row;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        transition: left 0.4s;
+
+        .main-menu, .sub-menu {
+            display: flex;
             flex-direction: column;
-            width: $navbar-width;
-            .menu-icon {
-                @include centerElement;
-                width: 50px;
-                height: 50px;
+            padding: 0;
+            margin: 0;
+
+            li{
+                width: 110px;
+                height: 110px;
+
+                display: flex;
+                text-align: center;
+                button {
+                    @include buttonReset;
+                    align-items: center;
+                }
+                .active {
+                    background-color: $sideBarHover-bg;
+                    .title {
+                        color: $sideBarHover-iconColor;
+                    }
+                    svg {
+                        @include svgChanging;
+                    }
+                }
+                .link {
+                    @include centerElement;
+                    flex-direction: column;
+                    width: $navbar-width;
+                    .menu-icon {
+                        @include centerElement;
+                        width: 50px;
+                        height: 50px;
+                    }
+                    svg {
+                        fill: $sideBar-iconColor;
+                        width: 30px;
+                        height: 30px;
+                    }
+                    .title {
+                        padding: 0 5px;
+                        color: $sideBar-iconColor;
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+                    &:hover {
+                        text-decoration: none;
+                    }
+                    @include hoveredElement;
+                }
+                .sub-link {
+                    @include centerElement;
+                    flex-direction: column;
+                    width: $navbar-width;
+                    .sub-title {
+                        width: 110px;
+                        height: 110px;
+                        padding: 0 5px;
+                        align-self:center;
+                        color: $sideBar-iconColor;
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        text-decoration: none;
+                    }
+                    // &:hover {
+                    //     @include hoveredElement;
+                    // }
+                }
             }
-            svg {
-                fill: $sideBar-iconColor;
-                width: 30px;
-                height: 30px;
+            #logout-li {
+                margin-top: auto;
             }
-            .title {
-                padding: 0 5px;
-                color: $sideBar-iconColor;
-                font-size: 12px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-            &:hover {
-                text-decoration: none;
-            }
-            @include hoveredElement;
         }
     }
-    #logout-li {
-        margin-top: auto;
+
+    .show-submenu{
+        left: -110px;
     }
+
 }
 
 // #hamburger{

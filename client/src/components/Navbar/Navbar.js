@@ -16,7 +16,7 @@ import { ReactComponent as BackIcon } from '../icons/reply-solid.svg';
 
 class Navbar extends Component {
     state = {
-        showSubmenu: false
+        showSubmenu: this.props.openSubmenu
     }
 
     componentDidMount () {
@@ -55,10 +55,6 @@ class Navbar extends Component {
         }
     }
 
-    handleAdminsDropdown = () => {
-        this.setState((prevState) => ({ dropdownVisible: !prevState.dropdownVisible }));
-    }
-
     handleSubmenu = (event) => {
         this.setState((prevState) => ({ showSubmenu: !prevState.showSubmenu }));
     }
@@ -72,7 +68,6 @@ class Navbar extends Component {
                     <ul className="main-menu">
                         <li>
                             <div className="link" onClick={this.handleSubmenu}>
-                                {/* <div className="menu-icon"><SuperuserIcon /></div> */}
                                 <span className="title">Admins</span>
                             </div>
                         </li>
@@ -130,23 +125,23 @@ class Navbar extends Component {
                             </div>
                         </li>
                         <li>
-                            <div className="link">
-                                <NavLink exact to="/admin/finance" className="title">Finance<br/>Admin</NavLink>
+                            <div className="sub-link">
+                                <NavLink exact to="/admin/finance" className="sub-title">Finance<br />Admin</NavLink>
                             </div>
                         </li>
                         <li>
-                            <div className="link">
-                                <NavLink exact to="/admin/event" className="title">Event<br/>Admin</NavLink>
+                            <div className="sub-link">
+                                <NavLink exact to="/admin/event" className="sub-title">Event<br />Admin</NavLink>
                             </div>
                         </li>
                         <li>
-                            <div className="link">
-                                <NavLink exact to="/admin/yoga" className="title">Yoga<br/>Admin</NavLink>
+                            <div className="sub-link">
+                                <NavLink exact to="/admin/yoga" className="sub-title">Yoga<br />Admin</NavLink>
                             </div>
                         </li>
                         <li>
-                            <div className="link">
-                                <NavLink exact to="/admin/superuser" className="title">Superuser</NavLink>
+                            <div className="sub-link">
+                                <NavLink exact to="/admin/superuser" className="sub-title">Superuser</NavLink>
                             </div>
                         </li>
                     </ul>
@@ -157,7 +152,8 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    navStyle: PropTypes.string.isRequired
+    navStyle: PropTypes.string.isRequired,
+    openSubmenu: PropTypes.bool
 };
 
 export default Navbar;

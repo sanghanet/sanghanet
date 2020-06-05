@@ -8,7 +8,8 @@ const AdminFinance = (props) => {
     return (
         <div className='grid-container'>
             <Header activePage="Finance Admin" />
-            <Navbar navStyle="sidenav" />
+            {/* //FIXME: implement proper submenu status on Admin page. */}
+            <Navbar navStyle="sidenav" openSubmenu={true} />
             <main className="align">
                 <ComingSoon pageName = "Finance Admin" isPlural = {false} />
             </main>
