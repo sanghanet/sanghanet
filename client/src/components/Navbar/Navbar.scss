@@ -7,7 +7,7 @@
     width: 110px;
     height: calc(100vh - 93px);
 
-    background-color: burlywood;
+    background-color: $sideBar-bg;
     box-shadow: 10px 0px 15px -5px rgba(0, 0, 0, 0.749);
 
     overflow-y: scroll;
@@ -24,7 +24,6 @@
 .wrapper {
     display: flex;
     flex-direction: row;
-    background-color: $sideBar-bg;
     height: 100%;
     position: absolute;
     left: 0;
@@ -184,4 +183,3 @@
 //         left: -60vh;
 //     }
 // }
-

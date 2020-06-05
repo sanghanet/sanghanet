@@ -12,9 +12,13 @@ import { ReactComponent as InfoIcon } from '../icons/info.svg';
 import { ReactComponent as YogaIcon } from '../icons/yoga.svg';
 import { ReactComponent as EventIcon } from '../icons/event.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
-import { ReactComponent as SuperuserIcon } from '../icons/superuser.svg';
+import { ReactComponent as BackIcon } from '../icons/reply-solid.svg';
 
 class Navbar extends Component {
+    state = {
+        showSubmenu: false
+    }
+
     componentDidMount () {
         const desktopMenu = document.getElementById('sidenav');
         const hamburgerMenu = document.getElementsByClassName('slider')[0];
@@ -55,19 +59,20 @@ class Navbar extends Component {
         this.setState((prevState) => ({ dropdownVisible: !prevState.dropdownVisible }));
     }
 
-    demoClick = (event) => {
-        event.currentTarget.classList.toggle('show-submenu');
+    handleSubmenu = (event) => {
+        this.setState((prevState) => ({ showSubmenu: !prevState.showSubmenu }));
     }
 
     render () {
         const { navStyle } = this.props;
+        const classList = this.state.showSubmenu ? 'wrapper show-submenu' : 'wrapper';
         return (
             <div id={navStyle}>
-                <div className="wrapper" onClick={this.demoClick}>
+                <div className={classList}>
                     <ul className="main-menu">
                         <li>
-                            <div className="link">
-                                <div className="menu-icon"><SuperuserIcon /></div>
+                            <div className="link" onClick={this.handleSubmenu}>
+                                {/* <div className="menu-icon"><SuperuserIcon /></div> */}
                                 <span className="title">Admins</span>
                             </div>
                         </li>
@@ -119,19 +124,30 @@ class Navbar extends Component {
                     </ul>
                     <ul className="sub-menu">
                         <li>
-                            <div className="submenu-link">Back</div>
+                            <div className="link" onClick={this.handleSubmenu}>
+                                <div className="menu-icon"><BackIcon /></div>
+                                <span className="title">Back</span>
+                            </div>
                         </li>
                         <li>
-                            <NavLink exact to="/admin/finance" className="submenu-link">Finance</NavLink>
+                            <div className="link">
+                                <NavLink exact to="/admin/finance" className="title">Finance<br/>Admin</NavLink>
+                            </div>
                         </li>
                         <li>
-                            <NavLink exact to="/admin/event" className="submenu-link">Event</NavLink>
+                            <div className="link">
+                                <NavLink exact to="/admin/event" className="title">Event<br/>Admin</NavLink>
+                            </div>
                         </li>
                         <li>
-                            <NavLink exact to="/admin/yoga" className="submenu-link">Yoga</NavLink>
+                            <div className="link">
+                                <NavLink exact to="/admin/yoga" className="title">Yoga<br/>Admin</NavLink>
+                            </div>
                         </li>
                         <li>
-                            <NavLink exact to="/admin/superuser" className="submenu-link">Superuser</NavLink>
+                            <div className="link">
+                                <NavLink exact to="/admin/superuser" className="title">Superuser</NavLink>
+                            </div>
                         </li>
                     </ul>
                 </div>
