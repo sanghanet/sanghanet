@@ -3,28 +3,20 @@
 
 #sidenav{
     position: fixed;
-    top: 93px;
-    width: 110px;
+    top: $header-height;
+    width: $navbar-width;
     height: calc(100vh - 93px);
 
     background-color: $sideBar-bg;
     box-shadow: 10px 0px 15px -5px rgba(0, 0, 0, 0.749);
+    @include noScroll;
 
-    // TODO: scrollbar mixin
-    overflow-y: scroll;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
-    @include maxQ(767px) {
+    @include maxQ(767px) { //below 767px screen size, no side navigation bar
         display: none;
     }
 
     .wrapper {
         display: flex;
-        flex-direction: row;
-        height: 100%;
         position: absolute;
         left: 0;
         transition: left 0.4s;
@@ -33,11 +25,10 @@
             display: flex;
             flex-direction: column;
             padding: 0;
-            margin: 0;
 
-            li{
-                width: 110px;
-                height: 110px;
+            li {
+                width: $navbar-width;
+                height: $navbar-width;
 
                 display: flex;
                 text-align: center;
@@ -46,7 +37,7 @@
                     align-items: center;
                 }
                 .active {
-                    background-color: $sideBarHover-bg;
+                    background-color: $navBarActive;
                     .title {
                         color: $sideBarHover-iconColor;
                     }
@@ -81,23 +72,23 @@
                     @include hoveredElement;
                 }
                 .sub-link {
-                    @include centerElement;
-                    flex-direction: column;
                     width: $navbar-width;
                     .sub-title {
-                        width: 110px;
-                        height: 110px;
-                        padding: 0 5px;
-                        align-self:center;
+                        @include centerElement;
+                        flex-direction: column;
+                        width: $navbar-width;
+                        height: $navbar-width;
                         color: $sideBar-iconColor;
                         font-size: 12px;
                         text-transform: uppercase;
                         letter-spacing: 1px;
-                        text-decoration: none;
+                        &:hover {
+                            text-decoration: none;
+                            background-color: $sideBarHover-bg;
+                            color: $sideBarHover-iconColor;
+                            font-size: 13px;
+                        }
                     }
-                    // &:hover {
-                    //     @include hoveredElement;
-                    // }
                 }
             }
             #logout-li {
@@ -109,7 +100,6 @@
     .show-submenu{
         left: -110px;
     }
-
 }
 
 #hamburger{
@@ -118,11 +108,7 @@
 
     background-color: $sideBar-bg;
 
-    overflow-y: scroll;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    @include noScroll;
 
     .wrapper {
         display: flex;

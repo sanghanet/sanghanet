@@ -8,7 +8,7 @@ const AdminYoga = (props) => {
     return (
         <div className='grid-container'>
             <Header activePage="Yoga Admin" />
-            <Navbar navStyle="sidenav" />
+            <Navbar navStyle="sidenav" openSubmenu={true} />
             <main className="align">
                 <ComingSoon pageName = "Yoga Admin" isPlural = {false} />
             </main>

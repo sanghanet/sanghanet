@@ -11,7 +11,7 @@ const Finances = (props) => {
             <Header activePage="Finances" />
             <Navbar navStyle="sidenav" />
             <main className="align">
-                <FinanceContainer/>
+                <FinanceContainer />
             </main>
             <Footer />
         </div>

@@ -340,7 +340,7 @@ class Superuser extends Component {
                     />
                 }
                 <Header activePage="Superuser" />
-                <Navbar navStyle="sidenav" />
+                <Navbar navStyle="sidenav" openSubmenu={true} />
                 <main>
                     { showAlert &&
                         <Alert
