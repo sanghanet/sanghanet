@@ -38,7 +38,7 @@ class TransactionTabs extends React.Component {
 
     render () {
         return (
-            <Tabs className = 'MainTabs'>
+            <Tabs className = 'MainTabs' bsPrefix = 'active'>
                 {this.state.tabs}
             </Tabs>
         );
