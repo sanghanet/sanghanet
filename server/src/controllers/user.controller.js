@@ -79,7 +79,7 @@ module.exports.registration = async (req, res, next) => {
                 );
 
                 const account = await FinanceAccount.create({
-                    userId: registration._id,
+                    userId: membersUpdate._id,
                     email: req.user.email
                 });
 
