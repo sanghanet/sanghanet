@@ -3,7 +3,7 @@
 
 // for specificity
 nav.MainTabs {
-    border-bottom: 2px solid $_bs-primary;
+    border-bottom: 2px solid #924176;
     padding: 0;
     display: flex;
     justify-content: space-between;
@@ -12,6 +12,7 @@ nav.MainTabs {
     text-transform: capitalize;
 
     .nav-item {
+        box-sizing: border-box;
         position: relative;
         z-index: 1;
         top: 3px;
@@ -24,19 +25,22 @@ nav.MainTabs {
         // align-items: center;
 
         &.active {
-            border-top: 2px solid $_bs-primary;
+            border-top: 2px solid $primary;
             color: $white;
-            background-color: #343940;
+            background-color: $_bs-bg-dark;
             border-radius: 0;
+            border-left: 1px solid $_bs-table-border;
+            border-right: 1px solid $_bs-table-border;
         }
 
         &:hover {
-            background: #343940;
+            background: $_bs-bg-dark;
+
             &:not(.active)::after {
                 content: '';
                 position: absolute;
                 bottom: 1px;
-                background: $_bs-primary;
+                background: $sugar-plum;
                 display: block;
                 margin: 0;
                 width: 100%;

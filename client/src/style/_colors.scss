@@ -1,6 +1,6 @@
 $primary: #d84c51; // header left
-// $medium-ruby: #a4446d; //header middle
-// $sugar-plum: #8f4178; // header right
+$medium-ruby: #a4446d; //header middle
+$sugar-plum: #8f4178; // header right
 $gradient-background: linear-gradient(90deg, #d84c51 0%, #8f4178 100%);
 $dark: #2d1c27; // ex. login Buddha logo
 // $dark-purple: #3C1928; //maybe button
@@ -41,3 +41,4 @@ $_bs-danger: #dd3545;
 $_bs-warning: #fbc10a;
 $_bs-info: #24a2b8;
 $_bs-bg-dark: #343940;
+$_bs-table-border: #454d55;
