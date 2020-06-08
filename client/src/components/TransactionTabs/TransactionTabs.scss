@@ -25,7 +25,7 @@ nav.MainTabs {
         // align-items: center;
 
         &.active {
-            border-top: 2px solid $primary;
+            box-shadow: inset 0px 4px 0px -1px $primary;
             color: $white;
             background-color: $_bs-bg-dark;
             border-radius: 0;
@@ -40,7 +40,7 @@ nav.MainTabs {
                 content: '';
                 position: absolute;
                 bottom: 1px;
-                background: $sugar-plum;
+                background: $secondary;
                 display: block;
                 margin: 0;
                 width: 100%;
