@@ -19,33 +19,58 @@ nav.MainTabs {
         color: $white;
         border-bottom: none;
         width: 100%;
-        // padding: 0;
         display: flex;
         justify-content: center;
-        // align-items: center;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: $primary;
+            display: block;
+            margin: 0;
+            width: 0;
+            height: 2px;
+            transition: width .2s ease-out;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 1px;
+            right: 0;
+            background: $secondary;
+            display: block;
+            margin: 0;
+            width: 100%;
+            height: 2px;
+            transition: width .2s ease-out;
+        }
 
         &.active {
-            box-shadow: inset 0px 3px 0px -1px $primary;
+            // box-shadow: inset 0px 3px 0px -1px $primary;
             color: $white;
             background-color: $_bs-bg-dark;
             border-radius: 0;
             border-left: 1px solid $_bs-table-border;
             border-right: 1px solid $_bs-table-border;
+
+            &:before {
+                width: 100%;
+            }
+
+            &:after {
+                width: 0;
+            }
         }
 
         &:hover {
             background: $_bs-bg-dark;
 
-            &:not(.active)::after {
-                content: '';
-                position: absolute;
-                bottom: 1px;
-                background: $secondary;
-                display: block;
-                margin: 0;
-                width: 100%;
-                height: 2px;
-            }
+            // &:not(.active)::before {
+            //     width: 100%;
+            // }
         }
 
         &:focus {
