@@ -1,0 +1,13 @@
+@import '../../style/colors';
+
+.loading {
+    width: fit-content;
+    color: $white;
+    display: flex;
+    align-items: center;
+    margin: 15px;
+
+    .spinner {
+        margin-right: 15px;
+    }
+}

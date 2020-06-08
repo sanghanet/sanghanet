@@ -17,6 +17,7 @@ import Alert from '../../../components/Alert/Alert';
 import Header from '../../../components/Header/Header';
 import Navbar from '../../../components/Navbar/Navbar';
 import Footer from '../../../components/Footer/Footer';
+import LoadingIndicator from '../../../components/LoadingIndicator/LoadingIndicator';
 import FilterAccordion from './FilterAccordion/FilterAccordion';
 import UpdateMemberRoleDialog from './UpdateMemberRoleDialog/UpdateMemberRoleDialog';
 import DeleteMemberDialog from './DeleteMemberDialog/DeleteMemberDialog';
@@ -369,17 +370,30 @@ class Superuser extends Component {
                                 <th className="delete-icon-column"></th>
                             </tr>
                         </thead>
-                        <tbody id="tableBody">
-                            <tr>
-                                <td colSpan={5} className="p-0">
-                                    <Button className="add-member-btn" variant="success" onClick={this.openAddMember}>
-                                        <Plus />
-                                        Add member
-                                    </Button>
-                                </td>
-                            </tr>
-                            {memberData && this.renderMembers()}
-                        </tbody>
+                        {memberData ? (
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td colSpan={5} className="p-0">
+                                        <Button className="add-member-btn" variant="success" onClick={this.openAddMember}>
+                                            <Plus />
+                                            Add member
+                                        </Button>
+                                    </td>
+                                </tr>
+                                {this.renderMembers()}
+                            </tbody>
+                        ) : (
+                            <tbody>
+                                <tr>
+                                    <td colSpan={4}>
+                                        <LoadingIndicator
+                                            until={!!memberData}
+                                            size="1rem"
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        )}
                     </Table>
                 </main>
                 <Footer />
