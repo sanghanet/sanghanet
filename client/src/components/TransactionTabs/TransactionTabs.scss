@@ -28,7 +28,7 @@ nav.MainTabs {
             left: 0;
             height: 2px;
             width: 0;
-            transition: width 0s ease-out;
+            transition: all 0s ease-out;
         }
 
         &:after {
@@ -36,10 +36,10 @@ nav.MainTabs {
             position: absolute;
             background: $secondary;
             bottom: 1px;
-            right: 0;
-            height: 2px;
+            display: block;
+            margin: 0;
             width: 100%;
-            transition: width 0s ease-out;
+            height: 2px;
         }
 
         &.active {
@@ -53,10 +53,7 @@ nav.MainTabs {
                 transition: width .2s ease-out;
                 width: 100%;
             }
-            &:after {
-                transition: width .2s ease-out;
-                width: 0;
-            }
+            &:after { width: 0; }
         }
 
         &:hover {
