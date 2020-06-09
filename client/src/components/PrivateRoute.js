@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = (props) => {
     const { component: Component, ...rest } = props;
     const user = sessionStorage.getItem('user');
+
+    useEffect(() => { window.scrollTo(0, 0); });
 
     return (
         // Show the component only when user is known
