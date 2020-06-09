@@ -32,7 +32,7 @@ nav.MainTabs {
             margin: 0;
             width: 0;
             height: 2px;
-            transition: width .2s ease-out;
+            transition: all 0s ease-out;
         }
 
         &:after {
@@ -55,6 +55,7 @@ nav.MainTabs {
             border-right: 1px solid $_bs-table-border;
 
             &:before {
+                transition: width .2s ease-out;
                 width: 100%;
             }
 
