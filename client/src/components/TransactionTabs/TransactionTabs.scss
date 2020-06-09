@@ -12,9 +12,7 @@ nav.MainTabs {
     text-transform: capitalize;
 
     .nav-item {
-        box-sizing: border-box;
         position: relative;
-        z-index: 1;
         top: 3px;
         color: $white;
         border-bottom: none;
@@ -25,22 +23,19 @@ nav.MainTabs {
         &:before {
             content: '';
             position: absolute;
+            background: $primary;
             top: 0;
             left: 0;
-            background: $primary;
-            display: block;
-            margin: 0;
-            width: 0;
             height: 2px;
+            width: 0;
             transition: all 0s ease-out;
         }
 
         &:after {
             content: '';
             position: absolute;
-            bottom: 1px;
-            right: 0;
             background: $secondary;
+            bottom: 1px;
             display: block;
             margin: 0;
             width: 100%;
@@ -58,10 +53,7 @@ nav.MainTabs {
                 transition: width .2s ease-out;
                 width: 100%;
             }
-
-            &:after {
-                width: 0;
-            }
+            &:after { width: 0; }
         }
 
         &:hover {
