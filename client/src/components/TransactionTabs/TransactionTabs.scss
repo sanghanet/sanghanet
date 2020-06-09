@@ -25,10 +25,8 @@ nav.MainTabs {
             position: absolute;
             background: $primary;
             top: 0;
-            left: 0;
             height: 2px;
             width: 0;
-            transition: all 0s ease-out;
         }
 
         &:after {
@@ -47,10 +45,7 @@ nav.MainTabs {
             border-left: 1px solid $_bs-table-border;
             border-right: 1px solid $_bs-table-border;
 
-            &:before {
-                transition: width .2s ease-out;
-                width: 100%;
-            }
+            &:before { width: 100%; }
             &:after { width: 0; }
         }
 
