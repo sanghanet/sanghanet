@@ -12,7 +12,9 @@ import { ReactComponent as InfoIcon } from '../icons/info.svg';
 import { ReactComponent as YogaIcon } from '../icons/yoga.svg';
 import { ReactComponent as EventIcon } from '../icons/event.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
-import { ReactComponent as BackIcon } from '../icons/reply-solid.svg';
+// import { ReactComponent as BackIcon } from '../icons/reply-solid.svg';
+import { ReactComponent as BackIcon } from '../icons/arrow-left.svg';
+import { ReactComponent as ForwardIcon } from '../icons/arrow-right.svg';
 
 class Navbar extends Component {
     state = {
@@ -66,9 +68,10 @@ class Navbar extends Component {
             <div id={navStyle}>
                 <div className={classList}>
                     <ul className="main-menu">
-                        <li>
+                        <li className="admins">
                             <div className="link" onClick={this.handleSubmenu}>
-                                <span className="title">Admins</span>
+                                <div className="menu-icon"><ForwardIcon /></div>
+                                <span className="title admins">Admins</span>
                             </div>
                         </li>
                         <li>
@@ -118,7 +121,7 @@ class Navbar extends Component {
                         </li>
                     </ul>
                     <ul className="sub-menu">
-                        <li>
+                        <li className="back">
                             <div className="link" onClick={this.handleSubmenu}>
                                 <div className="menu-icon"><BackIcon /></div>
                                 <span className="title">Back</span>
@@ -126,17 +129,17 @@ class Navbar extends Component {
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/finance" className="sub-title">Finance<br />Admin</NavLink>
+                                <NavLink exact to="/admin/finance" className="sub-title">Finance Admin</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/event" className="sub-title">Event<br />Admin</NavLink>
+                                <NavLink exact to="/admin/event" className="sub-title">Event Admin</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/yoga" className="sub-title">Yoga<br />Admin</NavLink>
+                                <NavLink exact to="/admin/yoga" className="sub-title">Yoga Admin</NavLink>
                             </div>
                         </li>
                         <li>

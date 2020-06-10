@@ -52,6 +52,15 @@ $navbar-width: 110px;
         @include svgChanging;
     }
 }
+@mixin hoveredAdminElement {
+    &:hover {
+        background-color: $sideBarHover-bg;
+    }
+    &:hover .sub-title{
+        color: $sideBarHover-iconColor;
+        font-size: 13px;
+    }
+}
 @mixin hoveredMenu {
     &:hover {
         background-color: $sideBarHover-bg;

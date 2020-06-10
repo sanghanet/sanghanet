@@ -1,7 +1,7 @@
 @import '../../style/colors';
 @import '../../style/mixins';
 
-#sidenav{
+#sidenav {
     position: fixed;
     top: $header-height;
     width: $navbar-width;
@@ -82,6 +82,7 @@
                         font-size: 12px;
                         text-transform: uppercase;
                         letter-spacing: 1px;
+                        padding: 0 5px;
                         &:hover {
                             text-decoration: none;
                             background-color: $sideBarHover-bg;
@@ -102,71 +103,134 @@
     }
 }
 
-#hamburger{
-    position: relative;
-    min-height: 720px;
-
-    background-color: $sideBar-bg;
-
-    @include noScroll;
-
+#hamburger {
+    height: calc(100vh - 93px);
     .wrapper {
-        display: flex;
+        position: relative;
+        li {
+            height: 80px;
+            border-top: 1px solid $sideBar-border;
+        }
+    }
+    .main-menu {
+        @include resetList;
+        @include maxQ(420px) {
+            width: 100vw;
+        }
+        width: 320px;
         position: absolute;
-        left: 0;
-        transition: left 0.4s;
-
-        .main-menu, .sub-menu {
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-            margin: 0;
-
-            li {
+        right: 0;
+        .admins {
+            cursor: pointer;
+        }
+        #logout-li {
+            border-bottom: 1px solid $sideBar-border;
+        }
+        li {
+            button {
+                @include buttonReset;
                 width: 100%;
-                height: 80px;
-                border-bottom: none;
-                border-top: 1px solid $sideBar-border;
-            }
-            .link {
-                width: 60vw;
-                padding: 0 0 0 26%;
-                @include maxQ(525px) {
-                    padding: 0 0 0 16%;
-                }
-                flex-direction: row;
-                justify-content: flex-start;
+                align-items: center;
+                padding-left: 46px;
                 &:hover {
-                    border-bottom: none !important;
+                    border-bottom: 1px solid $sideBar-border;
                 }
+            }
+            .active {
+                background-color: $navBarActive;
                 .title {
-                    margin-left: 20px;
-                }
-                .menu-icon {
-                    @include centerElement;
-                    width: 50px;
-                    height: 50px;
+                    color: $sideBarHover-iconColor;
                 }
                 svg {
-                    fill: $sideBar-iconColor;
-                    width: 30px;
-                    height: 30px;
+                    @include svgChanging;
                 }
-                .title {
-                    padding: 0 5px;
-                    color: $sideBar-iconColor;
-                    font-size: 12px;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                }
-                &:hover {
-                    text-decoration: none;
-                }
-                @include hoveredElement;
             }
         }
     }
+    .sub-menu {
+        @include resetList;
+        @include maxQ(420px) {
+            width: 100vw;
+            right: -100vw;
+        }
+        width: 320px;
+        position: absolute;
+        right: -320px;
+        .back {
+            cursor: pointer;
+        }
+        li:last-of-type {
+            border-bottom: 1px solid $sideBar-border;
+            .sub-link {
+                &:hover {
+                    border-bottom: 1px solid $sideBar-border;
+                }
+            }
+        }
+        .sub-link {
+            @include centerElement;
+
+            height: 80px;
+            .sub-title {
+                width: 100%;
+                color: $sideBar-iconColor;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                height: 78px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding-left: 108px;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+            @include hoveredAdminElement;
+            .active {
+                background-color: $navBarActive;
+                .title {
+                    color: $sideBarHover-iconColor;
+                }
+                svg {
+                    @include svgChanging;
+                }
+            }
+        }
+    }
+
+    .link {
+        display: flex;
+        align-items: center;
+
+        height: 80px;
+        padding-left: 46px;
+        .menu-icon {
+            @include centerElement;
+            width: 50px;
+            height: 50px;
+        }
+        svg {
+            fill: $sideBar-iconColor;
+            width: 30px;
+            height: 30px;
+        }
+        .title {
+            padding: 0 12px;
+            color: $sideBar-iconColor;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        &:hover {
+            text-decoration: none;
+        }
+        @include hoveredElement;
+    }
     .show-submenu{
-        left: -60vw;
+        left: -320px;
+        @include maxQ(420px) {
+            left: -100vw;
+        }
     }
 }
