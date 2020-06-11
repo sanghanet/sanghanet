@@ -12,7 +12,6 @@ import { ReactComponent as InfoIcon } from '../icons/info.svg';
 import { ReactComponent as YogaIcon } from '../icons/yoga.svg';
 import { ReactComponent as EventIcon } from '../icons/event.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
-// import { ReactComponent as BackIcon } from '../icons/reply-solid.svg';
 import { ReactComponent as BackIcon } from '../icons/arrow-left.svg';
 import { ReactComponent as ForwardIcon } from '../icons/arrow-right.svg';
 

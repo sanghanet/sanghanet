@@ -21,6 +21,10 @@
         left: 0;
         transition: left 0.4s;
 
+        .main-menu {
+            height: calc(100vh - 93px);
+            margin-bottom: 0;
+        }
         .main-menu, .sub-menu {
             display: flex;
             flex-direction: column;
@@ -49,6 +53,7 @@
                     @include centerElement;
                     flex-direction: column;
                     width: $navbar-width;
+                    height: $navbar-width;
                     .menu-icon {
                         @include centerElement;
                         width: 50px;
@@ -97,16 +102,15 @@
             }
         }
     }
-
     .show-submenu{
         left: -110px;
     }
 }
 
 #hamburger {
-    height: calc(100vh - 93px);
     .wrapper {
         position: relative;
+        min-height: 736px;
         li {
             height: 80px;
             border-top: 1px solid $sideBar-border;
@@ -227,7 +231,7 @@
         }
         @include hoveredElement;
     }
-    .show-submenu{
+    .show-submenu {
         left: -320px;
         @include maxQ(420px) {
             left: -100vw;
