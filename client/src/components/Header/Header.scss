@@ -155,8 +155,7 @@
             width: 320px;
             max-height: calc(100vh - 93px);
             overflow-y: scroll;
-            border-bottom-left-radius: 5px;
-            background-color: $sideBar-bg;
+            background-color: transparent;
             top: $header-height;
             right: -320px;
 

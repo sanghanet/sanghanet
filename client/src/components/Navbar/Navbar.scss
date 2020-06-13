@@ -23,12 +23,13 @@
 
         .main-menu {
             height: calc(100vh - 93px);
-            margin-bottom: 0;
         }
         .main-menu, .sub-menu {
             display: flex;
             flex-direction: column;
             padding: 0;
+            margin-bottom: 0;
+            cursor: pointer;
 
             li {
                 width: $navbar-width;
@@ -102,7 +103,7 @@
             }
         }
     }
-    .show-submenu{
+    .show-submenu {
         left: -110px;
     }
 }
@@ -110,10 +111,16 @@
 #hamburger {
     .wrapper {
         position: relative;
-        min-height: 736px;
+        min-height: 100vh;
         li {
             height: 80px;
             border-top: 1px solid $sideBar-border;
+        }
+    }
+    .main-menu, .sub-menu {
+        background-color: $sideBar-bg;
+        li:last-child {
+            border-bottom: 1px solid $sideBar-border;
         }
     }
     .main-menu {
@@ -126,9 +133,6 @@
         right: 0;
         .admins {
             cursor: pointer;
-        }
-        #logout-li {
-            border-bottom: 1px solid $sideBar-border;
         }
         li {
             button {
@@ -164,7 +168,6 @@
             cursor: pointer;
         }
         li:last-of-type {
-            border-bottom: 1px solid $sideBar-border;
             .sub-link {
                 &:hover {
                     border-bottom: 1px solid $sideBar-border;
