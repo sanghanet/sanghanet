@@ -42,21 +42,16 @@
 
             .avatar-name {
                 margin: 20px 0;
-                font-size: 1.4em;
+                font-size: 26px;
                 font-weight: 100;
                 color: $white;
-
-                @include maxQ(767px) {
-                    font-size: 14px;
-                    margin: 5px 0 0 0;
-                }
             }
         }
 
         .page-name {
             width: fit-content;
             justify-content: flex-end;
-            font-size: 1.4em;
+            font-size: 30px;
             font-weight: 100;
         }
 
@@ -146,6 +141,7 @@
                 }
             }
         }
+
         .slider {
             @include minQ(768px) { display: none; }
             @include maxQ(420px) {
