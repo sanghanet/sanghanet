@@ -1,9 +1,64 @@
 @import '../../style/colors';
 @import '../../style/mixins';
 
-.MainTabs{
-    padding: 15px;
+// for specificity
+nav.MainTabs {
+    border-bottom: 2px solid #924176;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
     margin: auto;
-    width: fit-content;
+    width: 90%;
     text-transform: capitalize;
+
+    .nav-item {
+        position: relative;
+        top: 3px;
+        color: $white;
+        border-bottom: none;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        &:before {
+            content: '';
+            position: absolute;
+            background: $primary;
+            top: 0;
+            height: 2px;
+            width: 0;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            background: $secondary;
+            bottom: 1px;
+            width: 100%;
+            height: 2px;
+        }
+
+        &.active {
+            color: $white;
+            background-color: $_bs-bg-dark;
+            border-radius: 0;
+            border-left: 1px solid $_bs-table-border;
+            border-right: 1px solid $_bs-table-border;
+
+            &:before { width: 100%; }
+            &:after { width: 0; }
+        }
+
+        &:hover {
+            background: $_bs-bg-dark;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    @include maxQ(767px) {
+        width: 100%;
+    }
 }

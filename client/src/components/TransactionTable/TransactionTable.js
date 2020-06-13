@@ -1,6 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
+import './TransactionTable.scss';
 
 class TransactionTable extends React.Component {
     constructor (props) {
