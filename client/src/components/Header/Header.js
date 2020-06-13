@@ -15,17 +15,14 @@ const Header = (props) => {
             props.history.push('/personal');
         }
     };
-
     const handleHamburgerClick = (event) => {
         if (event.target.className.includes('header-shim')) return;
 
         const slider = document.getElementsByClassName('slider')[0];
-        const hamburger = document.getElementsByClassName('burger-lines')[0];
         const headerShim = document.getElementsByClassName('header-shim')[0];
 
         slider.classList.toggle('slideIn');
         headerShim.classList.toggle('slideIn');
-        hamburger.classList.toggle('activeBurger');
     };
 
     return (
@@ -65,7 +62,7 @@ const Header = (props) => {
                     <div className='hamburger-line'></div>
                 </button>
                 <div className='slider position-absolute'>
-                    <Navbar navStyle="hamburger" />
+                    <Navbar navStyle="hamburger" openSubmenu={window.location.href.includes('admin')} />
                 </div>
             </Row>
         </Container>

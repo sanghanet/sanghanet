@@ -99,12 +99,13 @@
             .header-shim {
                 height: $header-height;
                 position: absolute;
-                @include maxQ(480px) {
-                    width: 90vw;
-                    right: -90vw;
+                @include maxQ(420px) {
+                    width: 100vw;
+                    right: -100vw;
                 }
-                width: 60vw;
-                right: -60vw;
+                @include minQ(768px) { display: none; }
+                width: 320px;
+                right: -320px;
                 background-color: $sideBar-bg;
 
                 transition: right .5s;
@@ -145,19 +146,18 @@
                 }
             }
         }
-
         .slider {
-            @include maxQ(480px) {
-                width: 90vw;
-                right: -90vw;
+            @include minQ(768px) { display: none; }
+            @include maxQ(420px) {
+                width: 100vw;
+                right: -100vw;
             }
-            width: 60vw;
+            width: 320px;
             max-height: calc(100vh - 93px);
             overflow-y: scroll;
-            border-bottom-left-radius: 5px;
-            background-color: $sideBar-bg;
+            background-color: transparent;
             top: $header-height;
-            right: -60vw;
+            right: -320px;
 
             transition: right .5s;
 

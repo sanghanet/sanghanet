@@ -8,7 +8,7 @@ const AdminEvent = (props) => {
     return (
         <div className='grid-container'>
             <Header activePage="Event Admin" />
-            <Navbar navStyle="sidenav" />
+            <Navbar navStyle="sidenav" openSubmenu={true} />
             <main className="align">
                 <ComingSoon pageName = "Event Admin" isPlural = {false} />
             </main>

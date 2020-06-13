@@ -26,6 +26,13 @@ $navbar-width: 110px;
     align-items: center;
     justify-content: center;
 }
+@mixin noScroll {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
 @mixin svgChanging {
     fill: $sideBarHover-iconColor;
 
@@ -45,9 +52,18 @@ $navbar-width: 110px;
         @include svgChanging;
     }
 }
+@mixin hoveredAdminElement {
+    &:hover {
+        background-color: $sideBarHover-bg;
+    }
+    &:hover .sub-title{
+        color: $sideBarHover-iconColor;
+        font-size: 13px;
+    }
+}
 @mixin hoveredMenu {
     &:hover {
-        background-color: $menuHover-backgroundColor;
+        background-color: $sideBarHover-bg;
     }
     &:hover .title {
         color: $sideBarHover-iconColor;

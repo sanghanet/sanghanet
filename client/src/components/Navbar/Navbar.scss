@@ -1,43 +1,217 @@
 @import '../../style/colors';
 @import '../../style/mixins';
 
-.navigation {
-    @include resetList;
+#sidenav {
+    position: fixed;
+    top: $header-height;
+    width: $navbar-width;
+    height: calc(100vh - 93px);
+
     background-color: $sideBar-bg;
     box-shadow: 10px 0px 15px -5px rgba(0, 0, 0, 0.749);
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
+    @include noScroll;
 
-    overflow-y: scroll;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
+    @include maxQ(767px) { //below 767px screen size, no side navigation bar
         display: none;
     }
 
-    li {
-        text-align: center;
-        button {
-            @include buttonReset;
-            align-items: center;
+    .wrapper {
+        display: flex;
+        position: absolute;
+        left: 0;
+        transition: left 0.4s;
+
+        .main-menu {
+            height: calc(100vh - 93px);
         }
-        .active {
-            background-color: $sideBarHover-bg;
-            .title {
-                color: $sideBarHover-iconColor;
+        .main-menu, .sub-menu {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin-bottom: 0;
+            cursor: pointer;
+
+            li {
+                width: $navbar-width;
+                height: $navbar-width;
+
+                display: flex;
+                text-align: center;
+                button {
+                    @include buttonReset;
+                    align-items: center;
+                }
+                .active {
+                    background-color: $navBarActive;
+                    .title {
+                        color: $sideBarHover-iconColor;
+                    }
+                    svg {
+                        @include svgChanging;
+                    }
+                }
+                .link {
+                    @include centerElement;
+                    flex-direction: column;
+                    width: $navbar-width;
+                    height: $navbar-width;
+                    .menu-icon {
+                        @include centerElement;
+                        width: 50px;
+                        height: 50px;
+                    }
+                    svg {
+                        fill: $sideBar-iconColor;
+                        width: 30px;
+                        height: 30px;
+                    }
+                    .title {
+                        padding: 0 5px;
+                        color: $sideBar-iconColor;
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+                    &:hover {
+                        text-decoration: none;
+                    }
+                    @include hoveredElement;
+                }
+                .sub-link {
+                    width: $navbar-width;
+                    .sub-title {
+                        @include centerElement;
+                        flex-direction: column;
+                        width: $navbar-width;
+                        height: $navbar-width;
+                        color: $sideBar-iconColor;
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        padding: 0 5px;
+                        &:hover {
+                            text-decoration: none;
+                            background-color: $sideBarHover-bg;
+                            color: $sideBarHover-iconColor;
+                            font-size: 13px;
+                        }
+                    }
+                }
             }
-            svg {
-                @include svgChanging;
+            #logout-li {
+                margin-top: auto;
             }
         }
     }
-    #logout-li {
-        margin-top: auto;
+    .show-submenu {
+        left: -110px;
     }
+}
+
+#hamburger {
+    .wrapper {
+        position: relative;
+        min-height: 100vh;
+        li {
+            height: 80px;
+            border-top: 1px solid $sideBar-border;
+        }
+    }
+    .main-menu, .sub-menu {
+        background-color: $sideBar-bg;
+        li:last-child {
+            border-bottom: 1px solid $sideBar-border;
+        }
+    }
+    .main-menu {
+        @include resetList;
+        @include maxQ(420px) {
+            width: 100vw;
+        }
+        width: 320px;
+        position: absolute;
+        right: 0;
+        .admins {
+            cursor: pointer;
+        }
+        li {
+            button {
+                @include buttonReset;
+                width: 100%;
+                align-items: center;
+                padding-left: 46px;
+                &:hover {
+                    border-bottom: 1px solid $sideBar-border;
+                }
+            }
+            .active {
+                background-color: $navBarActive;
+                .title {
+                    color: $sideBarHover-iconColor;
+                }
+                svg {
+                    @include svgChanging;
+                }
+            }
+        }
+    }
+    .sub-menu {
+        @include resetList;
+        @include maxQ(420px) {
+            width: 100vw;
+            right: -100vw;
+        }
+        width: 320px;
+        position: absolute;
+        right: -320px;
+        .back {
+            cursor: pointer;
+        }
+        li:last-of-type {
+            .sub-link {
+                &:hover {
+                    border-bottom: 1px solid $sideBar-border;
+                }
+            }
+        }
+        .sub-link {
+            @include centerElement;
+
+            height: 80px;
+            .sub-title {
+                width: 100%;
+                color: $sideBar-iconColor;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                height: 78px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding-left: 108px;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+            @include hoveredAdminElement;
+            .active {
+                background-color: $navBarActive;
+                .title {
+                    color: $sideBarHover-iconColor;
+                }
+                svg {
+                    @include svgChanging;
+                }
+            }
+        }
+    }
+
     .link {
-        @include centerElement;
-        flex-direction: column;
-        width: $navbar-width;
+        display: flex;
+        align-items: center;
+
+        height: 80px;
+        padding-left: 46px;
         .menu-icon {
             @include centerElement;
             width: 50px;
@@ -49,7 +223,7 @@
             height: 30px;
         }
         .title {
-            padding: 0 5px;
+            padding: 0 12px;
             color: $sideBar-iconColor;
             font-size: 12px;
             text-transform: uppercase;
@@ -60,101 +234,10 @@
         }
         @include hoveredElement;
     }
-}
-
-#sidenav {
-    width: $navbar-width;
-    height: calc(100vh - 93px);
-    position: fixed;
-    @include maxQ(767px) {
-        display: none;
-    }
-    li {
-        width: $navbar-width;
-        min-height: 102px;
-        #admins {
-            cursor: pointer;
-        }
-        #dropdown {
-            @include resetList;
-            width: 86%;
-            position: absolute;
-            background-color: $lightgray;
-            border-radius: 4px;
-            overflow:hidden;
-
-            li {
-                min-height: 36px;
-                width: 100%;
-                padding: 4px 0;
-                &:hover {
-                    background-color: #adadad;
-                }
-                .dropdown-link {
-                    text-decoration: none;
-                }
-                .active {
-                    background-color: transparent;
-                    color: #030f65;
-                    font-weight: 600;
-                }
-            }
-        }
-    }
-    .link {
-        min-height: 102px;
-    }
-}
-
-#hamburger {
-    box-shadow: none;
-    li {
-        width: 100%;
-        min-height: 80px;
-        border-bottom: none;
-        border-top: 1px solid $sideBar-border;
-        #admins {
-            cursor: pointer;
-        }
-        #dropdown {
-            @include resetList;
-            position: absolute;
-            width: 70%;
-            background-color: $lightgray;
-            border-radius: 4px;
-            overflow:hidden;
-            li {
-                min-height: 36px;
-                padding: 10px 0;
-                &:hover {
-                    background-color: #adadad;
-                }
-                .dropdown-link {
-                    text-decoration: none;
-                }
-                .active {
-                    background-color: transparent;
-                    color: #030f65;
-                    font-weight: 600;
-                }
-            }
-        }
-    }
-    .link {
-        width: 100%;
-        min-height: 80px;
-        padding: 0 0 0 26%;
-        @include maxQ(525px) {
-            padding: 0 0 0 16%;
-        }
-
-        flex-direction: row;
-        justify-content: flex-start;
-        &:hover {
-            border-bottom: none !important;
-        }
-        .title {
-            margin-left: 20px;
+    .show-submenu {
+        left: -320px;
+        @include maxQ(420px) {
+            left: -100vw;
         }
     }
 }
