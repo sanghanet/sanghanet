@@ -239,7 +239,7 @@ class Superuser extends Component {
         const { roleFilter, textFilterValue, registeredFilterValue } = this.state;
 
         // eslint-disable-next-line no-multi-spaces
-        const passedEmailFilter =   user.email.toLowerCase().includes(textFilterValue.toLowerCase()) ||
+        const passedEmailFilter =   user.email.substring(0, user.email.indexOf('@')).toLowerCase().includes(textFilterValue.toLowerCase()) ||
                                     user.label.toLowerCase().includes(textFilterValue.toLowerCase());
         // eslint-disable-next-line no-multi-spaces
         const passedRoleFilter =    !(roleFilter.filterSuperuser || roleFilter.filterFinanceAdmin || roleFilter.filterEventAdmin || roleFilter.filterYogaAdmin || roleFilter.filterNoRole) ||
