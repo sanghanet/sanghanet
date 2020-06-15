@@ -24,9 +24,17 @@ class FinanceContainer extends React.Component {
         });
     }
 
-    getFinanceData = async () => {
+    getFinanceData = async (userEmail = null) => {
         try {
-            const result = await Client.fetch('/finance/financedata');
+            const result = await Client.fetch('/finance/financedata', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: {
+                    email: userEmail
+                }
+            });
             this.setState({
                 financeData: result
             });
