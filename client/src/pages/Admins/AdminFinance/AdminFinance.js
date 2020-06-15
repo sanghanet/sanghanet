@@ -2,7 +2,8 @@ import React from 'react';
 
 import Header from '../../../components/Header/Header';
 import Navbar from '../../../components/Navbar/Navbar';
-import ComingSoon from '../../../components/ComingSoon/ComingSoon';
+import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
+import UserSelector from './UserSelector';
 
 const AdminFinance = (props) => {
     return (
@@ -10,7 +11,8 @@ const AdminFinance = (props) => {
             <Header activePage="Finance Admin" />
             <Navbar navStyle="sidenav" openSubmenu={true} />
             <main className="align">
-                <ComingSoon pageName = "Finance Admin" isPlural = {false} />
+                <UserSelector />
+                <FinanceContainer />
             </main>
         </div>
     );

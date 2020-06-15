@@ -17,5 +17,6 @@ financeRouter.use((req, res, next) => {
 });
 
 financeRouter.post('/financedata', financeController.getFinanceData);
+financeRouter.get('/userlist', financeController.getUserList);
 
 module.exports = financeRouter;
