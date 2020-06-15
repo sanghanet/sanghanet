@@ -16,3 +16,13 @@ module.exports.getFinanceData = async (req, res) => {
         res.send(error);
     }
 };
+
+module.exports.getUserList = async (req, res) => {
+    try {
+        const result = await FinanceAccount.find({}, 'userName email');
+        res.json(result);
+    } catch (error) {
+        log.error(error);
+        res.send(error);
+    }
+};

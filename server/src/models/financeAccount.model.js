@@ -5,6 +5,7 @@ const FinanceAccountSchema = mongoose.Schema({
     currency: String,
     userId: mongoose.ObjectId,
     email: String,
+    userName: String,
     transactionArchive: {
         membership: [FinanceTransactionSchema],
         rent: [FinanceTransactionSchema],
