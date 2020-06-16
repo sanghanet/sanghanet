@@ -79,6 +79,13 @@ module.exports.deleteMember = async (req, res, next) => {
         const memberToDelete = await Member.findOneAndDelete( // returns whole object if successful or null
             { email: req.body.remove }
         );
+        Account.findOneAndDelete({ email: req.body.remove })
+            .then((userObj) => {
+                log.info(`${req.body.remove}: finance data deleted!`);
+            })
+            .catch((err) => {
+                log.error(`${req.body.remove}: delete finance data failed: (${err})`);
+            });
         const msg = memberToDelete ? req.body.remove : null;
         res.json({ deleted: msg });
         log.info(`Deleted: ${msg}`);
@@ -92,13 +99,6 @@ module.exports.deleteMember = async (req, res, next) => {
                 })
                 .catch((err) => {
                     log.error(`${req.body.remove}: delete registration failed: (${err})`);
-                });
-            Account.findOneAndDelete({ email: req.body.remove })
-                .then((userObj) => {
-                    log.info(`${req.body.remove}: finance data deleted!`);
-                })
-                .catch((err) => {
-                    log.error(`${req.body.remove}: delete finance data failed: (${err})`);
                 });
         }
     } catch (err) {

@@ -9,7 +9,7 @@ const fs = require('fs');
 
 const { Member } = require('../models/member.model');
 const { RegisteredUser } = require('../models/registered.user.model');
-const { FinanceAccount } = require('../models/financeAccount.model');
+// const { FinanceAccount } = require('../models/financeAccount.model');
 
 module.exports.login = async (req, res, next) => {
     try {
@@ -78,12 +78,12 @@ module.exports.registration = async (req, res, next) => {
                     { useFindAndModify: false }
                 );
 
-                const account = await FinanceAccount.create({
-                    userId: registration._id,
-                    email: req.user.email
-                });
+                // const account = await FinanceAccount.create({
+                //     userId: registration._id,
+                //     email: req.user.email
+                // });
 
-                Promise.all([registration, membersUpdate, account])
+                Promise.all([registration, membersUpdate])
                     .then((results) => {
                         log.info('Registration successful!');
                         res.status(201).send('Created');
