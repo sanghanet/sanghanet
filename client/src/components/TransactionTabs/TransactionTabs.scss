@@ -56,9 +56,14 @@ nav.MainTabs {
         &:focus {
             outline: none;
         }
+        
     }
 
     @include maxQ(767px) {
         width: 100%;
+
+        .nav-item {
+            font-size: .7rem;;
+        }
     }
 }

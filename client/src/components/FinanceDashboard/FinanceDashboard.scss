@@ -8,4 +8,8 @@
     width: fit-content;
     padding: 15px;
     border-radius: 8px;
+
+    @include maxQ(767px) {
+        font-size: .8rem;
+    }
 }
