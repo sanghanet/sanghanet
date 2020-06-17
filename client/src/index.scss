@@ -47,7 +47,7 @@ main {
 }
 
 /* --- custom checkbox --- */
-input[type="checkbox"] {
+input[type="checkbox"]:not(.custom) {
     position: absolute; 
     overflow: hidden; 
     clip: rect(0 0 0 0); 

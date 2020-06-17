@@ -55,7 +55,7 @@ const Header = (props) => {
                     className='burger-lines d-md-none position-absolute'
                     onClick={handleHamburgerClick}
                 >
-                    <input type='checkbox' />
+                    <input className='custom' type='checkbox' />
                     <div className='header-shim'></div>
                     <div className='hamburger-line'></div>
                     <div className='hamburger-line'></div>
