@@ -46,11 +46,11 @@ const Header = (props) => {
                     <SearchIcon />
                 </Button>
 
+                <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>
                 <button
                     className='burger-lines d-md-none position-absolute'
                     onClick={() => { toggleHamburger((prevState) => !prevState); }}
                 >
-                    <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>
                     <Hamburger className={isHamburgerOpen ? 'icons hambi hide-hambi' : 'icons hambi'} />
                     <HamburgerClose className={isHamburgerOpen ? 'icons x show-x' : 'icons x'} />
                 </button>
