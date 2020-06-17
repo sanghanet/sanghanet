@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -7,22 +7,17 @@ import Avatar from '../icons/avatar.jpg';
 // import SearchBar from '../Search/SearchBar';
 import Navbar from '../Navbar/Navbar';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
+import { ReactComponent as Hamburger } from '../icons/bars-solid.svg';
+import { ReactComponent as HamburgerClose } from '../icons/times-solid.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
 
 const Header = (props) => {
+    const [isHamburgerOpen, toggleHamburger] = useState(false);
+
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/personal') {
             props.history.push('/personal');
         }
-    };
-    const handleHamburgerClick = (event) => {
-        if (event.target.className.includes('header-shim')) return;
-
-        const slider = document.getElementsByClassName('slider')[0];
-        const headerShim = document.getElementsByClassName('header-shim')[0];
-
-        slider.classList.toggle('slideIn');
-        headerShim.classList.toggle('slideIn');
     };
 
     return (
@@ -53,15 +48,13 @@ const Header = (props) => {
 
                 <button
                     className='burger-lines d-md-none position-absolute'
-                    onClick={handleHamburgerClick}
+                    onClick={() => { toggleHamburger((prevState) => !prevState); }}
                 >
-                    <input type='checkbox' />
-                    <div className='header-shim'></div>
-                    <div className='hamburger-line'></div>
-                    <div className='hamburger-line'></div>
-                    <div className='hamburger-line'></div>
+                    <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>
+                    <Hamburger className={isHamburgerOpen ? 'icons hambi hide-hambi' : 'icons hambi'} />
+                    <HamburgerClose className={isHamburgerOpen ? 'icons x show-x' : 'icons x'} />
                 </button>
-                <div className='slider position-absolute'>
+                <div className={isHamburgerOpen ? 'slider position-absolute slideIn' : 'slider position-absolute'}>
                     <Navbar navStyle="hamburger" openSubmenu={window.location.href.includes('admin')} />
                 </div>
             </Row>
