@@ -45,6 +45,10 @@
    Feel free to config other .env files and start scripts...
 
    ## Automatic mode
+   --- WITH LOCAL DB ---
+   a) run `mongod` and `npm run local-dev` in the root folder, but in separate tabs.
+
+   --- WITH ATLAS DB ---
    a) In project ROOT folder run `npm run dev`. This command will:
 
       - set DEV_SERVER variable to 1

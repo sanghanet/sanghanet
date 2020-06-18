@@ -5,6 +5,7 @@
   "main": "n.a",
   "scripts": {
     "dev": "sed -i 's/DEV_SERVER.*/DEV_SERVER = 1/' server/.env.atlas; concurrently \"cd client && npm start\" \"cd server && npm run atlas\"",
+    "local-dev":  "concurrently \"cd client && npm start\" \"cd server && npm run local\"",
     "build": "sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' server/.env.atlas; cd client; npm run build; cd ../server; npm run atlas",
     "killnode": "start killnode.bat",
     "test": "echo \"Error: no test specified\" && exit 1",
