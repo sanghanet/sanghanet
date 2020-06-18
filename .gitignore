@@ -12,3 +12,4 @@ server/app
 server/.env.local
 server/.env.atlas
 server/logs
+server/testDataScripts/logs
