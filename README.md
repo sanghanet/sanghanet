@@ -88,10 +88,20 @@
       *  `heroku logs` => to get logs
 
 # wipe and re-build finance accounts
+   ## description
+      You can wipe and re-build the exising finance accounts for all members by using the command `npm run buildfinance` in the root directory.
+      This functionality is intended to facilitate re-population of the finance accounts in case a change is needed in the account models.
+      It uses the Finance and Transaction models in the server/src/models directory.
 
-   You can wipe and re-build the exising finance accounts for all members by using the command `npm run buildfinance` in the root directory.
-   This functionality is intended to facilitate re-population of the finance accounts in case a change is needed in the account models.
-   It uses the Finance and Transaction models in the server/src/models directory.
+# wipe and re-build the database
+   ## description
+      This action will first delete every document and collection from the database. Next, it will rebuild the 'members' collection with the data found in `members.json`. After that, it will generate a finance transaction history with random numbers for each member by calling the command described above.
+   ## guide
+      Run rebuildDB.sh with a `local` or `atlas` parameter depending on which database you would like to reset. WARNING: using the `atlas` parameter will delete all reset that the deployed app is depending on.
+
+      For those who like to copy and paste:
+      run `./server/testDataScripts/rebuildDB.sh local` in the root folder for a local reset
+      run `./server/testDataScripts/rebuildDB.sh atlas` in the root folder for an atlas reset - PROCEED WITH CAUTION
 
 # Note for Windows users
 
