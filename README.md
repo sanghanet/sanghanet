@@ -96,9 +96,9 @@ Run `npm run buildfinance` in the root directory.
 
 # wipe and re-build the database
 ## description
-   This action will first delete every document and collection from the database. Next, it will rebuild the 'members' collection with the data found in `members.json`. After that, it will generate a finance transaction history with random numbers for each member by calling the command described above.
+   This action will first delete every document and collection from the database. Next, it will rebuild the 'members' collection with the data found in [members.json](./server/testDataScripts/members.json). After that, it will generate a finance transaction history with random numbers for each member by calling the command described above.
 ## guide
-   Run rebuildDB.sh with a `local` or `atlas` parameter depending on which database you would like to reset. WARNING: using the `atlas` parameter will delete all reset that the deployed app is depending on.
+   Run [rebuildDB.sh](./server/testDataScripts/rebuildDB.sh) with a `local` or `atlas` parameter depending on which database you would like to reset. WARNING: using the `atlas` parameter will delete all reset that the deployed app is depending on.
 
    For those who like to copy and paste:
    run `./server/testDataScripts/rebuildDB.sh local` in the root directory for a local reset
