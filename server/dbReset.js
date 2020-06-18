@@ -34,13 +34,7 @@ const createMemberPromises = (memberArray) => {
         memberArray.forEach(member => {
             promiseArray.push(createMember(member.label, member.email));
         });
-        Promise.all(promiseArray)
-            .then((res) => {
-                res.forEach(member => {
-                    log.info(`Document in 'members' successfully created for ${member.email}`);
-                });
-            })
-            .then(mongoose.disconnect());
+        return promiseArray;
     } catch (error) {
         log.error(error);
         mongoose.disconnect();
@@ -50,7 +44,14 @@ const createMemberPromises = (memberArray) => {
 const executeWipeAndCreate = async () => {
     initDBConnection();
     await wipeCollections();
-    createMemberPromises([{ email: 'asdf@gmail.com', label: 'Belacska' }, { email: 'sadfasdf@gmail.com', label: 'Jolanka' }]);
+    const membersCreated = createMemberPromises([{ email: 'asdf@gmail.com', label: 'Belacska' }, { email: 'sadfasdf@gmail.com', label: 'Jolanka' }]);
+    Promise.all(membersCreated)
+        .then((res) => {
+            res.forEach(member => {
+                log.info(`Document in 'members' successfully created for ${member.email}`);
+            });
+            mongoose.disconnect();
+        });
 };
 
 executeWipeAndCreate()
