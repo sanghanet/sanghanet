@@ -46,7 +46,7 @@
 
    ## Automatic mode
    --- WITH LOCAL DB ---
-   a) run `mongod` and `npm run local-dev` in the root folder, but in separate tabs.
+   a) If `mongod` daemon/service already running on localhost, run `npm run dev-local` in the root folder.
 
    --- WITH ATLAS DB ---
    a) In project ROOT folder run `npm run dev`. This command will:
