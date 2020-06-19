@@ -14,11 +14,7 @@ table.table {
         min-width: 40px;
 
         @include maxQ(500px) {
-            width: 60px;
-        }
-
-        @include maxQ(400px) {
-            width: 40px;
+            width: 70px;
         }
     }
 
@@ -69,7 +65,6 @@ table.table {
         &.role-cells {
             padding: 0;
             text-align: center;
-            min-width: 134px;
             @include minQ(767px) {
                 min-width: 200px;
             }
@@ -100,7 +95,6 @@ table.table {
         &>button {
             border-radius: 0;
             border: none;
-            height: 47px;
 
             .delete-user {
                 width: .9rem;
