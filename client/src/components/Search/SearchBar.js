@@ -24,8 +24,8 @@ class SearchBar extends Component {
                     type="text"
                     placeholder={this.props.placeholder}
                     onChange={this.handleInputChange}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
+                    onFocus={this.props.onFocus}
+                    onBlur={this.props.onBlur}
                     value={this.props.inputValue}
                 />
                 <label
@@ -44,6 +44,8 @@ SearchBar.propTypes = {
     inputValue: PropTypes.string.isRequired,
     handleInputChange: PropTypes.func.isRequired,
     handleIconClick: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     placeholder: PropTypes.string,
     icon: PropTypes.element,
     iconAlignment: PropTypes.string,

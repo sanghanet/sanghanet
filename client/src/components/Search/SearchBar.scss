@@ -59,8 +59,9 @@
         svg {
             width: 20px;
             fill: $sideBar-iconColor;
-            &:hover { fill: $white; }
         }
+
+        &:hover svg { fill: $white; }
         //@include customFocus;
     }
 }

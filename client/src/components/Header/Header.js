@@ -60,14 +60,15 @@ const Header = (props) => {
 
                 <SearchBar
                     handleInputChange={handleSearchFieldUpdate}
+                    handleIconClick={handleSearchIconClick}
+                    onBlur={handleSearchIconClick}
                     inputValue={searchValue}
                     icon={!searching ? <SearchIcon /> : <Cross className="cross" />}
-                    handleIconClick={handleSearchIconClick}
                     customClassName={searching ? 'active' : ''}
                 />
 
                 <button
-                    className='burger-lines d-md-none position-absolute'
+                    className={`burger-lines d-md-none position-absolute${searching ? ' d-none' : ''}`}
                     onClick={handleHamburgerClick}
                 >
                     <input className='custom' type='checkbox' />

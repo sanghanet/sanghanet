@@ -56,6 +56,8 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+
+            @include maxQ(450px) { font-size: 1.3rem; }
         }
 
         .search-field {
@@ -72,7 +74,6 @@
             svg {
                 width: 34px;
                 height: 34px;
-                fill: #fff;
 
                 &.cross {
                     width: 20px;
@@ -83,33 +84,33 @@
 
         .burger-lines {
             @include buttonReset;
-            width: $navbar-width;
+            width: $header-height;
             height: $header-height;
             outline: none;
-            right: 0;
+            left: 0;
             z-index: 10;
             cursor: default;
 
             @include centerElement;
             flex-direction: column;
 
-            transition: background-color .5s,
-                        width .5s;
+            transition: background-color .3s,
+                        width .3s;
             .header-shim {
                 height: $header-height;
                 position: absolute;
                 @include maxQ(420px) {
                     width: 100vw;
-                    right: -100vw;
+                    left: -100vw;
                 }
                 @include minQ(768px) { display: none; }
                 width: 320px;
-                right: -320px;
+                left: -320px;
                 background-color: $sideBar-bg;
 
-                transition: right .5s;
+                transition: left .3s;
                 &.slideIn {
-                    right: 0;
+                    left: 0;
                 }
             }
             &:hover .hamburger-line { background-color: $white; }
@@ -122,7 +123,7 @@
 
                 transform-origin: center center;
                 transition: opacity 0.2s ease,
-                            transform 0.5s;
+                            transform 0.3s;
             }
             input {
                 display: block;
@@ -150,23 +151,23 @@
             @include minQ(768px) { display: none; }
             @include maxQ(420px) {
                 width: 100vw;
-                right: -100vw;
+                left: -100vw;
             }
             width: 320px;
             max-height: calc(100vh - 93px);
             overflow-y: scroll;
             background-color: transparent;
             top: $header-height;
-            right: -320px;
+            left: -320px;
 
-            transition: right .5s;
+            transition: left .3s;
 
             scrollbar-width: none;
             &::-webkit-scrollbar {
                 display: none;
             }
             &.slideIn {
-                right: 0;
+                left: 0;
             }
         }
     }
