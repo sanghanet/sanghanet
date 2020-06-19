@@ -20,42 +20,6 @@ class Navbar extends Component {
         showSubmenu: this.props.openSubmenu
     }
 
-    componentDidMount () {
-        const desktopMenu = document.getElementById('sidenav');
-        const hamburgerMenu = document.getElementsByClassName('slider')[0];
-
-        switch (window.location.pathname) {
-            case '/finances':
-                hamburgerMenu.scrollTop = 50;
-                desktopMenu.scrollTop = 150;
-                break;
-
-            case '/events':
-                hamburgerMenu.scrollTop = 130;
-                desktopMenu.scrollTop = 250;
-                break;
-
-            case '/questions':
-                hamburgerMenu.scrollTop = 210;
-                desktopMenu.scrollTop = 300;
-                break;
-
-            case '/queries':
-                hamburgerMenu.scrollTop = 500;
-                desktopMenu.scrollTop = 300;
-                break;
-
-            case '/superuser':
-                hamburgerMenu.scrollTop = 500;
-                desktopMenu.scrollTop = 300;
-                break;
-
-            default:
-                hamburgerMenu.scrollTop = 0;
-                break;
-        }
-    }
-
     handleSubmenu = (event) => {
         this.setState((prevState) => ({ showSubmenu: !prevState.showSubmenu }));
     }
