@@ -63,10 +63,9 @@
             clip-path: inset(0px 0px 0px calc(100% - 48px));
             transition: all .3s ease-out;
 
-            &:after { height: 0 }
+            &:not(.active)::after { height: 0 }
 
             &.active {
-                &:after { height: 1px; }
                 clip-path: inset(0 0 0 0);
             }
 
