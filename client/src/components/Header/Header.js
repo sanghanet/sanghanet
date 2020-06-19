@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -6,10 +6,15 @@ import './Header.scss';
 import Avatar from '../icons/avatar.jpg';
 // import SearchBar from '../Search/SearchBar';
 import Navbar from '../Navbar/Navbar';
+import SearchBar from '../Search/SearchBar';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
+import { ReactComponent as Cross } from '../icons/cross.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
 
 const Header = (props) => {
+    const [searchValue, setSearchValue] = useState('');
+    const [searching, setSearching] = useState(false);
+
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/personal') {
             props.history.push('/personal');
@@ -25,11 +30,17 @@ const Header = (props) => {
         headerShim.classList.toggle('slideIn');
     };
 
+    const handleSearchFieldUpdate = (event) => { setSearchValue(event); };
+
+    const handleSearchIconClick = () => {
+        setSearching(!searching);
+    };
+
     return (
         <Container fluid className='header d-flex p-0' as='header'>
             <Row className='d-flex'>
                 <Figure
-                    className='avatar-container d-none d-md-flex m-0'
+                    className={`avatar-container m-0 d-none ${!searching ? 'd-md-flex' : ''}`}
                     onClick={handleAvatarClick}
                 >
                     <Figure.Image
@@ -44,12 +55,15 @@ const Header = (props) => {
                         {sessionStorage.user}
                     </Figure.Caption>
                 </Figure>
-                {/* <SearchBar className='d-md-flex d-none'/> */}
-                <h1 className='page-name m-0'>{props.activePage}</h1>
+                <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
 
-                <Button className='search-icon' variant='outline-light'>
-                    <SearchIcon />
-                </Button>
+                <SearchBar
+                    handleInputChange={handleSearchFieldUpdate}
+                    inputValue={searchValue}
+                    icon={!searching ? <SearchIcon /> : <Cross className="cross" />}
+                    handleIconClick={handleSearchIconClick}
+                    customClassName={searching ? 'active' : ''}
+                />
 
                 <button
                     className='burger-lines d-md-none position-absolute'

@@ -58,25 +58,27 @@
             transform: translateX(-50%);
         }
 
-        .search-icon {
-            border: none;
-            margin-right: 10px;
-            padding: 15px 30px;
-            box-shadow: none;
+        .search-field {
+            position: absolute;
+            clip-path: inset(0px 0px 0px calc(100% - 48px));
+            transition: all .3s;
 
-            &:hover { background: none; }
-            &:focus:active { box-shadow: none !important; }
-            &:active { background: none !important; }
+            &:after { height: 0 }
 
-            @include maxQ(767px) {
-                position: absolute;
-                left: 0;
+            &.active {
+                &:after { height: 1px; }
+                clip-path: inset(0 0 0 0);
             }
 
             svg {
                 width: 34px;
                 height: 34px;
                 fill: #fff;
+
+                &.cross {
+                    width: 20px;
+                    height: 20px;
+                }
             }
         }
 

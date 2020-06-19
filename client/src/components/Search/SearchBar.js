@@ -18,7 +18,7 @@ class SearchBar extends Component {
 
     render () {
         return (
-            <div className="search-field">
+            <div className={`search-field ${this.props.customClassName}`}>
                 <input
                     type="text"
                     placeholder={this.props.placeholder}
@@ -43,7 +43,8 @@ SearchBar.propTypes = {
     handleIconClick: PropTypes.func,
     inputValue: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
-    icon: PropTypes.element
+    icon: PropTypes.element,
+    customClassName: PropTypes.string
 };
 
 export default SearchBar;

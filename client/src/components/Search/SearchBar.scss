@@ -20,7 +20,7 @@ $sideBarHover-iconColor: $white;
 }
 
 .search-field {
-    border-bottom: 1px solid $searchField-color;
+    position: relative;
     align-items: center;
     font-size: 12px;
     width: fit-content;
@@ -28,6 +28,15 @@ $sideBarHover-iconColor: $white;
     margin: auto;
     display: flex;
     justify-content: space-between;
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        height: 1px;
+        width: 100%;
+        background: $searchField-color;
+    }
 
     input {
         width: 100%;
