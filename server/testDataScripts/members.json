@@ -1,10 +1,4 @@
 [
-{"label":"Benjámin Józsa","email":"jozsa.benjamin93@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
-{"label":"Ildikó Rigó","email":"ildiko.rigo1@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
-{"label":"Dénes Dankó","email":"denes.danko.710@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
-{"label":"Miklós Balló","email":"miklos.ballo@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
-{"label":"Baby Yoda","email":"mindblowing.js@gmail.com","registered":false,"isSuperuser":true,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
-{"label":"Csaba Kiss","email":"kiss.csab73@gmail.com","registered":false,"isSuperuser":true,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
 {"label":"Nobie Schimann","email":"nschimann1@twitpic.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
 {"label":"Aldrich Hedingham","email":"ahedingham2@ucsd.edu","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
 {"label":"Larina Bonwell","email":"lbonwell3@ifeng.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
@@ -89,5 +83,11 @@
 {"label":"Zack Bloom","email":"zbloom2a@eventbrite.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
 {"label":"Elita Ridolfo","email":"eridolfo2b@cam.ac.uk","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
 {"label":"Miguel Kyrkeman","email":"mkyrkeman2c@nymag.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
-{"label":"Bob Swanton","email":"bswanton2d@about.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false}
+{"label":"Bob Swanton","email":"bswanton2d@about.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
+{"label":"Benjámin Józsa","email":"jozsa.benjamin93@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
+{"label":"Ildikó Rigó","email":"ildiko.rigo1@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
+{"label":"Dénes Dankó","email":"denes.danko.710@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
+{"label":"Miklós Balló","email":"miklos.ballo@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
+{"label":"Baby Yoda","email":"mindblowing.js@gmail.com","registered":false,"isSuperuser":true,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
+{"label":"Csaba Kiss","email":"kiss.csab73@gmail.com","registered":false,"isSuperuser":true,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false}
 ]
