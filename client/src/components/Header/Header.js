@@ -34,6 +34,7 @@ const Header = (props) => {
 
     const handleSearchIconClick = () => {
         setSearching(!searching);
+        if (!searching) setSearchValue('');
     };
 
     return (

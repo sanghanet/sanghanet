@@ -61,7 +61,7 @@
         .search-field {
             position: absolute;
             clip-path: inset(0px 0px 0px calc(100% - 48px));
-            transition: all .3s;
+            transition: all .3s ease-out;
 
             &:after { height: 0 }
 

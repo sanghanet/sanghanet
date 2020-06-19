@@ -38,12 +38,12 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-    handleSearch: PropTypes.func,
+    inputValue: PropTypes.string.isRequired,
     handleInputChange: PropTypes.func.isRequired,
     handleIconClick: PropTypes.func,
-    inputValue: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     icon: PropTypes.element,
+    iconAlignment: PropTypes.string,
     customClassName: PropTypes.string
 };
 
