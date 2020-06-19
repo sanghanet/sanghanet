@@ -53,6 +53,9 @@
             justify-content: flex-end;
             font-size: 30px;
             font-weight: 100;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .search-icon {
