@@ -9,7 +9,7 @@ import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
 import { ReactComponent as Cross } from '../icons/cross.svg';
-import { Container, Row, Figure, Button } from 'react-bootstrap';
+import { Container, Row, Figure } from 'react-bootstrap';
 
 const Header = (props) => {
     const [searchValue, setSearchValue] = useState('');

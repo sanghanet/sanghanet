@@ -20,6 +20,7 @@ class SearchBar extends Component {
         return (
             <div className={`search-field ${this.props.customClassName}`}>
                 <input
+                    id="search-input"
                     type="text"
                     placeholder={this.props.placeholder}
                     onChange={this.handleInputChange}
@@ -27,11 +28,13 @@ class SearchBar extends Component {
                     onBlur={this.onBlur}
                     value={this.props.inputValue}
                 />
-                <button
+                <label
+                    htmlFor="search-input"
+                    className={this.props.iconAlignment}
                     onClick={this.props.handleIconClick}
                 >
                     {this.props.icon}
-                </button>
+                </label>
             </div>
         );
     }

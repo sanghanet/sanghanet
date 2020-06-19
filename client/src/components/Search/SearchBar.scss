@@ -1,10 +1,6 @@
 @import '../../style/colors';
 @import '../../style/mixins';
 
-$searchField-color: $white;
-$sideBar-iconColor: $sideBar-iconColor;
-$sideBarHover-iconColor: $white;
-
 @mixin customFocus {
     &:focus {
         outline: 0 none;
@@ -35,7 +31,7 @@ $sideBarHover-iconColor: $white;
         bottom: 0;
         height: 1px;
         width: 100%;
-        background: $searchField-color;
+        background: $white;
     }
 
     input {
@@ -52,17 +48,19 @@ $sideBarHover-iconColor: $white;
             font-family: RobotoRegular;
         }
     }
-    button {
+    label {
         width: 48px;
         height: 48px;
-        fill: $sideBar-iconColor;
-        @include buttonReset;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
         svg {
             width: 20px;
+            fill: $sideBar-iconColor;
+            &:hover { fill: $white; }
         }
-        &:hover {
-            fill: $sideBarHover-iconColor;
-        }
-        @include customFocus;
+        //@include customFocus;
     }
 }
