@@ -101,8 +101,8 @@ Run `npm run buildfinance` in the root directory.
    Run [rebuildDB.sh](./server/testDataScripts/rebuildDB.sh) with a `local` or `atlas` parameter depending on which database you would like to reset. WARNING: using the `atlas` parameter will delete all reset that the deployed app is depending on.
 
    For those who like to copy and paste:
-   run `./server/testDataScripts/rebuildDB.sh local` in the root directory for a local reset
-   run `./server/testDataScripts/rebuildDB.sh atlas` in the root directory for an atlas reset - PROCEED WITH CAUTION
+   run `cd ./server/testDataScripts && ./rebuildDB.sh local` in the root directory for a local reset
+   run `cd ./server/testDataScripts && ./rebuildDB.sh atlas` in the root directory for an atlas reset - PROCEED WITH CAUTION
 
 # Note for Windows users
    with bash as their shell for npm scripts:
