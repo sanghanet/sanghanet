@@ -58,10 +58,11 @@ const wipeCollections = async () => {
         });
 };
 
-const createMember = (label, email) => {
+const createMember = (label, email, isSuperuser) => {
     return Member.create({
         label: label,
-        email: email
+        email: email,
+        isSuperuser: isSuperuser
     });
 };
 
@@ -69,7 +70,7 @@ const createMemberPromises = (memberArray) => {
     try {
         const promiseArray = [];
         memberArray.forEach(member => {
-            promiseArray.push(createMember(member.label, member.email));
+            promiseArray.push(createMember(member.label, member.email, member.isSuperuser));
         });
         return promiseArray;
     } catch (error) {
