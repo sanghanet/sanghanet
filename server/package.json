@@ -8,7 +8,7 @@
     "local": "NODE_ENV=local nodemon src/server.js",
     "atlas": "NODE_ENV=atlas nodemon src/server.js",
     "buildfinance": "NODE_ENV=atlas node ./testDataScripts/generateFinanceAccounts.js",
-    "resetlocaldb": "NODE_ENV=local node ./testDataScripts/dbReset"
+    "resetlocaldb": "NODE_ENV=local node ./testDataScripts/dbReset.js"
   },
   "author": "Danko Denes, Jozsa Benjamin, Ildiko Rigo, Miklos Ballo",
   "license": "ISC",

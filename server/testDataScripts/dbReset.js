@@ -11,38 +11,6 @@ const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 
 const memberList = JSON.parse(fs.readFileSync('./members.json'));
 
-// const rl = readline.createInterface({
-//     input: process.stdin,
-//     output: process.stdout
-// });
-
-// const confirm = () => {
-//     rl.question('Are you sure you would like to wipe the database and reset it? (y/n)', (ans) => {
-//         switch (ans) {
-//             case 'y':
-//             case 'Y':
-//                 rl.close();
-//                 return true;
-
-//             case 'n':
-//             case 'N':
-//                 rl.close();
-//                 return false;
-
-//             default:
-//                 log.error('Invalid answer');
-//                 confirm();
-//                 rl.close();
-//                 break;
-//         }
-//     });
-// };
-
-// rl.on('close', () => {
-//     console.log('\nStarting DB reset process...');
-//     process.exit(0);
-// });
-
 const wipeCollections = async () => {
     await Member.deleteMany({})
         .then(() => log.info('Members wiped successfully!'))
