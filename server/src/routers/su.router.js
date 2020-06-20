@@ -5,9 +5,10 @@ const log4js = require('log4js');
 const log = log4js.getLogger('routers/su.router.js');
 
 const superuserController = require('../controllers/superuser.controller');
+const acl = require('./acl');
 
 router.use((req, res, next) => {
-    if (req.isAuthenticated() && req.user.isSuperuser) { // session cookie has expired ??
+    if (req.isAuthenticated()) { // session cookie has expired ??
         log.info(`[${req.ip}] ${req.method} ${req.url}, ${req.user.email}, authenticated.`);
         next();
     } else {
@@ -16,9 +17,9 @@ router.use((req, res, next) => {
     }
 });
 
-router.post('/listmembers', superuserController.listMembers);
-router.delete('/deletemember', superuserController.deleteMember);
-router.post('/addmember', superuserController.addMember);
-router.put('/updatemember', superuserController.updateMemberRole);
+router.post('/listmembers', acl.superuser, superuserController.listMembers);
+router.delete('/deletemember', acl.superuser, superuserController.deleteMember);
+router.post('/addmember', acl.superuser, superuserController.addMember);
+router.put('/updatemember', acl.superuser, superuserController.updateMemberRole);
 
 module.exports = router;
