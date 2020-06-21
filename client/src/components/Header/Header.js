@@ -58,17 +58,17 @@ const Header = (props) => {
                 <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
 
                 <SearchBar
+                    controlId='headerSearchBar'
                     className={searching ? 'active' : ''}
                     handleInputChange={handleSearchInputChange}
                     inputValue={searchBarValue}
-                    onBlur={handleSearchBarIconClick}
                     handleIconClick={handleSearchBarIconClick}
                     icon={searching ? <CrossIcon className='cross' /> : <SearchIcon />}
                 />
 
                 <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>
                 <button
-                    className='burger-lines d-md-none position-absolute'
+                    className={`burger-lines d-md-none position-absolute${searching ? ' d-none' : ''}`}
                     onClick={ handleHamburgerClick }
                 >
                     <Hamburger className={isHamburgerOpen ? 'icons hambi hide-hambi' : 'icons hambi'} />

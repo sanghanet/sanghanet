@@ -67,12 +67,32 @@
                 .search-field::after { width: 0; }
             }
 
-            .search-field::after {
-                transition: width .2s;
-                right: 0;
+            .search-field {
+                height: 50px;
+
+                &:after {
+                    transition: width .2s;
+                    right: 0;
+                }
             }
 
             svg.cross { width: 20px; }
+
+            @include maxQ(767px) {
+                &:not(.active) { clip-path: inset(0px calc(100% - 45px) 0px 0px); }
+
+                .search-field {
+                    &:after { left: 0; }
+
+                    input { padding-left: 50px; }
+
+                    label {
+                        position: absolute;
+
+                        svg { fill: $white; }
+                    }
+                }
+            }
         }
 
         .header-shim {

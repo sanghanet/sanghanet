@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Form from 'react-bootstrap/Form';
 import './SearchBar.scss';
 
 class SearchBar extends Component {
@@ -17,25 +18,24 @@ class SearchBar extends Component {
     render () {
         return (
             <div className={`search-bar ${this.props.className}`}>
-                <div className="search-field">
-                    <input
-                        id='searchInput'
+                <Form.Group controlId={this.props.controlId} className={'search-field'}>
+                    <Form.Control
                         type="text"
                         placeholder={this.props.placeholder}
                         onChange={this.handleInputChange}
-                        onBlur={this.props.onBlur}
                         value={this.props.inputValue}
                     />
-                    <label htmlFor='searchInput' onMouseUp={this.props.handleIconClick} >
+                    <Form.Label onClick={this.props.handleIconClick} >
                         {this.props.icon}
-                    </label>
-                </div>
+                    </Form.Label>
+                </Form.Group>
             </div>
         );
     }
 }
 
 SearchBar.propTypes = {
+    controlId: PropTypes.string.isRequired,
     handleInputChange: PropTypes.func.isRequired,
     inputValue: PropTypes.string.isRequired,
     onBlur: PropTypes.func,

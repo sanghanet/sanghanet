@@ -38,6 +38,7 @@ const FilterAccordion = (props) => {
                         <Form className="filter-box">
                             <Form.Group className="search-filter">
                                 <SearchBar
+                                    controlId='accordionTextFilter'
                                     handleInputChange={handleEmailFilterChange}
                                     handleIconClick={handleSearchIconClick}
                                     inputValue={props.textFilterValue}
