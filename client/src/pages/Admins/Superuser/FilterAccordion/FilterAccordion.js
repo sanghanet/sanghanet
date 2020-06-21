@@ -36,7 +36,7 @@ const FilterAccordion = (props) => {
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
                         <Form className="filter-box">
-                            <Form.Group className="search-bar">
+                            <Form.Group className="search-filter">
                                 <SearchBar
                                     handleInputChange={handleEmailFilterChange}
                                     handleIconClick={handleSearchIconClick}

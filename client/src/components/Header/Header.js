@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -6,14 +6,18 @@ import './Header.scss';
 import Avatar from '../icons/avatar.jpg';
 // import SearchBar from '../Search/SearchBar';
 import Navbar from '../Navbar/Navbar';
+import SearchBar from '../Search/SearchBar';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
+import { ReactComponent as CrossIcon } from '../icons/cross.svg';
 import { ReactComponent as Hamburger } from '../icons/bars-solid.svg';
 import { ReactComponent as HamburgerClose } from '../icons/times-solid.svg';
-import { Container, Row, Figure, Button } from 'react-bootstrap';
+import { Container, Row, Figure } from 'react-bootstrap';
 import { HamburgerContext } from '../contexts/Hamburger/HamburgerContext';
 
 const Header = (props) => {
     const { isHamburgerOpen, toggleHamburger } = useContext(HamburgerContext);
+    const [searchBarValue, setSearchBarValue] = useState('');
+    const [searching, setSearching] = useState(false);
 
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/personal') {
@@ -26,11 +30,17 @@ const Header = (props) => {
         toggleHamburger();
     };
 
+    const handleSearchInputChange = (targetValue) => setSearchBarValue(targetValue);
+    const handleSearchBarIconClick = () => {
+        setSearching((prevState) => !prevState);
+        setSearchBarValue('');
+    };
+
     return (
         <Container fluid className='header d-flex p-0' as='header'>
             <Row className='d-flex'>
                 <Figure
-                    className='avatar-container d-none d-md-flex m-0'
+                    className={`avatar-container d-none ${searching ? '' : 'd-md-flex'} m-0`}
                     onClick={handleAvatarClick}
                 >
                     <Figure.Image
@@ -41,16 +51,20 @@ const Header = (props) => {
                         height={70}
                         className="d-none d-sm-flex"
                     />
-                    <Figure.Caption className='avatar-name d-none d-sm-flex' as='h2'>
+                    <Figure.Caption className={`avatar-name d-none ${searching ? '' : 'd-sm-flex'}`} as='h2'>
                         {sessionStorage.user}
                     </Figure.Caption>
                 </Figure>
-                {/* <SearchBar className='d-md-flex d-none'/> */}
-                <h1 className='page-name m-0'>{props.activePage}</h1>
+                <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
 
-                <Button className='search-icon' variant='outline-light'>
-                    <SearchIcon />
-                </Button>
+                <SearchBar
+                    className={searching ? 'active' : ''}
+                    handleInputChange={handleSearchInputChange}
+                    inputValue={searchBarValue}
+                    onBlur={handleSearchBarIconClick}
+                    handleIconClick={handleSearchBarIconClick}
+                    icon={searching ? <CrossIcon className='cross' /> : <SearchIcon />}
+                />
 
                 <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>
                 <button

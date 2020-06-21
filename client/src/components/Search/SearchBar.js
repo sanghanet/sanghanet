@@ -12,38 +12,37 @@ class SearchBar extends Component {
         };
     }
 
-    handleInputChange = (e) => {
-        this.props.handleInputChange(e.target.value);
-    }
+    handleInputChange = (e) => { this.props.handleInputChange(e.target.value); }
 
     render () {
         return (
-            <div className="search-field">
-                <input
-                    type="text"
-                    placeholder={this.props.placeholder}
-                    onChange={this.handleInputChange}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    value={this.props.inputValue}
-                />
-                <button
-                    onClick={this.props.handleIconClick}
-                >
-                    {this.props.icon}
-                </button>
+            <div className={`search-bar ${this.props.className}`}>
+                <div className="search-field">
+                    <input
+                        id='searchInput'
+                        type="text"
+                        placeholder={this.props.placeholder}
+                        onChange={this.handleInputChange}
+                        onBlur={this.props.onBlur}
+                        value={this.props.inputValue}
+                    />
+                    <label htmlFor='searchInput' onMouseUp={this.props.handleIconClick} >
+                        {this.props.icon}
+                    </label>
+                </div>
             </div>
         );
     }
 }
 
 SearchBar.propTypes = {
-    handleSearch: PropTypes.func,
     handleInputChange: PropTypes.func.isRequired,
-    handleIconClick: PropTypes.func,
     inputValue: PropTypes.string.isRequired,
+    onBlur: PropTypes.func,
     placeholder: PropTypes.string,
-    icon: PropTypes.element
+    icon: PropTypes.element,
+    handleIconClick: PropTypes.func,
+    className: PropTypes.string
 };
 
 export default SearchBar;
