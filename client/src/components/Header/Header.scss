@@ -59,7 +59,7 @@
         }
 
         .search-bar {
-            transition: all .2s;
+            transition: all .3s;
             clip-path: inset(0px 0px 0px 0px);
 
             &:not(.active) {
@@ -71,7 +71,7 @@
                 height: 50px;
 
                 &:after {
-                    transition: width .2s;
+                    transition: width .3s;
                     right: 0;
                 }
             }
@@ -83,23 +83,13 @@
 
                 .search-field {
                     &:after { left: 0; }
-
                     input { padding-left: 50px; }
 
                     label {
                         position: absolute;
-
                         svg { fill: $white; }
                     }
                 }
-            }
-
-            &.active {
-                right: 0;
-                transform: translateX(-50%);
-
-                @include minQ (1200px) { width: 75%; }
-                @include minQ (1500px) { width: 50%; }
             }
         }
 
