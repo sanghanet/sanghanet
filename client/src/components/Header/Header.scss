@@ -93,6 +93,14 @@
                     }
                 }
             }
+
+            &.active {
+                right: 0;
+                transform: translateX(-50%);
+
+                @include minQ (1200px) { width: 75%; }
+                @include minQ (1500px) { width: 50%; }
+            }
         }
 
         .header-shim {
