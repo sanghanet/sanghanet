@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import './Header.scss';
 import Avatar from '../icons/avatar.jpg';
-// import SearchBar from '../Search/SearchBar';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
@@ -13,11 +12,23 @@ import { ReactComponent as Hamburger } from '../icons/bars-solid.svg';
 import { ReactComponent as HamburgerClose } from '../icons/times-solid.svg';
 import { Container, Row, Figure } from 'react-bootstrap';
 import { HamburgerContext } from '../contexts/Hamburger/HamburgerContext';
+import Client from '../../components/Client';
 
 const Header = (props) => {
     const { isHamburgerOpen, toggleHamburger } = useContext(HamburgerContext);
     const [searchBarValue, setSearchBarValue] = useState('');
+    const [nameOfUsers, setNameOfUsers] = useState([]);
     const [searching, setSearching] = useState(false);
+
+    useEffect(() => {
+        Client.fetch('/user/getnameofusers')
+            .then((data) => {
+                setNameOfUsers(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/personal') {
@@ -34,6 +45,18 @@ const Header = (props) => {
     const handleSearchBarIconClick = () => {
         setSearching((prevState) => !prevState);
         setSearchBarValue('');
+    };
+
+    const getSearchResults = () => {
+        if (searchBarValue.length < 3) return null;
+        const searchResults = nameOfUsers.filter((user) => {
+            const userName = `${user.firstName} ${user.lastName}`;
+            return (
+                userName.toLowerCase().includes(searchBarValue.toLowerCase()) ||
+                user.spiritualName.toLowerCase().includes(searchBarValue.toLowerCase())
+            );
+        });
+        return searchResults;
     };
 
     return (
@@ -64,6 +87,7 @@ const Header = (props) => {
                     inputValue={searchBarValue}
                     handleIconClick={handleSearchBarIconClick}
                     icon={searching ? <CrossIcon className='cross' /> : <SearchIcon />}
+                    searchResults={searching ? getSearchResults() : null}
                 />
 
                 <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>

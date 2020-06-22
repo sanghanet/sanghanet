@@ -20,6 +20,7 @@ router.post('/login', userController.login);
 router.post('/registration', userController.registration);
 router.get('/logout', userController.logout);
 router.get('/personal', userController.personal);
+router.get('/getnameofusers', userController.getNameOfUsers);
 router.put('/saveitem', userController.updateItemAndVisibility);
 router.put('/savevisibility', userController.updateItemAndVisibility);
 router.post('/uploadprofileimg', userController.uploadProfileImg);

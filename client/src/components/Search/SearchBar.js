@@ -5,30 +5,43 @@ import Form from 'react-bootstrap/Form';
 import './SearchBar.scss';
 
 class SearchBar extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            inputValue: '',
-            dataList: null
-        };
-    }
-
     handleInputChange = (e) => { this.props.handleInputChange(e.target.value); }
 
-    render () {
+    renderSearchResults = (results) => {
         return (
-            <div className={`search-bar ${this.props.className}`}>
-                <Form.Group controlId={this.props.controlId} className={'search-field'}>
+            <div className="searchResults">
+                <ul>
+                    {(results.length) ? (
+                        results.map((user, key) => {
+                            return (
+                                <li key={key} >
+                                    {user.spiritualName === 'None' ? `${user.firstName} ${user.lastName}` : user.spiritualName}
+                                </li>
+                            );
+                        })
+                    ) : (<li>User not found</li>)}
+                </ul>
+            </div>
+        );
+    }
+
+    render () {
+        const { className, controlId, placeholder, inputValue, handleIconClick, icon, searchResults } = this.props;
+
+        return (
+            <div className={`search-bar ${className}`}>
+                <Form.Group controlId={controlId} className={'search-field'}>
                     <Form.Control
                         type="text"
-                        placeholder={this.props.placeholder}
+                        placeholder={placeholder}
                         onChange={this.handleInputChange}
-                        value={this.props.inputValue}
+                        value={inputValue}
                     />
-                    <Form.Label onClick={this.props.handleIconClick} >
-                        {this.props.icon}
+                    <Form.Label onClick={handleIconClick} >
+                        {icon}
                     </Form.Label>
                 </Form.Group>
+                {searchResults && this.renderSearchResults(searchResults)}
             </div>
         );
     }
@@ -42,6 +55,7 @@ SearchBar.propTypes = {
     placeholder: PropTypes.string,
     icon: PropTypes.element,
     handleIconClick: PropTypes.func,
+    searchResults: PropTypes.array,
     className: PropTypes.string
 };
 

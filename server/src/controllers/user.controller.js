@@ -105,9 +105,12 @@ module.exports.logout = (req, res) => {
     res.status(200).send('OK');
 };
 
-module.exports.listUsers = async (req, res, next) => {
+module.exports.getNameOfUsers = async (req, res, next) => {
     try {
-        const users = await Member.find({}, 'email isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin firstName lastName');
+        const users = await RegisteredUser.find(
+            { email: { $not: new RegExp(req.user.email) } },
+            'firstName lastName spiritualName'
+        );
         res.json(users);
     } catch (err) {
         next(err);
