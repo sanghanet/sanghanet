@@ -64,8 +64,12 @@
             clip-path: inset(0px 0px 0px 0px);
 
             &:not(.active) {
+                transition: all 0s;
                 clip-path: inset(0px 0px 0px calc(100% - 45px));
-                .search-field::after { width: 0; }
+                .search-field::after {
+                    transition: width 0s;
+                    width: 0;
+                }
             }
 
             .search-field {

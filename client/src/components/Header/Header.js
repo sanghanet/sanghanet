@@ -85,6 +85,7 @@ const Header = (props) => {
                     className={searching ? 'active' : ''}
                     handleInputChange={handleSearchInputChange}
                     inputValue={searchBarValue}
+                    onBlur={handleSearchBarIconClick}
                     handleIconClick={handleSearchBarIconClick}
                     icon={searching ? <CrossIcon className='cross' /> : <SearchIcon />}
                     searchResults={searching ? getSearchResults() : null}

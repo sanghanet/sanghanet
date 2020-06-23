@@ -26,7 +26,16 @@ class SearchBar extends Component {
     }
 
     render () {
-        const { className, controlId, placeholder, inputValue, handleIconClick, icon, searchResults } = this.props;
+        const {
+            className,
+            controlId,
+            placeholder,
+            inputValue,
+            handleIconClick,
+            icon,
+            searchResults,
+            onBlur
+        } = this.props;
 
         return (
             <div className={`search-bar ${className}`}>
@@ -35,6 +44,7 @@ class SearchBar extends Component {
                         type="text"
                         placeholder={placeholder}
                         onChange={this.handleInputChange}
+                        onBlur={onBlur}
                         value={inputValue}
                     />
                     <Form.Label onClick={handleIconClick} >
