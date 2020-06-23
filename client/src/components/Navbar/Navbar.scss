@@ -66,6 +66,7 @@
                         height: 30px;
                     }
                     .title {
+                        @include noselect;
                         padding: 0 5px;
                         color: $sideBar-iconColor;
                         font-size: 12px;
