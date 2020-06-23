@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -18,17 +18,8 @@ const Header = (props) => {
     const { isHamburgerOpen, toggleHamburger } = useContext(HamburgerContext);
     const [searchBarValue, setSearchBarValue] = useState('');
     const [nameOfUsers, setNameOfUsers] = useState([]);
+    const [searchResults, setSearchResults] = useState(null);
     const [searching, setSearching] = useState(false);
-
-    useEffect(() => {
-        Client.fetch('/user/getnameofusers')
-            .then((data) => {
-                setNameOfUsers(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
 
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/personal') {
@@ -41,13 +32,7 @@ const Header = (props) => {
         toggleHamburger();
     };
 
-    const handleSearchInputChange = (targetValue) => setSearchBarValue(targetValue);
-    const handleSearchBarIconClick = () => {
-        setSearching((prevState) => !prevState);
-        setSearchBarValue('');
-    };
-
-    const getSearchResults = () => {
+    const getSearchResults = useCallback(() => {
         if (searchBarValue.length < 3) return null;
         const searchResults = nameOfUsers.filter((user) => {
             const userName = `${user.firstName} ${user.lastName}`;
@@ -57,6 +42,28 @@ const Header = (props) => {
             );
         });
         return searchResults;
+    }, [searchBarValue, nameOfUsers]);
+
+    useEffect(() => {
+        setSearchResults(searchBarValue.length < 3 ? null : getSearchResults());
+    }, [searchBarValue, getSearchResults]);
+
+    // componentDidMount
+    useEffect(() => {
+        Client.fetch('/user/getnameofusers')
+            .then((data) => {
+                setNameOfUsers(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+    const handleSearchInputChange = (targetValue) => setSearchBarValue(targetValue);
+
+    const handleSearchBarIconClick = () => {
+        setSearching((prevState) => !prevState);
+        setSearchBarValue('');
     };
 
     return (
@@ -85,10 +92,8 @@ const Header = (props) => {
                     className={searching ? 'active' : ''}
                     handleInputChange={handleSearchInputChange}
                     inputValue={searchBarValue}
-                    onBlur={handleSearchBarIconClick}
                     handleIconClick={handleSearchBarIconClick}
                     icon={searching ? <CrossIcon className='cross' /> : <SearchIcon />}
-                    searchResults={searching ? getSearchResults() : null}
                 />
 
                 <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>
@@ -103,6 +108,21 @@ const Header = (props) => {
                     <Navbar navStyle="hamburger" openSubmenu={window.location.href.includes('admin')} />
                 </div>
             </Row>
+            {searchResults && (
+                <Row className='d-flex'>
+                    <ul>
+                        {(searchResults.length) ? (
+                            searchResults.map((user, key) => {
+                                return (
+                                    <li key={key} >
+                                        {user.spiritualName === 'None' ? `${user.firstName} ${user.lastName}` : user.spiritualName}
+                                    </li>
+                                );
+                            })
+                        ) : (<li>User not found</li>)}
+                    </ul>
+                </Row>
+            )}
         </Container>
     );
 };

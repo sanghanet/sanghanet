@@ -7,24 +7,6 @@ import './SearchBar.scss';
 class SearchBar extends Component {
     handleInputChange = (e) => { this.props.handleInputChange(e.target.value); }
 
-    renderSearchResults = (results) => {
-        return (
-            <div className="searchResults">
-                <ul>
-                    {(results.length) ? (
-                        results.map((user, key) => {
-                            return (
-                                <li key={key} >
-                                    {user.spiritualName === 'None' ? `${user.firstName} ${user.lastName}` : user.spiritualName}
-                                </li>
-                            );
-                        })
-                    ) : (<li>User not found</li>)}
-                </ul>
-            </div>
-        );
-    }
-
     render () {
         const {
             className,
@@ -33,7 +15,6 @@ class SearchBar extends Component {
             inputValue,
             handleIconClick,
             icon,
-            searchResults,
             onBlur
         } = this.props;
 
@@ -51,7 +32,6 @@ class SearchBar extends Component {
                         {icon}
                     </Form.Label>
                 </Form.Group>
-                {searchResults && this.renderSearchResults(searchResults)}
             </div>
         );
     }
@@ -65,7 +45,6 @@ SearchBar.propTypes = {
     placeholder: PropTypes.string,
     icon: PropTypes.element,
     handleIconClick: PropTypes.func,
-    searchResults: PropTypes.array,
     className: PropTypes.string
 };
 
