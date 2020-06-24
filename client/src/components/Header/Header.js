@@ -109,17 +109,30 @@ const Header = (props) => {
                 </div>
             </Row>
             {searchResults && (
-                <Row className='d-flex'>
+                <Row className='d-flex search-results'>
                     <ul>
                         {(searchResults.length) ? (
                             searchResults.map((user, key) => {
                                 return (
                                     <li key={key} >
-                                        {user.spiritualName === 'None' ? `${user.firstName} ${user.lastName}` : user.spiritualName}
+                                        {user.spiritualName === 'None' ? (
+                                            <div>
+                                                <p>{user.firstName} {user.lastName}</p>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <p>{user.spiritualName}</p>
+                                                <p>{user.firstName} {user.lastName}</p>
+                                            </div>
+                                        )}
                                     </li>
                                 );
                             })
-                        ) : (<li>User not found</li>)}
+                        ) : (
+                            <li className="not-found">
+                                <div>&quot;{searchBarValue}&quot; not found</div>
+                            </li>
+                        )}
                     </ul>
                 </Row>
             )}
