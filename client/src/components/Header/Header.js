@@ -44,6 +44,8 @@ const Header = (props) => {
         return searchResults;
     }, [searchBarValue, nameOfUsers]);
 
+    /*  Setting the state in 'handleSearchInputChange' is asynchronous
+        and this is how we listen to its completion */
     useEffect(() => {
         setSearchResults(searchBarValue.length < 3 ? null : getSearchResults());
     }, [searchBarValue, getSearchResults]);
@@ -112,23 +114,33 @@ const Header = (props) => {
                 <Row className='d-flex search-results'>
                     <ul>
                         {(searchResults.length) ? (
-                            searchResults.map((user, key) => {
-                                return (
-                                    <li key={key} >
-                                        {user.spiritualName === 'None' ? (
-                                            <div>
-                                                <p>{user.firstName} {user.lastName}</p>
-                                            </div>
-                                        ) : (
-                                            <div>
-                                                <p>{user.spiritualName}</p>
-                                                <p>{user.firstName} {user.lastName}</p>
-                                            </div>
-                                        )}
+                            <React.Fragment>
+                                {/* Render only the first three results */}
+                                {searchResults.slice(0, 3).map((user, key) => {
+                                    return (
+                                        <li key={key} >
+                                            {user.spiritualName === 'None' ? (
+                                                <div>
+                                                    <p>{user.firstName} {user.lastName}</p>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <p>{user.spiritualName}</p>
+                                                    <p>{user.firstName} {user.lastName}</p>
+                                                </div>
+                                            )}
+                                        </li>
+                                    );
+                                })}
+                                {/* Render the number of additional results if there are more than 3 */}
+                                {searchResults.length > 3 && (
+                                    <li key="4">
+                                        <div>{searchResults.length - 3} more results...</div>
                                     </li>
-                                );
-                            })
+                                )}
+                            </React.Fragment>
                         ) : (
+                            /* Render a message when no result was found */
                             <li className="not-found">
                                 <div>&quot;{searchBarValue}&quot; not found</div>
                             </li>
