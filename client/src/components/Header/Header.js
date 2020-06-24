@@ -6,11 +6,16 @@ import './Header.scss';
 import Avatar from '../icons/avatar.jpg';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
+
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
 import { ReactComponent as CrossIcon } from '../icons/cross.svg';
 import { ReactComponent as Hamburger } from '../icons/bars-solid.svg';
 import { ReactComponent as HamburgerClose } from '../icons/times-solid.svg';
-import { Container, Row, Figure } from 'react-bootstrap';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Figure from 'react-bootstrap/Figure';
+
 import { HamburgerContext } from '../contexts/Hamburger/HamburgerContext';
 import Client from '../../components/Client';
 
