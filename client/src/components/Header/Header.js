@@ -7,8 +7,7 @@ import Avatar from '../icons/avatar.jpg';
 // import SearchBar from '../Search/SearchBar';
 import Navbar from '../Navbar/Navbar';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
-import { ReactComponent as Hamburger } from '../icons/bars-solid.svg';
-import { ReactComponent as HamburgerClose } from '../icons/times-solid.svg';
+import { ReactComponent as HamburgerIcon } from '../icons/hamburger-icon.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
 import { HamburgerContext } from '../contexts/Hamburger/HamburgerContext';
 
@@ -57,8 +56,7 @@ const Header = (props) => {
                     className='burger-lines d-md-none position-absolute'
                     onClick={ handleHamburgerClick }
                 >
-                    <Hamburger className={isHamburgerOpen ? 'icons hambi hide-hambi' : 'icons hambi'} />
-                    <HamburgerClose className={isHamburgerOpen ? 'icons x show-x' : 'icons x'} />
+                    <HamburgerIcon className={`hamburger-icon${isHamburgerOpen ? ' open' : ''}`} />
                 </button>
                 <div className={isHamburgerOpen ? 'slider position-absolute slideIn' : 'slider position-absolute'}>
                     <Navbar navStyle="hamburger" openSubmenu={window.location.href.includes('admin')} />

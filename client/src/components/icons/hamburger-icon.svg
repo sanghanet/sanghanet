@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.2 18.8">
+  <defs>
+    <style>
+      .line {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 1px;
+      }
+    </style>
+  </defs>
+  <g id="bottom">
+    <line class="line" x1="30.2" y1="17.8" x2="1" y2="17.8"/>
+  </g>
+  <g id="middle">
+    <line class="line" x1="30.2" y1="9.4" x2="1" y2="9.4"/>
+  </g>
+  <g id="top">
+    <line class="line" x1="30.2" y1="1" x2="1" y2="1"/>
+  </g>
+</svg>
