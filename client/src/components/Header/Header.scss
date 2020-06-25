@@ -108,24 +108,22 @@
             cursor: default;
 
             @include centerElement;
-            .icons {
+
+            .hamburger-icon {
                 width: 36px;
                 height: 36px;
-                fill: lightgray;
-                position: absolute;
-            }
-            .hambi {
-                opacity: 1;
-                transition: opacity 0.5s;
-                &.hide-hambi {
-                    opacity: 0;
-                }
-            }
-            .x {
-                opacity: 0;
-                transition: opacity 0.5s;
-                &.show-x {
-                    opacity: 1;
+                cursor: pointer;
+
+                g { transition: all .5s; }
+
+                &.open {
+                    #top { transform: rotate(45deg) translate(2px, -3px); }
+                    #middle {
+                        transform: translateX(30px);
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+                    #bottom { transform: rotate(-45deg) translate(-13px, -1px); }
                 }
             }
         }
