@@ -2,6 +2,7 @@ import React from 'react';
 import Client from '../../../../components/Client';
 import './UserSelector.scss';
 import SuggestionList from '../SuggestionList/SuggestionList';
+import PropTypes from 'prop-types';
 
 class UserSelector extends React.Component {
     constructor (props) {
@@ -9,7 +10,6 @@ class UserSelector extends React.Component {
         this.state = {
             rawUserData: null,
             suggestions: null,
-            activeSuggestion: 0,
             filteredSuggestions: [],
             showSuggestions: false,
             userInput: ''
@@ -25,7 +25,6 @@ class UserSelector extends React.Component {
         });
 
         this.setState({
-            activeSuggestion: 0,
             filteredSuggestions,
             showSuggestions: true,
             userInput: e.currentTarget.value
@@ -34,11 +33,24 @@ class UserSelector extends React.Component {
 
     onClick = (e) => {
         this.setState({
-            activeSuggestion: 0,
             filteredSuggestions: [],
             showSuggestions: false,
             userInput: e.currentTarget.innerText
         });
+    }
+
+    onSubmit = () => {
+        const selectedUserName = document.getElementById('selectedUser').value;
+        const selectedUserObject = this.state.rawUserData.find((item) => {
+            return item.userName === selectedUserName;
+        });
+        const selectedEmail = selectedUserObject.email;
+        this.setState({
+            filteredSuggestions: [],
+            showSuggestions: false,
+            userInput: ''
+        });
+        this.props.handleSubmit(selectedEmail);
     }
 
     componentDidMount () {
@@ -55,16 +67,14 @@ class UserSelector extends React.Component {
             rawUserData: result,
             suggestions: nameList
         });
-        console.log(result);
     }
 
     render () {
         const {
             onChange,
             onClick,
-            onKeyDown,
+            onSubmit,
             state: {
-                activeSuggestion,
                 filteredSuggestions,
                 showSuggestions,
                 userInput
@@ -75,10 +85,14 @@ class UserSelector extends React.Component {
             <div className="selector">
                 <input id="selectedUser" onChange = {onChange} value={userInput} ></input>
                 {showSuggestions && userInput ? <SuggestionList names={filteredSuggestions} handleOnClick = {onClick}></SuggestionList> : null}
-                <button>This is not doing anything yet</button>
+                <button onClick = {onSubmit}>Select</button>
             </div>
         );
     }
 }
+
+UserSelector.propTypes = {
+    handleSubmit: PropTypes.func.isRequired
+};
 
 export default UserSelector;
