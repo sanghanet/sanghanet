@@ -73,8 +73,8 @@ class UserSelector extends React.Component {
 
         return (
             <div className="selector">
-                <input id="selectedUser" onChange = {onChange} ></input>
-                {showSuggestions && userInput ? <SuggestionList names={filteredSuggestions}></SuggestionList> : null}
+                <input id="selectedUser" onChange = {onChange} value={userInput} ></input>
+                {showSuggestions && userInput ? <SuggestionList names={filteredSuggestions} handleOnClick = {onClick}></SuggestionList> : null}
                 <button>This is not doing anything yet</button>
             </div>
         );
