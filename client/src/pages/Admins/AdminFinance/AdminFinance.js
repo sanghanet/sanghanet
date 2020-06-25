@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../../../components/Header/Header';
 import Navbar from '../../../components/Navbar/Navbar';
 import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
-import UserSelector from './UserSelector';
+import UserSelector from './UserSelector/UserSelector';
 
 const AdminFinance = (props) => {
     return (
