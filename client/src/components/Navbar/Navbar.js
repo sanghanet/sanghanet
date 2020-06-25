@@ -1,4 +1,4 @@
-import React, { Component, Context } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
@@ -28,8 +28,21 @@ class Navbar extends Component {
         this.setState((prevState) => ({ showSubmenu: !prevState.showSubmenu }));
     }
 
+    handleLink = (event) => {
+        const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser } = this.context;
+        const page = event.target.href.split('/').pop();
+        switch (page) {
+            case 'finance': !isFinanceAdmin && event.preventDefault(); break;
+            case 'event': !isEventAdmin && event.preventDefault(); break;
+            case 'yoga': !isYogaAdmin && event.preventDefault(); break;
+            case 'superuser': !isSuperuser && event.preventDefault(); break;
+            default:
+        }
+    }
+
     render () {
         const { navStyle } = this.props;
+        const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser } = this.context;
         const classList = this.state.showSubmenu ? 'wrapper show-submenu' : 'wrapper';
         return (
             <div id={navStyle}>
@@ -96,22 +109,30 @@ class Navbar extends Component {
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/finance" className="sub-title">Finance Admin</NavLink>
+                                <NavLink exact to="/admin/finance"
+                                    className={`sub-title${isFinanceAdmin ? '' : ' disabled'}`}
+                                    onClick={this.handleLink}>Finance Admin</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/event" className="sub-title">Event Admin</NavLink>
+                                <NavLink exact to="/admin/event"
+                                    className={`sub-title${isEventAdmin ? '' : ' disabled'}`}
+                                    onClick={this.handleLink}>Event Admin</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/yoga" className="sub-title">Yoga Admin</NavLink>
+                                <NavLink exact to="/admin/yoga"
+                                    className={`sub-title${isYogaAdmin ? '' : ' disabled'}`}
+                                    onClick={this.handleLink}>Yoga Admin</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/superuser" className="sub-title">Superuser</NavLink>
+                                <NavLink exact to="/admin/superuser"
+                                    className={`sub-title${isSuperuser ? '' : ' disabled'}`}
+                                    onClick={this.handleLink}>Superuser</NavLink>
                             </div>
                         </li>
                     </ul>

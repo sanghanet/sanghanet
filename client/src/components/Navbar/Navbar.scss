@@ -96,6 +96,16 @@
                             font-size: 13px;
                         }
                     }
+                    .sub-title.disabled {
+                        background-color: $sideBar-bg;
+                        color: grey;
+                        &:hover {
+                            text-decoration: none;
+                            color: grey;
+                            font-size: 12px;
+                            cursor: default;
+                        }
+                    }
                 }
             }
             #logout-li {
@@ -191,6 +201,16 @@
                 padding-left: 108px;
                 &:hover {
                     text-decoration: none;
+                }
+            }
+            .sub-title.disabled {
+                background-color: $sideBar-bg;
+                color: grey;
+                &:hover {
+                    text-decoration: none;
+                    color: grey;
+                    font-size: 12px;
+                    cursor: default;
                 }
             }
             @include hoveredAdminElement;

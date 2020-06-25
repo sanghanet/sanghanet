@@ -1,4 +1,4 @@
-import React, { useContext }from 'react';
+import React from 'react';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -50,8 +50,6 @@ class Personal extends React.Component {
     componentDidMount () {
         Client.fetch('/user/personal')
             .then((data) => {
-                console.dir(data);
-
                 this.setState({
                     firstName: data[0].firstName,
                     lastName: data[0].lastName,
