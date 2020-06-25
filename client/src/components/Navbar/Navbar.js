@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Context } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
@@ -14,8 +14,11 @@ import { ReactComponent as EventIcon } from '../icons/event.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 import { ReactComponent as BackIcon } from '../icons/arrow-left.svg';
 import { ReactComponent as ForwardIcon } from '../icons/arrow-right.svg';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
 class Navbar extends Component {
+    static contextType = UIcontext;
+
     state = {
         showSubmenu: this.props.openSubmenu
     }

@@ -129,7 +129,11 @@ module.exports.personal = async (req, res, next) => {
             address addressVisible\
             emName emMobile emEmail emContactVisible'
         );
-        res.json(registeredUser);
+        const access = await Member.find(
+            { email: req.user.email },
+            'isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin'
+        );
+        res.json([registeredUser[0], access[0]]);
     } catch (err) {
         next(err);
     }

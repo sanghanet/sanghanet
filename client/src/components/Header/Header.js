@@ -9,10 +9,10 @@ import Navbar from '../Navbar/Navbar';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
 import { ReactComponent as HamburgerIcon } from '../icons/hamburger-icon.svg';
 import { Container, Row, Figure, Button } from 'react-bootstrap';
-import { HamburgerContext } from '../contexts/Hamburger/HamburgerContext';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
 const Header = (props) => {
-    const { isHamburgerOpen, toggleHamburger } = useContext(HamburgerContext);
+    const { isHamburgerOpen, toggleHamburger } = useContext(UIcontext);
 
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/personal') {

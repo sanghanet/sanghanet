@@ -17,7 +17,7 @@ import AdminFinance from './pages/Admins/AdminFinance/AdminFinance';
 import AdminEvent from './pages/Admins/AdminEvent/AdminEvent';
 import AdminYoga from './pages/Admins/AdminYoga/AdminYoga';
 import Superuser from './pages/Admins/Superuser/Superuser';
-import { HamburgerContext } from './components/contexts/Hamburger/HamburgerContext';
+import { UIcontext } from './components/contexts/UIcontext/UIcontext';
 
 class App extends Component {
     constructor (props) {
@@ -28,17 +28,32 @@ class App extends Component {
             this.state.isHamburgerOpen && this.setState({ isHamburgerOpen: false });
         };
 
+        this.setAccess = (isSuperuser, isFinanceAdmin, isEventAdmin, isYogaAdmin) => {
+            this.setState({
+                isSuperuser,
+                isFinanceAdmin,
+                isEventAdmin,
+                isYogaAdmin
+            });
+        };
+
         this.state = {
             isHamburgerOpen: false,
             toggleHamburger: this.toggleHamburger,
-            closeHamburger: this.closeHamburger
+            closeHamburger: this.closeHamburger,
+
+            isSuperuser: false,
+            isFinanceAdmin: false,
+            isEventAdmin: false,
+            isYogaAdmin: false,
+            setAccess: this.setAccess
         };
     }
 
     render () {
         return (
             <div onClick={ this.closeHamburger }>
-                <HamburgerContext.Provider value={this.state}>
+                <UIcontext.Provider value={this.state}>
                     <BrowserRouter>
                         <Switch>
                             <Route exact path='/' component={Login} />
@@ -58,7 +73,7 @@ class App extends Component {
                             <PrivateRoute path='/admin/superuser' component={Superuser} />
                         </Switch>
                     </BrowserRouter>
-                </HamburgerContext.Provider>
+                </UIcontext.Provider>
             </div>
         );
     }
