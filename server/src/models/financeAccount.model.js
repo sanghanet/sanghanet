@@ -38,4 +38,4 @@ const FinanceAccountSchema = mongoose.Schema({
     }
 });
 
-module.exports.FinanceAccount = mongoose.model('FinanceAccount', FinanceAccountSchema);
+module.exports.FinanceAccount = mongoose.model('financeaccount', FinanceAccountSchema);

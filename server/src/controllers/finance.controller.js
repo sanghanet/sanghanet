@@ -6,10 +6,10 @@ const { FinanceAccount } = require('../models/financeAccount.model');
 module.exports.getFinanceData = async (req, res) => {
     try {
         if (req.body.email) {
-            const result = await FinanceAccount.find({ userId: req.user.email });
+            const result = await FinanceAccount.find({ email: req.body.email });
             res.json(result);
         }
-        const result = await FinanceAccount.find({ userId: req.user._id });
+        const result = await FinanceAccount.find({ email: req.user.email });
         res.json(result);
     } catch (error) {
         log.error(error);

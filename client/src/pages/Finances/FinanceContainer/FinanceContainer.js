@@ -35,6 +35,7 @@ class FinanceContainer extends React.Component {
                     email: userEmail
                 }
             });
+            console.log(result);
             this.setState({
                 financeData: result
             });
