@@ -20,6 +20,10 @@ class Navbar extends Component {
         showSubmenu: this.props.openSubmenu
     }
 
+    componentDidMount () {
+        console.log('I mounted');
+    }
+
     handleSubmenu = (event) => {
         event.stopPropagation(); // w/o this, bubbling event close the Hamburger in App.js!
         this.setState((prevState) => ({ showSubmenu: !prevState.showSubmenu }));
@@ -39,43 +43,43 @@ class Navbar extends Component {
                             </div>
                         </li>
                         <li>
-                            <NavLink exact to="/dashboard" className="link">
+                            <NavLink exact to="/app/dashboard" className="link">
                                 <div className="menu-icon"><DashboardIcon /></div>
                                 <span className="title">Dashboard</span>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink exact to="/personal" className="link">
+                            <NavLink exact to="/app/personal" className="link">
                                 <div className="menu-icon"><PersonalIcon /></div>
                                 <span className="title">Personal Data</span>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink exact to="/yoga" className="link">
+                            <NavLink exact to="/app/yoga" className="link">
                                 <div className="menu-icon"><YogaIcon /></div>
                                 <span className="title">Yoga</span>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink exact to="/finances" className="link">
+                            <NavLink exact to="/app/finances" className="link">
                                 <div className="menu-icon"><FinanceIcon /></div>
                                 <span className="title">Finances</span>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink exact to="/events" className="link">
+                            <NavLink exact to="/app/events" className="link">
                                 <div className="menu-icon"><EventIcon /></div>
                                 <span className="title">Events</span>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink exact to="/questions" className="link">
+                            <NavLink exact to="/app/questions" className="link">
                                 <div className="menu-icon"><QuestionsIcon /></div>
                                 <span className="title">Personal Questions</span>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink exact to="/queries" className="link">
+                            <NavLink exact to="/app/queries" className="link">
                                 <div className="menu-icon"><InfoIcon /></div>
                                 <span className="title">Queries</span>
                             </NavLink>
@@ -93,22 +97,22 @@ class Navbar extends Component {
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/finance" className="sub-title">Finance Admin</NavLink>
+                                <NavLink exact to="/app/admin/finance" className="sub-title">Finance Admin</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/event" className="sub-title">Event Admin</NavLink>
+                                <NavLink exact to="/app/admin/event" className="sub-title">Event Admin</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/yoga" className="sub-title">Yoga Admin</NavLink>
+                                <NavLink exact to="/app/admin/yoga" className="sub-title">Yoga Admin</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
-                                <NavLink exact to="/admin/superuser" className="sub-title">Superuser</NavLink>
+                                <NavLink exact to="/app/admin/superuser" className="sub-title">Superuser</NavLink>
                             </div>
                         </li>
                     </ul>

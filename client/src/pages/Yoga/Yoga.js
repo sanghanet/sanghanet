@@ -1,21 +1,8 @@
 import React from 'react';
-
-import Header from '../../components/Header/Header';
-import Navbar from '../../components/Navbar/Navbar';
-import Footer from '../../components/Footer/Footer';
 import ComingSoon from '../../components/ComingSoon/ComingSoon';
 
 const Yoga = (props) => {
-    return (
-        <div className='grid-container'>
-            <Header activePage="Yoga" />
-            <Navbar navStyle="sidenav" />
-            <main className="align">
-                <ComingSoon pageName = "Yoga" isPlural = {false} />
-            </main>
-            <Footer />
-        </div>
-    );
+    return (<ComingSoon pageName = "Yoga" isPlural = {false} />);
 };
 
 export default Yoga;

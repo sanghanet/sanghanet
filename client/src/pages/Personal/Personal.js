@@ -1,8 +1,5 @@
 import React from 'react';
 
-import Header from '../../components/Header/Header';
-import Navbar from '../../components/Navbar/Navbar';
-import Footer from '../../components/Footer/Footer';
 import { nameValidationRule, addressPattern, mobilePattern } from '../../components/ValidationRule';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
@@ -162,168 +159,163 @@ class Personal extends React.Component {
         sessionStorage.setItem('user', `${firstName} ${lastName}`);
         return (
             <div>
-                <Header activePage="Personal" />
-                <Navbar navStyle="sidenav" />
-                <main>
-                    { showAlert
-                        ? <Alert
-                            alertClose={this.closeAlert}
-                            alertMsg={alertMessage}
-                            alertType={alertType}
+                { showAlert
+                    ? <Alert
+                        alertClose={this.closeAlert}
+                        alertMsg={alertMessage}
+                        alertType={alertType}
+                    />
+                    : null
+                }
+                <FormContainer formTitle="general data" mb-4>
+                    <React.Fragment>
+                        <InputAvatar
+                            profileImgURL={profileImgURL}
+                            updateProfileImg={this.updateProfileImg}
                         />
-                        : null
-                    }
-                    <FormContainer formTitle="general data" mb-4>
-                        <React.Fragment>
-                            <InputAvatar
-                                profileImgURL={profileImgURL}
-                                updateProfileImg={this.updateProfileImg}
+                        <Row>
+                            <InputDisplay
+                                inputTitle="First name"
+                                inputValue={firstName}
+                                validation={nameValidationRule}
+                                // inputId value should be the same as inputValue value
+                                inputId="firstName"
+                                inputValueSave={this.handleItemSave}
+                                inputVisible={firstNameVisible}
+                                inputVisibility={this.handleItemVisibility}
+                                inputType="text"
+                                toDisable={ new Set(['visibility']) }
+                                format="Maria-Luiza"
                             />
-                            <Row>
-                                <InputDisplay
-                                    inputTitle="First name"
-                                    inputValue={firstName}
-                                    validation={nameValidationRule}
-                                    // inputId value should be the same as inputValue value
-                                    inputId="firstName"
-                                    inputValueSave={this.handleItemSave}
-                                    inputVisible={firstNameVisible}
-                                    inputVisibility={this.handleItemVisibility}
-                                    inputType="text"
-                                    toDisable={ new Set(['visibility']) }
-                                    format="Maria-Luiza"
-                                />
-                                <InputDisplay
-                                    inputTitle="Last name"
-                                    inputValue={lastName}
-                                    validation={nameValidationRule}
-                                    inputId="lastName"
-                                    inputValueSave={this.handleItemSave}
-                                    inputVisible={lastNameVisible}
-                                    inputVisibility={this.handleItemVisibility}
-                                    inputType="text"
-                                    toDisable={ new Set(['visibility']) }
-                                    format="Dr. Ribeiro"
-                                />
-                            </Row>
-                            <Row>
-                                <InputDisplay
-                                    inputTitle="Spiritual name"
-                                    inputValue={spiritualName}
-                                    validation={nameValidationRule}
-                                    inputId="spiritualName"
-                                    inputValueSave={this.handleItemSave}
-                                    inputVisible={spiritualNameVisible}
-                                    inputVisibility={this.handleItemVisibility}
-                                    inputType="text"
-                                    toDisable={ new Set(['visibility']) }
-                                    format="Flower Power"
-                                />
-                                <InputDisplay
-                                    inputTitle="Date of birth"
-                                    inputValue={birthday}
-                                    validation={{
-                                        min: '1910-01-01',
-                                        max: '2002-01-01' // current year minus 18
-                                    }}
-                                    inputId="birthday"
-                                    inputValueSave={this.handleItemSave}
-                                    inputVisible={birthdayVisible}
-                                    inputVisibility={this.handleItemVisibility}
-                                    inputType="date"
-                                    format="month/day/year"
-                                />
-                            </Row>
-                            <Row>
-                                <InputDisplay
-                                    inputTitle="Gender"
-                                    inputValue={gender}
-                                    inputId="gender"
-                                    inputValueSave={this.handleItemSave}
-                                    inputVisible={genderVisible}
-                                    inputVisibility={this.handleItemVisibility}
-                                    inputFieldAs="select"
-                                    // empty string - if one does not want to indicate gender
-                                    optionsForSelect={['', 'Female', 'Male', 'Other']}
-                                />
-                                <InputDisplay
-                                    inputTitle="Level of study"
-                                    inputValue={level}
-                                    inputId="level"
-                                    inputVisible={levelVisible}
-                                    inputVisibility={this.handleItemVisibility}
-                                    toDisable={ new Set(['edit']) }
-                                    // since field is non-editable below props are meaningless
-                                    // inputValueSave={this.handleItemSave}
-                                    // inputFieldAs="select"
-                                    // optionsForSelect={['Beginner', 'Intermediate', 'Advanced']}
-                                />
-                            </Row>
-                        </React.Fragment>
-                    </FormContainer>
-                    <FormContainer formTitle="contact details">
-                        <React.Fragment>
-                            <Row>
-                                <InputDisplay
-                                    inputTitle="Email"
-                                    inputValue={email}
-                                    inputId="email"
-                                    inputVisible={emailVisible}
-                                    inputVisibility={this.handleItemVisibility}
-                                    toDisable={ new Set(['edit']) }
-                                    // since field is non-editable below props are meaningless
-                                    // inputValueSave={this.handleItemSave}
-                                    // inputType="email"
-                                />
-                                <InputDisplay
-                                    inputTitle="Mobile"
-                                    inputValue={mobile}
-                                    validation={{
-                                        pattern: mobilePattern
-                                    }}
-                                    inputId="mobile"
-                                    inputValueSave={this.handleItemSave}
-                                    inputVisible={mobileVisible}
-                                    inputVisibility={this.handleItemVisibility}
-                                    inputType="tel"
-                                    format="70/44-66-052"
-                                />
-                            </Row>
-                            <Row>
-                                <InputDisplay
-                                    inputTitle="Address"
-                                    inputValue={address}
-                                    validation={{
-                                        minLength: 2,
-                                        maxLength: 62,
-                                        pattern: addressPattern
-                                    }}
-                                    inputId="address"
-                                    inputValueSave={this.handleItemSave}
-                                    inputVisible={addressVisible}
-                                    inputVisibility={this.handleItemVisibility}
-                                    inputType="text"
-                                    format="1055 Budapest, Csalogany u. 26 B/12"
-                                />
-                                <InputDropdown
-                                    dropdownTitle="Emergency Contact"
-                                    dropdownId="emContact"
-                                    inputArray={[
-                                        { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text', validation: nameValidationRule, format: 'Maria Doe' },
-                                        { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile', validation: { pattern: mobilePattern }, format: '70/44-66-052' },
-                                        { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'text', format: 'maria.doe@gmail.com' }
-                                    ]}
-                                    inputValueSave={this.handleItemSave}
-                                    dropdownVisible={emContactVisible}
-                                    dropdownVisibility={this.handleItemVisibility}
-                                    dropdownArrow={openDetails}
-                                    toggleDropdown={this.toggleDetails}
-                                />
-                            </Row>
-                        </React.Fragment>
-                    </FormContainer>
-                </main>
-                <Footer />
+                            <InputDisplay
+                                inputTitle="Last name"
+                                inputValue={lastName}
+                                validation={nameValidationRule}
+                                inputId="lastName"
+                                inputValueSave={this.handleItemSave}
+                                inputVisible={lastNameVisible}
+                                inputVisibility={this.handleItemVisibility}
+                                inputType="text"
+                                toDisable={ new Set(['visibility']) }
+                                format="Dr. Ribeiro"
+                            />
+                        </Row>
+                        <Row>
+                            <InputDisplay
+                                inputTitle="Spiritual name"
+                                inputValue={spiritualName}
+                                validation={nameValidationRule}
+                                inputId="spiritualName"
+                                inputValueSave={this.handleItemSave}
+                                inputVisible={spiritualNameVisible}
+                                inputVisibility={this.handleItemVisibility}
+                                inputType="text"
+                                toDisable={ new Set(['visibility']) }
+                                format="Flower Power"
+                            />
+                            <InputDisplay
+                                inputTitle="Date of birth"
+                                inputValue={birthday}
+                                validation={{
+                                    min: '1910-01-01',
+                                    max: '2002-01-01' // current year minus 18
+                                }}
+                                inputId="birthday"
+                                inputValueSave={this.handleItemSave}
+                                inputVisible={birthdayVisible}
+                                inputVisibility={this.handleItemVisibility}
+                                inputType="date"
+                                format="month/day/year"
+                            />
+                        </Row>
+                        <Row>
+                            <InputDisplay
+                                inputTitle="Gender"
+                                inputValue={gender}
+                                inputId="gender"
+                                inputValueSave={this.handleItemSave}
+                                inputVisible={genderVisible}
+                                inputVisibility={this.handleItemVisibility}
+                                inputFieldAs="select"
+                                // empty string - if one does not want to indicate gender
+                                optionsForSelect={['', 'Female', 'Male', 'Other']}
+                            />
+                            <InputDisplay
+                                inputTitle="Level of study"
+                                inputValue={level}
+                                inputId="level"
+                                inputVisible={levelVisible}
+                                inputVisibility={this.handleItemVisibility}
+                                toDisable={ new Set(['edit']) }
+                                // since field is non-editable below props are meaningless
+                                // inputValueSave={this.handleItemSave}
+                                // inputFieldAs="select"
+                                // optionsForSelect={['Beginner', 'Intermediate', 'Advanced']}
+                            />
+                        </Row>
+                    </React.Fragment>
+                </FormContainer>
+                <FormContainer formTitle="contact details">
+                    <React.Fragment>
+                        <Row>
+                            <InputDisplay
+                                inputTitle="Email"
+                                inputValue={email}
+                                inputId="email"
+                                inputVisible={emailVisible}
+                                inputVisibility={this.handleItemVisibility}
+                                toDisable={ new Set(['edit']) }
+                                // since field is non-editable below props are meaningless
+                                // inputValueSave={this.handleItemSave}
+                                // inputType="email"
+                            />
+                            <InputDisplay
+                                inputTitle="Mobile"
+                                inputValue={mobile}
+                                validation={{
+                                    pattern: mobilePattern
+                                }}
+                                inputId="mobile"
+                                inputValueSave={this.handleItemSave}
+                                inputVisible={mobileVisible}
+                                inputVisibility={this.handleItemVisibility}
+                                inputType="tel"
+                                format="70/44-66-052"
+                            />
+                        </Row>
+                        <Row>
+                            <InputDisplay
+                                inputTitle="Address"
+                                inputValue={address}
+                                validation={{
+                                    minLength: 2,
+                                    maxLength: 62,
+                                    pattern: addressPattern
+                                }}
+                                inputId="address"
+                                inputValueSave={this.handleItemSave}
+                                inputVisible={addressVisible}
+                                inputVisibility={this.handleItemVisibility}
+                                inputType="text"
+                                format="1055 Budapest, Csalogany u. 26 B/12"
+                            />
+                            <InputDropdown
+                                dropdownTitle="Emergency Contact"
+                                dropdownId="emContact"
+                                inputArray={[
+                                    { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text', validation: nameValidationRule, format: 'Maria Doe' },
+                                    { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile', validation: { pattern: mobilePattern }, format: '70/44-66-052' },
+                                    { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'text', format: 'maria.doe@gmail.com' }
+                                ]}
+                                inputValueSave={this.handleItemSave}
+                                dropdownVisible={emContactVisible}
+                                dropdownVisibility={this.handleItemVisibility}
+                                dropdownArrow={openDetails}
+                                toggleDropdown={this.toggleDetails}
+                            />
+                        </Row>
+                    </React.Fragment>
+                </FormContainer>
             </div>
         );
     };

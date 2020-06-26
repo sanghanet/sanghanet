@@ -1,19 +1,8 @@
 import React from 'react';
-
-import Header from '../../../components/Header/Header';
-import Navbar from '../../../components/Navbar/Navbar';
 import ComingSoon from '../../../components/ComingSoon/ComingSoon';
 
 const AdminFinance = (props) => {
-    return (
-        <div className='grid-container'>
-            <Header activePage="Finance Admin" />
-            <Navbar navStyle="sidenav" openSubmenu={true} />
-            <main className="align">
-                <ComingSoon pageName = "Finance Admin" isPlural = {false} />
-            </main>
-        </div>
-    );
+    return (<ComingSoon pageName = "Finance Admin" isPlural = {false} />);
 };
 
 export default AdminFinance;

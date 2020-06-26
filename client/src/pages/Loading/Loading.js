@@ -13,7 +13,7 @@ class Loading extends React.Component {
                     if (user.name === 'Unknown') {
                         window.location.href = '/registration';
                     } else {
-                        window.location.href = '/personal';
+                        window.location.href = '/app/personal';
                     }
                 } else {
                     window.location.href = '/loginfailed';

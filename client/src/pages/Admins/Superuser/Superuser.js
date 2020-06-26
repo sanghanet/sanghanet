@@ -14,9 +14,6 @@ import { ReactComponent as GeneralUserIcon } from '../../../components/icons/per
 import { ReactComponent as VerifiedIcon } from '../../../components/icons/verified.svg';
 
 import Alert from '../../../components/Alert/Alert';
-import Header from '../../../components/Header/Header';
-import Navbar from '../../../components/Navbar/Navbar';
-import Footer from '../../../components/Footer/Footer';
 import LoadingIndicator from '../../../components/LoadingIndicator/LoadingIndicator';
 import FilterAccordion from './FilterAccordion/FilterAccordion';
 import UpdateMemberRoleDialog from './UpdateMemberRoleDialog/UpdateMemberRoleDialog';
@@ -340,63 +337,58 @@ class Superuser extends Component {
                         closeDialog = {this.handleCloseDialog}
                     />
                 }
-                <Header activePage="Superuser" />
-                <Navbar navStyle="sidenav" openSubmenu={true} />
-                <main>
-                    { showAlert &&
-                        <Alert
-                            alertMsg={alertMessage}
-                            alertType={alertType}
-                            alertClose={this.closeAlert} />
-                    }
-                    <FilterAccordion
-                        handleEmailFilterChange={this.handleEmailFilterChange}
-                        handleSearchIconClick={this.handleSearchIconClick}
-                        handleRegisteredFilterChange={this.handleRegisteredFilterChange}
-                        handleRoleChange={this.handleRoleChange}
-                        resetFilters={this.resetFilters}
-                        textFilterValue={textFilterValue}
-                        registeredFilterValue={registeredFilterValue}
-                        roleFilter={roleFilter}
-                    />
+                { showAlert &&
+                    <Alert
+                        alertMsg={alertMessage}
+                        alertType={alertType}
+                        alertClose={this.closeAlert} />
+                }
+                <FilterAccordion
+                    handleEmailFilterChange={this.handleEmailFilterChange}
+                    handleSearchIconClick={this.handleSearchIconClick}
+                    handleRegisteredFilterChange={this.handleRegisteredFilterChange}
+                    handleRoleChange={this.handleRoleChange}
+                    resetFilters={this.resetFilters}
+                    textFilterValue={textFilterValue}
+                    registeredFilterValue={registeredFilterValue}
+                    roleFilter={roleFilter}
+                />
 
-                    {/* --- Table --- */}
-                    <Table striped bordered hover variant="dark">
-                        <thead>
+                {/* --- Table --- */}
+                <Table striped bordered hover variant="dark">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th className="role-icon-column">Role</th>
+                            <th className="delete-icon-column"></th>
+                        </tr>
+                    </thead>
+                    {memberData ? (
+                        <tbody id="tableBody">
                             <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th className="role-icon-column">Role</th>
-                                <th className="delete-icon-column"></th>
+                                <td colSpan={5} className="p-0">
+                                    <Button className="add-member-btn" variant="success" onClick={this.openAddMember}>
+                                        <Plus />
+                                        Add member
+                                    </Button>
+                                </td>
                             </tr>
-                        </thead>
-                        {memberData ? (
-                            <tbody id="tableBody">
-                                <tr>
-                                    <td colSpan={5} className="p-0">
-                                        <Button className="add-member-btn" variant="success" onClick={this.openAddMember}>
-                                            <Plus />
-                                            Add member
-                                        </Button>
-                                    </td>
-                                </tr>
-                                {this.renderMembers()}
-                            </tbody>
-                        ) : (
-                            <tbody>
-                                <tr>
-                                    <td colSpan={4}>
-                                        <LoadingIndicator
-                                            until={!!memberData}
-                                            size="1rem"
-                                        />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        )}
-                    </Table>
-                </main>
-                <Footer />
+                            {this.renderMembers()}
+                        </tbody>
+                    ) : (
+                        <tbody>
+                            <tr>
+                                <td colSpan={4}>
+                                    <LoadingIndicator
+                                        until={!!memberData}
+                                        size="1rem"
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    )}
+                </Table>
             </div>
         );
     }
