@@ -20,10 +20,6 @@ class Navbar extends Component {
         showSubmenu: this.props.openSubmenu
     }
 
-    componentDidMount () {
-        console.log('I mounted');
-    }
-
     handleSubmenu = (event) => {
         event.stopPropagation(); // w/o this, bubbling event close the Hamburger in App.js!
         this.setState((prevState) => ({ showSubmenu: !prevState.showSubmenu }));
