@@ -25,13 +25,13 @@ const Main = (props) => {
         let endOfUrl;
 
         if (url.includes('/app/admin')) {
-            endOfUrl = url.substring(url.indexOf('admin'));
-            console.log(endOfUrl);
+            endOfUrl = url.substring(url.indexOf('admin') + 6);
         } else {
             endOfUrl = url.substring(url.indexOf('app') + 4);
-            console.log(endOfUrl);
         }
 
+        endOfUrl = endOfUrl.replace(/^./, endOfUrl[0].toUpperCase());
+        endOfUrl += url.includes('/app/admin') && !url.includes('/superuser') ? ' Admin' : '';
         setPageName(endOfUrl);
     }, [window.location.href]);
 
