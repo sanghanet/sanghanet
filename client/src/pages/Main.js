@@ -1,3 +1,4 @@
+/* eslint-disable no-multi-spaces */
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -41,22 +42,23 @@ const Main = (props) => {
             <Navbar navStyle="sidenav" />
             <main className="align">
                 <Switch>
-                    <Route path='/app/dashboard' render={ (props) => <Dashboard {...props} /> } />
-                    <Route path='/app/personal' render={ (props) => <Personal {...props} /> } />
-                    <Route path='/app/yoga' render={ (props) => <Yoga {...props} /> } />
-                    <Route path='/app/finances' render={ (props) => <Finances {...props} /> } />
-                    <Route path='/app/events' render={ (props) => <Events {...props} /> } />
-                    <Route path='/app/questions' render={ (props) => <Questions {...props} /> } />
-                    <Route path='/app/queries' render={ (props) => <Queries {...props} /> } />
+                    <Route exact path='/app/dashboard' render={(props) =>       <Dashboard {...props} /> } />
+                    <Route exact path='/app/personal' render={(props) =>        <Personal {...props} /> } />
+                    <Route exact path='/app/yoga' render={(props) =>            <Yoga {...props} /> } />
+                    <Route exact path='/app/finances' render={(props) =>        <Finances {...props} /> } />
+                    <Route exact path='/app/events' render={(props) =>          <Events {...props} /> } />
+                    <Route exact path='/app/questions' render={(props) =>       <Questions {...props} /> } />
+                    <Route exact path='/app/queries' render={(props) =>         <Queries {...props} /> } />
 
-                    <Route path='/app/admin/finance' render={ (props) => <AdminFinance {...props} /> } />
-                    <Route path='/app/admin/event' render={ (props) => <AdminEvent {...props} /> } />
-                    <Route path='/app/admin/yoga' render={ (props) => <AdminYoga {...props} /> } />
-                    <Route path='/app/admin/superuser' render={ (props) => <Superuser {...props} /> } />
+                    <Route exact path='/app/admin/finance' render={(props) =>   <AdminFinance {...props} /> } />
+                    <Route exact path='/app/admin/event' render={(props) =>     <AdminEvent {...props} /> } />
+                    <Route exact path='/app/admin/yoga' render={(props) =>      <AdminYoga {...props} /> } />
+                    <Route exact path='/app/admin/superuser' render={(props) => <Superuser {...props} /> } />
 
                     <Route exact path='/app/'>
                         <Redirect to='/app/personal' />
                     </Route>
+
                     <Redirect to='/404' />
                 </Switch>
             </main>
