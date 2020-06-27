@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import PrivateRoute from './components/PrivateRoute';
 import Login from './pages/Login/Login';
@@ -7,6 +7,7 @@ import LoginFailed from './pages/LoginFailed/LoginFailed';
 import Loading from './pages/Loading/Loading';
 import Registration from './pages/Registration/Registration';
 import Main from './pages/Main';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 import { HamburgerContext } from './components/contexts/Hamburger/HamburgerContext';
 
 class App extends Component {
@@ -34,8 +35,10 @@ class App extends Component {
                             <Route exact path='/' component={Login} />
                             <Route path='/loading' component={Loading} />
                             <Route path='/loginfailed' component={LoginFailed} />
+                            <Route exact path='/404' component={PageNotFound} />
                             <PrivateRoute path='/registration' component={Registration} />
                             <PrivateRoute path='/app/' component={Main} />
+                            <Redirect to='/404' />
                         </Switch>
                     </BrowserRouter>
                 </HamburgerContext.Provider>

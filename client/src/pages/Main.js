@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Header from '../components/Header/Header';
 import Navbar from '../components/Navbar/Navbar';
@@ -24,22 +24,25 @@ class Main extends Component {
                 <Header activePage="Yoga" />
                 <Navbar navStyle="sidenav" />
                 <main className="align">
-                    <Route path='/app/dashboard' render={ (props) => <Dashboard {...props} /> } />
-                    <Route path='/app/personal' render={ (props) => <Personal {...props} /> } />
-                    <Route path='/app/yoga' render={ (props) => <Yoga {...props} /> } />
-                    <Route path='/app/finances' render={ (props) => <Finances {...props} /> } />
-                    <Route path='/app/events' render={ (props) => <Events {...props} /> } />
-                    <Route path='/app/questions' render={ (props) => <Questions {...props} /> } />
-                    <Route path='/app/queries' render={ (props) => <Queries {...props} /> } />
+                    <Switch>
+                        <Route path='/app/dashboard' render={ (props) => <Dashboard {...props} /> } />
+                        <Route path='/app/personal' render={ (props) => <Personal {...props} /> } />
+                        <Route path='/app/yoga' render={ (props) => <Yoga {...props} /> } />
+                        <Route path='/app/finances' render={ (props) => <Finances {...props} /> } />
+                        <Route path='/app/events' render={ (props) => <Events {...props} /> } />
+                        <Route path='/app/questions' render={ (props) => <Questions {...props} /> } />
+                        <Route path='/app/queries' render={ (props) => <Queries {...props} /> } />
 
-                    <Route path='/app/admin/finance' render={ (props) => <AdminFinance {...props} /> } />
-                    <Route path='/app/admin/event' render={ (props) => <AdminEvent {...props} /> } />
-                    <Route path='/app/admin/yoga' render={ (props) => <AdminYoga {...props} /> } />
-                    <Route path='/app/admin/superuser' render={ (props) => <Superuser {...props} /> } />
+                        <Route path='/app/admin/finance' render={ (props) => <AdminFinance {...props} /> } />
+                        <Route path='/app/admin/event' render={ (props) => <AdminEvent {...props} /> } />
+                        <Route path='/app/admin/yoga' render={ (props) => <AdminYoga {...props} /> } />
+                        <Route path='/app/admin/superuser' render={ (props) => <Superuser {...props} /> } />
 
-                    <Route exact path='/app/'>
-                        <Redirect to='/app/personal' />
-                    </Route>
+                        <Route exact path='/app/'>
+                            <Redirect to='/app/personal' />
+                        </Route>
+                        <Redirect to='/404' />
+                    </Switch>
                 </main>
                 <Footer />
             </div>
