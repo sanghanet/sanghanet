@@ -24,7 +24,9 @@ class App extends Component {
         super(props);
 
         this.toggleHamburger = () => { this.setState((prevState) => ({ isHamburgerOpen: !prevState.isHamburgerOpen })); };
-        this.closeHamburger = () => { this.setState({ isHamburgerOpen: false }); };
+        this.closeHamburger = () => {
+            this.state.isHamburgerOpen && this.setState({ isHamburgerOpen: false });
+        };
 
         this.state = {
             isHamburgerOpen: false,
