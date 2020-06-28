@@ -36,6 +36,8 @@
 
                 .form-text {
                     text-align: center;
+                    position: absolute;
+                    bottom: 0;
                 }
 
                 .form-group {
@@ -43,14 +45,17 @@
                     align-items: center;
                     justify-content: center;
 
-                    &.search-bar {
+                    &.search-filter {
                         flex-wrap: wrap;
                         grid-column: span 2;
                         width: 100%;
-                        margin: auto;
+                        height: 100%;
+                        position: relative;
 
                         .search-field {
                             margin-bottom: 0;
+
+                            svg { width: 20px; }
 
                             @include maxQ(605px) {
                                 // the label of the search field is a <small> tag

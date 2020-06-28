@@ -1,49 +1,51 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Form from 'react-bootstrap/Form';
 import './SearchBar.scss';
 
 class SearchBar extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            inputValue: '',
-            dataList: null
-        };
-    }
-
-    handleInputChange = (e) => {
-        this.props.handleInputChange(e.target.value);
-    }
+    handleInputChange = (e) => { this.props.handleInputChange(e.target.value); }
 
     render () {
+        const {
+            className,
+            controlId,
+            placeholder,
+            inputValue,
+            handleIconClick,
+            icon,
+            onBlur
+        } = this.props;
+
         return (
-            <div className="search-field">
-                <input
-                    type="text"
-                    placeholder={this.props.placeholder}
-                    onChange={this.handleInputChange}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    value={this.props.inputValue}
-                />
-                <button
-                    onClick={this.props.handleIconClick}
-                >
-                    {this.props.icon}
-                </button>
+            <div className={`search-bar ${className}`}>
+                <Form.Group controlId={controlId} className={'search-field'}>
+                    <Form.Control
+                        type="text"
+                        placeholder={placeholder}
+                        onChange={this.handleInputChange}
+                        onBlur={onBlur}
+                        value={inputValue}
+                    />
+                    <Form.Label onClick={handleIconClick} >
+                        {icon}
+                    </Form.Label>
+                </Form.Group>
             </div>
         );
     }
 }
 
 SearchBar.propTypes = {
-    handleSearch: PropTypes.func,
+    controlId: PropTypes.string.isRequired,
     handleInputChange: PropTypes.func.isRequired,
-    handleIconClick: PropTypes.func,
     inputValue: PropTypes.string.isRequired,
+    onBlur: PropTypes.func,
     placeholder: PropTypes.string,
-    icon: PropTypes.element
+    icon: PropTypes.element,
+    handleIconClick: PropTypes.func,
+    className: PropTypes.string
 };
 
 export default SearchBar;
