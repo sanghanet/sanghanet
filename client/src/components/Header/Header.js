@@ -15,8 +15,8 @@ const Header = (props) => {
     const { isHamburgerOpen, toggleHamburger } = useContext(HamburgerContext);
 
     const handleAvatarClick = (event) => {
-        if (props.location.pathname !== '/personal') {
-            props.history.push('/personal');
+        if (props.location.pathname !== '/app/personal') {
+            props.history.push('/app/personal');
         }
     };
 

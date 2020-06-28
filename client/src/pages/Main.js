@@ -18,7 +18,7 @@ import AdminEvent from '../pages/Admins/AdminEvent/AdminEvent';
 import AdminYoga from '../pages/Admins/AdminYoga/AdminYoga';
 import Superuser from '../pages/Admins/Superuser/Superuser';
 
-const Main = (props) => {
+const Main = () => {
     const [pageName, setPageName] = useState('');
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const Main = (props) => {
         endOfUrl = endOfUrl.replace(/^./, endOfUrl[0].toUpperCase());
         endOfUrl += url.includes('/app/admin') && !url.includes('/superuser') ? ' Admin' : '';
         setPageName(endOfUrl);
-    }, [window.location.href]);
+    }, [setPageName, window.location.href]);
 
     return (
         <div className='grid-container'>
