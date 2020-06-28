@@ -12,8 +12,11 @@ import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
 import { Row } from 'react-bootstrap';
+import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 
 class Personal extends React.Component {
+    static contextType = UIcontext;
+
     state = {
         openDetails: false,
         profileImgURL: '',
@@ -69,6 +72,13 @@ class Personal extends React.Component {
                     emEmail: data[0].emEmail,
                     emContactVisible: data[0].emContactVisible
                 });
+
+                this.context.setAccess(
+                    data[1].isSuperuser,
+                    data[1].isFinanceAdmin,
+                    data[1].isEventAdmin,
+                    data[1].isYogaAdmin
+                );
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });

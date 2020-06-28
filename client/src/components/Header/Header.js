@@ -15,11 +15,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Figure from 'react-bootstrap/Figure';
 
-import { HamburgerContext } from '../contexts/Hamburger/HamburgerContext';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import Client from '../../components/Client';
 
 const Header = (props) => {
-    const { isHamburgerOpen, toggleHamburger } = useContext(HamburgerContext);
+    const { isHamburgerOpen, toggleHamburger } = useContext(UIcontext);
     const [searchBarValue, setSearchBarValue] = useState('');
     const [nameOfUsers, setNameOfUsers] = useState([]);
     const [searchResults, setSearchResults] = useState(null);
