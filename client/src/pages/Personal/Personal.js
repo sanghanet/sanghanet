@@ -66,6 +66,9 @@ class Personal extends React.Component {
                     emEmail: data[0].emEmail,
                     emContactVisible: data[0].emContactVisible
                 });
+
+                // used in header to show user's name
+                sessionStorage.setItem('user', `${data[0].firstName} ${data[0].lastName}`);
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
@@ -155,8 +158,7 @@ class Personal extends React.Component {
             emName, emMobile, emEmail,
             showAlert, alertMessage, alertType
         } = this.state;
-        // used to change name in the Header
-        sessionStorage.setItem('user', `${firstName} ${lastName}`);
+
         return (
             <div>
                 { showAlert
