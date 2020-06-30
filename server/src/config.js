@@ -35,7 +35,7 @@ if (env.error) {
     log.info('Environmennt variables: \n', env.parsed);
 };
 
-variablesToExport.SERVER_ROOT = process.env.DEV_SERVER === '1' ? '../client/public/' : './app/';
+variablesToExport.SERVER_ROOT = process.env.DEV_SERVER === '1' ? '../client/public' : 'app';
 log.info('SERVER_ROOT: ', variablesToExport.SERVER_ROOT);
 
 variablesToExport.APP_PORT = process.env.DEV_SERVER === '1' ? 3000 : process.env.PORT;

@@ -46,7 +46,7 @@ module.exports.registration = async (req, res, next) => {
             } else if (file.name.endsWith('.webp')) {
                 extension = '.webp';
             }
-            const fileName = 'images/' + uuidv4().slice(-12) + extension;
+            const fileName = '/images/' + uuidv4().slice(-12) + extension;
             file.path = SERVER_ROOT + fileName;
             dataToStore.profileImg = fileName;
         })
@@ -176,7 +176,7 @@ module.exports.uploadProfileImg = async (req, res, next) => {
             } else if (file.name.endsWith('.webp')) {
                 extension = '.webp';
             }
-            fileName = 'images/' + uuidv4().slice(-12) + extension;
+            fileName = '/images/' + uuidv4().slice(-12) + extension;
             file.path = SERVER_ROOT + fileName;
         })
         .on('file', async (name, file) => {

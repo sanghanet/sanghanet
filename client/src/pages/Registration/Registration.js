@@ -37,7 +37,7 @@ class Registration extends Component {
                 body: formData
             }, true) // skipDefault Headers
                 .then(() => {
-                    window.location.href = '/personal';
+                    window.location.href = '/app/personal';
                 })
                 .catch((err) => {
                     this.setState({ showAlert: true, alertMessage: `${err.message}. Try again later.`, alertType: 'Error' });
