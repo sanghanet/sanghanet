@@ -11,6 +11,7 @@ import { ReactComponent as FinanceIcon } from '../icons/finances.svg';
 import { ReactComponent as InfoIcon } from '../icons/info.svg';
 import { ReactComponent as YogaIcon } from '../icons/yoga.svg';
 import { ReactComponent as EventIcon } from '../icons/event.svg';
+import { ReactComponent as MembersIcon } from '../icons/members.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 import { ReactComponent as BackIcon } from '../icons/arrow-left.svg';
 import { ReactComponent as ForwardIcon } from '../icons/arrow-right.svg';
@@ -82,6 +83,12 @@ class Navbar extends Component {
                             <NavLink exact to="/app/events" className="link">
                                 <div className="menu-icon"><EventIcon /></div>
                                 <span className="title">Events</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink exact to="/app/members" className="link">
+                                <div className="menu-icon"><MembersIcon /></div>
+                                <span className="title">Members</span>
                             </NavLink>
                         </li>
                         <li>

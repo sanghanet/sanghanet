@@ -23,6 +23,7 @@ app.use('/registration', express.static('app'));
 app.use('/loading', express.static('app'));
 app.use('/app/dashboard', express.static('app'));
 app.use('/app/personal', express.static('app'));
+app.use('/app/members', express.static('app'));
 app.use('/images', express.static('app/images'));
 app.use('/finances', express.static('app'));
 app.use('/queries', express.static('app'));
