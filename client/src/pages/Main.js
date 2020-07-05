@@ -1,6 +1,6 @@
 /* eslint-disable no-multi-spaces */
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import Header from '../components/Header/Header';
 import Navbar from '../components/Navbar/Navbar';
@@ -21,20 +21,16 @@ import Superuser from '../pages/Admins/Superuser/Superuser';
 const Main = () => {
     const [pageName, setPageName] = useState('');
 
+    const location = useLocation();
+
     useEffect(() => {
-        const url = window.location.href;
-        let endOfUrl;
+        const url = location.pathname;
+        const pageName = url.substring(url.lastIndexOf('/') + 1);
+        let pageNameCapitalized = pageName.charAt(0).toUpperCase() + pageName.slice(1);
+        pageNameCapitalized += url.includes('/app/admin') && !url.includes('/superuser') ? ' Admin' : '';
 
-        if (url.includes('/app/admin')) {
-            endOfUrl = url.substring(url.indexOf('admin') + 6);
-        } else {
-            endOfUrl = url.substring(url.indexOf('app') + 4);
-        }
-
-        endOfUrl = endOfUrl.replace(/^./, endOfUrl[0].toUpperCase());
-        endOfUrl += url.includes('/app/admin') && !url.includes('/superuser') ? ' Admin' : '';
-        setPageName(endOfUrl);
-    }, [setPageName, window.location.href]);
+        setPageName(pageNameCapitalized);
+    }, [location]);
 
     return (
         <div className='grid-container'>
