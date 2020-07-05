@@ -1,4 +1,5 @@
 import React from 'react';
+import { dictionaryList } from '../../../languages/dictionaryList';
 
 export const UIcontext = React.createContext({
     isHamburgerOpen: false,
@@ -8,5 +9,9 @@ export const UIcontext = React.createContext({
     isFinanceAdmin: false,
     isEventAdmin: false,
     isYogaAdmin: false,
-    setAccess: () => {}
+    setAccess: () => {},
+    lang: 'en',
+    // eslint-disable-next-line dot-notation
+    dictionary: dictionaryList['en'],
+    changeLang: () => {}
 });

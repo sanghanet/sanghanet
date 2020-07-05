@@ -1,0 +1,13 @@
+{
+    "welcome": "Udvozol a SanghaNet",
+    "signin": "Bejelentkezes",
+
+    "registrationtitle": "TE regisztralni a SanghaNet-nak",
+    "photo": "Kici foto feltolt innen",
+    "firstname": "Te keresztneved",
+    "lastname": "Tied csaladi nev",
+    "placeholder": "Kezdeni NAAGY betuvel, irni hosszabb mint 2 betut.",
+    "spiritualname": "Spiritualis tied neved, mar ha van, egyenkint irni \"None\"",
+    "leave": "Kihagyom",
+    "registration": "En regisztralni MOST!"
+}

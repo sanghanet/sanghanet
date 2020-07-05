@@ -1,0 +1,13 @@
+{
+    "welcome": "Welcome to SanghaNet",
+    "signin": "Sign in",
+
+    "registrationtitle": "Registration to SanghaNet",
+    "photo": "Click here to upload your photo",
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "placeholder": "Start with capital letter, enter minimum 2 characters.",
+    "spiritualname": "Spiritual Name in case you have it, otherwise \"None\"",
+    "leave": "Leave",
+    "registration": "Registration"
+}

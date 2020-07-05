@@ -9,6 +9,7 @@ import Registration from './pages/Registration/Registration';
 import Main from './pages/Main';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import { UIcontext } from './components/contexts/UIcontext/UIcontext';
+import { dictionaryList } from './languages/dictionaryList';
 
 class App extends Component {
     constructor (props) {
@@ -28,6 +29,13 @@ class App extends Component {
             });
         };
 
+        this.changeLang = (lang) => {
+            this.setState({
+                lang,
+                dictionary: dictionaryList[lang]
+            });
+        };
+
         this.state = {
             isHamburgerOpen: false,
             toggleHamburger: this.toggleHamburger,
@@ -37,7 +45,12 @@ class App extends Component {
             isFinanceAdmin: false,
             isEventAdmin: false,
             isYogaAdmin: false,
-            setAccess: this.setAccess
+            setAccess: this.setAccess,
+
+            lang: 'hu',
+            // eslint-disable-next-line dot-notation
+            dictionary: dictionaryList['hu'],
+            changeLang: this.changeLang
         };
     }
 
