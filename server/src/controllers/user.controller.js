@@ -214,3 +214,30 @@ module.exports.uploadProfileImg = async (req, res, next) => {
             log.info('Upload successful.');
         });
 };
+
+module.exports.allregisteredusers = async (req, res, next) => {
+    log.info('All registered users fetched by:', req.user.email);
+    try {
+        const registeredUsers = await RegisteredUser.find({});
+        const visibleUserData = registeredUsers.map((registeredUser) => {
+            return {
+                profileImg: registeredUser.profileImg,
+                firstName: registeredUser.firstName,
+                lastName: registeredUser.lastName,
+                spiritualName: registeredUser.spiritualName,
+                address: registeredUser.addressVisible ? registeredUser.address : 'Private',
+                birthday: registeredUser.birthdayVisible ? registeredUser.birthday : 'Private',
+                emEmail: registeredUser.emContactVisible ? registeredUser.emEmail : 'Private',
+                emMobile: registeredUser.emContactVisible ? registeredUser.emMobile : 'Private',
+                emName: registeredUser.emContactVisible ? registeredUser.emName : 'Private',
+                gender: registeredUser.genderVisible ? registeredUser.gender : 'Private',
+                level: registeredUser.levelVisible ? registeredUser.level : 'Private',
+                mobile: registeredUser.mobileVisible ? registeredUser.mobile : 'Private'
+            };
+        });
+        res.json(visibleUserData);
+    } catch (err) {
+        next(err);
+        log.error(err);
+    }
+};
