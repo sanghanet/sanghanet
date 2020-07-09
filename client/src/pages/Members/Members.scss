@@ -2,6 +2,7 @@
 @import '../../style/mixins';
 
 .card-container {
+    @include resetList;
     display: flex;
     justify-content: space-around;
     .member-card {

@@ -225,6 +225,7 @@ module.exports.allregisteredusers = async (req, res, next) => {
                 firstName: registeredUser.firstName,
                 lastName: registeredUser.lastName,
                 spiritualName: registeredUser.spiritualName,
+                email: registeredUser.emailVisible ? registeredUser.email : 'Private',
                 address: registeredUser.addressVisible ? registeredUser.address : 'Private',
                 birthday: registeredUser.birthdayVisible ? registeredUser.birthday : 'Private',
                 emEmail: registeredUser.emContactVisible ? registeredUser.emEmail : 'Private',
