@@ -1,0 +1,87 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.card-container {
+    @include resetList;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .member-card {
+        margin: 20px;
+        padding: 30px 20px 20px;
+        text-align: center;
+        color: $card-text;
+        background-color: $input-bg;
+        border-radius: 10px;
+        border-left: 1px solid #6f6f6f;
+        border-top: 1px solid #6f6f6f;
+        box-shadow: 3px 3px 6px #000;
+
+        flex: 0 0 250px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .profile-img {
+            img {
+                width: 110px;
+                height: 110px;
+                border: 6px solid $label-bg;
+                border-radius: 50%;
+
+            }
+        }
+        p {
+            margin: 0;
+        }
+        .card-name {
+            padding: 8px 0;
+            letter-spacing: 2px;
+            word-spacing: 4px;
+            font-size: 22px;
+        }
+        .card-line {
+            width: 20%;
+            margin: 6px auto 10px;
+            background-color: $card-text;
+        }
+        button {
+            @include buttonReset;
+            margin: 20px 10px 12px;
+            padding: 10px 20px;
+            background-color: #a9a0a0;
+            border-radius: 6px;
+        }
+    }
+    @media screen and (max-width: 660px) {
+        .member-card {
+            margin: 20px 50px;
+            flex: auto;
+
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    }
+    @media screen and (max-width: 520px) {
+        .member-card {
+            margin: 20px;
+        }
+        .member-content {
+            margin: 8px;
+        }
+        .member-content button {
+            padding: 10px;
+            font-size: 16px;
+        }
+    }
+    @media screen and (max-width: 400px) {
+        .member-card {
+            flex-direction: column;
+        }
+        .member-content button {
+            padding: 10px 20px;
+            font-size: 20px;
+        }
+    }
+}

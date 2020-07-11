@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Client from '../../components/Client';
 import MemberCard from '../../components/MemberCard/MemberCard';
-import './Members.scss';
 
 const Members = (props) => {
     const [members, setMembers] = useState([]);

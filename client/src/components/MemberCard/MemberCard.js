@@ -10,10 +10,12 @@ const MemberCard = (props) => {
             <div className="profile-img">
                 <img src={profileImg} alt="Avatar" />
             </div>
-            <p className="card-name">{`${firstName}${lastName}`}</p>
-            <hr className="card-line"></hr>
-            <p className="card-spiritual-name">{spiritualName}</p>
-            <button onClick={showMemberDetails}>See shared data</button>
+            <div className="member-content">
+                <p className="card-name">{`${firstName} ${lastName}`}</p>
+                <hr className="card-line"></hr>
+                <p className="card-spiritual-name">{spiritualName}</p>
+                <button onClick={showMemberDetails}>See shared data</button>
+            </div>
         </li>
 
     );
