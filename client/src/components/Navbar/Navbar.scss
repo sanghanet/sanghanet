@@ -33,7 +33,7 @@
 
             li {
                 width: $navbar-width;
-                height: $navbar-width;
+                min-height: $navbar-width;
 
                 display: flex;
                 text-align: center;
