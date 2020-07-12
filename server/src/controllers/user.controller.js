@@ -225,15 +225,15 @@ module.exports.allregisteredusers = async (req, res, next) => {
                 firstName: registeredUser.firstName,
                 lastName: registeredUser.lastName,
                 spiritualName: registeredUser.spiritualName,
-                email: registeredUser.emailVisible ? registeredUser.email : 'Private',
-                address: registeredUser.addressVisible ? registeredUser.address : 'Private',
-                birthday: registeredUser.birthdayVisible ? registeredUser.birthday : 'Private',
-                emEmail: registeredUser.emContactVisible ? registeredUser.emEmail : 'Private',
-                emMobile: registeredUser.emContactVisible ? registeredUser.emMobile : 'Private',
-                emName: registeredUser.emContactVisible ? registeredUser.emName : 'Private',
-                gender: registeredUser.genderVisible ? registeredUser.gender : 'Private',
-                level: registeredUser.levelVisible ? registeredUser.level : 'Private',
-                mobile: registeredUser.mobileVisible ? registeredUser.mobile : 'Private'
+                email: registeredUser.emailVisible ? registeredUser.email : null,
+                address: registeredUser.addressVisible ? registeredUser.address : null,
+                birthday: registeredUser.birthdayVisible ? registeredUser.birthday : null,
+                emEmail: registeredUser.emContactVisible ? registeredUser.emEmail : null,
+                emMobile: registeredUser.emContactVisible ? registeredUser.emMobile : null,
+                emName: registeredUser.emContactVisible ? registeredUser.emName : null,
+                gender: registeredUser.genderVisible ? registeredUser.gender : null,
+                level: registeredUser.levelVisible ? registeredUser.level : null,
+                mobile: registeredUser.mobileVisible ? registeredUser.mobile : null
             };
         });
         res.json(visibleUserData);

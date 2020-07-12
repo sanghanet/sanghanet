@@ -4,56 +4,76 @@ import GenericDialog from '../Form/GenericDialog/GenericDialog';
 import './MemberDetails.scss';
 
 const MemberDetails = (props) => {
-    const { closeDialog, selectedMemberData } = props;
+    const { closeDialog, selectedMemberData: data } = props;
     return (
         <GenericDialog
-            title={`${selectedMemberData.firstName} ${selectedMemberData.lastName}`}
+            title={`${data.firstName} ${data.lastName}`}
             reject="Close"
             handleClose={closeDialog}
         >
             <div className="photo-data">
-                <img src={selectedMemberData.profileImg} className="data-photo" alt="" />
+                <img src={data.profileImg} className="data-photo" alt="" />
             </div>
-            <div className="member-data">
-                <div className="data-label">Spiritual Name</div>
-                <div className="data-value">{selectedMemberData.spiritualName}</div>
-            </div>
-            <div className="member-data">
-                <div className="data-label">Date of Birth</div>
-                <div className="data-value">{selectedMemberData.birthday}</div>
-            </div>
-            <div className="member-data">
-                <div className="data-label">Gender</div>
-                <div className="data-value">{selectedMemberData.gender}</div>
-            </div>
-            <div className="member-data">
-                <div className="data-label">Level of study</div>
-                <div className="data-value">{selectedMemberData.level}</div>
-            </div>
-            <div className="member-data">
-                <div className="data-label">Email</div>
-                <div className="data-value">{selectedMemberData.email}</div>
-            </div>
-            <div className="member-data">
-                <div className="data-label">Mobile</div>
-                <div className="data-value">{selectedMemberData.mobile}</div>
-            </div>
-            <div className="member-data">
-                <div className="data-label">Address</div>
-                <div className="data-value">{selectedMemberData.address}</div>
-            </div>
-            <div className="member-data">
-                <div className="data-label">Emergency Contact Name</div>
-                <div className="data-value">{selectedMemberData.emName}</div>
-            </div>
-            <div className="member-data">
-                <div className="data-label">Emergency Contact Mobile</div>
-                <div className="data-value">{selectedMemberData.emMobile}</div>
-            </div>
-            <div className="member-data">
-                <div className="data-label">Emergency Contact Email</div>
-                <div className="data-value">{selectedMemberData.emEmail}</div>
-            </div>
+            {data.spiritualName && data.spiritualName !== 'None' &&
+                <div className="member-data">
+                    <div className="data-label">Spiritual Name:</div>
+                    <div className="data-value">{data.spiritualName}</div>
+                </div>
+            }
+            {data.birthday &&
+                <div className="member-data">
+                    <div className="data-label">Date of Birth:</div>
+                    <div className="data-value">{data.birthday}</div>
+                </div>
+            }
+            {data.gender &&
+                <div className="member-data">
+                    <div className="data-label">Gender:</div>
+                    <div className="data-value">{data.gender}</div>
+                </div>
+            }
+            {data.level &&
+                <div className="member-data">
+                    <div className="data-label">Level of Study:</div>
+                    <div className="data-value">{data.level}</div>
+                </div>
+            }
+            {data.email &&
+                <div className="member-data">
+                    <div className="data-label">Email:</div>
+                    <div className="data-value">{data.email}</div>
+                </div>
+            }
+            {data.mobile &&
+                <div className="member-data">
+                    <div className="data-label">Mobile:</div>
+                    <div className="data-value">{data.mobile}</div>
+                </div>
+            }
+            {data.address &&
+                <div className="member-data">
+                    <div className="data-label">Address:</div>
+                    <div className="data-value">{data.address}</div>
+                </div>
+            }
+            {data.emName &&
+                <div className="member-data">
+                    <div className="data-label">Emergency Contact Name:</div>
+                    <div className="data-value">{data.emName}</div>
+                </div>
+            }
+            {data.emMobile &&
+                <div className="member-data">
+                    <div className="data-label">Emergency Contact Mobile:</div>
+                    <div className="data-value">{data.emMobile}</div>
+                </div>
+            }
+            {data.emEmail &&
+                <div className="member-data">
+                    <div className="data-label">Emergency Contact Email:</div>
+                    <div className="data-value">{data.emEmail}</div>
+                </div>
+            }
         </GenericDialog>
     );
 };
