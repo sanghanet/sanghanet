@@ -52,6 +52,13 @@
             padding: 10px 20px;
             background-color: #a9a0a0;
             border-radius: 6px;
+            transition: background-color 1s;
+            &:hover {
+                background-color: #dadada;
+            }
+            &:focus {
+                outline: none;
+            }
         }
     }
     @media screen and (max-width: 660px) {
