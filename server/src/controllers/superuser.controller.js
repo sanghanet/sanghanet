@@ -1,5 +1,5 @@
 const { Member } = require('../models/member.model');
-const { Account } = require('../models/financeAccount.model');
+const { FinanceAccount } = require('../models/financeAccount.model');
 const { RegisteredUser } = require('../models/registered.user.model');
 const log4js = require('log4js');
 const log = log4js.getLogger('controllers/user.controller.js');
@@ -79,7 +79,7 @@ module.exports.deleteMember = async (req, res, next) => {
         const memberToDelete = await Member.findOneAndDelete( // returns whole object if successful or null
             { email: req.body.remove }
         );
-        Account.findOneAndDelete({ email: req.body.remove })
+        FinanceAccount.findOneAndDelete({ email: req.body.remove })
             .then((userObj) => {
                 log.info(`${req.body.remove}: finance data deleted!`);
             })
