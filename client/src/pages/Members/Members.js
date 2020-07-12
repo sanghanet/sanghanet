@@ -5,15 +5,14 @@ import MemberDetails from '../../components/MemberDetails/MemberDetails';
 
 const Members = (props) => {
     const [members, setMembers] = useState([]);
-    const [showMemberDetails, setMemberDetails] = useState(false);
-    const [memberIndex, setMemberIndex] = useState(null);
+    const [memberIndex, setMemberIndex] = useState(-1); // -1 means no selected member
 
     const showMemberPopup = (index) => {
-        setMemberDetails(true);
+        console.dir(members[index]);
         setMemberIndex(index);
     };
-    const closeMemberPopup = (index) => {
-        setMemberDetails(false);
+    const closeMemberPopup = () => {
+        setMemberIndex(-1);
     };
     useEffect(() => {
         Client.fetch('/user/allregisteredusers', { method: 'POST' })
@@ -29,7 +28,7 @@ const Members = (props) => {
     return (
         members && (
             <React.Fragment>
-                {showMemberDetails &&
+                {memberIndex >= 0 &&
                     <MemberDetails
                         closeDialog={closeMemberPopup}
                         selectedMemberData={members[memberIndex]}

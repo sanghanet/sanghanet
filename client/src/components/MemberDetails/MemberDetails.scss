@@ -1,0 +1,26 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.data-photo {
+    display: block;
+    width: 140px;
+    height: 140px;
+    margin: auto;
+    border: 4px solid  $label-bg;
+    border-radius: 8px;
+}
+.member-data {
+    width: 90%;
+    margin: 10px auto;
+    border: 1px solid gray;
+}
+.data-label, .data-value {
+    color: $white;
+    font-size: 20px;
+}
+.data-label {
+    background-color: $label-bg;
+}
+.data-value {
+    background-color: $modal-bg;
+}
