@@ -1,4 +1,3 @@
-/* eslint-disable dot-notation */
 import React, { useContext } from 'react';
 import { ReactComponent as Buddha } from '../media/sangha_logo.svg';
 import GoogleLogo from '../media/google_logo.png';
@@ -8,10 +7,10 @@ import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 const Login = (props) => {
-    const { dictionary } = useContext(UIcontext);
+    const { loginPageDictionary } = useContext(UIcontext).dictionary;
 
-    const WELCOME = dictionary['welcome'];
-    const SIGNIN = dictionary['signin'];
+    const { WELCOME } = loginPageDictionary;
+    const { SIGNIN } = loginPageDictionary;
 
     return (
         <div className='login'>

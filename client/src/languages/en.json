@@ -1,13 +1,17 @@
 {
-    "welcome": "Welcome to SanghaNet",
-    "signin": "Sign in",
+    "loginPageDictionary": {
+        "WELCOME": "Welcome to SanghaNet",
+        "SIGNIN": "Sign in"
+    },
 
-    "registrationtitle": "Registration to SanghaNet",
-    "photo": "Click here to upload your photo",
-    "firstname": "First Name",
-    "lastname": "Last Name",
-    "placeholder": "Start with capital letter, enter minimum 2 characters.",
-    "spiritualname": "Spiritual Name in case you have it, otherwise \"None\"",
-    "leave": "Leave",
-    "registration": "Registration"
+    "registrationPageDictionary": {
+        "REGISTRATIONTITLE": "Registration to SanghaNet",
+        "PHOTO": "Click here to upload your photo",
+        "FIRSTNAME": "First Name",
+        "LASTNAME": "Last Name",
+        "PLACEHOLDER": "Start with capital letter, enter minimum 2 characters.",
+        "SPIRITUALNAME": "Spiritual Name (if you have one)",
+        "LEAVE": "Leave",
+        "REGISTRATION": "Registration"
+    }
 }

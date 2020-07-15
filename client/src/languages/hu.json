@@ -1,13 +1,17 @@
 {
-    "welcome": "Udvozol a SanghaNet",
-    "signin": "Bejelentkezes",
+    "loginPageDictionary": {
+        "WELCOME": "Üdv a SanghaNet-en",
+        "SIGNIN": "Bejelentkezés"
+    },
 
-    "registrationtitle": "TE regisztralni a SanghaNet-nak",
-    "photo": "Kici foto feltolt innen",
-    "firstname": "Te keresztneved",
-    "lastname": "Tied csaladi nev",
-    "placeholder": "Kezdeni NAAGY betuvel, irni hosszabb mint 2 betut.",
-    "spiritualname": "Spiritualis tied neved, mar ha van, egyenkint irni \"None\"",
-    "leave": "Kihagyom",
-    "registration": "En regisztralni MOST!"
+    "registrationPageDictionary": {
+        "REGISTRATIONTITLE": "Regisztráció a SanghaNet-re",
+        "PHOTO": "Kattints ide a fotó feltöltéséhez",
+        "FIRSTNAME": "Keresztnév",
+        "LASTNAME": "Vezetéknév",
+        "PLACEHOLDER": "Kezdd nagybetűvel és írj be minimum két karaktert.",
+        "SPIRITUALNAME": "Spirituális név (ha van)",
+        "LEAVE": "Mégsem",
+        "REGISTRATION": "Regisztráció"
+    }
 }

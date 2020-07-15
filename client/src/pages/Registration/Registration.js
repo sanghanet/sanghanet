@@ -1,5 +1,4 @@
 /* eslint-disable dot-notation */
-
 import React, { Component } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import './Registration.scss';
@@ -12,7 +11,6 @@ import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 class Registration extends Component {
-    static contextType = UIcontext
     state = {
         profileImgURL: '',
         profileImgBlob: null,
@@ -100,14 +98,16 @@ class Registration extends Component {
             alertType
         } = this.state;
 
-        const dictionary = this.context.dictionary;
-        const REGISTRATIONTITLE = dictionary['registrationtitle'];
-        const FIRSTNAME = dictionary['firstname'];
-        const LASTNAME = dictionary['lastname'];
-        const SPIRITUALNAME = dictionary['spiritualname'];
-        const PLACEHOLDER = dictionary['placeholder'];
-        const LEAVE = dictionary['leave'];
-        const REGISTRATION = dictionary['registration'];
+        const { registrationPageDictionary } = this.context.dictionary;
+        const {
+            REGISTRATIONTITLE,
+            FIRSTNAME,
+            LASTNAME,
+            SPIRITUALNAME,
+            PLACEHOLDER,
+            LEAVE,
+            REGISTRATION
+        } = registrationPageDictionary;
 
         return (
             <div className='registration'>
@@ -182,5 +182,7 @@ class Registration extends Component {
         );
     }
 };
+
+Registration.contextType = UIcontext;
 
 export default Registration;
