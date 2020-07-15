@@ -13,5 +13,23 @@
         "SPIRITUALNAME": "Spiritual Name (if you have one)",
         "LEAVE": "Leave",
         "REGISTRATION": "Registration"
+    },
+
+    "navbarDictionary": {
+        "ADMINPAGES": "ADMINS",
+        "BACKBUTTONLABEL": "VISSZA",
+        "DASHBOARDPAGE": "DASHBOARD",
+        "PERSONALPAGE": "PERSONAL DATA",
+        "YOGAPAGE": "YOGA",
+        "FINANCEPAGE": "FINANCES",
+        "EVENTPAGE": "EVENTS",
+        "QUESTIONPAGE": "PERSONAL QUESTIONS",
+        "QUERIESPAGE": "QUERIES",
+        "LOGOUTLABEL": "LOGOUT",
+
+        "FINANCEADMINPAGE": "FINANCE ADMIN",
+        "EVENTADMINPAGE": "EVENT ADMIN",
+        "YOGAADMINPAGE": "YOGA ADMIN",
+        "SUPERUSERPAGE": "SUPERUSER"
     }
 }

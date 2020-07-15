@@ -11,6 +11,7 @@ const LanguageSelector = (props) => {
 
     return (
         <select
+            className="language-selector"
             onChange={handleLanguageChange}>
             <option value={'hu'}>Magyar</option>
             <option value={'en'}>English</option>

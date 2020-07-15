@@ -13,5 +13,23 @@
         "SPIRITUALNAME": "Spirituális név (ha van)",
         "LEAVE": "Mégsem",
         "REGISTRATION": "Regisztráció"
+    },
+
+    "navbarDictionary": {
+        "ADMINPAGES": "ADMIN OLDALAK",
+        "BACKBUTTONLABEL": "VISSZA",
+        "DASHBOARDPAGE": "ÁTTEKINTÉS",
+        "PERSONALPAGE": "SZEMÉLYES ADATAIM",
+        "YOGAPAGE": "JÓGA",
+        "FINANCEPAGE": "PÉNZÜGYEK",
+        "EVENTPAGE": "ESEMÉNYEK",
+        "QUESTIONPAGE": "SZEMÉLYES KÉRDÉSEK",
+        "QUERIESPAGE": "SZŰRÉS",
+        "LOGOUTLABEL": "KIJELENTKEZÉS",
+
+        "FINANCEADMINPAGE": "PÉNZÜGYI ADMIN",
+        "EVENTADMINPAGE": "ESEMÉNY SZERVEZŐ",
+        "YOGAADMINPAGE": "JÓGA ADMIN",
+        "SUPERUSERPAGE": "SUPERUSER"
     }
 }
