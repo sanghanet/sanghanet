@@ -1,16 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GenericDialog from '../Form/GenericDialog/GenericDialog';
+import { ReactComponent as CopyIcon } from './copy.svg';
+
 import './MemberDetails.scss';
 
 const MemberDetails = (props) => {
     const { closeDialog, selectedMemberData: data } = props;
+    // TODO: error handling
+    // TODO: notification
+    // TODO: button style
+    const copyToClipboard = (event) => {
+        navigator.clipboard.writeText(event.currentTarget.attributes[0].textContent);
+    };
 
     const userData = (label, value) => {
         return (
             <div className="member-data">
                 <p className="data-label">{label}</p>
-                <p className="data-value">{value}</p>
+                <div className="value-container">
+                    <p className="data-value">{value}</p>
+                    <button data-attribute={value} onClick={copyToClipboard}><CopyIcon /></button>
+                </div>
             </div>
         );
     };

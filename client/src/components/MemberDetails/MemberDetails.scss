@@ -28,3 +28,17 @@
     letter-spacing: 2px;
     color: #d8d8d8;
 }
+.value-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    button {
+        @include buttonReset;
+        box-sizing: border-box;
+        display: block;
+        width: 36px;
+        height: 36px;
+        fill: $sideBar-iconColor;
+        padding: 0 14px 14px 0;
+    }
+}
