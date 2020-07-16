@@ -1,4 +1,8 @@
 {
+    "generalTermsDictionary": {
+        "LOADING": "Betöltés"
+    },
+
     "loginPageDictionary": {
         "WELCOME": "Üdv a SanghaNet-en",
         "SIGNIN": "Bejelentkezés"

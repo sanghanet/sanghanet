@@ -1,4 +1,8 @@
 {
+    "generalTermsDictionary": {
+        "LOADING": "Loading"
+    },
+
     "loginPageDictionary": {
         "WELCOME": "Welcome to SanghaNet",
         "SIGNIN": "Sign in"
