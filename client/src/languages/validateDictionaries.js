@@ -18,16 +18,16 @@ const readDictionary = (path) => {
 const hu = readDictionary('./hu.json');
 const en = readDictionary('./hu.json');
 
-const getKeyMap = () => {
+const getKeyMap = (languageDict) => {
     const keyMap = [];
-    for (const dictionary in hu) {
-        keyMap.push(dictionary, Object.keys(hu[dictionary]));
+    for (const dictionary in languageDict) {
+        keyMap.push(dictionary, Object.keys(languageDict[dictionary]));
     }
 
     return JSON.stringify(keyMap);
 };
 
-console.log(en);
+console.log(hu);
 
 if (getKeyMap(hu) === getKeyMap(en)) {
     console.log('The dictionaries are consistent');
