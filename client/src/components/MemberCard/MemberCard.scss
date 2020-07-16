@@ -3,10 +3,11 @@
 
 .card-container {
     @include resetList;
+    padding: 0 30px;
 
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     .member-card {
         margin: 20px;
         padding: 30px 20px 20px;
@@ -61,7 +62,15 @@
             }
         }
     }
-    @media screen and (max-width: 660px) {
+    @media screen and (max-width: 1039px) {
+        padding: 0 100px;
+        justify-content: space-around;
+    }
+    @media screen and (max-width: 996px) {
+        padding: 0 40px;
+    }
+    @media screen and (max-width: 770px) {
+        padding: 0 44px;
         .member-card {
             margin: 20px 50px;
             flex: auto;
@@ -70,7 +79,8 @@
             justify-content: space-around;
         }
     }
-    @media screen and (max-width: 520px) {
+    @media screen and (max-width: 670px) {
+        padding: 0;
         .member-card {
             margin: 20px;
         }
