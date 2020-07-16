@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Client from '../../components/Client';
+import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 
 import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 
 const Logout = (props) => {
+    const { navbarDictionary } = useContext(UIcontext).dictionary;
+
     const handleClick = (event) => {
         Client.fetch('/user/logout')
             .then((res) => {
@@ -19,7 +22,7 @@ const Logout = (props) => {
     return (
         <button className="link" onClick={handleClick}>
             <div className="menu-icon"><LogoutIcon /></div>
-            <span className="title">Logout</span>
+            <span className="title">{navbarDictionary.LOGOUTLABEL}</span>
         </button>
     );
 };
