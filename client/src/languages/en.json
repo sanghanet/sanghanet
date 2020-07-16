@@ -1,0 +1,39 @@
+{
+    "generalTermsDictionary": {
+        "LOADING": "Loading"
+    },
+
+    "loginPageDictionary": {
+        "WELCOME": "Welcome to SanghaNet",
+        "SIGNIN": "Sign in"
+    },
+
+    "registrationPageDictionary": {
+        "REGISTRATIONTITLE": "Registration to SanghaNet",
+        "PHOTO": "Click here to upload your photo",
+        "FIRSTNAME": "First Name",
+        "LASTNAME": "Last Name",
+        "PLACEHOLDER": "Start with capital letter, enter minimum 2 characters.",
+        "SPIRITUALNAME": "Spiritual Name (if you have one)",
+        "LEAVE": "Leave",
+        "REGISTRATION": "Registration"
+    },
+
+    "navbarDictionary": {
+        "ADMINPAGES": "ADMINS",
+        "BACKBUTTONLABEL": "VISSZA",
+        "DASHBOARDPAGE": "DASHBOARD",
+        "PERSONALPAGE": "PERSONAL DATA",
+        "YOGAPAGE": "YOGA",
+        "FINANCEPAGE": "FINANCES",
+        "EVENTPAGE": "EVENTS",
+        "QUESTIONPAGE": "PERSONAL QUESTIONS",
+        "QUERIESPAGE": "QUERIES",
+        "LOGOUTLABEL": "LOGOUT",
+
+        "FINANCEADMINPAGE": "FINANCE ADMIN",
+        "EVENTADMINPAGE": "EVENT ADMIN",
+        "YOGAADMINPAGE": "YOGA ADMIN",
+        "SUPERUSERPAGE": "SUPERUSER"
+    }
+}

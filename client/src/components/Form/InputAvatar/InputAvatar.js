@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import './InputAvatar.scss';
+import { UIcontext } from '../../contexts/UIcontext/UIcontext';
 
 import { Row, Col } from 'react-bootstrap';
 // user can't delete the photo - we might want to leave it like that; photo is mandatory
 const InputAvatar = (props) => {
+    const { registrationPageDictionary } = useContext(UIcontext).dictionary;
+    const { PHOTO } = registrationPageDictionary;
+
     const { profileImgURL, updateProfileImg } = props;
 
     const uploadText = (profileImgURL) ? 'hide-text' : 'upload-text';
@@ -21,7 +25,7 @@ const InputAvatar = (props) => {
                         onChange={updateProfileImg}
                     ></input>
                     <label htmlFor="file" id="file-upload">
-                        <p id="upload-text" className={uploadText}>Click here to<br />upload your photo</p>
+                        <p id="upload-text" className={uploadText}>{ PHOTO }</p>
                         { profileImgURL
                             ? <img src={profileImgURL} id="avatar" className="personal-photo" alt="" />
                             : null

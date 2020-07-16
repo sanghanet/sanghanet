@@ -6,6 +6,8 @@ import Alert from '../../components/Alert/Alert';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import { nameValidationRule, validationError } from '../../components/ValidationRule';
+import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 class Registration extends Component {
     state = {
@@ -95,6 +97,17 @@ class Registration extends Component {
             alertType
         } = this.state;
 
+        const { registrationPageDictionary } = this.context.dictionary;
+        const {
+            REGISTRATIONTITLE,
+            FIRSTNAME,
+            LASTNAME,
+            SPIRITUALNAME,
+            PLACEHOLDER,
+            LEAVE,
+            REGISTRATION
+        } = registrationPageDictionary;
+
         return (
             <div className='registration'>
                 { showAlert
@@ -106,8 +119,9 @@ class Registration extends Component {
                     : null
                 }
                 <header>
-                    <h1>Registration to SanghaNet</h1>
+                    <h1>{ REGISTRATIONTITLE }</h1>
                 </header>
+                <LanguageSelector />
                 <FormContainer formTitle="">
                     <Form onSubmit={this.handleSubmit} autoComplete='off'>
                         <InputAvatar
@@ -115,33 +129,33 @@ class Registration extends Component {
                             updateProfileImg={this.updateProfileImg}
                         />
                         <Form.Label htmlFor="firstName" className="display-label">
-                            <p className="display-title">First Name</p>
+                            <p className="display-title">{ FIRSTNAME }</p>
                         </Form.Label>
                         <Form.Control
                             className="display-input"
                             type="text"
                             id="firstName"
                             value={firstName}
-                            placeholder="Start with capital letter, enter minimum 2 characters."
+                            placeholder={ PLACEHOLDER }
                             onChange={this.handleChange}
                             {...nameValidationRule}
                         ></Form.Control>
                         <span className="error" aria-live="polite">{firstNameValidationMsg}</span>
                         <Form.Label htmlFor="lastName" className="display-label">
-                            <p className="display-title">Last Name</p>
+                            <p className="display-title">{ LASTNAME }</p>
                         </Form.Label>
                         <Form.Control
                             className="display-input"
                             type="text"
                             id="lastName"
                             value={lastName}
-                            placeholder="Start with capital letter, enter minimum 2 characters."
+                            placeholder={ PLACEHOLDER }
                             onChange={this.handleChange}
                             {...nameValidationRule}
                         ></Form.Control>
                         <span className="error" aria-live="polite">{lastNameValidationMsg}</span>
                         <Form.Label htmlFor="spiritualName" className="display-label">
-                            <p className="display-title">Spiritual Name in case you have it, otherwise &quot;None&quot;</p>
+                            <p className="display-title">{ SPIRITUALNAME }</p>
                         </Form.Label>
                         <Form.Control
                             className="display-input"
@@ -155,10 +169,10 @@ class Registration extends Component {
                         <span className="error" aria-live="polite">{spiritualNameValidationMsg}</span>
                         <div className="regForm-btns">
                             <Button variant="outline-secondary" onClick={this.handleClose}>
-                                Leave
+                                { LEAVE }
                             </Button>
                             <Button onClick={this.handleSubmit} variant="outline-success" className="reg-btn">
-                                Registration
+                                { REGISTRATION }
                             </Button>
                         </div>
                     </Form>
@@ -167,5 +181,7 @@ class Registration extends Component {
         );
     }
 };
+
+Registration.contextType = UIcontext;
 
 export default Registration;

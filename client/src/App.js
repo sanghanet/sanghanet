@@ -9,6 +9,7 @@ import Registration from './pages/Registration/Registration';
 import Main from './pages/Main';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import { UIcontext } from './components/contexts/UIcontext/UIcontext';
+import { dictionaryList } from './languages/dictionaryList';
 
 class App extends Component {
     constructor (props) {
@@ -28,6 +29,17 @@ class App extends Component {
             });
         };
 
+        this.changeLang = (lang) => {
+            this.setState({
+                lang,
+                dictionary: dictionaryList[lang]
+            });
+        };
+
+        if (!localStorage.getItem('lang')) {
+            localStorage.setItem('lang', 'hu');
+        }
+
         this.state = {
             isHamburgerOpen: false,
             toggleHamburger: this.toggleHamburger,
@@ -37,7 +49,11 @@ class App extends Component {
             isFinanceAdmin: false,
             isEventAdmin: false,
             isYogaAdmin: false,
-            setAccess: this.setAccess
+            setAccess: this.setAccess,
+
+            lang: 'hu',
+            dictionary: dictionaryList[localStorage.getItem('lang')],
+            changeLang: this.changeLang
         };
     }
 

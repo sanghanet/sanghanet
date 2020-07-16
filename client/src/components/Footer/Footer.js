@@ -1,6 +1,7 @@
 import React from 'react';
 import version from '../../version';
 import './Footer.scss';
+import LanguageSelector from '../LanguageSelector/LanguageSelector';
 
 const Footer = (props) => {
     return (
@@ -17,6 +18,7 @@ const Footer = (props) => {
                 <p>{ version.date }</p>
                 <p>{ version.hash }</p>
             </div>
+            <LanguageSelector />
         </footer>
     );
 };

@@ -1,0 +1,39 @@
+{
+    "generalTermsDictionary": {
+        "LOADING": "Betöltés"
+    },
+
+    "loginPageDictionary": {
+        "WELCOME": "Üdv a SanghaNet-en",
+        "SIGNIN": "Bejelentkezés"
+    },
+
+    "registrationPageDictionary": {
+        "REGISTRATIONTITLE": "Regisztráció a SanghaNet-re",
+        "PHOTO": "Kattints ide a fotó feltöltéséhez",
+        "FIRSTNAME": "Keresztnév",
+        "LASTNAME": "Vezetéknév",
+        "PLACEHOLDER": "Kezdd nagybetűvel és írj be minimum két karaktert.",
+        "SPIRITUALNAME": "Spirituális név (ha van)",
+        "LEAVE": "Mégsem",
+        "REGISTRATION": "Regisztráció"
+    },
+
+    "navbarDictionary": {
+        "ADMINPAGES": "ADMIN OLDALAK",
+        "BACKBUTTONLABEL": "VISSZA",
+        "DASHBOARDPAGE": "ÁTTEKINTÉS",
+        "PERSONALPAGE": "SZEMÉLYES ADATAIM",
+        "YOGAPAGE": "JÓGA",
+        "FINANCEPAGE": "PÉNZÜGYEK",
+        "EVENTPAGE": "ESEMÉNYEK",
+        "QUESTIONPAGE": "SZEMÉLYES KÉRDÉSEK",
+        "QUERIESPAGE": "SZŰRÉS",
+        "LOGOUTLABEL": "KIJELENTKEZÉS",
+
+        "FINANCEADMINPAGE": "PÉNZÜGYI ADMIN",
+        "EVENTADMINPAGE": "ESEMÉNY SZERVEZŐ",
+        "YOGAADMINPAGE": "JÓGA ADMIN",
+        "SUPERUSERPAGE": "SUPERUSER"
+    }
+}
