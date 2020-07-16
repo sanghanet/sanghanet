@@ -6,6 +6,7 @@ import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 
 const Logout = (props) => {
     const { navbarDictionary } = useContext(UIcontext).dictionary;
+    const { LOGOUTLABEL } = navbarDictionary;
 
     const handleClick = (event) => {
         Client.fetch('/user/logout')
@@ -22,7 +23,7 @@ const Logout = (props) => {
     return (
         <button className="link" onClick={handleClick}>
             <div className="menu-icon"><LogoutIcon /></div>
-            <span className="title">{navbarDictionary.LOGOUTLABEL}</span>
+            <span className="title">{ LOGOUTLABEL }</span>
         </button>
     );
 };
