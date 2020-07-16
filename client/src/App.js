@@ -36,6 +36,10 @@ class App extends Component {
             });
         };
 
+        if (!localStorage.getItem('lang')) {
+            localStorage.setItem('lang', 'hu');
+        }
+
         this.state = {
             isHamburgerOpen: false,
             toggleHamburger: this.toggleHamburger,
@@ -48,8 +52,7 @@ class App extends Component {
             setAccess: this.setAccess,
 
             lang: 'hu',
-            // eslint-disable-next-line dot-notation
-            dictionary: dictionaryList['hu'],
+            dictionary: dictionaryList[localStorage.getItem('lang')],
             changeLang: this.changeLang
         };
     }

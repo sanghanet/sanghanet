@@ -7,10 +7,12 @@ const LanguageSelector = (props) => {
 
     const handleLanguageChange = (event) => {
         changeLang(event.target.value);
+        localStorage.setItem('lang', event.target.value);
     };
 
     return (
         <select
+            defaultValue={localStorage.getItem('lang')}
             className="language-selector"
             onChange={handleLanguageChange}>
             <option value={'hu'}>Magyar</option>

@@ -8,7 +8,6 @@ import LanguageSelector from '../../components/LanguageSelector/LanguageSelector
 
 const Login = (props) => {
     const { loginPageDictionary } = useContext(UIcontext).dictionary;
-
     const { WELCOME, SIGNIN } = loginPageDictionary;
 
     return (
