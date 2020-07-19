@@ -7,12 +7,19 @@ const nameValidationRule = {
 };
 const addressPattern = '^[0-9]{4} [A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí0-9.,/\\s-]*$';
 const mobilePattern = '[0-9]{2}/[0-9]{2}-[0-9]{2}-[0-9]{3}';
+
+// emailPattern does not include '@gmail.com'
 // eslint-disable-next-line no-control-regex
-const emailPattern = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@gmail.com/;
+const emailPattern = String(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")/);
+const emailValidationRule = {
+    required: true,
+    minLength: 3,
+    pattern: emailPattern.substring(1, emailPattern.length-1)
+}
 
 const validationError = (input) => {
     if (input.validity.valid) {
-        return null;
+        return '';
     } else if (input.validity.valueMissing) {
         return 'Value is required!';
     } else if (input.validity.typeMismatch) {
@@ -34,8 +41,8 @@ const validationError = (input) => {
 
 export {
     nameValidationRule,
+    emailValidationRule,
     addressPattern,
     mobilePattern,
     validationError,
-    emailPattern
 };
