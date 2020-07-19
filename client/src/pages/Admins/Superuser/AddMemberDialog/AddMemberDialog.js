@@ -60,7 +60,11 @@ class AddMemberDialog extends Component {
             labelInputValue: event.target.value,
             labelErrorMsg: validationError(event.target),
             labelInvalid: !!validationError(event.target)
-        }, () => {console.log(this.state.emailInvalid, this.state.labelInvalid)});
+        });
+    }
+
+    handleEnter = (event) => {
+        if (event.key === 'Enter') { this.handleAddMember() } 
     }
 
     handleAddMember = (event) => {
@@ -70,7 +74,7 @@ class AddMemberDialog extends Component {
             this.props.addMember(`${this.state.emailInputValue}@gmail.com`, this.state.labelInputValue);
         }
 
-        event.preventDefault();
+        event && event.preventDefault();
     }
 
     render () {
@@ -94,6 +98,7 @@ class AddMemberDialog extends Component {
                         value={labelInputValue}
                         id="label-input"
                         onChange={this.handleLabelChange}
+                        onKeyPress={this.handleEnter}
                         autoFocus
                         {...nameValidationRule}
                     >
@@ -107,6 +112,7 @@ class AddMemberDialog extends Component {
                             value={emailInputValue}
                             id="email-input"
                             onChange={this.handleEmailChange}
+                            onKeyPress={this.handleEnter}
                             {...emailValidationRule}
                         >
                         </Form.Control>
