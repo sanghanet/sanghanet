@@ -18,35 +18,6 @@ class AddMemberDialog extends Component {
         emailErrorMsg: ''
     }
 
-//     validateLabel = () => {
-//         const { labelInputValue } = this.state;
-// 
-//         // const errorMsg = namePattern.test(labelInputValue) ? 'Invalid name' : '';
-//         const errorMsg = '';
-// 
-//         const isInvalid = !!errorMsg.length;
-//         this.setState({
-//             isDisabled: isInvalid,
-//             errorMsg: errorMsg
-//         });
-//     }
-// 
-//     validateEmail = () => {
-//         const { emailInputValue } = this.state;
-// 
-//         const errorMsg = emailInputValue.includes('@')
-//             ? 'Leave \'@gmail.com\' off'
-//             : emailPattern.test(`${emailInputValue}@gmail.com`)
-//                 ? ''
-//                 : 'Invalid email address';
-// 
-//         const isInvalid = !!errorMsg.length;
-//         this.setState({
-//             isDisabled: isInvalid,
-//             errorMsg: errorMsg
-//         });
-//     }
-
     handleEmailChange = (event) => {
         this.setState({
             emailInputValue: event.target.value,
@@ -64,7 +35,13 @@ class AddMemberDialog extends Component {
     }
 
     handleEnter = (event) => {
-        if (event.key === 'Enter') { this.handleAddMember() } 
+        const { labelInvalid, emailInvalid } = this.state;
+
+        if (event.key === 'Enter') {
+            if (!(labelInvalid || emailInvalid)) {
+                this.handleAddMember();
+            }
+        } 
     }
 
     handleAddMember = (event) => {
