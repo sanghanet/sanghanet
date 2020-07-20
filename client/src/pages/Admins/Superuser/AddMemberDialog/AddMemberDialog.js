@@ -37,11 +37,9 @@ class AddMemberDialog extends Component {
     handleEnter = (event) => {
         const { labelInvalid, emailInvalid } = this.state;
 
-        if (event.key === 'Enter') {
-            if (!(labelInvalid || emailInvalid)) {
-                this.handleAddMember();
-            }
-        } 
+        if (event.key === 'Enter' && !(labelInvalid || emailInvalid)) {
+            this.handleAddMember();
+        }
     }
 
     handleAddMember = (event) => {
