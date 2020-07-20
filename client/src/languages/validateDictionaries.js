@@ -1,36 +1,30 @@
 const fs = require('fs');
+const util = require('util');
 
-/*
-If we use 'require()' to get the JSON, the file content will cache and
-the variable will still refer to the cached version instead of the current,
-potentially updated version.
-*/
-const readDictionary = (path) => {
-    fs.readFile(require.resolve(path), (err, data) => {
-        if (err) {
-            return err;
-        } else {
-            return JSON.parse(data);
-        }
-    });
-};
+const readFile = util.promisify(fs.readFile);
 
-const hu = readDictionary('./hu.json');
-const en = readDictionary('./hu.json');
-
-const getKeyMap = (languageDict) => {
+const getKeyMap = async (path) => {
     const keyMap = [];
-    for (const dictionary in languageDict) {
-        keyMap.push(dictionary, Object.keys(languageDict[dictionary]));
-    }
+    try {
+        let languageDict = await readFile(path);
+        languageDict = JSON.parse(languageDict);
 
-    return JSON.stringify(keyMap);
+        let keyMap = [];
+        for (const dictionary in languageDict) {
+            keyMap.push(dictionary, Object.keys(languageDict[dictionary]));
+        }
+
+        return JSON.stringify(keyMap);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-console.log(hu);
-
-if (getKeyMap(hu) === getKeyMap(en)) {
-    console.log('The dictionaries are consistent');
-} else {
-    console.log('The dictionaries are inconsistent.');
-}
+getKeyMap('./hu.json')
+    .then((hunDict) => { return hunDict; })
+    .then((hunDict) => {
+        getKeyMap('./en.json')
+            .then((enDict) => {
+                console.log(`The dictionaries are ${enDict === hunDict ? 'consistent' : 'inconsistent'}`)
+            });
+    });
