@@ -1,30 +1,50 @@
 const fs = require('fs');
 const util = require('util');
-
 const readFile = util.promisify(fs.readFile);
 
 const getKeyMap = async (path) => {
-    const keyMap = [];
     try {
         let languageDict = await readFile(path);
         languageDict = JSON.parse(languageDict);
 
-        let keyMap = [];
+        const map = [];
         for (const dictionary in languageDict) {
-            keyMap.push(dictionary, Object.keys(languageDict[dictionary]));
+            map.push(dictionary, Object.keys(languageDict[dictionary]));
         }
 
-        return JSON.stringify(keyMap);
+        return JSON.stringify(map);
     } catch (err) {
         console.log(err);
     }
 };
 
-getKeyMap('./hu.json')
-    .then((hunDict) => { return hunDict; })
-    .then((hunDict) => {
-        getKeyMap('./en.json')
-            .then((enDict) => {
-                console.log(`The dictionaries are ${enDict === hunDict ? 'consistent' : 'inconsistent'}`)
-            });
-    });
+const matchKeyMaps = () => {
+    const keyMaps = [];
+    let dictionariesToGet = ['./en.json', './hu.json'];
+
+    (function assembleKeyMaps() {
+        if (dictionariesToGet.length) { // --------- run recursive function
+            getKeyMap(dictionariesToGet[0])
+                .then((keymap) => {
+                    keyMaps.push(keymap);
+                    dictionariesToGet.shift();
+                    assembleKeyMaps(dictionariesToGet);
+                })
+                .catch((err) => {
+                    throw new Error(`There was a problem with getting the keymap of ${dictionariesToGet[0]}`);
+                });
+        } else { // -------------------------------- check for consistency
+            let consistent = true;
+            for (let i = 1; i < keyMaps.length; i++) {
+                if (keyMaps[i] !== keyMaps[0]) {
+                    consistent = false;
+                    break;
+                }
+            }
+
+            console.log(`The dictionaries are ${consistent ? 'consistent' : 'INCONSISTENT. Please fix it.'}`);
+        }
+    })();
+}
+
+matchKeyMaps();
