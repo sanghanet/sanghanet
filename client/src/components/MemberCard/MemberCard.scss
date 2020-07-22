@@ -62,6 +62,9 @@
             }
         }
     }
+    .active-member {
+        background-color: $active-member;
+    }
     @media screen and (max-width: 1039px) {
         padding: 0 100px;
         justify-content: space-around;

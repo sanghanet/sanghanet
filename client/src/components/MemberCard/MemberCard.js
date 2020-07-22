@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import './MemberCard.scss';
 
 const MemberCard = (props) => {
-    const { index, profileImg, firstName, lastName, spiritualName, showMemberPopup } = props;
+    const { index, profileImg, firstName, lastName, spiritualName, showMemberPopup, activeMember } = props;
     const showMemberDetails = () => { showMemberPopup(index); };
     return (
-        <li className="member-card">
+        <li className={`member-card ${activeMember ? 'active-member' : ''}`}>
             <div className="profile-img">
                 <img src={profileImg} alt="Avatar" />
             </div>
@@ -27,7 +27,8 @@ MemberCard.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     spiritualName: PropTypes.string.isRequired,
-    showMemberPopup: PropTypes.func.isRequired
+    showMemberPopup: PropTypes.func.isRequired,
+    activeMember: PropTypes.bool.isRequired
 };
 
 export default MemberCard;

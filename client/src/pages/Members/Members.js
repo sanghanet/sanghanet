@@ -55,6 +55,7 @@ const Members = (props) => {
                                 lastName={member.lastName}
                                 spiritualName={member.spiritualName}
                                 showMemberPopup={showMemberPopup}
+                                activeMember={member.activeMember}
                             />)
                         )
                     }
