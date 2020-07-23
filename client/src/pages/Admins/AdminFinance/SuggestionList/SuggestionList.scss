@@ -1,3 +1,15 @@
-li {
-    color:white
+@import '../../../../style/colors';
+@import '../../../../style/mixins';
+
+
+main li {
+    color: $white;
+    list-style: none;
+    background-color: $sideBar-bg;
+    transition: background-color 0.2s ease;
+}
+
+main li:hover {
+    background-color: $sideBarHover-bg;
+    transition: background-color 0.2s ease;
 }

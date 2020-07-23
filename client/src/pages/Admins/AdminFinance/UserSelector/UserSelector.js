@@ -14,15 +14,20 @@ class UserSelector extends React.Component {
             showSuggestions: false,
             userInput: ''
         };
+        this.maxDisplayedSuggestions = 10;
     }
 
     onChange = (e) => {
         const { suggestions } = this.state;
         const userInput = e.currentTarget.value;
 
-        const filteredSuggestions = suggestions.filter((suggestion) => {
+        let filteredSuggestions = suggestions.filter((suggestion) => {
             return suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1;
         });
+
+        if (filteredSuggestions.length > this.maxDisplayedSuggestions) {
+            filteredSuggestions = filteredSuggestions.slice(0, this.maxDisplayedSuggestions);
+        }
 
         this.setState({
             filteredSuggestions,
