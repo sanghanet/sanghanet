@@ -1,15 +1,34 @@
 @import '../../../../style/colors';
 @import '../../../../style/mixins';
 
+.selector ul {
+    position: absolute;
+    z-index: 500;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 20%;   
+    padding: 0;
+    top: 100%;
+}
 
-main li {
+.selector li {
     color: $white;
     list-style: none;
     background-color: $sideBar-bg;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    padding: 10px 20px;
+    border-left: 4px solid $secondary;
+    width: 95%;
+    text-align: center;
 }
 
-main li:hover {
+.selector li:hover {
     background-color: $sideBarHover-bg;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    border-left: 6px solid $primary;
+    padding-right: 22px;
+     
 }
