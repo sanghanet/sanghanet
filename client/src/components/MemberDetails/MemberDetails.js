@@ -9,12 +9,12 @@ import './MemberDetails.scss';
 const MemberDetails = (props) => {
     const [dataCopy, setDataCopy] = useState(false);
     const { closeDialog, selectedMemberData: data } = props;
-    // TODO: error handling
     // TODO: test copy-paste on real mobile device
-    // FIXME: if input value is longer than one linne, copy icon shrinks
+    // FIXME: if input value is longer than one line, copy icon shrinks
     const copyToClipboard = (event) => {
-        navigator.clipboard.writeText(event.currentTarget.attributes[0].textContent);
-        setDataCopy(true);
+        navigator.clipboard.writeText(event.currentTarget.attributes[0].textContent)
+            .then(() => setDataCopy(true))
+            .catch(() => console.log('Copy to clipboard failed'));
     };
     const resetClipboardCopy = (event) => {
         setDataCopy(false);
