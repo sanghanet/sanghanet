@@ -17,7 +17,6 @@ const MemberCard = (props) => {
                 <button onClick={showMemberDetails}>See shared data</button>
             </div>
         </li>
-
     );
 };
 

@@ -34,11 +34,17 @@
     justify-content: space-between;
     button {
         @include buttonReset;
-        box-sizing: border-box;
         display: block;
-        width: 36px;
-        height: 36px;
-        fill: $sideBar-iconColor;
+        width: 38px;
+        height: 38px;
         padding: 0 14px 14px 0;
+        fill: $sideBar-iconColor;
+        &:focus {
+            outline: none;
+            svg {
+                outline: none;
+                fill: $label-bg;
+            }
+        }
     }
 }

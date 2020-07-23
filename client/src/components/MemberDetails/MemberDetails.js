@@ -9,7 +9,6 @@ const MemberDetails = (props) => {
     const { closeDialog, selectedMemberData: data } = props;
     // TODO: error handling
     // TODO: notification
-    // TODO: button style
     const copyToClipboard = (event) => {
         navigator.clipboard.writeText(event.currentTarget.attributes[0].textContent);
     };
