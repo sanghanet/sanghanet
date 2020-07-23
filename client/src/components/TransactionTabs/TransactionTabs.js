@@ -17,6 +17,12 @@ class TransactionTabs extends React.Component {
         this.generateTabs();
     }
 
+    componentDidUpdate (prevProps) {
+        if (prevProps !== this.props) {
+            this.generateTabs();
+        }
+    }
+
     generateTabs = () => {
         try {
             const tabs = [];

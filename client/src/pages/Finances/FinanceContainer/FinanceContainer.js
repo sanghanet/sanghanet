@@ -21,7 +21,7 @@ class FinanceContainer extends React.Component {
 
     componentDidUpdate (prevProps) {
         if (prevProps.selectedUser !== this.props.selectedUser) {
-            console.log(`Component updated, new email: ${this.props.selectedUser}`);
+            this.getFinanceData(this.props.selectedUser);
         }
     }
 

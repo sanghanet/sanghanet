@@ -8,9 +8,10 @@ module.exports.getFinanceData = async (req, res) => {
         if (req.body.email) {
             const result = await FinanceAccount.find({ email: req.body.email });
             res.json(result);
+        } else {
+            const result = await FinanceAccount.find({ email: req.user.email });
+            res.json(result);
         }
-        const result = await FinanceAccount.find({ email: req.user.email });
-        res.json(result);
     } catch (error) {
         log.error(error);
         res.send(error);

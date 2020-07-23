@@ -7,8 +7,7 @@ class TransactionTable extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            rows: null,
-            content: this.props.transactionArray
+            rows: null
         };
     }
 
@@ -16,10 +15,16 @@ class TransactionTable extends React.Component {
         this.createRows();
     }
 
+    componentDidUpdate (prevProps) {
+        if (prevProps.transactionArray !== this.props.transactionArray) {
+            this.createRows();
+        }
+    }
+
     createRows () {
         try {
             const rows = [];
-            for (const transaction of this.state.content) {
+            for (const transaction of this.props.transactionArray) {
                 rows.push(
                     <tr key = {transaction._id}>
                         <td>{transaction.description}</td>
