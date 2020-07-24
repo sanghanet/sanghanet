@@ -12,7 +12,8 @@ class UserSelector extends React.Component {
             suggestions: null,
             filteredSuggestions: [],
             showSuggestions: false,
-            userInput: ''
+            userInput: '',
+            inputPlaceholder: 'Enter username ...'
         };
         this.maxDisplayedSuggestions = 10;
     }
@@ -45,17 +46,27 @@ class UserSelector extends React.Component {
     }
 
     onSubmit = () => {
-        const selectedUserName = document.getElementById('selectedUser').value;
-        const selectedUserObject = this.state.rawUserData.find((item) => {
-            return item.userName === selectedUserName;
-        });
-        const selectedEmail = selectedUserObject.email;
-        this.setState({
-            filteredSuggestions: [],
-            showSuggestions: false,
-            userInput: ''
-        });
-        this.props.handleSubmit(selectedEmail);
+        if (document.getElementById('selectedUser').value) {
+            const selectedUserName = document.getElementById('selectedUser').value;
+            const selectedUserObject = this.state.rawUserData.find((item) => {
+                return item.userName === selectedUserName;
+            });
+            if (selectedUserObject) {
+                const selectedEmail = selectedUserObject.email;
+                this.setState({
+                    filteredSuggestions: [],
+                    showSuggestions: false,
+                    userInput: '',
+                    inputPlaceholder: 'Enter username ...'
+                });
+                this.props.handleSubmit(selectedEmail);
+            } else {
+                this.setState({
+                    userInput: '',
+                    inputPlaceholder: 'Invalid username!'
+                });
+            }
+        }
     }
 
     componentDidMount () {
@@ -82,13 +93,14 @@ class UserSelector extends React.Component {
             state: {
                 filteredSuggestions,
                 showSuggestions,
-                userInput
+                userInput,
+                inputPlaceholder
             }
         } = this;
 
         return (
             <div className="selector">
-                <input id="selectedUser" onChange = {onChange} value={userInput} ></input>
+                <input id="selectedUser" autoComplete="off" placeholder={inputPlaceholder} onChange = {onChange} value={userInput} ></input>
                 {showSuggestions && userInput ? <SuggestionList names={filteredSuggestions} handleOnClick = {onClick}></SuggestionList> : null}
                 <button onClick = {onSubmit}>Select</button>
             </div>

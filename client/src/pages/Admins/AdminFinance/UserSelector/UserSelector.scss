@@ -9,4 +9,36 @@
 }
 .selector button {
     margin-left: 10px;
+    cursor: default;
+    background-color: $_bs-bg-dark;
+    color: $white;
+    border-radius: 3px;
+    padding: 5px 15px;
+    border: none;
+    transform: all 0.1s;
+}
+
+.selector input {
+    border-radius: 3px;
+    border: none;
+    background-color: $_bs-bg-dark;
+    color: $white;
+    padding: 5px 10px;;
+}
+
+.selector input:focus,
+.selector button:focus {
+    outline: none;
+}
+
+.selector button:hover {
+    padding-bottom: 3px;
+    border-bottom: 2px solid $secondary;
+    transform: all 0.1s;
+}
+
+.selector button:active {
+    padding-bottom: 2px;
+    border-bottom: 3px solid $primary;
+    transform: all 0.1s;
 }
