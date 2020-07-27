@@ -13,7 +13,8 @@
         padding: 30px 20px 20px;
         text-align: center;
         color: $card-text;
-        background-color: $input-bg;
+        // background-color: $input-bg;
+        background: radial-gradient(circle, #343434 20%, $input-bg 100%);
         border-radius: 10px;
         border-left: 1px solid #6f6f6f;
         border-top: 1px solid #6f6f6f;
@@ -63,7 +64,7 @@
         }
     }
     .active-member {
-        background-color: $active-member;
+        background: radial-gradient(circle, #79003c 20%, #101010 100%);
     }
     @media screen and (max-width: 1039px) {
         padding: 0 100px;

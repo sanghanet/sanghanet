@@ -10,7 +10,6 @@ const MemberDetails = (props) => {
     const [dataCopy, setDataCopy] = useState(false);
     const { closeDialog, selectedMemberData: data } = props;
     // TODO: test copy-paste on real mobile device
-    // FIXME: if input value is longer than one line, copy icon shrinks
     const copyToClipboard = (event) => {
         navigator.clipboard.writeText(event.currentTarget.attributes[0].textContent)
             .then(() => setDataCopy(true))
