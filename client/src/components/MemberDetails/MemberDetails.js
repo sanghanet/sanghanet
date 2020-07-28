@@ -32,7 +32,7 @@ const MemberDetails = (props) => {
                 <div className="value-container">
                     <p className="data-value">{value}</p>
                     <OverlayTrigger
-                        placement="top"
+                        placement="left"
                         overlay={renderTooltip}
                     >
                         <button data-attribute={value} onClick={copyToClipboard} onMouseLeave={resetClipboardCopy}><CopyIcon /></button>
