@@ -4,6 +4,7 @@ import './FinanceContainer.scss';
 import FinanceDashboard from '../../../components/FinanceDashboard/FinanceDashboard';
 import TransactionTabs from '../../../components/TransactionTabs/TransactionTabs';
 import Alert from '../../../components/Alert/Alert';
+import PropTypes from 'prop-types';
 
 class FinanceContainer extends React.Component {
     constructor (props) {
@@ -15,7 +16,13 @@ class FinanceContainer extends React.Component {
     }
 
     componentDidMount () {
-        this.getFinanceData();
+        this.getFinanceData(this.props.selectedUser);
+    }
+
+    componentDidUpdate (prevProps) {
+        if (prevProps.selectedUser !== this.props.selectedUser) {
+            this.getFinanceData(this.props.selectedUser);
+        }
     }
 
     onError = (error) => {
@@ -24,9 +31,17 @@ class FinanceContainer extends React.Component {
         });
     }
 
-    getFinanceData = async () => {
+    getFinanceData = async (userEmail = null) => {
         try {
-            const result = await Client.fetch('/finance/financedata');
+            const result = await Client.fetch('/finance/financedata', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: {
+                    email: userEmail
+                }
+            });
             this.setState({
                 financeData: result
             });
@@ -65,5 +80,9 @@ class FinanceContainer extends React.Component {
         );
     }
 }
+
+FinanceContainer.propTypes = {
+    selectedUser: PropTypes.string
+};
 
 export default FinanceContainer;

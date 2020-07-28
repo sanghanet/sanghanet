@@ -5,6 +5,7 @@ const FinanceAccountSchema = mongoose.Schema({
     currency: String,
     userId: mongoose.ObjectId,
     email: String,
+    userName: String,
     transactionArchive: {
         membership: [FinanceTransactionSchema],
         rent: [FinanceTransactionSchema],
@@ -37,4 +38,4 @@ const FinanceAccountSchema = mongoose.Schema({
     }
 });
 
-module.exports.FinanceAccount = mongoose.model('FinanceAccount', FinanceAccountSchema);
+module.exports.FinanceAccount = mongoose.model('financeaccount', FinanceAccountSchema);
