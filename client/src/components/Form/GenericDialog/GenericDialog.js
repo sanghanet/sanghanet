@@ -21,9 +21,11 @@ const GenericDialog = (props) => {
                 <Button variant="secondary" onClick={handleClose}>
                     {reject}
                 </Button>
-                <Button onClick={handleAccept} disabled={acceptDisabled}>
-                    {accept}
-                </Button>
+                {accept &&
+                    <Button onClick={handleAccept} disabled={acceptDisabled}>
+                        {accept}
+                    </Button>
+                }
             </Modal.Footer>
         </Modal>
     );
@@ -31,12 +33,12 @@ const GenericDialog = (props) => {
 
 GenericDialog.propTypes = {
     title: PropTypes.string.isRequired,
-    reject: PropTypes.string.isRequired,
-    accept: PropTypes.string.isRequired,
+    reject: PropTypes.string,
+    accept: PropTypes.string,
     children: PropTypes.node.isRequired,
     acceptDisabled: PropTypes.bool,
     handleClose: PropTypes.func.isRequired,
-    handleAccept: PropTypes.func.isRequired
+    handleAccept: PropTypes.func
 };
 
 export default GenericDialog;

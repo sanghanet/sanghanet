@@ -1,0 +1,58 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.data-photo {
+    display: block;
+    width: 140px;
+    height: 140px;
+    margin: auto;
+    border: 4px solid  $label-bg;
+    border-radius: 8px;
+}
+.member-data {
+    width: 94%;
+    margin: 10px auto;
+    padding: 6px 6px 8px 16px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    background-color: #5a5a5a;
+}
+.data-label, .data-value {
+    margin: 0;
+    font-size: 20px;
+}
+.data-value {
+    color: #afafaf;
+}
+.data-label {
+    padding-bottom: 6px;
+    letter-spacing: 2px;
+    color: #d8d8d8;
+}
+.value-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    button {
+        @include buttonReset;
+        display: block;
+        fill: $sideBar-iconColor;
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+        &:focus {
+            outline: none;
+            svg {
+                outline: none;
+                fill: $label-bg;
+            }
+        }
+    }
+}
+
+// @media screen and (max-width: 420px) {
+//     .modal-body {
+//         padding: 12px 0;
+//     }
+// }
