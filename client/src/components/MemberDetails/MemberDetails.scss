@@ -42,8 +42,7 @@
             height: 28px;
         }
         &:focus {
-            // outline: none;
-            // border: none;
+            outline: none;
             svg {
                 outline: none;
                 fill: $label-bg;
@@ -51,3 +50,9 @@
         }
     }
 }
+
+// @media screen and (max-width: 420px) {
+//     .modal-body {
+//         padding: 12px 0;
+//     }
+// }
