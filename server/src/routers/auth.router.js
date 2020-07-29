@@ -21,7 +21,7 @@ authRouter.use((req, res, next) => {
 authRouter.post('/google', passport.authenticate('google', { scope: ['email'] }));
 
 authRouter.get('/passport',
-    passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/loginfailed` }),
+    passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/throwout/failed+to+authenticate+user` }),
     (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); }
 );
 
