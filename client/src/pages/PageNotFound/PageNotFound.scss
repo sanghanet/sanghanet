@@ -1,4 +1,10 @@
 @import '../../style/colors';
+@keyframes toggleTextShadow {
+    0% { text-shadow: 0 0 8px #f7f14c; }
+    49% { text-shadow: 0 0 8px #f7f14c; }
+    50% { text-shadow: none; }
+    100% { text-shadow: none; }
+}
 
 .not-found-page {
     background-color: $main-bg;
@@ -6,12 +12,13 @@
     flex-direction: column;
 
     h1 {
-        color: $white;
+        color: #f7f14c;
         font-weight: bold;
         height: 20vh;
         display: flex;
         align-items: center;
         justify-content: center;
+        animation: toggleTextShadow 2s infinite;
     }
 
     img {
