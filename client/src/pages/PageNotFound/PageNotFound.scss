@@ -1,8 +1,13 @@
+@import '../../style/colors';
+
 .not-found-page {
+    background-color: $main-bg;
     display: flex;
     flex-direction: column;
 
     h1 {
+        color: $white;
+        font-weight: bold;
         height: 20vh;
         display: flex;
         align-items: center;
