@@ -1,0 +1,17 @@
+.not-found-page {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        height: 20vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    img {
+        height: 80vh;
+        width: 100%;
+        object-fit: contain;
+    }
+}
