@@ -6,7 +6,7 @@ const PageNotFound = (props) => {
     return (
         <div className='not-found-page'>
             <h1>PAGE NOT FOUND</h1>
-            <img src={NotFoundImg} alt='page not found'/>
+            <img src={NotFoundImg} alt='page not found' />
         </div>
     );
 };
