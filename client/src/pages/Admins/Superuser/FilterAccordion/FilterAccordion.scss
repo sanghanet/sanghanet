@@ -65,8 +65,10 @@
                             }
                         }
 
-                        @include minQ(1500px) { width: 80%; }
-                        @include minQ(1920px) { width: 60%; }
+                        .search-bar {
+                            @include minQ(1500px) { width: 80%; }
+                            @include minQ(1920px) { width: 60%; }
+                        }
                     }
 
                     &.role-filter {
