@@ -35,5 +35,10 @@
         "EVENTADMINPAGE": "ESEMÉNY SZERVEZŐ",
         "YOGAADMINPAGE": "JÓGA ADMIN",
         "SUPERUSERPAGE": "SUPERUSER"
+    },
+
+    "modalMembersDictionary": {
+        "COPY": "Másolás",
+        "COPYTOCLIPBOARD": "Vágólapra másolva"
     }
 }

@@ -35,5 +35,10 @@
         "EVENTADMINPAGE": "EVENT ADMIN",
         "YOGAADMINPAGE": "YOGA ADMIN",
         "SUPERUSERPAGE": "SUPERUSER"
+    },
+
+    "modalMembersDictionary": {
+        "COPY": "Copy",
+        "COPYTOCLIPBOARD": "Copied to clipboard"
     }
 }

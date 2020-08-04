@@ -1,29 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import GenericDialog from '../Form/GenericDialog/GenericDialog';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import { ReactComponent as CopyIcon } from './copy.svg';
-import Tooltip from 'react-bootstrap/Tooltip';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import './MemberDetails.scss';
 
 const MemberDetails = (props) => {
     const [dataCopy, setDataCopy] = useState(false);
+    const { modalMembersDictionary } = useContext(UIcontext).dictionary;
+    const { COPY, COPYTOCLIPBOARD } = modalMembersDictionary;
+
     const { closeDialog, selectedMemberData: data } = props;
-    // TODO: test copy-paste on real mobile device
+
     const copyToClipboard = (event) => {
-        navigator.clipboard.writeText(event.currentTarget.attributes[0].textContent)
-            .then(() => setDataCopy(true))
+        navigator.clipboard.writeText(event.currentTarget.dataset.attribute)
+            .then(() => { setDataCopy(true); })
             .catch(() => console.log('Copy to clipboard failed'));
     };
     const resetClipboardCopy = (event) => {
         setDataCopy(false);
-    };
-    const renderTooltip = (props) => {
-        return (
-            <Tooltip id="button-tooltip" {...props} show="true">
-                {dataCopy ? 'Copied to clipboard' : 'Copy'}
-            </Tooltip>
-        );
     };
     const userData = (label, value) => {
         return (
@@ -31,12 +26,10 @@ const MemberDetails = (props) => {
                 <p className="data-label">{label}</p>
                 <div className="value-container">
                     <p className="data-value">{value}</p>
-                    <OverlayTrigger
-                        placement="left"
-                        overlay={renderTooltip}
-                    >
-                        <button data-attribute={value} onClick={copyToClipboard} onMouseLeave={resetClipboardCopy}><CopyIcon /></button>
-                    </OverlayTrigger>
+                    <button className="copy-button" data-attribute={value} onClick={copyToClipboard} onMouseOut={resetClipboardCopy}>
+                        <CopyIcon />
+                        <span className="tooltiptext">{dataCopy ? COPYTOCLIPBOARD : COPY}</span>
+                    </button>
                 </div>
             </div>
         );

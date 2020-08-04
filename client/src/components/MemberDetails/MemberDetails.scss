@@ -33,13 +33,40 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    button {
+
+    .copy-button {
         @include buttonReset;
         display: block;
-        fill: $sideBar-iconColor;
+        position: relative;
+        .tooltiptext {
+            display: none;
+            width: 140px;
+            padding: 2px 8px;
+            background-color: #404040;
+            color: #d8d8d8;
+            font-size: 14px;
+            border-radius: 4px;
+
+            position: absolute;
+            bottom: 100%;
+            right: 76%;
+            &::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 78%;
+                border-width: 6px;
+                border-style: solid;
+                border-color: #404040 transparent transparent transparent;
+            }
+        }
+        &:hover .tooltiptext {
+            display: block;
+        }
         svg {
             width: 28px;
             height: 28px;
+            fill: $sideBar-iconColor;
         }
         &:focus {
             outline: none;
@@ -50,9 +77,3 @@
         }
     }
 }
-
-// @media screen and (max-width: 420px) {
-//     .modal-body {
-//         padding: 12px 0;
-//     }
-// }
