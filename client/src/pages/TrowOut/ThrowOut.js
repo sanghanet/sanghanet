@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const ThrowOut = (props) => {
-    const [message, setMessage] = useState('');
+    const [messageToDisplay, setMessageToDisplay] = useState('');
+    const { message } = useParams();
 
     useEffect(() => {
-        // getting url
-        let url = window.location.href;
-        // getting message from the end of it
-        url = url.substring(url.indexOf('throwout') + 9, url.length);
-        // capitalizing first letter and replacing '+' with spaces
-        url = (url[0].toUpperCase() + url.substring(1)).split('+').join(' ');
-
-        setMessage(url);
-
+        setMessageToDisplay((message[0].toUpperCase() + message.substring(1)).split('+').join(' '));
         setTimeout(() => { window.location.href = '/'; }, 3000);
-    }, []);
+    }, [message]);
 
-    return (
-        <h1>{message}</h1>
-    );
+    return (<h1>{messageToDisplay}</h1>);
 };
 
 export default ThrowOut;
