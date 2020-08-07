@@ -41,7 +41,7 @@ const Header = (props) => {
     };
 
     const getSearchResults = useCallback(() => {
-        if (searchBarValue.length < 3) return null;
+        if (!searchBarValue.length > 0) return null;
         const searchResults = nameOfUsers.filter((user) => {
             const userName = `${user.firstName} ${user.lastName}`;
             return (
@@ -55,7 +55,7 @@ const Header = (props) => {
     /*  Setting the state in 'handleSearchInputChange' is asynchronous
         and this is how we listen to its completion */
     useEffect(() => {
-        setSearchResults(searchBarValue.length < 3 ? null : getSearchResults());
+        setSearchResults(getSearchResults());
     }, [searchBarValue, getSearchResults]);
 
     // componentDidMount
