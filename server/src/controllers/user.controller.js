@@ -218,7 +218,8 @@ module.exports.uploadProfileImg = async (req, res, next) => {
 module.exports.allregisteredusers = async (req, res, next) => {
     log.info('All registered users fetched by:', req.user.email);
     try {
-        const registeredUsers = await RegisteredUser.find({});
+        console.log(req.body.userId);
+        const registeredUsers = await RegisteredUser.find(req.body.userId ? { _id: req.body.userId } : {});
         const visibleUserData = registeredUsers.map((registeredUser) => {
             return {
                 activeMember: req.user.email === registeredUser.email,
