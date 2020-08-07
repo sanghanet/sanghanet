@@ -82,7 +82,7 @@ const Header = (props) => {
     };
 
     const handleSearchResultClick = (id) => {
-        Client.fetch('/user/allregisteredusers', {
+        Client.fetch('/user/registereduserdata', {
             method: 'POST',
             body: { userId: id }
         })

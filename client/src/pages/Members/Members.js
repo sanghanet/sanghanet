@@ -20,7 +20,7 @@ const Members = (props) => {
     };
 
     useEffect(() => {
-        Client.fetch('/user/allregisteredusers', { method: 'POST' })
+        Client.fetch('/user/registereduserdata', { method: 'POST' })
             .then((visibleUserData) => {
                 setMembers(visibleUserData);
             }).catch((err) => {

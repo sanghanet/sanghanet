@@ -212,7 +212,7 @@ module.exports.uploadProfileImg = async (req, res, next) => {
         });
 };
 
-module.exports.allregisteredusers = async (req, res, next) => {
+module.exports.registereduserdata = async (req, res, next) => {
     log.info('All registered users fetched by:', req.user.email);
     try {
         console.log(req.body.userId);
