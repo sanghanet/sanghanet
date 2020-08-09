@@ -27,6 +27,7 @@
         "YOGAPAGE": "YOGA",
         "FINANCEPAGE": "FINANCES",
         "EVENTPAGE": "EVENTS",
+        "MEMBERS": "MEMBERS",
         "QUESTIONPAGE": "PERSONAL QUESTIONS",
         "QUERIESPAGE": "QUERIES",
         "LOGOUTLABEL": "LOGOUT",
@@ -36,6 +37,8 @@
         "YOGAADMINPAGE": "YOGA ADMIN",
         "SUPERUSERPAGE": "SUPERUSER"
     },
+
+    "memberCardButton" : { "SEESHAREDDATA": "See shared data" },
 
     "modalMembersDictionary": {
         "COPY": "Copy",

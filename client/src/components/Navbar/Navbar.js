@@ -52,6 +52,7 @@ class Navbar extends Component {
             YOGAPAGE,
             FINANCEPAGE,
             EVENTPAGE,
+            MEMBERS,
             QUESTIONPAGE,
             QUERIESPAGE,
             FINANCEADMINPAGE,
@@ -103,7 +104,7 @@ class Navbar extends Component {
                         <li>
                             <NavLink exact to="/app/members" className="link">
                                 <div className="menu-icon"><MembersIcon /></div>
-                                <span className="title">Members</span>
+                                <span className="title">{ MEMBERS }</span>
                             </NavLink>
                         </li>
                         <li>

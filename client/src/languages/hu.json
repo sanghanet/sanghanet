@@ -27,6 +27,7 @@
         "YOGAPAGE": "JÓGA",
         "FINANCEPAGE": "PÉNZÜGYEK",
         "EVENTPAGE": "ESEMÉNYEK",
+        "MEMBERS": "TAGOK",
         "QUESTIONPAGE": "SZEMÉLYES KÉRDÉSEK",
         "QUERIESPAGE": "SZŰRÉS",
         "LOGOUTLABEL": "KIJELENTKEZÉS",
@@ -36,6 +37,8 @@
         "YOGAADMINPAGE": "JÓGA ADMIN",
         "SUPERUSERPAGE": "SUPERUSER"
     },
+
+    "memberCardButton" : { "SEESHAREDDATA": "Megosztott adatok" },
 
     "modalMembersDictionary": {
         "COPY": "Másolás",
