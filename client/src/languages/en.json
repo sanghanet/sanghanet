@@ -43,5 +43,20 @@
     "modalMembersDictionary": {
         "COPY": "Copy",
         "COPYTOCLIPBOARD": "Copied to clipboard"
+    },
+
+    "memberDetails": {
+        "FIRSTNAME": "First name",
+        "LASTNAME": "Last name",
+        "SPIRITUALNAME": "Spiritual Name:",
+        "DATEOFBIRTH": "Date of Birth:",
+        "GENDER": "Gender:",
+        "LEVEL": "Level of Study:",
+        "EMAIL": "Email:",
+        "MOBILE": "Mobile:",
+        "ADDRESS": "Address:",
+        "EMNAME": "Emergency Contact Name:",
+        "EMMOBILE": "Emergency Contact Mobile:",
+        "EMEMAIL": "Emergency Contact Email:"
     }
 }

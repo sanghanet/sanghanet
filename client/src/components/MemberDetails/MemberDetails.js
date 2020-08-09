@@ -9,6 +9,8 @@ const MemberDetails = (props) => {
     const [dataCopy, setDataCopy] = useState(false);
     const { modalMembersDictionary } = useContext(UIcontext).dictionary;
     const { COPY, COPYTOCLIPBOARD } = modalMembersDictionary;
+    const { memberDetails } = useContext(UIcontext).dictionary;
+    const { SPIRITUALNAME, DATEOFBIRTH, GENDER, LEVEL, EMAIL, MOBILE, ADDRESS, EMNAME, EMMOBILE, EMEMAIL } = memberDetails;
 
     const { closeDialog, selectedMemberData: data } = props;
 
@@ -44,16 +46,16 @@ const MemberDetails = (props) => {
             <div className="photo-data">
                 <img src={data.profileImg} className="data-photo" alt="" />
             </div>
-            {data.spiritualName && data.spiritualName !== 'None' && userData('Spiritual Name:', data.spiritualName)}
-            {data.birthday && userData('Date of Birth:', data.birthday)}
-            {data.gender && userData('Gender:', data.gender)}
-            {data.level && userData('Level of Study::', data.level)}
-            {data.email && userData('Email:', data.email)}
-            {data.mobile && userData('Mobile:', data.mobile)}
-            {data.address && userData('Address:', data.address)}
-            {data.emName && userData('Emergency Contact Name:', data.emName)}
-            {data.emMobile && userData('Emergency Contact Mobile:', data.emMobile)}
-            {data.emEmail && userData('Emergency Contact Email:', data.emEmail)}
+            {data.spiritualName && data.spiritualName !== 'None' && userData(SPIRITUALNAME, data.spiritualName)}
+            {data.birthday && userData(DATEOFBIRTH, data.birthday)}
+            {data.gender && userData(GENDER, data.gender)}
+            {data.level && userData(LEVEL, data.level)}
+            {data.email && userData(EMAIL, data.email)}
+            {data.mobile && userData(MOBILE, data.mobile)}
+            {data.address && userData(ADDRESS, data.address)}
+            {data.emName && userData(EMNAME, data.emName)}
+            {data.emMobile && userData(EMMOBILE, data.emMobile)}
+            {data.emEmail && userData(EMEMAIL, data.emEmail)}
         </GenericDialog>
     );
 };

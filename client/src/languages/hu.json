@@ -43,5 +43,20 @@
     "modalMembersDictionary": {
         "COPY": "Másolás",
         "COPYTOCLIPBOARD": "Vágólapra másolva"
+    },
+
+    "memberDetails": {
+        "FIRSTNAME": "Keresztnév",
+        "LASTNAME": "Családnév",
+        "SPIRITUALNAME": "Spirituális név:",
+        "DATEOFBIRTH": "Születési dátum:",
+        "GENDER": "Nem:",
+        "LEVEL": "Tanulmányok szintje:",
+        "EMAIL": "Email:",
+        "MOBILE": "Mobil:",
+        "ADDRESS": "Cím:",
+        "EMNAME": "Értesítendő neve:",
+        "EMMOBILE": "Értesítendő mobilja:",
+        "EMEMAIL": "Értesítendő emailje:"
     }
 }
