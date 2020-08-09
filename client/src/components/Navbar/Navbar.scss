@@ -30,6 +30,7 @@
             padding: 0;
             margin-bottom: 0;
             cursor: pointer;
+            touch-action: pan-y;
 
             li {
                 width: $navbar-width;
@@ -130,6 +131,7 @@
     }
     .main-menu, .sub-menu {
         background-color: $sideBar-bg;
+        touch-action: pan-y;
         li:last-child {
             border-bottom: 1px solid $sideBar-border;
         }
