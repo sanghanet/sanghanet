@@ -48,15 +48,36 @@
     "memberDetails": {
         "FIRSTNAME": "First name",
         "LASTNAME": "Last name",
-        "SPIRITUALNAME": "Spiritual Name:",
-        "DATEOFBIRTH": "Date of Birth:",
-        "GENDER": "Gender:",
-        "LEVEL": "Level of Study:",
-        "EMAIL": "Email:",
-        "MOBILE": "Mobile:",
-        "ADDRESS": "Address:",
-        "EMNAME": "Emergency Contact Name:",
-        "EMMOBILE": "Emergency Contact Mobile:",
-        "EMEMAIL": "Emergency Contact Email:"
+        "SPIRITUALNAME": "Spiritual Name",
+        "DATEOFBIRTH": "Date of Birth",
+        "GENDER": "Gender",
+        "LEVEL": "Level of Study",
+        "EMAIL": "Email",
+        "MOBILE": "Mobile",
+        "ADDRESS": "Address",
+        "EMTITLE": "Emergency Contact",
+        "EMNAME": "Emergency Contact Name",
+        "EMMOBILE": "Emergency Contact Mobile",
+        "EMEMAIL": "Emergency Contact Email"
+    },
+
+    "personalPageContainers": {
+        "GENERALDATA": "general data",
+        "CONTACTDETAILS": "contact details"
+    },
+
+    "modalButtons": {
+        "REJECT": "Close",
+        "ACCEPT": "Save"
+    },
+
+    "personalPagePlaceholders": {
+        "REQUIREDFORMAT": "Required format: ",
+        "ENTERVALUE": "Enter a value",
+        "DATE": "month/day/year",
+        "GENDERFORMAT": "choose from the list",
+        "FEMALE": "Female",
+        "MALE": "Male",
+        "OTHER": "Other"
     }
 }

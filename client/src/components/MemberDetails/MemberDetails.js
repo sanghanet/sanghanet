@@ -11,7 +11,8 @@ const MemberDetails = (props) => {
     const { COPY, COPYTOCLIPBOARD } = modalMembersDictionary;
     const { memberDetails } = useContext(UIcontext).dictionary;
     const { SPIRITUALNAME, DATEOFBIRTH, GENDER, LEVEL, EMAIL, MOBILE, ADDRESS, EMNAME, EMMOBILE, EMEMAIL } = memberDetails;
-
+    const { modalButtons } = useContext(UIcontext).dictionary;
+    const { REJECT } = modalButtons;
     const { closeDialog, selectedMemberData: data } = props;
 
     const copyToClipboard = (event) => {
@@ -40,7 +41,7 @@ const MemberDetails = (props) => {
     return (
         <GenericDialog
             title={`${data.firstName} ${data.lastName}`}
-            reject="Close"
+            reject={REJECT}
             handleClose={closeDialog}
         >
             <div className="photo-data">

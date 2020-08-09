@@ -169,6 +169,26 @@ class Personal extends React.Component {
             showAlert, alertMessage, alertType
         } = this.state;
 
+        const {
+            FIRSTNAME,
+            LASTNAME,
+            SPIRITUALNAME,
+            DATEOFBIRTH,
+            GENDER,
+            LEVEL,
+            EMAIL,
+            MOBILE,
+            ADDRESS,
+            EMTITLE,
+            EMNAME,
+            EMMOBILE,
+            EMEMAIL
+        } = this.context.dictionary.memberDetails;
+
+        const { GENERALDATA, CONTACTDETAILS } = this.context.dictionary.personalPageContainers;
+        const { DATE, GENDERFORMAT, FEMALE, MALE, OTHER } = this.context.dictionary.personalPagePlaceholders;
+        const GENDERVALUE = this.context.dictionary.personalPagePlaceholders[gender.toUpperCase()]; // LUT - Look up table
+
         return (
             <div>
                 { showAlert
@@ -179,7 +199,7 @@ class Personal extends React.Component {
                     />
                     : null
                 }
-                <FormContainer formTitle="general data" mb-4>
+                <FormContainer formTitle={GENERALDATA} mb-4>
                     <React.Fragment>
                         <InputAvatar
                             profileImgURL={profileImgURL}
@@ -187,7 +207,7 @@ class Personal extends React.Component {
                         />
                         <Row>
                             <InputDisplay
-                                inputTitle="First name"
+                                inputTitle={FIRSTNAME}
                                 inputValue={firstName}
                                 validation={nameValidationRule}
                                 // inputId value should be the same as inputValue value
@@ -200,7 +220,7 @@ class Personal extends React.Component {
                                 format="Maria-Luiza"
                             />
                             <InputDisplay
-                                inputTitle="Last name"
+                                inputTitle={LASTNAME}
                                 inputValue={lastName}
                                 validation={nameValidationRule}
                                 inputId="lastName"
@@ -214,7 +234,7 @@ class Personal extends React.Component {
                         </Row>
                         <Row>
                             <InputDisplay
-                                inputTitle="Spiritual name"
+                                inputTitle={SPIRITUALNAME}
                                 inputValue={spiritualName}
                                 validation={nameValidationRule}
                                 inputId="spiritualName"
@@ -226,7 +246,7 @@ class Personal extends React.Component {
                                 format="Flower Power"
                             />
                             <InputDisplay
-                                inputTitle="Date of birth"
+                                inputTitle={DATEOFBIRTH}
                                 inputValue={birthday}
                                 validation={{
                                     min: '1910-01-01',
@@ -237,13 +257,13 @@ class Personal extends React.Component {
                                 inputVisible={birthdayVisible}
                                 inputVisibility={this.handleItemVisibility}
                                 inputType="date"
-                                format="month/day/year"
+                                format={DATE}
                             />
                         </Row>
                         <Row>
                             <InputDisplay
-                                inputTitle="Gender"
-                                inputValue={gender}
+                                inputTitle={GENDER}
+                                inputValue={GENDERVALUE}
                                 inputId="gender"
                                 inputValueSave={this.handleItemSave}
                                 inputVisible={genderVisible}
@@ -251,9 +271,11 @@ class Personal extends React.Component {
                                 inputFieldAs="select"
                                 // empty string - if one does not want to indicate gender
                                 optionsForSelect={['', 'Female', 'Male', 'Other']}
+                                textForSelect={['', FEMALE, MALE, OTHER]}
+                                format={GENDERFORMAT}
                             />
                             <InputDisplay
-                                inputTitle="Level of study"
+                                inputTitle={LEVEL}
                                 inputValue={level}
                                 inputId="level"
                                 inputVisible={levelVisible}
@@ -267,11 +289,11 @@ class Personal extends React.Component {
                         </Row>
                     </React.Fragment>
                 </FormContainer>
-                <FormContainer formTitle="contact details">
+                <FormContainer formTitle={CONTACTDETAILS}>
                     <React.Fragment>
                         <Row>
                             <InputDisplay
-                                inputTitle="Email"
+                                inputTitle={EMAIL}
                                 inputValue={email}
                                 inputId="email"
                                 inputVisible={emailVisible}
@@ -282,7 +304,7 @@ class Personal extends React.Component {
                                 // inputType="email"
                             />
                             <InputDisplay
-                                inputTitle="Mobile"
+                                inputTitle={MOBILE}
                                 inputValue={mobile}
                                 validation={{
                                     pattern: mobilePattern
@@ -297,7 +319,7 @@ class Personal extends React.Component {
                         </Row>
                         <Row>
                             <InputDisplay
-                                inputTitle="Address"
+                                inputTitle={ADDRESS}
                                 inputValue={address}
                                 validation={{
                                     minLength: 2,
@@ -312,12 +334,12 @@ class Personal extends React.Component {
                                 format="1055 Budapest, Csalogany u. 26 B/12"
                             />
                             <InputDropdown
-                                dropdownTitle="Emergency Contact"
+                                dropdownTitle={EMTITLE}
                                 dropdownId="emContact"
                                 inputArray={[
-                                    { inputTitle: 'Emergency Contact Name', inputValue: emName, inputId: 'emName', inputType: 'text', validation: nameValidationRule, format: 'Maria Doe' },
-                                    { inputTitle: 'Emergency Contact Mobile', inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile', validation: { pattern: mobilePattern }, format: '70/44-66-052' },
-                                    { inputTitle: 'Emergency Contact Email', inputValue: emEmail, inputId: 'emEmail', inputType: 'text', format: 'maria.doe@gmail.com' }
+                                    { inputTitle: EMNAME, inputValue: emName, inputId: 'emName', inputType: 'text', validation: nameValidationRule, format: 'Maria Doe' },
+                                    { inputTitle: EMMOBILE, inputValue: emMobile, inputId: 'emMobile', inputType: 'mobile', validation: { pattern: mobilePattern }, format: '70/44-66-052' },
+                                    { inputTitle: EMEMAIL, inputValue: emEmail, inputId: 'emEmail', inputType: 'text', format: 'maria.doe@gmail.com' }
                                 ]}
                                 inputValueSave={this.handleItemSave}
                                 dropdownVisible={emContactVisible}
@@ -333,4 +355,5 @@ class Personal extends React.Component {
     };
 }
 
+Personal.contextType = UIcontext;
 export default Personal;

@@ -48,15 +48,36 @@
     "memberDetails": {
         "FIRSTNAME": "Keresztnév",
         "LASTNAME": "Családnév",
-        "SPIRITUALNAME": "Spirituális név:",
-        "DATEOFBIRTH": "Születési dátum:",
-        "GENDER": "Nem:",
-        "LEVEL": "Tanulmányok szintje:",
-        "EMAIL": "Email:",
-        "MOBILE": "Mobil:",
-        "ADDRESS": "Cím:",
-        "EMNAME": "Értesítendő neve:",
-        "EMMOBILE": "Értesítendő mobilja:",
-        "EMEMAIL": "Értesítendő emailje:"
+        "SPIRITUALNAME": "Spirituális név",
+        "DATEOFBIRTH": "Születési dátum",
+        "GENDER": "Nem",
+        "LEVEL": "Tanulmányok szintje",
+        "EMAIL": "Email",
+        "MOBILE": "Mobil",
+        "ADDRESS": "Cím",
+        "EMTITLE": "Vész esetén értesítendő",
+        "EMNAME": "Értesítendő neve",
+        "EMMOBILE": "Értesítendő mobilja",
+        "EMEMAIL": "Értesítendő emailje"
+    },
+
+    "personalPageContainers": {
+        "GENERALDATA": "általános adatok",
+        "CONTACTDETAILS": "elérhetőség"
+    },
+
+    "modalButtons": {
+        "REJECT": "Bezár",
+        "ACCEPT": "Mentés"
+    },
+
+    "personalPagePlaceholders": {
+        "REQUIREDFORMAT": "Elvárt formátum: ",
+        "ENTERVALUE": "Adat feltöltés",
+        "DATE": "hónap/nap/év",
+        "GENDERFORMAT": "válassz a listából",
+        "FEMALE": "Nő",
+        "MALE": "Férfi",
+        "OTHER": "Más"
     }
 }
