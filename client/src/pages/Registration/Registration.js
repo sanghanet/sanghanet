@@ -24,6 +24,13 @@ class Registration extends Component {
         alertType: ''
     };
 
+    componentDidMount = () => {
+        const user = sessionStorage.getItem('user');
+        if (user != 'Unknown'){
+            window.location.href = '/'; // To avoid reach Registration page via URL
+        }
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
 
@@ -39,6 +46,7 @@ class Registration extends Component {
                 body: formData
             }, true) // skipDefault Headers
                 .then(() => {
+                    window.history.replaceState({}, '', '/'); // remove registration link from history, make back button useless
                     window.location.href = '/app/personal';
                 })
                 .catch((err) => {
