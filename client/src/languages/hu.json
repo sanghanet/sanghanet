@@ -19,6 +19,21 @@
         "REGISTRATION": "Regisztráció"
     },
 
+    "pageTitles": {
+        "DASHBOARD": "Áttekintés",
+        "PERSONAL": "Személyes adataim",
+        "YOGA": "Jóga",
+        "FINANCES": "Pénzügyek",
+        "EVENTS": "Események",
+        "MEMBERS": "Tagok",
+        "QUESTIONS": "Személyes kérdések",
+        "QUERIES": "Szűrés",
+        "FINANCE ADMIN": "Pénzügyi Admin",
+        "EVENT ADMIN": "Esemény szervező",
+        "YOGA ADMIN": "Jóga Admin",
+        "SUPERUSER": "Superuser"
+    },
+
     "navbarDictionary": {
         "ADMINPAGES": "ADMIN OLDALAK",
         "BACKBUTTONLABEL": "VISSZA",
