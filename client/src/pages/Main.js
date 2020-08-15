@@ -26,19 +26,16 @@ const Main = () => {
 
     const location = useLocation();
 
-    const { pageTitles } = useContext(UIcontext).dictionary;
-
+    const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
 
     useEffect(() => {
         const url = location.pathname;
         const pageName = url.substring(url.lastIndexOf('/') + 1);
         let pageNameCapitalized = pageName.charAt(0).toUpperCase() + pageName.slice(1);
-        pageNameCapitalized += url.includes('/app/admin') && !url.includes('/superuser') ? ' Admin' : '';
-console.log(pageNameCapitalized);
-// console.log(pageTitles[pageName.toUpperCase()]);
+        pageNameCapitalized += url.includes('/app/admin') && !url.includes('/superuser') ? '_Admin' : '';
 
-        setPageName(pageTitles[pageNameCapitalized.toUpperCase()]);
-    }, [location]);
+        setPageName(pageAndNavbarTitles[pageNameCapitalized.toUpperCase()]);
+    }, [location, pageAndNavbarTitles]);
 
     return (
         <div className='grid-container'>

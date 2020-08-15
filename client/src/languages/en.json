@@ -19,7 +19,11 @@
         "REGISTRATION": "Registration"
     },
 
-    "pageTitles": {
+    "pageAndNavbarTitles": {
+        "ADMINS": "Admins",
+        "BACK": "Back",
+        "LOGOUT": "Logout",
+
         "DASHBOARD": "Dashboard",
         "PERSONAL": "Personal",
         "YOGA": "Yoga",
@@ -28,29 +32,11 @@
         "MEMBERS": "Members",
         "QUESTIONS": "Personal Questions",
         "QUERIES": "Queries",
-        "FINANCE ADMIN": "Finance Admin",
-        "EVENT ADMIN": "Event Admin",
-        "YOGA ADMIN": "Yoga Admin",
+
+        "FINANCE_ADMIN": "Finance Admin",
+        "EVENT_ADMIN": "Event Admin",
+        "YOGA_ADMIN": "Yoga Admin",
         "SUPERUSER": "Superuser"
-    },
-
-    "navbarDictionary": {
-        "ADMINPAGES": "ADMINS",
-        "BACKBUTTONLABEL": "BACK",
-        "DASHBOARDPAGE": "DASHBOARD",
-        "PERSONALPAGE": "PERSONAL DATA",
-        "YOGAPAGE": "YOGA",
-        "FINANCEPAGE": "FINANCES",
-        "EVENTPAGE": "EVENTS",
-        "MEMBERS": "MEMBERS",
-        "QUESTIONPAGE": "PERSONAL QUESTIONS",
-        "QUERIESPAGE": "QUERIES",
-        "LOGOUTLABEL": "LOGOUT",
-
-        "FINANCEADMINPAGE": "FINANCE ADMIN",
-        "EVENTADMINPAGE": "EVENT ADMIN",
-        "YOGAADMINPAGE": "YOGA ADMIN",
-        "SUPERUSERPAGE": "SUPERUSER"
     },
 
     "memberCardButton" : { "SEESHAREDDATA": "See shared data" },

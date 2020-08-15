@@ -45,21 +45,21 @@ class Navbar extends Component {
         const classList = this.state.showSubmenu ? 'wrapper show-submenu' : 'wrapper';
 
         const {
-            ADMINPAGES,
-            BACKBUTTONLABEL,
-            DASHBOARDPAGE,
-            PERSONALPAGE,
-            YOGAPAGE,
-            FINANCEPAGE,
-            EVENTPAGE,
+            ADMIN,
+            BACK,
+            DASHBOARD,
+            PERSONAL,
+            YOGA,
+            FINANCES,
+            EVENTS,
             MEMBERS,
-            QUESTIONPAGE,
-            QUERIESPAGE,
-            FINANCEADMINPAGE,
-            EVENTADMINPAGE,
-            YOGAADMINPAGE,
-            SUPERUSERPAGE
-        } = this.context.dictionary.navbarDictionary;
+            QUESTIONS,
+            QUERIES,
+            FINANCE_ADMIN,
+            EVENT_ADMIN,
+            YOGA_ADMIN,
+            SUPERUSER
+        } = this.context.dictionary.pageAndNavbarTitles;
 
         return (
             <div id={navStyle}>
@@ -68,37 +68,37 @@ class Navbar extends Component {
                         <li className="admins">
                             <div className="link" onClick={this.handleSubmenu}>
                                 <div className="menu-icon"><ForwardIcon /></div>
-                                <span className="title admins">{ ADMINPAGES }</span>
+                                <span className="title admins">{ ADMIN }</span>
                             </div>
                         </li>
                         <li>
                             <NavLink exact to="/app/dashboard" className="link">
                                 <div className="menu-icon"><DashboardIcon /></div>
-                                <span className="title">{ DASHBOARDPAGE }</span>
+                                <span className="title">{ DASHBOARD }</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink exact to="/app/personal" className="link">
                                 <div className="menu-icon"><PersonalIcon /></div>
-                                <span className="title">{ PERSONALPAGE }</span>
+                                <span className="title">{ PERSONAL }</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink exact to="/app/yoga" className="link">
                                 <div className="menu-icon"><YogaIcon /></div>
-                                <span className="title">{ YOGAPAGE }</span>
+                                <span className="title">{ YOGA }</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink exact to="/app/finances" className="link">
                                 <div className="menu-icon"><FinanceIcon /></div>
-                                <span className="title">{ FINANCEPAGE }</span>
+                                <span className="title">{ FINANCES }</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink exact to="/app/events" className="link">
                                 <div className="menu-icon"><EventIcon /></div>
-                                <span className="title">{ EVENTPAGE}</span>
+                                <span className="title">{ EVENTS }</span>
                             </NavLink>
                         </li>
                         <li>
@@ -110,13 +110,13 @@ class Navbar extends Component {
                         <li>
                             <NavLink exact to="/app/questions" className="link">
                                 <div className="menu-icon"><QuestionsIcon /></div>
-                                <span className="title">{ QUESTIONPAGE }</span>
+                                <span className="title">{ QUESTIONS }</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink exact to="/app/queries" className="link">
                                 <div className="menu-icon"><InfoIcon /></div>
-                                <span className="title">{ QUERIESPAGE }</span>
+                                <span className="title">{ QUERIES }</span>
                             </NavLink>
                         </li>
                         <li id="logout-li">
@@ -127,35 +127,35 @@ class Navbar extends Component {
                         <li className="back">
                             <div className="link" onClick={this.handleSubmenu}>
                                 <div className="menu-icon"><BackIcon /></div>
-                                <span className="title">{ BACKBUTTONLABEL }</span>
+                                <span className="title">{ BACK }</span>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
                                 <NavLink exact to="/app/admin/finance"
                                     className={`sub-title${isFinanceAdmin ? '' : ' disabled'}`}
-                                    onClick={this.handleLink}>{ FINANCEADMINPAGE }</NavLink>
+                                    onClick={this.handleLink}>{ FINANCE_ADMIN }</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
                                 <NavLink exact to="/app/admin/event"
                                     className={`sub-title${isEventAdmin ? '' : ' disabled'}`}
-                                    onClick={this.handleLink}>{ EVENTADMINPAGE }</NavLink>
+                                    onClick={this.handleLink}>{ EVENT_ADMIN }</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
                                 <NavLink exact to="/app/admin/yoga"
                                     className={`sub-title${isYogaAdmin ? '' : ' disabled'}`}
-                                    onClick={this.handleLink}>{ YOGAADMINPAGE }</NavLink>
+                                    onClick={this.handleLink}>{ YOGA_ADMIN }</NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="sub-link">
                                 <NavLink exact to="/app/admin/superuser"
                                     className={`sub-title${isSuperuser ? '' : ' disabled'}`}
-                                    onClick={this.handleLink}>{ SUPERUSERPAGE }</NavLink>
+                                    onClick={this.handleLink}>{ SUPERUSER }</NavLink>
                             </div>
                         </li>
                     </ul>

@@ -26,7 +26,7 @@ class Registration extends Component {
 
     componentDidMount = () => {
         const user = sessionStorage.getItem('user');
-        if (user != 'Unknown'){
+        if (user !== 'Unknown') {
             window.location.href = '/'; // To avoid reach Registration page via URL
         }
     }

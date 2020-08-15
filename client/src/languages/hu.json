@@ -19,7 +19,11 @@
         "REGISTRATION": "Regisztráció"
     },
 
-    "pageTitles": {
+    "pageAndNavbarTitles": {
+        "ADMINS": "Admin Oldalak",
+        "BACK": "Vissza",
+        "LOGOUT": "Kijelentkezés",
+
         "DASHBOARD": "Áttekintés",
         "PERSONAL": "Személyes adataim",
         "YOGA": "Jóga",
@@ -28,29 +32,11 @@
         "MEMBERS": "Tagok",
         "QUESTIONS": "Személyes kérdések",
         "QUERIES": "Szűrés",
-        "FINANCE ADMIN": "Pénzügyi Admin",
-        "EVENT ADMIN": "Esemény szervező",
-        "YOGA ADMIN": "Jóga Admin",
+
+        "FINANCE_ADMIN": "Pénzügyi Admin",
+        "EVENT_ADMIN": "Esemény szervező",
+        "YOGA_ADMIN": "Jóga Admin",
         "SUPERUSER": "Superuser"
-    },
-
-    "navbarDictionary": {
-        "ADMINPAGES": "ADMIN OLDALAK",
-        "BACKBUTTONLABEL": "VISSZA",
-        "DASHBOARDPAGE": "ÁTTEKINTÉS",
-        "PERSONALPAGE": "SZEMÉLYES ADATAIM",
-        "YOGAPAGE": "JÓGA",
-        "FINANCEPAGE": "PÉNZÜGYEK",
-        "EVENTPAGE": "ESEMÉNYEK",
-        "MEMBERS": "TAGOK",
-        "QUESTIONPAGE": "SZEMÉLYES KÉRDÉSEK",
-        "QUERIESPAGE": "SZŰRÉS",
-        "LOGOUTLABEL": "KIJELENTKEZÉS",
-
-        "FINANCEADMINPAGE": "PÉNZÜGYI ADMIN",
-        "EVENTADMINPAGE": "ESEMÉNY SZERVEZŐ",
-        "YOGAADMINPAGE": "JÓGA ADMIN",
-        "SUPERUSERPAGE": "SUPERUSER"
     },
 
     "memberCardButton" : { "SEESHAREDDATA": "Megosztott adatok" },
