@@ -117,6 +117,18 @@ module.exports.getNameOfUsers = async (req, res, next) => {
     }
 };
 
+module.exports.getUserAvatarURL = async (req, res, next) => {
+    try {
+        const avatarURL = await RegisteredUser.find(
+            { email: req.user.email },
+            'profileImg'
+        );
+        res.json(avatarURL);
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports.personal = async (req, res, next) => {
     try {
         const registeredUser = await RegisteredUser.find(

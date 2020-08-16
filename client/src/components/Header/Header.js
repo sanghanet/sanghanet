@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import './Header.scss';
-import Avatar from '../icons/avatar.jpg';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 
@@ -24,6 +23,7 @@ const Header = (props) => {
     const [nameOfUsers, setNameOfUsers] = useState([]);
     const [searchResults, setSearchResults] = useState(null);
     const [searching, setSearching] = useState(false);
+    const [userAvatarUrl, setUserAvatarURL] = useState('/images/noAvatar.svg');
 
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/app/personal') {
@@ -63,6 +63,13 @@ const Header = (props) => {
             .catch((err) => {
                 console.log(err);
             });
+        Client.fetch('/user/avatarurl')
+            .then((data) => {
+                setUserAvatarURL(data[0].profileImg);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, []);
 
     const handleSearchInputChange = (targetValue) => setSearchBarValue(targetValue);
@@ -80,7 +87,7 @@ const Header = (props) => {
                     onClick={handleAvatarClick}
                 >
                     <Figure.Image
-                        src={Avatar}
+                        src={userAvatarUrl}
                         alt='Avatar'
                         roundedCircle
                         width={70}
