@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { nameValidationRule, addressPattern, mobilePattern } from '../../components/ValidationRule';
+import { nameValidationRule, spiritualNameValidationRule, addressPattern, mobilePattern } from '../../components/ValidationRule';
 
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import InputDisplay from '../../components/Form/InputDisplay/InputDisplay';
@@ -236,7 +236,7 @@ class Personal extends React.Component {
                             <InputDisplay
                                 inputTitle={SPIRITUALNAME}
                                 inputValue={spiritualName}
-                                validation={nameValidationRule}
+                                validation={spiritualNameValidationRule}
                                 inputId="spiritualName"
                                 inputValueSave={this.handleItemSave}
                                 inputVisible={spiritualNameVisible}

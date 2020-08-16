@@ -5,6 +5,15 @@ const nameValidationRule = {
     maxLength: 32,
     pattern: namePattern
 };
+
+const spititualNamePattern = '^(-|[A-ZÁÉÚŐÓÜÖÍ][A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí.\\s-]+)$';
+const spiritualNameValidationRule = {
+    required: true,
+    minLength: 1, // '-' means None, and It is only a single char
+    maxLength: 32,
+    pattern: spititualNamePattern
+};
+
 const addressPattern = '^[0-9]{4} [A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí0-9.,/\\s-]*$';
 const mobilePattern = '[0-9]{2}/[0-9]{2}-[0-9]{2}-[0-9]{3}';
 
@@ -14,8 +23,8 @@ const emailPattern = String(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+
 const emailValidationRule = {
     required: true,
     minLength: 3,
-    pattern: emailPattern.substring(1, emailPattern.length-1)
-}
+    pattern: emailPattern.substring(1, emailPattern.length - 1)
+};
 
 const validationError = (input) => {
     if (input.validity.valid) {
@@ -41,8 +50,9 @@ const validationError = (input) => {
 
 export {
     nameValidationRule,
+    spiritualNameValidationRule,
     emailValidationRule,
     addressPattern,
     mobilePattern,
-    validationError,
+    validationError
 };
