@@ -94,7 +94,7 @@ const Header = (props) => {
                         height={70}
                         className="d-none d-sm-flex"
                     />
-                    <Figure.Caption className={`avatar-name d-none ${searching ? '' : 'd-sm-flex'}`} as='h2'>
+                    <Figure.Caption className={`avatar-name ${searching ? 'd-none' : ''}`} as='h2'>
                         {sessionStorage.user}
                     </Figure.Caption>
                 </Figure>
