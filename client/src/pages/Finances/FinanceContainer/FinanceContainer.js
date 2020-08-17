@@ -35,9 +35,6 @@ class FinanceContainer extends React.Component {
         try {
             const result = await Client.fetch('/finance/financedata', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 body: {
                     email: userEmail
                 }
