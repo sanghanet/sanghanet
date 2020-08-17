@@ -19,7 +19,7 @@ function checkStatus (response) {
     } else if (response.status >= 200 && response.status < 300) {
         return response;
     } else if (response.status === 403) { // Forbidden status, the user is not logged in or session has expired
-        window.location.href = '/throwout/session+expired';
+        window.location.href = '/throwout/sessionexpired';
     } else { // Parse the response to see if there is a message in it
         return response.json()
             .then((parsedResponse) => { // If there is, use that to make a new Error, otherwise just use a default message

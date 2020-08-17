@@ -65,7 +65,7 @@ class App extends Component {
                         <Switch>
                             <Route exact path='/' component={Login} />
                             <Route path='/loading' component={Loading} />
-                            <Route path='/throwout/:message' component={ThrowOut} />
+                            <Route path='/throwout/:reason' component={ThrowOut} />
                             <Route exact path='/404' component={PageNotFound} />
                             <PrivateRoute path='/registration' component={Registration} />
                             <PrivateRoute path='/app/' component={Main} />

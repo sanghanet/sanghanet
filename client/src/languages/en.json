@@ -80,5 +80,11 @@
         "FEMALE": "Female",
         "MALE": "Male",
         "OTHER": "Other"
+    },
+
+    "throwoutMessages": {
+        "LOGINFAILED": "Login failed!",
+        "SESSIONEXPIRED": "Session expired! Please login again!",
+        "AUTHENTICATIONFAILED": "Authentication failed!"
     }
 }

@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 
 const ThrowOut = (props) => {
-    const [messageToDisplay, setMessageToDisplay] = useState('');
-    const { message } = useParams();
+    const { reason } = useParams();
+    const { throwoutMessages } = useContext(UIcontext).dictionary;
 
-    useEffect(() => {
-        setMessageToDisplay((message[0].toUpperCase() + message.substring(1)).split('+').join(' '));
-        setTimeout(() => { window.location.href = '/'; }, 3000);
-    }, [message]);
+    setTimeout(() => { window.location.href = '/'; }, 3000);
 
-    return (<h1>{messageToDisplay}</h1>);
+    return (<h1>{throwoutMessages[reason.toUpperCase()]}</h1>);
 };
 
 export default ThrowOut;

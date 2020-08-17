@@ -80,5 +80,11 @@
         "FEMALE": "Nő",
         "MALE": "Férfi",
         "OTHER": "Más"
+    },
+
+    "throwoutMessages": {
+        "LOGINFAILED": "A bejelentkezés nem sikerült!",
+        "SESSIONEXPIRED": "Időtúllépés. Kérjük jelenkezzen be újra.",
+        "AUTHENTICATIONFAILED": "A felhasználó azonosítása sikertelen!"
     }
 }
