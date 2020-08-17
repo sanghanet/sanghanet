@@ -9,60 +9,66 @@ class UserSelector extends React.Component {
         this.state = {
             rawUserData: null,
             suggestions: null,
-            filteredSuggestions: [],
+            searchResults: [],
             showSuggestions: false,
             userInput: '',
-            inputPlaceholder: 'Enter username ...'
+            warningMessage: '',
+            buttonDisabled: true
         };
         this.maxDisplayedSuggestions = 10;
     }
 
-    onChange = (e) => {
-        const { suggestions } = this.state;
+    onInputChange = (e) => {
+        const { state: { suggestions }, maxDisplayedSuggestions } = this;
         const userInput = e.currentTarget.value;
 
-        let filteredSuggestions = suggestions.filter((suggestion) => {
+        let searchResults = suggestions.filter((suggestion) => {
             return suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1;
         });
 
-        if (filteredSuggestions.length > this.maxDisplayedSuggestions) {
-            filteredSuggestions = filteredSuggestions.slice(0, this.maxDisplayedSuggestions);
+        if (searchResults.length > maxDisplayedSuggestions) {
+            searchResults = searchResults.slice(0, maxDisplayedSuggestions);
         }
 
         this.setState({
-            filteredSuggestions,
+            searchResults: searchResults,
             showSuggestions: true,
-            userInput: e.currentTarget.value
+            userInput: e.currentTarget.value,
+            warningMessage: '',
+            buttonDisabled: !userInput
         });
     }
 
-    onClick = (e) => {
+    onSuggestionClick = (e) => {
         this.setState({
-            filteredSuggestions: [],
+            searchResults: [],
             showSuggestions: false,
             userInput: e.currentTarget.innerText
         });
     }
 
     onSubmit = () => {
-        if (document.getElementById('selectedUser').value) {
-            const selectedUserName = document.getElementById('selectedUser').value;
+        const inputValue = document.getElementById('selectedUser').value;
+
+        if (inputValue) {
+            const selectedUserName = inputValue;
             const selectedUserObject = this.state.rawUserData.find((item) => {
                 return item.userName === selectedUserName;
             });
             if (selectedUserObject) {
                 const selectedEmail = selectedUserObject.email;
                 this.setState({
-                    filteredSuggestions: [],
+                    searchResults: [],
                     showSuggestions: false,
                     userInput: '',
-                    inputPlaceholder: 'Enter username ...'
+                    buttonDisabled: true
                 });
                 this.props.handleSubmit(selectedEmail);
             } else {
                 this.setState({
+                    warningMessage: 'Please select a valid user!',
                     userInput: '',
-                    inputPlaceholder: 'Invalid username!'
+                    buttonDisabled: true
                 });
             }
         }
@@ -87,8 +93,8 @@ class UserSelector extends React.Component {
     SuggestionList = () => {
         return (
             <ul>
-                {this.state.filteredSuggestions.map((name) => {
-                    return <li key={name} onClick = {this.onClick}>{name}</li>;
+                {this.state.searchResults.map((name) => {
+                    return <li key={name} onClick = {this.onSuggestionClick}>{name}</li>;
                 })}
             </ul>
         );
@@ -96,21 +102,23 @@ class UserSelector extends React.Component {
 
     render () {
         const {
-            onChange,
+            onInputChange,
             onSubmit,
             SuggestionList,
             state: {
                 showSuggestions,
                 userInput,
-                inputPlaceholder,
+                warningMessage,
+                buttonDisabled
             }
         } = this;
 
         return (
             <div className="selector">
-                <input id="selectedUser" autoComplete="off" placeholder={inputPlaceholder} onChange = {onChange} value={userInput} ></input>
+                <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} ></input>
                 {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
-                <button onClick = {onSubmit}>Select</button>
+                <button onClick = {onSubmit} disabled = {buttonDisabled}>Select</button>
+                <span>{warningMessage}</span>
             </div>
         );
     }
