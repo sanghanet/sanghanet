@@ -1,7 +1,6 @@
 import React from 'react';
 import Client from '../../../../components/Client';
 import './UserSelector.scss';
-import SuggestionList from '../SuggestionList/SuggestionList';
 import PropTypes from 'prop-types';
 
 class UserSelector extends React.Component {
@@ -85,23 +84,32 @@ class UserSelector extends React.Component {
         });
     }
 
+    SuggestionList = () => {
+        return (
+            <ul>
+                {this.state.filteredSuggestions.map((name) => {
+                    return <li key={name} onClick = {this.onClick}>{name}</li>;
+                })}
+            </ul>
+        );
+    };
+
     render () {
         const {
             onChange,
-            onClick,
             onSubmit,
+            SuggestionList,
             state: {
-                filteredSuggestions,
                 showSuggestions,
                 userInput,
-                inputPlaceholder
+                inputPlaceholder,
             }
         } = this;
 
         return (
             <div className="selector">
                 <input id="selectedUser" autoComplete="off" placeholder={inputPlaceholder} onChange = {onChange} value={userInput} ></input>
-                {showSuggestions && userInput ? <SuggestionList names={filteredSuggestions} handleOnClick = {onClick}></SuggestionList> : null}
+                {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
                 <button onClick = {onSubmit}>Select</button>
             </div>
         );
