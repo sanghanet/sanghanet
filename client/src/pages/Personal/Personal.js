@@ -276,7 +276,7 @@ class Personal extends React.Component {
                             />
                             <InputDisplay
                                 inputTitle={LEVEL}
-                                inputValue={level}
+                                inputValue={level || '-'}
                                 inputId="level"
                                 inputVisible={levelVisible}
                                 inputVisibility={this.handleItemVisibility}
