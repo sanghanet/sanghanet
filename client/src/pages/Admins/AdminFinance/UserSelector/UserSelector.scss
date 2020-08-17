@@ -2,6 +2,7 @@
 @import '../../../../style/mixins';
 
 .selector {
+
     position: relative;
     display: flex;
     justify-content: flex-start;
@@ -11,71 +12,73 @@
     @include maxQ(767px) {
         font-size: .8rem;
     }
-}
-.selector button {
-    margin-left: 10px;
-    cursor: default;
-    background-color: $_bs-bg-dark;
-    color: $white;
-    border-radius: 3px;
-    padding: 5px 15px;
-    border: none;
-    transform: all 0.1s;
-}
 
-.selector input {
-    border-radius: 3px;
-    border: none;
-    background-color: $_bs-bg-dark;
-    color: $white;
-    padding: 5px 10px;;
-}
+    button {
+        margin-left: 10px;
+        cursor: default;
+        background-color: $_bs-bg-dark;
+        color: $white;
+        border-radius: 3px;
+        padding: 5px 15px;
+        border: none;
+        transform: all 0.1s;
+    }
 
-.selector input:focus,
-.selector button:focus {
-    outline: none;
-}
+    input {
+        border-radius: 3px;
+        border: none;
+        background-color: $_bs-bg-dark;
+        color: $white;
+        padding: 5px 10px;;
+    }
 
-.selector button:hover {
-    padding-bottom: 3px;
-    border-bottom: 2px solid $secondary;
-    transform: all 0.1s;
-}
+    input:focus,
+    button:focus {
+        outline: none;
+    }
 
-.selector button:active {
-    padding-bottom: 2px;
-    border-bottom: 3px solid $primary;
-    transform: all 0.1s;
-}
+    button:hover {
+        padding-bottom: 3px;
+        border-bottom: 2px solid $secondary;
+        transform: all 0.1s;
+    }
 
-.selector ul {
-    position: absolute;
-    z-index: 8;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 300px;   
-    padding: 0;
-    top: 100%;
-}
+    button:active {
+        padding-bottom: 2px;
+        border-bottom: 3px solid $primary;
+        transform: all 0.1s;
+    }
 
-.selector li {
-    color: $white;
-    list-style: none;
-    background-color: $sideBar-bg;
-    transition: all 0.2s ease;
-    padding: 10px 20px;
-    border-left: 4px solid $secondary;
-    width: 95%;
-    text-align: center;
-    cursor: default;
-}
+    ul {
+        position: absolute;
+        z-index: 8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 300px;   
+        padding: 0;
+        top: 100%;
+    }
 
-.selector li:hover {
-    background-color: $sideBarHover-bg;
-    transition: all 0.2s ease;
-    border-left: 6px solid $primary;
-    padding-right: 22px;
-     
+    li {
+        color: $white;
+        list-style: none;
+        background-color: $sideBar-bg;
+        transition: all 0.2s ease;
+        padding: 10px 20px;
+        border-left: 4px solid $secondary;
+        width: 95%;
+        text-align: center;
+        cursor: default;
+    }
+
+    li:hover {
+        background-color: $sideBarHover-bg;
+        transition: all 0.2s ease;
+        border-left: 6px solid $primary;
+        padding-right: 22px;
+         
+    }
+
 }
