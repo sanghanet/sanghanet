@@ -13,29 +13,65 @@ class UserSelector extends React.Component {
             showSuggestions: false,
             userInput: '',
             warningMessage: '',
-            buttonDisabled: true
+            buttonDisabled: true,
+            indexOfActiveItem: 0
         };
         this.maxDisplayedSuggestions = 10;
     }
 
+    onKeyPress = (e) => {
+        let { indexOfActiveItem: index, searchResults, showSuggestions } = this.state;
+        if (e.keyCode === 38 || e.keyCode === 40) {
+            e.preventDefault();
+        }
+        if (e.keyCode === 38 && index) {
+            index--;
+            this.setState({ indexOfActiveItem: index });
+        };
+        if (e.keyCode === 40 && index < searchResults.length - 1) {
+            index++;
+            this.setState({ indexOfActiveItem: index });
+        }
+        if (e.keyCode === 13 && showSuggestions) {
+            this.setState({
+                showSuggestions: false,
+                userInput: searchResults[index],
+                searchResults: [],
+                indexOfActiveItem: 0
+            });
+        } else if (e.keyCode === 13) {
+            this.onSubmit();
+        }
+    }
+
     onInputChange = (e) => {
-        const { state: { suggestions }, maxDisplayedSuggestions } = this;
+        const { state: { suggestions, indexOfActiveItem: index }, maxDisplayedSuggestions } = this;
         const userInput = e.currentTarget.value;
 
         let searchResults = suggestions.filter((suggestion) => {
-            return suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1;
+            return userInput && suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1;
         });
 
         if (searchResults.length > maxDisplayedSuggestions) {
             searchResults = searchResults.slice(0, maxDisplayedSuggestions);
         }
 
+        let newActiveIndex;
+
+        if (searchResults.length && searchResults.length <= index) {
+            newActiveIndex = searchResults.length - 1;
+            if (newActiveIndex < 0) newActiveIndex = 0;
+        } else {
+            newActiveIndex = index;
+        }
+
         this.setState({
             searchResults: searchResults,
-            showSuggestions: true,
+            showSuggestions: searchResults.length && true,
             userInput: e.currentTarget.value,
             warningMessage: '',
-            buttonDisabled: !userInput
+            buttonDisabled: !userInput,
+            indexOfActiveItem: newActiveIndex
         });
     }
 
@@ -93,8 +129,9 @@ class UserSelector extends React.Component {
     SuggestionList = () => {
         return (
             <ul>
-                {this.state.searchResults.map((name) => {
-                    return <li key={name} onClick = {this.onSuggestionClick}>{name}</li>;
+                {this.state.searchResults.map((name, index) => {
+                    const { indexOfActiveItem } = this.state;
+                    return <li key={name} onClick = {this.onSuggestionClick} className = {index === indexOfActiveItem ? 'activated' : ''} >{name}</li>;
                 })}
             </ul>
         );
@@ -105,6 +142,7 @@ class UserSelector extends React.Component {
             onInputChange,
             onSubmit,
             SuggestionList,
+            onKeyPress,
             state: {
                 showSuggestions,
                 userInput,
@@ -115,7 +153,7 @@ class UserSelector extends React.Component {
 
         return (
             <div className="selector">
-                <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} ></input>
+                <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} onKeyDown={onKeyPress} ></input>
                 {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
                 <button onClick = {onSubmit} disabled = {buttonDisabled}>Select</button>
                 <span>{warningMessage}</span>

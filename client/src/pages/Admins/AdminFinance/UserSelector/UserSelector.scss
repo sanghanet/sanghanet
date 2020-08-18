@@ -53,6 +53,7 @@
     button:disabled {
         color:$sideBar-bg;
         border: none;
+        padding: 5px 15px;
     }
 
     ul {
@@ -79,11 +80,19 @@
         cursor: default;
     }
 
-    li:hover {
+    %li-highlight {
         background-color: $sideBarHover-bg;
         transition: all 0.2s ease;
         border-left: 6px solid $primary;
-        padding-right: 22px;    
+        padding-right: 22px;   
+    }
+
+    li:hover {
+        @extend %li-highlight; 
+    }
+
+    li.activated {
+        @extend %li-highlight; 
     }
 
     span {
