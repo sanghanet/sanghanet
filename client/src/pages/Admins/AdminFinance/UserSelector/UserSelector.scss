@@ -6,6 +6,7 @@
     position: relative;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     padding-left: 5%;
     margin-bottom: 30px;
     flex-wrap: wrap;
@@ -15,7 +16,7 @@
     }
 
     button {
-        margin-left: 10px;
+        margin: 5px 10px;
         cursor: default;
         background-color: $_bs-bg-dark;
         color: $white;
@@ -23,6 +24,7 @@
         padding: 5px 15px;
         border: none;
         transform: all 0.1s;
+        box-shadow: 5px 7px 55px -15px #0a0a0a;
     }
 
     input {
@@ -30,7 +32,9 @@
         border: none;
         background-color: $_bs-bg-dark;
         color: $white;
-        padding: 5px 10px;;
+        padding: 5px 10px;
+        border-left: 6px solid $primary;
+        box-shadow: 5px 7px 55px -15px #0a0a0a;
     }
 
     input:focus,
@@ -99,6 +103,17 @@
         color: $error;
         flex-basis: 100%;
         margin-bottom: -30px;
+    }
+
+    .user-info {
+        color: $lightgray;
+        padding: 5px 20px;
+        background-color: $sideBar-bg;
+        margin: 5px 30px 5px auto;
+        border-radius: 23px 0px 23px 4px;
+        font-size: 2rem;
+        border-right: 6px solid $primary;
+        box-shadow: 5px 7px 55px -15px #0a0a0a;
     }
 
 }

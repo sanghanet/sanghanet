@@ -14,7 +14,8 @@ class UserSelector extends React.Component {
             userInput: '',
             warningMessage: '',
             buttonDisabled: true,
-            indexOfActiveItem: 0
+            indexOfActiveItem: 0,
+            selectedUser: 'Own data'
         };
         this.maxDisplayedSuggestions = 10;
     }
@@ -97,7 +98,8 @@ class UserSelector extends React.Component {
                     searchResults: [],
                     showSuggestions: false,
                     userInput: '',
-                    buttonDisabled: true
+                    buttonDisabled: true,
+                    selectedUser: selectedUserName
                 });
                 this.props.handleSubmit(selectedEmail);
             } else {
@@ -147,7 +149,8 @@ class UserSelector extends React.Component {
                 showSuggestions,
                 userInput,
                 warningMessage,
-                buttonDisabled
+                buttonDisabled,
+                selectedUser
             }
         } = this;
 
@@ -156,6 +159,7 @@ class UserSelector extends React.Component {
                 <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} onKeyDown={onKeyPress} ></input>
                 {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
                 <button onClick = {onSubmit} disabled = {buttonDisabled}>Select</button>
+                <div className = "user-info">{selectedUser}</div>
                 <span>{warningMessage}</span>
             </div>
         );
