@@ -40,6 +40,8 @@ class UserSelector extends React.Component {
                 searchResults: [],
                 indexOfActiveItem: 0
             });
+            document.getElementById('selectedUser').value = searchResults[index];
+            this.onSubmit();
         } else if (e.keyCode === 13) {
             this.onSubmit();
         }

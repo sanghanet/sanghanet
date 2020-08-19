@@ -18,13 +18,14 @@
     button {
         margin: 5px 10px;
         cursor: default;
-        background-color: $_bs-bg-dark;
+        background-color: $sideBar-bg;
         color: $white;
         border-radius: 3px;
-        padding: 5px 15px;
+        padding: 5px 15px 2px 15px;
         border: none;
         transform: all 0.1s;
         box-shadow: 5px 7px 55px -15px #0a0a0a;
+        border-bottom: 3px solid $secondary;
     }
 
     input {
@@ -43,19 +44,19 @@
     }
 
     button:hover {
-        padding-bottom: 3px;
-        border-bottom: 2px solid $secondary;
-        transform: all 0.1s;
-    }
-
-    button:active {
         padding-bottom: 2px;
         border-bottom: 3px solid $primary;
         transform: all 0.1s;
     }
 
+    button:active {
+        padding-bottom: 0;
+        border-bottom: 5px solid $primary;
+        transform: all 0.1s;
+    }
+
     button:disabled {
-        color:$sideBar-bg;
+        color:#191818;
         border: none;
         padding: 5px 15px;
     }
@@ -69,7 +70,7 @@
         justify-content: space-between;
         width: 300px;   
         padding: 0;
-        top: 100%;
+        top: 65px;
     }
 
     li {
@@ -102,7 +103,7 @@
     span {
         color: $error;
         flex-basis: 100%;
-        margin-bottom: -30px;
+        margin-bottom: -50px;
     }
 
     .user-info {
