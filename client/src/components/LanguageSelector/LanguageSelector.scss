@@ -1,0 +1,35 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.language-selector {
+    height: 35px;
+    width: 70px;
+    background-color:#0a0a0a;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    border: 2px solid #757575;
+    box-sizing: content-box;
+
+    .left {
+        background-image: url('../icons/hu.svg');
+        margin-right: 35px;
+    }
+    
+    .right {
+        background-image: url('../icons/gb.svg');
+        margin-left: 35px;
+    }
+    
+}
+
+.slider {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    transition: all 0.1s ease-in;
+    border: 2px solid #757575;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px 3px #000000;
+}
