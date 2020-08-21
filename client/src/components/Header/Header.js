@@ -152,30 +152,24 @@ const Header = (props) => {
                                     {searchResults.slice(0, 3).map((user, key) => {
                                         return (
                                             <li key={key} onClick={() => { handleSearchResultClick(user._id); }}>
-                                                {user.spiritualName === '-' ? (
-                                                    <div>
-                                                        <p>{user.firstName} {user.lastName}</p>
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <p>{user.spiritualName}</p>
-                                                        <p>{user.firstName} {user.lastName}</p>
-                                                    </div>
-                                                )}
+                                                <p>
+                                                    { user.spiritualName === '-' || <span>{user.spiritualName}</span> }
+                                                    <span>{user.firstName} {user.lastName}</span>
+                                                </p>
                                             </li>
                                         );
                                     })}
                                     {/* Render the number of additional results if there are more than 3 */}
                                     {searchResults.length > 3 && (
                                         <li key="4">
-                                            <div>{searchResults.length - 3} more results...</div>
+                                            <p>{searchResults.length - 3} more results...</p>
                                         </li>
                                     )}
                                 </React.Fragment>
                             ) : (
                                 /* Render a message when no result was found */
                                 <li className="not-found">
-                                    <div>&quot;{searchBarValue}&quot; not found</div>
+                                    <p>&quot;{searchBarValue}&quot; not found</p>
                                 </li>
                             )}
                         </ul>
