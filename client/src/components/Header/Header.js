@@ -151,7 +151,7 @@ const Header = (props) => {
                                     {searchResults.slice(0, 3).map((user, key) => {
                                         return (
                                             <li key={key} onClick={() => { handleSearchResultClick(user._id); }}>
-                                                {user.spiritualName === 'None' ? (
+                                                {user.spiritualName === '-' ? (
                                                     <div>
                                                         <p>{user.firstName} {user.lastName}</p>
                                                     </div>
