@@ -39,6 +39,11 @@ class Navbar extends Component {
         }
     }
 
+    handleKeyDown = (event) => {
+        const keyCode = event.keyCode; // CRSR LEFT(37), CRSR RIGHT(39)
+        if (keyCode === 37 || keyCode === 39) event.preventDefault();
+    }
+
     render () {
         const { navStyle } = this.props;
         const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser } = this.context;
@@ -63,7 +68,7 @@ class Navbar extends Component {
 
         return (
             <div id={navStyle}>
-                <div className={classList}>
+                <div className={classList} onKeyDown={this.handleKeyDown}>
                     <ul className="main-menu">
                         <li className="admins">
                             <div className="link" onClick={this.handleSubmenu}>
