@@ -129,6 +129,7 @@ const Header = (props) => {
                         inputValue={searchBarValue}
                         handleIconClick={handleSearchBarIconClick}
                         icon={searching ? <CrossIcon className='cross' /> : <SearchIcon />}
+                        disabled={!searching}
                     />
 
                     <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>
