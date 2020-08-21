@@ -84,7 +84,7 @@ const Header = (props) => {
     const handleSearchResultClick = (id) => {
         Client.fetch('/user/registereduserdata', {
             method: 'POST',
-            body: { userId: id }
+            body: { userIDs: [id] }
         })
             .then((visibleUserData) => {
                 setMemberDialogData(visibleUserData[0]);
@@ -153,7 +153,7 @@ const Header = (props) => {
                                         return (
                                             <li key={key} onClick={() => { handleSearchResultClick(user._id); }}>
                                                 <p>
-                                                    { user.spiritualName === '-' || <span>{user.spiritualName}</span> }
+                                                    { user.spiritualName !== '-' && <span>{user.spiritualName}</span> }
                                                     <span>{user.firstName} {user.lastName}</span>
                                                 </p>
                                             </li>
