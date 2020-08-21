@@ -22,6 +22,25 @@
     
 }
 
+.language-selector.small {
+    height: 26px;
+    width: 45px;
+
+    .left {
+        margin-left: -3px
+    }
+    
+    .right {
+        margin-left: 18px;
+    }
+
+    .lang-slider {
+        width: 26px;
+        height: 26px;
+    }
+    
+}
+
 .lang-slider {
     width: 36px;
     height: 36px;
