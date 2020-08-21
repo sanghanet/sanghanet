@@ -26,7 +26,7 @@ const LanguageSelector = (props) => {
     return (
 
         <div className = "language-selector" onClick = {handleSliderClick}>
-            <div className = {`slider ${sliderPos}`}></div>
+            <div className = {`lang-slider ${sliderPos}`}></div>
         </div>
 
     );
