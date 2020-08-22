@@ -76,6 +76,12 @@ const Header = (props) => {
         setSearchBarValue('');
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            displayMoreResults();
+        }
+    };
+
     const closeMemberModal = () => {
         setMemberDialogData({});
         setShowMemberDialog(false);
@@ -142,6 +148,7 @@ const Header = (props) => {
                         handleIconClick={handleSearchBarIconClick}
                         icon={searching ? <CrossIcon className='cross' /> : <SearchIcon />}
                         disabled={!searching}
+                        onKeyDown={handleKeyDown}
                     />
 
                     <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>

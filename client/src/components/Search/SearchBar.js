@@ -16,7 +16,8 @@ class SearchBar extends Component {
             handleIconClick,
             icon,
             onBlur,
-            disabled
+            disabled,
+            onKeyDown
         } = this.props;
 
         return (
@@ -29,6 +30,7 @@ class SearchBar extends Component {
                         onBlur={onBlur}
                         value={inputValue}
                         disabled={disabled}
+                        onKeyDown={onKeyDown}
                     />
                     <Form.Label onClick={handleIconClick} >
                         {icon}
@@ -48,6 +50,7 @@ SearchBar.propTypes = {
     icon: PropTypes.element,
     handleIconClick: PropTypes.func,
     disabled: PropTypes.bool,
+    onKeyDown: PropTypes.func,
     className: PropTypes.string
 };
 
