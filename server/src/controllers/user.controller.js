@@ -218,6 +218,7 @@ module.exports.registereduserdata = async (req, res, next) => {
         const registeredUsers = await RegisteredUser.find(req.body.userId ? { _id: { $in: req.body.userIDs } } : {});
         const visibleUserData = registeredUsers.map((registeredUser) => {
             return {
+                _id: registeredUser._id,
                 activeMember: req.user.email === registeredUser.email,
                 profileImg: registeredUser.profileImg,
                 firstName: registeredUser.firstName,

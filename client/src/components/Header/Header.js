@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './Header.scss';
 import Avatar from '../icons/avatar.jpg';
@@ -94,6 +94,18 @@ const Header = (props) => {
             });
     };
 
+    const displayMoreResults = async () => {
+        await props.history.push({
+            pathname: '/app/members',
+            state: {
+                usersToDisplay: searchResults.map((user) => user._id),
+                searchString: searchBarValue
+            }
+        });
+
+        handleSearchBarIconClick();
+    };
+
     return (
         <React.Fragment>
             { showMemberDialog &&
@@ -161,7 +173,7 @@ const Header = (props) => {
                                     })}
                                     {/* Render the number of additional results if there are more than 3 */}
                                     {searchResults.length > 3 && (
-                                        <li key="4">
+                                        <li key="4" onClick={displayMoreResults}>
                                             <p>{searchResults.length - 3} more results...</p>
                                         </li>
                                     )}
