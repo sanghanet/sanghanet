@@ -188,14 +188,14 @@ const Header = (props) => {
                                     {/* Render the number of additional results if there are more than 3 */}
                                     {searchResults.length > 3 && (
                                         <li key="4" onClick={displayMoreResults}>
-                                            <p>{searchResults.length - 3} more results...</p>
+                                            <p><span>{searchResults.length - 3} more results...</span></p>
                                         </li>
                                     )}
                                 </React.Fragment>
                             ) : (
                                 /* Render a message when no result was found */
                                 <li className="not-found">
-                                    <p>&quot;{searchBarValue}&quot; not found</p>
+                                    <p><span>&quot;{searchBarValue}&quot; not found</span></p>
                                 </li>
                             )}
                         </ul>
