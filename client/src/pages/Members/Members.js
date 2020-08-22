@@ -40,7 +40,6 @@ const Members = (props) => {
 
     const resetMembersFilter = () => {
         props.history.push({
-            pathname: '/app/members',
             state: {
                 usersToDisplay: null,
                 searchString: ''
