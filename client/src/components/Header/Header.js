@@ -77,8 +77,15 @@ const Header = (props) => {
     };
 
     const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            displayMoreResults();
+        switch (e.key) {
+            case 'Enter':
+                displayMoreResults();
+                break;
+            case 'Escape':
+                handleSearchBarIconClick();
+                break;
+            default:
+                break;
         }
     };
 
