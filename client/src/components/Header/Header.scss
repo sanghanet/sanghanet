@@ -125,6 +125,10 @@
             right: -320px;
             background-color: $sideBar-bg;
 
+            @include minQ(421px) {
+                border-left: 2px solid darkcyan;
+            }
+
             transition: right .5s;
             &.slideIn {
                 right: 0;
@@ -177,6 +181,13 @@
             transition: right .5s;
 
             scrollbar-width: none;
+
+            @include minQ(421px) {
+                li {
+                    border-left: 2px solid darkcyan;
+                }
+            }
+
             &::-webkit-scrollbar {
                 display: none;
             }
