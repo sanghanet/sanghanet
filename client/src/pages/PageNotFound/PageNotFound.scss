@@ -1,0 +1,22 @@
+@import '../../style/colors';
+
+.not-found-page {
+    background-color: $main-bg;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        color: #f7f14c;
+        font-weight: bold;
+        height: 20vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    img {
+        height: 80vh;
+        width: 100%;
+        object-fit: contain;
+    }
+}

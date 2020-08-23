@@ -1,7 +1,14 @@
 import React from 'react';
+import './PageNotFound.scss';
+import NotFoundImg from '../../components/icons/not_found.png';
 
 const PageNotFound = (props) => {
-    return (<h1>Page not found</h1>);
+    return (
+        <div className='not-found-page'>
+            <h1>PAGE NOT FOUND</h1>
+            <img src={NotFoundImg} alt='page not found' />
+        </div>
+    );
 };
 
 export default PageNotFound;
