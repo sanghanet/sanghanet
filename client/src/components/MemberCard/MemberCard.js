@@ -18,8 +18,8 @@ const MemberCard = (props) => {
                 <p className="card-name">{`${firstName} ${lastName}`}</p>
                 <hr className="card-line"></hr>
                 <p className="card-spiritual-name">{spiritualName}</p>
-                <button onClick={showMemberDetails}>{SEESHAREDDATA}</button>
             </div>
+            <button onClick={showMemberDetails}>{SEESHAREDDATA}</button>
         </li>
     );
 };

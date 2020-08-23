@@ -23,14 +23,13 @@
 
         display: flex;
         flex-direction: column;
-        align-items: center;
+        justify-content: space-between;
         .profile-img {
             img {
                 width: 110px;
                 height: 110px;
                 border: 6px solid $label-bg;
                 border-radius: 50%;
-
             }
         }
         p {
