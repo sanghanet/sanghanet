@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 
 import PrivateRoute from './components/PrivateRoute';
 import Login from './pages/Login/Login';
-import LoginFailed from './pages/LoginFailed/LoginFailed';
+import ThrowOut from './pages/TrowOut/ThrowOut';
 import Loading from './pages/Loading/Loading';
 import Registration from './pages/Registration/Registration';
 import Main from './pages/Main';
@@ -66,7 +66,7 @@ class App extends Component {
                         <Switch>
                             <Route exact path='/' component={Login} />
                             <Route path='/loading' component={Loading} />
-                            <Route path='/loginfailed' component={LoginFailed} />
+                            <Route path='/throwout/:reason' component={ThrowOut} />
                             <Route exact path='/404' component={PageNotFound} />
                             <PrivateRoute path='/registration' component={Registration} />
                             <PrivateRoute path='/app/' component={Main} history={createBrowserHistory()} />

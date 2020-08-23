@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './Header.scss';
-import Avatar from '../icons/avatar.jpg';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 import MemberDetails from '../MemberDetails/MemberDetails';
@@ -28,6 +27,7 @@ const Header = (props) => {
     const [searching, setSearching] = useState(false);
     const [showMemberDialog, setShowMemberDialog] = useState(false);
     const [memberDialogData, setMemberDialogData] = useState({});
+    const [userAvatarUrl, setUserAvatarURL] = useState('/images/noAvatar.svg');
 
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/app/personal') {
@@ -63,6 +63,13 @@ const Header = (props) => {
         Client.fetch('/user/getnameofusers')
             .then((data) => {
                 setNameOfUsers(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        Client.fetch('/user/avatarurl')
+            .then((data) => {
+                setUserAvatarURL(data[0].profileImg);
             })
             .catch((err) => {
                 console.log(err);
@@ -134,7 +141,7 @@ const Header = (props) => {
                         onClick={handleAvatarClick}
                     >
                         <Figure.Image
-                            src={Avatar}
+                            src={userAvatarUrl}
                             alt='Avatar'
                             roundedCircle
                             width={70}

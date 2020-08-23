@@ -19,26 +19,72 @@
         "REGISTRATION": "Registration"
     },
 
-    "navbarDictionary": {
-        "ADMINPAGES": "ADMINS",
-        "BACKBUTTONLABEL": "BACK",
-        "DASHBOARDPAGE": "DASHBOARD",
-        "PERSONALPAGE": "PERSONAL DATA",
-        "YOGAPAGE": "YOGA",
-        "FINANCEPAGE": "FINANCES",
-        "EVENTPAGE": "EVENTS",
-        "QUESTIONPAGE": "PERSONAL QUESTIONS",
-        "QUERIESPAGE": "QUERIES",
-        "LOGOUTLABEL": "LOGOUT",
+    "pageAndNavbarTitles": {
+        "ADMINS": "Admins",
+        "BACK": "Back",
+        "LOGOUT": "Logout",
 
-        "FINANCEADMINPAGE": "FINANCE ADMIN",
-        "EVENTADMINPAGE": "EVENT ADMIN",
-        "YOGAADMINPAGE": "YOGA ADMIN",
-        "SUPERUSERPAGE": "SUPERUSER"
+        "DASHBOARD": "Dashboard",
+        "PERSONAL": "Personal",
+        "YOGA": "Yoga",
+        "FINANCES": "Finances",
+        "EVENTS": "Events",
+        "MEMBERS": "Members",
+        "QUESTIONS": "Personal Questions",
+        "QUERIES": "Queries",
+
+        "FINANCE_ADMIN": "Finance Admin",
+        "EVENT_ADMIN": "Event Admin",
+        "YOGA_ADMIN": "Yoga Admin",
+        "SUPERUSER": "Superuser"
     },
+
+    "memberCardButton" : { "SEESHAREDDATA": "See shared data" },
 
     "modalMembersDictionary": {
         "COPY": "Copy",
         "COPYTOCLIPBOARD": "Copied to clipboard"
+    },
+
+    "memberDetails": {
+        "FIRSTNAME": "First name",
+        "LASTNAME": "Last name",
+        "SPIRITUALNAME": "Spiritual Name",
+        "DATEOFBIRTH": "Date of Birth",
+        "GENDER": "Gender",
+        "LEVEL": "Level of Study",
+        "EMAIL": "Email",
+        "MOBILE": "Mobile",
+        "ADDRESS": "Address",
+        "EMTITLE": "Emergency Contact",
+        "EMNAME": "Emergency Contact Name",
+        "EMMOBILE": "Emergency Contact Mobile",
+        "EMEMAIL": "Emergency Contact Email"
+    },
+
+    "personalPageContainers": {
+        "GENERALDATA": "general data",
+        "CONTACTDETAILS": "contact details"
+    },
+
+    "modalButtons": {
+        "REJECT": "Close",
+        "ACCEPT": "Save"
+    },
+
+    "personalPagePlaceholders": {
+        "REQUIREDFORMAT": "Required format: ",
+        "ENTERVALUE": "Enter a value",
+        "DATE": "month/day/year",
+        "GENDERFORMAT": "choose from the list",
+        "FEMALE": "Female",
+        "MALE": "Male",
+        "OTHER": "Other"
+    },
+
+    "throwoutMessages": {
+        "LOGINFAILED": "Login failed!",
+        "SESSIONEXPIRED": "Session expired! Please login again!",
+        "AUTHENTICATIONFAILED": "Authentication failed!"
     }
 }

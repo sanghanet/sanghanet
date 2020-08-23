@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import InputPopup from '../InputPopup/InputPopup';
+import { UIcontext } from '../../contexts/UIcontext/UIcontext';
 import './InputDisplay.scss';
 import { ReactComponent as Edit } from '../formIcons/edit.svg';
 import { ReactComponent as Visible } from '../formIcons/visible.svg';
@@ -22,12 +23,16 @@ const InputDisplay = (props) => {
         inputType,
         inputFieldAs,
         optionsForSelect,
+        textForSelect,
         inputVisibility,
         inputVisible,
         toDisable,
         validation,
         format
     } = props;
+
+    const { personalPagePlaceholders } = useContext(UIcontext).dictionary;
+    const { ENTERVALUE } = personalPagePlaceholders;
 
     return (
 
@@ -36,13 +41,14 @@ const InputDisplay = (props) => {
                 ? (<InputPopup
                     modalShow={show}
                     modalTitle={inputTitle}
-                    modalValue={inputValue || 'Enter a value'}
+                    modalValue={inputValue || ENTERVALUE}
                     modalClose={handleClose}
                     modalId={inputId}
                     modalValueSave={inputValueSave}
                     modalInputType={inputType}
                     modalInputAs={inputFieldAs}
                     modalOptions={optionsForSelect}
+                    modalOptionsText={textForSelect}
                     modalValidation={validation}
                     modalFormat={format}
                 />)
@@ -64,7 +70,7 @@ const InputDisplay = (props) => {
                         </button>
                     </div>
                     <div className="display-input">
-                        <p className="display-title">{inputValue || 'Enter a value'}</p>
+                        <p className="display-title">{inputValue || ENTERVALUE}</p>
                         <button
                             className="display-button edit-button"
                             onClick={handleShow}
@@ -89,6 +95,7 @@ InputDisplay.propTypes = {
     inputType: PropTypes.string,
     inputFieldAs: PropTypes.string,
     optionsForSelect: PropTypes.array,
+    textForSelect: PropTypes.array,
     toDisable: PropTypes.instanceOf(Set),
     validation: PropTypes.object,
     format: PropTypes.string

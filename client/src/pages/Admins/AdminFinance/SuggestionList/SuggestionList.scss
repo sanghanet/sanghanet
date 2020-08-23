@@ -3,13 +3,12 @@
 
 .selector ul {
     position: absolute;
-    z-index: 500;
-    width: fit-content;
+    z-index: 8;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width: 20%;   
+    width: 300px;   
     padding: 0;
     top: 100%;
 }

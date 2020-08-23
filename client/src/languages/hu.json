@@ -19,26 +19,72 @@
         "REGISTRATION": "Regisztráció"
     },
 
-    "navbarDictionary": {
-        "ADMINPAGES": "ADMIN OLDALAK",
-        "BACKBUTTONLABEL": "VISSZA",
-        "DASHBOARDPAGE": "ÁTTEKINTÉS",
-        "PERSONALPAGE": "SZEMÉLYES ADATAIM",
-        "YOGAPAGE": "JÓGA",
-        "FINANCEPAGE": "PÉNZÜGYEK",
-        "EVENTPAGE": "ESEMÉNYEK",
-        "QUESTIONPAGE": "SZEMÉLYES KÉRDÉSEK",
-        "QUERIESPAGE": "SZŰRÉS",
-        "LOGOUTLABEL": "KIJELENTKEZÉS",
+    "pageAndNavbarTitles": {
+        "ADMINS": "Admin Oldalak",
+        "BACK": "Vissza",
+        "LOGOUT": "Kijelentkezés",
 
-        "FINANCEADMINPAGE": "PÉNZÜGYI ADMIN",
-        "EVENTADMINPAGE": "ESEMÉNY SZERVEZŐ",
-        "YOGAADMINPAGE": "JÓGA ADMIN",
-        "SUPERUSERPAGE": "SUPERUSER"
+        "DASHBOARD": "Áttekintés",
+        "PERSONAL": "Személyes adataim",
+        "YOGA": "Jóga",
+        "FINANCES": "Pénzügyek",
+        "EVENTS": "Események",
+        "MEMBERS": "Tagok",
+        "QUESTIONS": "Személyes kérdések",
+        "QUERIES": "Szűrés",
+
+        "FINANCE_ADMIN": "Pénzügyi Admin",
+        "EVENT_ADMIN": "Esemény szervező",
+        "YOGA_ADMIN": "Jóga Admin",
+        "SUPERUSER": "Superuser"
     },
+
+    "memberCardButton" : { "SEESHAREDDATA": "Megosztott adatok" },
 
     "modalMembersDictionary": {
         "COPY": "Másolás",
         "COPYTOCLIPBOARD": "Vágólapra másolva"
+    },
+
+    "memberDetails": {
+        "FIRSTNAME": "Keresztnév",
+        "LASTNAME": "Családnév",
+        "SPIRITUALNAME": "Spirituális név",
+        "DATEOFBIRTH": "Születési dátum",
+        "GENDER": "Nem",
+        "LEVEL": "Tanulmányok szintje",
+        "EMAIL": "Email",
+        "MOBILE": "Mobil",
+        "ADDRESS": "Cím",
+        "EMTITLE": "Vész esetén értesítendő",
+        "EMNAME": "Értesítendő neve",
+        "EMMOBILE": "Értesítendő mobilja",
+        "EMEMAIL": "Értesítendő emailje"
+    },
+
+    "personalPageContainers": {
+        "GENERALDATA": "általános adatok",
+        "CONTACTDETAILS": "elérhetőség"
+    },
+
+    "modalButtons": {
+        "REJECT": "Bezár",
+        "ACCEPT": "Mentés"
+    },
+
+    "personalPagePlaceholders": {
+        "REQUIREDFORMAT": "Elvárt formátum: ",
+        "ENTERVALUE": "Adat feltöltés",
+        "DATE": "hónap/nap/év",
+        "GENDERFORMAT": "válassz a listából",
+        "FEMALE": "Nő",
+        "MALE": "Férfi",
+        "OTHER": "Más"
+    },
+
+    "throwoutMessages": {
+        "LOGINFAILED": "A bejelentkezés nem sikerült!",
+        "SESSIONEXPIRED": "Időtúllépés. Kérjük jelenkezzen be újra.",
+        "AUTHENTICATIONFAILED": "A felhasználó azonosítása sikertelen!"
     }
 }

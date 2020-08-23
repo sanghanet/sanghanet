@@ -22,6 +22,7 @@ router.get('/logout', userController.logout);
 router.get('/personal', userController.personal);
 router.post('/registereduserdata', userController.registereduserdata);
 router.get('/getnameofusers', userController.getNameOfUsers);
+router.get('/avatarurl', userController.getUserAvatarURL);
 router.put('/saveitem', userController.updateItemAndVisibility);
 router.put('/savevisibility', userController.updateItemAndVisibility);
 router.post('/uploadprofileimg', userController.uploadProfileImg);

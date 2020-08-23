@@ -5,7 +5,7 @@ import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
 import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import FormContainer from '../../components/Form/FormContainer/FormContainer';
-import { nameValidationRule, validationError } from '../../components/ValidationRule';
+import { nameValidationRule, spiritualNameValidationRule, validationError } from '../../components/ValidationRule';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
@@ -15,7 +15,7 @@ class Registration extends Component {
         profileImgBlob: null,
         firstName: '',
         lastName: '',
-        spiritualName: 'None',
+        spiritualName: '-',
         firstNameValidationMsg: null,
         lastNameValidationMsg: null,
         spiritualNameValidationMsg: null,
@@ -23,6 +23,13 @@ class Registration extends Component {
         alertMessage: '',
         alertType: ''
     };
+
+    componentDidMount = () => {
+        const user = sessionStorage.getItem('user');
+        if (user !== 'Unknown') {
+            window.location.href = '/'; // To avoid reach Registration page via URL
+        }
+    }
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -39,6 +46,7 @@ class Registration extends Component {
                 body: formData
             }, true) // skipDefault Headers
                 .then(() => {
+                    window.history.replaceState({}, '', '/'); // remove registration link from history, make back button useless
                     window.location.href = '/app/personal';
                 })
                 .catch((err) => {
@@ -161,10 +169,10 @@ class Registration extends Component {
                             className="display-input"
                             type="text"
                             id="spiritualName"
-                            value={spiritualName}
+                            value={ spiritualName }
                             placeholder="Start with capital letter, enter minimum 2 characters."
                             onChange={this.handleChange}
-                            {...nameValidationRule}
+                            {...spiritualNameValidationRule}
                         ></Form.Control>
                         <span className="error" aria-live="polite">{spiritualNameValidationMsg}</span>
                         <div className="regForm-btns">

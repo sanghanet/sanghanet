@@ -18,7 +18,7 @@ const Loading = () => {
                         window.location.href = '/app/personal';
                     }
                 } else {
-                    window.location.href = '/loginfailed';
+                    window.location.href = '/throwout/loginfailed';
                 }
             })
             .catch((err) => {

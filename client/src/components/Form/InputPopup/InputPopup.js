@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { validationError } from '../../ValidationRule';
+import { UIcontext } from '../../contexts/UIcontext/UIcontext';
+
 import './InputPopup.scss';
 
 import { Modal, Button, Form } from 'react-bootstrap';
@@ -43,9 +45,10 @@ class InputPopup extends Component {
     }
 
     render () {
-        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, modalOptions, modalValidation, modalFormat } = this.props;
+        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, modalOptions, modalOptionsText, modalValidation, modalFormat } = this.props;
         const { currentValue, errorMsg } = this.state;
-
+        const { REQUIREDFORMAT } = this.context.dictionary.personalPagePlaceholders;
+        const { REJECT, ACCEPT } = this.context.dictionary.modalButtons;
         return (
             /* autoFocus works only if Modal animation={false} */
             <Modal show={modalShow} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'} className="input-popup">
@@ -54,7 +57,7 @@ class InputPopup extends Component {
                         <Form.Label htmlFor={modalId}>{modalTitle}</Form.Label>
                     </Modal.Header>
                     <Modal.Body>
-                        <span className="hint">Required format: {modalFormat}</span>
+                        <span className="hint">{REQUIREDFORMAT} {modalFormat}</span>
                         <Form.Control
                             as={modalInputAs}
                             type={modalInputType}
@@ -66,7 +69,7 @@ class InputPopup extends Component {
                         >
                             { modalOptions
                                 ? modalOptions.map((option, index) => {
-                                    return (<option value={option} key={index}>{option}</option>);
+                                    return (<option value={option} key={index}>{modalOptionsText[index]}</option>);
                                 })
                                 : null
                             }
@@ -75,10 +78,10 @@ class InputPopup extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>
-                            Cancel
+                            {REJECT}
                         </Button>
                         <Button onClick={this.handleSubmit}>
-                            Save
+                            {ACCEPT}
                         </Button>
                     </Modal.Footer>
                 </Form>
@@ -97,9 +100,11 @@ InputPopup.propTypes = {
     modalInputType: PropTypes.string,
     modalInputAs: PropTypes.string,
     modalOptions: PropTypes.array,
+    modalOptionsText: PropTypes.array,
     inputArray: PropTypes.array,
     modalValidation: PropTypes.object,
     modalFormat: PropTypes.string
 };
 
+InputPopup.contextType = UIcontext;
 export default InputPopup;

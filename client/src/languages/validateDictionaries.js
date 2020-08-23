@@ -20,9 +20,9 @@ const getKeyMap = async (path) => {
 
 const matchKeyMaps = () => {
     const keyMaps = [];
-    let dictionariesToGet = ['./en.json', './hu.json'];
+    const dictionariesToGet = ['./en.json', './hu.json'];
 
-    (function assembleKeyMaps() {
+    (function assembleKeyMaps () {
         if (dictionariesToGet.length) { // --------- run recursive function
             getKeyMap(dictionariesToGet[0])
                 .then((keymap) => {
@@ -45,6 +45,6 @@ const matchKeyMaps = () => {
             console.log(`The dictionaries are ${consistent ? 'consistent' : 'INCONSISTENT. Please fix it.'}`);
         }
     })();
-}
+};
 
 matchKeyMaps();

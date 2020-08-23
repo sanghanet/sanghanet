@@ -5,8 +5,8 @@ import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 
 const Logout = (props) => {
-    const { navbarDictionary } = useContext(UIcontext).dictionary;
-    const { LOGOUTLABEL } = navbarDictionary;
+    const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
+    const { LOGOUT } = pageAndNavbarTitles;
 
     const handleClick = (event) => {
         Client.fetch('/user/logout')
@@ -23,7 +23,7 @@ const Logout = (props) => {
     return (
         <button className="link" onClick={handleClick}>
             <div className="menu-icon"><LogoutIcon /></div>
-            <span className="title">{ LOGOUTLABEL }</span>
+            <span className="title">{ LOGOUT }</span>
         </button>
     );
 };
