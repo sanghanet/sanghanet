@@ -69,7 +69,11 @@
 
     "modalButtons": {
         "REJECT": "Close",
-        "ACCEPT": "Save"
+        "ACCEPT": "Save",
+        "CANCEL": "Cancel",
+        "ADD": "Add",
+        "NO": "No",
+        "DELETE": "Delete"
     },
 
     "personalPagePlaceholders": {
@@ -105,5 +109,22 @@
         "FILTERYOGAADMIN": "yoga admin",
         "FILTERNOROLE": "no role",
         "RESETFILTERS": "Reset filters"
+    },
+
+    "superuserAddMember": {
+        "POPUPADDMEMBER": "Add member",
+        "POPUPNAME": "Name",
+        "POPUPEMAIL": "Email address"
+    },
+
+    "superuserUpdateRole": {
+        "UPDATEROLE": "Update admin role",
+        "UPDATEROLETO": "Update role to"
+    },
+
+    "superuserDeleteMember": {
+        "POPUPDELETEMEMBER": "Delete member",
+        "MSGDELETE": "Delete",
+        "CONFIRMDELETE": "To confirm, enter these four digits:"
     }
 }

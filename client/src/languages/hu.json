@@ -69,7 +69,11 @@
 
     "modalButtons": {
         "REJECT": "Bezár",
-        "ACCEPT": "Mentés"
+        "ACCEPT": "Mentés",
+        "CANCEL": "Mégsem",
+        "ADD": "Hozzáad",
+        "NO": "Nem",
+        "DELETE": "Törlés"
     },
 
     "personalPagePlaceholders": {
@@ -105,5 +109,22 @@
         "FILTERYOGAADMIN": "jóga admin",
         "FILTERNOROLE": "nincs szerep",
         "RESETFILTERS": "Szűrők törlése"
+    },
+
+    "superuserAddMember": {
+        "POPUPADDMEMBER": "Új tag hozzáadása",
+        "POPUPNAME": "Név",
+        "POPUPEMAIL": "Email cím"
+    },
+
+    "superuserUpdateRole": {
+        "UPDATEROLE": "Admin szerep frissítése",
+        "UPDATEROLETO": "Szerep frissítése:"
+    },
+
+    "superuserDeleteMember": {
+        "POPUPDELETEMEMBER": "Tag törlése",
+        "MSGDELETE": "Törlöd: ",
+        "CONFIRMDELETE": "Megerősítésképpen gépeld be ezt a négy számot:"
     }
 }

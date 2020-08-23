@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GenericDialog from '../../../../components/Form/GenericDialog/GenericDialog';
+import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 
 import './AddMemberDialog.scss';
 import { emailValidationRule, nameValidationRule, validationError } from '../../../../components/ValidationRule';
@@ -9,6 +10,8 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 class AddMemberDialog extends Component {
+    static contextType = UIcontext;
+
     state = {
         emailInputValue: '',
         labelInputValue: '',
@@ -45,7 +48,7 @@ class AddMemberDialog extends Component {
     handleAddMember = (event) => {
         const { emailInvalid, labelInvalid } = this.state;
 
-        if(!(emailInvalid && labelInvalid)) {
+        if (!(emailInvalid && labelInvalid)) {
             this.props.addMember(`${this.state.emailInputValue}@gmail.com`, this.state.labelInputValue);
         }
 
@@ -55,18 +58,20 @@ class AddMemberDialog extends Component {
     render () {
         const { closeDialog } = this.props;
         const { emailErrorMsg, labelErrorMsg, emailInputValue, labelInputValue, emailInvalid, labelInvalid } = this.state;
+        const { POPUPADDMEMBER, POPUPNAME, POPUPEMAIL } = this.context.dictionary.superuserAddMember;
+        const { CANCEL, ADD } = this.context.dictionary.modalButtons;
 
         return (
             <GenericDialog
-                title = 'Add member'
-                reject = 'Cancel'
-                accept = 'Add'
+                title = {POPUPADDMEMBER}
+                reject = {CANCEL}
+                accept = {ADD}
                 acceptDisabled = {emailInvalid || labelInvalid}
                 handleClose = {closeDialog}
                 handleAccept = {this.handleAddMember}
             >
                 <Form onSubmit={this.handleAddMember} autoComplete='off' className="add-member-dialog">
-                    <Form.Label htmlFor="label-input">Name<span>*</span></Form.Label>
+                    <Form.Label htmlFor="label-input">{POPUPNAME}<span>*</span></Form.Label>
                     <Form.Control
                         className={labelErrorMsg.length ? 'label-input invalid' : 'label-input'}
                         type="text"
@@ -79,7 +84,7 @@ class AddMemberDialog extends Component {
                     >
                     </Form.Control>
                     <span className="error" aria-live="polite">{labelErrorMsg}</span>
-                    <Form.Label htmlFor="email-input">Email address<span>*</span></Form.Label>
+                    <Form.Label htmlFor="email-input">{POPUPEMAIL}<span>*</span></Form.Label>
                     <InputGroup>
                         <Form.Control
                             className={emailErrorMsg.length ? 'email-input invalid' : 'email-input'}
