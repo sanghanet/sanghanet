@@ -2,6 +2,7 @@
 /* ------------ Imports ------------ */
 import React, { Component } from 'react';
 import Client from '../../../components/Client';
+import { UIcontext } from '../../../components/contexts/UIcontext/UIcontext';
 
 import './Superuser.scss';
 import { ReactComponent as Plus } from '../../../components/icons/plus.svg';
@@ -25,6 +26,8 @@ import Button from 'react-bootstrap/Button';
 // #endregion
 
 class Superuser extends Component {
+    static contextType = UIcontext;
+
     constructor (props) {
         super(props);
 
@@ -75,9 +78,10 @@ class Superuser extends Component {
         event.preventDefault();
         this.setState({ textFilterValue: '' });
     }
+    // ide tenni
 
     handleRegisteredFilterChange = (event) => {
-        this.setState({ registeredFilterValue: event.target[event.target.selectedIndex].text });
+        this.setState({ registeredFilterValue: event.target.value });
     }
 
     handleRoleChange = (event) => {
@@ -314,6 +318,8 @@ class Superuser extends Component {
             memberRoles
         } = this.state;
 
+        const { ADDMEMBER, NAME, EMAIL, ROLE } = this.context.dictionary.superuser;
+
         return (
             <div>
                 {showAddMemberDialog &&
@@ -358,9 +364,9 @@ class Superuser extends Component {
                 <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th className="role-icon-column">Role</th>
+                            <th>{NAME}</th>
+                            <th>{EMAIL}</th>
+                            <th className="role-icon-column">{ROLE}</th>
                             <th className="delete-icon-column"></th>
                         </tr>
                     </thead>
@@ -370,7 +376,7 @@ class Superuser extends Component {
                                 <td colSpan={5} className="p-0">
                                     <Button className="add-member-btn" variant="success" onClick={this.openAddMember}>
                                         <Plus />
-                                        Add member
+                                        {ADDMEMBER}
                                     </Button>
                                 </td>
                             </tr>

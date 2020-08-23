@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 
 import './FilterAccordion.scss';
 
@@ -19,6 +20,9 @@ import Card from 'react-bootstrap/Card';
     --------------------------------------
 */
 const FilterAccordion = (props) => {
+    const { superuser } = useContext(UIcontext).dictionary;
+    const { FILTERMEMBERS, FILTERTEXT, FILTERSHOW, FILTERALL, FILTERREGISTERED, FILTERUNREGISTERED, RESETFILTERS, FILTERSUPERUSER, FILTERFINADMIN, FILTEREVENTADMIN, FILTERYOGAADMIN, FILTERNOROLE } = superuser;
+
     const handleEmailFilterChange = (inputValue) => { props.handleEmailFilterChange(inputValue); };
     const handleSearchIconClick = (event) => { props.handleSearchIconClick(event); };
     const handleRoleChange = (event) => { props.handleRoleChange(event); };
@@ -30,7 +34,7 @@ const FilterAccordion = (props) => {
             <Card>
                 <Card.Header>
                     <Accordion.Toggle as={Button} variant="primary" eventKey="0">
-                        Filter members
+                        {FILTERMEMBERS}
                     </Accordion.Toggle>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -44,53 +48,53 @@ const FilterAccordion = (props) => {
                                     inputValue={props.textFilterValue}
                                     icon={<Cross />}
                                 />
-                                <Form.Text>Filter by name or email address</Form.Text>
+                                <Form.Text>{FILTERTEXT}</Form.Text>
                             </Form.Group>
                             <Form.Group className="registered-filter">
-                                <Form.Label>Show</Form.Label>
+                                <Form.Label>{FILTERSHOW}</Form.Label>
                                 <Form.Control
                                     onChange={handleRegisteredFilterChange}
                                     defaultValue={props.registeredFilterValue}
                                     as="select"
                                 >
-                                    <option>all</option>
-                                    <option>registered</option>
-                                    <option>unregistered</option>
+                                    <option value="all">{FILTERALL}</option>
+                                    <option value="registered">{FILTERREGISTERED}</option>
+                                    <option value="unregistered">{FILTERUNREGISTERED}</option>
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group className="role-filter">
                                 <Checkbox
                                     id="filterSuperuser"
-                                    value="superuser"
+                                    value={FILTERSUPERUSER}
                                     checked={props.roleFilter.filterSuperuser}
                                     handleChange={handleRoleChange}
                                 />
                                 <Checkbox
                                     id="filterFinanceAdmin"
-                                    value="finance admin"
+                                    value={FILTERFINADMIN}
                                     checked={props.roleFilter.filterFinanceAdmin}
                                     handleChange={handleRoleChange}
                                 />
                                 <Checkbox
                                     id="filterEventAdmin"
-                                    value="event admin"
+                                    value={FILTEREVENTADMIN}
                                     checked={props.roleFilter.filterEventAdmin}
                                     handleChange={handleRoleChange}
                                 />
                                 <Checkbox
                                     id="filterYogaAdmin"
-                                    value="yoga admin"
+                                    value={FILTERYOGAADMIN}
                                     checked={props.roleFilter.filterYogaAdmin}
                                     handleChange={handleRoleChange}
                                 />
                                 <Checkbox
                                     id="filterNoRole"
-                                    value="no role"
+                                    value={FILTERNOROLE}
                                     checked={props.roleFilter.filterNoRole}
                                     handleChange={handleRoleChange}
                                 />
                             </Form.Group>
-                            <Button className="reset-button" variant="outline-primary" onClick={resetFilters}>Reset filters</Button>
+                            <Button className="reset-button" variant="outline-primary" onClick={resetFilters}>{RESETFILTERS}</Button>
                         </Form>
                     </Card.Body>
                 </Accordion.Collapse>

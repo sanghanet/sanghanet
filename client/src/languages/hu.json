@@ -86,5 +86,24 @@
         "LOGINFAILED": "A bejelentkezés nem sikerült!",
         "SESSIONEXPIRED": "Időtúllépés. Kérjük jelenkezzen be újra.",
         "AUTHENTICATIONFAILED": "A felhasználó azonosítása sikertelen!"
+    },
+
+    "superuser": {
+        "FILTERMEMBERS": "Szűrés",
+        "FILTERTEXT": "Szűrés név és email cím szerint",
+        "FILTERSHOW": "Mutasd",
+        "FILTERALL": "mind",
+        "FILTERREGISTERED": "regisztrált",
+        "FILTERUNREGISTERED": "nem regisztrált",
+        "ADDMEMBER": "Új tag",
+        "NAME": "Név",
+        "EMAIL": "Email",
+        "ROLE": "Szerep",
+        "FILTERSUPERUSER": "superuser",
+        "FILTERFINADMIN": "pénzügyi admin",
+        "FILTEREVENTADMIN": "esemény szervező",
+        "FILTERYOGAADMIN": "jóga admin",
+        "FILTERNOROLE": "nincs szerep",
+        "RESETFILTERS": "Szűrők törlése"
     }
 }

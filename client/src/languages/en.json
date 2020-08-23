@@ -86,5 +86,24 @@
         "LOGINFAILED": "Login failed!",
         "SESSIONEXPIRED": "Session expired! Please login again!",
         "AUTHENTICATIONFAILED": "Authentication failed!"
+    },
+
+    "superuser": {
+        "FILTERMEMBERS": "Filter members",
+        "FILTERTEXT": "Filter by name or email address",
+        "FILTERSHOW": "Show",
+        "FILTERALL": "all",
+        "FILTERREGISTERED": "registered",
+        "FILTERUNREGISTERED": "unregistered",
+        "ADDMEMBER": "Add member",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "ROLE": "Role",
+        "FILTERSUPERUSER": "superuser",
+        "FILTERFINADMIN": "finance admin",
+        "FILTEREVENTADMIN": "event admin",
+        "FILTERYOGAADMIN": "yoga admin",
+        "FILTERNOROLE": "no role",
+        "RESETFILTERS": "Reset filters"
     }
 }
