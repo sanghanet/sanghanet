@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import './Members.scss';
 import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
 import MemberCard from '../../components/MemberCard/MemberCard';
 import MemberDetails from '../../components/MemberDetails/MemberDetails';
+
+import { Button } from 'react-bootstrap';
 
 const Members = (props) => {
     const [members, setMembers] = useState([]);
@@ -20,14 +24,29 @@ const Members = (props) => {
     };
 
     useEffect(() => {
-        Client.fetch('/user/allregisteredusers', { method: 'POST' })
+        Client.fetch('/user/registereduserdata', { method: 'POST' })
             .then((visibleUserData) => {
                 setMembers(visibleUserData);
             }).catch((err) => {
                 console.log(err);
                 setAlert({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
             });
-    }, []); //  to run an effect and clean it up only once
+    }, [props]); //  to run an effect and clean it up only once
+
+    const displayMember = (id) => {
+        const usersToDisplay = props.location.state?.usersToDisplay;
+        return usersToDisplay ? usersToDisplay.includes(id) : true;
+    };
+
+    const resetMembersFilter = () => {
+        props.history.push({
+            state: {
+                usersToDisplay: null,
+                searchString: ''
+            }
+        });
+    };
+
     return (
         members && (
             <React.Fragment>
@@ -44,10 +63,20 @@ const Members = (props) => {
                         selectedMemberData={members[memberIndex]}
                     />
                 }
+                <div className='member-page-heading'>{
+                    props.location.state?.searchString
+                        ? (
+                            <>
+                                <p>{`Showing results for "${props.location.state.searchString}"`}</p>
+                                <Button variant="dark" onClick={resetMembersFilter}>Show all members</Button>
+                            </>
+                        ) : <p>{'Showing all members'}</p>
+                }</div>
                 <ul className="card-container">
                     {
                         members.map((member, index) =>
-                            (<MemberCard
+                            (displayMember(member._id) &&
+                            <MemberCard
                                 key={index}
                                 index={index}
                                 profileImg={member.profileImg}
@@ -65,4 +94,4 @@ const Members = (props) => {
     );
 };
 
-export default Members;
+export default withRouter(Members);

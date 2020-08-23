@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 import PrivateRoute from './components/PrivateRoute';
 import Login from './pages/Login/Login';
@@ -68,7 +69,7 @@ class App extends Component {
                             <Route path='/throwout/:reason' component={ThrowOut} />
                             <Route exact path='/404' component={PageNotFound} />
                             <PrivateRoute path='/registration' component={Registration} />
-                            <PrivateRoute path='/app/' component={Main} />
+                            <PrivateRoute path='/app/' component={Main} history={createBrowserHistory()} />
                             <Redirect to='/404' />
                         </Switch>
                     </BrowserRouter>

@@ -107,10 +107,7 @@ module.exports.logout = (req, res) => {
 
 module.exports.getNameOfUsers = async (req, res, next) => {
     try {
-        const users = await RegisteredUser.find(
-            { email: { $not: new RegExp(req.user.email) } },
-            'firstName lastName spiritualName'
-        );
+        const users = await RegisteredUser.find({}, 'firstName lastName spiritualName');
         res.json(users);
     } catch (err) {
         next(err);
@@ -227,12 +224,13 @@ module.exports.uploadProfileImg = async (req, res, next) => {
         });
 };
 
-module.exports.allregisteredusers = async (req, res, next) => {
+module.exports.registereduserdata = async (req, res, next) => {
     log.info('All registered users fetched by:', req.user.email);
     try {
-        const registeredUsers = await RegisteredUser.find({});
+        const registeredUsers = await RegisteredUser.find(req.body.userId ? { _id: { $in: req.body.userIDs } } : {});
         const visibleUserData = registeredUsers.map((registeredUser) => {
             return {
+                _id: registeredUser._id,
                 activeMember: req.user.email === registeredUser.email,
                 profileImg: registeredUser.profileImg,
                 firstName: registeredUser.firstName,
