@@ -2,7 +2,7 @@
 @import '../../style/mixins';
 
 .card-container {
-    @include resetList;
+    list-style-type: none;
     padding: 0 30px;
 
     display: flex;
