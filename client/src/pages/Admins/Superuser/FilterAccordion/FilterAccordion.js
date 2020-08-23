@@ -25,8 +25,12 @@ const FilterAccordion = (props) => {
     const handleRegisteredFilterChange = (event) => { props.handleRegisteredFilterChange(event); };
     const resetFilters = () => { props.resetFilters(); };
 
+    const preventSubmit = (event) => {
+        if (event.key === 'Enter') event.preventDefault();
+    };
+
     return (
-        <Accordion className="su-filter-accordion">
+        <Accordion onKeyDown={preventSubmit} className="su-filter-accordion">
             <Card>
                 <Card.Header>
                     <Accordion.Toggle as={Button} variant="primary" eventKey="0">
