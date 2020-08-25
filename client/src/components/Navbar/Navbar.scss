@@ -124,15 +124,17 @@
     .wrapper {
         position: relative;
         min-height: 100vh;
-        li {
-            height: 80px;
-            border-top: 1px solid $sideBar-border;
-        }
     }
     .main-menu, .sub-menu {
         background-color: $sideBar-bg;
         touch-action: pan-y;
-        li:last-child {
+        li {
+            height: 80px;
+        }
+        li:not(:first-of-type) {
+            border-top: 1px solid $sideBar-border;
+        }
+        li:last-of-type {
             border-bottom: 1px solid $sideBar-border;
         }
     }
