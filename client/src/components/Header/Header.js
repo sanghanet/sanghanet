@@ -165,7 +165,6 @@ const Header = (props) => {
                         onKeyDown={handleKeyDown}
                     />
 
-                    <div className={isHamburgerOpen ? 'header-shim slideIn' : 'header-shim'}></div>
                     <button
                         className={`burger-lines d-md-none position-absolute${searching ? ' d-none' : ''}`}
                         onClick={ handleHamburgerClick }
