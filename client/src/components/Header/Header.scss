@@ -112,25 +112,6 @@
             }
         }
 
-        .header-shim {
-            z-index: 9;
-            height: $header-height;
-            position: absolute;
-            @include maxQ(420px) {
-                width: 100vw;
-                right: -100vw;
-            }
-            @include minQ(768px) { display: none; }
-            width: 320px;
-            right: -320px;
-            background-color: $sideBar-bg;
-
-            transition: right .5s;
-            &.slideIn {
-                right: 0;
-            }
-        }
-
         .burger-lines {
             @include buttonReset;
             width: $navbar-width;
@@ -177,6 +158,13 @@
             transition: right .5s;
 
             scrollbar-width: none;
+
+            @include minQ(421px) {
+                li {
+                    border-left: 1px solid $sideBar-iconColor
+                }
+            }
+
             &::-webkit-scrollbar {
                 display: none;
             }
