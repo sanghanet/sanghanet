@@ -30,21 +30,21 @@ const validationError = (input) => {
     if (input.validity.valid) {
         return '';
     } else if (input.validity.valueMissing) {
-        return 'Value is required!';
+        return 'VALUEMISSING';
     } else if (input.validity.typeMismatch) {
-        return 'Enter a valid input type!';
+        return 'TYPEMISMATCH';
     } else if (input.validity.patternMismatch) {
-        return 'Invalid pattern!';
+        return 'PATTERNMISMATCH';
     } else if (input.validity.tooLong) {
-        return 'Too long input!'; // You will never get this error msg
+        return 'TOOLONG'; // You will never get this error msg
     } else if (input.validity.tooShort) {
-        return 'Too short input!';
+        return 'TOOSHORT';
     } else if (input.validity.rangeUnderflow) {
-        return 'Too low number!';
+        return 'RANGEUNDERFLOW';
     } else if (input.validity.rangeOverflow) {
-        return 'Too big number!';
+        return 'RANGEOVERFLOW';
     } else if (input.validity.badInput) {
-        return 'Please enter a number!';
+        return 'BADINPUT';
     }
 };
 

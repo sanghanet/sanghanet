@@ -126,5 +126,17 @@
         "POPUPDELETEMEMBER": "Tag törlése",
         "MSGDELETE": "Törlöd: ",
         "CONFIRMDELETE": "Megerősítésképpen gépeld be ezt a négy számot:"
+    },
+
+    "validationMsg": {
+        "VALUEMISSING": "Érték szükséges!",
+        "TYPEMISMATCH": "Érvényes adat típus szükséges!",
+        "PATTERNMISMATCH": "Nem érvényes formátum!",
+        "TOOLONG": "Túl hosszú adat!",
+        "TOOSHORT": "Túl rövid adat!",
+        "RANGEUNDERFLOW": "Túl kicsi a szám!",
+        "RANGEOVERFLOW": "Túl nagy a szám!",
+        "BADINPUT": "Szám szükséges!",
+        "WRONGNUMBER": "Téves szám!"
     }
 }

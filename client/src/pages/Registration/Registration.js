@@ -16,9 +16,9 @@ class Registration extends Component {
         firstName: '',
         lastName: '',
         spiritualName: '-',
-        firstNameValidationMsg: null,
-        lastNameValidationMsg: null,
-        spiritualNameValidationMsg: null,
+        firstNameValidationToken: null,
+        lastNameValidationToken: null,
+        spiritualNameValidationToken: null,
         showAlert: false,
         alertMessage: '',
         alertType: ''
@@ -34,8 +34,8 @@ class Registration extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        const { profileImgBlob, firstName, lastName, spiritualName, firstNameValidationMsg, lastNameValidationMsg, spiritualNameValidationMsg } = this.state;
-        if (!(firstNameValidationMsg || lastNameValidationMsg || spiritualNameValidationMsg || !profileImgBlob)) {
+        const { profileImgBlob, firstName, lastName, spiritualName, firstNameValidationToken, lastNameValidationToken, spiritualNameValidationToken } = this.state;
+        if (!(firstNameValidationToken || lastNameValidationToken || spiritualNameValidationToken || !profileImgBlob)) {
             const formData = new FormData();
             formData.append('profileImage', profileImgBlob);
             formData.append('firstName', firstName);
@@ -66,7 +66,7 @@ class Registration extends Component {
         this.setState(
             {
                 [input.id]: input.value,
-                [input.id + 'ValidationMsg']: validationError(input)
+                [input.id + 'ValidationToken']: validationError(input)
             });
     }
 
@@ -97,15 +97,15 @@ class Registration extends Component {
             firstName,
             lastName,
             spiritualName,
-            firstNameValidationMsg,
-            lastNameValidationMsg,
-            spiritualNameValidationMsg,
+            firstNameValidationToken,
+            lastNameValidationToken,
+            spiritualNameValidationToken,
             showAlert,
             alertMessage,
             alertType
         } = this.state;
 
-        const { registrationPageDictionary } = this.context.dictionary;
+        const { registrationPageDictionary, validationMsg } = this.context.dictionary;
         const {
             REGISTRATIONTITLE,
             FIRSTNAME,
@@ -148,7 +148,7 @@ class Registration extends Component {
                             onChange={this.handleChange}
                             {...nameValidationRule}
                         ></Form.Control>
-                        <span className="error" aria-live="polite">{firstNameValidationMsg}</span>
+                        <span className="error" aria-live="polite">{validationMsg[firstNameValidationToken]}</span>
                         <Form.Label htmlFor="lastName" className="display-label">
                             <p className="display-title">{ LASTNAME }</p>
                         </Form.Label>
@@ -161,7 +161,7 @@ class Registration extends Component {
                             onChange={this.handleChange}
                             {...nameValidationRule}
                         ></Form.Control>
-                        <span className="error" aria-live="polite">{lastNameValidationMsg}</span>
+                        <span className="error" aria-live="polite">{validationMsg[lastNameValidationToken]}</span>
                         <Form.Label htmlFor="spiritualName" className="display-label">
                             <p className="display-title">{ SPIRITUALNAME }</p>
                         </Form.Label>
@@ -174,7 +174,7 @@ class Registration extends Component {
                             onChange={this.handleChange}
                             {...spiritualNameValidationRule}
                         ></Form.Control>
-                        <span className="error" aria-live="polite">{spiritualNameValidationMsg}</span>
+                        <span className="error" aria-live="polite">{validationMsg[spiritualNameValidationToken]}</span>
                         <div className="regForm-btns">
                             <Button variant="outline-secondary" onClick={this.handleClose}>
                                 { LEAVE }

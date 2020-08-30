@@ -17,14 +17,14 @@ class AddMemberDialog extends Component {
         labelInputValue: '',
         emailInvalid: true,
         labelInvalid: true,
-        labelErrorMsg: '',
-        emailErrorMsg: ''
+        labelErrorToken: '',
+        emailErrorToken: ''
     }
 
     handleEmailChange = (event) => {
         this.setState({
             emailInputValue: event.target.value,
-            emailErrorMsg: validationError(event.target),
+            emailErrorToken: validationError(event.target),
             emailInvalid: !!validationError(event.target)
         });
     }
@@ -32,7 +32,7 @@ class AddMemberDialog extends Component {
     handleLabelChange = (event) => {
         this.setState({
             labelInputValue: event.target.value,
-            labelErrorMsg: validationError(event.target),
+            labelErrorToken: validationError(event.target),
             labelInvalid: !!validationError(event.target)
         });
     }
@@ -57,9 +57,10 @@ class AddMemberDialog extends Component {
 
     render () {
         const { closeDialog } = this.props;
-        const { emailErrorMsg, labelErrorMsg, emailInputValue, labelInputValue, emailInvalid, labelInvalid } = this.state;
+        const { emailErrorToken, labelErrorToken, emailInputValue, labelInputValue, emailInvalid, labelInvalid } = this.state;
         const { POPUPADDMEMBER, POPUPNAME, POPUPEMAIL } = this.context.dictionary.superuserAddMember;
         const { CANCEL, ADD } = this.context.dictionary.modalButtons;
+        const { validationMsg } = this.context.dictionary;
 
         return (
             <GenericDialog
@@ -73,7 +74,7 @@ class AddMemberDialog extends Component {
                 <Form onSubmit={this.handleAddMember} autoComplete='off' className="add-member-dialog">
                     <Form.Label htmlFor="label-input">{POPUPNAME}<span>*</span></Form.Label>
                     <Form.Control
-                        className={labelErrorMsg.length ? 'label-input invalid' : 'label-input'}
+                        className={labelErrorToken.length ? 'label-input invalid' : 'label-input'}
                         type="text"
                         value={labelInputValue}
                         id="label-input"
@@ -83,11 +84,11 @@ class AddMemberDialog extends Component {
                         {...nameValidationRule}
                     >
                     </Form.Control>
-                    <span className="error" aria-live="polite">{labelErrorMsg}</span>
+                    <span className="error" aria-live="polite">{validationMsg[labelErrorToken]}</span>
                     <Form.Label htmlFor="email-input">{POPUPEMAIL}<span>*</span></Form.Label>
                     <InputGroup>
                         <Form.Control
-                            className={emailErrorMsg.length ? 'email-input invalid' : 'email-input'}
+                            className={emailErrorToken.length ? 'email-input invalid' : 'email-input'}
                             type="text"
                             value={emailInputValue}
                             id="email-input"
@@ -100,7 +101,7 @@ class AddMemberDialog extends Component {
                             <InputGroup.Text>@gmail.com</InputGroup.Text>
                         </InputGroup.Append>
                     </InputGroup>
-                    <span className="error" aria-live="polite">{emailErrorMsg}</span>
+                    <span className="error" aria-live="polite">{validationMsg[emailErrorToken]}</span>
                 </Form>
             </GenericDialog>
         );

@@ -49,6 +49,8 @@ class InputPopup extends Component {
         const { currentValue, errorMsg } = this.state;
         const { REQUIREDFORMAT } = this.context.dictionary.personalPagePlaceholders;
         const { REJECT, ACCEPT } = this.context.dictionary.modalButtons;
+        const { validationMsg } = this.context.dictionary;
+
         return (
             /* autoFocus works only if Modal animation={false} */
             <Modal show={modalShow} onHide={this.handleClose} animation={false} dialogClassName={'modal-container'} className="input-popup">
@@ -74,7 +76,7 @@ class InputPopup extends Component {
                                 : null
                             }
                         </Form.Control>
-                        <span className="error" aria-live="polite">{errorMsg}</span>
+                        <span className="error" aria-live="polite">{validationMsg[errorMsg]}</span>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>

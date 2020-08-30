@@ -126,5 +126,18 @@
         "POPUPDELETEMEMBER": "Delete member",
         "MSGDELETE": "Delete",
         "CONFIRMDELETE": "To confirm, enter these four digits:"
+    },
+
+    "validationMsg": {
+        "VALUEMISSING": "Value is required!",
+        "TYPEMISMATCH": "Enter a valid input type!",
+        "PATTERNMISMATCH": "Invalid pattern!",
+        "TOOLONG": "Too long input!",
+        "TOOSHORT": "Too short input!",
+        "RANGEUNDERFLOW": "Too low number!",
+        "RANGEOVERFLOW": "Too big number!",
+        "BADINPUT": "Please enter a number!",
+        "WRONGNUMBER": "Incorrect number!"
     }
+
 }

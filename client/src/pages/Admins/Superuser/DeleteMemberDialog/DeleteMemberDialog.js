@@ -14,16 +14,16 @@ class DeleteMemberDialog extends Component {
     state = {
         randomNumber: Math.floor(1000 + Math.random() * 9000),
         isDisabled: true,
-        errorMsg: ''
+        errorToken: ''
     }
 
     validation = (input) => {
         const valErr = validationError(input);
         if (valErr) {
-            this.setState({ errorMsg: valErr });
+            this.setState({ errorToken: valErr });
             return false;
         } else {
-            this.setState({ errorMsg: '' });
+            this.setState({ errorToken: '' });
             return true;
         }
     }
@@ -33,7 +33,7 @@ class DeleteMemberDialog extends Component {
         const value = parseInt(input.value);
 
         if (this.validation(input) && value !== this.state.randomNumber) {
-            this.setState({ errorMsg: 'Incorrect number!' });
+            this.setState({ errorToken: 'WRONGNUMBER' });
         };
 
         if (value === this.state.randomNumber) {
@@ -50,10 +50,10 @@ class DeleteMemberDialog extends Component {
 
     render () {
         const { member, closeDialog } = this.props;
-        const { randomNumber, isDisabled, errorMsg } = this.state;
+        const { randomNumber, isDisabled, errorToken } = this.state;
         const { NO, DELETE } = this.context.dictionary.modalButtons;
         const { POPUPDELETEMEMBER, MSGDELETE, CONFIRMDELETE } = this.context.dictionary.superuserDeleteMember;
-
+        const { validationMsg } = this.context.dictionary;
         return (
             <GenericDialog
                 title = {POPUPDELETEMEMBER}
@@ -79,7 +79,7 @@ class DeleteMemberDialog extends Component {
                         placeholder={member}
                         autoFocus
                     ></Form.Control>
-                    <span className="error" aria-live="polite">{errorMsg}</span>
+                    <span className="error" aria-live="polite">{validationMsg[errorToken]}</span>
                 </Form>
             </GenericDialog>
         );
