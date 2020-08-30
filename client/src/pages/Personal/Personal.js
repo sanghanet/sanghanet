@@ -80,7 +80,7 @@ class Personal extends React.Component {
                 // used in header to show user's name
                 sessionStorage.setItem('user', `${data[0].firstName} ${data[0].lastName}`);
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
     };
 
@@ -94,7 +94,7 @@ class Personal extends React.Component {
             ...data,
             showAlert: true,
             alertMessage: 'Data saved successfully!',
-            alertType: 'Info'
+            alertType: 'INFO'
         }));
     };
 
@@ -107,7 +107,7 @@ class Personal extends React.Component {
             .then((data) => {
                 this.updateItem(data);
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
     };
 
@@ -121,7 +121,7 @@ class Personal extends React.Component {
             .then((data) => {
                 this.updateItem(data);
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
     };
 
@@ -129,7 +129,7 @@ class Personal extends React.Component {
         const imageToUpload = event.target.files[0];
         if (!imageToUpload) return;
         if (!imageToUpload.name.match(/\.(jpg|jpeg|png|svg|webp)$/)) {
-            this.setState({ showAlert: true, alertMessage: 'Please select valid photo.', alertType: 'Error' });
+            this.setState({ showAlert: true, alertMessage: 'Please select valid photo.', alertType: 'ERROR' });
             return false;
         }
         if (imageToUpload.size < 1048576) { // 1048576 = 1 MB 1024*1024 byte
@@ -140,10 +140,10 @@ class Personal extends React.Component {
                 .then((data) => {
                     this.setState({ profileImgURL: data.profileImg });
                 }).catch((err) => {
-                    this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                    this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
                 });
         } else {
-            this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'Error' });
+            this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'ERROR' });
         }
     };
 

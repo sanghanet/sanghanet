@@ -138,6 +138,12 @@
         "RANGEOVERFLOW": "Too big number!",
         "BADINPUT": "Please enter a number!",
         "WRONGNUMBER": "Incorrect number!"
+    },
+
+    "alert" : {
+        "ERROR": "Error notification",
+        "WARNING": "Warning notification",
+        "INFO": "Info notification"
     }
 
 }

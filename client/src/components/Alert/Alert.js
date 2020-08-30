@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Toast } from 'react-bootstrap';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
+import Toast from 'react-bootstrap/Toast';
 import './Alert.scss';
 import { ReactComponent as Error } from '../icons/errorAlert.svg';
 import { ReactComponent as Info } from '../icons/infoAlert.svg';
 import { ReactComponent as Warning } from '../icons/warningAlert.svg';
 
 function Alert (props) {
-    // alertType can be Error, Warning and Info
+    // alertType can be ERROR, WARNING and INFO
     const { alertClose, alertMsg, alertType } = props;
+    const { alert } = useContext(UIcontext).dictionary;
+
     return (
         <Toast onClose={alertClose} show={true} delay={4000} autohide>
             <Toast.Header className={alertType}>
                 {
                     {
-                        Error: <Error className={'alert-icon'} />,
-                        Warning: <Warning className={'alert-icon'} />,
-                        Info: <Info className={'alert-icon'} />
+                        ERROR: <Error className={'alert-icon'} />,
+                        WARNING: <Warning className={'alert-icon'} />,
+                        INFO: <Info className={'alert-icon'} />
                     }[alertType]
                 }
-                <strong className="mr-auto">{alertType} notification</strong>
+                <strong className="mr-auto">{alert[alertType]}</strong>
             </Toast.Header>
             <Toast.Body>{alertMsg}</Toast.Body>
         </Toast>

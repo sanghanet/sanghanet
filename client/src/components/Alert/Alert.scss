@@ -12,9 +12,9 @@
 
     .toast-header {
         color: $white;
-        &.Error { background: $error; }
-        &.Warning { background: $warning; }
-        &.Info { background: $info; }
+        &.ERROR { background: $error; }
+        &.WARNING { background: $warning; }
+        &.INFO { background: $info; }
 
         button.close { color: $white; }
 

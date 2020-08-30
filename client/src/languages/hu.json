@@ -138,5 +138,12 @@
         "RANGEOVERFLOW": "Túl nagy a szám!",
         "BADINPUT": "Szám szükséges!",
         "WRONGNUMBER": "Téves szám!"
+    },
+
+    "alert" : {
+        "ERROR": "Hiba üzenet",
+        "WARNING": "Figyelmeztetés",
+        "INFO": "Információ"
     }
+
 }

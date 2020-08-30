@@ -29,7 +29,7 @@ const Members = (props) => {
                 setMembers(visibleUserData);
             }).catch((err) => {
                 console.log(err);
-                setAlert({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                setAlert({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
     }, [props]); //  to run an effect and clean it up only once
 

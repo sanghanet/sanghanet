@@ -59,7 +59,7 @@ class Superuser extends Component {
             .then((data) => {
                 this.setState({ memberData: data });
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
     }
 
@@ -151,13 +151,13 @@ class Superuser extends Component {
                         memberData: this.state.memberData.filter((member) => member.email !== data.deleted),
                         showAlert: true,
                         alertMessage: `${data.deleted} deleted`,
-                        alertType: 'Info'
+                        alertType: 'INFO'
                     });
                 } else {
-                    this.setState({ showAlert: true, alertMessage: 'Delete failed. Refresh the page or try it later.', alertType: 'Error' });
+                    this.setState({ showAlert: true, alertMessage: 'Delete failed. Refresh the page or try it later.', alertType: 'ERROR' });
                 }
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
 
         this.setState({ showDeleteMemberDialog: false });
@@ -174,17 +174,17 @@ class Superuser extends Component {
                         memberData: [data.memberAdded, ...this.state.memberData],
                         showAlert: true,
                         alertMessage: `${data.memberAdded.email} added`,
-                        alertType: 'Info'
+                        alertType: 'INFO'
                     });
                 } else {
                     if (data.exists) {
-                        this.setState({ showAlert: true, alertMessage: `${emailAddress} is already added.`, alertType: 'Warning' });
+                        this.setState({ showAlert: true, alertMessage: `${emailAddress} is already added.`, alertType: 'WARNING' });
                     } else {
-                        this.setState({ showAlert: true, alertMessage: `Couldn't add ${emailAddress}`, alertType: 'Error' });
+                        this.setState({ showAlert: true, alertMessage: `Couldn't add ${emailAddress}`, alertType: 'ERROR' });
                     }
                 }
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
 
         this.setState({ showAddMemberDialog: false });
@@ -220,13 +220,13 @@ class Superuser extends Component {
                         memberData: newMembers,
                         showAlert: true,
                         alertMessage: `${data.updated} role updated`,
-                        alertType: 'Info'
+                        alertType: 'INFO'
                     });
                 } else {
-                    this.setState({ showAlert: true, alertMessage: 'Update failed. Refresh the page or try it later.', alertType: 'Error' });
+                    this.setState({ showAlert: true, alertMessage: 'Update failed. Refresh the page or try it later.', alertType: 'ERROR' });
                 }
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'Error' });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
 
         this.setState({ showUpdateAdminDialog: false });

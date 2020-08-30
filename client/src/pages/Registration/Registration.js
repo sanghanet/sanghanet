@@ -50,10 +50,10 @@ class Registration extends Component {
                     window.location.href = '/app/personal';
                 })
                 .catch((err) => {
-                    this.setState({ showAlert: true, alertMessage: `${err.message}. Try again later.`, alertType: 'Error' });
+                    this.setState({ showAlert: true, alertMessage: `${err.message}. Try again later.`, alertType: 'ERROR' });
                 });
         } else {
-            this.setState({ showAlert: true, alertMessage: 'All 4 fields are mandatory!', alertType: 'Error' });
+            this.setState({ showAlert: true, alertMessage: 'All 4 fields are mandatory!', alertType: 'ERROR' });
         }
     }
 
@@ -78,7 +78,7 @@ class Registration extends Component {
         const file = event.target.files[0];
         if (!file) return;
         if (!file.name.match(/\.(jpg|jpeg|png|svg|webp)$/)) {
-            this.setState({ showAlert: true, alertMessage: 'Please select valid photo.', alertType: 'Error' });
+            this.setState({ showAlert: true, alertMessage: 'Please select valid photo.', alertType: 'ERROR' });
             return;
         }
         if (file.size < 1048576) { // 1048576 = 1 MB 1024*1024 byte
@@ -87,7 +87,7 @@ class Registration extends Component {
                 profileImgBlob: file
             });
         } else {
-            this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'Error' });
+            this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'ERROR' });
         }
     };
 
