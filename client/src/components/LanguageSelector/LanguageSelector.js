@@ -1,24 +1,40 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './LanguageSelector.scss';
+import PropTypes from 'prop-types';
 
 const LanguageSelector = (props) => {
+    const defaultLang = localStorage.getItem('lang');
+    const [sliderPos, setSliderPos] = useState(defaultLang === 'hu' ? 'left' : 'right');
+
     const { changeLang } = useContext(UIcontext);
 
-    const handleLanguageChange = (event) => {
-        changeLang(event.target.value);
-        localStorage.setItem('lang', event.target.value);
+    const handleLanguageChange = (lang) => {
+        changeLang(lang);
+        localStorage.setItem('lang', lang);
+    };
+
+    const handleSliderClick = () => {
+        if (sliderPos === 'left') {
+            setSliderPos('right');
+            handleLanguageChange('en');
+        } else {
+            setSliderPos('left');
+            handleLanguageChange('hu');
+        }
     };
 
     return (
-        <select
-            defaultValue={localStorage.getItem('lang')}
-            className="language-selector"
-            onChange={handleLanguageChange}>
-            <option value={'hu'}>Magyar</option>
-            <option value={'en'}>English</option>
-        </select>
+
+        <div className = {`language-selector ${props.size}`} onClick = {handleSliderClick}>
+            <div className = {`lang-slider ${sliderPos}`}></div>
+        </div>
+
     );
+};
+
+LanguageSelector.propTypes = {
+    size: PropTypes.string
 };
 
 export default LanguageSelector;

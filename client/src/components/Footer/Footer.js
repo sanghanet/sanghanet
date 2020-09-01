@@ -18,7 +18,7 @@ const Footer = (props) => {
                 <p>{ version.date }</p>
                 <p>{ version.hash }</p>
             </div>
-            <LanguageSelector />
+            <LanguageSelector size="small" />
         </footer>
     );
 };
