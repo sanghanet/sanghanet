@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './LanguageSelector.scss';
 import PropTypes from 'prop-types';
