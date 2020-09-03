@@ -1,0 +1,52 @@
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.language-selector {
+    height: 36px;
+    width: 63px;
+    background-color:#0a0a0a;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #757575;
+
+    .left {
+        background-image: url('../icons/hu.svg');
+        margin-left: -3px
+    }
+    
+    .right {
+        background-image: url('../icons/gb.svg');
+        margin-left: 26px;
+    }
+    
+}
+
+.language-selector.small {
+    height: 26px;
+    width: 45px;
+
+    .left {
+        margin-left: -3px
+    }
+    
+    .right {
+        margin-left: 18px;
+    }
+
+    .lang-slider {
+        width: 26px;
+        height: 26px;
+    }
+    
+}
+
+.lang-slider {
+    width: 36px;
+    height: 36px;
+    border-radius: 50px;
+    transition: all 0.1s ease-in;
+    border: 2px solid #757575;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px 3px #000000;
+}
