@@ -143,7 +143,19 @@
     "alert" : {
         "ERROR": "Error notification",
         "WARNING": "Warning notification",
-        "INFO": "Info notification"
+        "INFO": "Info notification",
+        "MANDATORYFIELDS": "All 4 fields are mandatory!",
+        "VALIDPHOTO": "Please select valid photo.",
+        "PHOTOSIZE": "Upload a file smaller than 1MB!",
+        "SAVEDSUCCESSFULLY": "Data saved successfully!",
+        "DELETEDSUCCESSFULLY": "deleted",
+        "DELETEFAILED": "Delete failed. Refresh the page or try it later.",
+        "ADDED": " added",
+        "ALREADYADDED": "is already added",
+        "COULDNTADD": "was not added",
+        "ROLEUPDATED": "role updated",
+        "UPDATEFAILED": "Update failed. Refresh the page or try it later.",
+        "TRYAGAINLATER": "Try again later."
     }
 
 }

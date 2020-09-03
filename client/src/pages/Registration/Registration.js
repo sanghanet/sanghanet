@@ -21,6 +21,7 @@ class Registration extends Component {
         spiritualNameValidationToken: null,
         showAlert: false,
         alertMessage: '',
+        alertParam: '',
         alertType: ''
     };
 
@@ -50,10 +51,10 @@ class Registration extends Component {
                     window.location.href = '/app/personal';
                 })
                 .catch((err) => {
-                    this.setState({ showAlert: true, alertMessage: `${err.message}. Try again later.`, alertType: 'ERROR' });
+                    this.setState({ showAlert: true, alertMessage: err.message, alertParam: 'TRYAGAINLATER', alertType: 'ERROR' });
                 });
         } else {
-            this.setState({ showAlert: true, alertMessage: 'All 4 fields are mandatory!', alertType: 'ERROR' });
+            this.setState({ showAlert: true, alertMessage: '', alertParam: 'MANDATORYFIELDS', alertType: 'ERROR' });
         }
     }
 
@@ -78,7 +79,7 @@ class Registration extends Component {
         const file = event.target.files[0];
         if (!file) return;
         if (!file.name.match(/\.(jpg|jpeg|png|svg|webp)$/)) {
-            this.setState({ showAlert: true, alertMessage: 'Please select valid photo.', alertType: 'ERROR' });
+            this.setState({ showAlert: true, alertMessage: '', alertParam: 'VALIDPHOTO', alertType: 'ERROR' });
             return;
         }
         if (file.size < 1048576) { // 1048576 = 1 MB 1024*1024 byte
@@ -87,7 +88,7 @@ class Registration extends Component {
                 profileImgBlob: file
             });
         } else {
-            this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'ERROR' });
+            this.setState({ showAlert: true, alertMessage: '', alertParam: 'PHOTOSIZE', alertType: 'ERROR' });
         }
     };
 
@@ -102,10 +103,11 @@ class Registration extends Component {
             spiritualNameValidationToken,
             showAlert,
             alertMessage,
+            alertParam,
             alertType
         } = this.state;
 
-        const { registrationPageDictionary, validationMsg } = this.context.dictionary;
+        const { registrationPageDictionary, validationMsg, alert } = this.context.dictionary;
         const {
             REGISTRATIONTITLE,
             FIRSTNAME,
@@ -121,7 +123,7 @@ class Registration extends Component {
                 { showAlert
                     ? <Alert
                         alertClose={this.closeAlert}
-                        alertMsg={alertMessage}
+                        alertMsg={alert[alertParam] ? `${alertMessage} ${alert[alertParam]}` : alertMessage}
                         alertType={alertType}
                     />
                     : null

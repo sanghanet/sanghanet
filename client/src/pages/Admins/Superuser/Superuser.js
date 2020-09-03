@@ -48,6 +48,7 @@ class Superuser extends Component {
             showAlert: false,
             alertMessage: '',
             alertType: '',
+            alertParam: '',
             memberRoles: {}
         };
     }
@@ -150,11 +151,12 @@ class Superuser extends Component {
                     this.setState({
                         memberData: this.state.memberData.filter((member) => member.email !== data.deleted),
                         showAlert: true,
-                        alertMessage: `${data.deleted} deleted`,
+                        alertMessage: data.deleted,
+                        alertParam: 'DELETEDSUCCESSFULLY',
                         alertType: 'INFO'
                     });
                 } else {
-                    this.setState({ showAlert: true, alertMessage: 'Delete failed. Refresh the page or try it later.', alertType: 'ERROR' });
+                    this.setState({ showAlert: true, alertMessage: '', alertParam: 'DELETEFAILED', alertType: 'ERROR' });
                 }
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
@@ -173,14 +175,15 @@ class Superuser extends Component {
                     this.setState({
                         memberData: [data.memberAdded, ...this.state.memberData],
                         showAlert: true,
-                        alertMessage: `${data.memberAdded.email} added`,
+                        alertMessage: data.memberAdded.email,
+                        alertParam: 'ADDED',
                         alertType: 'INFO'
                     });
                 } else {
                     if (data.exists) {
-                        this.setState({ showAlert: true, alertMessage: `${emailAddress} is already added.`, alertType: 'WARNING' });
+                        this.setState({ showAlert: true, alertMessage: emailAddress, alertParam: 'ALREADYADDED', alertType: 'WARNING' });
                     } else {
-                        this.setState({ showAlert: true, alertMessage: `Couldn't add ${emailAddress}`, alertType: 'ERROR' });
+                        this.setState({ showAlert: true, alertMessage: emailAddress, alertParam: 'COULDNTADD', alertType: 'ERROR' });
                     }
                 }
             }).catch((err) => {
@@ -219,11 +222,12 @@ class Superuser extends Component {
                     this.setState({
                         memberData: newMembers,
                         showAlert: true,
-                        alertMessage: `${data.updated} role updated`,
+                        alertMessage: data.updated,
+                        alertParam: 'ROLEUPDATED',
                         alertType: 'INFO'
                     });
                 } else {
-                    this.setState({ showAlert: true, alertMessage: 'Update failed. Refresh the page or try it later.', alertType: 'ERROR' });
+                    this.setState({ showAlert: true, alertParam: 'UPDATEFAILED', alertType: 'ERROR' });
                 }
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
@@ -314,12 +318,13 @@ class Superuser extends Component {
             showDeleteMemberDialog,
             showAlert,
             alertMessage,
+            alertParam,
             alertType,
             memberRoles
         } = this.state;
 
         const { ADDMEMBER, NAME, EMAIL, ROLE } = this.context.dictionary.superuser;
-
+        const { alert } = this.context.dictionary;
         return (
             <div>
                 {showAddMemberDialog &&
@@ -345,7 +350,7 @@ class Superuser extends Component {
                 }
                 { showAlert &&
                     <Alert
-                        alertMsg={alertMessage}
+                        alertMsg={alert[alertParam] ? `${alertMessage} ${alert[alertParam]}` : alertMessage}
                         alertType={alertType}
                         alertClose={this.closeAlert} />
                 }

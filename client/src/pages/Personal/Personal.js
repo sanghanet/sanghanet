@@ -93,7 +93,7 @@ class Personal extends React.Component {
             ...oldState,
             ...data,
             showAlert: true,
-            alertMessage: 'Data saved successfully!',
+            alertMessage: 'SAVEDSUCCESSFULLY',
             alertType: 'INFO'
         }));
     };
@@ -129,7 +129,7 @@ class Personal extends React.Component {
         const imageToUpload = event.target.files[0];
         if (!imageToUpload) return;
         if (!imageToUpload.name.match(/\.(jpg|jpeg|png|svg|webp)$/)) {
-            this.setState({ showAlert: true, alertMessage: 'Please select valid photo.', alertType: 'ERROR' });
+            this.setState({ showAlert: true, alertMessage: 'VALIDPHOTO', alertType: 'ERROR' });
             return false;
         }
         if (imageToUpload.size < 1048576) { // 1048576 = 1 MB 1024*1024 byte
@@ -143,7 +143,7 @@ class Personal extends React.Component {
                     this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
                 });
         } else {
-            this.setState({ showAlert: true, alertMessage: 'Upload a file smaller than 1MB!', alertType: 'ERROR' });
+            this.setState({ showAlert: true, alertMessage: 'PHOTOSIZE', alertType: 'ERROR' });
         }
     };
 
@@ -188,13 +188,13 @@ class Personal extends React.Component {
         const { GENERALDATA, CONTACTDETAILS } = this.context.dictionary.personalPageContainers;
         const { DATE, GENDERFORMAT, FEMALE, MALE, OTHER } = this.context.dictionary.personalPagePlaceholders;
         const GENDERVALUE = this.context.dictionary.personalPagePlaceholders[gender.toUpperCase()]; // LUT - Look up table
-
+        const { alert } = this.context.dictionary;
         return (
             <div>
                 { showAlert
                     ? <Alert
                         alertClose={this.closeAlert}
-                        alertMsg={alertMessage}
+                        alertMsg={alert[alertMessage]}
                         alertType={alertType}
                     />
                     : null
