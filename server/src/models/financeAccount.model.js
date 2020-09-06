@@ -3,7 +3,7 @@ const { FinanceTransactionSchema } = require('./financeTransaction.model');
 
 const FinanceAccountSchema = mongoose.Schema({
     currency: String,
-    userId: mongoose.ObjectId,
+    userId: { type: mongoose.ObjectId, default: null },
     email: String,
     userName: String,
     transactionArchive: {

@@ -36,7 +36,7 @@ app.use('/admin/finance', express.static('app'));
 app.use('/admin/event', express.static('app'));
 app.use('/admin/yoga', express.static('app'));
 app.use('/admin/superuser', express.static('app'));
-app.use('/app/admin/finance', express.static('app')); //deploymen add /app/ to the URL
+app.use('/app/admin/finance', express.static('app')); //   heroku deployment add '/app/' to the URL
 app.use('/app/admin/event', express.static('app'));
 app.use('/app/admin/yoga', express.static('app'));
 app.use('/app/admin/superuser', express.static('app'));
