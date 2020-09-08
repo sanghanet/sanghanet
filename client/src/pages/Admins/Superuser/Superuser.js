@@ -1,4 +1,3 @@
-// #region white
 /* ------------ Imports ------------ */
 import React, { Component } from 'react';
 import Client from '../../../components/Client';
@@ -23,7 +22,6 @@ import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
 
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-// #endregion
 
 class Superuser extends Component {
     static contextType = UIcontext;
@@ -53,7 +51,6 @@ class Superuser extends Component {
         };
     }
 
-    // #region yellow
     /* ------------ General functions ------------ */
     componentDidMount () {
         Client.fetch('/su/listmembers', { method: 'POST' })
@@ -67,9 +64,7 @@ class Superuser extends Component {
     closeAlert = () => {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     }
-    // #endregion
 
-    // #region red
     /* ------------ FilterAccordion functions ------------ */
     handleEmailFilterChange = (inputValue) => {
         this.setState({ textFilterValue: inputValue });
@@ -104,9 +99,7 @@ class Superuser extends Component {
             registeredFilterValue: 'all'
         });
     }
-    // #endregion
 
-    // #region lightgreen
     /* ------------ Dialog functions ------------ */
     // *** OPEN / CLOSE *** //
     openDelete = (event) => {
@@ -235,9 +228,7 @@ class Superuser extends Component {
 
         this.setState({ showUpdateAdminDialog: false });
     }
-    // #endregion
 
-    // #region blue
     /* ------------ User rows ------------ */
     // *** CHECK FILTERS *** //
     checkFilters = (user) => {
@@ -303,9 +294,7 @@ class Superuser extends Component {
             ))
         );
     }
-    // #endregion
 
-    // #region yellow
     render () {
         const {
             memberData,
@@ -403,7 +392,6 @@ class Superuser extends Component {
             </div>
         );
     }
-    // #endregion
 };
 
 export default Superuser;
