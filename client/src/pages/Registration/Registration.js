@@ -131,7 +131,6 @@ class Registration extends Component {
                 <header>
                     <h1>{ REGISTRATIONTITLE }</h1>
                 </header>
-                <LanguageSelector />
                 <FormContainer formTitle="">
                     <Form onSubmit={this.handleSubmit} autoComplete='off'>
                         <InputAvatar
@@ -187,6 +186,7 @@ class Registration extends Component {
                         </div>
                     </Form>
                 </FormContainer>
+                <LanguageSelector size="small" />
             </div>
         );
     }
