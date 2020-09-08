@@ -33,6 +33,14 @@
 
    WARNING! - Currently, if the DB_NAME and COLL_NAME local variables are not matching any database and collection in your mongo cluster, no error is thrown but functionality will be lost. Consider that as possible cause when debugging.
 
+# Note for Windows users
+   with bash as their shell for npm scripts:
+   edit your '.npmrc' config file (ususally in C:\Users\[username] folder) and set bash as 'shell' & 'script-shell'
+
+   for example:
+   * shell=E:\Dev\Tools\PortableGit\bin\bash.exe
+   * script-shell=E:\Dev\Tools\PortableGit\bin\bash.exe
+   
 # start the system
 ## Manual (legacy) mode
    1. If you would like to start the front-end + dev server, run `npm start` in the client directory.
@@ -103,11 +111,3 @@ Run `npm run buildfinance` in the root directory.
    For those who like to copy and paste:
    run `cd ./server/testDataScripts && ./rebuildDB.sh local` in the root directory for a local reset
    run `cd ./server/testDataScripts && ./rebuildDB.sh atlas` in the root directory for an atlas reset - PROCEED WITH CAUTION
-
-# Note for Windows users
-   with bash as their shell for npm scripts:
-   edit your '.npmrc' config file (ususally in C:\Users\[username] folder) and set bash as 'shell' & 'script-shell'
-
-   for example:
-   * shell=E:\Dev\Tools\PortableGit\bin\bash.exe
-   * script-shell=E:\Dev\Tools\PortableGit\bin\bash.exe
