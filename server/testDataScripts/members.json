@@ -5,5 +5,5 @@
 {"label":"Miklós Balló","email":"miklos.ballo@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
 {"label":"Baby Yoda","email":"mindblowing.js@gmail.com","registered":false,"isSuperuser":true,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
 {"label":"Csaba Kiss","email":"kiss.csab73@gmail.com","registered":false,"isSuperuser":true,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false},
-{"label":"Nalesnyik Kristóf","email":"naleslg@gmail.com","registered":false,"isSuperuser":false,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false}
+{"label":"Nalesnyik Kristóf","email":"naleslg@gmail.com","registered":false,"isSuperuser":true,"isFinanceAdmin":false,"isEventAdmin":false,"isYogaAdmin":false}
 ]
