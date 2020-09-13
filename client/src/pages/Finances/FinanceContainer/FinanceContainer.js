@@ -47,7 +47,7 @@ class FinanceContainer extends React.Component {
     }
 
     render () {
-        const { errorState, financeData } = this.state;
+        const { financeData, errorState } = this.state;
 
         return (
             <React.Fragment>
@@ -60,12 +60,12 @@ class FinanceContainer extends React.Component {
                     <React.Fragment>
                         <FinanceDashboard
                             currency = {financeData[0].currency}
-                            financePockets = {financeData[0].pockets}
+                            financePockets = {financeData.pockets}
                             onError = {this.onError} />
 
                         <TransactionTabs
                             currency = {financeData[0].currency}
-                            transactionBuffer = {financeData[0].transactionBuffer}
+                            transactions = {financeData[0].transactions}
                             onError = {this.onError} />
                     </React.Fragment>)
                     : (<p>Loading ...</p>) }

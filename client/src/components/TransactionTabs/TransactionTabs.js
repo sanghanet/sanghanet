@@ -23,7 +23,7 @@ class TransactionTabs extends React.Component {
     generateTabs = () => {
         try {
             const tabs = [];
-            const pockets = Object.entries(this.props.transactionBuffer);
+            const pockets = Object.entries(this.props.transactions);
             for (const pocket of pockets) {
                 tabs.push(
                     <Tab title = {pocket[0]} eventKey = {pocket[0]} key = {pocket[0]}>
@@ -49,7 +49,7 @@ class TransactionTabs extends React.Component {
 }
 
 TransactionTabs.propTypes = {
-    transactionBuffer: PropTypes.object.isRequired,
+    transactions: PropTypes.object.isRequired,
     currency: PropTypes.string.isRequired,
     onError: PropTypes.func.isRequired
 };
