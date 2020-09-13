@@ -3,12 +3,9 @@ import './FinanceDashboard.scss';
 import PropTypes from 'prop-types';
 
 class FinanceDashboard extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            balances: [],
-            errorState: null
-        };
+    state = {
+        balances: [],
+        errorState: null
     }
 
     componentDidMount () {
@@ -21,7 +18,9 @@ class FinanceDashboard extends React.Component {
             const pockets = Object.entries(financeData);
             for (const pocket of pockets) {
                 categories.push(
-                    <div key = {pocket[0]} >{`Current balance of ${pocket[0]} pocket: ${pocket[1].currentBalance} ${currency}`}</div>
+                    <div key = {pocket[0]}>
+                        {`Current balance of ${pocket[0]} pocket: ${pocket[1].currentBalance} ${currency}`}
+                    </div>
                 );
             }
             this.setState({ balances: categories });

@@ -4,11 +4,8 @@ import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
 import UserSelector from './UserSelector/UserSelector';
 
 class AdminFinance extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            selectedUserEmail: null
-        };
+    state = {
+        selectedUserEmail: null
     }
 
     onSelection = (email) => {

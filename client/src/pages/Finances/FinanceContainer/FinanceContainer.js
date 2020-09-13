@@ -7,12 +7,9 @@ import Alert from '../../../components/Alert/Alert';
 import PropTypes from 'prop-types';
 
 class FinanceContainer extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            financeData: null,
-            errorState: null
-        };
+    state = {
+        financeData: null,
+        errorState: null
     }
 
     componentDidMount () {
@@ -53,27 +50,26 @@ class FinanceContainer extends React.Component {
         const { errorState, financeData } = this.state;
 
         return (
-            <div>
+            <React.Fragment>
                 {errorState && <Alert
                     alertClose={() => { this.setState({ errorState: null }); }}
                     alertMsg={'There was an error! ' + errorState.message}
                     alertType={'Error'}
                 />}
-                <div>
-                    {financeData ? (
+                {financeData ? (
+                    <React.Fragment>
                         <FinanceDashboard
                             currency = {financeData[0].currency}
                             financePockets = {financeData[0].pockets}
                             onError = {this.onError} />
-                    ) : (<p>Loading ...</p>) }
-                    {financeData ? (
+
                         <TransactionTabs
                             currency = {financeData[0].currency}
                             transactionBuffer = {financeData[0].transactionBuffer}
                             onError = {this.onError} />
-                    ) : (<p>Loading ...</p>) }
-                </div>
-            </div>
+                    </React.Fragment>)
+                    : (<p>Loading ...</p>) }
+            </React.Fragment>
         );
     }
 }

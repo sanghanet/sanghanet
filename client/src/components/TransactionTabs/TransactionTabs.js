@@ -6,11 +6,8 @@ import './TransactionTabs.scss';
 import PropTypes from 'prop-types';
 
 class TransactionTabs extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            tabs: null
-        };
+    state = {
+        tabs: null
     }
 
     componentDidMount () {
