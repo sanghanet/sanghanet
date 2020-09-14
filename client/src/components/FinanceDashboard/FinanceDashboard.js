@@ -9,17 +9,16 @@ class FinanceDashboard extends React.Component {
     }
 
     componentDidMount () {
-        this.buildFinanceOverview(this.props.financePockets, this.props.currency);
+        this.buildFinanceOverview(this.props.balance, this.props.currency);
     }
 
-    buildFinanceOverview = (financeData, currency) => {
+    buildFinanceOverview = (balance, currency) => {
         try {
             const categories = [];
-            const pockets = Object.entries(financeData);
-            for (const pocket of pockets) {
+            for (const [key, value] of Object.entries(balance)) {
                 categories.push(
-                    <div key = {pocket[0]}>
-                        {`Current balance of ${pocket[0]} pocket: ${pocket[1].currentBalance} ${currency}`}
+                    <div key = {key}>
+                        {`Current balance of ${key} pocket: ${value} ${currency}`}
                     </div>
                 );
             }
@@ -39,7 +38,7 @@ class FinanceDashboard extends React.Component {
 }
 
 FinanceDashboard.propTypes = {
-    financePockets: PropTypes.object.isRequired,
+    balance: PropTypes.object.isRequired,
     currency: PropTypes.string.isRequired,
     onError: PropTypes.func.isRequired
 };

@@ -3,28 +3,37 @@ const log = log4js.getLogger('controllers/finance.controller.js');
 
 const { FinanceAccount } = require('../models/financeAccount.model');
 
+const sumPocket = (result, pocket) => {
+    let counter = 0;
+    result[0].transactions[pocket].forEach(transaction => {
+        counter += transaction.amount;
+    });
+    return counter;
+};
+
 module.exports.getFinanceData = async (req, res) => {
     try {
         if (req.body.email) {
             const result = await FinanceAccount.find({ email: req.body.email });
             res.json({
                 ...result,
-                pockets: {
-                    membership: { currentBalance: 1100 },
-                    rent: { currentBalance: 1300 },
-                    event: { currentBalance: 1500 },
-                    angel: { currentBalance: 1700 }
+                balance: {
+                    membership: sumPocket(result, 'membership'),
+                    rent: sumPocket(result, 'rent'),
+                    event: sumPocket(result, 'event'),
+                    angel: sumPocket(result, 'angel')
                 }
             });
         } else {
             const result = await FinanceAccount.find({ email: req.user.email });
+
             res.json({
                 ...result,
-                pockets: {
-                    membership: { currentBalance: 100 },
-                    rent: { currentBalance: 300 },
-                    event: { currentBalance: 500 },
-                    angel: { currentBalance: 700 }
+                balance: {
+                    membership: sumPocket(result, 'membership'),
+                    rent: sumPocket(result, 'rent'),
+                    event: sumPocket(result, 'event'),
+                    angel: sumPocket(result, 'angel')
                 }
             });
         }
