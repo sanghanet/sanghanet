@@ -15,6 +15,7 @@ import { ReactComponent as MembersIcon } from '../icons/members.svg';
 import { ReactComponent as QuestionsIcon } from '../icons/questions.svg';
 import { ReactComponent as BackIcon } from '../icons/arrow-left.svg';
 import { ReactComponent as ForwardIcon } from '../icons/arrow-right.svg';
+import { ReactComponent as SuperuserIcon } from '../icons/superman.svg';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
 class Navbar extends Component {
@@ -47,9 +48,9 @@ class Navbar extends Component {
     createMainMenuItem = (menuItem, index) => {
         return (
             <li key={index}>
-                <NavLink exact to={`/app/${menuItem.name.toLowerCase()}`} className="link">
+                <NavLink exact to={`/app/${menuItem.endpoint}`} className="link">
                     <div className="menu-icon"><menuItem.icon /></div>
-                    <span className="title admins">{ menuItem.dictionary }</span>
+                    <span className="title">{ menuItem.label }</span>
                 </NavLink>
             </li>
         );
@@ -59,21 +60,10 @@ class Navbar extends Component {
         return (
             <li key={index}>
                 <div className="sub-link">
-                    <NavLink exact to={`/app/admin/${menuItem.name.split('_')[0].toLowerCase()}`}
-                        className={`sub-title${menuItem.entitlement ? '' : ' disabled'}`}
-                        onClick={this.handleLink}>{ menuItem.dictionary }
+                    <NavLink exact to={`/${menuItem.path}`}
+                        className={`sub-title${menuItem.isEnabled ? '' : ' disabled'}`}
+                        onClick={this.handleLink}>{ menuItem.label }
                     </NavLink>
-                </div>
-            </li>
-        );
-    }
-
-    createMenuChangeItem = (menuItem) => {
-        return (
-            <li className={menuItem.className}>
-                <div className="link" onClick={this.handleSubmenu}>
-                    <div className="menu-icon"><menuItem.icon /></div>
-                    <span className={`title${menuItem.classname === 'admins' ? ' admins' : ''}`}>{ menuItem.dictionary }</span>
                 </div>
             </li>
         );
@@ -102,38 +92,43 @@ class Navbar extends Component {
         } = this.context.dictionary.pageAndNavbarTitles;
 
         const mainMenu = [
-            { name: 'DASHBOARD', icon: DashboardIcon, dictionary: DASHBOARD },
-            { name: 'PERSONAL', icon: PersonalIcon, dictionary: PERSONAL },
-            { name: 'YOGA', icon: YogaIcon, dictionary: YOGA },
-            { name: 'FINANCES', icon: FinancesIcon, dictionary: FINANCES },
-            { name: 'EVENTS', icon: EventsIcon, dictionary: EVENTS },
-            { name: 'MEMBERS', icon: MembersIcon, dictionary: MEMBERS },
-            { name: 'QUESTIONS', icon: QuestionsIcon, dictionary: QUESTIONS },
-            { name: 'QUERIES', icon: QueriesIcon, dictionary: QUERIES }];
+            { path: 'app/dashboard', icon: DashboardIcon, label: DASHBOARD },
+            { path: 'app/personal', icon: PersonalIcon, label: PERSONAL },
+            { path: 'app/yoga', icon: YogaIcon, label: YOGA },
+            { path: 'app/finances', icon: FinancesIcon, label: FINANCES },
+            { path: 'app/events', icon: EventsIcon, label: EVENTS },
+            { path: 'app/members', icon: MembersIcon, label: MEMBERS },
+            { path: 'app/questions', icon: QuestionsIcon, label: QUESTIONS },
+            { path: 'app/queries', icon: QueriesIcon, label: QUERIES }];
 
         const subMenu = [
-            { name: 'FINANCE_ADMIN', icon: '', entitlement: isFinanceAdmin, dictionary: FINANCE_ADMIN },
-            { name: 'EVENT_ADMIN', icon: '', entitlement: isEventAdmin, dictionary: EVENT_ADMIN },
-            { name: 'YOGA_ADMIN', icon: '', entitlement: isYogaAdmin, dictionary: YOGA_ADMIN },
-            { name: 'SUPERUSER', icon: '', entitlement: isSuperuser, dictionary: SUPERUSER }];
-
-        const adminAndBack = {
-            ADMIN: { className: 'admins', icon: ForwardIcon, dictionary: ADMIN },
-            BACK: { className: 'back', icon: BackIcon, dictionary: BACK }
-        };
+            { path: 'app/admin/finance', icon: FinancesIcon, label: FINANCE_ADMIN, isEnabled: isFinanceAdmin },
+            { path: 'app/admin/event', icon: EventsIcon, label: EVENT_ADMIN, isEnabled: isEventAdmin },
+            { path: 'app/admin/yoga', icon: YogaIcon, label: YOGA_ADMIN, isEnabled: isYogaAdmin },
+            { path: 'app/admin/superuser', icon: SuperuserIcon, label: SUPERUSER, isEnabled: isSuperuser }];
 
         return (
             <div id={navStyle}>
                 <div className={classList} onKeyDown={this.handleKeyDown}>
                     <ul className="main-menu">
-                        {this.createMenuChangeItem(adminAndBack.ADMIN)}
+                        <li className="admins">
+                            <div className="link" onClick={this.handleSubmenu}>
+                                <div className="menu-icon"><ForwardIcon /></div>
+                                <span className="title admins">{ ADMIN }</span>
+                            </div>
+                        </li>
                         {mainMenu.map((menuItem, index) => this.createMainMenuItem(menuItem, index))}
                         <li id="logout-li">
                             <Logout />
                         </li>
                     </ul>
                     <ul className="sub-menu">
-                        {this.createMenuChangeItem(adminAndBack.BACK)}
+                        <li className="back">
+                            <div className="link" onClick={this.handleSubmenu}>
+                                <div className="menu-icon"><BackIcon /></div>
+                                <span className="title">{ BACK }</span>
+                            </div>
+                        </li>
                         {subMenu.map((menuItem, index) => this.createSubMenuItem(menuItem, index))}
                     </ul>
                 </div>
