@@ -48,7 +48,7 @@ class Navbar extends Component {
     createMainMenuItem = (menuItem, index) => {
         return (
             <li key={index}>
-                <NavLink exact to={`/app/${menuItem.endpoint}`} className="link">
+                <NavLink exact to={`/${menuItem.path}`} className="link">
                     <div className="menu-icon"><menuItem.icon /></div>
                     <span className="title">{ menuItem.label }</span>
                 </NavLink>
