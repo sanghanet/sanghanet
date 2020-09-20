@@ -66,7 +66,9 @@ class FinanceContainer extends React.Component {
                         <TransactionTabs
                             currency = {financeData[0].currency}
                             transactions = {financeData[0].transactions}
-                            onError = {this.onError} />
+                            onError = {this.onError}
+                            isFinAdmin = {this.props.isFinAdmin}
+                            openAddPayment = {this.props.openAddPayment} />
                     </React.Fragment>)
                     : (<p>Loading ...</p>) }
             </React.Fragment>
@@ -75,7 +77,9 @@ class FinanceContainer extends React.Component {
 }
 
 FinanceContainer.propTypes = {
-    selectedUser: PropTypes.string
+    selectedUser: PropTypes.string,
+    isFinAdmin: PropTypes.bool.isRequired,
+    openAddPayment: PropTypes.func
 };
 
 export default FinanceContainer;

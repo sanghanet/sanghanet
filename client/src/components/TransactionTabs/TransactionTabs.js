@@ -27,7 +27,12 @@ class TransactionTabs extends React.Component {
             for (const pocket of pockets) {
                 tabs.push(
                     <Tab title = {pocket[0]} eventKey = {pocket[0]} key = {pocket[0]}>
-                        <TransactionTable transactionArray = {pocket[1]} onError = {this.props.onError} />
+                        <TransactionTable
+                            transactionArray = {pocket[1]}
+                            isFinAdmin = {this.props.isFinAdmin}
+                            openAddPayment = {this.props.openAddPayment}
+                            onError = {this.props.onError}
+                            pocket = {pocket[0]} />
                     </Tab>
                 );
             }
@@ -51,7 +56,9 @@ class TransactionTabs extends React.Component {
 TransactionTabs.propTypes = {
     transactions: PropTypes.object.isRequired,
     currency: PropTypes.string.isRequired,
-    onError: PropTypes.func.isRequired
+    onError: PropTypes.func.isRequired,
+    isFinAdmin: PropTypes.bool.isRequired,
+    openAddPayment: PropTypes.func
 };
 
 export default TransactionTabs;

@@ -4,9 +4,7 @@ import './UserSelector.scss';
 import PropTypes from 'prop-types';
 
 class UserSelector extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
+        state = {
             rawUserData: null,
             suggestions: null,
             searchResults: [],
@@ -17,8 +15,6 @@ class UserSelector extends React.Component {
             indexOfActiveItem: 0,
             selectedUser: 'Own data'
         };
-        this.maxDisplayedSuggestions = 10;
-    }
 
     onKeyPress = (e) => {
         let { indexOfActiveItem: index, searchResults, showSuggestions } = this.state;
@@ -48,7 +44,8 @@ class UserSelector extends React.Component {
     }
 
     onInputChange = (e) => {
-        const { state: { suggestions, indexOfActiveItem: index }, maxDisplayedSuggestions } = this;
+        const maxDisplayedSuggestions = 10;
+        const { state: { suggestions, indexOfActiveItem: index } } = this;
         const userInput = e.currentTarget.value;
 
         let searchResults = suggestions.filter((suggestion) => {
