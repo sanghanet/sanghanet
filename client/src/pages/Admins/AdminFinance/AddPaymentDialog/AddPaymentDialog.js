@@ -1,44 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import GenericDialog from '../../../../components/Form/GenericDialog/GenericDialog';
-// import { validationError } from '../../../../components/ValidationRule';
+import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
+import { validationError, positiveIntegerRule } from '../../../../components/ValidationRule';
 import Form from 'react-bootstrap/Form';
 
 import './AddPaymentDialog.scss';
 
 function AddPaymentDialog (props) {
-    // const [count, setCount] = useState(0);
+    const [amount, setAmount] = useState('');
+    const [errorToken, setErrorToken] = useState('');
+    const [isDisabled, setDisabled] = useState(true);
 
     const { closeDialog, addPayment, pocketName } = props;
+    const { validationMsg } = useContext(UIcontext).dictionary;
+
+    const handlePaymentChange = (event) => {
+        const input = event.target;
+        const validationResult = validationError(input);
+        setDisabled(validationResult !== '');
+        setAmount(input.value);
+        setErrorToken(validationResult);
+    };
+
+    const handleSubmit = (event) => {
+        addPayment(parseInt(amount));
+        event.preventDefault();
+    };
+
     return (
         <GenericDialog
             title = 'Add payment'
             reject = 'Cancel'
             accept = 'Add'
-            // acceptDisabled = {emailInvalid || labelInvalid}
+            acceptDisabled = {isDisabled}
             handleClose = {closeDialog}
-            handleAccept = {addPayment}
+            handleAccept = {handleSubmit}
         >
-            <h3 className='payment-h3 payment-name'>Name: ???</h3>
-            <h3 className='payment-h3 payment-pocket'>Pocket: {pocketName}</h3>
-            {/* <Form onSubmit={this.handleDelete} autoComplete='off' className="delete-dialog">
-                <Form.Label htmlFor="digits-label">
-                    <span className="msg">{MSGDELETE}&nbsp;</span>
-                    <span className="email">{member}</span>
-                    <span className="msg">? <br></br>{CONFIRMDELETE}&nbsp;</span>
-                    <span className="random-no">{randomNumber}</span>
+
+            <Form onSubmit={handleSubmit} autoComplete='off' className="add-payment-dialog">
+                <Form.Label htmlFor="add-payment-label">
+                    <p className='payment-label payment-name'>Name: ???</p>
+                    <p className='payment-label payment-pocket'>Pocket: {pocketName}</p>
                 </Form.Label>
                 <Form.Control
-                    type="number"
-                    id="digits-label"
-                    onChange={this.handleChange}
-                    min="1000"
-                    max="9999"
-                    placeholder={member}
+                    id="add-payment-label"
+                    value={amount}
+                    onChange={handlePaymentChange}
                     autoFocus
+                    {...positiveIntegerRule}
                 ></Form.Control>
                 <span className="error" aria-live="polite">{validationMsg[errorToken]}</span>
-            </Form> */}
+            </Form>
         </GenericDialog>
     );
 }

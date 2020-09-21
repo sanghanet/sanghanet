@@ -26,6 +26,14 @@ const emailValidationRule = {
     pattern: emailPattern.substring(1, emailPattern.length - 1)
 };
 
+const positiveIntegerPattern = '^[0-9]+$';
+const positiveIntegerRule = {
+    required: true,
+    min: 0,
+    minLength: 1,
+    pattern: positiveIntegerPattern
+};
+
 const validationError = (input) => {
     if (input.validity.valid) {
         return '';
@@ -45,6 +53,8 @@ const validationError = (input) => {
         return 'RANGEOVERFLOW';
     } else if (input.validity.badInput) {
         return 'BADINPUT';
+    } else {
+        return 'BADINPUT';
     }
 };
 
@@ -54,5 +64,6 @@ export {
     emailValidationRule,
     addressPattern,
     mobilePattern,
+    positiveIntegerRule,
     validationError
 };
