@@ -1,6 +1,10 @@
 .fn-admin-table {
     .trans {
         padding: 0;
+        .trans-btn {
+            display: inline-block;
+            width: 50%;
+        }
     }
     .trans-btn {
         font-size: inherit;

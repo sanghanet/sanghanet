@@ -56,10 +56,6 @@ class TransactionTable extends React.Component {
                                         <Plus />
                                             Add new payment
                                     </Button>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th colSpan={2} className="trans">
                                     <Button className="trans-btn" variant="danger" onClick={this.openMinusTransaction}>
                                         <Minus />
                                             Add new debit
