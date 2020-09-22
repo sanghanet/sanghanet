@@ -30,8 +30,8 @@ class AdminFinance extends React.Component {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     }
 
-    handleAddPayment = (amount) => {
-        console.log(amount);
+    handleAddPayment = (description, amount) => {
+        console.log(description, amount);
         console.log('FETCH: handleAddPayment');
         this.closeAddPayment();
     }

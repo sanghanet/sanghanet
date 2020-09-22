@@ -26,10 +26,18 @@ const emailValidationRule = {
     pattern: emailPattern.substring(1, emailPattern.length - 1)
 };
 
-const positiveIntegerPattern = '^[0-9]+$';
+const descriptionPattern = '^[0-9A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí.?!,&%$#@+_()=<>*"\'\\s-]*$';
+const descriptionValidationRule = {
+    required: true,
+    minLength: 2,
+    maxLength: 64,
+    pattern: descriptionPattern
+};
+
+const positiveIntegerPattern = '^[1-9][0-9]*$';
 const positiveIntegerRule = {
     required: true,
-    min: 0,
+    min: 1,
     minLength: 1,
     pattern: positiveIntegerPattern
 };
@@ -65,5 +73,6 @@ export {
     addressPattern,
     mobilePattern,
     positiveIntegerRule,
+    descriptionValidationRule,
     validationError
 };
