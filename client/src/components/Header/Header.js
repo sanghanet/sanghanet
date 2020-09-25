@@ -16,10 +16,13 @@ import Row from 'react-bootstrap/Row';
 import Figure from 'react-bootstrap/Figure';
 
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
+import { DataContext } from '../contexts/DataContext/DataContext';
+
 import Client from '../../components/Client';
 
 const Header = (props) => {
     const { isHamburgerOpen, toggleHamburger } = useContext(UIcontext);
+    const { userName, avatarSrc } = useContext(DataContext);
 
     const [searchBarValue, setSearchBarValue] = useState('');
     const [nameOfUsers, setNameOfUsers] = useState([]);
@@ -27,7 +30,6 @@ const Header = (props) => {
     const [searching, setSearching] = useState(false);
     const [showMemberDialog, setShowMemberDialog] = useState(false);
     const [memberDialogData, setMemberDialogData] = useState({});
-    const [userAvatarUrl, setUserAvatarURL] = useState('/images/noAvatar.svg');
 
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/app/personal') {
@@ -63,13 +65,6 @@ const Header = (props) => {
         Client.fetch('/user/getnameofusers')
             .then((data) => {
                 setNameOfUsers(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        Client.fetch('/user/avatarurl')
-            .then((data) => {
-                setUserAvatarURL(data[0].profileImg);
             })
             .catch((err) => {
                 console.log(err);
@@ -141,7 +136,7 @@ const Header = (props) => {
                         onClick={handleAvatarClick}
                     >
                         <Figure.Image
-                            src={userAvatarUrl}
+                            src={avatarSrc}
                             alt='Avatar'
                             roundedCircle
                             width={70}
@@ -149,7 +144,7 @@ const Header = (props) => {
                             className="d-none d-sm-flex"
                         />
                         <Figure.Caption className={`avatar-name d-none ${searching ? '' : 'd-sm-flex'}`} as='h2'>
-                            {sessionStorage.user}
+                            {userName}
                         </Figure.Caption>
                     </Figure>
                     <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>

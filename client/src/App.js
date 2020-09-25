@@ -9,6 +9,7 @@ import Loading from './pages/Loading/Loading';
 import Registration from './pages/Registration/Registration';
 import Main from './pages/Main';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
+import { DataContext } from './components/contexts/DataContext/DataContext';
 import { UIcontext } from './components/contexts/UIcontext/UIcontext';
 import { dictionaryList } from './languages/dictionaryList';
 
@@ -37,6 +38,27 @@ class App extends Component {
             });
         };
 
+        this.setUsername =( firstName, lastName) =>{
+            const oldData = this.state.dataContext;
+            this.setState({
+                dataContext: {
+                    ...oldData,
+                    userName: `${firstName} ${lastName}`
+                }
+            });
+        }
+
+        this.setAvatarSrc =( src ) => {
+            const oldData = this.state.dataContext;
+            this.setState( {
+                    dataContext: {
+                        ...oldData,
+                        avatarSrc: src
+                    }
+                }
+            )
+        }
+
         if (!localStorage.getItem('lang')) {
             localStorage.setItem('lang', 'hu');
         }
@@ -54,7 +76,14 @@ class App extends Component {
 
             lang: 'hu',
             dictionary: dictionaryList[localStorage.getItem('lang')],
-            changeLang: this.changeLang
+            changeLang: this.changeLang,
+
+            dataContext: {
+                userName: 'unknown',
+                avatarSrc: '/images/noAvatar.svg',
+                setUsername: this.setUsername,
+                setAvatarSrc: this.setAvatarSrc
+            }
         };
     }
 
@@ -62,17 +91,19 @@ class App extends Component {
         return (
             <div onClick={ this.closeHamburger }>
                 <UIcontext.Provider value={this.state}>
-                    <BrowserRouter>
-                        <Switch>
-                            <Route exact path='/' component={Login} />
-                            <Route path='/loading' component={Loading} />
-                            <Route path='/throwout/:reason' component={ThrowOut} />
-                            <Route exact path='/404' component={PageNotFound} />
-                            <PrivateRoute path='/registration' component={Registration} />
-                            <PrivateRoute path='/app/' component={Main} history={createBrowserHistory()} />
-                            <Redirect to='/404' />
-                        </Switch>
-                    </BrowserRouter>
+                    <DataContext.Provider value={this.state.dataContext}>
+                        <BrowserRouter>
+                            <Switch>
+                                <Route exact path='/' component={Login} />
+                                <Route path='/loading' component={Loading} />
+                                <Route path='/throwout/:reason' component={ThrowOut} />
+                                <Route exact path='/404' component={PageNotFound} />
+                                <PrivateRoute path='/registration' component={Registration} />
+                                <PrivateRoute path='/app/' component={Main} history={createBrowserHistory()} />
+                                <Redirect to='/404' />
+                            </Switch>
+                        </BrowserRouter>
+                    </DataContext.Provider>
                 </UIcontext.Provider>
             </div>
         );
