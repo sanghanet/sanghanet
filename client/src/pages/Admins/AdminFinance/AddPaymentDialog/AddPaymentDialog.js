@@ -15,7 +15,7 @@ function AddPaymentDialog (props) {
     const [descriptionValid, setDescriptionValid] = useState(false);
     const [amountValid, setAmountValid] = useState(false);
 
-    const { closeDialog, addPayment, pocketName } = props;
+    const { closeDialog, addPayment, pocketName, selectedUserEmail, selectedUserName } = props;
     const { validationMsg } = useContext(UIcontext).dictionary;
 
     const handleDescriptionChange = (event) => {
@@ -35,7 +35,7 @@ function AddPaymentDialog (props) {
     };
 
     const handleSubmit = (event) => {
-        addPayment(description, parseInt(amount));
+        addPayment(description, parseInt(amount), pocketName);
         event.preventDefault();
     };
 
@@ -50,7 +50,8 @@ function AddPaymentDialog (props) {
         >
 
             <Form onSubmit={handleSubmit} autoComplete='off' className="add-payment-dialog">
-                <p className='payment-label payment-name'>Name: ???</p>
+                <p className='payment-label payment-name'>Name: {selectedUserName}</p>
+                <p className='payment-label payment-name'>Email: {selectedUserEmail}</p>
                 <p className='payment-label payment-pocket'>Pocket: {pocketName}</p>
                 <Form.Label htmlFor="add-description-label" className="payment-label">Description</Form.Label>
                 <Form.Control
@@ -77,7 +78,9 @@ function AddPaymentDialog (props) {
 AddPaymentDialog.propTypes = {
     addPayment: PropTypes.func.isRequired,
     closeDialog: PropTypes.func.isRequired,
-    pocketName: PropTypes.string.isRequired
+    pocketName: PropTypes.string.isRequired,
+    selectedUserName: PropTypes.string.isRequired,
+    selectedUserEmail: PropTypes.string.isRequired
 };
 
 export default AddPaymentDialog;

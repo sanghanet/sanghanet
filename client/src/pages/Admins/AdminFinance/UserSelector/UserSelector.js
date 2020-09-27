@@ -13,7 +13,7 @@ class UserSelector extends React.Component {
             warningMessage: '',
             buttonDisabled: true,
             indexOfActiveItem: 0,
-            selectedUser: 'Own data'
+            selectedUser: 'No user selected'
         };
 
     onKeyPress = (e) => {
@@ -100,7 +100,7 @@ class UserSelector extends React.Component {
                     buttonDisabled: true,
                     selectedUser: selectedUserName
                 });
-                this.props.handleSubmit(selectedEmail);
+                this.props.handleSubmit(selectedEmail, selectedUserObject.userName);
             } else {
                 this.setState({
                     warningMessage: 'Please select a valid user!',

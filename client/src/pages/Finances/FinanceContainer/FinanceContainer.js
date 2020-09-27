@@ -13,7 +13,11 @@ class FinanceContainer extends React.Component {
     }
 
     componentDidMount () {
-        this.getFinanceData(this.props.selectedUser);
+        const userEmail = this.props.selectedUser;
+        if (!userEmail) return;
+
+        if (userEmail === 'own data') { this.getFinanceData(); }
+        else { this.getFinanceData(userEmail); }
     }
 
     componentDidUpdate (prevProps) {

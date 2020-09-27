@@ -7,6 +7,7 @@ import Alert from '../../../components/Alert/Alert';
 class AdminFinance extends React.Component {
     state = {
         selectedUserEmail: null,
+        selectedUserName: null,
         showAddPaymentDialog: false,
         paymentDialogPocketName: '',
         showAlert: false,
@@ -14,8 +15,8 @@ class AdminFinance extends React.Component {
         alertType: ''
     }
 
-    onSelection = (email) => {
-        this.setState({ selectedUserEmail: email });
+    onSelection = (email, userName) => {
+        this.setState({ selectedUserEmail: email, selectedUserName: userName });
     }
 
     openAddPayment = (pocket) => {
@@ -30,8 +31,11 @@ class AdminFinance extends React.Component {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     }
 
-    handleAddPayment = (description, amount) => {
-        console.log(description, amount);
+    handleAddPayment = (description, amount, pocketName) => {
+        // TODO:to avoid confusion in case of duplicate name - name search should display name with emails as a result (Kis Pista kis.p1@gmail.com)
+        // TODO:DB: why pocket field is present in every transaction
+
+        console.log(description, amount, pocketName, this.state.selectedUserEmail, this.state.selectedUserName);
         console.log('FETCH: handleAddPayment');
         this.closeAddPayment();
     }
@@ -64,7 +68,16 @@ class AdminFinance extends React.Component {
     // }
 
     render () {
-        const { selectedUserEmail, showAddPaymentDialog, showAlert, alertType, alertMessage } = this.state;
+        const {
+            showAddPaymentDialog,
+            showAlert,
+            alertType,
+            alertMessage,
+            paymentDialogPocketName,
+            selectedUserEmail,
+            selectedUserName
+        } = this.state;
+
         return (
             <React.Fragment>
                 <UserSelector handleSubmit={this.onSelection} />
@@ -76,7 +89,9 @@ class AdminFinance extends React.Component {
                     <AddPaymentDialog
                         addPayment = {this.handleAddPayment}
                         closeDialog = {this.closeAddPayment}
-                        pocketName = {this.state.paymentDialogPocketName}
+                        selectedUserEmail= {selectedUserEmail}
+                        selectedUserName = {selectedUserName}
+                        pocketName = {paymentDialogPocketName}
                     />
                 }
                 { showAlert &&
