@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { ReactComponent as BackIcon } from '../../components/icons/arrow-left.svg';
 
 const goBack = () => {
-    window.location.href = 'app/personal';
+    window.location.href = 'app/';
 };
 
 const PageNotFound = (props) => {
