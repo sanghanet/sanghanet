@@ -155,7 +155,8 @@
         "COULDNTADD": "was not added",
         "ROLEUPDATED": "role updated",
         "UPDATEFAILED": "Update failed. Refresh the page or try it later.",
-        "TRYAGAINLATER": "Try again later."
+        "TRYAGAINLATER": "Try again later.",
+        "UNKNOWN_FIELD": "Unknown data fiels."
     }
 
 }
