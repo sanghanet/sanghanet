@@ -1,4 +1,6 @@
 import React from 'react';
+import Client from '../../../components/Client';
+
 import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
 import UserSelector from './UserSelector/UserSelector';
 import AddPaymentDialog from './AddPaymentDialog/AddPaymentDialog';
@@ -35,8 +37,24 @@ class AdminFinance extends React.Component {
         // TODO:to avoid confusion in case of duplicate name - name search should display name with emails as a result (Kis Pista kis.p1@gmail.com)
         // TODO:DB: why pocket field is present in every transaction
 
-        console.log(description, amount, pocketName, this.state.selectedUserEmail, this.state.selectedUserName);
+        console.log(description, amount, pocketName, this.state.selectedUserEmail);
         console.log('FETCH: handleAddPayment');
+
+        Client.fetch('/finance/addtransaction/', {
+            method: 'POST',
+            body: `{
+                "email": "${this.state.selectedUserEmail}",
+                "description": "${description}",
+                "amount": "${amount}",
+                "pocket": "${pocketName}"
+            }`
+        })
+            .then((data) => {
+                console.log(data);
+            }).catch((err) => {
+                console.log(err);
+                // this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+            });
         this.closeAddPayment();
     }
     // handleAddPayment = (emailAddress, label) => {

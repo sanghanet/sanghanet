@@ -43,6 +43,21 @@ module.exports.getFinanceData = async (req, res) => {
     }
 };
 
+module.exports.addTransaction = async (req, res) => {
+    log.fatal(req.body);
+    log.fatal(req.user.email);
+    res.status(200).send('OK');
+    // TODO:
+    // try {
+    //     const userAccount = await FinanceAccount.find({ email: req.body.email });
+    //     log.fatal(userAccount);
+    //     res.status(200).send('OK');
+    // } catch (error) {
+    //     log.error(error);
+    //     res.send(error);
+    // }
+};
+
 module.exports.getUserList = async (req, res) => {
     try {
         const result = await FinanceAccount.find({}, 'userName email');
