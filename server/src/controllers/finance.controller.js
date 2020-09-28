@@ -2,6 +2,7 @@ const log4js = require('log4js');
 const log = log4js.getLogger('controllers/finance.controller.js');
 
 const { FinanceAccount } = require('../models/financeAccount.model');
+const { FinanceTransaction } = require('../models/financeTransaction.model');
 
 const sumPocket = (result, pocket) => {
     let counter = 0;
@@ -44,14 +45,32 @@ module.exports.getFinanceData = async (req, res) => {
 };
 
 module.exports.addTransaction = async (req, res) => {
-    log.fatal(req.body);
-    log.fatal(req.user.email);
     res.status(200).send('OK');
-    // TODO:
+    const transaction = new FinanceTransaction({
+        amount: req.body.amount,
+        description: req.body.description,
+        currency: 'HUF',
+        pocket: req.body.pocket,
+        entryDate: Date.now()
+    });
+    log.fatal(transaction);
+
     // try {
-    //     const userAccount = await FinanceAccount.find({ email: req.body.email });
-    //     log.fatal(userAccount);
-    //     res.status(200).send('OK');
+    //     const userAccount = await FinanceAccount.findOneAndUpdate(
+    //         {   email: req.body.email,
+    //             transactions: 'membership'
+    //         },
+    //         { $push: {
+    //             membership: transaction
+    //         }
+    //         },
+    //         { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
+
+    //     );
+    //     // update({"_id":1,"StudentOtherDetails":{"$elemMatch":{"StudentName":"David"}}},
+    //     //          {"$push":{"StudentOtherDetails.$.StudentFriendName":"James"}});
+    //     //         WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
     // } catch (error) {
     //     log.error(error);
     //     res.send(error);

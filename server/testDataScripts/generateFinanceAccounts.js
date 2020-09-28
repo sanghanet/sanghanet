@@ -6,8 +6,7 @@ const { Member } = require('../src/models/member.model');
 const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 
 const { FinanceAccount } = require('../src/models/financeAccount.model');
-const { FinanceTransactionSchema } = require('../src/models/financeTransaction.model');
-const FinanceTransaction = mongoose.model('Finance Transaction', FinanceTransactionSchema);
+const { FinanceTransaction } = require('../src/models/financeTransaction.model');
 
 const generateRandomTransactions = (pocket) => {
     const randomTransactions = [];
