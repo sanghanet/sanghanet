@@ -26,8 +26,8 @@ class Registration extends Component {
     };
 
     componentDidMount = () => {
-        const user = sessionStorage.getItem('user');
-        if (user !== 'Unknown') {
+        const userStatus = sessionStorage.getItem('userStatus');
+        if ( userStatus !== 'unregistered') {
             window.location.href = '/'; // To avoid reach Registration page via URL
         }
     }
@@ -48,6 +48,7 @@ class Registration extends Component {
             }, true) // skipDefault Headers
                 .then(() => {
                     window.history.replaceState({}, '', '/'); // remove registration link from history, make back button useless
+                    sessionStorage.setItem('userStatus', 'registered');
                     window.location.href = '/app/personal';
                 })
                 .catch((err) => {

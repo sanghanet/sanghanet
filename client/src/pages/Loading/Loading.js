@@ -7,16 +7,13 @@ import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 
 const Loading = () => {
     const { generalTermsDictionary } = useContext(UIcontext).dictionary;
+
     useEffect(() => {
         Client.fetch('/user/login', { method: 'POST' })
             .then((user) => {
-                if (user.name) {
-                    sessionStorage.setItem('user', user.name);
-                    if (user.name === 'Unknown') {
-                        window.location.href = '/registration';
-                    } else {
-                        window.location.href = '/app/personal';
-                    }
+                if (user.hasOwnProperty('status')) {
+                    sessionStorage.setItem('userStatus', user.status);
+                    window.location.href = user.status === 'registered' ? '/app/personal' : '/registration';
                 } else {
                     window.location.href = '/throwout/loginfailed';
                 }

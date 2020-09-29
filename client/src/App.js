@@ -17,66 +17,26 @@ class App extends Component {
     constructor (props) {
         super(props);
 
-        this.toggleHamburger = () => { this.setState((prevState) => ({ isHamburgerOpen: !prevState.isHamburgerOpen })); };
-        this.closeHamburger = () => {
-            this.state.isHamburgerOpen && this.setState({ isHamburgerOpen: false });
-        };
-
-        this.setAccess = (isSuperuser, isFinanceAdmin, isEventAdmin, isYogaAdmin) => {
-            this.setState({
-                isSuperuser,
-                isFinanceAdmin,
-                isEventAdmin,
-                isYogaAdmin
-            });
-        };
-
-        this.changeLang = (lang) => {
-            this.setState({
-                lang,
-                dictionary: dictionaryList[lang]
-            });
-        };
-
-        this.setUsername =( firstName, lastName) =>{
-            const oldData = this.state.dataContext;
-            this.setState({
-                dataContext: {
-                    ...oldData,
-                    userName: `${firstName} ${lastName}`
-                }
-            });
-        }
-
-        this.setAvatarSrc =( src ) => {
-            const oldData = this.state.dataContext;
-            this.setState( {
-                    dataContext: {
-                        ...oldData,
-                        avatarSrc: src
-                    }
-                }
-            )
-        }
-
         if (!localStorage.getItem('lang')) {
             localStorage.setItem('lang', 'hu');
         }
 
         this.state = {
-            isHamburgerOpen: false,
-            toggleHamburger: this.toggleHamburger,
-            closeHamburger: this.closeHamburger,
+            uiContext: {
+                isHamburgerOpen: false,
+                toggleHamburger: this.toggleHamburger,
+                closeHamburger: this.closeHamburger,
 
-            isSuperuser: false,
-            isFinanceAdmin: false,
-            isEventAdmin: false,
-            isYogaAdmin: false,
-            setAccess: this.setAccess,
+                isSuperuser: false,
+                isFinanceAdmin: false,
+                isEventAdmin: false,
+                isYogaAdmin: false,
+                setAccess: this.setAccess,
 
-            lang: 'hu',
-            dictionary: dictionaryList[localStorage.getItem('lang')],
-            changeLang: this.changeLang,
+                lang: 'hu',
+                dictionary: dictionaryList[localStorage.getItem('lang')],
+                changeLang: this.changeLang
+            },
 
             dataContext: {
                 userName: 'unknown',
@@ -87,10 +47,50 @@ class App extends Component {
         };
     }
 
+    toggleHamburger = () => {
+        const uiContext = { ...this.state.uiContext };
+        uiContext.isHamburgerOpen = !this.state.uiContext.isHamburgerOpen;
+        this.setState({ uiContext });
+    };
+
+    closeHamburger = () => {
+        const uiContext = { ...this.state.uiContext };
+        uiContext.isHamburgerOpen = false;
+        this.state.uiContext.isHamburgerOpen && this.setState({ uiContext });
+    };
+
+    setAccess = (isSuperuser, isFinanceAdmin, isEventAdmin, isYogaAdmin) => {
+        const uiContext = { ...this.state.uiContext };
+        uiContext.isSuperuser = isSuperuser;
+        uiContext.isFinanceAdmin = isFinanceAdmin;
+        uiContext.isEventAdmin = isEventAdmin;
+        uiContext.isYogaAdmin = isYogaAdmin;
+        this.setState({ uiContext });
+    };
+
+    changeLang = (lang) => {
+        const uiContext = { ...this.state.uiContext };
+        uiContext.lang = lang;
+        uiContext.dictionary = dictionaryList[lang];
+        this.setState({ uiContext });
+    };
+
+    setUsername = ( firstName, lastName) => {
+        const dataContext = { ...this.state.dataContext };
+        dataContext.userName = `${firstName} ${lastName}`;
+        this.setState({ dataContext });
+    }
+
+    setAvatarSrc = (src) => {
+        const dataContext = { ...this.state.dataContext };
+        dataContext.avatarSrc = src;
+        this.setState({ dataContext });
+    }
+
     render () {
         return (
             <div onClick={ this.closeHamburger }>
-                <UIcontext.Provider value={this.state}>
+                <UIcontext.Provider value={this.state.uiContext}>
                     <DataContext.Provider value={this.state.dataContext}>
                         <BrowserRouter>
                             <Switch>
