@@ -6,8 +6,7 @@ const { Member } = require('../src/models/member.model');
 const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 
 const { FinanceAccount } = require('../src/models/financeAccount.model');
-const { FinanceTransactionSchema } = require('../src/models/financeTransaction.model');
-const FinanceTransaction = mongoose.model('Finance Transaction', FinanceTransactionSchema);
+const { FinanceTransaction } = require('../src/models/financeTransaction.model');
 
 const generateRandomTransactions = (pocket) => {
     const randomTransactions = [];
@@ -35,7 +34,7 @@ const getUserList = async () => {
     let userArray = null;
     try {
         userArray = await Member.find({});
-        log.info('Users fetched!');
+        log.info('Members fetched!');
     } catch (error) {
         log.error(error);
         mongoose.disconnect();
@@ -49,13 +48,7 @@ const singleAccountCreationPromise = (element) => {
         email: element.email,
         userName: element.label,
         currency: 'HUF',
-        transactionBuffer: {
-            membership: generateRandomTransactions('membership'),
-            rent: generateRandomTransactions('rent'),
-            event: generateRandomTransactions('event'),
-            angel: generateRandomTransactions('angel')
-        },
-        transactionArchive: {
+        transactions: {
             membership: generateRandomTransactions('membership'),
             rent: generateRandomTransactions('rent'),
             event: generateRandomTransactions('event'),
@@ -84,7 +77,7 @@ const executeWipeandBuild = async () => {
     const AccountCreationPromises = getCreationPromises(userArray);
     Promise.all(AccountCreationPromises)
         .then((res) => {
-            res.forEach(element => {
+            res.forEach((element) => {
                 log.info(`Account successfully created for ${element.email}`);
             });
         })

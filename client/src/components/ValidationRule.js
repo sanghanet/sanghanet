@@ -26,6 +26,22 @@ const emailValidationRule = {
     pattern: emailPattern.substring(1, emailPattern.length - 1)
 };
 
+const descriptionPattern = '^[0-9A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí.?!,&%$#@+_()=<>*"\'\\s-]*$';
+const descriptionValidationRule = {
+    required: true,
+    minLength: 2,
+    maxLength: 64,
+    pattern: descriptionPattern
+};
+
+const positiveIntegerPattern = '^[1-9][0-9]*$';
+const positiveIntegerRule = {
+    required: true,
+    min: 1,
+    minLength: 1,
+    pattern: positiveIntegerPattern
+};
+
 const validationError = (input) => {
     if (input.validity.valid) {
         return '';
@@ -45,6 +61,8 @@ const validationError = (input) => {
         return 'RANGEOVERFLOW';
     } else if (input.validity.badInput) {
         return 'BADINPUT';
+    } else {
+        return 'BADINPUT';
     }
 };
 
@@ -54,5 +72,7 @@ export {
     emailValidationRule,
     addressPattern,
     mobilePattern,
+    positiveIntegerRule,
+    descriptionValidationRule,
     validationError
 };

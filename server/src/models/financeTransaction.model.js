@@ -18,3 +18,4 @@ const FinanceTransactionSchema = mongoose.Schema({
 });
 
 module.exports.FinanceTransactionSchema = FinanceTransactionSchema;
+module.exports.FinanceTransaction = mongoose.model('Finance Transaction', FinanceTransactionSchema);
