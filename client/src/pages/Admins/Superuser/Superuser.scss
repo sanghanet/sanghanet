@@ -6,21 +6,7 @@ table.table {
     width: 90%;
     margin: auto;
 
-    .role-icon-column {
-        width: 110px;
-        padding: 0;
-        vertical-align: middle;
-        text-align: center;
-        min-width: 40px;
-
-        @include maxQ(500px) {
-            width: 70px;
-        }
-    }
-
-    .delete-icon-column {
-        width: 20px;
-    }
+    .delete-icon-column, .settings-icon-column { width: 20px; }
 
     tbody tr:first-child td {
 
@@ -41,6 +27,7 @@ table.table {
 
     td {
         vertical-align: middle;
+        padding: .5rem;
 
         &.name-cells {
             position: relative;
@@ -62,34 +49,41 @@ table.table {
             }
         }
 
-        &.role-cells {
+        &.icon-btn {
             padding: 0;
-            text-align: center;
-            @include minQ(767px) {
-                min-width: 200px;
-            }
             .btn {
                 width: 100%;
-                background-color: transparent;
-                &:hover {
-                    background-color: #28a745; //$main-bg
+
+                svg {
+                    fill: $white;
                 }
             }
-            svg {
-                display: inline-block;
-                width: 1rem;
-                margin: 4px;
-                fill: $white;
 
-                @include maxQ(767px) {
-                    width: .7rem;
-                    margin: 2px;
+            &.settings-cells {
+                text-align: center;
+                
+                .btn {
+                    background-color: transparent;
+                    &:hover {
+                        background-color: #28a745; //$main-bg
+                    }
+                }
+                svg {
+                    display: inline-block;
+                    width: 1rem;
+                    margin: 4px;
+                    fill: $white;
+    
+                    @include maxQ(767px) {
+                        width: .7rem;
+                        margin: 2px;
+                    }
                 }
             }
-        }
-
-        &.delete-icon-cell {
-            padding: 0;
+    
+            &.delete-icon-cell {
+                padding: 0;
+            }
         }
 
         &>button {

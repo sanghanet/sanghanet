@@ -117,9 +117,10 @@
         "POPUPEMAIL": "Email cím"
     },
 
-    "superuserUpdateRole": {
-        "UPDATEROLE": "Admin szerep frissítése",
-        "UPDATEROLETO": "Szerep frissítése:"
+    "superuserUpdateSettings": {
+        "UPDATESETTINGS": "Felhasználó beállítások",
+        "UPDATEROLE": "Szerep frissítése:",
+        "UPDATELEVELOFSTUDY": "Szint beállítása:"
     },
 
     "superuserDeleteMember": {

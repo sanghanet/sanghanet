@@ -7,12 +7,15 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 const GenericDialog = (props) => {
-    const { title, reject, accept, children, acceptDisabled, handleClose, handleAccept } = props;
+    const { title, subtitle, reject, accept, children, acceptDisabled, handleClose, handleAccept } = props;
 
     return (
         <Modal show={true} onHide={handleClose} animation={false} dialogClassName={'modal-container'} className="generic-dialog">
             <Modal.Header closeButton>
-                <h3>{title}</h3>
+                <div>
+                    <h3>{title}</h3>
+                    <span>{subtitle}</span>
+                </div>
             </Modal.Header>
             <Modal.Body>
                 {children}
@@ -33,6 +36,7 @@ const GenericDialog = (props) => {
 
 GenericDialog.propTypes = {
     title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string,
     reject: PropTypes.string,
     accept: PropTypes.string,
     children: PropTypes.node.isRequired,

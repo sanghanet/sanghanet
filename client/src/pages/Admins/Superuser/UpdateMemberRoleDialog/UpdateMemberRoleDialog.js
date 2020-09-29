@@ -36,50 +36,61 @@ class UpdateMemberRoleDialog extends Component {
             isYogaAdmin: yogaChecked,
             isSuperuser: superuserChecked
         };
-        this.props.updateRole(roles);
+        this.props.UPDATESETTINGS(roles);
     }
 
     render () {
         const { memberEmail, closeDialog } = this.props;
         const { financeChecked, eventChecked, yogaChecked, superuserChecked } = this.state;
         const { CANCEL, ACCEPT } = this.context.dictionary.modalButtons;
-        const { UPDATEROLE, UPDATEROLETO } = this.context.dictionary.superuserUpdateRole;
+        const { UPDATESETTINGS, UPDATEROLE, UPDATELEVELOFSTUDY } = this.context.dictionary.superuserUpdateSettings;
         const { FINANCE_ADMIN, EVENT_ADMIN, YOGA_ADMIN, SUPERUSER } = this.context.dictionary.pageAndNavbarTitles;
 
         return (
             <GenericDialog
-                title = {UPDATEROLE}
+                title = {UPDATESETTINGS}
+                subtitle = {memberEmail}
                 reject = {CANCEL}
                 accept = {ACCEPT}
                 handleClose = {closeDialog}
                 handleAccept = {this.setUpdateMemberRoleDialog}
             >
                 <Form onSubmit={this.setUpdateMemberRoleDialog} autoComplete='off' className="role-dialog">
-                    <Form.Label>
-                        <span className="msg">{UPDATEROLETO}&nbsp;</span>
-                        <span className="email">{memberEmail}</span>
-                        <span className="msg">&nbsp;?</span>
-                    </Form.Label>
-                    <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="finance" onChange={this.handleChecked} defaultChecked={financeChecked} />
-                        <Form.Check.Label htmlFor="finance">{FINANCE_ADMIN}</Form.Check.Label>
-                        <FinanceAdminIcon />
-                    </Form.Check>
-                    <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="event" onChange={this.handleChecked} defaultChecked={eventChecked} />
-                        <Form.Check.Label htmlFor="event">{EVENT_ADMIN}</Form.Check.Label>
-                        <EventAdminIcon />
-                    </Form.Check>
-                    <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="yoga" onChange={this.handleChecked} defaultChecked={yogaChecked} />
-                        <Form.Check.Label htmlFor="yoga">{YOGA_ADMIN}</Form.Check.Label>
-                        <YogaAdminIcon />
-                    </Form.Check>
-                    <Form.Check type="checkbox">
-                        <Form.Check.Input type="checkbox" id="superuser" onChange={this.handleChecked} defaultChecked={superuserChecked} />
-                        <Form.Check.Label htmlFor="superuser">{SUPERUSER}</Form.Check.Label>
-                        <SuperuserIcon />
-                    </Form.Check>
+                    <Form.Group>
+                        <Form.Label>
+                            <span className="msg">{UPDATEROLE} </span>
+                        </Form.Label>
+                        <Form.Check type="checkbox">
+                            <Form.Check.Input type="checkbox" id="finance" onChange={this.handleChecked} defaultChecked={financeChecked} />
+                            <Form.Check.Label htmlFor="finance">{FINANCE_ADMIN}</Form.Check.Label>
+                            <FinanceAdminIcon />
+                        </Form.Check>
+                        <Form.Check type="checkbox">
+                            <Form.Check.Input type="checkbox" id="event" onChange={this.handleChecked} defaultChecked={eventChecked} />
+                            <Form.Check.Label htmlFor="event">{EVENT_ADMIN}</Form.Check.Label>
+                            <EventAdminIcon />
+                        </Form.Check>
+                        <Form.Check type="checkbox">
+                            <Form.Check.Input type="checkbox" id="yoga" onChange={this.handleChecked} defaultChecked={yogaChecked} />
+                            <Form.Check.Label htmlFor="yoga">{YOGA_ADMIN}</Form.Check.Label>
+                            <YogaAdminIcon />
+                        </Form.Check>
+                        <Form.Check type="checkbox">
+                            <Form.Check.Input type="checkbox" id="superuser" onChange={this.handleChecked} defaultChecked={superuserChecked} />
+                            <Form.Check.Label htmlFor="superuser">{SUPERUSER}</Form.Check.Label>
+                            <SuperuserIcon />
+                        </Form.Check>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            <span className="msg">{UPDATELEVELOFSTUDY}</span>
+                        </Form.Label>
+                        <Form.Control as="select" size="sm" custom className="level-of-study">
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </Form.Control>
+                    </Form.Group>
                 </Form>
             </GenericDialog>
         );
@@ -90,7 +101,7 @@ UpdateMemberRoleDialog.propTypes = {
     memberRoles: PropTypes.object.isRequired,
     memberEmail: PropTypes.string.isRequired,
     closeDialog: PropTypes.func.isRequired,
-    updateRole: PropTypes.func.isRequired
+    UPDATESETTINGS: PropTypes.func.isRequired
 };
 
 export default UpdateMemberRoleDialog;

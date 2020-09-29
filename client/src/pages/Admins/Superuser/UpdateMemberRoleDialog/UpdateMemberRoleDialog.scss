@@ -12,7 +12,9 @@
         border-radius: 8px;
     }
     .form-check {
-        margin-left: 50px;
+        @include minQ(400px) {
+            margin-left: 50px;
+        }
     }
     .form-check-input {
         margin-top: .5rem;
@@ -25,5 +27,15 @@
         width: 1rem;
         margin: 0 13px;
         fill: $white;
+    }
+
+    .level-of-study, .level-of-study:focus {
+        color: $white;
+        background: none;
+        border: none;
+        cursor: pointer;
+        box-shadow: inset 1px 1px 5px 0px rgba(0,0,0,0.75);
+        -webkit-box-shadow: inset 1px 1px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: inset 1px 1px 5px 0px rgba(0,0,0,0.75);
     }
 }

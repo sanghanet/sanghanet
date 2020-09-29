@@ -117,9 +117,10 @@
         "POPUPEMAIL": "Email address"
     },
 
-    "superuserUpdateRole": {
-        "UPDATEROLE": "Update admin role",
-        "UPDATEROLETO": "Update role to"
+    "superuserUpdateSettings": {
+        "UPDATESETTINGS": "Update user settings",
+        "UPDATEROLE": "Update roles of",
+        "UPDATELEVELOFSTUDY": "Update level of study for"
     },
 
     "superuserDeleteMember": {

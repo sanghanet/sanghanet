@@ -6,12 +6,8 @@ import { UIcontext } from '../../../components/contexts/UIcontext/UIcontext';
 import './Superuser.scss';
 import { ReactComponent as Plus } from '../../../components/icons/plus.svg';
 import { ReactComponent as Bin } from '../../../components/icons/bin.svg';
-import { ReactComponent as SuperuserIcon } from '../../../components/icons/superman.svg';
-import { ReactComponent as FinanceAdminIcon } from '../../../components/icons/finances.svg';
-import { ReactComponent as EventAdminIcon } from '../../../components/icons/event.svg';
-import { ReactComponent as YogaAdminIcon } from '../../../components/icons/yoga.svg';
-import { ReactComponent as GeneralUserIcon } from '../../../components/icons/personal.svg';
 import { ReactComponent as VerifiedIcon } from '../../../components/icons/verified.svg';
+import { ReactComponent as SettingsIcon } from '../../../components/icons/settings.svg';
 
 import Alert from '../../../components/Alert/Alert';
 import LoadingIndicator from '../../../components/LoadingIndicator/LoadingIndicator';
@@ -134,6 +130,7 @@ class Superuser extends Component {
     }
 
     // *** FETCH *** //
+    // TODO check if all fetched data is necessary
     handleDeleteMember = (event) => {
         Client.fetch('/su/deletemember', {
             method: 'DELETE',
@@ -275,16 +272,12 @@ class Superuser extends Component {
                                 user.email.substring(0, user.email.indexOf('@'))
                             }
                         </td>
-                        <td className="role-cells">
+                        <td className="settings-cells icon-btn">
                             <Button id={key} onClick={this.openUpdateMemberRoleDialog}>
-                                { user.isSuperuser && <SuperuserIcon title='superuser' /> }
-                                { user.isFinanceAdmin && <FinanceAdminIcon title='finance admin' /> }
-                                { user.isEventAdmin && <EventAdminIcon title='event admin' /> }
-                                { user.isYogaAdmin && <YogaAdminIcon title='yoga admin' /> }
-                                { !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) && <GeneralUserIcon title='no role' /> }
+                                <SettingsIcon />
                             </Button>
                         </td>
-                        <td className="delete-icon-cell">
+                        <td className="delete-icon-cell icon-btn">
                             <Button variant='outline-danger' id={ key } onClick={this.openDelete}>
                                 <Bin className='delete-user' />
                             </Button>
@@ -326,7 +319,7 @@ class Superuser extends Component {
                     <UpdateMemberRoleDialog
                         memberEmail = {editedMember}
                         memberRoles = {memberRoles}
-                        updateRole = {this.handleUpdateMemberRoleDialog}
+                        UPDATESETTINGS = {this.handleUpdateMemberRoleDialog}
                         closeDialog = {this.handleCloseDialog}
                     />
                 }
@@ -360,7 +353,7 @@ class Superuser extends Component {
                         <tr>
                             <th>{NAME}</th>
                             <th>{EMAIL}</th>
-                            <th className="role-icon-column">{ROLE}</th>
+                            <th className="settings-icon-column"></th>
                             <th className="delete-icon-column"></th>
                         </tr>
                     </thead>
