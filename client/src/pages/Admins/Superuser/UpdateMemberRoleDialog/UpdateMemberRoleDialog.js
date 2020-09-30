@@ -42,6 +42,7 @@ class UpdateMemberRoleDialog extends Component {
     render () {
         const { memberEmail, closeDialog } = this.props;
         const { financeChecked, eventChecked, yogaChecked, superuserChecked } = this.state;
+        const { BEGINNER, INTERMEDIATE, ADVANCED } = this.context.dictionary.generalTermsDictionary;
         const { CANCEL, ACCEPT } = this.context.dictionary.modalButtons;
         const { UPDATESETTINGS, UPDATEROLE, UPDATELEVELOFSTUDY } = this.context.dictionary.superuserUpdateSettings;
         const { FINANCE_ADMIN, EVENT_ADMIN, YOGA_ADMIN, SUPERUSER } = this.context.dictionary.pageAndNavbarTitles;
@@ -86,9 +87,9 @@ class UpdateMemberRoleDialog extends Component {
                             <span className="msg">{UPDATELEVELOFSTUDY}</span>
                         </Form.Label>
                         <Form.Control as="select" size="sm" custom className="level-of-study">
-                            <option>Beginner</option>
-                            <option>Intermediate</option>
-                            <option>Advanced</option>
+                            <option>{BEGINNER}</option>
+                            <option>{INTERMEDIATE}</option>
+                            <option>{ADVANCED}</option>
                         </Form.Control>
                     </Form.Group>
                 </Form>

@@ -1,6 +1,9 @@
 {
     "generalTermsDictionary": {
-        "LOADING": "Loading"
+        "LOADING": "Loading",
+        "BEGINNER": "Kezdő",
+        "INTERMEDIATE": "Középhaladó",
+        "ADVANCED": "Haladó"
     },
 
     "loginPageDictionary": {
