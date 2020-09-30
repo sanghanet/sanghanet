@@ -8,7 +8,7 @@ import { ReactComponent as EventAdminIcon } from '../../../../components/icons/e
 import { ReactComponent as YogaAdminIcon } from '../../../../components/icons/yoga.svg';
 import { ReactComponent as SuperuserIcon } from '../../../../components/icons/superman.svg';
 
-import './UpdateMemberRoleDialog.scss';
+import './UserSettingsDialog.scss';
 
 import Form from 'react-bootstrap/Form';
 

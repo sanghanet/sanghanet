@@ -12,7 +12,7 @@ import { ReactComponent as SettingsIcon } from '../../../components/icons/settin
 import Alert from '../../../components/Alert/Alert';
 import LoadingIndicator from '../../../components/LoadingIndicator/LoadingIndicator';
 import FilterAccordion from './FilterAccordion/FilterAccordion';
-import UpdateMemberRoleDialog from './UpdateMemberRoleDialog/UpdateMemberRoleDialog';
+import UpdateMemberRoleDialog from './UpdateMemberRoleDialog/UserSettingsDialog';
 import DeleteMemberDialog from './DeleteMemberDialog/DeleteMemberDialog';
 import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
 
