@@ -53,28 +53,25 @@ module.exports.addTransaction = async (req, res) => {
         pocket: req.body.pocket,
         entryDate: Date.now()
     });
-    log.fatal(transaction);
 
-    // try {
-    //     const userAccount = await FinanceAccount.findOneAndUpdate(
-    //         {   email: req.body.email,
-    //             transactions: 'membership'
-    //         },
-    //         { $push: {
-    //             membership: transaction
-    //         }
-    //         },
-    //         { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
+    try {
+        const targetPocket = `transactions.${req.body.pocket}`;
+        const userAccount = await FinanceAccount.findOneAndUpdate(
+            { email: req.body.email },
+            {
+                $push: { [targetPocket]: transaction }
+            },
+            { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
 
-    //     );
-    //     // update({"_id":1,"StudentOtherDetails":{"$elemMatch":{"StudentName":"David"}}},
-    //     //          {"$push":{"StudentOtherDetails.$.StudentFriendName":"James"}});
-    //     //         WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-
-    // } catch (error) {
-    //     log.error(error);
-    //     res.send(error);
-    // }
+        );
+            // Example:
+            // update({"_id":1,"StudentOtherDetails":{"$elemMatch":{"StudentName":"David"}}},
+            //          {"$push":{"StudentOtherDetails.$.StudentFriendName":"James"}});
+            //         WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+    } catch (error) {
+        log.error(error);
+        // res.send(error);
+    }
 };
 
 module.exports.getUserList = async (req, res) => {
