@@ -12,7 +12,7 @@ import './UserSettingsDialog.scss';
 
 import Form from 'react-bootstrap/Form';
 
-class UpdateMemberRoleDialog extends Component {
+class UserSettingsDialog extends Component {
     static contextType = UIcontext;
 
     state = {
@@ -36,7 +36,7 @@ class UpdateMemberRoleDialog extends Component {
             isYogaAdmin: yogaChecked,
             isSuperuser: superuserChecked
         };
-        this.props.UPDATESETTINGS(roles);
+        this.props.updateSettings(roles);
     }
 
     render () {
@@ -98,11 +98,11 @@ class UpdateMemberRoleDialog extends Component {
     }
 }
 
-UpdateMemberRoleDialog.propTypes = {
+UserSettingsDialog.propTypes = {
     memberRoles: PropTypes.object.isRequired,
     memberEmail: PropTypes.string.isRequired,
     closeDialog: PropTypes.func.isRequired,
-    UPDATESETTINGS: PropTypes.func.isRequired
+    updateSettings: PropTypes.func.isRequired
 };
 
-export default UpdateMemberRoleDialog;
+export default UserSettingsDialog;

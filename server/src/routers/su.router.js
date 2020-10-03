@@ -20,6 +20,6 @@ router.use((req, res, next) => {
 router.post('/listmembers', acl.superuser, superuserController.listMembers);
 router.delete('/deletemember', acl.superuser, superuserController.deleteMember);
 router.post('/addmember', acl.superuser, superuserController.addMember);
-router.put('/updatemember', acl.superuser, superuserController.updateMemberRole);
+router.put('/updatemember', acl.superuser, superuserController.updateMember);
 
 module.exports = router;

@@ -107,7 +107,7 @@ class Superuser extends Component {
         this.setState({ showAddMemberDialog: true });
     }
 
-    openUpdateMemberRoleDialog = (event) => {
+    openUpdateUserSettingsDialog = (event) => {
         const member = this.state.memberData[event.currentTarget.id];
         this.setState({
             showUpdateAdminDialog: true,
@@ -130,7 +130,6 @@ class Superuser extends Component {
     }
 
     // *** FETCH *** //
-    // TODO check if all fetched data is necessary
     handleDeleteMember = (event) => {
         Client.fetch('/su/deletemember', {
             method: 'DELETE',
@@ -183,7 +182,7 @@ class Superuser extends Component {
         this.setState({ showAddMemberDialog: false });
     }
 
-    handleUpdateMemberRoleDialog = (roles) => {
+    handleUpdateUserSettings = (roles) => {
         const { editedMember } = this.state;
 
         Client.fetch('/su/updatemember', {
@@ -273,7 +272,7 @@ class Superuser extends Component {
                             }
                         </td>
                         <td className="settings-cells icon-btn">
-                            <Button id={key} onClick={this.openUpdateMemberRoleDialog}>
+                            <Button id={key} onClick={this.openUpdateUserSettingsDialog}>
                                 <SettingsIcon />
                             </Button>
                         </td>
@@ -305,7 +304,7 @@ class Superuser extends Component {
             memberRoles
         } = this.state;
 
-        const { ADDMEMBER, NAME, EMAIL, ROLE } = this.context.dictionary.superuser;
+        const { ADDMEMBER, NAME, EMAIL } = this.context.dictionary.superuser;
         const { alert } = this.context.dictionary;
         return (
             <div>
@@ -319,7 +318,7 @@ class Superuser extends Component {
                     <UpdateMemberRoleDialog
                         memberEmail = {editedMember}
                         memberRoles = {memberRoles}
-                        UPDATESETTINGS = {this.handleUpdateMemberRoleDialog}
+                        updateSettings = {this.handleUpdateUserSettings}
                         closeDialog = {this.handleCloseDialog}
                     />
                 }

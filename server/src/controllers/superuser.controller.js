@@ -14,7 +14,7 @@ module.exports.listMembers = async (req, res, next) => {
     }
 };
 
-module.exports.updateMemberRole = async (req, res, next) => {
+module.exports.updateMember = async (req, res, next) => {
     log.info(`${req.user.email} is updating ${req.body.update} roles!`);
     try {
         const memberRoleUpdate = await Member.findOneAndUpdate(
