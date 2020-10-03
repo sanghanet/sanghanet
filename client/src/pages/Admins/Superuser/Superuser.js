@@ -12,7 +12,7 @@ import { ReactComponent as SettingsIcon } from '../../../components/icons/settin
 import Alert from '../../../components/Alert/Alert';
 import LoadingIndicator from '../../../components/LoadingIndicator/LoadingIndicator';
 import FilterAccordion from './FilterAccordion/FilterAccordion';
-import UpdateMemberRoleDialog from './UpdateMemberRoleDialog/UserSettingsDialog';
+import UserSettingsDialog from './UserSettingsDialog/UserSettingsDialog';
 import DeleteMemberDialog from './DeleteMemberDialog/DeleteMemberDialog';
 import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
 
@@ -49,12 +49,17 @@ class Superuser extends Component {
 
     /* ------------ General functions ------------ */
     componentDidMount () {
-        Client.fetch('/su/listmembers', { method: 'POST' })
+        Client.fetch('/su/getmemberdata', {
+            method: 'POST',
+            fields: ['email', 'isSuperuser', 'isFinanceAdmin', 'isEventAdmin', 'isYogaAdmin', 'label', 'registered']
+        })
             .then((data) => {
-                this.setState({ memberData: data });
+                console.log(data);
+                this.setState({ memberData: data.reverse() });
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
+        Client.fetch('su')
     }
 
     closeAlert = () => {
@@ -315,7 +320,7 @@ class Superuser extends Component {
                     />
                 }
                 { showUpdateAdminDialog &&
-                    <UpdateMemberRoleDialog
+                    <UserSettingsDialog
                         memberEmail = {editedMember}
                         memberRoles = {memberRoles}
                         updateSettings = {this.handleUpdateUserSettings}

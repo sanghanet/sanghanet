@@ -36,6 +36,7 @@ class UserSettingsDialog extends Component {
             isYogaAdmin: yogaChecked,
             isSuperuser: superuserChecked
         };
+        console.log();
         this.props.updateSettings(roles);
     }
 

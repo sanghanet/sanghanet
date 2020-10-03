@@ -17,7 +17,8 @@ router.use((req, res, next) => {
     }
 });
 
-router.post('/listmembers', acl.superuser, superuserController.listMembers);
+router.post('/getmemberdata', acl.superuser, superuserController.getMemberData);
+router.post('/getuserdata', acl.superuser, superuserController.getUserData);
 router.delete('/deletemember', acl.superuser, superuserController.deleteMember);
 router.post('/addmember', acl.superuser, superuserController.addMember);
 router.put('/updatemember', acl.superuser, superuserController.updateMember);

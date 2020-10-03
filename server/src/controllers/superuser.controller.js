@@ -4,10 +4,20 @@ const { RegisteredUser } = require('../models/registered.user.model');
 const log4js = require('log4js');
 const log = log4js.getLogger('controllers/user.controller.js');
 
-module.exports.listMembers = async (req, res, next) => {
+module.exports.getMemberData = async (req, res, next) => {
     try {
-        const users = await (await Member.find({}, 'email isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin label registered')).reverse();
-        res.json(users);
+        const membersData = (await Member.find({}, req.fields ? req.fields.join(' ') : null)).reverse();
+        res.json(membersData);
+    } catch (err) {
+        next(err);
+        log.error(err);
+    }
+};
+
+module.exports.getUserData = async (req, res, next) => {
+    try {
+        const userData = await Member.find({}, req.fields ? req.fields.join(' ') : null);
+        res.json(userData);
     } catch (err) {
         next(err);
         log.error(err);
