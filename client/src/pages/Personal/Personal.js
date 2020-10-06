@@ -53,7 +53,7 @@ const Personal = (props) => {
         setShowAlert(visible);
         setAlertMessage(msg);
         setAlertType(type);
-    }
+    };
 
     const closeAlert = () => { displayAlert( false, '', ''); };
 
@@ -182,7 +182,7 @@ const Personal = (props) => {
     const updateProfileImg = (event) => {
         const imageToUpload = event.target.files[0];
         if (!imageToUpload) return;
-        if (!imageToUpload.name.match(/\.(jpg|jpeg|png|svg|webp)$/)) {
+        if (!imageToUpload.name.match(/\.(|jpg|jpeg|png|svg|webp)$/i)) {
             displayAlert(true, 'VALIDPHOTO', 'ERROR');
             return false;
         }
