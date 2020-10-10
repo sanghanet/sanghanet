@@ -32,7 +32,8 @@ class TransactionTabs extends React.Component {
                             isFinAdmin = {this.props.isFinAdmin}
                             openAddPayment = {this.props.openAddPayment}
                             onError = {this.props.onError}
-                            pocket = {pocket[0]} />
+                            pocket = {pocket[0]}
+                        />
                     </Tab>
                 );
             }
@@ -46,7 +47,7 @@ class TransactionTabs extends React.Component {
 
     render () {
         return (
-            <Tabs className = 'MainTabs' bsPrefix = 'active'>
+            <Tabs className = 'MainTabs' bsPrefix = 'active' defaultActiveKey = {this.props.activeTab}>
                 {this.state.tabs}
             </Tabs>
         );
@@ -58,7 +59,8 @@ TransactionTabs.propTypes = {
     currency: PropTypes.string.isRequired,
     onError: PropTypes.func.isRequired,
     isFinAdmin: PropTypes.bool.isRequired,
-    openAddPayment: PropTypes.func
+    openAddPayment: PropTypes.func,
+    activeTab: PropTypes.string
 };
 
 export default TransactionTabs;

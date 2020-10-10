@@ -16,8 +16,7 @@ class FinanceContainer extends React.Component {
         const userEmail = this.props.selectedUser;
         if (!userEmail) return;
 
-        if (userEmail === 'own data') { this.getFinanceData(); }
-        else { this.getFinanceData(userEmail); }
+        if (userEmail === 'own data') { this.getFinanceData(); } else { this.getFinanceData(userEmail); }
     }
 
     componentDidUpdate (prevProps) {
@@ -65,14 +64,16 @@ class FinanceContainer extends React.Component {
                         <FinanceDashboard
                             currency = {financeData[0].currency}
                             balance = {financeData.balance}
-                            onError = {this.onError} />
-
+                            onError = {this.onError}
+                        />
                         <TransactionTabs
                             currency = {financeData[0].currency}
                             transactions = {financeData[0].transactions}
                             onError = {this.onError}
                             isFinAdmin = {this.props.isFinAdmin}
-                            openAddPayment = {this.props.openAddPayment} />
+                            openAddPayment = {this.props.openAddPayment}
+                            activeTab = {this.props.activeTab}
+                        />
                     </React.Fragment>)
                     : (<p>Loading ...</p>) }
             </React.Fragment>
@@ -83,7 +84,8 @@ class FinanceContainer extends React.Component {
 FinanceContainer.propTypes = {
     selectedUser: PropTypes.string,
     isFinAdmin: PropTypes.bool.isRequired,
-    openAddPayment: PropTypes.func
+    openAddPayment: PropTypes.func,
+    activeTab: PropTypes.string
 };
 
 export default FinanceContainer;

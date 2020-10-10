@@ -12,6 +12,10 @@ class AdminFinance extends React.Component {
         selectedUserName: null,
         showAddPaymentDialog: false,
         paymentDialogPocketName: '',
+
+        refreshFinanceData: 0, // fine HACK to rerender Component when new data is available.
+        activeTab: 'membership',
+
         showAlert: false,
         alertMessage: '',
         alertType: ''
@@ -37,9 +41,6 @@ class AdminFinance extends React.Component {
         // TODO:to avoid confusion in case of duplicate name - name search should display name with emails as a result (Kis Pista kis.p1@gmail.com)
         // TODO:DB: why pocket field is present in every transaction
 
-        console.log(description, amount, pocketName, this.state.selectedUserEmail);
-        console.log('FETCH: handleAddPayment');
-
         Client.fetch('/finance/addtransaction/', {
             method: 'POST',
             body: `{
@@ -50,40 +51,13 @@ class AdminFinance extends React.Component {
             }`
         })
             .then((data) => {
-                console.log(data);
+                this.setState({ refreshFinanceData: Date.now(), activeTab: pocketName });
             }).catch((err) => {
                 console.log(err);
-                // this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
         this.closeAddPayment();
     }
-    // handleAddPayment = (emailAddress, label) => {
-    //     Client.fetch('/su/addmember', {
-    //         method: 'POST',
-    //         body: `{"email": "${emailAddress}", "label": "${label}"}`
-    //     })
-    //         .then((data) => {
-    //             if (data.memberAdded) {
-    //                 this.setState({
-    //                     memberData: [data.memberAdded, ...this.state.memberData],
-    //                     showAlert: true,
-    //                     alertMessage: data.memberAdded.email,
-    //                     alertParam: 'ADDED',
-    //                     alertType: 'INFO'
-    //                 });
-    //             } else {
-    //                 if (data.exists) {
-    //                     this.setState({ showAlert: true, alertMessage: emailAddress, alertParam: 'ALREADYADDED', alertType: 'WARNING' });
-    //                 } else {
-    //                     this.setState({ showAlert: true, alertMessage: emailAddress, alertParam: 'COULDNTADD', alertType: 'ERROR' });
-    //                 }
-    //             }
-    //         }).catch((err) => {
-    //             this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
-    //         });
-
-    //     this.setState({ showAddMemberDialog: false });
-    // }
 
     render () {
         const {
@@ -93,16 +67,20 @@ class AdminFinance extends React.Component {
             alertMessage,
             paymentDialogPocketName,
             selectedUserEmail,
-            selectedUserName
+            selectedUserName,
+            refreshFinanceData,
+            activeTab
         } = this.state;
 
         return (
             <React.Fragment>
                 <UserSelector handleSubmit={this.onSelection} />
-                <FinanceContainer
+                <FinanceContainer key = {refreshFinanceData}
                     selectedUser = {selectedUserEmail}
                     openAddPayment= {this.openAddPayment}
-                    isFinAdmin={true} />
+                    isFinAdmin = {true}
+                    activeTab = {activeTab}
+                />
                 { showAddPaymentDialog &&
                     <AddPaymentDialog
                         addPayment = {this.handleAddPayment}
@@ -116,7 +94,8 @@ class AdminFinance extends React.Component {
                     <Alert
                         alertMsg={alertMessage}
                         alertType={alertType}
-                        alertClose={this.closeAlert} />
+                        alertClose={this.closeAlert}
+                    />
                 }
             </React.Fragment>
         );

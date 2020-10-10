@@ -45,7 +45,6 @@ module.exports.getFinanceData = async (req, res) => {
 };
 
 module.exports.addTransaction = async (req, res) => {
-    res.status(200).send('OK');
     const transaction = new FinanceTransaction({
         amount: req.body.amount,
         description: req.body.description,
@@ -56,7 +55,7 @@ module.exports.addTransaction = async (req, res) => {
 
     try {
         const targetPocket = `transactions.${req.body.pocket}`;
-        const userAccount = await FinanceAccount.findOneAndUpdate(
+        await FinanceAccount.findOneAndUpdate(
             { email: req.body.email },
             {
                 $push: { [targetPocket]: transaction }
@@ -64,13 +63,11 @@ module.exports.addTransaction = async (req, res) => {
             { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
 
         );
-            // Example:
-            // update({"_id":1,"StudentOtherDetails":{"$elemMatch":{"StudentName":"David"}}},
-            //          {"$push":{"StudentOtherDetails.$.StudentFriendName":"James"}});
-            //         WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+        res.json(transaction);
+        log.info('Transaction created succesfully.');
     } catch (error) {
         log.error(error);
-        // res.send(error);
+        res.send(error);
     }
 };
 

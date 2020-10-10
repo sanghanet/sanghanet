@@ -75,7 +75,7 @@ class App extends Component {
         this.setState({ uiContext });
     };
 
-    setUsername = ( firstName, lastName) => {
+    setUsername = (firstName, lastName) => {
         const dataContext = { ...this.state.dataContext };
         dataContext.userName = `${firstName} ${lastName}`;
         this.setState({ dataContext });
