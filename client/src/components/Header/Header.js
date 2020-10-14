@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './Header.scss';
+import Alert from '../../components/Alert/Alert';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 import MemberDetails from '../MemberDetails/MemberDetails';
@@ -21,8 +22,38 @@ import { DataContext } from '../contexts/DataContext/DataContext';
 import Client from '../../components/Client';
 
 const Header = (props) => {
-    const { isHamburgerOpen, toggleHamburger } = useContext(UIcontext);
-    const { userName, avatarSrc } = useContext(DataContext);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('');
+
+    const displayAlert = (visible, msg, type) => {
+        setShowAlert(visible);
+        setAlertMessage(msg);
+        setAlertType(type);
+    };
+
+    const closeAlert = () => { displayAlert( false, '', ''); };
+    const { isHamburgerOpen, toggleHamburger, setAccess } = useContext(UIcontext);
+    const { userName, setUsername, avatarSrc, setAvatarSrc } = useContext(DataContext);
+
+    useEffect(() => {
+        Client.fetch('/user/personal')
+            .then((data) => {
+                // used in header to show user's name
+                setUsername(data[0].firstName, data[0].lastName);
+                setAvatarSrc(data[0].profileImg);
+
+                setAccess(
+                    data[1].isSuperuser,
+                    data[1].isFinanceAdmin,
+                    data[1].isEventAdmin,
+                    data[1].isYogaAdmin
+                );
+
+            }).catch((err) => {
+                displayAlert(true, err.message, 'ERROR');
+            });
+    }, [setAccess, setUsername, setAvatarSrc]);
 
     const [searchBarValue, setSearchBarValue] = useState('');
     const [nameOfUsers, setNameOfUsers] = useState([]);
@@ -123,6 +154,14 @@ const Header = (props) => {
 
     return (
         <React.Fragment>
+            { showAlert
+                ? <Alert
+                    alertClose={closeAlert}
+                    alertMsg={alert[alertMessage]}
+                    alertType={alertType}
+                />
+                : null
+            },
             { showMemberDialog &&
                 <MemberDetails
                     closeDialog={closeMemberModal}

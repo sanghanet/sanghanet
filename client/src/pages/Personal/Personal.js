@@ -13,7 +13,7 @@ import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import { DataContext } from '../../components/contexts/DataContext/DataContext';
 
 const Personal = (props) => {
-    const { setAccess, dictionary } = useContext(UIcontext);
+    const { dictionary } = useContext(UIcontext);
     const { setUsername, setAvatarSrc } = useContext(DataContext);
 
     const [openDetails, setOpenDetails] = useState(false);
@@ -82,21 +82,10 @@ const Personal = (props) => {
                 setEmEmail(data[0].emEmail);
                 setEmContactVisible(data[0].emContactVisible);
 
-                setAccess(
-                    data[1].isSuperuser,
-                    data[1].isFinanceAdmin,
-                    data[1].isEventAdmin,
-                    data[1].isYogaAdmin
-                );
-
-                // used in header to show user's name
-                setUsername(data[0].firstName, data[0].lastName);
-                setAvatarSrc(data[0].profileImg);
-
             }).catch((err) => {
                 displayAlert(true, err.message, 'ERROR');
             });
-    }, [setAccess, setUsername, setAvatarSrc]);
+    });
 
     const toggleDetails = () => {
         setOpenDetails(!openDetails);
