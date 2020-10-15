@@ -121,13 +121,12 @@ class Registration extends Component {
 
         return (
             <div className='registration'>
-                { showAlert
-                    ? <Alert
+                { showAlert &&
+                    <Alert
                         alertClose={this.closeAlert}
                         alertMsg={alert[alertParam] ? `${alertMessage} ${alert[alertParam]}` : alertMessage}
                         alertType={alertType}
                     />
-                    : null
                 }
                 <header>
                     <h1>{ REGISTRATIONTITLE }</h1>
