@@ -154,13 +154,12 @@ const Header = (props) => {
 
     return (
         <React.Fragment>
-            { showAlert
-                ? <Alert
+            { showAlert &&
+                <Alert
                     alertClose={closeAlert}
                     alertMsg={alert[alertMessage]}
                     alertType={alertType}
                 />
-                : null
             },
             { showMemberDialog &&
                 <MemberDetails

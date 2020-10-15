@@ -214,13 +214,12 @@ const Personal = (props) => {
 
     return (
         <div>
-            { showAlert
-                ? <Alert
+            { showAlert &&
+                <Alert
                     alertClose={closeAlert}
                     alertMsg={alert[alertMessage]}
                     alertType={alertType}
                 />
-                : null
             }
             <FormContainer formTitle={GENERALDATA} mb-4>
                 <React.Fragment>
