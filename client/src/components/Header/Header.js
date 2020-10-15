@@ -153,95 +153,97 @@ const Header = (props) => {
     };
 
     return (
-        <React.Fragment>
+        <div>
             { showAlert &&
-                <Alert
-                    alertClose={closeAlert}
-                    alertMsg={alert[alertMessage]}
-                    alertType={alertType}
-                />
-            },
-            { showMemberDialog &&
-                <MemberDetails
-                    closeDialog={closeMemberModal}
-                    selectedMemberData={memberDialogData}
-                />
+            <Alert
+                alertClose={closeAlert}
+                alertMsg={alert[alertMessage]}
+                alertType={alertType}
+            />
             }
-            <Container fluid className='header d-flex p-0' as='header'>
-                <Row className='d-flex'>
-                    <Figure
-                        className={`avatar-container d-none m-0${searching ? '' : ' d-md-flex'}`}
-                        onClick={handleAvatarClick}
-                    >
-                        <Figure.Image
-                            src={avatarSrc}
-                            alt='Avatar'
-                            roundedCircle
-                            width={70}
-                            height={70}
-                            className="d-none d-sm-flex"
-                        />
-                        <Figure.Caption className={`avatar-name d-none ${searching ? '' : 'd-sm-flex'}`} as='h2'>
-                            {userName}
-                        </Figure.Caption>
-                    </Figure>
-                    <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
-
-                    <SearchBar
-                        controlId='headerSearchBar'
-                        className={searching ? 'active' : ''}
-                        handleInputChange={handleSearchInputChange}
-                        inputValue={searchBarValue}
-                        handleIconClick={handleSearchBarIconClick}
-                        icon={searching ? <CrossIcon className='cross' /> : <SearchIcon />}
-                        disabled={!searching}
-                        onKeyDown={handleKeyDown}
+            <React.Fragment>
+                { showMemberDialog &&
+                    <MemberDetails
+                        closeDialog={closeMemberModal}
+                        selectedMemberData={memberDialogData}
                     />
+                }
+                <Container fluid className='header d-flex p-0' as='header'>
+                    <Row className='d-flex'>
+                        <Figure
+                            className={`avatar-container d-none m-0${searching ? '' : ' d-md-flex'}`}
+                            onClick={handleAvatarClick}
+                        >
+                            <Figure.Image
+                                src={avatarSrc}
+                                alt='Avatar'
+                                roundedCircle
+                                width={70}
+                                height={70}
+                                className="d-none d-sm-flex"
+                            />
+                            <Figure.Caption className={`avatar-name d-none ${searching ? '' : 'd-sm-flex'}`} as='h2'>
+                                {userName}
+                            </Figure.Caption>
+                        </Figure>
+                        <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
 
-                    <button
-                        className={`burger-lines d-md-none position-absolute${searching ? ' d-none' : ''}`}
-                        onClick={ handleHamburgerClick }
-                    >
-                        <HamburgerIcon className={`hamburger-icon${isHamburgerOpen ? ' open' : ''}`} />
-                    </button>
-                    <div className={isHamburgerOpen ? 'slider position-absolute slideIn' : 'slider position-absolute'}>
-                        <Navbar navStyle="hamburger" openSubmenu={window.location.href.includes('admin')} />
-                    </div>
-                </Row>
-                {searchResults && (
-                    <Row className='d-flex search-results'>
-                        <ul>
-                            {(searchResults.length) ? (
-                                <React.Fragment>
-                                    {/* Render only the first three results */}
-                                    {searchResults.slice(0, 3).map((user, key) => {
-                                        return (
-                                            <li key={key} onClick={() => { handleSearchResultClick(user._id); }}>
-                                                <p>
-                                                    { user.spiritualName !== '-' && <span>{user.spiritualName}</span> }
-                                                    <span>{user.firstName} {user.lastName}</span>
-                                                </p>
-                                            </li>
-                                        );
-                                    })}
-                                    {/* Render the number of additional results if there are more than 3 */}
-                                    {searchResults.length > 3 && (
-                                        <li key="4" onClick={displayMoreResults}>
-                                            <p><span>{searchResults.length - 3} more results...</span></p>
-                                        </li>
-                                    )}
-                                </React.Fragment>
-                            ) : (
-                                /* Render a message when no result was found */
-                                <li className="not-found">
-                                    <p><span>&quot;{searchBarValue}&quot; not found</span></p>
-                                </li>
-                            )}
-                        </ul>
+                        <SearchBar
+                            controlId='headerSearchBar'
+                            className={searching ? 'active' : ''}
+                            handleInputChange={handleSearchInputChange}
+                            inputValue={searchBarValue}
+                            handleIconClick={handleSearchBarIconClick}
+                            icon={searching ? <CrossIcon className='cross' /> : <SearchIcon />}
+                            disabled={!searching}
+                            onKeyDown={handleKeyDown}
+                        />
+
+                        <button
+                            className={`burger-lines d-md-none position-absolute${searching ? ' d-none' : ''}`}
+                            onClick={ handleHamburgerClick }
+                        >
+                            <HamburgerIcon className={`hamburger-icon${isHamburgerOpen ? ' open' : ''}`} />
+                        </button>
+                        <div className={isHamburgerOpen ? 'slider position-absolute slideIn' : 'slider position-absolute'}>
+                            <Navbar navStyle="hamburger" openSubmenu={window.location.href.includes('admin')} />
+                        </div>
                     </Row>
-                )}
-            </Container>
-        </React.Fragment>
+                    {searchResults && (
+                        <Row className='d-flex search-results'>
+                            <ul>
+                                {(searchResults.length) ? (
+                                    <React.Fragment>
+                                        {/* Render only the first three results */}
+                                        {searchResults.slice(0, 3).map((user, key) => {
+                                            return (
+                                                <li key={key} onClick={() => { handleSearchResultClick(user._id); }}>
+                                                    <p>
+                                                        { user.spiritualName !== '-' && <span>{user.spiritualName}</span> }
+                                                        <span>{user.firstName} {user.lastName}</span>
+                                                    </p>
+                                                </li>
+                                            );
+                                        })}
+                                        {/* Render the number of additional results if there are more than 3 */}
+                                        {searchResults.length > 3 && (
+                                            <li key="4" onClick={displayMoreResults}>
+                                                <p><span>{searchResults.length - 3} more results...</span></p>
+                                            </li>
+                                        )}
+                                    </React.Fragment>
+                                ) : (
+                                    /* Render a message when no result was found */
+                                    <li className="not-found">
+                                        <p><span>&quot;{searchBarValue}&quot; not found</span></p>
+                                    </li>
+                                )}
+                            </ul>
+                        </Row>
+                    )}
+                </Container>
+            </React.Fragment>
+        </div>
     );
 };
 
