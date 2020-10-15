@@ -45,12 +45,14 @@ module.exports.getFinanceData = async (req, res) => {
 };
 
 module.exports.addTransaction = async (req, res) => {
+    const date = Date.now();
     const transaction = new FinanceTransaction({
         amount: req.body.amount,
         description: req.body.description,
         currency: 'HUF',
         pocket: req.body.pocket,
-        entryDate: Date.now()
+        entryDate: date,
+        dueDate: date // In case of payment, due date is always the date of payment.
     });
 
     try {

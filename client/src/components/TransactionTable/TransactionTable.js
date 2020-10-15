@@ -29,16 +29,17 @@ class TransactionTable extends React.Component {
         try {
             const rows = [];
             for (const transaction of this.props.transactionArray) {
+                const dueDate = new Date(transaction.dueDate);
+                const colorCode = dueDate < Date.now() ? 'accounted' : 'future';
                 rows.push(
-                    <tr key = {transaction._id}>
+                    <tr className = {colorCode} key = {transaction._id}>
                         <td>{transaction.description}</td>
+                        <td>{dueDate.toDateString()}</td>
                         <td>{transaction.amount} {transaction.currency}</td>
                     </tr>
                 );
             }
-            this.setState({
-                rows: rows
-            });
+            this.setState({ rows: rows });
         } catch (error) {
             this.props.onError(error);
         }
@@ -51,7 +52,7 @@ class TransactionTable extends React.Component {
                     {this.props.isFinAdmin &&
                         <React.Fragment>
                             <tr>
-                                <th colSpan={2} className="trans">
+                                <th colSpan={3} className="trans">
                                     <Button className="trans-btn" variant="success" onClick={this.openAddPayment}>
                                         <Plus />
                                             Add new payment
@@ -67,6 +68,7 @@ class TransactionTable extends React.Component {
 
                     <tr>
                         <th>Description</th>
+                        <th>Due date</th>
                         <th>Amount</th>
                     </tr>
                 </thead>

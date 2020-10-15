@@ -39,13 +39,10 @@ class FinanceContainer extends React.Component {
                     email: userEmail
                 }
             });
-            this.setState({
-                financeData: result
-            });
+            console.log(result);
+            this.setState({ financeData: result });
         } catch (error) {
-            this.setState({
-                errorState: error
-            });
+            this.setState({ errorState: error });
         }
     }
 
