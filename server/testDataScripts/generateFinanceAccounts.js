@@ -8,13 +8,27 @@ const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 const { FinanceAccount } = require('../src/models/financeAccount.model');
 const { FinanceTransaction } = require('../src/models/financeTransaction.model');
 
+const oneMinute = 60 * 1000;
+const oneHour = 60 * oneMinute;
+const oneDay = 24 * oneHour;
+const oneWeek = 7 * oneDay;
+const threeMonth = 12 * oneWeek;
+
+// -3 month, -1 week, -1 day, -1 hour, now, 3 min, 1 hour, 1 day, 1 week, 3 month]
+const dateOffset = [-threeMonth, -oneWeek, -oneDay, -oneHour, 0, 3 * oneMinute, oneHour, oneDay, oneWeek, threeMonth];
+
 const generateRandomTransactions = (pocket) => {
     const randomTransactions = [];
+    const date = Date.now();
     for (let i = 0; i < 10; i++) {
+        const amount = pocket === 'angel' ? Math.floor(Math.random() * 10000) : Math.floor(Math.random() * 100000) - 50000;
+        const dueDate = amount <= 0 ? date + dateOffset[i] : date;
         randomTransactions.push(new FinanceTransaction({
-            amount: Math.floor(Math.random() * 100000) - 50000,
+            amount: amount,
             description: 'Randomly generated test transaction',
             currency: 'HUF',
+            entryDate: date,
+            dueDate: dueDate,
             pocket: pocket
         }));
     }

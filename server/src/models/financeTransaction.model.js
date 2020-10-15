@@ -6,9 +6,9 @@ const FinanceTransactionSchema = mongoose.Schema({
     currency: String,
     pocket: String,
     entryDate: Date,
+    dueDate: Date,
     originatorId: mongoose.ObjectId,
     paymentMethod: String,
-    effectiveFrom: Date,
     deletion: {
         isDeleted: Boolean,
         amountwas: Number,
