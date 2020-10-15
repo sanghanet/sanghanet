@@ -6,8 +6,11 @@ const { FinanceTransaction } = require('../models/financeTransaction.model');
 
 const sumPocket = (result, pocket) => {
     let counter = 0;
+    const date = Date.now();
     result[0].transactions[pocket].forEach(transaction => {
-        counter += transaction.amount;
+        if (transaction.dueDate < date) {
+            counter += transaction.amount;
+        }
     });
     return counter;
 };
