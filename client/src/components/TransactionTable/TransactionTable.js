@@ -25,6 +25,10 @@ class TransactionTable extends React.Component {
         this.props.openAddPayment(this.props.pocket);
     }
 
+    openAddDebt = () => {
+        this.props.openAddDebt(this.props.pocket);
+    }
+
     createRows = () => {
         try {
             const rows = [];
@@ -57,7 +61,7 @@ class TransactionTable extends React.Component {
                                         <Plus />
                                             Add new payment
                                     </Button>
-                                    <Button className="trans-btn" variant="danger" onClick={this.openMinusTransaction}>
+                                    <Button className="trans-btn" variant="danger" onClick={this.openAddDebt}>
                                         <Minus />
                                             Add new debit
                                     </Button>
@@ -85,6 +89,7 @@ TransactionTable.propTypes = {
     onError: PropTypes.func.isRequired,
     isFinAdmin: PropTypes.bool.isRequired,
     openAddPayment: PropTypes.func,
+    openAddDebt: PropTypes.func,
     pocket: PropTypes.string
 };
 

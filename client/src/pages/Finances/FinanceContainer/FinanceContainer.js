@@ -39,7 +39,6 @@ class FinanceContainer extends React.Component {
                     email: userEmail
                 }
             });
-            console.log(result);
             this.setState({ financeData: result });
         } catch (error) {
             this.setState({ errorState: error });
@@ -69,6 +68,7 @@ class FinanceContainer extends React.Component {
                             onError = {this.onError}
                             isFinAdmin = {this.props.isFinAdmin}
                             openAddPayment = {this.props.openAddPayment}
+                            openAddDebt = {this.props.openAddDebt}
                             activeTab = {this.props.activeTab}
                         />
                     </React.Fragment>)
@@ -82,6 +82,7 @@ FinanceContainer.propTypes = {
     selectedUser: PropTypes.string,
     isFinAdmin: PropTypes.bool.isRequired,
     openAddPayment: PropTypes.func,
+    openAddDebt: PropTypes.func,
     activeTab: PropTypes.string
 };
 

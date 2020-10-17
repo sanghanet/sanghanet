@@ -5,17 +5,18 @@ import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 import { validationError, descriptionValidationRule, positiveIntegerRule } from '../../../../components/ValidationRule';
 import Form from 'react-bootstrap/Form';
 
-import './AddPaymentDialog.scss';
+import './AddTransactionDialog.scss';
 
-function AddPaymentDialog (props) {
+function AddTransactionDialog (props) {
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
     const [errorTokenDescription, setErrorTokenDescription] = useState('');
     const [errorTokenAmount, setErrorTokenAmount] = useState('');
     const [descriptionValid, setDescriptionValid] = useState(false);
     const [amountValid, setAmountValid] = useState(false);
+    // const [dueDate, setDueDate] = useState(Date.now());
 
-    const { closeDialog, addPayment, pocketName, selectedUserEmail, selectedUserName } = props;
+    const { transactionType, closeDialog, addPayment, pocketName, selectedUserEmail, selectedUserName } = props;
     const { validationMsg } = useContext(UIcontext).dictionary;
 
     const handleDescriptionChange = (event) => {
@@ -35,13 +36,13 @@ function AddPaymentDialog (props) {
     };
 
     const handleSubmit = (event) => {
-        addPayment(description, parseInt(amount), pocketName);
+        addPayment(description, parseInt(amount), pocketName, transactionType);
         event.preventDefault();
     };
 
     return (
         <GenericDialog
-            title = 'Add payment'
+            title = {`Add ${transactionType}`}
             reject = 'Cancel'
             accept = 'Add'
             acceptDisabled = {!(descriptionValid && amountValid)}
@@ -62,6 +63,21 @@ function AddPaymentDialog (props) {
                     autoFocus
                 ></Form.Control>
                 <span className="error" aria-live="polite">{validationMsg[errorTokenDescription]}</span><br></br>
+
+                {/* TODO: Date picker here! */}
+                { transactionType === 'debt' &&
+                    <span className="error" aria-live="polite">TODO: Date picker here!</span>
+                    // <>
+                    //     <Form.Label htmlFor="add-dueDate-label" className="payment-label">Due</Form.Label>
+                    //     <Form.Control
+                    //         id="add-dueDate-label"
+                    //         value={amount}
+                    //         onChange={handlePaymentChange}
+                    //         {...positiveIntegerRule}
+                    //     ></Form.Control>
+                    // </>
+                }
+
                 <Form.Label htmlFor="add-payment-label" className="payment-label">Amount</Form.Label>
                 <Form.Control
                     id="add-payment-label"
@@ -75,7 +91,8 @@ function AddPaymentDialog (props) {
     );
 }
 
-AddPaymentDialog.propTypes = {
+AddTransactionDialog.propTypes = {
+    transactionType: PropTypes.string.isRequired,
     addPayment: PropTypes.func.isRequired,
     closeDialog: PropTypes.func.isRequired,
     pocketName: PropTypes.string.isRequired,
@@ -83,4 +100,4 @@ AddPaymentDialog.propTypes = {
     selectedUserEmail: PropTypes.string.isRequired
 };
 
-export default AddPaymentDialog;
+export default AddTransactionDialog;

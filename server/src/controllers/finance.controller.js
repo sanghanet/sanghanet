@@ -48,14 +48,24 @@ module.exports.getFinanceData = async (req, res) => {
 };
 
 module.exports.addTransaction = async (req, res) => {
-    const date = Date.now();
+    let amount = null; // Default value
+    let date = Date.now(); // In case of payment, due date is always the date of payment.s
+    switch (req.body.transactionType) {
+        case 'payment':
+            amount = req.body.amount; break;
+        case 'debt':
+            amount = -req.body.amount;
+            date = req.body.dueDate;
+            break;
+    }
+
     const transaction = new FinanceTransaction({
-        amount: req.body.amount,
+        amount: amount,
         description: req.body.description,
         currency: 'HUF',
         pocket: req.body.pocket,
         entryDate: date,
-        dueDate: date // In case of payment, due date is always the date of payment.
+        dueDate: date
     });
 
     try {

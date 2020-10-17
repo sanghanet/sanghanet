@@ -3,15 +3,16 @@ import Client from '../../../components/Client';
 
 import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
 import UserSelector from './UserSelector/UserSelector';
-import AddPaymentDialog from './AddPaymentDialog/AddPaymentDialog';
+import AddTransactionDialog from './AddTransactionDialog/AddTransactionDialog';
 import Alert from '../../../components/Alert/Alert';
 
 class AdminFinance extends React.Component {
     state = {
         selectedUserEmail: null,
         selectedUserName: null,
-        showAddPaymentDialog: false,
+        showAddTransaction: false,
         paymentDialogPocketName: '',
+        transactionType: null, // Payment or Debt
 
         refreshFinanceData: 0, // fine HACK to rerender Component when new data is available.
         activeTab: 'membership',
@@ -26,18 +27,22 @@ class AdminFinance extends React.Component {
     }
 
     openAddPayment = (pocket) => {
-        this.setState({ showAddPaymentDialog: true, paymentDialogPocketName: pocket });
+        this.setState({ showAddTransaction: true, paymentDialogPocketName: pocket, transactionType: 'payment' });
     }
 
-    closeAddPayment = () => {
-        this.setState({ showAddPaymentDialog: false, paymentDialogPocketName: '' });
+    openAddDebt = (pocket) => {
+        this.setState({ showAddTransaction: true, paymentDialogPocketName: pocket, transactionType: 'debt' });
+    }
+
+    closeTransactionDialog = () => {
+        this.setState({ showAddTransaction: false, paymentDialogPocketName: '', transactionType: null });
     }
 
     closeAlert = () => {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     }
 
-    handleAddPayment = (description, amount, pocketName) => {
+    handleTransaction = (description, amount, pocketName, transactionType) => {
         // TODO:to avoid confusion in case of duplicate name - name search should display name with emails as a result (Kis Pista kis.p1@gmail.com)
         // TODO:DB: why pocket field is present in every transaction
 
@@ -47,6 +52,7 @@ class AdminFinance extends React.Component {
                 "email": "${this.state.selectedUserEmail}",
                 "description": "${description}",
                 "amount": "${amount}",
+                "transactionType": "${transactionType}",
                 "pocket": "${pocketName}"
             }`
         })
@@ -56,18 +62,19 @@ class AdminFinance extends React.Component {
                 console.log(err);
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
-        this.closeAddPayment();
+        this.closeTransactionDialog();
     }
 
     render () {
         const {
-            showAddPaymentDialog,
+            showAddTransaction,
             showAlert,
             alertType,
             alertMessage,
             paymentDialogPocketName,
             selectedUserEmail,
             selectedUserName,
+            transactionType,
             refreshFinanceData,
             activeTab
         } = this.state;
@@ -77,14 +84,16 @@ class AdminFinance extends React.Component {
                 <UserSelector handleSubmit={this.onSelection} />
                 <FinanceContainer key = {refreshFinanceData}
                     selectedUser = {selectedUserEmail}
-                    openAddPayment= {this.openAddPayment}
+                    openAddPayment = {this.openAddPayment}
+                    openAddDebt = {this.openAddDebt}
                     isFinAdmin = {true}
                     activeTab = {activeTab}
                 />
-                { showAddPaymentDialog &&
-                    <AddPaymentDialog
-                        addPayment = {this.handleAddPayment}
-                        closeDialog = {this.closeAddPayment}
+                { showAddTransaction &&
+                    <AddTransactionDialog
+                        transactionType = {transactionType}
+                        addPayment = {this.handleTransaction}
+                        closeDialog = {this.closeTransactionDialog}
                         selectedUserEmail= {selectedUserEmail}
                         selectedUserName = {selectedUserName}
                         pocketName = {paymentDialogPocketName}
