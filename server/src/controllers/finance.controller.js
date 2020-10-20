@@ -8,8 +8,15 @@ const sumPocket = (result, pocket) => {
     let counter = 0;
     const date = Date.now();
     result[0].transactions[pocket].forEach(transaction => {
+        if (transaction.deleted) {
+            transaction.status = 'deleted';
+            return;
+        }
         if (transaction.dueDate < date) {
+            transaction.status = 'active';
             counter += transaction.amount;
+        } else {
+            transaction.status = 'future';
         }
     });
     return counter;

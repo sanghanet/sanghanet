@@ -23,13 +23,19 @@ const generateRandomTransactions = (pocket) => {
     for (let i = 0; i < 10; i++) {
         const amount = pocket === 'angel' ? Math.floor(Math.random() * 10000) : Math.floor(Math.random() * 100000) - 50000;
         const dueDate = amount <= 0 ? date + dateOffset[i] : date;
+        const deleted = Math.random() < 0.2 ? {
+            amount: amount,
+            by: 'mindblowing.js@gmail.com',
+            date: date
+        } : null;
         randomTransactions.push(new FinanceTransaction({
             amount: amount,
             description: 'Randomly generated test transaction',
             currency: 'HUF',
             entryDate: date,
             dueDate: dueDate,
-            pocket: pocket
+            pocket: pocket,
+            deleted: deleted
         }));
     }
     return randomTransactions;

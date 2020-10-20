@@ -9,12 +9,8 @@ const FinanceTransactionSchema = mongoose.Schema({
     dueDate: Date,
     originatorId: mongoose.ObjectId,
     paymentMethod: String,
-    deletion: {
-        isDeleted: Boolean,
-        amountwas: Number,
-        deletedBy: Object,
-        deletionDate: Date
-    }
+    status: { type: String, default: '' }, // calculated on the fly, during fetch
+    deleted: { type: Object, default: null }
 });
 
 module.exports.FinanceTransactionSchema = FinanceTransactionSchema;
