@@ -24,8 +24,11 @@
         }
     }
     tbody {
-        .accounted {
+        .active {
             background-color: $accounted-amount;
+        }
+        .deleted {
+            background-color: $primary;
         }
     }
 }

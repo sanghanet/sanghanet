@@ -34,9 +34,8 @@ class TransactionTable extends React.Component {
             const rows = [];
             for (const transaction of this.props.transactionArray) {
                 const dueDate = new Date(transaction.dueDate);
-                const colorCode = dueDate < Date.now() ? 'accounted' : 'future';
                 rows.push(
-                    <tr className = {colorCode} key = {transaction._id}>
+                    <tr className = {transaction.status} key = {transaction._id}>
                         <td>{transaction.description}</td>
                         <td>{dueDate.toDateString()}</td>
                         <td>{transaction.amount} {transaction.currency}</td>
