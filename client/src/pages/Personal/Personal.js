@@ -189,7 +189,7 @@ class Personal extends React.Component {
         const { GENERALDATA, CONTACTDETAILS } = this.context.dictionary.personalPageContainers;
         const { DATE, GENDERFORMAT, FEMALE, MALE, OTHER } = this.context.dictionary.personalPagePlaceholders;
         const GENDERVALUE = this.context.dictionary.personalPagePlaceholders[gender.toUpperCase()]; // LUT - Look up table
-        const LEVELVALUE = this.context.dictionary.generalTermsDictionary[level];
+        const LEVELVALUE = this.context.dictionary.generalTermsDictionary[level.toUpperCase()];
         const { alert } = this.context.dictionary;
         return (
             <div>
