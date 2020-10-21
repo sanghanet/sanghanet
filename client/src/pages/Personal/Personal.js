@@ -176,7 +176,7 @@ class Personal extends React.Component {
             SPIRITUALNAME,
             DATEOFBIRTH,
             GENDER,
-            LEVEL,
+            LEVELOFSTUDY,
             EMAIL,
             MOBILE,
             ADDRESS,
@@ -189,6 +189,7 @@ class Personal extends React.Component {
         const { GENERALDATA, CONTACTDETAILS } = this.context.dictionary.personalPageContainers;
         const { DATE, GENDERFORMAT, FEMALE, MALE, OTHER } = this.context.dictionary.personalPagePlaceholders;
         const GENDERVALUE = this.context.dictionary.personalPagePlaceholders[gender.toUpperCase()]; // LUT - Look up table
+        const LEVELVALUE = this.context.dictionary.generalTermsDictionary[level];
         const { alert } = this.context.dictionary;
         return (
             <div>
@@ -251,7 +252,7 @@ class Personal extends React.Component {
                                 inputValue={birthday}
                                 validation={{
                                     min: '1910-01-01',
-                                    max: '2002-01-01' // current year minus 18
+                                    max: `${new Date().getFullYear()-16}-01-01` // current year minus 16
                                 }}
                                 inputId="birthday"
                                 inputValueSave={this.handleItemSave}
@@ -276,8 +277,8 @@ class Personal extends React.Component {
                                 format={GENDERFORMAT}
                             />
                             <InputDisplay
-                                inputTitle={LEVEL}
-                                inputValue={level || '-'}
+                                inputTitle={LEVELOFSTUDY}
+                                inputValue={LEVELVALUE || '-'}
                                 inputId="level"
                                 inputVisible={levelVisible}
                                 inputVisibility={this.handleItemVisibility}
