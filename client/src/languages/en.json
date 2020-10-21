@@ -122,8 +122,8 @@
 
     "superuserUpdateSettings": {
         "UPDATESETTINGS": "Update user settings",
-        "UPDATEROLE": "Update roles of",
-        "UPDATELEVELOFSTUDY": "Update level of study for"
+        "UPDATEROLE": "Update roles:",
+        "UPDATELEVELOFSTUDY": "Update level of study:"
     },
 
     "superuserDeleteMember": {

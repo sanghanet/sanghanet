@@ -19,8 +19,11 @@ class UserSettingsDialog extends Component {
         financeChecked: this.props.memberRoles.isFinanceAdmin,
         eventChecked: this.props.memberRoles.isEventAdmin,
         yogaChecked: this.props.memberRoles.isYogaAdmin,
-        superuserChecked: this.props.memberRoles.isSuperuser
+        superuserChecked: this.props.memberRoles.isSuperuser,
+        level: this.props.memberLevel
     }
+
+    componentDidMount () { console.log(this.props.memberLevel) }
 
     handleChecked = (event) => {
         const newstate = {};
@@ -28,21 +31,23 @@ class UserSettingsDialog extends Component {
         this.setState(newstate);
     }
 
+    handleLevelChange = (event) => { this.setState({ level: event.target.value }); }
+
     setUpdateMemberRoleDialog = () => {
-        const { financeChecked, eventChecked, yogaChecked, superuserChecked } = this.state;
-        const roles = {
+        const { financeChecked, eventChecked, yogaChecked, superuserChecked, level } = this.state;
+        const data = {
             isFinanceAdmin: financeChecked,
             isEventAdmin: eventChecked,
             isYogaAdmin: yogaChecked,
-            isSuperuser: superuserChecked
+            isSuperuser: superuserChecked,
+            level: level
         };
-        console.log();
-        this.props.updateSettings(roles);
+        this.props.updateSettings(data);
     }
 
     render () {
         const { memberEmail, closeDialog } = this.props;
-        const { financeChecked, eventChecked, yogaChecked, superuserChecked } = this.state;
+        const { financeChecked, eventChecked, yogaChecked, superuserChecked, level } = this.state;
         const { BEGINNER, INTERMEDIATE, ADVANCED } = this.context.dictionary.generalTermsDictionary;
         const { CANCEL, ACCEPT } = this.context.dictionary.modalButtons;
         const { UPDATESETTINGS, UPDATEROLE, UPDATELEVELOFSTUDY } = this.context.dictionary.superuserUpdateSettings;
@@ -87,10 +92,11 @@ class UserSettingsDialog extends Component {
                         <Form.Label>
                             <span className="msg">{UPDATELEVELOFSTUDY}</span>
                         </Form.Label>
-                        <Form.Control as="select" size="sm" custom className="level-of-study">
-                            <option>{BEGINNER}</option>
-                            <option>{INTERMEDIATE}</option>
-                            <option>{ADVANCED}</option>
+                        <Form.Control as="select" defaultValue={level} size="sm" className="level-of-study" onChange={this.handleLevelChange}>
+                            <option value="" disabled hidden></option>
+                            <option value="beginner">{BEGINNER}</option>
+                            <option value="intermediate">{INTERMEDIATE}</option>
+                            <option value="advanced">{ADVANCED}</option>
                         </Form.Control>
                     </Form.Group>
                 </Form>
@@ -101,6 +107,7 @@ class UserSettingsDialog extends Component {
 
 UserSettingsDialog.propTypes = {
     memberRoles: PropTypes.object.isRequired,
+    memberLevel: PropTypes.string.isRequired,
     memberEmail: PropTypes.string.isRequired,
     closeDialog: PropTypes.func.isRequired,
     updateSettings: PropTypes.func.isRequired

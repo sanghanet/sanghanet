@@ -8,6 +8,8 @@ const RegisteredUserSchema = mongoose.Schema({
     emailVisible: { type: Boolean, default: false },
     gender: { type: String, default: '' },
     genderVisible: { type: Boolean, default: false },
+    // level in member model
+    levelVisible: { type: Boolean, default: false },
     mobile: { type: String, default: '' },
     mobileVisible: { type: Boolean, default: false },
     birthday: { type: String, default: '' },
@@ -15,8 +17,6 @@ const RegisteredUserSchema = mongoose.Schema({
     createdAt: { type: Date, default: Date.now() },
     lastLogin: { type: Date, default: Date.now() },
     spiritualName: { type: String, required: true },
-    level: { type: String, default: '' },
-    levelVisible: { type: Boolean, default: false },
     address: { type: String, default: '' },
     addressVisible: { type: Boolean, default: false },
     emName: { type: String, default: '' },

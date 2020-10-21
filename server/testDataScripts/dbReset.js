@@ -26,11 +26,15 @@ const wipeCollections = async () => {
         });
 };
 
-const createMember = (label, email, isSuperuser) => {
+const createMember = (label, email, isSuperuser, isFinanceAdmin, isEventAdmin, isYogaAdmin, level) => {
     return Member.create({
         label: label,
         email: email,
-        isSuperuser: isSuperuser
+        isSuperuser: isSuperuser,
+        isFinanceAdmin: isFinanceAdmin,
+        isEventAdmin: isEventAdmin,
+        isYogaAdmin: isYogaAdmin,
+        level: level
     });
 };
 
@@ -38,7 +42,16 @@ const createMemberPromises = (memberArray) => {
     try {
         const promiseArray = [];
         memberArray.forEach(member => {
-            promiseArray.push(createMember(member.label, member.email, member.isSuperuser));
+            const { label, email, isSuperuser, isFinanceAdmin, isEventAdmin, isYogaAdmin, level } = member;
+            promiseArray.push(createMember(
+                label,
+                email,
+                isSuperuser,
+                isFinanceAdmin,
+                isEventAdmin,
+                isYogaAdmin,
+                level
+            ));
         });
         return promiseArray;
     } catch (error) {

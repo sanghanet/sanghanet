@@ -136,15 +136,15 @@ module.exports.personal = async (req, res, next) => {
             profileImg spiritualName\
             birthday birthdayVisible\
             gender genderVisible\
+            levelVisible\
             email emailVisible\
             mobile mobileVisible\
-            level levelVisible\
             address addressVisible\
             emName emMobile emEmail emContactVisible'
         );
         const access = await Member.find(
             { email: req.user.email },
-            'isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin'
+            'isSuperuser isFinanceAdmin isEventAdmin isYogaAdmin level'
         );
         res.json([registeredUser[0], access[0]]);
     } catch (err) {
@@ -244,7 +244,7 @@ module.exports.registereduserdata = async (req, res, next) => {
                 emMobile: registeredUser.emContactVisible ? registeredUser.emMobile : null,
                 emName: registeredUser.emContactVisible ? registeredUser.emName : null,
                 gender: registeredUser.genderVisible ? registeredUser.gender : null,
-                level: registeredUser.levelVisible ? registeredUser.level : null,
+                level: null,
                 mobile: registeredUser.mobileVisible ? registeredUser.mobile : null
             };
         });

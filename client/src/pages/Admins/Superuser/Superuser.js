@@ -43,7 +43,8 @@ class Superuser extends Component {
             alertMessage: '',
             alertType: '',
             alertParam: '',
-            memberRoles: {}
+            memberRoles: {},
+            memberLevel: ''
         };
     }
 
@@ -51,15 +52,13 @@ class Superuser extends Component {
     componentDidMount () {
         Client.fetch('/su/getmemberdata', {
             method: 'POST',
-            fields: ['email', 'isSuperuser', 'isFinanceAdmin', 'isEventAdmin', 'isYogaAdmin', 'label', 'registered']
+            fields: ['email', 'isSuperuser', 'isFinanceAdmin', 'isEventAdmin', 'isYogaAdmin', 'label', 'registered', 'level']
         })
             .then((data) => {
-                console.log(data);
-                this.setState({ memberData: data.reverse() });
+                this.setState({ memberData: data.reverse()});
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
-        Client.fetch('su')
     }
 
     closeAlert = () => {
@@ -75,7 +74,6 @@ class Superuser extends Component {
         event.preventDefault();
         this.setState({ textFilterValue: '' });
     }
-    // ide tenni
 
     handleRegisteredFilterChange = (event) => {
         this.setState({ registeredFilterValue: event.target.value });
@@ -122,7 +120,8 @@ class Superuser extends Component {
                 isEventAdmin: member.isEventAdmin,
                 isYogaAdmin: member.isYogaAdmin,
                 isSuperuser: member.isSuperuser
-            }
+            },
+            memberLevel: member.level
         });
     }
 
@@ -187,17 +186,19 @@ class Superuser extends Component {
         this.setState({ showAddMemberDialog: false });
     }
 
-    handleUpdateUserSettings = (roles) => {
+    handleUpdateUserSettings = (data) => {
+        console.log(data);
         const { editedMember } = this.state;
 
         Client.fetch('/su/updatemember', {
             method: 'PUT',
             body: `{
                 "update": "${editedMember}",
-                "isFinanceAdmin": "${roles.isFinanceAdmin}",
-                "isEventAdmin": "${roles.isEventAdmin}",
-                "isYogaAdmin": "${roles.isYogaAdmin}",
-                "isSuperuser": "${roles.isSuperuser}"
+                "isFinanceAdmin": "${data.isFinanceAdmin}",
+                "isEventAdmin": "${data.isEventAdmin}",
+                "isYogaAdmin": "${data.isYogaAdmin}",
+                "isSuperuser": "${data.isSuperuser}",
+                "level": "${data.level}"
             }`
         })
             .then((data) => {
@@ -209,7 +210,8 @@ class Superuser extends Component {
                             isEventAdmin: data.isEvent,
                             isFinanceAdmin: data.isFinance,
                             isYogaAdmin: data.isYoga,
-                            isSuperuser: data.isSuperuser
+                            isSuperuser: data.isSuperuser,
+                            level: data.level
                         }
                         : member
                     );
@@ -306,7 +308,8 @@ class Superuser extends Component {
             alertMessage,
             alertParam,
             alertType,
-            memberRoles
+            memberRoles,
+            memberLevel
         } = this.state;
 
         const { ADDMEMBER, NAME, EMAIL } = this.context.dictionary.superuser;
@@ -323,6 +326,7 @@ class Superuser extends Component {
                     <UserSettingsDialog
                         memberEmail = {editedMember}
                         memberRoles = {memberRoles}
+                        memberLevel = {memberLevel}
                         updateSettings = {this.handleUpdateUserSettings}
                         closeDialog = {this.handleCloseDialog}
                     />

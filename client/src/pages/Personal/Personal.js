@@ -60,14 +60,14 @@ class Personal extends React.Component {
                     emailVisible: data[0].emailVisible,
                     mobile: data[0].mobile,
                     mobileVisible: data[0].mobileVisible,
-                    level: data[0].level,
+                    level: data[1].level,
                     levelVisible: data[0].levelVisible,
                     address: data[0].address,
                     addressVisible: data[0].addressVisible,
                     emName: data[0].emName,
                     emMobile: data[0].emMobile,
                     emEmail: data[0].emEmail,
-                    emContactVisible: data[0].emContactVisible
+                    emContactVisible: data[0].emContactVisible,
                 });
 
                 this.context.setAccess(
@@ -113,6 +113,7 @@ class Personal extends React.Component {
 
     handleItemVisibility = (id) => {
         const Visible = `${[id]}Visible`;
+        console.log(Visible);
         Client.fetch('/user/savevisibility', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -281,10 +282,7 @@ class Personal extends React.Component {
                                 inputVisible={levelVisible}
                                 inputVisibility={this.handleItemVisibility}
                                 toDisable={ new Set(['edit']) }
-                                // since field is non-editable below props are meaningless
-                                // inputValueSave={this.handleItemSave}
-                                // inputFieldAs="select"
-                                // optionsForSelect={['Beginner', 'Intermediate', 'Advanced']}
+                                // this input is not editable by the user
                             />
                         </Row>
                     </React.Fragment>

@@ -2,7 +2,7 @@ const { Member } = require('../models/member.model');
 const { FinanceAccount } = require('../models/financeAccount.model');
 const { RegisteredUser } = require('../models/registered.user.model');
 const log4js = require('log4js');
-const log = log4js.getLogger('controllers/user.controller.js');
+const log = log4js.getLogger('controllers/superuser.controller.js');
 
 module.exports.getMemberData = async (req, res, next) => {
     try {
@@ -33,7 +33,8 @@ module.exports.updateMember = async (req, res, next) => {
                 isSuperuser: req.body.isSuperuser,
                 isFinanceAdmin: req.body.isFinanceAdmin,
                 isEventAdmin: req.body.isEventAdmin,
-                isYogaAdmin: req.body.isYogaAdmin
+                isYogaAdmin: req.body.isYogaAdmin,
+                level: req.body.level
             },
             { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
         );
@@ -44,15 +45,22 @@ module.exports.updateMember = async (req, res, next) => {
                 isFinance: memberRoleUpdate.isFinanceAdmin,
                 isEvent: memberRoleUpdate.isEventAdmin,
                 isYoga: memberRoleUpdate.isYogaAdmin,
-                isSuperuser: memberRoleUpdate.isSuperuser
+                isSuperuser: memberRoleUpdate.isSuperuser,
+                level: memberRoleUpdate.level
             }
             : { updated: null };
         res.json(msg);
-        log.info(`Updated user ${msg.updated}: \
-${msg.isFinance ? 'Finance, ' : ''} \
-${msg.isEvent ? 'Event, ' : ''} \
-${msg.isYoga ? 'Yoga, ' : ''} \
-${msg.isSuperuser ? 'Superuser' : ''}`
+
+        // fancy trick for well-formatted log message
+        log.info(
+            [
+                `Updated user ${msg.updated}: `,
+                `${msg.isFinance ? 'Finance, ' : ''}`,
+                `${msg.isEvent ? 'Event, ' : ''}`,
+                `${msg.isYoga ? 'Yoga, ' : ''}`,
+                `${msg.isSuperuser ? 'Superuser' : ''}`,
+                `${msg.level ? 'Level' : ''}`
+            ].join('')
         );
     } catch (err) {
         log.error(err);
@@ -64,13 +72,14 @@ module.exports.addMember = async (req, res, next) => {
     const emailToAdd = req.body.email;
     log.info(`${req.user.email} is trying to add ${emailToAdd}...`);
     const labelToAdd = req.body.label;
+
     try {
         const member = await Member.find({ email: emailToAdd });
         if (member.length > 0) { // if address already exists in DB
             log.info(`Tried to add ${emailToAdd}, but it already exists in DB.`);
             return res.json({ addedAddress: null, exists: true });
         }
-        const newMember = await Member.create({ label: labelToAdd, email: emailToAdd });
+        const newMember = await Member.create({ label: labelToAdd, email: emailToAdd, level: '' });
         const newAccount = await FinanceAccount.create({ email: emailToAdd });
         if (newMember && newAccount) {
             log.info(`${newMember.label} (${newMember.email}) added.`);
