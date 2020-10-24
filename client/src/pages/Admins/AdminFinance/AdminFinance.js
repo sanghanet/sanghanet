@@ -4,6 +4,7 @@ import Client from '../../../components/Client';
 import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
 import UserSelector from './UserSelector/UserSelector';
 import AddTransactionDialog from './AddTransactionDialog/AddTransactionDialog';
+import DeleteTransactionDialog from './DeleteTransactionDialog/DeleteTransactionDialog';
 import Alert from '../../../components/Alert/Alert';
 
 class AdminFinance extends React.Component {
@@ -13,6 +14,9 @@ class AdminFinance extends React.Component {
         showAddTransaction: false,
         paymentDialogPocketName: '',
         transactionType: null, // Payment or Debt
+
+        showDeleteTransaction: false,
+        transaction: null,
 
         refreshFinanceData: 0, // fine HACK to rerender Component when new data is available.
         activeTab: 'membership',
@@ -65,13 +69,37 @@ class AdminFinance extends React.Component {
         this.closeTransactionDialog();
     }
 
-    deleteTransaction = (id) => {
-        console.log(id);
+    openDeleteTransaction = (transaction) => {
+        this.setState({ showDeleteTransaction: true, transaction: transaction });
+    }
+
+    closeDeleteTransaction = () => {
+        this.setState({ showDeleteTransaction: false, transaction: null });
+    }
+
+    handleDeleteTransaction = (transactionID) => {
+        console.log(transactionID);
+        // Client.fetch('/finance/deletetransaction/', {
+        //     method: 'POST',
+        //     body: `{
+        //         "transactionID": "${id}",
+        //         "pocket": "${pocketName}"
+        //     }`
+        // })
+        //     .then((data) => {
+        //         this.setState({ refreshFinanceData: Date.now(), activeTab: pocketName });
+        //     }).catch((err) => {
+        //         console.log(err);
+        //         this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+        //     });
+        this.setState({ showDeleteTransaction: false, transaction: null });
     }
 
     render () {
         const {
             showAddTransaction,
+            showDeleteTransaction,
+            transaction,
             showAlert,
             alertType,
             alertMessage,
@@ -90,7 +118,7 @@ class AdminFinance extends React.Component {
                     selectedUser = {selectedUserEmail}
                     openAddPayment = {this.openAddPayment}
                     openAddDebt = {this.openAddDebt}
-                    deleteTransaction = {this.deleteTransaction}
+                    openDeleteTransaction = {this.openDeleteTransaction}
                     isFinAdmin = {true}
                     activeTab = {activeTab}
                 />
@@ -102,6 +130,15 @@ class AdminFinance extends React.Component {
                         selectedUserEmail= {selectedUserEmail}
                         selectedUserName = {selectedUserName}
                         pocketName = {paymentDialogPocketName}
+                    />
+                }
+                { showDeleteTransaction &&
+                    <DeleteTransactionDialog
+                        deleteTransaction = {this.handleDeleteTransaction}
+                        closeDialog = {this.closeDeleteTransaction}
+                        selectedUserEmail= {selectedUserEmail}
+                        selectedUserName = {selectedUserName}
+                        transaction = {transaction}
                     />
                 }
                 { showAlert &&

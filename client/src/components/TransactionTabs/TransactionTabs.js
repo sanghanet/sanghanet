@@ -32,7 +32,7 @@ class TransactionTabs extends React.Component {
                             isFinAdmin = {this.props.isFinAdmin}
                             openAddPayment = {this.props.openAddPayment}
                             openAddDebt = {this.props.openAddDebt}
-                            deleteTransaction = {this.props.deleteTransaction}
+                            openDeleteTransaction = {this.props.openDeleteTransaction}
                             onError = {this.props.onError}
                             pocket = {pocket[0]}
                         />
@@ -63,7 +63,7 @@ TransactionTabs.propTypes = {
     isFinAdmin: PropTypes.bool.isRequired,
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,
-    deleteTransaction: PropTypes.func,
+    openDeleteTransaction: PropTypes.func,
     activeTab: PropTypes.string
 };
 

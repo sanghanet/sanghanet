@@ -32,7 +32,15 @@ class TransactionTable extends React.Component {
 
     onDeleteTransaction = (event) => {
         event.stopPropagation();
-        this.props.deleteTransaction(event.currentTarget.id);
+        const transaction = {
+            id: event.currentTarget.id,
+            pocket: this.props.pocket,
+            description: event.currentTarget.dataset.description,
+            amount: event.currentTarget.dataset.amount,
+            currency: event.currentTarget.dataset.currency,
+            duedate: event.currentTarget.dataset.duedate
+        };
+        this.props.openDeleteTransaction(transaction);
     }
 
     createRows = () => {
@@ -40,17 +48,25 @@ class TransactionTable extends React.Component {
         try {
             const rows = [];
             for (const transaction of this.props.transactionArray) {
-                const dueDate = new Date(transaction.dueDate);
+                const dueDateString = new Date(transaction.dueDate).toDateString();
                 rows.push(
                     <tr className = {transaction.status} key = {transaction._id}>
                         <td>{transaction.description}</td>
-                        <td>{dueDate.toDateString()}</td>
+                        <td>{dueDateString}</td>
                         <td>{transaction.amount} {transaction.currency}</td>
                         { isFinAdmin &&
                             <>
                                 { transaction.status !== 'deleted'
                                     ? <td>
-                                        <Button variant='outline-danger' id={transaction._id} onClick={this.onDeleteTransaction}>
+                                        <Button
+                                            variant='outline-danger'
+                                            id={transaction._id}
+                                            onClick={this.onDeleteTransaction}
+                                            data-description={transaction.description}
+                                            data-amount={transaction.amount}
+                                            data-currency={transaction.currency}
+                                            data-duedate={dueDateString}
+                                        >
                                             <Bin className='delete-transaction' />
                                         </Button>
                                     </td>
@@ -113,7 +129,7 @@ TransactionTable.propTypes = {
     isFinAdmin: PropTypes.bool.isRequired,
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,
-    deleteTransaction: PropTypes.func,
+    openDeleteTransaction: PropTypes.func,
     pocket: PropTypes.string
 };
 
