@@ -69,6 +69,7 @@ class FinanceContainer extends React.Component {
                             isFinAdmin = {this.props.isFinAdmin}
                             openAddPayment = {this.props.openAddPayment}
                             openAddDebt = {this.props.openAddDebt}
+                            deleteTransaction = {this.props.deleteTransaction}
                             activeTab = {this.props.activeTab}
                         />
                     </React.Fragment>)
@@ -83,6 +84,7 @@ FinanceContainer.propTypes = {
     isFinAdmin: PropTypes.bool.isRequired,
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,
+    deleteTransaction: PropTypes.func,
     activeTab: PropTypes.string
 };
 

@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import './TransactionTable.scss';
 import { ReactComponent as Plus } from '../icons/plus.svg';
 import { ReactComponent as Minus } from '../icons/minus.svg';
+import { ReactComponent as Bin } from '../icons/bin.svg';
 
 class TransactionTable extends React.Component {
     state = {
@@ -29,7 +30,13 @@ class TransactionTable extends React.Component {
         this.props.openAddDebt(this.props.pocket);
     }
 
+    onDeleteTransaction = (event) => {
+        event.stopPropagation();
+        this.props.deleteTransaction(event.currentTarget.id);
+    }
+
     createRows = () => {
+        const { isFinAdmin } = this.props;
         try {
             const rows = [];
             for (const transaction of this.props.transactionArray) {
@@ -39,6 +46,18 @@ class TransactionTable extends React.Component {
                         <td>{transaction.description}</td>
                         <td>{dueDate.toDateString()}</td>
                         <td>{transaction.amount} {transaction.currency}</td>
+                        { isFinAdmin &&
+                            <>
+                                { transaction.status !== 'deleted'
+                                    ? <td>
+                                        <Button variant='outline-danger' id={transaction._id} onClick={this.onDeleteTransaction}>
+                                            <Bin className='delete-transaction' />
+                                        </Button>
+                                    </td>
+                                    : <td></td>
+                                }
+                            </>
+                        }
                     </tr>
                 );
             }
@@ -49,13 +68,15 @@ class TransactionTable extends React.Component {
     }
 
     render () {
+        const { isFinAdmin } = this.props;
+        const column = isFinAdmin ? 4 : 3;
         return (
             <Table hover bordered variant="dark" className="fn-admin-table">
                 <thead>
                     {this.props.isFinAdmin &&
                         <React.Fragment>
                             <tr>
-                                <th colSpan={3} className="trans">
+                                <th colSpan={column} className="trans">
                                     <Button className="trans-btn" variant="success" onClick={this.openAddPayment}>
                                         <Plus />
                                             Add new payment
@@ -73,6 +94,9 @@ class TransactionTable extends React.Component {
                         <th>Description</th>
                         <th>Due date</th>
                         <th>Amount</th>
+                        { isFinAdmin &&
+                            <th>Delete</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +113,7 @@ TransactionTable.propTypes = {
     isFinAdmin: PropTypes.bool.isRequired,
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,
+    deleteTransaction: PropTypes.func,
     pocket: PropTypes.string
 };
 

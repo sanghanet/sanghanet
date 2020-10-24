@@ -65,6 +65,10 @@ class AdminFinance extends React.Component {
         this.closeTransactionDialog();
     }
 
+    deleteTransaction = (id) => {
+        console.log(id);
+    }
+
     render () {
         const {
             showAddTransaction,
@@ -86,6 +90,7 @@ class AdminFinance extends React.Component {
                     selectedUser = {selectedUserEmail}
                     openAddPayment = {this.openAddPayment}
                     openAddDebt = {this.openAddDebt}
+                    deleteTransaction = {this.deleteTransaction}
                     isFinAdmin = {true}
                     activeTab = {activeTab}
                 />
