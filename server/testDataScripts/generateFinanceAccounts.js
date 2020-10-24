@@ -24,7 +24,6 @@ const generateRandomTransactions = (pocket) => {
         const amount = pocket === 'angel' ? Math.floor(Math.random() * 10000) : Math.floor(Math.random() * 100000) - 50000;
         const dueDate = amount <= 0 ? date + dateOffset[i] : date;
         const deleted = Math.random() < 0.2 ? {
-            amount: amount,
             by: 'mindblowing.js@gmail.com',
             date: date
         } : null;

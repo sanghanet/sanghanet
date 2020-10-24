@@ -18,6 +18,7 @@ financeRouter.use((req, res, next) => {
 
 financeRouter.post('/financedata', financeController.getFinanceData);
 financeRouter.post('/addtransaction', financeController.addTransaction);
+financeRouter.post('/deletetransaction', financeController.deleteTransaction);
 financeRouter.get('/userlist', financeController.getUserList);
 
 module.exports = financeRouter;

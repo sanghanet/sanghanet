@@ -10,7 +10,7 @@ function DeleteTransactionDialog (props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        deleteTransaction(transaction.id);
+        deleteTransaction(transaction.id, transaction.pocket);
     };
 
     return (

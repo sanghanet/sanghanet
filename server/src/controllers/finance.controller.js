@@ -1,6 +1,7 @@
 const log4js = require('log4js');
 const log = log4js.getLogger('controllers/finance.controller.js');
 
+const { mongoose } = require('../controllers/mongoDB.controller');
 const { FinanceAccount } = require('../models/financeAccount.model');
 const { FinanceTransaction } = require('../models/financeTransaction.model');
 
@@ -87,6 +88,36 @@ module.exports.addTransaction = async (req, res) => {
         );
         res.json(transaction);
         log.info('Transaction created succesfully.');
+    } catch (error) {
+        log.error(error);
+        res.send(error);
+    }
+};
+
+module.exports.deleteTransaction = async (req, res) => {
+    try {
+        const userEmail = req.body.email;
+        const targetPocket = `transactions.${req.body.pocket}`;
+        const targetTransactionDeleted = targetPocket + '.$.deleted'; // '$' will get the array index in the query!
+        const deleteObject = {
+            by: req.user.email,
+            date: Date.now()
+        };
+        await FinanceAccount.findOneAndUpdate(
+            {
+                email: userEmail,
+                [targetPocket]: {
+                    $elemMatch: { _id: mongoose.Types.ObjectId(req.body.transactionID) }
+                }
+            },
+            {
+                $set: { [targetTransactionDeleted]: deleteObject }
+            },
+            { new: true, useFindAndModify: false } // new: true - returns the object after update was applied
+
+        );
+        res.status(200).send('OK');
+        log.info(`Transaction ${req.body.transactionID} deleted from ${userEmail} by ${req.user.email}`);
     } catch (error) {
         log.error(error);
         res.send(error);

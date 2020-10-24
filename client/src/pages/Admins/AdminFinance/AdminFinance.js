@@ -77,21 +77,21 @@ class AdminFinance extends React.Component {
         this.setState({ showDeleteTransaction: false, transaction: null });
     }
 
-    handleDeleteTransaction = (transactionID) => {
-        console.log(transactionID);
-        // Client.fetch('/finance/deletetransaction/', {
-        //     method: 'POST',
-        //     body: `{
-        //         "transactionID": "${id}",
-        //         "pocket": "${pocketName}"
-        //     }`
-        // })
-        //     .then((data) => {
-        //         this.setState({ refreshFinanceData: Date.now(), activeTab: pocketName });
-        //     }).catch((err) => {
-        //         console.log(err);
-        //         this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
-        //     });
+    handleDeleteTransaction = (transactionID, pocket) => {
+        Client.fetch('/finance/deletetransaction/', {
+            method: 'POST',
+            body: `{
+                "email": "${this.state.selectedUserEmail}",
+                "pocket": "${pocket}",
+                "transactionID": "${transactionID}"
+            }`
+        })
+            .then((data) => {
+                this.setState({ refreshFinanceData: Date.now(), activeTab: pocket });
+            }).catch((err) => {
+                console.log(err);
+                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+            });
         this.setState({ showDeleteTransaction: false, transaction: null });
     }
 
