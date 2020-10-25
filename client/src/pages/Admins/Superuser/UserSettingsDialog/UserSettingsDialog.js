@@ -23,8 +23,6 @@ class UserSettingsDialog extends Component {
         level: this.props.memberLevel
     }
 
-    componentDidMount () { console.log(this.props.memberLevel) }
-
     handleChecked = (event) => {
         const newstate = {};
         newstate[`${event.target.id}Checked`] = !this.state[`${event.target.id}Checked`];

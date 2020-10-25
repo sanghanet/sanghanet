@@ -187,7 +187,6 @@ class Superuser extends Component {
     }
 
     handleUpdateUserSettings = (data) => {
-        console.log(data);
         const { editedMember } = this.state;
 
         Client.fetch('/su/updatemember', {
