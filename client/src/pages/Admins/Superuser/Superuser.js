@@ -218,7 +218,7 @@ class Superuser extends Component {
                         memberData: newMembers,
                         showAlert: true,
                         alertMessage: data.updated,
-                        alertParam: 'ROLEUPDATED',
+                        alertParam: 'SETTINGSUPDATED',
                         alertType: 'INFO'
                     });
                 } else {

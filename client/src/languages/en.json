@@ -157,7 +157,7 @@
         "ADDED": " added",
         "ALREADYADDED": "is already added",
         "COULDNTADD": "was not added",
-        "ROLEUPDATED": "role updated",
+        "SETTINGSUPDATED": "settings updated",
         "UPDATEFAILED": "Update failed. Refresh the page or try it later.",
         "TRYAGAINLATER": "Try again later."
     }

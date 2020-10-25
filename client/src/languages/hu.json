@@ -157,7 +157,7 @@
         "ADDED": " hozzáadva",
         "ALREADYADDED": "már hozzá lett adva",
         "COULDNTADD": "Nem sikerült hozzáadni",
-        "ROLEUPDATED": "szerepe frissítve",
+        "SETTINGSUPDATED": "beállításai frissítve",
         "UPDATEFAILED": "Sikertelen frissítés. Frissítse az oldalt vagy próbálkozzon később.",
         "TRYAGAINLATER": "Próbálkozzon később."
     }
