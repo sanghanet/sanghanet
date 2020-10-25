@@ -73,7 +73,7 @@ const Header = (props) => {
     };
 
     const getSearchResults = useCallback(() => {
-        if (!searchBarValue.length > 0) return null;
+        if (searchBarValue.length === 0) return null;
         const searchResults = nameOfUsers.filter((user) => {
             const userName = `${user.firstName} ${user.lastName}`;
             return (
@@ -90,18 +90,24 @@ const Header = (props) => {
         setSearchResults(getSearchResults());
     }, [searchBarValue, getSearchResults]);
 
-    // componentDidMount
-    useEffect(() => {
-        Client.fetch('/user/getnameofusers')
+    const fetchUsernames = async (partOfName) => {
+        const endpoint = `/user/search?searchValue=${partOfName}`;
+        await Client.fetch(endpoint)
             .then((data) => {
                 setNameOfUsers(data);
             })
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    };
 
-    const handleSearchInputChange = (targetValue) => setSearchBarValue(targetValue);
+    const handleSearchInputChange = async (targetValue) => {
+        const isLengthOfSearchBarValueZero = !searchBarValue.length;
+        setSearchBarValue(targetValue);
+        if (isLengthOfSearchBarValueZero && targetValue.length === 1) {
+            await fetchUsernames(targetValue);
+        }
+    };
 
     const handleSearchBarIconClick = () => {
         setSearching((prevState) => !prevState);

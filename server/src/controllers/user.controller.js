@@ -254,3 +254,21 @@ module.exports.registereduserdata = async (req, res, next) => {
         log.error(err);
     }
 };
+
+module.exports.search = async (req, res, next) => {
+    const regex = new RegExp(req.query.searchValue, 'i');
+    console.log(`I am invoked: ${regex}`);
+    try {
+        const users = await RegisteredUser.find({
+            $or: [
+                { firstName: regex },
+                { lastName: regex },
+                { spiritualName: regex }
+            ]
+        }, 'firstName lastName spiritualName').exec();
+        console.log(users);
+        res.json(users.sort());
+    } catch (err) {
+        next(err);
+    }
+};

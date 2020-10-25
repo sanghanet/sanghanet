@@ -26,5 +26,6 @@ router.get('/avatarurl', userController.getUserAvatarURL);
 router.put('/saveitem', userController.updateItemAndVisibility);
 router.put('/savevisibility', userController.updateItemAndVisibility);
 router.post('/uploadprofileimg', userController.uploadProfileImg);
+router.get('/search', userController.search);
 
 module.exports = router;
