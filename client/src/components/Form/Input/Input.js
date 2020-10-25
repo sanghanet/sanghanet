@@ -19,7 +19,6 @@ class Input extends Component {
     }
 
     handleChange = (event) => {
-        console.dir(event.key);
         this.props.onChange(event.target.value);
     }
 

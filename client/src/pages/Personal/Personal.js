@@ -113,7 +113,6 @@ class Personal extends React.Component {
 
     handleItemVisibility = (id) => {
         const Visible = `${[id]}Visible`;
-        console.log(Visible);
         Client.fetch('/user/savevisibility', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },

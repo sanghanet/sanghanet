@@ -229,6 +229,7 @@ module.exports.registereduserdata = async (req, res, next) => {
     log.info('All registered users fetched by:', req.user.email);
     try {
         const registeredUsers = await RegisteredUser.find(req.body.userId ? { _id: { $in: req.body.userIDs } } : {});
+        const level = await Member.find(req.body.userId ? { _id: { $in: req.body.userIDs } } : {}, 'level email');
         const visibleUserData = registeredUsers.map((registeredUser) => {
             return {
                 _id: registeredUser._id,
@@ -244,7 +245,7 @@ module.exports.registereduserdata = async (req, res, next) => {
                 emMobile: registeredUser.emContactVisible ? registeredUser.emMobile : null,
                 emName: registeredUser.emContactVisible ? registeredUser.emName : null,
                 gender: registeredUser.genderVisible ? registeredUser.gender : null,
-                level: null,
+                level: level.find(person => person.email === registeredUser.email).level,
                 mobile: registeredUser.mobileVisible ? registeredUser.mobile : null
             };
         });
