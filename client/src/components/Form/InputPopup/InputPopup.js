@@ -26,7 +26,8 @@ class InputPopup extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault(); // event.target is the button here
-        const input = document.querySelector('.form-control'); // input field
+        const input = document.getElementById(this.props.modalId); // input field
+        console.dir(input);
         if (this.validation(input)) {
             this.props.modalValueSave(this.state.currentValue, this.props.modalId);
             this.props.modalClose();
