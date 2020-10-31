@@ -21,32 +21,27 @@ import Button from 'react-bootstrap/Button';
 
 class Superuser extends Component {
     static contextType = UIcontext;
-
-    constructor (props) {
-        super(props);
-
-        this.state = {
-            memberData: null,
-            textFilterValue: '',
-            registeredFilterValue: 'all',
-            roleFilter: {
-                filterSuperuser: false,
-                filterFinanceAdmin: false,
-                filterEventAdmin: false,
-                filterYogaAdmin: false,
-                filterNoRole: false
-            },
-            showAddMemberDialog: false,
-            showDeleteMemberDialog: false,
-            showUpdateAdminDialog: false,
-            showAlert: false,
-            alertMessage: '',
-            alertType: '',
-            alertParam: '',
-            memberRoles: {},
-            memberLevel: ''
-        };
-    }
+    state = {
+        memberData: null,
+        textFilterValue: '',
+        registeredFilterValue: 'all',
+        roleFilter: {
+            filterSuperuser: false,
+            filterFinanceAdmin: false,
+            filterEventAdmin: false,
+            filterYogaAdmin: false,
+            filterNoRole: false
+        },
+        showAddMemberDialog: false,
+        showDeleteMemberDialog: false,
+        showUpdateAdminDialog: false,
+        showAlert: false,
+        alertMessage: '',
+        alertType: '',
+        alertParam: '',
+        memberRoles: {},
+        memberLevel: ''
+    };
 
     /* ------------ General functions ------------ */
     componentDidMount () {

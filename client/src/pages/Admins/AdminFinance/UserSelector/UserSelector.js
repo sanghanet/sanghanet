@@ -4,9 +4,7 @@ import './UserSelector.scss';
 import PropTypes from 'prop-types';
 
 class UserSelector extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
+        state = {
             rawUserData: null,
             suggestions: null,
             searchResults: [],
@@ -15,10 +13,8 @@ class UserSelector extends React.Component {
             warningMessage: '',
             buttonDisabled: true,
             indexOfActiveItem: 0,
-            selectedUser: 'Own data'
+            selectedUser: 'No user selected'
         };
-        this.maxDisplayedSuggestions = 10;
-    }
 
     onKeyPress = (e) => {
         let { indexOfActiveItem: index, searchResults, showSuggestions } = this.state;
@@ -48,7 +44,8 @@ class UserSelector extends React.Component {
     }
 
     onInputChange = (e) => {
-        const { state: { suggestions, indexOfActiveItem: index }, maxDisplayedSuggestions } = this;
+        const maxDisplayedSuggestions = 10;
+        const { state: { suggestions, indexOfActiveItem: index } } = this;
         const userInput = e.currentTarget.value;
 
         let searchResults = suggestions.filter((suggestion) => {
@@ -103,7 +100,7 @@ class UserSelector extends React.Component {
                     buttonDisabled: true,
                     selectedUser: selectedUserName
                 });
-                this.props.handleSubmit(selectedEmail);
+                this.props.handleSubmit(selectedEmail, selectedUserObject.userName);
             } else {
                 this.setState({
                     warningMessage: 'Please select a valid user!',

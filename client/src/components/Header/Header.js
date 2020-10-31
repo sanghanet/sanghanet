@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './Header.scss';
+import Alert from '../../components/Alert/Alert';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 import MemberDetails from '../MemberDetails/MemberDetails';
@@ -16,10 +17,42 @@ import Row from 'react-bootstrap/Row';
 import Figure from 'react-bootstrap/Figure';
 
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
+import { DataContext } from '../contexts/DataContext/DataContext';
+
 import Client from '../../components/Client';
 
 const Header = (props) => {
-    const { isHamburgerOpen, toggleHamburger } = useContext(UIcontext);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('');
+
+    const displayAlert = (visible, msg, type) => {
+        setShowAlert(visible);
+        setAlertMessage(msg);
+        setAlertType(type);
+    };
+
+    const closeAlert = () => { displayAlert(false, '', ''); };
+    const { isHamburgerOpen, toggleHamburger, setAccess } = useContext(UIcontext);
+    const { userName, setUsername, avatarSrc, setAvatarSrc } = useContext(DataContext);
+
+    useEffect(() => {
+        Client.fetch('/user/personal')
+            .then((data) => {
+                // used in header to show user's name
+                setUsername(data[0].firstName, data[0].lastName);
+                setAvatarSrc(data[0].profileImg);
+
+                setAccess(
+                    data[1].isSuperuser,
+                    data[1].isFinanceAdmin,
+                    data[1].isEventAdmin,
+                    data[1].isYogaAdmin
+                );
+            }).catch((err) => {
+                displayAlert(true, err.message, 'ERROR');
+            });
+    }, [setAccess, setUsername, setAvatarSrc]);
 
     const [searchBarValue, setSearchBarValue] = useState('');
     const [nameOfUsers, setNameOfUsers] = useState([]);
@@ -27,7 +60,6 @@ const Header = (props) => {
     const [searching, setSearching] = useState(false);
     const [showMemberDialog, setShowMemberDialog] = useState(false);
     const [memberDialogData, setMemberDialogData] = useState({});
-    const [userAvatarUrl, setUserAvatarURL] = useState('/images/noAvatar.svg');
 
     const handleAvatarClick = (event) => {
         if (props.location.pathname !== '/app/personal') {
@@ -63,13 +95,6 @@ const Header = (props) => {
         Client.fetch('/user/getnameofusers')
             .then((data) => {
                 setNameOfUsers(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        Client.fetch('/user/avatarurl')
-            .then((data) => {
-                setUserAvatarURL(data[0].profileImg);
             })
             .catch((err) => {
                 console.log(err);
@@ -128,6 +153,13 @@ const Header = (props) => {
 
     return (
         <React.Fragment>
+            { showAlert &&
+                <Alert
+                    alertClose={closeAlert}
+                    alertMsg={alert[alertMessage]}
+                    alertType={alertType}
+                />
+            }
             { showMemberDialog &&
                 <MemberDetails
                     closeDialog={closeMemberModal}
@@ -141,7 +173,7 @@ const Header = (props) => {
                         onClick={handleAvatarClick}
                     >
                         <Figure.Image
-                            src={userAvatarUrl}
+                            src={avatarSrc}
                             alt='Avatar'
                             roundedCircle
                             width={70}
@@ -149,7 +181,7 @@ const Header = (props) => {
                             className="d-none d-sm-flex"
                         />
                         <Figure.Caption className={`avatar-name d-none ${searching ? '' : 'd-sm-flex'}`} as='h2'>
-                            {sessionStorage.user}
+                            {userName}
                         </Figure.Caption>
                     </Figure>
                     <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
@@ -199,7 +231,7 @@ const Header = (props) => {
                                     )}
                                 </React.Fragment>
                             ) : (
-                                /* Render a message when no result was found */
+                            /* Render a message when no result was found */
                                 <li className="not-found">
                                     <p><span>&quot;{searchBarValue}&quot; not found</span></p>
                                 </li>
@@ -208,6 +240,7 @@ const Header = (props) => {
                     </Row>
                 )}
             </Container>
+
         </React.Fragment>
     );
 };

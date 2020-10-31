@@ -26,8 +26,8 @@ class Registration extends Component {
     };
 
     componentDidMount = () => {
-        const user = sessionStorage.getItem('user');
-        if (user !== 'Unknown') {
+        const userStatus = sessionStorage.getItem('userStatus');
+        if ( userStatus !== 'unregistered') {
             window.location.href = '/'; // To avoid reach Registration page via URL
         }
     }
@@ -48,6 +48,7 @@ class Registration extends Component {
             }, true) // skipDefault Headers
                 .then(() => {
                     window.history.replaceState({}, '', '/'); // remove registration link from history, make back button useless
+                    sessionStorage.setItem('userStatus', 'registered');
                     window.location.href = '/app/personal';
                 })
                 .catch((err) => {
@@ -120,18 +121,16 @@ class Registration extends Component {
 
         return (
             <div className='registration'>
-                { showAlert
-                    ? <Alert
+                { showAlert &&
+                    <Alert
                         alertClose={this.closeAlert}
                         alertMsg={alert[alertParam] ? `${alertMessage} ${alert[alertParam]}` : alertMessage}
                         alertType={alertType}
                     />
-                    : null
                 }
                 <header>
                     <h1>{ REGISTRATIONTITLE }</h1>
                 </header>
-                <LanguageSelector />
                 <FormContainer formTitle="">
                     <Form onSubmit={this.handleSubmit} autoComplete='off'>
                         <InputAvatar
@@ -187,6 +186,7 @@ class Registration extends Component {
                         </div>
                     </Form>
                 </FormContainer>
+                <LanguageSelector size="small" />
             </div>
         );
     }

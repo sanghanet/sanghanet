@@ -6,11 +6,8 @@ import './TransactionTabs.scss';
 import PropTypes from 'prop-types';
 
 class TransactionTabs extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            tabs: null
-        };
+    state = {
+        tabs: null
     }
 
     componentDidMount () {
@@ -26,11 +23,19 @@ class TransactionTabs extends React.Component {
     generateTabs = () => {
         try {
             const tabs = [];
-            const pockets = Object.entries(this.props.transactionBuffer);
+            const pockets = Object.entries(this.props.transactions);
             for (const pocket of pockets) {
                 tabs.push(
                     <Tab title = {pocket[0]} eventKey = {pocket[0]} key = {pocket[0]}>
-                        <TransactionTable transactionArray = {pocket[1]} onError = {this.props.onError} />
+                        <TransactionTable
+                            transactionArray = {pocket[1]}
+                            isFinAdmin = {this.props.isFinAdmin}
+                            openAddPayment = {this.props.openAddPayment}
+                            openAddDebt = {this.props.openAddDebt}
+                            openDeleteTransaction = {this.props.openDeleteTransaction}
+                            onError = {this.props.onError}
+                            pocket = {pocket[0]}
+                        />
                     </Tab>
                 );
             }
@@ -44,7 +49,7 @@ class TransactionTabs extends React.Component {
 
     render () {
         return (
-            <Tabs className = 'MainTabs' bsPrefix = 'active'>
+            <Tabs className = 'MainTabs' bsPrefix = 'active' defaultActiveKey = {this.props.activeTab}>
                 {this.state.tabs}
             </Tabs>
         );
@@ -52,9 +57,14 @@ class TransactionTabs extends React.Component {
 }
 
 TransactionTabs.propTypes = {
-    transactionBuffer: PropTypes.object.isRequired,
+    transactions: PropTypes.object.isRequired,
     currency: PropTypes.string.isRequired,
-    onError: PropTypes.func.isRequired
+    onError: PropTypes.func.isRequired,
+    isFinAdmin: PropTypes.bool.isRequired,
+    openAddPayment: PropTypes.func,
+    openAddDebt: PropTypes.func,
+    openDeleteTransaction: PropTypes.func,
+    activeTab: PropTypes.string
 };
 
 export default TransactionTabs;

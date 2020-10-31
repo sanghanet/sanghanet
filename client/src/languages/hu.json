@@ -159,7 +159,8 @@
         "COULDNTADD": "Nem sikerült hozzáadni",
         "SETTINGSUPDATED": "beállításai frissítve",
         "UPDATEFAILED": "Sikertelen frissítés. Frissítse az oldalt vagy próbálkozzon később.",
-        "TRYAGAINLATER": "Próbálkozzon később."
+        "TRYAGAINLATER": "Próbálkozzon később.",
+        "UNKNOWN_FIELD": "Ismeretlen adatmező."
     }
 
 }

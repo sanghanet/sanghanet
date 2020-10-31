@@ -7,16 +7,16 @@ import Alert from '../../../components/Alert/Alert';
 import PropTypes from 'prop-types';
 
 class FinanceContainer extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            financeData: null,
-            errorState: null
-        };
+    state = {
+        financeData: null,
+        errorState: null
     }
 
     componentDidMount () {
-        this.getFinanceData(this.props.selectedUser);
+        const userEmail = this.props.selectedUser;
+        if (!userEmail) return;
+
+        if (userEmail === 'own data') { this.getFinanceData(); } else { this.getFinanceData(userEmail); }
     }
 
     componentDidUpdate (prevProps) {
@@ -39,47 +39,53 @@ class FinanceContainer extends React.Component {
                     email: userEmail
                 }
             });
-            this.setState({
-                financeData: result
-            });
+            this.setState({ financeData: result });
         } catch (error) {
-            this.setState({
-                errorState: error
-            });
+            this.setState({ errorState: error });
         }
     }
 
     render () {
-        const { errorState, financeData } = this.state;
+        const { financeData, errorState } = this.state;
 
         return (
-            <div>
+            <React.Fragment>
                 {errorState && <Alert
                     alertClose={() => { this.setState({ errorState: null }); }}
                     alertMsg={'There was an error! ' + errorState.message}
                     alertType={'Error'}
                 />}
-                <div>
-                    {financeData ? (
+                {financeData ? (
+                    <React.Fragment>
                         <FinanceDashboard
                             currency = {financeData[0].currency}
-                            financePockets = {financeData[0].pockets}
-                            onError = {this.onError} />
-                    ) : (<p>Loading ...</p>) }
-                    {financeData ? (
+                            balance = {financeData.balance}
+                            onError = {this.onError}
+                        />
                         <TransactionTabs
                             currency = {financeData[0].currency}
-                            transactionBuffer = {financeData[0].transactionBuffer}
-                            onError = {this.onError} />
-                    ) : (<p>Loading ...</p>) }
-                </div>
-            </div>
+                            transactions = {financeData[0].transactions}
+                            onError = {this.onError}
+                            isFinAdmin = {this.props.isFinAdmin}
+                            openAddPayment = {this.props.openAddPayment}
+                            openAddDebt = {this.props.openAddDebt}
+                            openDeleteTransaction = {this.props.openDeleteTransaction}
+                            activeTab = {this.props.activeTab}
+                        />
+                    </React.Fragment>)
+                    : (<p>Loading ...</p>) }
+            </React.Fragment>
         );
     }
 }
 
 FinanceContainer.propTypes = {
-    selectedUser: PropTypes.string
+    selectedUser: PropTypes.string,
+    isFinAdmin: PropTypes.bool.isRequired,
+    openAddPayment: PropTypes.func,
+    openAddDebt: PropTypes.func,
+    openDeleteTransaction: PropTypes.func,
+    activeTab: PropTypes.string
 };
 
 export default FinanceContainer;

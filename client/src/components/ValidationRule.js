@@ -1,4 +1,5 @@
-const namePattern = '^[A-ZÁÉÚŐÓÜÖÍ][A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí.\\s-]*$';
+const name = '[A-ZÁÉÍÓÖŐÚÜŰ][A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+';
+const namePattern = `^((${name}(. | |-)){0,2})${name}$`;
 const nameValidationRule = {
     required: true,
     minLength: 2,
@@ -6,7 +7,7 @@ const nameValidationRule = {
     pattern: namePattern
 };
 
-const spititualNamePattern = '^(-|[A-ZÁÉÚŐÓÜÖÍ][A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí.\\s-]+)$';
+const spititualNamePattern = `^(-|${namePattern})$`;
 const spiritualNameValidationRule = {
     required: true,
     minLength: 1, // '-' means None, and It is only a single char
@@ -14,7 +15,7 @@ const spiritualNameValidationRule = {
     pattern: spititualNamePattern
 };
 
-const addressPattern = '^[0-9]{4} [A-ZÁÉÚŐÓÜÖÍa-záéúőóüöí0-9.,/\\s-]*$';
+const addressPattern = '^[0-9]{4} [A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű0-9.,/\\s-]*$';
 const mobilePattern = '[0-9]{2}/[0-9]{2}-[0-9]{2}-[0-9]{3}';
 
 // emailPattern does not include '@gmail.com'
@@ -24,6 +25,22 @@ const emailValidationRule = {
     required: true,
     minLength: 3,
     pattern: emailPattern.substring(1, emailPattern.length - 1)
+};
+
+const descriptionPattern = '^[0-9A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű.?!,&%$#@+_()=<>*"\'\\s-]*$';
+const descriptionValidationRule = {
+    required: true,
+    minLength: 2,
+    maxLength: 64,
+    pattern: descriptionPattern
+};
+
+const positiveIntegerPattern = '^[1-9][0-9]*$';
+const positiveIntegerRule = {
+    required: true,
+    min: 1,
+    minLength: 1,
+    pattern: positiveIntegerPattern
 };
 
 const validationError = (input) => {
@@ -45,6 +62,8 @@ const validationError = (input) => {
         return 'RANGEOVERFLOW';
     } else if (input.validity.badInput) {
         return 'BADINPUT';
+    } else {
+        return 'BADINPUT';
     }
 };
 
@@ -54,5 +73,7 @@ export {
     emailValidationRule,
     addressPattern,
     mobilePattern,
+    positiveIntegerRule,
+    descriptionValidationRule,
     validationError
 };

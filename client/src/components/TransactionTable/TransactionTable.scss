@@ -1,4 +1,38 @@
-.table {
-    position: relative;
-    z-index: 5;
+@import '../../style/colors';
+@import '../../style/mixins';
+
+.fn-admin-table {
+    .trans {
+        padding: 0;
+        .trans-btn {
+            display: inline-block;
+            width: 50%;
+        }
+    }
+    .trans-btn {
+        font-size: inherit;
+        width: 100%;
+        height: 49px;
+        display: flex;
+        align-items: center;
+        border-radius: 0;
+
+        svg {
+            width: 1rem;
+            margin-right: 10px;
+            fill: #fff;
+        }
+    }
+    tbody {
+        .active {
+            background-color: $accounted-amount;
+        }
+        .deleted {
+            background-color: $primary;
+        }
+        .delete-transaction{
+            width: .9rem;
+            fill: $white;
+        }
+    }
 }

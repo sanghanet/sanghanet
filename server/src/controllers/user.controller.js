@@ -16,9 +16,9 @@ module.exports.login = async (req, res, next) => {
         const registeredUser = await RegisteredUser.find({ email: req.user.email }, 'firstName lastName');
         if (registeredUser.length === 0) { // registeredUser gives empty array if user not found in DB
             log.info(`Following user not register yet: ${req.user.email}`);
-            return res.json({ name: 'Unknown' });
+            return res.json({ status: 'unregistered' });
         }
-        res.json({ name: `${registeredUser.firstName} ${registeredUser.lastName}` });
+        res.json({ status: 'registered' });
     } catch (err) {
         next(err);
     }
@@ -228,7 +228,8 @@ module.exports.uploadProfileImg = async (req, res, next) => {
 module.exports.registereduserdata = async (req, res, next) => {
     log.info('All registered users fetched by:', req.user.email);
     try {
-        const registeredUsers = await RegisteredUser.find(req.body.userId ? { _id: { $in: req.body.userIDs } } : {});
+        const ids = req.body.userIDs;
+        const registeredUsers = await RegisteredUser.find(ids ? { _id: { $in: ids } } : {});
         const level = await Member.find(req.body.userId ? { _id: { $in: req.body.userIDs } } : {}, 'level email');
         const visibleUserData = registeredUsers.map((registeredUser) => {
             return {
