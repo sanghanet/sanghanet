@@ -79,7 +79,7 @@ class Registration extends Component {
     updateProfileImg = (event) => {
         const file = event.target.files[0];
         if (!file) return;
-        if (!file.name.match(/\.(jpg|jpeg|png|svg|webp)$/)) {
+        if (!file.name.match(/\.(jpg|jpeg|png|svg|webp)$/i)) {
             this.setState({ showAlert: true, alertMessage: '', alertParam: 'VALIDPHOTO', alertType: 'ERROR' });
             return;
         }
