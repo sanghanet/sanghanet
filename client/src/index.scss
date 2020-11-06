@@ -71,3 +71,23 @@ input[type="checkbox"] {
         cursor: pointer;
     }
 }
+
+form {
+    select, input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=radio]):not([type=file]):not(.custom) {
+        &.form-control {
+            &, &:focus {
+                color: $white;
+                background: none;
+                box-shadow: inset 1px 1px 5px 0px rgba(0,0,0,0.75) !important;
+                -webkit-box-shadow: inset 1px 1px 5px 0px rgba(0,0,0,0.75);
+                -moz-box-shadow: inset 1px 1px 5px 0px rgba(0,0,0,0.75);
+                appearance: none;
+                -webkit-appearance: none;
+            }
+
+            outline: none;
+            border: none;
+            &:focus { border: solid 1px $_bs-primary; }
+        }
+    }
+}

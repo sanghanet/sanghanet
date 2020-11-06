@@ -25,6 +25,7 @@ class SearchBar extends Component {
                 <Form.Group controlId={controlId} className={'search-field'}>
                     <Form.Control
                         type="text"
+                        className="custom"
                         placeholder={placeholder}
                         onChange={this.handleInputChange}
                         onBlur={onBlur}

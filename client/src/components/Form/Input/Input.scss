@@ -46,15 +46,5 @@ div form {
         width: 18px;
         height: 18px;
     }
-    .form-control { //ezt nem neztem at
-        height: 46px;
-        background: transparent;
-        border: none;
-        color: #d6d6d6;
-        -webkit-appearance: none;
-        &:focus {
-            background: $input-bg;
-            color: inherit;
-        }
-    }
+    .form-control { height: 46px; }
 }

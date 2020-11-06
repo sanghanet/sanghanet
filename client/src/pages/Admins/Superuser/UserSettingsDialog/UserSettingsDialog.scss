@@ -28,14 +28,4 @@
         margin: 0 13px;
         fill: $white;
     }
-
-    .level-of-study, .level-of-study:focus {
-        color: $white;
-        background: none;
-        border: none;
-        cursor: pointer;
-        box-shadow: inset 1px 1px 5px 0px rgba(0,0,0,0.75);
-        -webkit-box-shadow: inset 1px 1px 5px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: inset 1px 1px 5px 0px rgba(0,0,0,0.75);
-    }
 }
