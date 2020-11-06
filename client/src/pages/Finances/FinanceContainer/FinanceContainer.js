@@ -73,7 +73,7 @@ class FinanceContainer extends React.Component {
                             activeTab = {this.props.activeTab}
                         />
                     </React.Fragment>)
-                    : (<p>Loading ...</p>) }
+                    : null }
             </React.Fragment>
         );
     }
