@@ -50,14 +50,14 @@ class TransactionTable extends React.Component {
             for (const transaction of this.props.transactionArray) {
                 const dueDateString = new Date(transaction.dueDate).toDateString();
                 rows.push(
-                    <tr className = {transaction.status} key = {transaction._id}>
-                        <td>{transaction.description}</td>
-                        <td>{dueDateString}</td>
-                        <td>{transaction.amount} {transaction.currency}</td>
+                    <tr className={`finance-row ${transaction.status}`} key = {transaction._id}>
+                        <td className='description-cell'>{transaction.description}</td>
+                        <td className='date-cell'>{dueDateString}</td>
+                        <td className='amount-cell'>{transaction.amount} {transaction.currency}</td>
                         { isFinAdmin &&
                             <>
                                 { transaction.status !== 'deleted'
-                                    ? <td>
+                                    ? <td className='delete-cell'>
                                         <Button
                                             variant='outline-danger'
                                             id={transaction._id}
@@ -111,7 +111,7 @@ class TransactionTable extends React.Component {
                         <th>Due date</th>
                         <th>Amount</th>
                         { isFinAdmin &&
-                            <th>Delete</th>
+                            <th className="delete-column-header"></th>
                         }
                     </tr>
                 </thead>

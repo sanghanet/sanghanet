@@ -23,16 +23,35 @@
             fill: #fff;
         }
     }
+
+    thead {
+        .delete-column-header {
+            width: 1%;
+        }
+    }
+
     tbody {
-        .active {
-            background-color: $accounted-amount;
+        .finance-row {
+            background-color: $active-amount;
+
+            &.deleted {
+                &, &:hover {
+                    filter: invert(.1);
+                    color: $disabled
+                }
+            }
+            &.future { 
+                .date-cell { color: $_bs-success; }
+            }
         }
-        .deleted {
-            background-color: $primary;
-        }
+
         .delete-transaction{
             width: .9rem;
             fill: $white;
+        }
+
+        td.delete-cell {
+            padding: 0;
         }
     }
 }
