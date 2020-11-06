@@ -13,7 +13,7 @@
 
         &>.card-header {
             background-color: $label-bg;
-            height: 88px;
+            height: 104px;
             padding: 0;
             border: 1px solid #969494;
             display: grid;
@@ -41,7 +41,7 @@
                 @include buttonReset;
                 padding: 0 18px;
                 border-left: 1px solid gray;
-                height: 88px;
+                height: 104px;
                 svg {
                     fill: $white;
                     width: 18px;
