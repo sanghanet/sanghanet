@@ -161,6 +161,10 @@
         "UPDATEFAILED": "Sikertelen frissítés. Frissítse az oldalt vagy próbálkozzon később.",
         "TRYAGAINLATER": "Próbálkozzon később.",
         "UNKNOWN_FIELD": "Ismeretlen adatmező."
-    }
+    },
 
+    "pageNotFound": {
+        "PAGENOTFOUND": "Nem találjuk ezt az oldalt",
+        "GOBACK": "Vissza"
+    }
 }

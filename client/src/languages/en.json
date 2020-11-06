@@ -144,7 +144,7 @@
         "WRONGNUMBER": "Incorrect number!"
     },
 
-    "alert" : {
+    "alert": {
         "ERROR": "Error notification",
         "WARNING": "Warning notification",
         "INFO": "Info notification",
@@ -161,6 +161,10 @@
         "UPDATEFAILED": "Update failed. Refresh the page or try it later.",
         "TRYAGAINLATER": "Try again later.",
         "UNKNOWN_FIELD": "Unknown data fiels."
-    }
+    },
 
+    "pageNotFound": {
+        "PAGENOTFOUND": "Page not found",
+        "GOBACK": "Go back"
+    }
 }
