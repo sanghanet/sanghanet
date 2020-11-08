@@ -1,36 +1,41 @@
 #!/usr/bin/env bash
 
-DEPLOY_DIR=../deploy/sanghanet
+DEPLOYMENT_ROOT=../deployment
+BUILD=_build_
+HEROKU=heroku
+AZURE=azure
 
-echo "PRE BUILD"
+echo "===> Compiling optimized React build for HEROKU & AZURE deployment"
 cd client
-FILES=`grep -rl "http://localhost:" ./src`
-echo $FILES | xargs sed -i 's/http:\/\/localhost:[0-9]*/https:\/\/sanghanet.herokuapp.com/g'
-
-echo "1) building the project"
 npm run build
-
-echo "POST BUILD"
-echo $FILES | xargs git checkout
 cd ..
 
-echo "2) copy server directory in a separate git directory"
-rm -rf $DEPLOY_DIR
-mkdir -p $DEPLOY_DIR
-cp -r server/. $DEPLOY_DIR
+echo "===> Copy server directory into deployment's build directory -outside GIT repository"
+rm -rf $DEPLOYMENT_ROOT
+mkdir -p $DEPLOYMENT_ROOT/$BUILD
+cp -r server/. $DEPLOYMENT_ROOT/$BUILD
 
-echo "3) cleaning directories"
-rm -rf $DEPLOY_DIR/logs/*
-rm -rf $DEPLOY_DIR/node_modules/
+echo "===> Cleaning deployment's build directory"
+rm -rf $DEPLOYMENT_ROOT/$BUILD/logs/*
+rm -rf $DEPLOYMENT_ROOT/$BUILD/testDataScripts
+rm -rf $DEPLOYMENT_ROOT/$BUILD/.env.local
+rm -rf $DEPLOYMENT_ROOT/$BUILD/node_modules
 
-echo "4) tweak .env config"
-sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' $DEPLOY_DIR/.env.atlas
-sed -i 's/PORT.*/PORT = process.env.PORT/' $DEPLOY_DIR/.env.atlas
+echo "===> Tweak deployment's build .env.atlas config"
+sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' $DEPLOYMENT_ROOT/$BUILD/.env.atlas
 
-echo "5) set application URL in server.js"
-sed -i 's/http:\/\/localhost:${PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/controllers/passport.controller.js
-sed -i 's/http:\/\/localhost:${APP_PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/routers/auth.router.js
-echo "POST BUILD DONE"
+echo "===> Make Heroku customization and set application URL to sanghanet.herokuapp.com in server.js"
+cp -r $DEPLOYMENT_ROOT/$BUILD $DEPLOYMENT_ROOT/$HEROKU
+cp -r deployment/heroku/Procfile $DEPLOYMENT_ROOT/$HEROKU
+sed -i 's/http:\/\/localhost:${PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOYMENT_ROOT/$HEROKU/src/controllers/passport.controller.js
+sed -i 's/http:\/\/localhost:${APP_PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOYMENT_ROOT/$HEROKU/src/routers/auth.router.js
 
-echo "SanghaNet build is ready for manual deployment to Heroku from " $DEPLOY_DIR
-cd $DEPLOY_DIR
+echo "===> Make Azure customization and set application URL to sanghanet.azurewebsites.net in server.js"
+cp -r $DEPLOYMENT_ROOT/$BUILD $DEPLOYMENT_ROOT/$AZURE
+cp -r deployment/azure/.vscode $DEPLOYMENT_ROOT/$AZURE
+sed -i 's/http:\/\/localhost:${PORT}/https:\/\/sanghanet.azurewebsites.net/g' $DEPLOYMENT_ROOT/$AZURE/src/controllers/passport.controller.js
+sed -i 's/http:\/\/localhost:${APP_PORT}/https:\/\/sanghanet.azurewebsites.net/g' $DEPLOYMENT_ROOT/$AZURE/src/routers/auth.router.js
+
+echo
+echo "HEROKU build is ready for manual deployment from: " $DEPLOYMENT_ROOT/$HEROKU
+echo "AZURE build is ready for manual deployment from: " $DEPLOYMENT_ROOT/$AZURE

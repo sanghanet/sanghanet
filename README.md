@@ -40,7 +40,7 @@
    for example:
    * shell=E:\Dev\Tools\PortableGit\bin\bash.exe
    * script-shell=E:\Dev\Tools\PortableGit\bin\bash.exe
-   
+
 # start the system
 ## Manual (legacy) mode
    1. If you would like to start the front-end + dev server, run `npm start` in the client directory.
@@ -79,21 +79,44 @@ run `npm run dev` in the root directory.
 ### Note
    This script will delete the contents of the /client/build and /server/app folders, then deploy the app in the /client/build folder and finally will copy it's contents to the /server/app folder.
 
-# manual test deployment (tested only on Linux!)
+# manual deployment
 
-   1. Run `npm run deploy` script from the root directory. The script build the product, and copy all necessary files - and modify them - in a separet folder. `cd` this folder.
+Run `npm run deploy` script from the root directory. The script build the product, and copy all necessary files - and modify them - in separate folders for HEROKU and AZURE deployment as well.
 
-   1. Heroku deployment works with a git repo, so create one, and commit all files.
-      * `git init`
-      * `git add .`
-      * `git commit -m 'Deploy on Heroku'`
+**deployment on HEROKU**
 
-   1. Login to Heroku (user & pwd: our test user credentials)
-      *  `heroku login`
-      *  `heroku apps:destroy sanghanet --confirm sanghanet`
-      *  `heroku apps:create sanghanet --region eu`
-      *  `git push heroku master` => the URL here must be: https://sanghanet.herokuapp.com
-      *  `heroku logs` => to get logs
+ Heroku deployment works with a git repo, so create one as decribed below, and commit all files.
+ > NOTE: need to install heroku cli npm package before first deploy. `??? npm install heroku -g ???`
+
+ 1. First cd to ../deployment/heroku folder. This is the home folder of HEROKU deploy.
+
+    * `git init`
+    * `git add .`
+    * `git commit -m 'Deploy on Heroku'`
+
+ 1. Then Login to Heroku (user & pwd: our test user credentials)
+    *  `heroku login`
+    *  `heroku apps:destroy sanghanet --confirm sanghanet`
+    *  `heroku apps:create sanghanet --region eu`
+    *  `git push heroku master` => the URL here must be: https://sanghanet.herokuapp.com
+    *  `heroku logs` => to get logs
+
+**deployment on AZURE**
+
+ Firebase deployment is based on 2 separate project (React frontend + Node.js REST backend).
+ >NOTE: Easy way, use VSCode/Codium + Azure App Service extension!
+
+ 1. Start VSCode/Codium in ../deployment/azure folder!
+ 1. In Azure: App Service, delete `Free Trial > sanghanet` if exists.
+ 1. RIGHT mouse click on `Free Trial` and `Create New Web App...`
+    * if you are not logged in to Azure, login as prompted (user & pwd: our test user credentials)
+    * add webapp name: `sanghanet` (if the name is not correct, the routing will not work!)
+    * select node version: `Node 12 LTS`
+ 1. Creation starting, check `OUTPUT` next to `TERMINAL aka. cli` window
+ 1. When creation is done, click `Deploy`
+ 1. When deployment is completed, check `https://sanghanet.azurewebsites.net/` is UP and RUNNING.
+ 1. \o/
+
 
 # wipe and re-build finance accounts
 Run `npm run buildfinance` in the root directory.

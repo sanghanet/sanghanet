@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "local": "NODE_ENV=local nodemon src/server.js",
     "atlas": "NODE_ENV=atlas nodemon src/server.js",
+    "start": "NODE_ENV=atlas node src/server.js",
     "buildfinance": "NODE_ENV=atlas node ./testDataScripts/generateFinanceAccounts.js",
     "resetlocaldb": "NODE_ENV=local node ./testDataScripts/dbReset.js"
   },
