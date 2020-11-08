@@ -40,7 +40,7 @@
    for example:
    * shell=E:\Dev\Tools\PortableGit\bin\bash.exe
    * script-shell=E:\Dev\Tools\PortableGit\bin\bash.exe
-   
+
 # start the system
 ## Manual (legacy) mode
    1. If you would like to start the front-end + dev server, run `npm start` in the client directory.
@@ -68,8 +68,8 @@ run `npm run dev` in the root directory.
    Alternatively you can run `npm run build` in the root directory. This command will:
 
       - set DEV_SERVER variable to 0
-      - run client build and copy to server
-      - run backend atlas server
+      - run build the client and then move client/build to server/app
+      - run backend w/ atlas server
 
 # test build
    Run the `npm run-script build` in the client folder.

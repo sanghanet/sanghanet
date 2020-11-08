@@ -1,36 +1,40 @@
 #!/usr/bin/env bash
 
-DEPLOY_DIR=../deploy/sanghanet
+DEPLOYMENT_ROOT=../deployment
+SANGHANET=sanghanet
+SANGHANETLIVE=sanghanetlive
 
-echo "PRE BUILD"
+echo "Remove old builds, and prepare folder structure."
+rm -rf $DEPLOYMENT_ROOT
+mkdir -p $DEPLOYMENT_ROOT
+mkdir -p $DEPLOYMENT_ROOT/$SANGHANET
+mkdir $DEPLOYMENT_ROOT/$SANGHANETLIVE
+
+echo "Prepare React production build for Sanghanet"
 cd client
-FILES=`grep -rl "http://localhost:" ./src`
-echo $FILES | xargs sed -i 's/http:\/\/localhost:[0-9]*/https:\/\/sanghanet.herokuapp.com/g'
-
-echo "1) building the project"
+git clean -fX public/images/ # remove test images w/ random names
+# FILES=`grep -rl "http://localhost:" ./src`
+# echo $FILES | xargs sed -i 's/http:\/\/localhost:[0-9]*/https:\/\/sanghanet.herokuapp.com/g'
 npm run build
-
-echo "POST BUILD"
-echo $FILES | xargs git checkout
+mv build ../$DEPLOYMENT_ROOT/$SANGHANET/app
+# echo $FILES | xargs git checkout
 cd ..
 
-echo "2) copy server directory in a separate git directory"
-rm -rf $DEPLOY_DIR
-mkdir -p $DEPLOY_DIR
-cp -r server/. $DEPLOY_DIR
+echo "Copy node.js backend and tweak .env.atlas"
+mkdir $DEPLOYMENT_ROOT/backend
+mkdir $DEPLOYMENT_ROOT/backend/logs
+cp server/.env.atlas $DEPLOYMENT_ROOT/backend/
+cp server/package* $DEPLOYMENT_ROOT/backend/
+cp -r server/src/ $DEPLOYMENT_ROOT/backend/src
+cp server/Procfile $DEPLOYMENT_ROOT/$SANGHANET
+sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' $DEPLOYMENT_ROOT/backend/.env.atlas
 
-echo "3) cleaning directories"
-rm -rf $DEPLOY_DIR/logs/*
-rm -rf $DEPLOY_DIR/node_modules/
+echo "Prepare Node.js backend for Heroku deployment"
+cd $DEPLOYMENT_ROOT/$SANGHANET
+cp -rT ../backend ./
+sed -i 's/PORT.*/PORT = process.env.PORT/' .env.atlas
+sed -i 's/http:\/\/localhost:${PORT}/https:\/\/sanghanet.herokuapp.com/g' src/controllers/passport.controller.js
+sed -i 's/http:\/\/localhost:${APP_PORT}/https:\/\/sanghanet.herokuapp.com/g' src/routers/auth.router.js
+cd -
 
-echo "4) tweak .env config"
-sed -i 's/DEV_SERVER.*/DEV_SERVER = 0/' $DEPLOY_DIR/.env.atlas
-sed -i 's/PORT.*/PORT = process.env.PORT/' $DEPLOY_DIR/.env.atlas
-
-echo "5) set application URL in server.js"
-sed -i 's/http:\/\/localhost:${PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/controllers/passport.controller.js
-sed -i 's/http:\/\/localhost:${APP_PORT}/https:\/\/sanghanet.herokuapp.com/g' $DEPLOY_DIR/src/routers/auth.router.js
-echo "POST BUILD DONE"
-
-echo "SanghaNet build is ready for manual deployment to Heroku from " $DEPLOY_DIR
-cd $DEPLOY_DIR
+echo "SanghaNet build is ready for manual deployment to Heroku from: " $DEPLOYMENT_ROOT/$SANGHANET
