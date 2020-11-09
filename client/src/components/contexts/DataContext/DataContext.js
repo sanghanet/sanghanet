@@ -1,7 +1,11 @@
 import React from 'react';
 
 export const DataContext = React.createContext({
-    userName: 'unknown',
+    userName: {
+        firstName: '',
+        lastName: '',
+        fullName: ''
+    },
     avatarSrc: '/images/noAvatar.svg',
     setUsername: () => {},
     setAvatarSrc: () => {}
