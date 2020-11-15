@@ -46,7 +46,7 @@ class AdminFinance extends React.Component {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
     }
 
-    handleTransaction = (description, amount, pocketName, transactionType) => {
+    handleTransaction = (description, amount, pocketName, transactionType, dueDate) => {
         // TODO:to avoid confusion in case of duplicate name - name search should display name with emails as a result (Kis Pista kis.p1@gmail.com)
         // TODO:DB: why pocket field is present in every transaction
 
@@ -57,7 +57,8 @@ class AdminFinance extends React.Component {
                 "description": "${description}",
                 "amount": "${amount}",
                 "transactionType": "${transactionType}",
-                "pocket": "${pocketName}"
+                "pocket": "${pocketName}",
+                "date": "${dueDate}"
             }`
         })
             .then((data) => {

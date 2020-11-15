@@ -39,12 +39,19 @@ function AddTransactionDialog (props) {
     const handleDateChange = (event) => {
         const input = event.target;
         setDueDate(input.value);
-        const validationResult = new Date(input.value) <= Date.now() ? 'WRONGDATE' : '';
+        const yearMonthDayString = new Date(Date.now()).toISOString().slice(0, 10);
+        const validationResult = new Date(input.value) < new Date(yearMonthDayString) ? 'WRONGDATE' : '';
         setErrorTokenDate(validationResult);
         setDueDateValid(validationResult === '');
     };
     const handleSubmit = (event) => {
-        addPayment(description, parseInt(amount), pocketName, transactionType);
+        addPayment(
+            description,
+            parseInt(amount),
+            pocketName,
+            transactionType,
+            transactionType === 'payment' ? null : dueDate
+        );
         event.preventDefault();
     };
 
@@ -53,7 +60,7 @@ function AddTransactionDialog (props) {
             title = {`Add ${transactionType}`}
             reject = 'Cancel'
             accept = 'Add'
-            acceptDisabled = {!(descriptionValid && amountValid && dueDateValid)}
+            acceptDisabled = {!(descriptionValid && amountValid && (transactionType === 'payment' || dueDateValid))}
             handleClose = {closeDialog}
             handleAccept = {handleSubmit}
         >
