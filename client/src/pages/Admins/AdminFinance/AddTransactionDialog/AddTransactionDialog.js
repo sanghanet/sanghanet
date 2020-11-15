@@ -10,11 +10,13 @@ import './AddTransactionDialog.scss';
 function AddTransactionDialog (props) {
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
+    const [dueDate, setDueDate] = useState('');
     const [errorTokenDescription, setErrorTokenDescription] = useState('');
     const [errorTokenAmount, setErrorTokenAmount] = useState('');
+    const [errorTokenDate, setErrorTokenDate] = useState('');
     const [descriptionValid, setDescriptionValid] = useState(false);
     const [amountValid, setAmountValid] = useState(false);
-    // const [dueDate, setDueDate] = useState(Date.now());
+    const [dueDateValid, setDueDateValid] = useState(false);
 
     const { transactionType, closeDialog, addPayment, pocketName, selectedUserEmail, selectedUserName } = props;
     const { validationMsg } = useContext(UIcontext).dictionary;
@@ -34,7 +36,13 @@ function AddTransactionDialog (props) {
         setErrorTokenAmount(validationResult);
         setAmountValid(validationResult === '');
     };
-
+    const handleDateChange = (event) => {
+        const input = event.target;
+        setDueDate(input.value);
+        const validationResult = new Date(input.value) <= Date.now() ? 'WRONGDATE' : '';
+        setErrorTokenDate(validationResult);
+        setDueDateValid(validationResult === '');
+    };
     const handleSubmit = (event) => {
         addPayment(description, parseInt(amount), pocketName, transactionType);
         event.preventDefault();
@@ -45,7 +53,7 @@ function AddTransactionDialog (props) {
             title = {`Add ${transactionType}`}
             reject = 'Cancel'
             accept = 'Add'
-            acceptDisabled = {!(descriptionValid && amountValid)}
+            acceptDisabled = {!(descriptionValid && amountValid && dueDateValid)}
             handleClose = {closeDialog}
             handleAccept = {handleSubmit}
         >
@@ -54,6 +62,7 @@ function AddTransactionDialog (props) {
                 <p className='payment-label payment-name'>Name: {selectedUserName}</p>
                 <p className='payment-label payment-name'>Email: {selectedUserEmail}</p>
                 <p className='payment-label payment-pocket'>Pocket: {pocketName}</p>
+
                 <Form.Label htmlFor="add-description-label" className="payment-label">Description</Form.Label>
                 <Form.Control
                     id="add-description-label"
@@ -62,20 +71,21 @@ function AddTransactionDialog (props) {
                     {...descriptionValidationRule}
                     autoFocus
                 ></Form.Control>
-                <span className="error" aria-live="polite">{validationMsg[errorTokenDescription]}</span><br></br>
+                <span className="error" aria-live="polite">{validationMsg[errorTokenDescription]}</span>
 
-                {/* TODO: Date picker here! */}
                 { transactionType === 'debt' &&
-                    <span className="error" aria-live="polite">TODO: Date picker here!</span>
-                    // <>
-                    //     <Form.Label htmlFor="add-dueDate-label" className="payment-label">Due</Form.Label>
-                    //     <Form.Control
-                    //         id="add-dueDate-label"
-                    //         value={amount}
-                    //         onChange={handlePaymentChange}
-                    //         {...positiveIntegerRule}
-                    //     ></Form.Control>
-                    // </>
+                    <>
+                        <Form.Label htmlFor="add-dueDate-label" className="payment-label">Due from</Form.Label>
+                        <Form.Control
+                            type="date"
+                            className="date-picker"
+                            onKeyDown={(e) => e.preventDefault()}
+                            id="add-dueDate-label"
+                            value={dueDate}
+                            onChange={handleDateChange}
+                        ></Form.Control>
+                        <span className="error" aria-live="polite">{validationMsg[errorTokenDate]}</span>
+                    </>
                 }
 
                 <Form.Label htmlFor="add-payment-label" className="payment-label">Amount</Form.Label>

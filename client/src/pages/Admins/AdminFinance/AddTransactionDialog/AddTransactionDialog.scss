@@ -1,14 +1,31 @@
 @import '../../../../style/colors';
 @import '../../../../style/mixins';
 
-.payment-label {
-    color: #fff;
-    font-size: 16px;
-}
-.error {
-    display: block;
-    min-height: 24px;
-    letter-spacing: 1px;
-    color: $error;
-    font-weight: 400;
+.add-payment-dialog {
+    .payment-label {
+        color: #fff;
+        font-size: 16px;
+    }
+    .error {
+        display: block;
+        height: 30px;
+        letter-spacing: 1px;
+        color: $error;
+        font-weight: 400;
+    }
+    .date-picker {
+        padding-right: 0;
+    }
+    .date-picker::-webkit-calendar-picker-indicator {
+        box-sizing: border-box;
+        width: 54%;
+        margin-left: 0;
+        height: 40px;
+        padding: 10px 0 10px 40%;
+        cursor: pointer;
+        filter: invert(1);
+    }
+    .date-picker::-webkit-calendar-picker-indicator:focus {
+        outline-color: darkgray;
+    }
 }

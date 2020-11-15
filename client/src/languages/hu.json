@@ -141,7 +141,8 @@
         "RANGEUNDERFLOW": "Túl kicsi a szám!",
         "RANGEOVERFLOW": "Túl nagy a szám!",
         "BADINPUT": "Szám szükséges!",
-        "WRONGNUMBER": "Téves szám!"
+        "WRONGNUMBER": "Téves szám!",
+        "WRONGDATE": "Múltbéli dátumot nem választhatsz"
     },
 
     "alert" : {

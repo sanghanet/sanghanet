@@ -141,7 +141,8 @@
         "RANGEUNDERFLOW": "Too low number!",
         "RANGEOVERFLOW": "Too big number!",
         "BADINPUT": "Please enter a number!",
-        "WRONGNUMBER": "Incorrect number!"
+        "WRONGNUMBER": "Incorrect number!",
+        "WRONGDATE": "Don't select a past date"
     },
 
     "alert": {
