@@ -58,7 +58,7 @@ class AdminFinance extends React.Component {
                 "amount": "${amount}",
                 "transactionType": "${transactionType}",
                 "pocket": "${pocketName}",
-                "date": "${dueDate}"
+                "dueDate": "${dueDate}"
             }`
         })
             .then((data) => {

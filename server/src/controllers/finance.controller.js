@@ -57,7 +57,7 @@ module.exports.getFinanceData = async (req, res) => {
 
 module.exports.addTransaction = async (req, res) => {
     let amount = null; // Default value
-    let date = Date.now(); // In case of payment, due date is always the date of payment.s
+    let date = Date.now(); // In case of payment, due date is always the date of payment.
     switch (req.body.transactionType) {
         case 'payment':
             amount = req.body.amount; break;
