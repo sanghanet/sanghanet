@@ -4,6 +4,7 @@ const log = log4js.getLogger('controllers/finance.controller.js');
 const { mongoose } = require('../controllers/mongoDB.controller');
 const { FinanceAccount } = require('../models/financeAccount.model');
 const { FinanceTransaction } = require('../models/financeTransaction.model');
+const { DeletedTransaction } = require('../models/deletedTransaction.model');
 
 const sumPocket = (result, pocket) => {
     let counter = 0;
@@ -99,10 +100,11 @@ module.exports.deleteTransaction = async (req, res) => {
         const userEmail = req.body.email;
         const targetPocket = `transactions.${req.body.pocket}`;
         const targetTransactionDeleted = targetPocket + '.$.deleted'; // '$' will get the array index in the query!
-        const deleteObject = {
+        const deleteObject = new DeletedTransaction({
             by: req.user.email,
             date: Date.now()
-        };
+        });
+
         await FinanceAccount.findOneAndUpdate(
             {
                 email: userEmail,

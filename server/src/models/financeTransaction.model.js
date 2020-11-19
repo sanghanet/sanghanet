@@ -1,4 +1,5 @@
 const { mongoose } = require('../controllers/mongoDB.controller');
+const { DeletedTransactionSchema } = require('./deletedTransaction.model');
 
 const FinanceTransactionSchema = mongoose.Schema({
     amount: { type: Number, default: 0 },
@@ -10,7 +11,7 @@ const FinanceTransactionSchema = mongoose.Schema({
     originatorId: mongoose.ObjectId,
     paymentMethod: String,
     status: { type: String, default: '' }, // calculated on the fly, during fetch
-    deleted: { type: Object, default: null }
+    deleted: { type: DeletedTransactionSchema, default: null }
 });
 
 module.exports.FinanceTransactionSchema = FinanceTransactionSchema;

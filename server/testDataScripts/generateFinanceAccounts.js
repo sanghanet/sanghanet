@@ -7,6 +7,7 @@ const { initDBConnection } = require('../src/controllers/mongoDB.controller');
 
 const { FinanceAccount } = require('../src/models/financeAccount.model');
 const { FinanceTransaction } = require('../src/models/financeTransaction.model');
+const { DeletedTransaction } = require('../src/models/deletedTransaction.model');
 
 const oneMinute = 60 * 1000;
 const oneHour = 60 * oneMinute;
@@ -23,10 +24,10 @@ const generateRandomTransactions = (pocket) => {
     for (let i = 0; i < 10; i++) {
         const amount = pocket === 'angel' ? Math.floor(Math.random() * 10000) : Math.floor(Math.random() * 100000) - 50000;
         const dueDate = amount <= 0 ? date + dateOffset[i] : date;
-        const deleted = Math.random() < 0.2 ? {
+        const deleted = Math.random() < 0.2 ? new DeletedTransaction({
             by: 'mindblowing.js@gmail.com',
             date: date
-        } : null;
+        }) : null;
         randomTransactions.push(new FinanceTransaction({
             amount: amount,
             description: 'Randomly generated test transaction',
