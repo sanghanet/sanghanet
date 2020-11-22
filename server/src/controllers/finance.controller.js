@@ -58,13 +58,17 @@ module.exports.getFinanceData = async (req, res) => {
 
 module.exports.addTransaction = async (req, res) => {
     let amount = null; // Default value
-    let date = Date.now(); // In case of payment, due date is always the date of payment.
+    const dateNow = Date.now(); // In case of payment, due date is always the date of payment.
+    let dueDateToDB;
+
     switch (req.body.transactionType) {
         case 'payment':
-            amount = req.body.amount; break;
+            amount = req.body.amount;
+            dueDateToDB = dateNow;
+            break;
         case 'debt':
             amount = -req.body.amount;
-            date = req.body.dueDate;
+            dueDateToDB = req.body.dueDate;
             break;
     }
 
@@ -73,8 +77,8 @@ module.exports.addTransaction = async (req, res) => {
         description: req.body.description,
         currency: 'HUF',
         pocket: req.body.pocket,
-        entryDate: date,
-        dueDate: date
+        entryDate: dateNow,
+        dueDate: dueDateToDB
     });
 
     try {
