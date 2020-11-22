@@ -128,7 +128,7 @@ class AdminFinance extends React.Component {
                         transactionType = {transactionType}
                         addPayment = {this.handleTransaction}
                         closeDialog = {this.closeTransactionDialog}
-                        selectedUserEmail= {selectedUserEmail}
+                        selectedUserEmail = {selectedUserEmail}
                         selectedUserName = {selectedUserName}
                         pocketName = {paymentDialogPocketName}
                     />
@@ -137,16 +137,16 @@ class AdminFinance extends React.Component {
                     <DeleteTransactionDialog
                         deleteTransaction = {this.handleDeleteTransaction}
                         closeDialog = {this.closeDeleteTransaction}
-                        selectedUserEmail= {selectedUserEmail}
+                        selectedUserEmail = {selectedUserEmail}
                         selectedUserName = {selectedUserName}
                         transaction = {transaction}
                     />
                 }
                 { showAlert &&
                     <Alert
-                        alertMsg={alertMessage}
-                        alertType={alertType}
-                        alertClose={this.closeAlert}
+                        alertMsg = {alertMessage}
+                        alertType = {alertType}
+                        alertClose = {this.closeAlert}
                     />
                 }
             </React.Fragment>

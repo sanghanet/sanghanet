@@ -78,7 +78,8 @@ module.exports.addTransaction = async (req, res) => {
         currency: 'HUF',
         pocket: req.body.pocket,
         entryDate: dateNow,
-        dueDate: dueDateToDB
+        dueDate: dueDateToDB,
+        by: req.user.email
     });
 
     try {

@@ -35,7 +35,8 @@ const generateRandomTransactions = (pocket) => {
             entryDate: date,
             dueDate: dueDate,
             pocket: pocket,
-            deleted: deleted
+            deleted: deleted,
+            by: 'mindblowing.js@gmail.com'
         }));
     }
     return randomTransactions;
