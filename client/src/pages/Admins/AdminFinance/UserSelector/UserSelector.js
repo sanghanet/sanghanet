@@ -16,7 +16,7 @@ class UserSelector extends React.Component {
             selectedUser: 'No user selected'
         };
 
-    onKeyPress = (e) => {
+    onKeyPress = async (e) => {
         let { indexOfActiveItem: index, searchResults, showSuggestions } = this.state;
         if (e.keyCode === 38 || e.keyCode === 40) {
             e.preventDefault();
@@ -30,7 +30,7 @@ class UserSelector extends React.Component {
             this.setState({ indexOfActiveItem: index });
         }
         if (e.keyCode === 13 && showSuggestions) {
-            this.setState({
+            await this.setState({
                 showSuggestions: false,
                 userInput: searchResults[index],
                 searchResults: [],
@@ -75,12 +75,14 @@ class UserSelector extends React.Component {
         });
     }
 
-    onSuggestionClick = (e) => {
-        this.setState({
+    onSuggestionClick = async (e) => {
+        await this.setState({
             searchResults: [],
             showSuggestions: false,
             userInput: e.currentTarget.innerText
         });
+
+        this.onSubmit();
     }
 
     onSubmit = () => {
@@ -141,14 +143,12 @@ class UserSelector extends React.Component {
     render () {
         const {
             onInputChange,
-            onSubmit,
             SuggestionList,
             onKeyPress,
             state: {
                 showSuggestions,
                 userInput,
                 warningMessage,
-                buttonDisabled,
                 selectedUser
             }
         } = this;
@@ -157,7 +157,6 @@ class UserSelector extends React.Component {
             <div className="selector">
                 <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} onKeyDown={onKeyPress} ></input>
                 {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
-                <button onClick = {onSubmit} disabled = {buttonDisabled}>Select</button>
                 <div className = "user-info">{selectedUser}</div>
                 <span>{warningMessage}</span>
             </div>
