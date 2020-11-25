@@ -47,9 +47,10 @@ class UserSelector extends React.Component {
         const maxDisplayedSuggestions = 10;
         const { state: { suggestions, indexOfActiveItem: index } } = this;
         const userInput = e.currentTarget.value;
+        const filterRegex = new RegExp(`(^|\\s)${userInput.toLowerCase()}`);
 
         let searchResults = suggestions.filter((suggestion) => {
-            return userInput && suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1;
+            return userInput && suggestion.toLowerCase().match(filterRegex);
         });
 
         if (searchResults.length > maxDisplayedSuggestions) {
@@ -125,7 +126,7 @@ class UserSelector extends React.Component {
 
         this.setState({
             rawUserData: result,
-            suggestions: nameList
+            suggestions: nameList.sort()
         });
     }
 
