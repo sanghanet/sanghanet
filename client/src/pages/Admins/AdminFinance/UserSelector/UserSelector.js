@@ -116,6 +116,7 @@ class UserSelector extends React.Component {
 
     componentDidMount () {
         this.getUserList();
+        document.getElementById('selectedUser').focus();
     }
 
     getUserList = async () => {
