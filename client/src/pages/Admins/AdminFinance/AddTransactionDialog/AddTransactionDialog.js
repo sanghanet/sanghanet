@@ -1,4 +1,7 @@
 import React, { useState, useContext } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import CustomDateInput from '../../../../components/Form/CustomDateInput/CustomDateInput';
 import PropTypes from 'prop-types';
 import GenericDialog from '../../../../components/Form/GenericDialog/GenericDialog';
 import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
@@ -10,7 +13,7 @@ import './AddTransactionDialog.scss';
 function AddTransactionDialog (props) {
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
-    const [dueDate, setDueDate] = useState('');
+    const [dueDate, setDueDate] = useState(Date.now());
     const [errorTokenDescription, setErrorTokenDescription] = useState('');
     const [errorTokenAmount, setErrorTokenAmount] = useState('');
     const [errorTokenDate, setErrorTokenDate] = useState('');
@@ -36,11 +39,10 @@ function AddTransactionDialog (props) {
         setErrorTokenAmount(validationResult);
         setAmountValid(validationResult === '');
     };
-    const handleDateChange = (event) => {
-        const input = event.target;
-        setDueDate(input.value);
+    const handleDateChange = (date) => {
+        setDueDate(date);
         const yearMonthDayString = new Date(Date.now()).toISOString().slice(0, 10);
-        const validationResult = new Date(input.value) < new Date(yearMonthDayString) ? 'WRONGDATE' : '';
+        const validationResult = date < new Date(yearMonthDayString) ? 'WRONGDATE' : '';
         setErrorTokenDate(validationResult);
         setDueDateValid(validationResult === '');
     };
@@ -83,14 +85,20 @@ function AddTransactionDialog (props) {
                 { transactionType === 'debt' &&
                     <>
                         <Form.Label htmlFor="add-dueDate-label" className="payment-label">Due from</Form.Label>
-                        <Form.Control
+                        <DatePicker
+                            id="add-dueDate-label"
+                            selected={dueDate}
+                            onChange={handleDateChange}
+                            customInput={<CustomDateInput />}
+                        />
+                        {/* <Form.Control
                             type="date"
                             className="date-picker"
                             onKeyDown={(e) => e.preventDefault()}
                             id="add-dueDate-label"
                             value={dueDate}
                             onChange={handleDateChange}
-                        ></Form.Control>
+                        ></Form.Control> */}
                         <span className="error" aria-live="polite">{validationMsg[errorTokenDate]}</span>
                     </>
                 }
