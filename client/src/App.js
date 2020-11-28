@@ -33,7 +33,7 @@ class App extends Component {
                 isYogaAdmin: false,
                 setAccess: this.setAccess,
 
-                lang: 'hu',
+                lang: localStorage.getItem('lang'),
                 dictionary: dictionaryList[localStorage.getItem('lang')],
                 changeLang: this.changeLang
             },
@@ -42,13 +42,19 @@ class App extends Component {
                 userName: {
                     firstName: '',
                     lastName: '',
-                    fullName: ''
+                    fullName: '',
+                    nameOrder: localStorage.getItem('lang') === 'hu' ? -1 : 1
                 },
                 avatarSrc: '/images/noAvatar.svg',
                 setUsername: this.setUsername,
                 setAvatarSrc: this.setAvatarSrc
             }
         };
+    }
+
+    getFullName = (firstName, lastName) => {
+        const { lang } = this.state.uiContext;
+        return lang === 'hu' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`;
     }
 
     toggleHamburger = () => {
@@ -81,7 +87,7 @@ class App extends Component {
         uiContext.lang = lang;
         uiContext.dictionary = dictionaryList[lang];
 
-        userName.fullName = lang === 'hu' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`;
+        userName.fullName = this.getFullName(firstName, lastName);
         dataContext.userName = userName;
 
         this.setState({ uiContext, dataContext });
@@ -89,12 +95,11 @@ class App extends Component {
 
     setUsername = (firstName, lastName) => {
         const { dataContext } = this.state;
-        const lang = localStorage.getItem('lang');
         dataContext.userName = {
             firstName: firstName,
             lastName: lastName,
             // Full name order depends on language
-            fullName: lang === 'hu' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`
+            fullName: this.getFullName(firstName, lastName)
         }
         this.setState({ dataContext });
     }

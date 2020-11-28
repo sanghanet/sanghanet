@@ -7,6 +7,7 @@ import Alert from '../../components/Alert/Alert';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 import MemberDetails from '../MemberDetails/MemberDetails';
+import ActiveUserNameWrapper from '../NameWrappers/ActiveUserName/ActiveUserNameWrapper';
 
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
 import { ReactComponent as CrossIcon } from '../icons/cross.svg';
@@ -181,7 +182,7 @@ const Header = (props) => {
                             className="d-none d-sm-flex"
                         />
                         <Figure.Caption className={`avatar-name d-none ${searching ? '' : 'd-sm-flex'}`} as='h2'>
-                            {userName.fullName}
+                            <ActiveUserNameWrapper />
                         </Figure.Caption>
                     </Figure>
                     <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
