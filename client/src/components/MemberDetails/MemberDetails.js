@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import GenericDialog from '../Form/GenericDialog/GenericDialog';
+import AnyUserNameWrapper from '../NameWrappers/AnyUserName/AnyUserNameWrapper'
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import { ReactComponent as CopyIcon } from './copy.svg';
 import './MemberDetails.scss';
@@ -40,7 +41,12 @@ const MemberDetails = (props) => {
 
     return (
         <GenericDialog
-            title={`${data.firstName} ${data.lastName}`}
+            title={
+                <AnyUserNameWrapper
+                    firstName={data.firstName}
+                    lastName={data.lastName}
+                />
+            }
             reject={REJECT}
             handleClose={closeDialog}
         >

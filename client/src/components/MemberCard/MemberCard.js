@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import AnyUserNameWrapper from '../NameWrappers/AnyUserName/AnyUserNameWrapper'
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './MemberCard.scss';
 
 const MemberCard = (props) => {
