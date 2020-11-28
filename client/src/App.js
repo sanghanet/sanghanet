@@ -57,6 +57,8 @@ class App extends Component {
         return lang === 'hu' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`;
     }
 
+    getNameOrder = () => this.state.uiContext.lang === 'hu' ? -1 : 1;
+
     toggleHamburger = () => {
         const { uiContext } = this.state;
         uiContext.isHamburgerOpen = !this.state.uiContext.isHamburgerOpen;
@@ -87,8 +89,11 @@ class App extends Component {
         uiContext.lang = lang;
         uiContext.dictionary = dictionaryList[lang];
 
-        userName.fullName = this.getFullName(firstName, lastName);
-        dataContext.userName = userName;
+        dataContext.userName = {
+            ...userName,
+            fullName: this.getFullName(firstName, lastName),
+            nameOrder: this.getNameOrder()
+        };
 
         this.setState({ uiContext, dataContext });
     };
@@ -99,7 +104,8 @@ class App extends Component {
             firstName: firstName,
             lastName: lastName,
             // Full name order depends on language
-            fullName: this.getFullName(firstName, lastName)
+            fullName: this.getFullName(firstName, lastName),
+            nameOrder: this.getNameOrder()
         }
         this.setState({ dataContext });
     }
