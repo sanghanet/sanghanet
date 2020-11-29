@@ -84,21 +84,14 @@ function AddTransactionDialog (props) {
 
                 { transactionType === 'debt' &&
                     <>
-                        <Form.Label htmlFor="add-dueDate-label" className="payment-label">Due from</Form.Label>
+                        <Form.Label htmlFor="add-dueDate-label" className="payment-label">Due from (click on the field to select)</Form.Label>
                         <DatePicker
                             id="add-dueDate-label"
                             selected={dueDate}
                             onChange={handleDateChange}
                             customInput={<CustomDateInput />}
+                            className='form-control'
                         />
-                        {/* <Form.Control
-                            type="date"
-                            className="date-picker"
-                            onKeyDown={(e) => e.preventDefault()}
-                            id="add-dueDate-label"
-                            value={dueDate}
-                            onChange={handleDateChange}
-                        ></Form.Control> */}
                         <span className="error" aria-live="polite">{validationMsg[errorTokenDate]}</span>
                     </>
                 }
