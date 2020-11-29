@@ -84,7 +84,7 @@ function AddTransactionDialog (props) {
 
                 { transactionType === 'debt' &&
                     <>
-                        <Form.Label htmlFor="add-dueDate-label" className="payment-label">Due from (click on the field to select)</Form.Label>
+                        <Form.Label htmlFor="add-dueDate-label" className="payment-label">Due from (click on the field to select date)</Form.Label>
                         <DatePicker
                             id="add-dueDate-label"
                             selected={dueDate}

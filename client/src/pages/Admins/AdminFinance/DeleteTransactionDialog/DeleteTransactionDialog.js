@@ -21,15 +21,15 @@ function DeleteTransactionDialog (props) {
             handleClose = {closeDialog}
             handleAccept = {handleSubmit}
         >
-            <>
-                <h5>User  : {selectedUserName}</h5>
-                <h5>Email : {selectedUserEmail}</h5>
-                <h5>Pocket: {transaction.pocket}</h5>
-                <h5>--- Transaction --- </h5>
-                <h6>{transaction.description}</h6>
-                <h6>{`${transaction.amount} ${transaction.currency}`}</h6>
-                <h6>{transaction.duedate}</h6>
-            </>
+            <div className='delete-container'>
+                <p>User: {selectedUserName}</p>
+                <p>Email: {selectedUserEmail}</p>
+                <p>Pocket: {transaction.pocket}</p>
+                <h4>Transaction details:</h4>
+                <p>Description: {transaction.description}</p>
+                <p>Amount: {`${transaction.amount} ${transaction.currency}`}</p>
+                <p>Due date: {transaction.duedate}</p>
+            </div>
         </GenericDialog>
     );
 }
