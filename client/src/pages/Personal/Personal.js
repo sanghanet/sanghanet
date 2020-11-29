@@ -55,7 +55,7 @@ const Personal = (props) => {
         setAlertType(type);
     };
 
-    const closeAlert = () => { displayAlert( false, '', ''); };
+    const closeAlert = () => { displayAlert(false, '', ''); };
 
     // componentDidMount
     useEffect(() => {
@@ -81,7 +81,6 @@ const Personal = (props) => {
                 setEmMobile(data[0].emMobile);
                 setEmEmail(data[0].emEmail);
                 setEmContactVisible(data[0].emContactVisible);
-
             }).catch((err) => {
                 displayAlert(true, err.message, 'ERROR');
             });
@@ -92,16 +91,14 @@ const Personal = (props) => {
     };
 
     const updateItem = (data) => {
-        switch (Object.keys(data)[0]){
+        switch (Object.keys(data)[0]) {
             case 'firstName':
-                    const fn = data.firstName;
-                    setFirstName(fn);
-                    setUsername(fn, lastName);
+                setFirstName(data.firstName);
+                setUsername(data.firstName, lastName);
                 break;
             case 'lastName':
-                    const ln = data.lastName;
-                    setLastName(ln);
-                    setUsername(firstName, ln);
+                setLastName(data.lastName);
+                setUsername(firstName, data.lastName);
                 break;
             case 'spiritualName': setSpiritualName(data.spiritualName); break;
             case 'birthday': setBirthday(data.birthday); break;
@@ -144,7 +141,7 @@ const Personal = (props) => {
     const handleItemVisibility = (id) => {
         let itemValue = null;
         const itemKey = `${id}Visible`;
-        switch (itemKey){
+        switch (itemKey) {
             case 'birthdayVisible': itemValue = birthdayVisible; break;
             case 'genderVisible': itemValue = genderVisible; break;
             case 'levelVisible': itemValue = levelVisible; break;

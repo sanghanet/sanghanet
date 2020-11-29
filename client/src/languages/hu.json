@@ -82,7 +82,7 @@
     "personalPagePlaceholders": {
         "REQUIREDFORMAT": "Elvárt formátum: ",
         "ENTERVALUE": "Adat feltöltés",
-        "DATE": "hónap/nap/év",
+        "DATE": "kattints a mezőre a beállításhoz",
         "GENDERFORMAT": "válassz a listából",
         "FEMALE": "Nő",
         "MALE": "Férfi",

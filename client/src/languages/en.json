@@ -82,7 +82,7 @@
     "personalPagePlaceholders": {
         "REQUIREDFORMAT": "Required format: ",
         "ENTERVALUE": "Enter a value",
-        "DATE": "month/day/year",
+        "DATE": "click on the field to select",
         "GENDERFORMAT": "choose from the list",
         "FEMALE": "Female",
         "MALE": "Male",

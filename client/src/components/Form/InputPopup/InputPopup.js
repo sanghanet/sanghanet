@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+import CustomDateInput from '../CustomDateInput/CustomDateInput';
 import { validationError } from '../../ValidationRule';
 import { UIcontext } from '../../contexts/UIcontext/UIcontext';
 
@@ -60,22 +64,34 @@ class InputPopup extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <span className="hint">{REQUIREDFORMAT} {modalFormat}</span>
-                        <Form.Control
-                            as={modalInputAs}
-                            type={modalInputType}
-                            id={modalId}
-                            value={currentValue}
-                            onChange={this.handleChange}
-                            autoFocus
-                            {...modalValidation}
-                        >
-                            { modalOptions
-                                ? modalOptions.map((option, index) => {
-                                    return (<option value={option} key={index}>{modalOptionsText[index]}</option>);
-                                })
-                                : null
-                            }
-                        </Form.Control>
+                        {modalInputType === 'date'
+                            ? <DatePicker
+                                id="add-dueDate-label"
+                                // selected={dueDate}
+                                // onChange={handleDateChange}
+                                customInput={<CustomDateInput />}
+                                className='form-control'
+                                showMonthDropdown
+                                showYearDropdown
+                                dropdownMode="select"
+                            />
+                            : <Form.Control
+                                as={modalInputAs}
+                                type={modalInputType}
+                                id={modalId}
+                                value={currentValue}
+                                onChange={this.handleChange}
+                                autoFocus
+                                {...modalValidation}
+                            >
+                                { modalOptions
+                                    ? modalOptions.map((option, index) => {
+                                        return (<option value={option} key={index}>{modalOptionsText[index]}</option>);
+                                    })
+                                    : null
+                                }
+                            </Form.Control>
+                        }
                         <span className="error" aria-live="polite">{validationMsg[errorMsg]}</span>
                     </Modal.Body>
                     <Modal.Footer>
