@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import './FinanceDashboard.scss';
 import PropTypes from 'prop-types';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
