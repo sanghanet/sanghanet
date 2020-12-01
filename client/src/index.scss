@@ -28,6 +28,7 @@ html {
 body {
     font-family: RobotoRegular;
     margin: 0;
+    overflow: hidden;
 }
 main {
     min-height: calc(100vh - 93px);
@@ -39,8 +40,11 @@ main {
         margin-left: 110px;
     }
     &.unscrollable {
-        overflow: hidden; 
-        position: fixed;
+        width: 100%;
+        //Optional but highly reccomended: enables momentum scrolling on iOS
+        -webkit-overflow-scrolling: touch;
+        
+
     }
 
     &>* {
