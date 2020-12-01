@@ -24,8 +24,7 @@ const FinanceDashboard = (props) => {
 
 FinanceDashboard.propTypes = {
     balance: PropTypes.object.isRequired,
-    currency: PropTypes.string.isRequired,
-    onError: PropTypes.func.isRequired
+    currency: PropTypes.string.isRequired
 };
 
 export default FinanceDashboard;

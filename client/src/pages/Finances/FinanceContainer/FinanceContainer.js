@@ -60,7 +60,6 @@ class FinanceContainer extends React.Component {
                         <FinanceDashboard
                             currency = {financeData[0].currency}
                             balance = {financeData.balance}
-                            onError = {this.onError}
                         />
                         <TransactionTabs
                             currency = {financeData[0].currency}
