@@ -4,34 +4,20 @@ import PropTypes from 'prop-types';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
 const FinanceDashboard = (props) => {
-    const [balances, setBalances] = useState([]);
-
     const { financeDashboard, financeDashboardPockets } = useContext(UIcontext).dictionary;
     const { BEFOREPOCKETNAME, AFTERPOCKETNAME } = financeDashboard;
 
-    const buildFinanceOverview = (balance, currency) => {
-        try {
-            const categories = [];
-            for (const [key, value] of Object.entries(balance)) {
-                categories.push(
+    const { balance, currency } = props;
+
+    return (
+        <div className = "overview" >
+            {Object.entries(balance).map(([key, value]) => {
+                return (
                     <div key = {key}>
                         {BEFOREPOCKETNAME + financeDashboardPockets[key.toUpperCase()] + AFTERPOCKETNAME + `${value} ${currency}`}
                     </div>
                 );
-            }
-            setBalances(categories)
-        } catch (error) {
-            props.onError(error);
-        }
-    }
-
-    useEffect(() => {
-        buildFinanceOverview(props.balance, props.currency);
-    }, []);
-
-    return (
-        <div className = "overview" >
-            {balances}
+            })}
         </div>
     );
 }
