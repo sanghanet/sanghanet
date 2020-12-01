@@ -1,40 +1,39 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './FinanceDashboard.scss';
 import PropTypes from 'prop-types';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
-class FinanceDashboard extends React.Component {
-    state = {
-        balances: [],
-        errorState: null
-    }
+const FinanceDashboard = (props) => {
+    const [balances, setBalances] = useState([]);
 
-    componentDidMount () {
-        this.buildFinanceOverview(this.props.balance, this.props.currency);
-    }
+    const { financeDashboard, financeDashboardPockets } = useContext(UIcontext).dictionary;
+    const { BEFOREPOCKETNAME, AFTERPOCKETNAME } = financeDashboard;
 
-    buildFinanceOverview = (balance, currency) => {
+    const buildFinanceOverview = (balance, currency) => {
         try {
             const categories = [];
             for (const [key, value] of Object.entries(balance)) {
                 categories.push(
                     <div key = {key}>
-                        {`Current balance of ${key} pocket: ${value} ${currency}`}
+                        {BEFOREPOCKETNAME + financeDashboardPockets[key.toUpperCase()] + AFTERPOCKETNAME + `${value} ${currency}`}
                     </div>
                 );
             }
-            this.setState({ balances: categories });
+            setBalances(categories)
         } catch (error) {
-            this.props.onError(error);
+            props.onError(error);
         }
     }
 
-    render () {
-        return (
-            <div className = "overview" >
-                {this.state.balances}
-            </div>
-        );
-    };
+    useEffect(() => {
+        buildFinanceOverview(props.balance, props.currency);
+    }, []);
+
+    return (
+        <div className = "overview" >
+            {balances}
+        </div>
+    );
 }
 
 FinanceDashboard.propTypes = {

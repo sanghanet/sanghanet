@@ -166,5 +166,17 @@
     "pageNotFound": {
         "PAGENOTFOUND": "Page not found",
         "GOBACK": "Go back"
+    },
+
+    "financeDashboard": {
+        "BEFOREPOCKETNAME": "Current balance of ",
+        "AFTERPOCKETNAME": "pocket: "
+    },
+
+    "financeDashboardPockets": {
+        "MEMBERSHIP": "membership",
+        "RENT": "rent",
+        "EVENT": "event",
+        "ANGEL": "angel"
     }
 }

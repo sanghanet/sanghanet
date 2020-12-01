@@ -166,5 +166,17 @@
     "pageNotFound": {
         "PAGENOTFOUND": "Nem találjuk ezt az oldalt",
         "GOBACK": "Vissza"
+    },
+
+    "financeDashboard": {
+        "BEFOREPOCKETNAME": "",
+        "AFTERPOCKETNAME": " zseb jelenlegi egyenlege: "
+    },
+
+    "financeDashboardPockets": {
+        "MEMBERSHIP": "Tagság",
+        "RENT": "Bérleti díj",
+        "EVENT": "Esemény",
+        "ANGEL": "Angyalkassza"
     }
 }
