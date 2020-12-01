@@ -29,16 +29,16 @@ class UserSelector extends React.Component {
             index++;
             this.setState({ indexOfActiveItem: index });
         }
-        if (e.keyCode === 13 && showSuggestions) {
-            await this.setState({
-                showSuggestions: false,
-                userInput: searchResults[index],
-                searchResults: [],
-                indexOfActiveItem: 0
-            });
-            document.getElementById('selectedUser').value = searchResults[index];
-            this.onSubmit();
-        } else if (e.keyCode === 13) {
+        if (e.keyCode === 13) {
+            if (showSuggestions) {
+                await this.setState({
+                    showSuggestions: false,
+                    userInput: searchResults[index],
+                    searchResults: [],
+                    indexOfActiveItem: 0
+                });
+                document.getElementById('selectedUser').value = searchResults[index];
+            }
             this.onSubmit();
         }
     }
