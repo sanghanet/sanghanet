@@ -43,8 +43,6 @@ main {
         width: 100%;
         //Optional but highly reccomended: enables momentum scrolling on iOS
         -webkit-overflow-scrolling: touch;
-        
-
     }
 
     &>* {
@@ -53,7 +51,6 @@ main {
         margin-left: auto;
     }
 }
-
 
 /* --- custom checkbox --- */
 input[type="checkbox"] {
