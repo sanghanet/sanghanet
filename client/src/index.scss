@@ -38,6 +38,10 @@ main {
     @include minQ(768px) {
         margin-left: 110px;
     }
+    &.unscrollable {
+        overflow: hidden; 
+        position: fixed;
+    }
 
     &>* {
         max-width: 2000px;
@@ -45,6 +49,7 @@ main {
         margin-left: auto;
     }
 }
+
 
 /* --- custom checkbox --- */
 input[type="checkbox"] {
