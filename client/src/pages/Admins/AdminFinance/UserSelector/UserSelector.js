@@ -15,13 +15,11 @@ const UserSelector = (props) => {
 
     const inputRef = useRef();
 
-    const onKeyPress = async (e) => {
-        if (e.keyCode === 38 || e.keyCode === 40) {
-            e.preventDefault();
-        }
-        if (e.keyCode === 38 && indexOfActiveItem) {
-            setIndexOfActiveItem(indexOfActiveItem - 1);
-        };
+    const maxDisplayedSuggestions = 10;
+
+    const onKeyPress = (e) => {
+        if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
+        if (e.keyCode === 38 && indexOfActiveItem) setIndexOfActiveItem(indexOfActiveItem - 1);
         if (e.keyCode === 40 && indexOfActiveItem < searchResults.length - 1) {
             setIndexOfActiveItem(indexOfActiveItem + 1);
         }
@@ -31,7 +29,6 @@ const UserSelector = (props) => {
                 setSearchResults([]);
                 setUserInput(searchResults[indexOfActiveItem]);
                 setIndexOfActiveItem(0);
-
                 inputRef.current.value = searchResults[indexOfActiveItem];
             }
             onSubmit();
@@ -39,7 +36,6 @@ const UserSelector = (props) => {
     };
 
     const onInputChange = (e) => {
-        const maxDisplayedSuggestions = 10;
         const inputValue = e.currentTarget.value;
         const filterRegex = new RegExp(`(^|\\s)${inputValue.toLowerCase()}`);
 
@@ -62,7 +58,7 @@ const UserSelector = (props) => {
 
         setShowSuggestions(filteredResults.length && true);
         setSearchResults(filteredResults);
-        setUserInput(e.currentTarget.value);
+        setUserInput(inputValue);
         setWarningMessage('');
         setIndexOfActiveItem(newActiveIndex);
     };
@@ -122,7 +118,13 @@ const UserSelector = (props) => {
 
     return (
         <div className="selector">
-            <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} onKeyDown={onKeyPress} ref={inputRef}></input>
+            <input
+                id="selectedUser"
+                autoComplete="off"
+                onChange = {onInputChange}
+                value={userInput}
+                onKeyDown={onKeyPress}
+                ref={inputRef}></input>
             {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
             <div className = "user-info">{selectedUser}</div>
             <span>{warningMessage}</span>
