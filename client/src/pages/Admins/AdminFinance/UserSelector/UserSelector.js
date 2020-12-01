@@ -37,11 +37,14 @@ const UserSelector = (props) => {
 
     const onInputChange = (e) => {
         const inputValue = e.currentTarget.value;
-        const filterRegex = new RegExp(`(^|\\s)${inputValue.toLowerCase()}`);
 
-        let filteredResults = suggestions.filter((suggestion) => {
-            return inputValue && suggestion.toLowerCase().match(filterRegex);
-        });
+        const compareStrings = (input, libraryValue) => {
+            const stdInput = input.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            const stdLibValue = libraryValue.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            return stdLibValue.match(new RegExp(`(^|\\s)${stdInput}`)) && true;
+        };
+
+        let filteredResults = suggestions.filter((suggestion) => compareStrings(inputValue, suggestion));
 
         if (filteredResults.length > maxDisplayedSuggestions) {
             filteredResults = filteredResults.slice(0, maxDisplayedSuggestions);
