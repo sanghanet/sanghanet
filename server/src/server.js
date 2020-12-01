@@ -17,11 +17,13 @@ const authRouter = require('./routers/auth.router');
 const router = require('./routers/router');
 const suRouter = require('./routers/su.router');
 const financeRouter = require('./routers/financeRouter');
+const serviceRouter = require('./routers/service.router');
 
 app.use(express.static('app'));
 app.use('/registration', express.static('app'));
 app.use('/loading', express.static('app'));
 app.use('/images', express.static('app/images'));
+app.use('/images/list', serviceRouter);
 
 app.use('/app/dashboard', express.static('app'));
 app.use('/app/personal', express.static('app'));

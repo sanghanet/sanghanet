@@ -81,7 +81,7 @@ run `npm run dev` in the root directory.
 
 # manual deployment
 
-Run `npm run deploy` script from the root directory. The script build the product, and copy all necessary files - and modify them - in separate folders for HEROKU and AZURE deployment as well.
+Run `npm run deploy` script from the root directory. The script build the product, and copy all necessary files - and modify them - in separate folders for HEROKU and AZURE deployment as well. The script also download the active profile images from Azure. These images will be restored during deployment. (No image save&restore on Heroku!)
 
 **deployment on HEROKU**
 
@@ -103,7 +103,7 @@ Run `npm run deploy` script from the root directory. The script build the produc
 
 **deployment on AZURE**
 
- Firebase deployment is based on 2 separate project (React frontend + Node.js REST backend).
+ Azure deployment is based on 2 separate project (React frontend + Node.js REST backend).
  >NOTE: Easy way, use VSCode/Codium + Azure App Service extension!
 
  1. Start VSCode/Codium in ../deployment/azure folder!
