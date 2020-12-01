@@ -44,7 +44,7 @@
 # start the system
 ## Manual (legacy) mode
    1. If you would like to start the front-end + dev server, run `npm start` in the client directory.
-   1. If you would like to start the back-end server with local db, run `npm run local` in the server directory.
+   1. If you would like to start the back-end server with local db, run `npm run dev-local` in the server directory.
 
    Feel free to config other .env files and start scripts...
 
