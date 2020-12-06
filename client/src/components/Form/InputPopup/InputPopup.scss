@@ -27,6 +27,9 @@
         .date-picker-container {
             @include centerElement;
             filter: invert(0.86);
+            .react-datepicker__month-select option, .react-datepicker__year-select option {
+                color: $lightgray;
+            }
         }
         .error, .hint {
             display: block;
