@@ -24,6 +24,10 @@
             -webkit-appearance: none;
             color: $white;
         }
+        .date-picker-container {
+            @include centerElement;
+            filter: invert(0.86);
+        }
         .error, .hint {
             display: block;
             min-height: 24px;

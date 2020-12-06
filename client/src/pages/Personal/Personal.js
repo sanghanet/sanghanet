@@ -125,7 +125,7 @@ const Personal = (props) => {
         displayAlert(true, 'SAVEDSUCCESSFULLY', 'INFO');
     };
 
-    const handleItemSave = (newValue, id) => {
+    const handleItemSave = (id, newValue) => {
         Client.fetch('/user/saveitem', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -268,10 +268,6 @@ const Personal = (props) => {
                         <InputDisplay
                             inputTitle={DATEOFBIRTH}
                             inputValue={birthday}
-                            validation={{
-                                min: '1910-01-01',
-                                max: '2002-01-01' // current year minus 18
-                            }}
                             inputId="birthday"
                             inputValueSave={handleItemSave}
                             inputVisible={birthdayVisible}
