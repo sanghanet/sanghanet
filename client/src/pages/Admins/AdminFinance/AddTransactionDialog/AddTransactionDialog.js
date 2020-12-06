@@ -82,20 +82,6 @@ function AddTransactionDialog (props) {
                 ></Form.Control>
                 <span className="error" aria-live="polite">{validationMsg[errorTokenDescription]}</span>
 
-                { transactionType === 'debt' &&
-                    <>
-                        <Form.Label htmlFor="add-dueDate-label" className="payment-label">Due from (click on the field to select date)</Form.Label>
-                        <DatePicker
-                            id="add-dueDate-label"
-                            selected={dueDate}
-                            onChange={handleDateChange}
-                            customInput={<CustomDateInput />}
-                            className='form-control'
-                        />
-                        <span className="error" aria-live="polite">{validationMsg[errorTokenDate]}</span>
-                    </>
-                }
-
                 <Form.Label htmlFor="add-payment-label" className="payment-label">Amount</Form.Label>
                 <Form.Control
                     id="add-payment-label"
@@ -104,6 +90,28 @@ function AddTransactionDialog (props) {
                     {...positiveIntegerRule}
                 ></Form.Control>
                 <span className="error" aria-live="polite">{validationMsg[errorTokenAmount]}</span>
+
+                { transactionType === 'debt' &&
+                    <div>
+                        <Form.Label className="payment-label">Due from (click on the field to select date)</Form.Label>
+                        <div className='date-picker-finance'>
+                            <DatePicker
+                                id="add-dueDate-label"
+                                selected={dueDate}
+                                onChange={handleDateChange}
+                                customInput={<CustomDateInput />}
+
+                                onMonthChange={handleDateChange}
+                                onYearChange={handleDateChange}
+                                showMonthDropdown
+                                showYearDropdown
+                                dropdownMode="select"
+                                inline
+                            />
+                        </div>
+                        <span className="error" aria-live="polite">{validationMsg[errorTokenDate]}</span>
+                    </div>
+                }
             </Form>
         </GenericDialog>
     );
