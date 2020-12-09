@@ -104,11 +104,11 @@ Run `npm run deploy` script from the root directory. The script build the produc
 **deployment on AZURE**
 
  Azure deployment is based on 2 separate project (React frontend + Node.js REST backend).
- >NOTE: Easy way, use VSCode/Codium + Azure App Service extension!
 
+ >NOTE: Use VSCode/Codium and its Azure App Service extension for the following steps!
  1. Start VSCode/Codium in ../deployment/azure folder!
- 1. In Azure: App Service, delete `Free Trial > sanghanet` if exists.
- 1. RIGHT mouse click on `Free Trial` and `Create New Web App...`
+ 1. In Azure: App Service, delete `Sanghanet Azure subscription > sanghanet` if exists.
+ 1. RIGHT mouse click on `Sanghanet Azure subscription` and `Create New Web App...`
     * if you are not logged in to Azure, login as prompted (user & pwd: our test user credentials)
     * add webapp name: `sanghanet` (if the name is not correct, the routing will not work!)
     * select node version: `Node 12 LTS`
