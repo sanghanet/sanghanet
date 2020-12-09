@@ -81,6 +81,10 @@ run `npm run dev` in the root directory.
 
 # manual deployment
 
+Make sure you have wget installed on your computer. You can check that by typing `brew ls --versions wget`. If you don't have it installed,
+ - run `brew install wget` on macOS or Linux in your terminal
+ - follow [these steps](https://www.addictivetips.com/windows-tips/install-and-use-wget-in-windows-10/) to install wget on windows
+
 Run `npm run deploy` script from the root directory. The script build the product, and copy all necessary files - and modify them - in separate folders for HEROKU and AZURE deployment as well. The script also download the active profile images from Azure. These images will be restored during deployment. (No image save&restore on Heroku!)
 
 **deployment on HEROKU**
