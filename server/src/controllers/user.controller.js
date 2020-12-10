@@ -174,18 +174,7 @@ module.exports.uploadProfileImg = async (req, res, next) => {
             log.warn('Fields are invalid at this URL.', name, field);
         })
         .on('fileBegin', (name, file) => {
-            let extension = '';
-            if (file.name.endsWith('.png')) {
-                extension = '.png';
-            } else if (file.name.endsWith('.jpg')) {
-                extension = '.jpg';
-            } else if (file.name.endsWith('.jpeg')) {
-                extension = '.jpeg';
-            } else if (file.name.endsWith('.svg')) {
-                extension = '.svg';
-            } else if (file.name.endsWith('.webp')) {
-                extension = '.webp';
-            }
+            const extension = file.name.match(/\.(|jpg|jpeg|png|svg|webp)$/i) ? file.name.substring(file.name.lastIndexOf('.')) : '';
             fileName = '/images/' + uuidv4().slice(-12) + extension;
             file.path = SERVER_ROOT + fileName;
         })
