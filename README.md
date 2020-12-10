@@ -81,7 +81,11 @@ run `npm run dev` in the root directory.
 
 # manual deployment
 
-Run `npm run deploy` script from the root directory. The script build the product, and copy all necessary files - and modify them - in separate folders for HEROKU and AZURE deployment as well.
+Make sure you have wget installed on your computer. You can check that by typing `brew ls --versions wget`. If you don't have it installed,
+ - run `brew install wget` on macOS or Linux in your terminal
+ - follow [these steps](https://www.addictivetips.com/windows-tips/install-and-use-wget-in-windows-10/) to install wget on windows
+
+Run `npm run deploy` script from the root directory. The script build the product, and copy all necessary files - and modify them - in separate folders for HEROKU and AZURE deployment as well. The script also download the active profile images from Azure. These images will be restored during deployment. (No image save&restore on Heroku!)
 
 **deployment on HEROKU**
 
@@ -103,12 +107,12 @@ Run `npm run deploy` script from the root directory. The script build the produc
 
 **deployment on AZURE**
 
- Firebase deployment is based on 2 separate project (React frontend + Node.js REST backend).
- >NOTE: Easy way, use VSCode/Codium + Azure App Service extension!
+ Azure deployment is based on 2 separate project (React frontend + Node.js REST backend).
 
+ >NOTE: Use VSCode/Codium and its Azure App Service extension for the following steps!
  1. Start VSCode/Codium in ../deployment/azure folder!
- 1. In Azure: App Service, delete `Free Trial > sanghanet` if exists.
- 1. RIGHT mouse click on `Free Trial` and `Create New Web App...`
+ 1. In Azure: App Service, delete `Sanghanet Azure subscription > sanghanet` if exists.
+ 1. RIGHT mouse click on `Sanghanet Azure subscription` and `Create New Web App...`
     * if you are not logged in to Azure, login as prompted (user & pwd: our test user credentials)
     * add webapp name: `sanghanet` (if the name is not correct, the routing will not work!)
     * select node version: `Node 12 LTS`
