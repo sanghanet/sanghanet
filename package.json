@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "./deploy.sh",
     "buildfinance": "cd server; npm run buildfinance",
-    "resetlocaldb": "cd server; npm run resetlocaldb"
+    "resetlocaldb": "cd server; npm run resetlocaldb",
+    "wdio": "cd test; npm run wdio"
   },
   "keywords": [],
   "author": "",
