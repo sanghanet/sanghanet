@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
 const FinanceDashboard = (props) => {
-    const { financeDashboard, financeDashboardPockets } = useContext(UIcontext).dictionary;
+    const { financeDashboard, financePockets } = useContext(UIcontext).dictionary;
     const { BEFOREPOCKETNAME, AFTERPOCKETNAME } = financeDashboard;
 
     const { balance, currency } = props;
@@ -14,7 +14,7 @@ const FinanceDashboard = (props) => {
             {Object.entries(balance).map(([key, value]) => {
                 return (
                     <div key = {key}>
-                        {BEFOREPOCKETNAME + financeDashboardPockets[key.toUpperCase()] + AFTERPOCKETNAME + `${value} ${currency}`}
+                        {BEFOREPOCKETNAME + financePockets[key.toUpperCase()] + AFTERPOCKETNAME + `${value} ${currency}`}
                     </div>
                 );
             })}
