@@ -100,10 +100,13 @@
         @extend %li-highlight; 
     }
 
-    span {
+    span.warning-message {
         color: $error;
         flex-basis: 100%;
         margin-bottom: -50px;
+        visibility: hidden;
+
+        &.visible { visibility: visible; }
     }
 
     .user-info {

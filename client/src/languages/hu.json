@@ -178,5 +178,10 @@
         "RENT": "Bérleti díj",
         "EVENT": "Esemény",
         "ANGEL": "Angyalkassza"
+    },
+
+    "userSelector": {
+        "SELECT": "Kiválasztás",
+        "INVALIDUSERSELECTMESSAGE": "Nem találtunk ilyen felhasználót."
     }
 }

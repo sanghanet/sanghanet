@@ -178,5 +178,10 @@
         "RENT": "rent",
         "EVENT": "event",
         "ANGEL": "angel"
+    },
+
+    "userSelector": {
+        "SELECT": "Select",
+        "INVALIDUSERSELECTMESSAGE": "There is no such user."
     }
 }

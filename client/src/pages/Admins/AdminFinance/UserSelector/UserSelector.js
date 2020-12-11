@@ -10,12 +10,10 @@ const UserSelector = (props) => {
     const [searchResults, setSearchResults] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [userInput, setUserInput] = useState('');
-    const [warningMessage, setWarningMessage] = useState('');
+    const [showWarning, setShowWarning] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true);
     const [indexOfActiveItem, setIndexOfActiveItem] = useState(0);
     const [selectedUser, setSelectedUser] = useState('No user selected');
-
-    const { dictionary } = useContext(UIcontext);
 
     const onSubmit = () => {
         const inputValue = document.getElementById('selectedUser').value;
@@ -36,7 +34,7 @@ const UserSelector = (props) => {
 
                 props.handleSubmit(selectedEmail, selectedUserObject.userName);
             } else {
-                setWarningMessage('Please select a valid user!');
+                setShowWarning(true);
             }
 
             setUserInput('');
@@ -45,18 +43,16 @@ const UserSelector = (props) => {
     }
 
     const onKeyPress = (e) => {
-        let index = indexOfActiveItem;
-
         // up or down arrow
         if (e.keyCode === 38 || e.keyCode === 40) { e.preventDefault(); }
 
         // up arrow
-        if (e.keyCode === 38 && index) {
+        if (e.keyCode === 38 && indexOfActiveItem) {
             setIndexOfActiveItem((prevIndex) => prevIndex-1);
         };
 
         // down arrow
-        if (e.keyCode === 40 && index < searchResults.length - 1) {
+        if (e.keyCode === 40 && indexOfActiveItem < searchResults.length - 1) {
             setIndexOfActiveItem((prevIndex) => prevIndex+1);
         }
 
@@ -66,7 +62,7 @@ const UserSelector = (props) => {
             setUserInput(searchResults[indexOfActiveItem]);
             setSearchResults([]);
 
-            document.getElementById('selectedUser').value = searchResults[index];
+            document.getElementById('selectedUser').value = searchResults[indexOfActiveItem];
 
             onSubmit();
         } else if (e.keyCode === 13) {
@@ -103,7 +99,7 @@ const UserSelector = (props) => {
         setSearchResults(searchResults);
         setShowSuggestions(searchResults.length && true);
         setUserInput(e.currentTarget.value);
-        setWarningMessage('');
+        setShowWarning(false);
         setButtonDisabled(!userInput);
         setIndexOfActiveItem(newActiveIndex);
     }
@@ -113,10 +109,6 @@ const UserSelector = (props) => {
         setShowSuggestions(false);
         setUserInput(e.currentTarget.innerText);
     }
-
-    useEffect(() => {
-        getUserList();
-    }, []);
 
     const getUserList = async () => {
         const result = await Client.fetch('/finance/userlist');
@@ -139,13 +131,19 @@ const UserSelector = (props) => {
         );
     };
 
+    useEffect(() => {
+        getUserList();
+    }, []);
+
+    const { SELECT, INVALIDUSERSELECTMESSAGE } = useContext(UIcontext).dictionary.userSelector;
+
     return (
         <div className="selector">
             <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} onKeyDown={onKeyPress}></input>
             {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
-            <button onClick = {onSubmit} disabled = {buttonDisabled}>Select</button>
+            <button onClick = {onSubmit} disabled = {buttonDisabled}>{SELECT}</button>
             <div className = "user-info">{selectedUser}</div>
-            <span>{warningMessage}</span>
+            <span className={`warning-message${showWarning ? ' visible' : ''}`}>{INVALIDUSERSELECTMESSAGE}</span>
         </div>
     );
 }
