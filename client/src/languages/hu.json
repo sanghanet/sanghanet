@@ -173,7 +173,7 @@
         "AFTERPOCKETNAME": " zseb jelenlegi egyenlege: "
     },
 
-    "financeDashboardPockets": {
+    "financePockets": {
         "MEMBERSHIP": "Tagság",
         "RENT": "Bérleti díj",
         "EVENT": "Esemény",

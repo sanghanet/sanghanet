@@ -173,7 +173,7 @@
         "AFTERPOCKETNAME": "pocket: "
     },
 
-    "financeDashboardPockets": {
+    "financePockets": {
         "MEMBERSHIP": "membership",
         "RENT": "rent",
         "EVENT": "event",
