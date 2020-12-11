@@ -21,6 +21,9 @@ class App extends Component {
             localStorage.setItem('lang', 'hu');
         }
 
+        this.englishNameOrder = 1;
+        this.hungarianNameOrder = -1;
+
         this.state = {
             uiContext: {
                 isHamburgerOpen: false,
@@ -43,7 +46,7 @@ class App extends Component {
                     firstName: '',
                     lastName: '',
                     fullName: '',
-                    nameOrder: localStorage.getItem('lang') === 'hu' ? -1 : 1
+                    nameOrder: localStorage.getItem('lang') === 'hu' ? this.hungarianNameOrder : this.englishNameOrder
                 },
                 avatarSrc: '/images/noAvatar.svg',
                 setUsername: this.setUsername,
@@ -57,7 +60,7 @@ class App extends Component {
         return lang === 'hu' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`;
     }
 
-    getNameOrder = () => this.state.uiContext.lang === 'hu' ? -1 : 1;
+    getNameOrder = () => this.state.uiContext.lang === 'hu' ? this.hungarianNameOrder : this.englishNameOrder;
 
     toggleHamburger = () => {
         const { uiContext } = this.state;
@@ -83,8 +86,7 @@ class App extends Component {
     changeLang = (lang) => {
         const { uiContext } = this.state;
         const { dataContext } = this.state;
-        const { userName } = dataContext;
-        const { firstName, lastName } = userName;
+        const { firstName, lastName } = dataContext.userName;
 
         uiContext.lang = lang;
         uiContext.dictionary = dictionaryList[lang];
