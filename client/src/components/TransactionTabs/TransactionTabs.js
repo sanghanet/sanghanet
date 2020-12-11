@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import TransactionTable from '../TransactionTable/TransactionTable';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './TransactionTabs.scss';
 import PropTypes from 'prop-types';
 
 const TransactionTabs = (props) => {
+    const { financePockets } = useContext(UIcontext).dictionary;
+
     return (
         <Tabs className = 'MainTabs' bsPrefix = 'active' defaultActiveKey = {props.activeTab}>
             {Object.entries(props.transactions).map((pocket) => {
+                const tabTitle = financePockets[pocket[0].toUpperCase()];
+
                 return (
-                    <Tab title = {pocket[0]} eventKey = {pocket[0]} key = {pocket[0]}>
+                    <Tab title = {tabTitle} eventKey = {pocket[0]} key = {pocket[0]}>
                         <TransactionTable
                             transactionArray = {pocket[1]}
                             isFinAdmin = {props.isFinAdmin}
