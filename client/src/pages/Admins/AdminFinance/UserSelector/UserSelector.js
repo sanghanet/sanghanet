@@ -1,55 +1,90 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Client from '../../../../components/Client';
-import './UserSelector.scss';
+import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 import PropTypes from 'prop-types';
+import './UserSelector.scss';
 
-class UserSelector extends React.Component {
-        state = {
-            rawUserData: null,
-            suggestions: null,
-            searchResults: [],
-            showSuggestions: false,
-            userInput: '',
-            warningMessage: '',
-            buttonDisabled: true,
-            indexOfActiveItem: 0,
-            selectedUser: 'No user selected'
-        };
+const UserSelector = (props) => {
+    const [rawUserData, setRawUserData] = useState(null);
+    const [suggestions, setSuggestions] = useState(null);
+    const [searchResults, setSearchResults] = useState([]);
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [userInput, setUserInput] = useState('');
+    const [warningMessage, setWarningMessage] = useState('');
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+    const [indexOfActiveItem, setIndexOfActiveItem] = useState(0);
+    const [selectedUser, setSelectedUser] = useState('No user selected');
 
-    onKeyPress = (e) => {
-        let { indexOfActiveItem: index, searchResults, showSuggestions } = this.state;
-        if (e.keyCode === 38 || e.keyCode === 40) {
-            e.preventDefault();
-        }
-        if (e.keyCode === 38 && index) {
-            index--;
-            this.setState({ indexOfActiveItem: index });
-        };
-        if (e.keyCode === 40 && index < searchResults.length - 1) {
-            index++;
-            this.setState({ indexOfActiveItem: index });
-        }
-        if (e.keyCode === 13 && showSuggestions) {
-            this.setState({
-                showSuggestions: false,
-                userInput: searchResults[index],
-                searchResults: [],
-                indexOfActiveItem: 0
+    const { dictionary } = useContext(UIcontext);
+
+    const onSubmit = () => {
+        const inputValue = document.getElementById('selectedUser').value;
+
+        if (inputValue) {
+            const selectedUserName = inputValue;
+
+            const selectedUserObject = rawUserData.find((item) => {
+                return item.userName === selectedUserName;
             });
-            document.getElementById('selectedUser').value = searchResults[index];
-            this.onSubmit();
-        } else if (e.keyCode === 13) {
-            this.onSubmit();
+
+            if (selectedUserObject) {
+                const selectedEmail = selectedUserObject.email;
+
+                setSearchResults([]);
+                setShowSuggestions(false);
+                setSelectedUser(selectedUserName);
+
+                props.handleSubmit(selectedEmail, selectedUserObject.userName);
+            } else {
+                setWarningMessage('Please select a valid user!');
+            }
+
+            setUserInput('');
+            setButtonDisabled(true);
         }
     }
 
-    onInputChange = (e) => {
+    const onKeyPress = (e) => {
+        let index = indexOfActiveItem;
+
+        // up or down arrow
+        if (e.keyCode === 38 || e.keyCode === 40) { e.preventDefault(); }
+
+        // up arrow
+        if (e.keyCode === 38 && index) {
+            setIndexOfActiveItem((prevIndex) => prevIndex-1);
+        };
+
+        // down arrow
+        if (e.keyCode === 40 && index < searchResults.length - 1) {
+            setIndexOfActiveItem((prevIndex) => prevIndex+1);
+        }
+
+        // enter
+        if (e.keyCode === 13 && showSuggestions) {
+            setShowSuggestions(false);
+            setUserInput(searchResults[indexOfActiveItem]);
+            setSearchResults([]);
+
+            document.getElementById('selectedUser').value = searchResults[index];
+
+            onSubmit();
+        } else if (e.keyCode === 13) {
+            onSubmit();
+        }
+    }
+
+    useEffect(() => {
+        setIndexOfActiveItem(0);
+    }, [userInput]);
+
+    const onInputChange = (e) => {
         const maxDisplayedSuggestions = 10;
-        const { state: { suggestions, indexOfActiveItem: index } } = this;
+        const { index } = indexOfActiveItem;
         const userInput = e.currentTarget.value;
 
         let searchResults = suggestions.filter((suggestion) => {
-            return userInput && suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1;
+            return userInput && suggestion.toLowerCase().includes(userInput.toLowerCase());
         });
 
         if (searchResults.length > maxDisplayedSuggestions) {
@@ -65,104 +100,54 @@ class UserSelector extends React.Component {
             newActiveIndex = index;
         }
 
-        this.setState({
-            searchResults: searchResults,
-            showSuggestions: searchResults.length && true,
-            userInput: e.currentTarget.value,
-            warningMessage: '',
-            buttonDisabled: !userInput,
-            indexOfActiveItem: newActiveIndex
-        });
+        setSearchResults(searchResults);
+        setShowSuggestions(searchResults.length && true);
+        setUserInput(e.currentTarget.value);
+        setWarningMessage('');
+        setButtonDisabled(!userInput);
+        setIndexOfActiveItem(newActiveIndex);
     }
 
-    onSuggestionClick = (e) => {
-        this.setState({
-            searchResults: [],
-            showSuggestions: false,
-            userInput: e.currentTarget.innerText
-        });
+    const onSuggestionClick = (e) => {
+        setSearchResults([]);
+        setShowSuggestions(false);
+        setUserInput(e.currentTarget.innerText);
     }
 
-    onSubmit = () => {
-        const inputValue = document.getElementById('selectedUser').value;
+    useEffect(() => {
+        getUserList();
+    }, []);
 
-        if (inputValue) {
-            const selectedUserName = inputValue;
-            const selectedUserObject = this.state.rawUserData.find((item) => {
-                return item.userName === selectedUserName;
-            });
-            if (selectedUserObject) {
-                const selectedEmail = selectedUserObject.email;
-                this.setState({
-                    searchResults: [],
-                    showSuggestions: false,
-                    userInput: '',
-                    buttonDisabled: true,
-                    selectedUser: selectedUserName
-                });
-                this.props.handleSubmit(selectedEmail, selectedUserObject.userName);
-            } else {
-                this.setState({
-                    warningMessage: 'Please select a valid user!',
-                    userInput: '',
-                    buttonDisabled: true
-                });
-            }
-        }
-    }
-
-    componentDidMount () {
-        this.getUserList();
-    }
-
-    getUserList = async () => {
+    const getUserList = async () => {
         const result = await Client.fetch('/finance/userlist');
+
         const nameList = result.map((user) => {
             return user.userName;
         });
 
-        this.setState({
-            rawUserData: result,
-            suggestions: nameList
-        });
+        setRawUserData(result);
+        setSuggestions(nameList);
     }
 
-    SuggestionList = () => {
+    const SuggestionList = () => {
         return (
             <ul>
-                {this.state.searchResults.map((name, index) => {
-                    const { indexOfActiveItem } = this.state;
-                    return <li key={name} onClick = {this.onSuggestionClick} className = {index === indexOfActiveItem ? 'activated' : ''} >{name}</li>;
+                {searchResults.map((name, index) => {
+                    return <li key={name} onClick = {onSuggestionClick} className = {index === indexOfActiveItem ? 'activated' : ''} >{name}</li>;
                 })}
             </ul>
         );
     };
 
-    render () {
-        const {
-            onInputChange,
-            onSubmit,
-            SuggestionList,
-            onKeyPress,
-            state: {
-                showSuggestions,
-                userInput,
-                warningMessage,
-                buttonDisabled,
-                selectedUser
-            }
-        } = this;
-
-        return (
-            <div className="selector">
-                <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} onKeyDown={onKeyPress} ></input>
-                {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
-                <button onClick = {onSubmit} disabled = {buttonDisabled}>Select</button>
-                <div className = "user-info">{selectedUser}</div>
-                <span>{warningMessage}</span>
-            </div>
-        );
-    }
+    return (
+        <div className="selector">
+            <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} onKeyDown={onKeyPress}></input>
+            {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
+            <button onClick = {onSubmit} disabled = {buttonDisabled}>Select</button>
+            <div className = "user-info">{selectedUser}</div>
+            <span>{warningMessage}</span>
+        </div>
+    );
 }
 
 UserSelector.propTypes = {
