@@ -82,7 +82,7 @@
     "personalPagePlaceholders": {
         "REQUIREDFORMAT": "Elvárt formátum: ",
         "ENTERVALUE": "Adat feltöltés",
-        "DATE": "hónap/nap/év",
+        "DATE": "kattints a mezőre a beállításhoz",
         "GENDERFORMAT": "válassz a listából",
         "FEMALE": "Nő",
         "MALE": "Férfi",
@@ -141,7 +141,8 @@
         "RANGEUNDERFLOW": "Túl kicsi a szám!",
         "RANGEOVERFLOW": "Túl nagy a szám!",
         "BADINPUT": "Szám szükséges!",
-        "WRONGNUMBER": "Téves szám!"
+        "WRONGNUMBER": "Téves szám!",
+        "WRONGDATE": "Múltbéli dátumot nem választhatsz"
     },
 
     "alert" : {

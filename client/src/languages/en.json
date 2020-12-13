@@ -82,7 +82,7 @@
     "personalPagePlaceholders": {
         "REQUIREDFORMAT": "Required format: ",
         "ENTERVALUE": "Enter a value",
-        "DATE": "month/day/year",
+        "DATE": "click on the field to select",
         "GENDERFORMAT": "choose from the list",
         "FEMALE": "Female",
         "MALE": "Male",
@@ -141,7 +141,8 @@
         "RANGEUNDERFLOW": "Too low number!",
         "RANGEOVERFLOW": "Too big number!",
         "BADINPUT": "Please enter a number!",
-        "WRONGNUMBER": "Incorrect number!"
+        "WRONGNUMBER": "Incorrect number!",
+        "WRONGDATE": "Don't select a past date"
     },
 
     "alert": {
