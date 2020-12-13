@@ -11,6 +11,11 @@ const { Member } = require('../models/member.model');
 const { RegisteredUser } = require('../models/registered.user.model');
 const { FinanceAccount } = require('../models/financeAccount.model');
 
+const getFileName = (file) => {
+    const extension = file.name.match(/\.(|jpg|jpeg|png|svg|webp)$/i) ? file.name.substring(file.name.lastIndexOf('.')).toLowerCase() : '';
+    return '/images/' + uuidv4().slice(-12) + extension;
+};
+
 module.exports.login = async (req, res, next) => {
     try {
         const registeredUser = await RegisteredUser.find({ email: req.user.email }, 'firstName lastName');
@@ -34,19 +39,7 @@ module.exports.registration = async (req, res, next) => {
             dataToStore[name] = field;
         })
         .on('fileBegin', (name, file) => {
-            let extension = '';
-            if (file.name.endsWith('.png')) {
-                extension = '.png';
-            } else if (file.name.endsWith('.jpg')) {
-                extension = '.jpg';
-            } else if (file.name.endsWith('.jpeg')) {
-                extension = '.jpeg';
-            } else if (file.name.endsWith('.svg')) {
-                extension = '.svg';
-            } else if (file.name.endsWith('.webp')) {
-                extension = '.webp';
-            }
-            const fileName = '/images/' + uuidv4().slice(-12) + extension;
+            const fileName = getFileName(file);
             file.path = SERVER_ROOT + fileName;
             dataToStore.profileImg = fileName;
         })
@@ -174,8 +167,7 @@ module.exports.uploadProfileImg = async (req, res, next) => {
             log.warn('Fields are invalid at this URL.', name, field);
         })
         .on('fileBegin', (name, file) => {
-            const extension = file.name.match(/\.(|jpg|jpeg|png|svg|webp)$/i) ? file.name.substring(file.name.lastIndexOf('.')) : '';
-            fileName = '/images/' + uuidv4().slice(-12) + extension;
+            fileName = getFileName(file);
             file.path = SERVER_ROOT + fileName;
         })
         .on('file', async (name, file) => {
