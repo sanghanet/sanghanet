@@ -183,5 +183,22 @@
     "userSelector": {
         "SELECT": "Kiválasztás",
         "INVALIDUSERSELECTMESSAGE": "Nem találtunk ilyen felhasználót."
+    },
+
+    "date": {
+        "MONTHS": [
+            "Január",
+            "Február",
+            "Március",
+            "Április",
+            "Május",
+            "Június",
+            "Július",
+            "Augusztus",
+            "Szeptember",
+            "Október",
+            "November",
+            "December"
+        ]
     }
 }

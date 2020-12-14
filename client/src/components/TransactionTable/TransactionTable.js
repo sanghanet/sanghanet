@@ -1,126 +1,115 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import { UIcontext } from '../contexts/UIcontext/UIcontext'
 import './TransactionTable.scss';
 import { ReactComponent as Plus } from '../icons/plus.svg';
 import { ReactComponent as Minus } from '../icons/minus.svg';
 import { ReactComponent as Bin } from '../icons/bin.svg';
 
-class TransactionTable extends React.Component {
-    state = {
-        rows: null
-    }
+const TransactionTable = (props) => {
+    const dueDates = props.transactionArray.map((transaction) => {
+        const date = transaction.dueDate.split('-');
 
-    componentDidMount () {
-        this.createRows();
-    }
+        return {
+            year: date[0],
+            month: date[1],
+            day: date[2].substring(0, 2)
+        };
+    });
 
-    componentDidUpdate (prevProps) {
-        if (prevProps.transactionArray !== this.props.transactionArray) {
-            this.createRows();
-        }
-    }
+    const { dictionary, lang } = useContext(UIcontext)
+    const { MONTHS } = dictionary.date;
 
-    openAddPayment = () => {
-        this.props.openAddPayment(this.props.pocket);
-    }
+    const openAddPayment = () => { props.openAddPayment(props.pocket); }
+    const openAddDebt = () => { props.openAddDebt(props.pocket); }
 
-    openAddDebt = () => {
-        this.props.openAddDebt(this.props.pocket);
-    }
-
-    onDeleteTransaction = (event) => {
+    const onDeleteTransaction = (event) => {
         event.stopPropagation();
+
         const transaction = {
             id: event.currentTarget.id,
-            pocket: this.props.pocket,
+            pocket: props.pocket,
             description: event.currentTarget.dataset.description,
             amount: event.currentTarget.dataset.amount,
             currency: event.currentTarget.dataset.currency,
             duedate: event.currentTarget.dataset.duedate
         };
-        this.props.openDeleteTransaction(transaction);
+
+        props.openDeleteTransaction(transaction);
     }
 
-    createRows = () => {
-        const { isFinAdmin } = this.props;
-        try {
-            const rows = [];
-            for (const transaction of this.props.transactionArray) {
-                const dueDateString = new Date(transaction.dueDate).toDateString();
-                rows.push(
-                    <tr className={`finance-row ${transaction.status}`} key = {transaction._id}>
-                        <td className='description-cell'>{transaction.description}</td>
-                        <td className='date-cell'>{dueDateString}</td>
-                        <td className='amount-cell'>{transaction.amount} {transaction.currency}</td>
-                        { isFinAdmin &&
-                            <>
-                                { transaction.status !== 'deleted'
-                                    ? <td className='delete-cell'>
-                                        <Button
-                                            variant='outline-danger'
-                                            id={transaction._id}
-                                            onClick={this.onDeleteTransaction}
-                                            data-description={transaction.description}
-                                            data-amount={transaction.amount}
-                                            data-currency={transaction.currency}
-                                            data-duedate={dueDateString}
-                                        >
-                                            <Bin className='delete-transaction' />
-                                        </Button>
-                                    </td>
-                                    : <td></td>
-                                }
-                            </>
-                        }
-                    </tr>
-                );
-            }
-            this.setState({ rows: rows });
-        } catch (error) {
-            this.props.onError(error);
-        }
-    }
+    const { isFinAdmin } = props;
 
-    render () {
-        const { isFinAdmin } = this.props;
-        const column = isFinAdmin ? 4 : 3;
-        return (
-            <Table hover bordered variant="dark" className="fn-admin-table">
-                <thead>
-                    {this.props.isFinAdmin &&
-                        <React.Fragment>
-                            <tr>
-                                <th colSpan={column} className="trans">
-                                    <Button className="trans-btn" variant="success" onClick={this.openAddPayment}>
-                                        <Plus />
-                                            Add new payment
-                                    </Button>
-                                    <Button className="trans-btn" variant="danger" onClick={this.openAddDebt}>
-                                        <Minus />
-                                            Add new debit
-                                    </Button>
-                                </th>
-                            </tr>
-                        </React.Fragment>
-                    }
+    return (
+        <Table hover bordered variant="dark" className="fn-admin-table">
+            <thead>
 
+                {isFinAdmin &&
                     <tr>
-                        <th>Description</th>
-                        <th>Due date</th>
-                        <th>Amount</th>
-                        { isFinAdmin &&
-                            <th className="delete-column-header"></th>
-                        }
+                        <th colSpan='4' className="trans">
+                            <Button className="trans-btn" variant="success" onClick={openAddPayment}>
+                                <Plus />
+                                Add new payment
+                            </Button>
+                            <Button className="trans-btn" variant="danger" onClick={openAddDebt}>
+                                <Minus />
+                                Add new debit
+                            </Button>
+                        </th>
                     </tr>
-                </thead>
-                <tbody>
-                    {this.state.rows}
-                </tbody>
-            </Table>
-        );
-    }
+                }
+
+                <tr>
+                    <th>Description</th>
+                    <th>Due date</th>
+                    <th>Amount</th>
+                    { isFinAdmin && <th className="delete-column-header"></th> }
+                </tr>
+
+            </thead>
+
+            <tbody>
+                {props.transactionArray.map((transaction, i) => {
+                    const {year, month, day} = dueDates[i];
+                    const monthName = MONTHS[(month)-1];
+
+                    return (
+                        <tr className={`finance-row ${transaction.status}`} key = {transaction._id}>
+                            <td className='description-cell'>{transaction.description}</td>
+                            <td className='date-cell'>{
+                                lang === 'hu' ?
+                                    `${year} ${monthName} ${day}.` :
+                                    `${monthName} ${day}, ${year}`
+                                }
+                            </td>
+                            <td className='amount-cell'>{transaction.amount} {transaction.currency}</td>
+                            { isFinAdmin &&
+                                <td className='delete-cell'>
+                                    {
+                                        transaction.status !== 'deleted' && (
+                                            <Button
+                                                variant='outline-danger'
+                                                id={transaction._id}
+                                                onClick={onDeleteTransaction}
+                                                data-description={transaction.description}
+                                                data-amount={transaction.amount}
+                                                data-currency={transaction.currency}
+                                                data-duedate={`${year} ${monthName} ${day}`}
+                                            >
+                                                <Bin className='delete-transaction' />
+                                            </Button>
+                                        )
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </Table>
+    );
 }
 
 TransactionTable.propTypes = {
