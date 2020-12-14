@@ -20,7 +20,9 @@ const TransactionTable = (props) => {
     });
 
     const { dictionary, lang } = useContext(UIcontext)
-    const { MONTHS } = dictionary.date;
+    const { date, transactionTable } = dictionary;
+    const { MONTHS } = date;
+    const { ADDNEWPAYMENT, ADDNEWDEBIT, DESCRIPTION, DUEDATE, AMOUNT } = transactionTable;
 
     const openAddPayment = () => { props.openAddPayment(props.pocket); }
     const openAddDebt = () => { props.openAddDebt(props.pocket); }
@@ -51,20 +53,20 @@ const TransactionTable = (props) => {
                         <th colSpan='4' className="trans">
                             <Button className="trans-btn" variant="success" onClick={openAddPayment}>
                                 <Plus />
-                                Add new payment
+                                {ADDNEWPAYMENT}
                             </Button>
                             <Button className="trans-btn" variant="danger" onClick={openAddDebt}>
                                 <Minus />
-                                Add new debit
+                                {ADDNEWDEBIT}
                             </Button>
                         </th>
                     </tr>
                 }
 
                 <tr>
-                    <th>Description</th>
-                    <th>Due date</th>
-                    <th>Amount</th>
+                    <th>{DESCRIPTION}</th>
+                    <th>{DUEDATE}</th>
+                    <th>{AMOUNT}</th>
                     { isFinAdmin && <th className="delete-column-header"></th> }
                 </tr>
 

@@ -185,6 +185,14 @@
         "INVALIDUSERSELECTMESSAGE": "Nem találtunk ilyen felhasználót."
     },
 
+    "transactionTable": {
+        "ADDNEWPAYMENT": "Új fizetés felvétele",
+        "ADDNEWDEBIT": "Új tartozás felvétele",
+        "DESCRIPTION": "Leírás",
+        "DUEDATE": "Határidő",
+        "AMOUNT": "Összeg"
+    },
+
     "date": {
         "MONTHS": [
             "Január",
