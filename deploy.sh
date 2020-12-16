@@ -48,11 +48,14 @@ then
     echo "======> Download images from Azure"
     cd $DEPLOYMENT_ROOT/$AZURE/app/images
     rm -rf *
-    touch placeholder
     wget https://sanghanet.azurewebsites.net/images/list
     sed -i -e 's/^/http:\/\/sanghanet.azurewebsites.net\/images\//' list
     wget -i list
     rm list
+    if [[ ! -f noAvatar.svg ]]
+    then
+        cp -r ../../../$BUILD/app/images/noAvatar.svg ./
+    fi
     cd -
     echo
     echo "AZURE build is ready for manual deployment from: " $DEPLOYMENT_ROOT/$AZURE
