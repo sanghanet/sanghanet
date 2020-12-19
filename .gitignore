@@ -11,5 +11,6 @@ server/node_modules
 server/app
 server/.env.local
 server/.env.atlas
+server/.env.live
 server/logs
 server/testDataScripts/logs
