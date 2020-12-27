@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 class FinanceContainer extends React.Component {
     state = {
         financeData: null,
-        errorState: null
+        errorState: null,
+        reRender: 0 // fine HACK to rerender Component when new data is available.
     }
 
     componentDidMount () {
@@ -39,14 +40,14 @@ class FinanceContainer extends React.Component {
                     email: userEmail
                 }
             });
-            this.setState({ financeData: result });
+            this.setState({ financeData: result, reRender: Date.now() });
         } catch (error) {
             this.setState({ errorState: error });
         }
     }
 
     render () {
-        const { financeData, errorState } = this.state;
+        const { financeData, errorState, reRender } = this.state;
 
         return (
             <React.Fragment>
@@ -58,6 +59,7 @@ class FinanceContainer extends React.Component {
                 {financeData ? (
                     <React.Fragment>
                         <FinanceDashboard
+                            key = {reRender}
                             currency = {financeData[0].currency}
                             balance = {financeData.balance}
                             onError = {this.onError}
