@@ -40,7 +40,8 @@ class Superuser extends Component {
         alertType: '',
         alertParam: '',
         memberRoles: {},
-        memberLevel: ''
+        memberLevel: '',
+        renderedUsers: []
     };
 
     /* ------------ General functions ------------ */
@@ -50,11 +51,17 @@ class Superuser extends Component {
             fields: ['email', 'isSuperuser', 'isFinanceAdmin', 'isEventAdmin', 'isYogaAdmin', 'label', 'registered', 'level']
         })
             .then((data) => {
-                this.setState({ memberData: data.reverse()});
+
+                const reverseData = data.reverse();
+                this.setState({ 
+                    memberData: reverseData, 
+                    renderedUsers: reverseData.map((member) => member.email)
+                });
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
-            });
+            });   
     }
+
 
     closeAlert = () => {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
@@ -62,7 +69,12 @@ class Superuser extends Component {
 
     /* ------------ FilterAccordion functions ------------ */
     handleEmailFilterChange = (inputValue) => {
-        this.setState({ textFilterValue: inputValue });
+        const renderedMemberData = this.state.memberData.filter((member) => this.checkFilters(member));
+        this.setState({
+                textFilterValue: inputValue,
+                renderedUsers: renderedMemberData.map((member) => member.email)
+        });
+        console.log(renderedMemberData);
     }
 
     handleSearchIconClick = (event) => {
@@ -234,6 +246,7 @@ class Superuser extends Component {
         // eslint-disable-next-line no-multi-spaces
         const passedEmailFilter =   user.email.substring(0, user.email.indexOf('@')).toLowerCase().includes(textFilterValue.toLowerCase()) ||
                                     user.label.toLowerCase().includes(textFilterValue.toLowerCase());
+
         // eslint-disable-next-line no-multi-spaces
         const passedRoleFilter =    !(roleFilter.filterSuperuser || roleFilter.filterFinanceAdmin || roleFilter.filterEventAdmin || roleFilter.filterYogaAdmin || roleFilter.filterNoRole) ||
                                     (user.isSuperuser && roleFilter.filterSuperuser) ||
