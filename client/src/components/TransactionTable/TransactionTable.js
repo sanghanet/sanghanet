@@ -63,7 +63,7 @@ const TransactionTable = (props) => {
             </thead>
 
             <tbody>
-                {props.transactionArray.map((transaction, i) => {
+                {props.transactionArray.map((transaction) => {
                     const dueDate = formatDate(lang, new Date(transaction.dueDate));
 
                     return (

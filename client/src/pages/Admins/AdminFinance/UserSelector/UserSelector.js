@@ -128,7 +128,7 @@ const UserSelector = (props) => {
                 {searchResults.map((name, index) => {
                     const active = index === indexOfActiveItem;
                     return (<li key={name} onClick = {onSuggestionClick} className = {active ? 'activated' : ''} >
-                        <button className={`${active ? 'selected ' : ''}neomorph`}>{name}</button>
+                        <button className={active && 'selected'}>{name}</button>
                     </li>);
                 })}
             </ul>
