@@ -186,8 +186,8 @@
     },
 
     "transactionTable": {
-        "ADDNEWPAYMENT": "Új fizetés felvétele",
-        "ADDNEWDEBIT": "Új tartozás felvétele",
+        "ADDNEWPAYMENT": "Add new payment",
+        "ADDNEWDEBIT": "Add new debit",
         "DESCRIPTION": "Description",
         "DUEDATE": "Due date",
         "AMOUNT": "Amount"
