@@ -181,8 +181,8 @@
     },
 
     "userSelector": {
-        "SELECT": "Kiválasztás",
-        "INVALIDUSERSELECTMESSAGE": "Nem találtunk ilyen felhasználót."
+        "SELECT": "Felhasználó kiválasztása",
+        "UNSELECTEDMSG": "Nincsen senki kiválasztva"
     },
 
     "transactionTable": {

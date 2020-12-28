@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import Client from '../../../../components/Client';
+import { Form } from 'react-bootstrap';
 import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 import PropTypes from 'prop-types';
 import './UserSelector.scss';
@@ -7,146 +8,155 @@ import './UserSelector.scss';
 const UserSelector = (props) => {
     const [rawUserData, setRawUserData] = useState(null);
     const [suggestions, setSuggestions] = useState(null);
-    const [searchResults, setSearchResults] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const [searchResults, setSearchResults] = useState([]);
     const [userInput, setUserInput] = useState('');
     const [showWarning, setShowWarning] = useState(false);
-    const [buttonDisabled, setButtonDisabled] = useState(true);
     const [indexOfActiveItem, setIndexOfActiveItem] = useState(0);
-    const [selectedUser, setSelectedUser] = useState('No user selected');
+    const [selectedUser, setSelectedUser] = useState(null);
 
-    const onSubmit = () => {
-        const inputValue = document.getElementById('selectedUser').value;
+    const { SELECT, UNSELECTEDMSG } = useContext(UIcontext).dictionary.userSelector;
 
-        if (inputValue) {
-            const selectedUserName = inputValue;
+    const inputRef = useRef();
 
-            const selectedUserObject = rawUserData.find((item) => {
-                return item.userName === selectedUserName;
-            });
-
-            if (selectedUserObject) {
-                const selectedEmail = selectedUserObject.email;
-
-                setSearchResults([]);
-                setShowSuggestions(false);
-                setSelectedUser(selectedUserName);
-
-                props.handleSubmit(selectedEmail, selectedUserObject.userName);
-            } else {
-                setShowWarning(true);
-            }
-
-            setUserInput('');
-            setButtonDisabled(true);
-        }
-    }
+    const maxDisplayedSuggestions = 10;
 
     const onKeyPress = (e) => {
-        // up or down arrow
-        if (e.keyCode === 38 || e.keyCode === 40) { e.preventDefault(); }
+        // on up or down arrow
+        if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
 
-        // up arrow
-        if (e.keyCode === 38 && indexOfActiveItem) {
-            setIndexOfActiveItem((prevIndex) => prevIndex-1);
-        };
+        // on up arrow
+        if (e.keyCode === 38 && indexOfActiveItem) setIndexOfActiveItem(indexOfActiveItem - 1);
 
-        // down arrow
+        // on down arrow
         if (e.keyCode === 40 && indexOfActiveItem < searchResults.length - 1) {
-            setIndexOfActiveItem((prevIndex) => prevIndex+1);
+            setIndexOfActiveItem(indexOfActiveItem + 1);
         }
 
-        // enter
-        if (e.keyCode === 13 && showSuggestions) {
-            setShowSuggestions(false);
-            setUserInput(searchResults[indexOfActiveItem]);
-            setSearchResults([]);
+        // on enter
+        if (e.keyCode === 13) {
+            e.preventDefault();
 
-            document.getElementById('selectedUser').value = searchResults[indexOfActiveItem];
-
-            onSubmit();
-        } else if (e.keyCode === 13) {
+            if (showSuggestions) {
+                setShowSuggestions(false);
+                setSearchResults([]);
+                setUserInput(searchResults[indexOfActiveItem]);
+                setIndexOfActiveItem(0);
+                inputRef.current.value = searchResults[indexOfActiveItem];
+            }
             onSubmit();
         }
-    }
-
-    useEffect(() => {
-        setIndexOfActiveItem(0);
-    }, [userInput]);
+    };
 
     const onInputChange = (e) => {
-        const maxDisplayedSuggestions = 10;
-        const { index } = indexOfActiveItem;
-        const userInput = e.currentTarget.value;
+        const inputValue = e.currentTarget.value;
 
-        let searchResults = suggestions.filter((suggestion) => {
-            return userInput && suggestion.toLowerCase().includes(userInput.toLowerCase());
-        });
+        const compareStrings = (input, libraryValue) => {
+            const stdInput = input.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            const stdLibValue = libraryValue.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            return stdLibValue.match(new RegExp(`(^|\\s)${stdInput}`)) && true;
+        };
 
-        if (searchResults.length > maxDisplayedSuggestions) {
-            searchResults = searchResults.slice(0, maxDisplayedSuggestions);
+        let filteredResults = suggestions ? suggestions.filter((suggestion) => compareStrings(inputValue, suggestion)) : null;
+
+        if (filteredResults.length > maxDisplayedSuggestions) {
+            filteredResults = filteredResults.slice(0, maxDisplayedSuggestions);
         }
 
         let newActiveIndex;
 
-        if (searchResults.length && searchResults.length <= index) {
-            newActiveIndex = searchResults.length - 1;
+        if (filteredResults.length && filteredResults.length <= indexOfActiveItem) {
+            newActiveIndex = filteredResults.length - 1;
             if (newActiveIndex < 0) newActiveIndex = 0;
         } else {
-            newActiveIndex = index;
+            newActiveIndex = indexOfActiveItem;
         }
 
-        setSearchResults(searchResults);
-        setShowSuggestions(searchResults.length && true);
-        setUserInput(e.currentTarget.value);
+        setShowSuggestions(filteredResults.length && true);
+        setSearchResults(filteredResults);
+        setUserInput(inputValue);
         setShowWarning(false);
-        setButtonDisabled(!userInput);
         setIndexOfActiveItem(newActiveIndex);
-    }
+    };
 
-    const onSuggestionClick = (e) => {
+    const onSuggestionClick = async (e) => {
+        await setUserInput(e.currentTarget.innerText);
         setSearchResults([]);
         setShowSuggestions(false);
-        setUserInput(e.currentTarget.innerText);
-    }
+
+        onSubmit();
+    };
+
+    const onSubmit = () => {
+        const inputValue = inputRef.current.value;
+
+        if (inputValue) {
+            const selectedUserName = inputValue;
+            const selectedUserObject = rawUserData.find((item) => {
+                return item.userName === selectedUserName;
+            });
+            if (selectedUserObject) {
+                const selectedEmail = selectedUserObject.email;
+                setShowSuggestions(false);
+                setSearchResults([]);
+                setUserInput('');
+                setSelectedUser(selectedUserName);
+                props.handleSubmit(selectedEmail, selectedUserObject.userName);
+            } else {
+                setUserInput('');
+                setShowWarning(true);
+            }
+        }
+    };
+
+    useEffect(() => {
+        getUserList();
+        inputRef.current.focus();
+    }, []);
 
     const getUserList = async () => {
         const result = await Client.fetch('/finance/userlist');
-
-        const nameList = result.map((user) => {
-            return user.userName;
-        });
+        const nameList = result.map((user) => user.userName);
 
         setRawUserData(result);
-        setSuggestions(nameList);
-    }
+        setSuggestions(nameList.sort());
+    };
 
     const SuggestionList = () => {
         return (
             <ul>
                 {searchResults.map((name, index) => {
-                    return <li key={name} onClick = {onSuggestionClick} className = {index === indexOfActiveItem ? 'activated' : ''} >{name}</li>;
+                    const active = index === indexOfActiveItem;
+                    return (<li key={name} onClick = {onSuggestionClick} className = {active ? 'activated' : ''} >
+                        <button className={`${active ? 'selected ' : ''}neomorph`}>{name}</button>
+                    </li>);
                 })}
             </ul>
         );
     };
 
-    useEffect(() => {
-        getUserList();
-    }, []);
-
-    const { SELECT, INVALIDUSERSELECTMESSAGE } = useContext(UIcontext).dictionary.userSelector;
-
     return (
         <div className="selector">
-            <input id="selectedUser" autoComplete="off" onChange = {onInputChange} value={userInput} onKeyDown={onKeyPress}></input>
-            {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
-            <button onClick = {onSubmit} disabled = {buttonDisabled}>{SELECT}</button>
-            <div className = "user-info">{selectedUser}</div>
-            <span className={`warning-message${showWarning ? ' visible' : ''}`}>{INVALIDUSERSELECTMESSAGE}</span>
+            <div className = "user-info">{selectedUser || UNSELECTEDMSG}</div>
+            <div>
+                <Form>
+                    <Form.Control
+                        className="input"
+                        id="selectedUser"
+                        placeholder={SELECT}
+                        autoComplete="off"
+                        onChange = {onInputChange}
+                        value={userInput}
+                        onKeyDown={onKeyPress}
+                        ref={inputRef}
+                    />
+                </Form>
+                {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
+                {showWarning && <span>asdf</span> }
+            </div>
         </div>
     );
-}
+};
 
 UserSelector.propTypes = {
     handleSubmit: PropTypes.func.isRequired

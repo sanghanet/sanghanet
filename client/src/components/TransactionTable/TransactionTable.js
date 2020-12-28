@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import { UIcontext } from '../contexts/UIcontext/UIcontext'
+import { formatMoney } from '../../languages/InternationalizationMethods';
 import './TransactionTable.scss';
 import { ReactComponent as Plus } from '../icons/plus.svg';
 import { ReactComponent as Minus } from '../icons/minus.svg';
@@ -19,7 +20,8 @@ const TransactionTable = (props) => {
         };
     });
 
-    const { dictionary, lang } = useContext(UIcontext)
+    const { dictionary } = useContext(UIcontext);
+    const lang = localStorage.getItem('lang');
     const { date, transactionTable } = dictionary;
     const { MONTHS } = date;
     const { ADDNEWPAYMENT, ADDNEWDEBIT, DESCRIPTION, DUEDATE, AMOUNT } = transactionTable;
@@ -86,7 +88,7 @@ const TransactionTable = (props) => {
                                     `${monthName} ${day}, ${year}`
                                 }
                             </td>
-                            <td className='amount-cell'>{transaction.amount} {transaction.currency}</td>
+                            <td className='amount-cell'>{formatMoney(lang, transaction.amount)}</td>
                             { isFinAdmin &&
                                 <td className='delete-cell'>
                                     {

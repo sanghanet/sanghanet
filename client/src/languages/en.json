@@ -181,8 +181,8 @@
     },
 
     "userSelector": {
-        "SELECT": "Select",
-        "INVALIDUSERSELECTMESSAGE": "There is no such user."
+        "SELECT": "Select a user",
+        "UNSELECTEDMSG": "No user selected"
     },
 
     "transactionTable": {
