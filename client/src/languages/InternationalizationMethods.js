@@ -44,3 +44,16 @@ export function formatMoney(lang, amount) {
 
     return resultString;
 }
+
+export function formatDate(lang, date) {
+    const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    };
+
+    const IntlLanguage = lang === 'en' ? 'en-US' : 'hu-HU';
+    const dateFormatter = new Intl.DateTimeFormat(IntlLanguage, options);
+
+    return dateFormatter.format(date);
+}

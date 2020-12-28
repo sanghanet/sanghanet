@@ -59,7 +59,7 @@ const UserSelector = (props) => {
 
         let filteredResults = suggestions ? suggestions.filter((suggestion) => compareStrings(inputValue, suggestion)) : null;
 
-        if (filteredResults.length > maxDisplayedSuggestions) {
+        if (filteredResults !== null && filteredResults.length > maxDisplayedSuggestions) {
             filteredResults = filteredResults.slice(0, maxDisplayedSuggestions);
         }
 

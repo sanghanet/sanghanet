@@ -191,22 +191,5 @@
         "DESCRIPTION": "Leírás",
         "DUEDATE": "Határidő",
         "AMOUNT": "Összeg"
-    },
-
-    "date": {
-        "MONTHS": [
-            "Január",
-            "Február",
-            "Március",
-            "Április",
-            "Május",
-            "Június",
-            "Július",
-            "Augusztus",
-            "Szeptember",
-            "Október",
-            "November",
-            "December"
-        ]
     }
 }

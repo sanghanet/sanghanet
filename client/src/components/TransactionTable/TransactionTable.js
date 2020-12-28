@@ -3,28 +3,16 @@ import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import { UIcontext } from '../contexts/UIcontext/UIcontext'
-import { formatMoney } from '../../languages/InternationalizationMethods';
+import { formatMoney, formatDate } from '../../languages/InternationalizationMethods';
 import './TransactionTable.scss';
 import { ReactComponent as Plus } from '../icons/plus.svg';
 import { ReactComponent as Minus } from '../icons/minus.svg';
 import { ReactComponent as Bin } from '../icons/bin.svg';
 
 const TransactionTable = (props) => {
-    const dueDates = props.transactionArray.map((transaction) => {
-        const date = transaction.dueDate.split('-');
 
-        return {
-            year: date[0],
-            month: date[1],
-            day: date[2].substring(0, 2)
-        };
-    });
-
-    const { dictionary } = useContext(UIcontext);
+    const { ADDNEWPAYMENT, ADDNEWDEBIT, DESCRIPTION, DUEDATE, AMOUNT } = useContext(UIcontext).dictionary.transactionTable;
     const lang = localStorage.getItem('lang');
-    const { date, transactionTable } = dictionary;
-    const { MONTHS } = date;
-    const { ADDNEWPAYMENT, ADDNEWDEBIT, DESCRIPTION, DUEDATE, AMOUNT } = transactionTable;
 
     const openAddPayment = () => { props.openAddPayment(props.pocket); }
     const openAddDebt = () => { props.openAddDebt(props.pocket); }
@@ -76,18 +64,12 @@ const TransactionTable = (props) => {
 
             <tbody>
                 {props.transactionArray.map((transaction, i) => {
-                    const {year, month, day} = dueDates[i];
-                    const monthName = MONTHS[(month)-1];
+                    const dueDate = formatDate(lang, new Date(transaction.dueDate));
 
                     return (
                         <tr className={`finance-row ${transaction.status}`} key = {transaction._id}>
                             <td className='description-cell'>{transaction.description}</td>
-                            <td className='date-cell'>{
-                                lang === 'hu' ?
-                                    `${year} ${monthName} ${day}.` :
-                                    `${monthName} ${day}, ${year}`
-                                }
-                            </td>
+                            <td className='date-cell'>{dueDate}</td>
                             <td className='amount-cell'>{formatMoney(lang, transaction.amount)}</td>
                             { isFinAdmin &&
                                 <td className='delete-cell'>
@@ -100,7 +82,7 @@ const TransactionTable = (props) => {
                                                 data-description={transaction.description}
                                                 data-amount={transaction.amount}
                                                 data-currency={transaction.currency}
-                                                data-duedate={`${year} ${monthName} ${day}`}
+                                                data-duedate={dueDate}
                                             >
                                                 <Bin className='delete-transaction' />
                                             </Button>
