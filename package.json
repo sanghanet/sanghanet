@@ -12,7 +12,8 @@
     "deploy": "./deploy.sh",
     "buildfinance": "cd server; npm run buildfinance",
     "resetlocaldb": "cd server; npm run resetlocaldb",
-    "wdio": "cd test; npm run wdio"
+    "wdio": "cd test; npm run wdio",
+    "wdio-local": "cd ./test; NODE_ENV=local npm run wdio"
   },
   "keywords": [],
   "author": "",
