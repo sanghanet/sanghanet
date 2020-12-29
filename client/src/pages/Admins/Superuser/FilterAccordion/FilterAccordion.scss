@@ -20,7 +20,30 @@
                 height: 100%;
                 border-radius: 0;
                 text-align: left;
+                display: flex;
+                align-items: center;
             }
+
+                .arrow-icon {
+                    display: flex;
+                    height: 100%;
+                    width: 15px;
+                    margin: 0 15px 0 0;
+                    float: left;
+                    fill: #fff;
+
+                    svg {
+                        height: 100%;
+                        transition: all .5s;
+
+                        &.arrowDown {
+                            transform: rotate(180deg);
+                        }
+                        &.arrowUp {
+                            transform: rotate(0deg);
+                        }
+                    }
+                }
         }
 
         .card-body {
