@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 
 import './FilterAccordion.scss';
 
 import { ReactComponent as Cross } from '../../../../components/icons/cross.svg';
+import { ReactComponent as Arrow } from '../../../../components/Form/formIcons/arrow-up.svg';
 import SearchBar from '../../../../components/Search/SearchBar';
 import Checkbox from '../../../../components/Form/Checkbox/Checkbox';
 
@@ -20,6 +21,7 @@ import Card from 'react-bootstrap/Card';
     --------------------------------------
 */
 const FilterAccordion = (props) => {
+    const [dropDownVisible, setDropDownVisible] = useState(false);
     const { superuser } = useContext(UIcontext).dictionary;
     const { FILTERMEMBERS, FILTERTEXT, FILTERSHOW, FILTERALL, FILTERREGISTERED, FILTERUNREGISTERED, RESETFILTERS, FILTERSUPERUSER, FILTERFINADMIN, FILTEREVENTADMIN, FILTERYOGAADMIN, FILTERNOROLE } = superuser;
 
@@ -37,7 +39,10 @@ const FilterAccordion = (props) => {
         <Accordion onKeyDown={preventSubmit} className="su-filter-accordion">
             <Card>
                 <Card.Header>
-                    <Accordion.Toggle as={Button} variant="primary" eventKey="0">
+                    <Accordion.Toggle onClick={() => setDropDownVisible(prevState => !prevState)} as={Button} variant="primary" eventKey="0">
+                        <span className="arrow-icon" eventKey="0">
+                            <Arrow className={dropDownVisible ? "arrowUp" : "arrowDown"}/>
+                        </span>
                         {FILTERMEMBERS}
                     </Accordion.Toggle>
                 </Card.Header>
