@@ -75,7 +75,7 @@ class Navbar extends Component {
         const classList = this.state.showSubmenu ? 'wrapper show-submenu' : 'wrapper';
 
         const {
-            ADMIN,
+            ADMINS,
             BACK,
             DASHBOARD,
             PERSONAL,
@@ -114,7 +114,7 @@ class Navbar extends Component {
                         <li className="admins">
                             <div className="link" onClick={this.handleSubmenu}>
                                 <div className="menu-icon"><ForwardIcon /></div>
-                                <span className="title admins">{ ADMIN }</span>
+                                <span className="title admins">{ ADMINS }</span>
                             </div>
                         </li>
                         {mainMenu.map((menuItem, index) => this.createMainMenuItem(menuItem, index))}
