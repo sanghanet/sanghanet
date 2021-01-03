@@ -29,7 +29,7 @@ const FinanceDashboard = (props) => {
         <div className='overview' >
             <div className='outer'>
                 {/* eslint-disable-next-line array-callback-return */}
-                {Object.entries(balance).map(([pocket, amount, index]) => {
+                {Object.entries(balance).map(([pocket, amount], index) => {
                     try {
                         const financePocket = financePockets[pocket.toUpperCase()];
 

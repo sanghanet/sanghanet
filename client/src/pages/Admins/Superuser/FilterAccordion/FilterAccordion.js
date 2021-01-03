@@ -39,9 +39,9 @@ const FilterAccordion = (props) => {
         <Accordion onKeyDown={preventSubmit} className="su-filter-accordion">
             <Card>
                 <Card.Header>
-                    <Accordion.Toggle onClick={() => setDropDownVisible(prevState => !prevState)} as={Button} variant="primary" eventKey="0">
-                        <span className="arrow-icon" eventKey="0">
-                            <Arrow className={dropDownVisible ? "arrowUp" : "arrowDown"}/>
+                    <Accordion.Toggle onClick={() => setDropDownVisible((prevState) => !prevState)} as={Button} variant="primary" eventKey="0">
+                        <span className="arrow-icon">
+                            <Arrow className={dropDownVisible ? 'arrowUp' : 'arrowDown'} />
                         </span>
                         {FILTERMEMBERS}
                     </Accordion.Toggle>

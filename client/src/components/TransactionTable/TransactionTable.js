@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
-import { UIcontext } from '../contexts/UIcontext/UIcontext'
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import { formatMoney, formatDate } from '../../languages/InternationalizationMethods';
 import './TransactionTable.scss';
 import { ReactComponent as Plus } from '../icons/plus.svg';
@@ -10,12 +10,11 @@ import { ReactComponent as Minus } from '../icons/minus.svg';
 import { ReactComponent as Bin } from '../icons/bin.svg';
 
 const TransactionTable = (props) => {
-
     const { ADDNEWPAYMENT, ADDNEWDEBIT, DESCRIPTION, DUEDATE, AMOUNT } = useContext(UIcontext).dictionary.transactionTable;
     const lang = localStorage.getItem('lang');
 
-    const openAddPayment = () => { props.openAddPayment(props.pocket); }
-    const openAddDebt = () => { props.openAddDebt(props.pocket); }
+    const openAddPayment = () => { props.openAddPayment(props.pocket); };
+    const openAddDebt = () => { props.openAddDebt(props.pocket); };
 
     const onDeleteTransaction = (event) => {
         event.stopPropagation();
@@ -30,7 +29,7 @@ const TransactionTable = (props) => {
         };
 
         props.openDeleteTransaction(transaction);
-    }
+    };
 
     const { isFinAdmin } = props;
 
@@ -63,11 +62,11 @@ const TransactionTable = (props) => {
             </thead>
 
             <tbody>
-                {props.transactionArray.map((transaction) => {
+                {props.transactionArray.map((transaction, index) => {
                     const dueDate = formatDate(lang, new Date(transaction.dueDate));
 
                     return (
-                        <tr className={`finance-row ${transaction.status}`} key = {transaction._id}>
+                        <tr className={`finance-row ${transaction.status}`} key={index}>
                             <td className='description-cell'>{transaction.description}</td>
                             <td className='date-cell'>{dueDate}</td>
                             <td className='amount-cell'>{formatMoney(lang, transaction.amount)}</td>
@@ -96,7 +95,7 @@ const TransactionTable = (props) => {
             </tbody>
         </Table>
     );
-}
+};
 
 TransactionTable.propTypes = {
     transactionArray: PropTypes.array.isRequired,

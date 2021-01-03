@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import GenericDialog from '../../../../components/Form/GenericDialog/GenericDialog';
-import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 
 import './DeleteTransactionDialog.scss';
 
