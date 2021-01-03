@@ -27,13 +27,13 @@ const FinanceDashboard = (props) => {
 
     return (
         <div className='overview' >
-            {/* eslint-disable-next-line array-callback-return */}
-            {Object.entries(balance).map(([pocket, amount, index]) => {
-                try {
-                    const financePocket = financePockets[pocket.toUpperCase()];
+            <div className='outer'>
+                {/* eslint-disable-next-line array-callback-return */}
+                {Object.entries(balance).map(([pocket, amount, index]) => {
+                    try {
+                        const financePocket = financePockets[pocket.toUpperCase()];
 
-                    return (
-                        <div className='outer'>
+                        return (
                             <div key={index} className='fin-card'>
                                 <div className='fin-card-1st'>
                                     <div>{financePocket} {BALANCE}:</div>
@@ -43,12 +43,12 @@ const FinanceDashboard = (props) => {
                                     <div>{formatMoney(lang, amount, currency)}</div>
                                 </div>
                             </div>
-                        </div>
-                    );
-                } catch (error) {
-                    props.onError(error);
-                }
-            })}
+                        );
+                    } catch (error) {
+                        props.onError(error);
+                    }
+                })}
+            </div>
         </div>
     );
 };
