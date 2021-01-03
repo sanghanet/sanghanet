@@ -31,8 +31,6 @@ class FinanceContainer extends React.Component {
         });
     }
 
-    sortByDueDate = (t1, t2) => new Date(t2.dueDate) - new Date(t1.dueDate);
-
     getFinanceData = async (userEmail = null) => {
         try {
             const result = await Client.fetch('/finance/financedata', {
@@ -41,13 +39,7 @@ class FinanceContainer extends React.Component {
                     email: userEmail
                 }
             });
-
-            result[0].transactions.membership.sort(this.sortByDueDate);
-            result[0].transactions.rent.sort(this.sortByDueDate);
-            result[0].transactions.event.sort(this.sortByDueDate);
-            result[0].transactions.angel.sort(this.sortByDueDate);
-
-            this.setState({ financeData: result, reRender: Date.now() });
+            this.setState({ financeData: result });
         } catch (error) {
             this.setState({ errorState: error });
         }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import Client from '../../../../components/Client';
 import { Form } from 'react-bootstrap';
 import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
@@ -11,6 +11,7 @@ const UserSelector = (props) => {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
     const [userInput, setUserInput] = useState('');
+    const [showWarning, setShowWarning] = useState(false);
     const [indexOfActiveItem, setIndexOfActiveItem] = useState(0);
     const [selectedUser, setSelectedUser] = useState(null);
 
@@ -74,6 +75,7 @@ const UserSelector = (props) => {
         setShowSuggestions(filteredResults.length && true);
         setSearchResults(filteredResults);
         setUserInput(inputValue);
+        setShowWarning(false);
         setIndexOfActiveItem(newActiveIndex);
     };
 
@@ -102,6 +104,7 @@ const UserSelector = (props) => {
                 props.handleSubmit(selectedEmail, selectedUserObject.userName);
             } else {
                 setUserInput('');
+                setShowWarning(true);
             }
         }
     };
@@ -124,11 +127,9 @@ const UserSelector = (props) => {
             <ul>
                 {searchResults.map((name, index) => {
                     const active = index === indexOfActiveItem;
-                    return (
-                        <li key={name} onClick = {onSuggestionClick} className = {active ? 'activated' : ''} >
-                            {name}
-                        </li>
-                    );
+                    return (<li key={name} onClick = {onSuggestionClick} className = {active ? 'activated' : ''} >
+                        <button className={active && 'selected'}>{name}</button>
+                    </li>);
                 })}
             </ul>
         );
@@ -151,6 +152,7 @@ const UserSelector = (props) => {
                     />
                 </Form>
                 {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
+                {showWarning && <span>asdf</span> }
             </div>
         </div>
     );
