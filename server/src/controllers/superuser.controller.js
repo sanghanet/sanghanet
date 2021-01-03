@@ -80,7 +80,7 @@ module.exports.addMember = async (req, res, next) => {
             return res.json({ addedAddress: null, exists: true });
         }
         const newMember = await Member.create({ label: labelToAdd, email: emailToAdd, level: '' });
-        const newAccount = await FinanceAccount.create({ email: emailToAdd });
+        const newAccount = await FinanceAccount.create({ email: emailToAdd, userName: labelToAdd });
         if (newMember && newAccount) {
             log.info(`${newMember.label} (${newMember.email}) added.`);
             res.json({ memberAdded: newMember, exists: true });
