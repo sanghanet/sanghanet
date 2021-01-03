@@ -41,7 +41,7 @@ const InputDisplay = (props) => {
                 ? (<InputPopup
                     modalShow={show}
                     modalTitle={inputTitle}
-                    modalValue={inputValue || ENTERVALUE}
+                    modalValue={inputValue}
                     modalClose={handleClose}
                     modalId={inputId}
                     modalValueSave={inputValueSave}
@@ -51,6 +51,7 @@ const InputDisplay = (props) => {
                     modalOptionsText={textForSelect}
                     modalValidation={validation}
                     modalFormat={format}
+                    modalPlaceholder={ENTERVALUE}
                 />)
                 : null
             }
