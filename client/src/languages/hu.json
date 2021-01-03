@@ -167,5 +167,29 @@
     "pageNotFound": {
         "PAGENOTFOUND": "Nem találjuk ezt az oldalt",
         "GOBACK": "Vissza"
+    },
+
+    "financeDashboard": {
+        "BALANCE": "egyenleg"
+    },
+
+    "financePockets": {
+        "MEMBERSHIP": "Tagság",
+        "RENT": "Bérleti díj",
+        "EVENT": "Esemény",
+        "ANGEL": "Angyalkassza"
+    },
+
+    "userSelector": {
+        "SELECT": "Felhasználó kiválasztása",
+        "UNSELECTEDMSG": "Nincsen senki kiválasztva"
+    },
+
+    "transactionTable": {
+        "ADDNEWPAYMENT": "Új fizetés felvétele",
+        "ADDNEWDEBIT": "Új tartozás felvétele",
+        "DESCRIPTION": "Leírás",
+        "DUEDATE": "Határidő",
+        "AMOUNT": "Összeg"
     }
 }

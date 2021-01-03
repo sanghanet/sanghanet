@@ -13,9 +13,7 @@
         height: 30px;
         fill: $white;
     }
-    .capitalize {
-        text-transform: capitalize;
-    }
+    
     @include maxQ(767px) {
         font-size: .8rem;
     }
