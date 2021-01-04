@@ -5,7 +5,7 @@ export const DataContext = React.createContext({
         firstName: '',
         lastName: '',
         fullName: '',
-        nameOrder: 1
+        nameOrder: 'normal'
     },
     avatarSrc: '/images/noAvatar.svg',
     setUsername: () => {},

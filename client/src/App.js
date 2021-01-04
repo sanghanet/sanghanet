@@ -21,8 +21,8 @@ class App extends Component {
             localStorage.setItem('lang', 'hu');
         }
 
-        this.englishNameOrder = 1;
-        this.hungarianNameOrder = -1;
+        this.englishNameOrder = 'normal';
+        this.hungarianNameOrder = 'reverse';
 
         this.state = {
             uiContext: {
@@ -103,13 +103,15 @@ class App extends Component {
 
     setUsername = (firstName, lastName) => {
         const { dataContext } = this.state;
+
         dataContext.userName = {
             firstName,
             lastName,
             // Full name order depends on language
             fullName: this.getFullName(firstName, lastName),
             nameOrder: this.getNameOrder()
-        }
+        };
+
         this.setState({ dataContext });
     }
 
