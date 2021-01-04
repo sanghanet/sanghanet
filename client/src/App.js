@@ -57,8 +57,6 @@ class App extends Component {
         return lang === 'hu' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`;
     }
 
-    getNameOrder = () => this.state.uiContext.lang === 'hu' ? this.hungarianNameOrder : this.englishNameOrder;
-
     toggleHamburger = () => {
         const { uiContext } = this.state;
         uiContext.isHamburgerOpen = !uiContext.isHamburgerOpen;
