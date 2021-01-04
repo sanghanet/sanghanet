@@ -197,5 +197,9 @@
         "DESCRIPTION": "Leírás",
         "DUEDATE": "Határidő",
         "AMOUNT": "Összeg"
+    },
+
+    "footer": {
+        "MADEBY": "Készítették: "
     }
 }

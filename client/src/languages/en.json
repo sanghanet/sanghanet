@@ -197,5 +197,9 @@
         "DESCRIPTION": "Description",
         "DUEDATE": "Due date",
         "AMOUNT": "Amount"
+    },
+
+    "footer": {
+        "MADEBY": "Made by: "
     }
 }
