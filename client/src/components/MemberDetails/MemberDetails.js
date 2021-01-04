@@ -7,7 +7,7 @@ import './MemberDetails.scss';
 
 const MemberDetails = (props) => {
     const [dataCopy, setDataCopy] = useState(false);
-    const { modalMembersDictionary, generalTermsDictionary } = useContext(UIcontext).dictionary;
+    const { modalMembersDictionary, generalTermsDictionary, personalPagePlaceholders } = useContext(UIcontext).dictionary;
     const { COPY, COPYTOCLIPBOARD } = modalMembersDictionary;
     const { memberDetails } = useContext(UIcontext).dictionary;
     const { SPIRITUALNAME, DATEOFBIRTH, GENDER, LEVELOFSTUDY, EMAIL, MOBILE, ADDRESS, EMNAME, EMMOBILE, EMEMAIL } = memberDetails;
@@ -49,7 +49,7 @@ const MemberDetails = (props) => {
             </div>
             {data.spiritualName && data.spiritualName !== 'None' && userData(SPIRITUALNAME, data.spiritualName)}
             {data.birthday && userData(DATEOFBIRTH, data.birthday)}
-            {data.gender && userData(GENDER, data.gender)}
+            {data.gender && userData(GENDER, personalPagePlaceholders[data.gender.toUpperCase()])}
             {data.level && userData(LEVELOFSTUDY, generalTermsDictionary[data.level.toUpperCase()])}
             {data.email && userData(EMAIL, data.email)}
             {data.mobile && userData(MOBILE, data.mobile)}
