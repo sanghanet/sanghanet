@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import { DataContext } from '../../contexts/DataContext/DataContext';
 
 const AnyUserNameWrapper = (props) => {
-    const { nameOrder } = useContext(DataContext).userName;
+    const { getFullName } = useContext(DataContext);
     const { firstName, lastName } = props;
-    const names = [firstName, lastName];
 
-    const namesInOrder = nameOrder === 'reverse' ? names.reverse() : names;
-
-    return <>{namesInOrder.join(' ')}</>;
+    return <>{getFullName(firstName, lastName)}</>;
 };
 
 AnyUserNameWrapper.propTypes = {

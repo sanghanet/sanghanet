@@ -7,6 +7,7 @@ export const DataContext = React.createContext({
         fullName: '',
         nameOrder: 'normal'
     },
+    getFullName: () => {},
     avatarSrc: '/images/noAvatar.svg',
     setUsername: () => {},
     setAvatarSrc: () => {}

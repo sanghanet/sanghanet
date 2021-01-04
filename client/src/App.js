@@ -21,9 +21,6 @@ class App extends Component {
             localStorage.setItem('lang', 'hu');
         }
 
-        this.englishNameOrder = 'normal';
-        this.hungarianNameOrder = 'reverse';
-
         this.state = {
             uiContext: {
                 isHamburgerOpen: false,
@@ -45,9 +42,9 @@ class App extends Component {
                 userName: {
                     firstName: '',
                     lastName: '',
-                    fullName: '',
-                    nameOrder: localStorage.getItem('lang') === 'hu' ? this.hungarianNameOrder : this.englishNameOrder
+                    fullName: ''
                 },
+                getFullName: this.getFullName,
                 avatarSrc: '/images/noAvatar.svg',
                 setUsername: this.setUsername,
                 setAvatarSrc: this.setAvatarSrc
@@ -94,8 +91,7 @@ class App extends Component {
         dataContext.userName = {
             firstName,
             lastName,
-            fullName: this.getFullName(firstName, lastName),
-            nameOrder: this.getNameOrder()
+            fullName: this.getFullName(firstName, lastName)
         };
 
         this.setState({ uiContext, dataContext });
@@ -107,9 +103,7 @@ class App extends Component {
         dataContext.userName = {
             firstName,
             lastName,
-            // Full name order depends on language
-            fullName: this.getFullName(firstName, lastName),
-            nameOrder: this.getNameOrder()
+            fullName: this.getFullName(firstName, lastName)
         };
 
         this.setState({ dataContext });
