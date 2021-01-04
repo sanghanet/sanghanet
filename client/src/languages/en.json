@@ -42,6 +42,12 @@
         "SUPERUSER": "Superuser"
     },
 
+    "membersPage" : {
+        "SHOWINGRESULTSFOR": "Showing results for ",
+        "SHOWALLMEMBERSBUTTON": "Show all members",
+        "SHOWINGMEMBERSTITLE": "Showing members shared data"
+    },
+
     "memberCardButton" : { "SEESHAREDDATA": "See shared data" },
 
     "modalMembersDictionary": {

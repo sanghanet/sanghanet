@@ -42,6 +42,12 @@
         "SUPERUSER": "Superuser"
     },
 
+    "membersPage" : {
+        "SHOWINGRESULTSFOR": "Keresési eredmény a következőre ",
+        "SHOWALLMEMBERSBUTTON": "Mutass mindenkit",
+        "SHOWINGMEMBERSTITLE": "A tagok megosztott adatai"
+    },
+
     "memberCardButton" : { "SEESHAREDDATA": "Megosztott adatok" },
 
     "modalMembersDictionary": {
