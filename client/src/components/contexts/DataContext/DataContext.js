@@ -4,8 +4,7 @@ export const DataContext = React.createContext({
     userName: {
         firstName: '',
         lastName: '',
-        fullName: '',
-        nameOrder: 'normal'
+        fullName: ''
     },
     getFullName: () => {},
     avatarSrc: '/images/noAvatar.svg',
