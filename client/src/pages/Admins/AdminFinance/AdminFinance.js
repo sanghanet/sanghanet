@@ -7,8 +7,6 @@ import AddTransactionDialog from './AddTransactionDialog/AddTransactionDialog';
 import DeleteTransactionDialog from './DeleteTransactionDialog/DeleteTransactionDialog';
 import Alert from '../../../components/Alert/Alert';
 
-import { UIcontext } from '../../../components/contexts/UIcontext/UIcontext';
-
 class AdminFinance extends React.Component {
     state = {
         selectedUserEmail: null,
@@ -156,5 +154,4 @@ class AdminFinance extends React.Component {
     }
 }
 
-AdminFinance.contextType = UIcontext;
 export default AdminFinance;
