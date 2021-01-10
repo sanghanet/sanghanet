@@ -3,7 +3,9 @@
         "LOADING": "Betöltés",
         "BEGINNER": "Kezdő",
         "INTERMEDIATE": "Középhaladó",
-        "ADVANCED": "Haladó"
+        "ADVANCED": "Haladó",
+        "NAME": "Név",
+        "EMAIL": "Email cím"
     },
 
     "loginPageDictionary": {
@@ -180,6 +182,7 @@
     },
 
     "financePockets": {
+        "POCKET": "Zseb",
         "MEMBERSHIP": "Tagság",
         "RENT": "Bérleti díj",
         "EVENT": "Esemény",
@@ -197,6 +200,17 @@
         "DESCRIPTION": "Leírás",
         "DUEDATE": "Határidő",
         "AMOUNT": "Összeg"
+    },
+
+    "transactionTypes": {
+        "PAYMENT": "Fizetés",
+        "DEBT": "Tartozás"
+    },
+
+    "addTransactionDialog": {
+        "BEFORETYPE": "",
+        "AFTERTYPE": " hozzáadása",
+        "DATESELECTORINFO": "jelölje be a dátumot a naptáron"
     },
 
     "footer": {
