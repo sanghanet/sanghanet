@@ -3,7 +3,9 @@
         "LOADING": "Loading",
         "BEGINNER": "Beginner",
         "INTERMEDIATE": "Intermediate",
-        "ADVANCED": "Advanced"
+        "ADVANCED": "Advanced",
+        "NAME": "Name",
+        "EMAIL": "Email address"
     },
 
     "loginPageDictionary": {
@@ -180,6 +182,7 @@
     },
 
     "financePockets": {
+        "POCKET": "Pocket",
         "MEMBERSHIP": "Membership",
         "RENT": "Rent",
         "EVENT": "Event",
@@ -197,6 +200,17 @@
         "DESCRIPTION": "Description",
         "DUEDATE": "Due date",
         "AMOUNT": "Amount"
+    },
+
+    "transactionTypes": {
+        "PAYMENT": "payment",
+        "DEBT": "debt"
+    },
+
+    "addTransactionDialog": {
+        "BEFORETYPE": "Add ",
+        "AFTERTYPE": "",
+        "DATESELECTORINFO": "click on the field to select date"
     },
 
     "footer": {
