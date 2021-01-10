@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import AnyUserNameWrapper from '../NameWrappers/AnyUserName/AnyUserNameWrapper'
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './MemberCard.scss';
 
@@ -15,7 +16,12 @@ const MemberCard = (props) => {
                 <img src={profileImg} alt="Avatar" />
             </div>
             <div className="member-content">
-                <p className="card-name">{`${firstName} ${lastName}`}</p>
+                <p className="card-name">
+                    <AnyUserNameWrapper
+                        firstName={firstName}
+                        lastName={lastName}
+                    />
+                </p>
                 <hr className="card-line"></hr>
                 <p className="card-spiritual-name">{spiritualName}</p>
             </div>
