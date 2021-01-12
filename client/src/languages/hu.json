@@ -199,7 +199,9 @@
         "ADDNEWDEBIT": "Új tartozás felvétele",
         "DESCRIPTION": "Leírás",
         "DUEDATE": "Határidő",
-        "AMOUNT": "Összeg"
+        "AMOUNT": "Összeg",
+        "DELETETRANSACTION": "Transakció törlése",
+        "TRANSACTIONDETAILS": "Transakció részletei"
     },
 
     "transactionTypes": {
