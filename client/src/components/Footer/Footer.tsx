@@ -4,7 +4,7 @@ import version from '../../version';
 import './Footer.scss';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 
-const Footer = (props) => {
+const Footer: React.FC = () => {
     const { MADEBY } = useContext(UIcontext).dictionary.footer;
     return (
         <footer className='footer position-absolute p-0 m-0'>

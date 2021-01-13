@@ -1,12 +1,12 @@
 import React from 'react';
 
-export const DataContext = React.createContext({
+export const DataContext = React.createContext<DataContextType>({
     userName: {
         firstName: '',
         lastName: '',
         fullName: ''
     },
-    getFullName: () => {},
+    getFullName: () => { return 'Oops, default DataContext available only!'},
     avatarSrc: '/images/noAvatar.svg',
     setUsername: () => {},
     setAvatarSrc: () => {}
