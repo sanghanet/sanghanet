@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
-import { Route, Redirect, useHistory } from 'react-router-dom';
+import { Route, RouteProps, Redirect, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const PrivateRoute = (props) => {
+interface PrivateRouteProps extends RouteProps {
+    component: any;
+    history?: any;
+};
+
+const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = (props) => {
     const { component: Component, ...rest } = props;
     const userStatus = sessionStorage.getItem('userStatus');
 
@@ -17,7 +22,6 @@ const PrivateRoute = (props) => {
     return (
         // Show the component only when user is known
         // Otherwise, redirect the user to / page
-        // FIXME: clarify rest and props - which one goes where
         <Route {...rest} render={ (props) => (
             userStatus
                 ? <Component {...props} />

@@ -9,7 +9,7 @@ type UiContextType = {
     isYogaAdmin: boolean,
     setAccess: (a: boolean, b: boolean, c: boolean, d: boolean) => void,
 
-    lang: string,
+    lang: LANGUAGE,
     dictionary: DictionaryType,
     changeLang: (lang: LANGUAGE) => void
 };
