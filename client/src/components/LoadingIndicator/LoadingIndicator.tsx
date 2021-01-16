@@ -3,18 +3,23 @@ import PropTypes from 'prop-types';
 import Spinner from 'react-bootstrap/Spinner';
 import './LoadingIndicator.scss';
 
-const LoadingIndicator = (props) => {
+interface LoadingIndicatorProps {
+    until: boolean,
+    size?: string
+}
+
+const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({ until, size }) => {
     return (
-        <div className={`loading ${props.until ? 'd-none' : ''}`}>
+        <div className={`loading ${until ? 'd-none' : ''}`}>
             <Spinner
                 animation="border"
                 className="spinner"
                 style={{
-                    width: props.size,
-                    height: props.size
+                    width: size,
+                    height: size
                 }}
             />
-            <p style={{ fontSize: props.size }} className="m-0 d-inline">Loading...</p>
+            <p style={{ fontSize: size }} className="m-0 d-inline">Loading...</p>
         </div>
     );
 };
