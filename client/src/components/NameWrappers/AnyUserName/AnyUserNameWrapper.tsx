@@ -1,20 +1,8 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import { DataContext } from '../../contexts/DataContext/DataContext';
 
-interface AnyUserNameWrapperProps {
-    firstName: string,
-    lastName: string
-};
-
-const AnyUserNameWrapper: React.FC<AnyUserNameWrapperProps> = ({ firstName, lastName }) => {
-    const { getFullName } = useContext(DataContext);
-    return <>{getFullName(firstName, lastName)}</>;
-};
-
-AnyUserNameWrapper.propTypes = {
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired
+const AnyUserNameWrapper = (firstName: string, lastName: string): string => {
+    return useContext(DataContext).getFullName(firstName, lastName);
 };
 
 export default AnyUserNameWrapper;
