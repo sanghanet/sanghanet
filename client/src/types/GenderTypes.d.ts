@@ -1,1 +1,1 @@
-type LEVEL = '' | 'Male' | 'Female' | 'Other';
+type GENDER = '' | 'Male' | 'Female' | 'Other';
