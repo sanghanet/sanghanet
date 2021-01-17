@@ -9,6 +9,8 @@ import MemberDetails from '../../components/MemberDetails/MemberDetails';
 
 import { Button } from 'react-bootstrap';
 
+//FIXME: REMOVE ALL @ts-ignore comments !!!
+
 const Members: React.FC = (props) => {
     const { SHOWINGRESULTSFOR, SHOWALLMEMBERSBUTTON, SHOWINGMEMBERSTITLE } = useContext(UIcontext).dictionary.membersPage;
 
@@ -37,11 +39,13 @@ const Members: React.FC = (props) => {
     }, [props]); //  to run an effect and clean it up only once
 
     const displayMember = (id: string) => {
+        // @ts-ignore
         const usersToDisplay = props.location.state?.usersToDisplay;
         return usersToDisplay ? usersToDisplay.includes(id) : true;
     };
 
     const resetMembersFilter = () => {
+        // @ts-ignore
         props.history.push({
             state: {
                 usersToDisplay: null,
@@ -67,9 +71,11 @@ const Members: React.FC = (props) => {
                     />
                 }
                 <div className='member-page-heading'>{
+                    // @ts-ignore
                     props.location.state?.searchString
                         ? (
                             <>
+                                {/* @ts-ignore */ }
                                 <p>{`${SHOWINGRESULTSFOR} "${props.location.state.searchString}"`}</p>
                                 <Button variant="dark" onClick={resetMembersFilter}>{SHOWALLMEMBERSBUTTON}</Button>
                             </>
