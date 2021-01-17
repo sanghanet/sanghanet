@@ -1,5 +1,5 @@
-import React, { ReactPropTypes } from 'react';
-import PropTypes, { ReactElementLike, ReactNodeLike } from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import './GenericDialog.scss';
 

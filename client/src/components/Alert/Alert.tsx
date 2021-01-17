@@ -21,6 +21,7 @@ const Alert: React.FC<AlertProps> = ({ alertType, alertMsg, alertClose }) => {
             <Toast.Header className={alertType}>
                 {
                     {
+                        NOALERT: null,
                         ERROR: <Error className={'alert-icon'} />,
                         WARNING: <Warning className={'alert-icon'} />,
                         INFO: <Info className={'alert-icon'} />
@@ -36,7 +37,7 @@ const Alert: React.FC<AlertProps> = ({ alertType, alertMsg, alertClose }) => {
 Alert.propTypes = {
     alertClose: PropTypes.func.isRequired,
     alertMsg: PropTypes.string,
-    alertType: PropTypes.oneOf(['ERROR', 'WARNING', 'INFO'] as const).isRequired
+    alertType: PropTypes.oneOf(['NOALERT', 'ERROR', 'WARNING', 'INFO'] as const).isRequired
 };
 
 export default Alert;

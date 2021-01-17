@@ -1,1 +1,1 @@
-type ALERT = 'ERROR' | 'WARNING' | 'INFO';
+type ALERT = 'NOALERT' | 'ERROR' | 'WARNING' | 'INFO';

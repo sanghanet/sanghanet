@@ -14,7 +14,7 @@ const Members: React.FC = (props) => {
 
     const [members, setMembers] = useState<RegisteredUserType[]>([]);
     const [memberIndex, setMemberIndex] = useState(-1); // -1 means no selected member
-    const [alert, setAlert] = useState({ showAlert: false, alertMessage: '', alertType: '' });
+    const [alert, setAlert] = useState({ showAlert: false, alertMessage: '', alertType: 'NOALERT' });
 
     const showMemberPopup = (index: number) => {
         setMemberIndex(index);
@@ -23,7 +23,7 @@ const Members: React.FC = (props) => {
         setMemberIndex(-1);
     };
     const closeAlert = () => {
-        setAlert({ showAlert: false, alertMessage: '', alertType: '' });
+        setAlert({ showAlert: false, alertMessage: '', alertType: 'NOALERT' });
     };
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const Members: React.FC = (props) => {
                     <Alert
                         alertClose={closeAlert}
                         alertMsg={alert.alertMessage}
-                        alertType={alert.alertType}
+                        alertType={alert.alertType as ALERT}
                     />
                 }
                 {memberIndex >= 0 &&
