@@ -9,14 +9,14 @@ import MemberDetails from '../../components/MemberDetails/MemberDetails';
 
 import { Button } from 'react-bootstrap';
 
-const Members = (props) => {
+const Members: React.FC = (props) => {
     const { SHOWINGRESULTSFOR, SHOWALLMEMBERSBUTTON, SHOWINGMEMBERSTITLE } = useContext(UIcontext).dictionary.membersPage;
 
-    const [members, setMembers] = useState([]);
+    const [members, setMembers] = useState<RegisteredUserType[]>([]);
     const [memberIndex, setMemberIndex] = useState(-1); // -1 means no selected member
     const [alert, setAlert] = useState({ showAlert: false, alertMessage: '', alertType: '' });
 
-    const showMemberPopup = (index) => {
+    const showMemberPopup = (index: number) => {
         setMemberIndex(index);
     };
     const closeMemberPopup = () => {
@@ -28,7 +28,7 @@ const Members = (props) => {
 
     useEffect(() => {
         Client.fetch('/user/registereduserdata', { method: 'POST' })
-            .then((visibleUserData) => {
+            .then((visibleUserData: RegisteredUserType[]) => {
                 setMembers(visibleUserData);
             }).catch((err) => {
                 console.log(err);
@@ -36,7 +36,7 @@ const Members = (props) => {
             });
     }, [props]); //  to run an effect and clean it up only once
 
-    const displayMember = (id) => {
+    const displayMember = (id: string) => {
         const usersToDisplay = props.location.state?.usersToDisplay;
         return usersToDisplay ? usersToDisplay.includes(id) : true;
     };
@@ -63,7 +63,7 @@ const Members = (props) => {
                 {memberIndex >= 0 &&
                     <MemberDetails
                         closeDialog={closeMemberPopup}
-                        selectedMemberData={members[memberIndex]}
+                        selectedMemberData={ members[memberIndex]}
                     />
                 }
                 <div className='member-page-heading'>{

@@ -1,14 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactPropTypes } from 'react';
+import PropTypes, { ReactElementLike, ReactNodeLike } from 'prop-types';
 
 import './GenericDialog.scss';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-const GenericDialog = (props) => {
-    const { title, subtitle, reject, accept, children, acceptDisabled, handleClose, handleAccept } = props;
+interface GenericDialogProps {
+    title: string,
+    subtitle?: string,
+    reject?: string,
+    accept?: string,
+    acceptDisabled?: boolean,
+    handleClose: () => void,
+    handleAccept?: () => void
+};
 
+const GenericDialog: React.FC<GenericDialogProps> = ({ title, subtitle, reject, accept, children, acceptDisabled, handleClose, handleAccept }) => {
     return (
         <Modal show={true} onHide={handleClose} animation={false} dialogClassName={'modal-container'} className="generic-dialog">
             <Modal.Header closeButton>
@@ -39,7 +47,6 @@ GenericDialog.propTypes = {
     subtitle: PropTypes.string,
     reject: PropTypes.string,
     accept: PropTypes.string,
-    children: PropTypes.node.isRequired,
     acceptDisabled: PropTypes.bool,
     handleClose: PropTypes.func.isRequired,
     handleAccept: PropTypes.func
