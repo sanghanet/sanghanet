@@ -28,6 +28,7 @@ html {
 body {
     font-family: RobotoRegular;
     margin: 0;
+    overflow: hidden;
 }
 main {
     min-height: calc(100vh - 93px);
@@ -37,6 +38,9 @@ main {
     background-color: $main-bg;
     @include minQ(768px) {
         margin-left: 110px;
+    }
+    &.unscrollable {
+        width: 100%;
     }
 
     &>* {

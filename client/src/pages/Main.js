@@ -26,7 +26,9 @@ const Main = () => {
 
     const location = useLocation();
 
-    const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
+    const { isHamburgerOpen, dictionary } = useContext(UIcontext);
+    const { pageAndNavbarTitles } = dictionary;
+    
 
     useEffect(() => {
         const url = location.pathname;
@@ -41,7 +43,7 @@ const Main = () => {
         <div className='grid-container'>
             <Header activePage={pageName} />
             <Navbar navStyle="sidenav" />
-            <main className="align">
+            <main className = {`align ${isHamburgerOpen ? 'unscrollable' : ''}`} >
                 <Switch>
                     <Route exact path='/app/dashboard'       render={(props) => <Dashboard {...props} /> } />
                     <Route exact path='/app/personal'        render={(props) => <Personal {...props} /> } />
