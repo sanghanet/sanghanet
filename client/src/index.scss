@@ -41,8 +41,6 @@ main {
     }
     &.unscrollable {
         width: 100%;
-        //Optional but highly reccomended: enables momentum scrolling on iOS
-        -webkit-overflow-scrolling: touch;
     }
 
     &>* {
