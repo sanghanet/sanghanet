@@ -119,7 +119,8 @@
         "FILTEREVENTADMIN": "event admin",
         "FILTERYOGAADMIN": "yoga admin",
         "FILTERNOROLE": "no role",
-        "RESETFILTERS": "Reset filters"
+        "RESETFILTERS": "Reset filters",
+        "NOMEMBERFOUND": "No such member was found"
     },
 
     "superuserAddMember": {

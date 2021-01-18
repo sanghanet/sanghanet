@@ -269,6 +269,7 @@ class Superuser extends Component {
     renderMembers = () => {
         const { memberData } = this.state;
         const filteredUsers = memberData.filter(user => this.checkFilters(user));
+        const { NOMEMBERFOUND } = this.context.dictionary.superuser;
 
         return (
             // check if user passes all filters
@@ -296,7 +297,7 @@ class Superuser extends Component {
                             </Button>
                         </td>
                     </tr>
-                ) : <tr><td>No superuser was found</td></tr>
+                ) : <tr><td>{ NOMEMBERFOUND }</td></tr>
         );
     }
 
