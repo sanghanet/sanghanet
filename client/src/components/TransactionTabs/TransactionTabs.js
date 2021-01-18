@@ -1,60 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import TransactionTable from '../TransactionTable/TransactionTable';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './TransactionTabs.scss';
 import PropTypes from 'prop-types';
 
-class TransactionTabs extends React.Component {
-    state = {
-        tabs: null
-    }
+const TransactionTabs = (props) => {
+    const { financePockets } = useContext(UIcontext).dictionary;
 
-    componentDidMount () {
-        this.generateTabs();
-    }
+    return (
+        <Tabs className = 'MainTabs' bsPrefix = 'active' defaultActiveKey = {props.activeTab}>
+            {Object.entries(props.transactions).map((pocket) => {
+                const tabTitle = financePockets[pocket[0].toUpperCase()];
 
-    componentDidUpdate (prevProps) {
-        if (prevProps !== this.props) {
-            this.generateTabs();
-        }
-    }
-
-    generateTabs = () => {
-        try {
-            const tabs = [];
-            const pockets = Object.entries(this.props.transactions);
-            for (const pocket of pockets) {
-                tabs.push(
-                    <Tab title = {pocket[0]} eventKey = {pocket[0]} key = {pocket[0]}>
+                return (
+                    <Tab title = {tabTitle} eventKey = {pocket[0]} key = {pocket[0]}>
                         <TransactionTable
                             transactionArray = {pocket[1]}
-                            isFinAdmin = {this.props.isFinAdmin}
-                            openAddPayment = {this.props.openAddPayment}
-                            openAddDebt = {this.props.openAddDebt}
-                            openDeleteTransaction = {this.props.openDeleteTransaction}
-                            onError = {this.props.onError}
+                            isFinAdmin = {props.isFinAdmin}
+                            openAddPayment = {props.openAddPayment}
+                            openAddDebt = {props.openAddDebt}
+                            openDeleteTransaction = {props.openDeleteTransaction}
+                            onError = {props.onError}
                             pocket = {pocket[0]}
                         />
                     </Tab>
                 );
-            }
-            this.setState({
-                tabs: tabs
-            });
-        } catch (error) {
-            this.props.onError(error);
-        }
-    }
-
-    render () {
-        return (
-            <Tabs className = 'MainTabs' bsPrefix = 'active' defaultActiveKey = {this.props.activeTab}>
-                {this.state.tabs}
-            </Tabs>
-        );
-    }
-}
+            })}
+        </Tabs>
+    );
+};
 
 TransactionTabs.propTypes = {
     transactions: PropTypes.object.isRequired,

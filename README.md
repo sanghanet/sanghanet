@@ -117,6 +117,7 @@ Run `npm run deploy` script from the root directory. The script build the produc
  >NOTE: server/.env.live configuration MUST exists, otherwise azure build will be skipped.
  1. Start VSCode/Codium in ../deployment/azure folder!
  1. In Azure: App Service, delete `Sanghanet Azure subscription > sanghanet` if exists.
+ ( If you are not logged in to Azure, press CTRL-SHFT-P, and select Azure: Sign In. )
  1. RIGHT mouse click on `Sanghanet Azure subscription` and `Create New Web App...`
     * if you are not logged in to Azure, login as prompted (user & pwd: our test user credentials)
     * add webapp name: `sanghanet` (if the name is not correct, the routing will not work!)

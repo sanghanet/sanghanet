@@ -51,7 +51,6 @@ class Superuser extends Component {
             fields: ['email', 'isSuperuser', 'isFinanceAdmin', 'isEventAdmin', 'isYogaAdmin', 'label', 'registered', 'level']
         })
             .then((data) => {
-
                 const reverseData = data.reverse();
                 this.setState({ 
                     memberData: reverseData, 

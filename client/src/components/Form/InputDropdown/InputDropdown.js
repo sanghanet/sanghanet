@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UIcontext } from '../../contexts/UIcontext/UIcontext';
 import PropTypes from 'prop-types';
 import InputPopup from '../InputPopup/InputPopup';
 import { Col, Accordion, Card, Button } from 'react-bootstrap';
@@ -12,6 +13,8 @@ import './InputDropdown.scss';
 const InputDropdown = (props) => {
     const [show, setShow] = useState(false);
     const [activeKey, setKey] = useState(null);
+
+    const { personalPagePlaceholders } = useContext(UIcontext).dictionary;
 
     const handleClose = () => {
         setKey(null);
@@ -60,6 +63,7 @@ const InputDropdown = (props) => {
                     modalInputType={inputArray[activeKey].inputType}
                     modalValidation={inputArray[activeKey].validation}
                     modalFormat={inputArray[activeKey].format}
+                    modalPlaceholder= {personalPagePlaceholders.ENTERVALUE}
                 />)
                 : null
             }

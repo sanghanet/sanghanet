@@ -3,7 +3,9 @@
         "LOADING": "Betöltés",
         "BEGINNER": "Kezdő",
         "INTERMEDIATE": "Középhaladó",
-        "ADVANCED": "Haladó"
+        "ADVANCED": "Haladó",
+        "NAME": "Név",
+        "EMAIL": "Email cím"
     },
 
     "loginPageDictionary": {
@@ -40,6 +42,12 @@
         "EVENT_ADMIN": "Esemény szervező",
         "YOGA_ADMIN": "Jóga Admin",
         "SUPERUSER": "Superuser"
+    },
+
+    "membersPage" : {
+        "SHOWINGRESULTSFOR": "Keresési eredmény a következőre ",
+        "SHOWALLMEMBERSBUTTON": "Mutass mindenkit",
+        "SHOWINGMEMBERSTITLE": "A tagok megosztott adatai"
     },
 
     "memberCardButton" : { "SEESHAREDDATA": "Megosztott adatok" },
@@ -167,5 +175,47 @@
     "pageNotFound": {
         "PAGENOTFOUND": "Nem találjuk ezt az oldalt",
         "GOBACK": "Vissza"
+    },
+
+    "financeDashboard": {
+        "BALANCE": "egyenleg"
+    },
+
+    "financePockets": {
+        "POCKET": "Zseb",
+        "MEMBERSHIP": "Tagság",
+        "RENT": "Bérleti díj",
+        "EVENT": "Esemény",
+        "ANGEL": "Angyalkassza"
+    },
+
+    "userSelector": {
+        "SELECT": "Felhasználó kiválasztása",
+        "UNSELECTEDMSG": "Nincsen senki kiválasztva"
+    },
+
+    "transactionTable": {
+        "ADDNEWPAYMENT": "Új fizetés felvétele",
+        "ADDNEWDEBIT": "Új tartozás felvétele",
+        "DESCRIPTION": "Leírás",
+        "DUEDATE": "Határidő",
+        "AMOUNT": "Összeg",
+        "DELETETRANSACTION": "Transakció törlése",
+        "TRANSACTIONDETAILS": "Transakció részletei"
+    },
+
+    "transactionTypes": {
+        "PAYMENT": "Fizetés",
+        "DEBT": "Tartozás"
+    },
+
+    "addTransactionDialog": {
+        "BEFORETYPE": "",
+        "AFTERTYPE": " hozzáadása",
+        "DATESELECTORINFO": "jelölje be a dátumot a naptáron"
+    },
+
+    "footer": {
+        "MADEBY": "Készítették: "
     }
 }

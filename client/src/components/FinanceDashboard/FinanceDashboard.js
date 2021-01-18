@@ -1,75 +1,57 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './FinanceDashboard.scss';
 import PropTypes from 'prop-types';
+import { formatMoney } from '../../languages/InternationalizationMethods';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import { ReactComponent as Membership } from '../icons/fin_membership.svg';
 import { ReactComponent as Rent } from '../icons/fin_rent.svg';
 import { ReactComponent as Event } from '../icons/fin_event.svg';
 import { ReactComponent as Angel } from '../icons/fin_angel.svg';
 
-class FinanceDashboard extends React.Component {
-    state = {
-        balances: [],
-        errorState: null
-    }
+const FinanceDashboard = (props) => {
+    const { financeDashboard, financePockets } = useContext(UIcontext).dictionary;
+    const { BALANCE } = financeDashboard;
+    const lang = localStorage.getItem('lang');
 
-    componentDidMount () {
-        this.buildFinanceOverview(this.props.balance, this.props.currency);
-    }
+    const { balance, currency } = props;
 
-    getIcon = (key) => {
+    const getIcon = (key) => {
         switch (key) {
             case 'membership': return <Membership />;
             case 'rent': return <Rent />;
             case 'event': return <Event />;
             case 'angel': return <Angel />;
+            default: return null;
         }
-    }
-
-    getValueWithSpace = (value) => {
-        const sign = value >= 0 ? '+' : '-';
-        const absValueStr = Math.abs(value).toString();
-        const result = [];
-
-        for (let i = 1; i <= absValueStr.length; i++) { // entry value ex.: '12319217'
-            result.push(absValueStr.charAt(absValueStr.length - i));
-            if (i % 3 === 0 && i !== absValueStr.length) result.push(' ');
-        }
-        // output: ['7', '1', '2', ' ', '9', '1', '3', ' ', '2', '1']
-        return `${sign}${result.reverse().join('')} `;
-    }
-
-    buildFinanceOverview = (balance, currency) => {
-        try {
-            const categories = [];
-            for (const [key, value] of Object.entries(balance)) {
-                categories.push(
-                    <div key = {key} className = 'fin-card'>
-                        <div className='fin-card-1st'>
-                            <div><span className = 'capitalize'>{key}</span> balance:</div>
-                            <div>{this.getIcon(key)}</div>
-                        </div>
-                        <div className={`fin-card-2nd ${value >= 0 ? 'green' : 'red'}`}>
-                            <div>{this.getValueWithSpace(value)}</div>
-                            &nbsp;&nbsp;
-                            <div>{currency}</div>
-                        </div>
-                    </div>
-                );
-            }
-            this.setState({ balances: categories });
-        } catch (error) {
-            this.props.onError(error);
-        }
-    }
-
-    render () {
-        return (
-            <div className='outer'>
-                {this.state.balances}
-            </div>
-        );
     };
-}
+
+    return (
+        <div className='overview' >
+            <div className='outer'>
+                {/* eslint-disable-next-line array-callback-return */}
+                {Object.entries(balance).map(([pocket, amount], index) => {
+                    try {
+                        const financePocket = financePockets[pocket.toUpperCase()];
+
+                        return (
+                            <div key={index} className='fin-card'>
+                                <div className='fin-card-1st'>
+                                    <div>{financePocket} {BALANCE}:</div>
+                                    <div>{getIcon(pocket)}</div>
+                                </div>
+                                <div className={`fin-card-2nd ${amount >= 0 ? 'green' : 'red'}`}>
+                                    <div>{formatMoney(lang, amount, currency)}</div>
+                                </div>
+                            </div>
+                        );
+                    } catch (error) {
+                        props.onError(error);
+                    }
+                })}
+            </div>
+        </div>
+    );
+};
 
 FinanceDashboard.propTypes = {
     balance: PropTypes.object.isRequired,

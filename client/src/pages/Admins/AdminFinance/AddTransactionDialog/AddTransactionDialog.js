@@ -22,7 +22,18 @@ function AddTransactionDialog (props) {
     const [dueDateValid, setDueDateValid] = useState(false);
 
     const { transactionType, closeDialog, addPayment, pocketName, selectedUserEmail, selectedUserName } = props;
-    const { validationMsg } = useContext(UIcontext).dictionary;
+
+    const {
+        validationMsg,
+        generalTermsDictionary: { NAME, EMAIL },
+        financePockets,
+        transactionTable: { DESCRIPTION, AMOUNT, DUEDATE },
+        addTransactionDialog: { BEFORETYPE, AFTERTYPE, DATESELECTORINFO },
+        modalButtons: { CANCEL, ADD },
+        transactionTypes
+    } = useContext(UIcontext).dictionary;
+
+    const transactionTypeToDisplay = transactionTypes?.[transactionType ? transactionType.toUpperCase() : null];
 
     const handleDescriptionChange = (event) => {
         const input = event.target;
@@ -57,22 +68,24 @@ function AddTransactionDialog (props) {
         event.preventDefault();
     };
 
+    const translatedPocketName = financePockets[pocketName.toUpperCase()];
+
     return (
         <GenericDialog
-            title = {`Add ${transactionType}`}
-            reject = 'Cancel'
-            accept = 'Add'
+            title = {`${BEFORETYPE}${transactionTypeToDisplay}${AFTERTYPE}`}
+            reject = { CANCEL }
+            accept = { ADD }
             acceptDisabled = {!(descriptionValid && amountValid && (transactionType === 'payment' || dueDateValid))}
             handleClose = {closeDialog}
             handleAccept = {handleSubmit}
         >
 
             <Form onSubmit={handleSubmit} autoComplete='off' className="add-payment-dialog">
-                <p className='payment-label payment-name'>Name: {selectedUserName}</p>
-                <p className='payment-label payment-name'>Email: {selectedUserEmail}</p>
-                <p className='payment-label payment-pocket'>Pocket: {pocketName}</p>
+                <p className='payment-label payment-name'>{ NAME }: {selectedUserName}</p>
+                <p className='payment-label payment-name'>{ EMAIL }: {selectedUserEmail}</p>
+                <p className='payment-label payment-pocket'>{ financePockets.POCKET }: {translatedPocketName}</p>
 
-                <Form.Label htmlFor="add-description-label" className="payment-label">Description</Form.Label>
+                <Form.Label htmlFor="add-description-label" className="payment-label">{ DESCRIPTION }</Form.Label>
                 <Form.Control
                     id="add-description-label"
                     value={description}
@@ -82,7 +95,7 @@ function AddTransactionDialog (props) {
                 ></Form.Control>
                 <span className="error" aria-live="polite">{validationMsg[errorTokenDescription]}</span>
 
-                <Form.Label htmlFor="add-payment-label" className="payment-label">Amount</Form.Label>
+                <Form.Label htmlFor="add-payment-label" className="payment-label">{ AMOUNT }</Form.Label>
                 <Form.Control
                     id="add-payment-label"
                     value={amount}
@@ -93,7 +106,7 @@ function AddTransactionDialog (props) {
 
                 { transactionType === 'debt' &&
                     <div>
-                        <Form.Label className="payment-label">Due from (click on the field to select date)</Form.Label>
+                        <Form.Label className="payment-label">{ DUEDATE } ({ DATESELECTORINFO })</Form.Label>
                         <div className='date-picker-finance'>
                             <DatePicker
                                 id="add-dueDate-label"

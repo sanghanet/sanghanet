@@ -7,6 +7,8 @@ import Alert from '../../components/Alert/Alert';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 import MemberDetails from '../MemberDetails/MemberDetails';
+import ActiveUserNameWrapper from '../NameWrappers/ActiveUserName/ActiveUserNameWrapper';
+import AnyUserNameWrapper from '../NameWrappers/AnyUserName/AnyUserNameWrapper';
 
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
 import { ReactComponent as CrossIcon } from '../icons/cross.svg';
@@ -181,7 +183,7 @@ const Header = (props) => {
                             className="d-none d-sm-flex"
                         />
                         <Figure.Caption className={`avatar-name d-none ${searching ? '' : 'd-sm-flex'}`} as='h2'>
-                            {userName}
+                            <ActiveUserNameWrapper />
                         </Figure.Caption>
                     </Figure>
                     <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
@@ -218,7 +220,12 @@ const Header = (props) => {
                                             <li key={key} onClick={() => { handleSearchResultClick(user._id); }}>
                                                 <p>
                                                     { user.spiritualName !== '-' && <span>{user.spiritualName}</span> }
-                                                    <span>{user.firstName} {user.lastName}</span>
+                                                    <span>
+                                                        <AnyUserNameWrapper
+                                                            firstName={user.firstName}
+                                                            lastName={user.lastName}
+                                                        />
+                                                    </span>
                                                 </p>
                                             </li>
                                         );

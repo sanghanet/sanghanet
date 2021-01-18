@@ -33,13 +33,18 @@ class App extends Component {
                 isYogaAdmin: false,
                 setAccess: this.setAccess,
 
-                lang: 'hu',
+                lang: localStorage.getItem('lang'),
                 dictionary: dictionaryList[localStorage.getItem('lang')],
                 changeLang: this.changeLang
             },
 
             dataContext: {
-                userName: 'unknown',
+                userName: {
+                    firstName: '',
+                    lastName: '',
+                    fullName: ''
+                },
+                getFullName: this.getFullName,
                 avatarSrc: '/images/noAvatar.svg',
                 setUsername: this.setUsername,
                 setAvatarSrc: this.setAvatarSrc
@@ -47,20 +52,25 @@ class App extends Component {
         };
     }
 
+    getFullName = (firstName, lastName) => {
+        const { lang } = this.state.uiContext;
+        return lang === 'hu' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`;
+    }
+
     toggleHamburger = () => {
-        const uiContext = { ...this.state.uiContext };
-        uiContext.isHamburgerOpen = !this.state.uiContext.isHamburgerOpen;
+        const { uiContext } = this.state;
+        uiContext.isHamburgerOpen = !uiContext.isHamburgerOpen;
         this.setState({ uiContext });
     };
 
     closeHamburger = () => {
-        const uiContext = { ...this.state.uiContext };
+        const { uiContext } = this.state;
         uiContext.isHamburgerOpen = false;
         this.state.uiContext.isHamburgerOpen && this.setState({ uiContext });
     };
 
     setAccess = (isSuperuser, isFinanceAdmin, isEventAdmin, isYogaAdmin) => {
-        const uiContext = { ...this.state.uiContext };
+        const { uiContext } = this.state;
         uiContext.isSuperuser = isSuperuser;
         uiContext.isFinanceAdmin = isFinanceAdmin;
         uiContext.isEventAdmin = isEventAdmin;
@@ -69,20 +79,36 @@ class App extends Component {
     };
 
     changeLang = (lang) => {
-        const uiContext = { ...this.state.uiContext };
+        const { uiContext } = this.state;
+        const { dataContext } = this.state;
+        const { firstName, lastName } = dataContext.userName;
+
         uiContext.lang = lang;
         uiContext.dictionary = dictionaryList[lang];
-        this.setState({ uiContext });
+
+        dataContext.userName = {
+            firstName,
+            lastName,
+            fullName: this.getFullName(firstName, lastName)
+        };
+
+        this.setState({ uiContext, dataContext });
     };
 
     setUsername = (firstName, lastName) => {
-        const dataContext = { ...this.state.dataContext };
-        dataContext.userName = `${firstName} ${lastName}`;
+        const { dataContext } = this.state;
+
+        dataContext.userName = {
+            firstName,
+            lastName,
+            fullName: this.getFullName(firstName, lastName)
+        };
+
         this.setState({ dataContext });
     }
 
     setAvatarSrc = (src) => {
-        const dataContext = { ...this.state.dataContext };
+        const { dataContext } = this.state;
         dataContext.avatarSrc = src;
         this.setState({ dataContext });
     }

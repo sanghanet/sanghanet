@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import { withRouter } from 'react-router-dom';
 import './Members.scss';
 import Client from '../../components/Client';
@@ -9,6 +10,8 @@ import MemberDetails from '../../components/MemberDetails/MemberDetails';
 import { Button } from 'react-bootstrap';
 
 const Members = (props) => {
+    const { SHOWINGRESULTSFOR, SHOWALLMEMBERSBUTTON, SHOWINGMEMBERSTITLE } = useContext(UIcontext).dictionary.membersPage;
+
     const [members, setMembers] = useState([]);
     const [memberIndex, setMemberIndex] = useState(-1); // -1 means no selected member
     const [alert, setAlert] = useState({ showAlert: false, alertMessage: '', alertType: '' });
@@ -67,10 +70,10 @@ const Members = (props) => {
                     props.location.state?.searchString
                         ? (
                             <>
-                                <p>{`Showing results for "${props.location.state.searchString}"`}</p>
-                                <Button variant="dark" onClick={resetMembersFilter}>Show all members</Button>
+                                <p>{`${SHOWINGRESULTSFOR} "${props.location.state.searchString}"`}</p>
+                                <Button variant="dark" onClick={resetMembersFilter}>{SHOWALLMEMBERSBUTTON}</Button>
                             </>
-                        ) : <p>{'Showing all members'}</p>
+                        ) : <h2>{SHOWINGMEMBERSTITLE}</h2>
                 }</div>
                 <ul className="card-container">
                     {

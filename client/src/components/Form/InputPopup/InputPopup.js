@@ -10,7 +10,9 @@ import { UIcontext } from '../../contexts/UIcontext/UIcontext';
 
 import './InputPopup.scss';
 
-import { Modal, Button, Form } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 class InputPopup extends Component {
     constructor (props) {
@@ -63,7 +65,7 @@ class InputPopup extends Component {
     }
 
     render () {
-        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, modalOptions, modalOptionsText, modalValidation, modalFormat } = this.props;
+        const { modalShow, modalTitle, modalId, modalInputType, modalInputAs, modalOptions, modalOptionsText, modalValidation, modalFormat, modalPlaceholder } = this.props;
         const { currentValue, errorMsg } = this.state;
         const { REQUIREDFORMAT } = this.context.dictionary.personalPagePlaceholders;
         const { REJECT, ACCEPT } = this.context.dictionary.modalButtons;
@@ -118,6 +120,7 @@ class InputPopup extends Component {
                                     id={modalId}
                                     value={currentValue}
                                     onChange={this.handleChange}
+                                    placeholder={modalPlaceholder}
                                     autoFocus
                                     {...modalValidation}
                                 >
@@ -159,7 +162,8 @@ InputPopup.propTypes = {
     modalOptionsText: PropTypes.array,
     inputArray: PropTypes.array,
     modalValidation: PropTypes.object,
-    modalFormat: PropTypes.string
+    modalFormat: PropTypes.string,
+    modalPlaceholder: PropTypes.string
 };
 
 InputPopup.contextType = UIcontext;

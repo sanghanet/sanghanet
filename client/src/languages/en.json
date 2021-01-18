@@ -3,7 +3,9 @@
         "LOADING": "Loading",
         "BEGINNER": "Beginner",
         "INTERMEDIATE": "Intermediate",
-        "ADVANCED": "Advanced"
+        "ADVANCED": "Advanced",
+        "NAME": "Name",
+        "EMAIL": "Email address"
     },
 
     "loginPageDictionary": {
@@ -40,6 +42,12 @@
         "EVENT_ADMIN": "Event Admin",
         "YOGA_ADMIN": "Yoga Admin",
         "SUPERUSER": "Superuser"
+    },
+
+    "membersPage" : {
+        "SHOWINGRESULTSFOR": "Showing results for ",
+        "SHOWALLMEMBERSBUTTON": "Show all members",
+        "SHOWINGMEMBERSTITLE": "Showing members shared data"
     },
 
     "memberCardButton" : { "SEESHAREDDATA": "See shared data" },
@@ -167,5 +175,47 @@
     "pageNotFound": {
         "PAGENOTFOUND": "Page not found",
         "GOBACK": "Go back"
+    },
+
+    "financeDashboard": {
+        "BALANCE": "balance"
+    },
+
+    "financePockets": {
+        "POCKET": "Pocket",
+        "MEMBERSHIP": "Membership",
+        "RENT": "Rent",
+        "EVENT": "Event",
+        "ANGEL": "Angel"
+    },
+
+    "userSelector": {
+        "SELECT": "Select a user",
+        "UNSELECTEDMSG": "No user selected"
+    },
+
+    "transactionTable": {
+        "ADDNEWPAYMENT": "Add new payment",
+        "ADDNEWDEBIT": "Add new debit",
+        "DESCRIPTION": "Description",
+        "DUEDATE": "Due date",
+        "AMOUNT": "Amount",
+        "DELETETRANSACTION": "Delete Transaction",
+        "TRANSACTIONDETAILS": "Transaction details"
+    },
+
+    "transactionTypes": {
+        "PAYMENT": "payment",
+        "DEBT": "debt"
+    },
+
+    "addTransactionDialog": {
+        "BEFORETYPE": "Add ",
+        "AFTERTYPE": "",
+        "DATESELECTORINFO": "click on the field to select date"
+    },
+
+    "footer": {
+        "MADEBY": "Made by: "
     }
 }
