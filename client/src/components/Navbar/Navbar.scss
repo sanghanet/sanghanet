@@ -81,7 +81,6 @@
                 .link.disabled{
                     opacity: 0.3;
                     pointer-events: none;
-                    cursor: default;
                 }
                 .sub-link {
                     width: $navbar-width;
@@ -263,6 +262,10 @@
             text-decoration: none;
         }
         @include hoveredElement;
+    }
+    .link.disabled{
+        opacity: 0.3;
+        pointer-events: none;
     }
     .show-submenu {
         left: -320px;
