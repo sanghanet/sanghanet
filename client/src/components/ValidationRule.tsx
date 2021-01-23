@@ -43,7 +43,7 @@ const positiveIntegerRule = {
     pattern: positiveIntegerPattern
 };
 
-const validationError = (input) => {
+const validationError = (input: HTMLInputElement) => {
     if (input.validity.valid) {
         return '';
     } else if (input.validity.valueMissing) {

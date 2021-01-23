@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import { Route, RouteProps, Redirect, useHistory } from 'react-router-dom';
+import { Route, RouteProps, Redirect, useHistory, RouteComponentProps } from 'react-router-dom';
+import H from 'history';
 import PropTypes from 'prop-types';
 
+
 interface PrivateRouteProps extends RouteProps {
-    component: any;
-    history?: any;
+    component:  React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
+    history?: H.History
 };
 
-const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = (props) => {
-    const { component: Component, ...rest } = props;
+const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = ({ component: Component, ...rest }) => {
     const userStatus = sessionStorage.getItem('userStatus');
-
     const history = useHistory();
 
     useEffect(() => {
@@ -29,6 +29,8 @@ const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = (props) => {
         )} />
     );
 };
+
+//TODO: history validation would be nice
 
 PrivateRoute.propTypes = {
     component: PropTypes.func.isRequired,

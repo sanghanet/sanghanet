@@ -1,27 +1,27 @@
 /* eslint-disable no-multi-spaces */
 import React, { useState, useEffect, useContext } from 'react';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation, RouteComponentProps } from 'react-router-dom';
 
 import Header from '../components/Header/Header';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 
-import Dashboard from '../pages/Dashboard/Dashboard';
-import Personal from '../pages/Personal/Personal';
-import Yoga from '../pages/Yoga/Yoga';
-import Finances from '../pages/Finances/Finances';
-import Events from '../pages/Events/Events';
-import Members from '../pages/Members/Members';
-import Questions from '../pages/Questions/Questions';
-import Queries from '../pages/Queries/Queries';
-import AdminFinance from '../pages/Admins/AdminFinance/AdminFinance';
-import AdminEvent from '../pages/Admins/AdminEvent/AdminEvent';
-import AdminYoga from '../pages/Admins/AdminYoga/AdminYoga';
-import Superuser from '../pages/Admins/Superuser/Superuser';
+import Dashboard from './Dashboard/Dashboard';
+import Personal from './Personal/Personal';
+import Yoga from './Yoga/Yoga';
+import Finances from './Finances/Finances';
+import Events from './Events/Events';
+import Members from './Members/Members';
+import Questions from './Questions/Questions';
+import Queries from './Queries/Queries';
+import AdminFinance from './Admins/AdminFinance/AdminFinance';
+import AdminEvent from './Admins/AdminEvent/AdminEvent';
+import AdminYoga from './Admins/AdminYoga/AdminYoga';
+import Superuser from './Admins/Superuser/Superuser';
 
 import { UIcontext } from '../components/contexts/UIcontext/UIcontext';
 
-const Main = () => {
+const Main: React.FC<RouteComponentProps> = () => {
     const [pageName, setPageName] = useState('');
 
     const location = useLocation();
