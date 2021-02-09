@@ -4,7 +4,7 @@ import './ComingSoon.scss';
 
 interface ComingSoonProps {
     pageName: string,
-    isPlural: Boolean
+    isPlural: boolean
 };
 
 const ComingSoon: React.FC<ComingSoonProps> = ({ pageName, isPlural }) => {
