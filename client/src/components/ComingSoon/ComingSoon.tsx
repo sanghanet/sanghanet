@@ -2,9 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ComingSoon.scss';
 
-const ComingSoon = (props) => {
+interface ComingSoonProps {
+    pageName: string,
+    isPlural: boolean
+};
+
+const ComingSoon: React.FC<ComingSoonProps> = ({ pageName, isPlural }) => {
     return (
-        <div className= 'comingSoon'>{props.pageName} {props.isPlural ? 'are' : 'is'} coming soon!</div>
+        <div className= 'comingSoon'>{ pageName } { isPlural ? 'are' : 'is' } coming soon!</div>
     );
 };
 

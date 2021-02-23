@@ -4,11 +4,11 @@ import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 
 import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 
-const Logout = (props) => {
+const Logout: React.FC = () => {
     const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
     const { LOGOUT } = pageAndNavbarTitles;
 
-    const handleClick = (event) => {
+    const handleClick = ():void => {
         Client.fetch('/user/logout')
             .then((res) => {
                 sessionStorage.clear();

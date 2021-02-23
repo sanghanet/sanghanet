@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
-import { Route, Redirect, useHistory } from 'react-router-dom';
+import { Route, RouteProps, Redirect, useHistory, RouteComponentProps } from 'react-router-dom';
+import H from 'history';
 import PropTypes from 'prop-types';
 
-const PrivateRoute = (props) => {
-    const { component: Component, ...rest } = props;
-    const userStatus = sessionStorage.getItem('userStatus');
 
+interface PrivateRouteProps extends RouteProps {
+    component:  React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
+    history?: H.History
+};
+
+const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = ({ component: Component, ...rest }) => {
+    const userStatus = sessionStorage.getItem('userStatus');
     const history = useHistory();
 
     useEffect(() => {
@@ -17,7 +22,6 @@ const PrivateRoute = (props) => {
     return (
         // Show the component only when user is known
         // Otherwise, redirect the user to / page
-        // FIXME: clarify rest and props - which one goes where
         <Route {...rest} render={ (props) => (
             userStatus
                 ? <Component {...props} />
@@ -25,6 +29,8 @@ const PrivateRoute = (props) => {
         )} />
     );
 };
+
+//TODO: history validation would be nice
 
 PrivateRoute.propTypes = {
     component: PropTypes.func.isRequired,

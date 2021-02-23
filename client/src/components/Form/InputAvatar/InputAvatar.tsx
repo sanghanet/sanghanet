@@ -5,8 +5,14 @@ import './InputAvatar.scss';
 import { UIcontext } from '../../contexts/UIcontext/UIcontext';
 
 import { Row, Col } from 'react-bootstrap';
+
+interface InputAvatarProps {
+    profileImgURL: string,
+    updateProfileImg: (event: React.ChangeEvent<HTMLInputElement>) => void
+};
+
 // user can't delete the photo - we might want to leave it like that; photo is mandatory
-const InputAvatar = (props) => {
+const InputAvatar: React.FC<InputAvatarProps> = (props) => {
     const { registrationPageDictionary } = useContext(UIcontext).dictionary;
     const { PHOTO } = registrationPageDictionary;
 

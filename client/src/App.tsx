@@ -9,17 +9,25 @@ import Loading from './pages/Loading/Loading';
 import Registration from './pages/Registration/Registration';
 import Main from './pages/Main';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
-import { DataContext } from './components/contexts/DataContext/DataContext';
 import { UIcontext } from './components/contexts/UIcontext/UIcontext';
+import { DataContext } from './components/contexts/DataContext/DataContext';
 import { dictionaryList } from './languages/dictionaryList';
 
-class App extends Component {
-    constructor (props) {
+interface Props {};
+
+type AppState = {
+    uiContext: UiContextType;
+    dataContext: DataContextType
+};
+
+class App extends Component<Props, AppState> {
+    constructor (props: Props) {
         super(props);
 
         if (!localStorage.getItem('lang')) {
             localStorage.setItem('lang', 'hu');
         }
+        const _lang = localStorage.getItem('lang') as LANGUAGE;
 
         this.state = {
             uiContext: {
@@ -33,8 +41,8 @@ class App extends Component {
                 isYogaAdmin: false,
                 setAccess: this.setAccess,
 
-                lang: localStorage.getItem('lang'),
-                dictionary: dictionaryList[localStorage.getItem('lang')],
+                lang: _lang,
+                dictionary: dictionaryList[_lang],
                 changeLang: this.changeLang
             },
 
@@ -52,7 +60,7 @@ class App extends Component {
         };
     }
 
-    getFullName = (firstName, lastName) => {
+    getFullName = (firstName: string, lastName: string) => {
         const { lang } = this.state.uiContext;
         return lang === 'hu' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`;
     }
@@ -69,7 +77,7 @@ class App extends Component {
         this.state.uiContext.isHamburgerOpen && this.setState({ uiContext });
     };
 
-    setAccess = (isSuperuser, isFinanceAdmin, isEventAdmin, isYogaAdmin) => {
+    setAccess = (isSuperuser: boolean, isFinanceAdmin: boolean, isEventAdmin: boolean, isYogaAdmin: boolean) => {
         const { uiContext } = this.state;
         uiContext.isSuperuser = isSuperuser;
         uiContext.isFinanceAdmin = isFinanceAdmin;
@@ -78,7 +86,7 @@ class App extends Component {
         this.setState({ uiContext });
     };
 
-    changeLang = (lang) => {
+    changeLang = (lang: LANGUAGE) => {
         const { uiContext } = this.state;
         const { dataContext } = this.state;
         const { firstName, lastName } = dataContext.userName;
@@ -95,7 +103,7 @@ class App extends Component {
         this.setState({ uiContext, dataContext });
     };
 
-    setUsername = (firstName, lastName) => {
+    setUsername = (firstName: string, lastName: string) => {
         const { dataContext } = this.state;
 
         dataContext.userName = {
@@ -107,7 +115,7 @@ class App extends Component {
         this.setState({ dataContext });
     }
 
-    setAvatarSrc = (src) => {
+    setAvatarSrc = (src: string) => {
         const { dataContext } = this.state;
         dataContext.avatarSrc = src;
         this.setState({ dataContext });

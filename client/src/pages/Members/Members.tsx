@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import './Members.scss';
 import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
@@ -9,40 +9,43 @@ import MemberDetails from '../../components/MemberDetails/MemberDetails';
 
 import { Button } from 'react-bootstrap';
 
-const Members = (props) => {
+//TODO: REMOVE ALL @ts-ignore comments
+
+const Members: React.FC<RouteComponentProps<{}>> = ({ history, location }) => {
     const { SHOWINGRESULTSFOR, SHOWALLMEMBERSBUTTON, SHOWINGMEMBERSTITLE } = useContext(UIcontext).dictionary.membersPage;
 
-    const [members, setMembers] = useState([]);
+    const [members, setMembers] = useState<RegisteredUserType[]>([]);
     const [memberIndex, setMemberIndex] = useState(-1); // -1 means no selected member
-    const [alert, setAlert] = useState({ showAlert: false, alertMessage: '', alertType: '' });
+    const [alert, setAlert] = useState({ showAlert: false, alertMessage: '', alertType: 'NOALERT' });
 
-    const showMemberPopup = (index) => {
+    const showMemberPopup = (index: number) => {
         setMemberIndex(index);
     };
     const closeMemberPopup = () => {
         setMemberIndex(-1);
     };
     const closeAlert = () => {
-        setAlert({ showAlert: false, alertMessage: '', alertType: '' });
+        setAlert({ showAlert: false, alertMessage: '', alertType: 'NOALERT' });
     };
 
     useEffect(() => {
         Client.fetch('/user/registereduserdata', { method: 'POST' })
-            .then((visibleUserData) => {
+            .then((visibleUserData: RegisteredUserType[]) => {
                 setMembers(visibleUserData);
             }).catch((err) => {
                 console.log(err);
                 setAlert({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });
-    }, [props]); //  to run an effect and clean it up only once
+    }, [history, location]); //  to run an effect and clean it up only once
 
-    const displayMember = (id) => {
-        const usersToDisplay = props.location.state?.usersToDisplay;
+    const displayMember = (id: string) => {
+        // @ts-ignore
+        const usersToDisplay = location.state?.usersToDisplay;
         return usersToDisplay ? usersToDisplay.includes(id) : true;
     };
 
     const resetMembersFilter = () => {
-        props.history.push({
+        history.push({
             state: {
                 usersToDisplay: null,
                 searchString: ''
@@ -57,20 +60,22 @@ const Members = (props) => {
                     <Alert
                         alertClose={closeAlert}
                         alertMsg={alert.alertMessage}
-                        alertType={alert.alertType}
+                        alertType={alert.alertType as ALERT}
                     />
                 }
                 {memberIndex >= 0 &&
                     <MemberDetails
                         closeDialog={closeMemberPopup}
-                        selectedMemberData={members[memberIndex]}
+                        selectedMemberData={ members[memberIndex]}
                     />
                 }
                 <div className='member-page-heading'>{
-                    props.location.state?.searchString
+                    // @ts-ignore
+                    location.state?.searchString
                         ? (
                             <>
-                                <p>{`${SHOWINGRESULTSFOR} "${props.location.state.searchString}"`}</p>
+                                { /* @ts-ignore */ }
+                                <p>{`${SHOWINGRESULTSFOR} "${location.state.searchString}"`}</p>
                                 <Button variant="dark" onClick={resetMembersFilter}>{SHOWALLMEMBERSBUTTON}</Button>
                             </>
                         ) : <h2>{SHOWINGMEMBERSTITLE}</h2>

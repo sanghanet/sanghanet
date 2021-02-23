@@ -8,21 +8,37 @@ import FormContainer from '../../components/Form/FormContainer/FormContainer';
 import { nameValidationRule, spiritualNameValidationRule, validationError } from '../../components/ValidationRule';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
+import { RouteComponentProps } from 'react-router-dom';
 
-class Registration extends Component {
-    state = {
+type RegistrationState = {
+    profileImgURL: string,
+    profileImgBlob: Blob | null,
+    firstName: string,
+    lastName: string,
+    spiritualName: string,
+    firstNameValidationToken: string,
+    lastNameValidationToken: string,
+    spiritualNameValidationToken: string,
+    showAlert: boolean,
+    alertMessage: string,
+    alertParam: string,
+    alertType: ALERT
+};
+
+class Registration extends Component<RouteComponentProps<{}>, RegistrationState> {
+    state: RegistrationState = {
         profileImgURL: '',
         profileImgBlob: null,
         firstName: '',
         lastName: '',
         spiritualName: '-',
-        firstNameValidationToken: null,
-        lastNameValidationToken: null,
-        spiritualNameValidationToken: null,
+        firstNameValidationToken: '',
+        lastNameValidationToken: '',
+        spiritualNameValidationToken: '',
         showAlert: false,
         alertMessage: '',
         alertParam: '',
-        alertType: ''
+        alertType: 'NOALERT'
     };
 
     componentDidMount = () => {
@@ -32,7 +48,7 @@ class Registration extends Component {
         }
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = (event: React.FormEvent<HTMLFormElement> |  React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.preventDefault();
 
         const { profileImgBlob, firstName, lastName, spiritualName, firstNameValidationToken, lastNameValidationToken, spiritualNameValidationToken } = this.state;
@@ -60,24 +76,24 @@ class Registration extends Component {
     }
 
     closeAlert = () => {
-        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
+        this.setState({ showAlert: false, alertMessage: '', alertType: 'NOALERT' });
     };
 
-    handleChange = (event) => {
+    handleChange = (event: React.ChangeEvent<HTMLInputElement> ) => {
         const input = event.target;
-        this.setState(
-            {
-                [input.id]: input.value,
-                [input.id + 'ValidationToken']: validationError(input)
-            });
+        this.setState( prevState => ({
+            ...prevState,
+            [input.id]: input.value,
+            [input.id + 'ValidationToken']: validationError(input)
+        }));
     }
 
     handleClose = () => {
         document.location.replace('/');
     }
 
-    updateProfileImg = (event) => {
-        const file = event.target.files[0];
+    updateProfileImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files![0]; // Typescript needs the '!', if we are OK with null value;
         if (!file) return;
         if (!file.name.match(/\.(jpg|jpeg|png|svg|webp)$/i)) {
             this.setState({ showAlert: true, alertMessage: '', alertParam: 'VALIDPHOTO', alertType: 'ERROR' });

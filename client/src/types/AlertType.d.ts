@@ -1,0 +1,1 @@
+type ALERT = 'NOALERT' | 'ERROR' | 'WARNING' | 'INFO';

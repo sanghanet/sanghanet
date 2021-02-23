@@ -4,28 +4,31 @@ import AnyUserNameWrapper from '../NameWrappers/AnyUserName/AnyUserNameWrapper'
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './MemberCard.scss';
 
-const MemberCard = (props) => {
-    const { index, profileImg, firstName, lastName, spiritualName, showMemberPopup, activeMember } = props;
+interface MemberCardProps {
+    index: number,
+    profileImg: string,
+    firstName: string,
+    lastName: string,
+    spiritualName: string,
+    showMemberPopup: (n: number) => void,
+    activeMember: boolean
+};
+
+const MemberCard: React.FC<MemberCardProps> = ({ index, profileImg, firstName, lastName, spiritualName, showMemberPopup, activeMember }) => {
     const showMemberDetails = () => { showMemberPopup(index); };
-    const { memberCardButton } = useContext(UIcontext).dictionary;
-    const { SEESHAREDDATA } = memberCardButton;
+    const { SEESHAREDDATA } = useContext(UIcontext).dictionary.memberCardButton;
 
     return (
-        <li className={`member-card ${activeMember ? 'active-member' : ''}`}>
+        <li className={ `member-card ${activeMember ? 'active-member' : ''}` }>
             <div className="profile-img">
-                <img src={profileImg} alt="Avatar" />
+                <img src={ profileImg } alt="Avatar" />
             </div>
             <div className="member-content">
-                <p className="card-name">
-                    <AnyUserNameWrapper
-                        firstName={firstName}
-                        lastName={lastName}
-                    />
-                </p>
+                <p className="card-name">{AnyUserNameWrapper(firstName, lastName)}</p>
                 <hr className="card-line"></hr>
-                <p className="card-spiritual-name">{spiritualName}</p>
+                <p className="card-spiritual-name">{ spiritualName }</p>
             </div>
-            <button onClick={showMemberDetails}>{SEESHAREDDATA}</button>
+            <button onClick={ showMemberDetails }>{ SEESHAREDDATA }</button>
         </li>
     );
 };

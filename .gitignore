@@ -4,6 +4,7 @@ node_modules
 client/node_modules
 client/build
 client/src/version.js
+client/src/version.ts
 client/public/images
 
 #server

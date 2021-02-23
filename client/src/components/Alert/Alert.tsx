@@ -7,9 +7,13 @@ import { ReactComponent as Error } from '../icons/errorAlert.svg';
 import { ReactComponent as Info } from '../icons/infoAlert.svg';
 import { ReactComponent as Warning } from '../icons/warningAlert.svg';
 
-function Alert (props) {
-    // alertType can be ERROR, WARNING and INFO
-    const { alertClose, alertMsg, alertType } = props;
+interface AlertProps {
+    alertType: ALERT,
+    alertMsg?: string,
+    alertClose: () => void
+};
+
+const Alert: React.FC<AlertProps> = ({ alertType, alertMsg, alertClose }) => {
     const { alert } = useContext(UIcontext).dictionary;
 
     return (
@@ -17,6 +21,7 @@ function Alert (props) {
             <Toast.Header className={alertType}>
                 {
                     {
+                        NOALERT: null,
                         ERROR: <Error className={'alert-icon'} />,
                         WARNING: <Warning className={'alert-icon'} />,
                         INFO: <Info className={'alert-icon'} />
@@ -32,7 +37,7 @@ function Alert (props) {
 Alert.propTypes = {
     alertClose: PropTypes.func.isRequired,
     alertMsg: PropTypes.string,
-    alertType: PropTypes.string.isRequired
+    alertType: PropTypes.oneOf(['NOALERT', 'ERROR', 'WARNING', 'INFO'] as const).isRequired
 };
 
 export default Alert;
