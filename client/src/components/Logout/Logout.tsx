@@ -8,7 +8,7 @@ const Logout: React.FC = () => {
     const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
     const { LOGOUT } = pageAndNavbarTitles;
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):void => {
+    const handleClick = ():void => {
         Client.fetch('/user/logout')
             .then((res) => {
                 sessionStorage.clear();

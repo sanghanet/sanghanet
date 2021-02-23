@@ -11,6 +11,7 @@ interface GenericDialogProps {
     subtitle?: string,
     reject?: string,
     accept?: string,
+    children: React.ReactNode,
     acceptDisabled?: boolean,
     handleClose: () => void,
     handleAccept?: () => void
@@ -47,6 +48,7 @@ GenericDialog.propTypes = {
     subtitle: PropTypes.string,
     reject: PropTypes.string,
     accept: PropTypes.string,
+    children: PropTypes.node,
     acceptDisabled: PropTypes.bool,
     handleClose: PropTypes.func.isRequired,
     handleAccept: PropTypes.func

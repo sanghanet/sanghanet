@@ -16,7 +16,7 @@ import { dictionaryList } from './languages/dictionaryList';
 interface Props {};
 
 type AppState = {
-    uiContext: UiContextType
+    uiContext: UiContextType;
     dataContext: DataContextType
 };
 

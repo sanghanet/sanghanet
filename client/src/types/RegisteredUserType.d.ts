@@ -1,7 +1,7 @@
 type RegisteredUserType = {
-    '_id': string,
-    'activeMember': boolean,
-    'firstName': string,
+    _id: string,
+    activeMember: boolean,
+    firstName: string,
     lastName: string,
     profileImg: string,
     spiritualName: string,

@@ -28,7 +28,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ size }) => {
 
     return (
 
-        <div className = {`language-selector ${size ? size : ''}`} onClick = {handleSliderClick}>
+        <div className = {`language-selector ${size}`} onClick = {handleSliderClick}>
             <div className = {`lang-slider ${sliderPos}`}></div>
         </div>
 
