@@ -72,10 +72,11 @@ class Navbar extends Component {
     render () {
         const { navStyle } = this.props;
         const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser } = this.context;
+        const isAdmin = isFinanceAdmin || isEventAdmin || isYogaAdmin || isSuperuser;
         const classList = this.state.showSubmenu ? 'wrapper show-submenu' : 'wrapper';
 
         const {
-            ADMIN,
+            ADMINS,
             BACK,
             DASHBOARD,
             PERSONAL,
@@ -112,9 +113,9 @@ class Navbar extends Component {
                 <div className={classList} onKeyDown={this.handleKeyDown}>
                     <ul className="main-menu">
                         <li className="admins">
-                            <div className="link" onClick={this.handleSubmenu}>
+                            <div className={`link ${isAdmin || 'disabled'}`} onClick={this.handleSubmenu}>
                                 <div className="menu-icon"><ForwardIcon /></div>
-                                <span className="title admins">{ ADMIN }</span>
+                                <span className="title admins">{ ADMINS }</span>
                             </div>
                         </li>
                         {mainMenu.map((menuItem, index) => this.createMainMenuItem(menuItem, index))}

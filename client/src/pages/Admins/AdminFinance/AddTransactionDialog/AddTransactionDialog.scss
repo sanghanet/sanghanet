@@ -1,14 +1,25 @@
 @import '../../../../style/colors';
 @import '../../../../style/mixins';
 
-.payment-label {
-    color: #fff;
-    font-size: 16px;
-}
-.error {
-    display: block;
-    min-height: 24px;
-    letter-spacing: 1px;
-    color: $error;
-    font-weight: 400;
+.add-payment-dialog {
+    .payment-label {
+        color: $white;
+        font-size: 16px;
+    }
+    .error {
+        display: block;
+        height: 30px;
+        letter-spacing: 1px;
+        color: $error;
+        font-weight: 400;
+    }
+    .date-picker-finance {
+        @include centerElement;
+        flex-direction: column;
+        filter: invert(0.86);
+        .react-datepicker__month-select option, .react-datepicker__year-select option {
+            color: $lightgray;
+            background-color: #3b3b3b;
+        }
+    }
 }

@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5feafc1e75ff840fcc961d1e"},"userId":{"$oid":"5ff0e33ae3fd4a237178c6c9"},"email":"mindblowing.js@gmail.com","userName":"Baby Yoda","currency":"HUF","transactions":{"membership":[],"rent":[],"event":[],"angel":[]},"__v":{"$numberInt":"0"}}

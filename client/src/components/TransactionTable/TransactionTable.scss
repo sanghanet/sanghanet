@@ -35,17 +35,18 @@
             background-color: $active-amount;
 
             &.deleted {
+                text-decoration: line-through;
                 &, &:hover {
                     filter: invert(.1);
                     color: $disabled
                 }
             }
-            &.future { 
+            &.future {
                 .date-cell { color: $_bs-success; }
             }
         }
 
-        .delete-transaction{
+        .delete-transaction {
             width: .9rem;
             fill: $white;
         }

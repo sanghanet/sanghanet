@@ -86,8 +86,11 @@ form {
             }
 
             outline: none;
-            border: none;
             &:focus { border: solid 1px $_bs-primary; }
         }
     }
+}
+
+button:disabled {
+    cursor: initial;
 }

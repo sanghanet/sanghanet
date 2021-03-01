@@ -50,7 +50,7 @@ class Superuser extends Component {
             fields: ['email', 'isSuperuser', 'isFinanceAdmin', 'isEventAdmin', 'isYogaAdmin', 'label', 'registered', 'level']
         })
             .then((data) => {
-                this.setState({ memberData: data.reverse()});
+                this.setState({ memberData: data.reverse() });
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
             });

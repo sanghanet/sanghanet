@@ -8,28 +8,37 @@ import './DeleteTransactionDialog.scss';
 function DeleteTransactionDialog (props) {
     const { deleteTransaction, closeDialog, selectedUserEmail, selectedUserName, transaction } = props;
 
+    const {
+        generalTermsDictionary: { NAME, EMAIL },
+        transactionTable: { DELETETRANSACTION, TRANSACTIONDETAILS, DESCRIPTION, AMOUNT, DUEDATE },
+        financePockets,
+        modalButtons: { CANCEL, DELETE }
+    } = useContext(UIcontext).dictionary;
+
     const handleSubmit = (event) => {
         event.preventDefault();
         deleteTransaction(transaction.id, transaction.pocket);
     };
 
+    const translatedPocketName = financePockets[transaction.pocket.toUpperCase()];
+
     return (
         <GenericDialog
-            title = 'Delete Transaction'
-            reject = 'Cancel'
-            accept = 'Delete'
+            title = { DELETETRANSACTION }
+            reject = { CANCEL }
+            accept = { DELETE }
             handleClose = {closeDialog}
             handleAccept = {handleSubmit}
         >
-            <>
-                <h5>User  : {selectedUserName}</h5>
-                <h5>Email : {selectedUserEmail}</h5>
-                <h5>Pocket: {transaction.pocket}</h5>
-                <h5>--- Transaction --- </h5>
-                <h6>{transaction.description}</h6>
-                <h6>{`${transaction.amount} ${transaction.currency}`}</h6>
-                <h6>{transaction.duedate}</h6>
-            </>
+            <div className='delete-container'>
+                <p>{ NAME }: {selectedUserName}</p>
+                <p>{ EMAIL }: {selectedUserEmail}</p>
+                <p>{ financePockets.POCKET }: {translatedPocketName}</p>
+                <h4>{ TRANSACTIONDETAILS }</h4>
+                <p>{ DESCRIPTION }: {transaction.description}</p>
+                <p>{ AMOUNT }: {`${transaction.amount} ${transaction.currency}`}</p>
+                <p>{ DUEDATE }: {transaction.duedate}</p>
+            </div>
         </GenericDialog>
     );
 }

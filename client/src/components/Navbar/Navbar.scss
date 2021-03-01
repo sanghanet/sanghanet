@@ -29,7 +29,6 @@
             flex-direction: column;
             padding: 0;
             margin-bottom: 0;
-            cursor: pointer;
             touch-action: pan-y;
 
             li {
@@ -79,6 +78,10 @@
                     }
                     @include hoveredElement;
                 }
+                .link.disabled{
+                    opacity: 0.3;
+                    pointer-events: none;
+                }
                 .sub-link {
                     width: $navbar-width;
                     .sub-title {
@@ -117,6 +120,7 @@
     }
     .show-submenu {
         left: -110px;
+        overflow: hidden;
     }
 }
 
@@ -258,6 +262,10 @@
             text-decoration: none;
         }
         @include hoveredElement;
+    }
+    .link.disabled{
+        opacity: 0.3;
+        pointer-events: none;
     }
     .show-submenu {
         left: -320px;

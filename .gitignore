@@ -4,6 +4,7 @@ node_modules
 client/node_modules
 client/build
 client/src/version.js
+client/src/version.ts
 client/public/images
 
 #server
@@ -11,6 +12,7 @@ server/node_modules
 server/app
 server/.env.local
 server/.env.atlas
+server/.env.live
 server/logs
 server/testDataScripts/logs
 

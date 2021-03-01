@@ -10,11 +10,12 @@ cat <<EOT > $POST_CHECKOUT
 DATE=\`git show --no-patch --no-notes --date=short --pretty='%ad' HEAD\`
 HASH=\`git show --no-patch --no-notes --pretty='%h' HEAD\`
 
-cat <<EOT > client/src/version.js
+cat <<EOT > client/src/version.ts
 /*
  * Auto generated file, do not edit or commit to git!
  */
-const version = {
+
+const version: Version = {
     date: '\$DATE',
     hash: '\$HASH'
 };

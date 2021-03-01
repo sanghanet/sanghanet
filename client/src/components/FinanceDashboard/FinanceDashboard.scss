@@ -1,15 +1,46 @@
 @import '../../style/colors';
 @import '../../style/mixins';
 
-.overview{
-    background-color: $sideBar-bg;
+.fin-card {
+    background: radial-gradient(circle, #656565 20%, #4d4c4c 100%);
     color: $searchField-color;
     margin: 0 auto 30px auto;
-    width: fit-content;
+    width: 286px;
     padding: 15px;
     border-radius: 8px;
-
+    svg {
+        width: 30px;
+        height: 30px;
+        fill: $white;
+    }
+    
     @include maxQ(767px) {
         font-size: .8rem;
+    }
+    .fin-card-1st, .fin-card-2nd {
+        display: flex;
+    }
+    .fin-card-1st {
+        justify-content: space-between;
+    }
+    .fin-card-2nd {
+        font-weight: 600;
+        justify-content: flex-start;
+    }
+    .green {
+        color: #72ce87;
+    }
+    .red {
+        color: $warning;
+    }
+}
+
+.outer {
+    max-width: 2000px;
+    padding: 0 38px;
+    display: flex;
+    flex-wrap: wrap;
+    @include maxQ(767px) {
+        padding: 0;
     }
 }
