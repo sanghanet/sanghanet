@@ -8,9 +8,9 @@ import InputAvatar from '../../components/Form/InputAvatar/InputAvatar';
 import InputDropdown from '../../components/Form/InputDropdown/InputDropdown';
 import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
-import { Row } from 'react-bootstrap';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import { DataContext } from '../../components/contexts/DataContext/DataContext';
+import Row from 'react-bootstrap/Row';
 
 const Personal = (props) => {
     const { dictionary } = useContext(UIcontext);
