@@ -20,18 +20,45 @@ import Card from 'react-bootstrap/Card';
     it was removed in order to make Superuser.js more readable.
     --------------------------------------
 */
-const FilterAccordion = (props) => {
+type RoleFilter = {
+    filterSuperuser: boolean,
+    filterFinanceAdmin: boolean,
+    filterEventAdmin: boolean,
+    filterYogaAdmin: boolean,
+    filterNoRole: boolean
+};
+
+interface AccordionProps {
+    handleEmailFilterChange: (inputValue: string) => void,
+    handleSearchIconClick: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    handleRegisteredFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    handleRoleChange: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
+    resetFilters: () => void,
+    textFilterValue: string,
+    registeredFilterValue: string,
+    roleFilter: RoleFilter
+};
+
+const FilterAccordion: React.FC<AccordionProps> = ({
+        handleEmailFilterChange,
+        handleSearchIconClick,
+        handleRegisteredFilterChange,
+        handleRoleChange,
+        resetFilters,
+        textFilterValue,
+        registeredFilterValue,
+        roleFilter }) => {
+
     const [dropDownVisible, setDropDownVisible] = useState(false);
     const { superuser } = useContext(UIcontext).dictionary;
     const { FILTERMEMBERS, FILTERTEXT, FILTERSHOW, FILTERALL, FILTERREGISTERED, FILTERUNREGISTERED, RESETFILTERS, FILTERSUPERUSER, FILTERFINADMIN, FILTEREVENTADMIN, FILTERYOGAADMIN, FILTERNOROLE } = superuser;
 
-    const handleEmailFilterChange = (inputValue) => { props.handleEmailFilterChange(inputValue); };
-    const handleSearchIconClick = (event) => { props.handleSearchIconClick(event); };
-    const handleRoleChange = (event) => { props.handleRoleChange(event); };
-    const handleRegisteredFilterChange = (event) => { props.handleRegisteredFilterChange(event); };
-    const resetFilters = () => { props.resetFilters(); };
+    const _handleEmailFilterChange = (inputValue: string) => { handleEmailFilterChange(inputValue); };
+    const _handleSearchIconClick = (event: React.ChangeEvent<HTMLInputElement>) => { handleSearchIconClick(event); };
+    const _handleRoleChange = (event: React.MouseEvent<HTMLElement, MouseEvent>) => { handleRoleChange(event); };
+    const _handleRegisteredFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => { handleRegisteredFilterChange(event); };
 
-    const preventSubmit = (event) => {
+    const preventSubmit = (event: React.KeyboardEvent<HTMLElement>) => {
         if (event.key === 'Enter') event.preventDefault();
     };
 
@@ -52,9 +79,9 @@ const FilterAccordion = (props) => {
                             <Form.Group className="search-filter">
                                 <SearchBar
                                     controlId='accordionTextFilter'
-                                    handleInputChange={handleEmailFilterChange}
-                                    handleIconClick={handleSearchIconClick}
-                                    inputValue={props.textFilterValue}
+                                    handleInputChange={_handleEmailFilterChange}
+                                    handleIconClick={_handleSearchIconClick}
+                                    inputValue={textFilterValue}
                                     icon={<Cross />}
                                 />
                                 <Form.Text>{FILTERTEXT}</Form.Text>
@@ -62,8 +89,8 @@ const FilterAccordion = (props) => {
                             <Form.Group className="registered-filter">
                                 <Form.Label>{FILTERSHOW}</Form.Label>
                                 <Form.Control
-                                    onChange={handleRegisteredFilterChange}
-                                    defaultValue={props.registeredFilterValue}
+                                    onChange={_handleRegisteredFilterChange}
+                                    defaultValue={registeredFilterValue}
                                     as="select"
                                 >
                                     <option value="all">{FILTERALL}</option>
@@ -75,35 +102,35 @@ const FilterAccordion = (props) => {
                                 <Checkbox
                                     id="filterSuperuser"
                                     value={FILTERSUPERUSER}
-                                    checked={props.roleFilter.filterSuperuser}
-                                    handleChange={handleRoleChange}
+                                    checked={roleFilter.filterSuperuser}
+                                    handleChange={_handleRoleChange}
                                 />
                                 <Checkbox
                                     id="filterFinanceAdmin"
                                     value={FILTERFINADMIN}
-                                    checked={props.roleFilter.filterFinanceAdmin}
-                                    handleChange={handleRoleChange}
+                                    checked={roleFilter.filterFinanceAdmin}
+                                    handleChange={_handleRoleChange}
                                 />
                                 <Checkbox
                                     id="filterEventAdmin"
                                     value={FILTEREVENTADMIN}
-                                    checked={props.roleFilter.filterEventAdmin}
-                                    handleChange={handleRoleChange}
+                                    checked={roleFilter.filterEventAdmin}
+                                    handleChange={_handleRoleChange}
                                 />
                                 <Checkbox
                                     id="filterYogaAdmin"
                                     value={FILTERYOGAADMIN}
-                                    checked={props.roleFilter.filterYogaAdmin}
-                                    handleChange={handleRoleChange}
+                                    checked={roleFilter.filterYogaAdmin}
+                                    handleChange={_handleRoleChange}
                                 />
                                 <Checkbox
                                     id="filterNoRole"
                                     value={FILTERNOROLE}
-                                    checked={props.roleFilter.filterNoRole}
-                                    handleChange={handleRoleChange}
+                                    checked={roleFilter.filterNoRole}
+                                    handleChange={_handleRoleChange}
                                 />
                             </Form.Group>
-                            <Button className="reset-button" variant="outline-primary" onClick={resetFilters}>{RESETFILTERS}</Button>
+                            <Button className="reset-button" variant="outline-primary" onClick={() => { resetFilters(); }}>{RESETFILTERS}</Button>
                         </Form>
                     </Card.Body>
                 </Accordion.Collapse>
@@ -120,7 +147,13 @@ FilterAccordion.propTypes = {
     resetFilters: PropTypes.func.isRequired,
     textFilterValue: PropTypes.string.isRequired,
     registeredFilterValue: PropTypes.string.isRequired,
-    roleFilter: PropTypes.object.isRequired
+    roleFilter: PropTypes.exact({
+        filterSuperuser: PropTypes.bool.isRequired,
+        filterFinanceAdmin: PropTypes.bool.isRequired,
+        filterEventAdmin: PropTypes.bool.isRequired,
+        filterYogaAdmin: PropTypes.bool.isRequired,
+        filterNoRole: PropTypes.bool.isRequired
+    }).isRequired
 };
 
 export default FilterAccordion;
