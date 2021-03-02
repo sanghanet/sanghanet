@@ -8,9 +8,26 @@ import { ReactComponent as Edit } from '../formIcons/edit.svg';
 import { ReactComponent as Visible } from '../formIcons/visible.svg';
 import { ReactComponent as Invisible } from '../formIcons/invisible.svg';
 
-import { Col } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import { ValidationRuleType } from '../../../types/ValidationRuleType';
 
-const InputDisplay = (props) => {
+interface InputDisplayProps {
+    inputTitle: string,
+    inputValue?: string,
+    inputId: string,
+    inputValueSave?: () => void,
+    inputType?: string,
+    inputFieldAs?: string,
+    optionsForSelect?: Array<string>,
+    textForSelect?: Array<string>,
+    inputVisibility?: (inputId: string) => void,
+    inputVisible: boolean,
+    toDisable?: Set<'visibility' | 'edit'> | undefined,
+    validation?: ValidationRuleType,
+    format?: string
+};
+
+const InputDisplay: React.FC<InputDisplayProps> = (props) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -55,13 +72,13 @@ const InputDisplay = (props) => {
                 />)
                 : null
             }
-            <Col xm={12} lg={6}>
+            <Col xs={12} lg={6}>
                 <div className="display-container">
                     <div className="display-label">
                         <p className="display-title">{inputTitle}</p>
                         <button
                             className="display-button visible-button"
-                            onClick={ () => inputVisibility(inputId) }
+                            onClick={ () => inputVisibility && inputVisibility(inputId) }
                             disabled ={ toDisable && toDisable.has('visibility') }
                         >
                             {inputVisible
@@ -97,8 +114,13 @@ InputDisplay.propTypes = {
     inputFieldAs: PropTypes.string,
     optionsForSelect: PropTypes.array,
     textForSelect: PropTypes.array,
-    toDisable: PropTypes.instanceOf(Set),
-    validation: PropTypes.object,
+    toDisable: PropTypes.oneOf(['visibility', 'edit']),
+    validation: PropTypes.exact({
+        required: PropTypes.bool.isRequired,
+        minLength: PropTypes.number.isRequired,
+        maxLength: PropTypes.number.isRequired,
+        pattern: PropTypes.string.isRequired
+    }),
     format: PropTypes.string
 };
 
