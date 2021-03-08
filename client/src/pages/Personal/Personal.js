@@ -236,7 +236,7 @@ const Personal = (props) => {
                             inputVisible={firstNameVisible}
                             inputVisibility={handleItemVisibility}
                             inputType="text"
-                            toDisable={ new Set(['visibility']) }
+                            toDisable={ 'Visibility' }
                             format="Maria-Luiza"
                         />
                         <InputDisplay
@@ -248,7 +248,7 @@ const Personal = (props) => {
                             inputVisible={lastNameVisible}
                             inputVisibility={handleItemVisibility}
                             inputType="text"
-                            toDisable={ new Set(['visibility']) }
+                            toDisable={ 'Visibility' }
                             format="Dr. Ribeiro"
                         />
                     </Row>
@@ -262,7 +262,7 @@ const Personal = (props) => {
                             inputVisible={spiritualNameVisible}
                             inputVisibility={handleItemVisibility}
                             inputType="text"
-                            toDisable={ new Set(['visibility']) }
+                            toDisable={ 'Visibility' }
                             format="Flower Power"
                         />
                         <InputDisplay
@@ -296,7 +296,7 @@ const Personal = (props) => {
                             inputId="level"
                             inputVisible={levelVisible}
                             inputVisibility={handleItemVisibility}
-                            toDisable={ new Set(['edit']) }
+                            toDisable={ 'Edit' }
                             // this input is not editable by the user
                         />
                     </Row>
@@ -311,7 +311,7 @@ const Personal = (props) => {
                             inputId="email"
                             inputVisible={emailVisible}
                             inputVisibility={handleItemVisibility}
-                            toDisable={ new Set(['edit']) }
+                            toDisable={ 'Edit' }
                             // since field is non-editable below props are meaningless
                             // inputValueSave={handleItemSave}
                             // inputType="email"

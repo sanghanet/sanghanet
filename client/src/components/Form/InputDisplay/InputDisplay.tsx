@@ -9,7 +9,7 @@ import { ReactComponent as Visible } from '../formIcons/visible.svg';
 import { ReactComponent as Invisible } from '../formIcons/invisible.svg';
 
 import Col from 'react-bootstrap/Col';
-import { ValidationRuleType } from '../../../types/ValidationRuleType';
+import { DisableInput } from '../../../enums/DisableInput';
 
 interface InputDisplayProps {
     inputTitle: string,
@@ -22,16 +22,12 @@ interface InputDisplayProps {
     textForSelect?: Array<string>,
     inputVisibility?: (inputId: string) => void,
     inputVisible: boolean,
-    toDisable?: Set<'visibility' | 'edit'> | undefined,
+    toDisable?: DisableInput,
     validation?: ValidationRuleType,
     format?: string
 };
 
 const InputDisplay: React.FC<InputDisplayProps> = (props) => {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     const {
         inputTitle,
         inputValue,
@@ -48,6 +44,8 @@ const InputDisplay: React.FC<InputDisplayProps> = (props) => {
         format
     } = props;
 
+    const [show, setShow] = useState(false);
+
     const { personalPagePlaceholders } = useContext(UIcontext).dictionary;
     const { ENTERVALUE } = personalPagePlaceholders;
 
@@ -59,7 +57,7 @@ const InputDisplay: React.FC<InputDisplayProps> = (props) => {
                     modalShow={show}
                     modalTitle={inputTitle}
                     modalValue={inputValue}
-                    modalClose={handleClose}
+                    modalClose={ () => setShow(false) }
                     modalId={inputId}
                     modalValueSave={inputValueSave}
                     modalInputType={inputType}
@@ -79,7 +77,7 @@ const InputDisplay: React.FC<InputDisplayProps> = (props) => {
                         <button
                             className="display-button visible-button"
                             onClick={ () => inputVisibility && inputVisibility(inputId) }
-                            disabled ={ toDisable && toDisable.has('visibility') }
+                            disabled ={ toDisable === DisableInput.Visibility }
                         >
                             {inputVisible
                                 ? <Visible className="display-icon visible-icon" />
@@ -91,8 +89,8 @@ const InputDisplay: React.FC<InputDisplayProps> = (props) => {
                         <p className="display-title">{inputValue || ENTERVALUE}</p>
                         <button
                             className="display-button edit-button"
-                            onClick={handleShow}
-                            disabled ={ toDisable && toDisable.has('edit') }
+                            onClick={ () => setShow(true) }
+                            disabled ={ toDisable === DisableInput.Edit }
                         >
                             <Edit className="display-icon edit-icon" />
                         </button>
@@ -114,13 +112,14 @@ InputDisplay.propTypes = {
     inputFieldAs: PropTypes.string,
     optionsForSelect: PropTypes.array,
     textForSelect: PropTypes.array,
-    toDisable: PropTypes.oneOf(['visibility', 'edit']),
-    validation: PropTypes.exact({
-        required: PropTypes.bool.isRequired,
-        minLength: PropTypes.number.isRequired,
-        maxLength: PropTypes.number.isRequired,
-        pattern: PropTypes.string.isRequired
-    }),
+    toDisable: PropTypes.oneOf<DisableInput>([ DisableInput.Visibility, DisableInput.Edit ]),
+    validation: PropTypes.object,
+    // validation: PropTypes.exact({
+    //     required: PropTypes.bool,
+    //     minLength: PropTypes.number,
+    //     maxLength: PropTypes.number,
+    //     pattern: PropTypes.string
+    // }),
     format: PropTypes.string
 };
 
