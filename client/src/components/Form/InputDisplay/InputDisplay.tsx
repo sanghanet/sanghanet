@@ -13,11 +13,11 @@ import { DisableInput } from '../../../enums/DisableInput';
 
 interface InputDisplayProps {
     inputTitle: string,
-    inputValue?: string,
+    inputValue: string,
     inputId: string,
-    inputValueSave?: () => void,
+    inputValueSave: (id: string, value: string) => void,
     inputType?: string,
-    inputFieldAs?: string,
+    inputFieldAsSelect?: boolean,
     optionsForSelect?: Array<string>,
     textForSelect?: Array<string>,
     inputVisibility?: (inputId: string) => void,
@@ -34,7 +34,7 @@ const InputDisplay: React.FC<InputDisplayProps> = (props) => {
         inputId,
         inputValueSave,
         inputType,
-        inputFieldAs,
+        inputFieldAsSelect,
         optionsForSelect,
         textForSelect,
         inputVisibility,
@@ -61,7 +61,7 @@ const InputDisplay: React.FC<InputDisplayProps> = (props) => {
                     modalId={inputId}
                     modalValueSave={inputValueSave}
                     modalInputType={inputType}
-                    modalInputAs={inputFieldAs}
+                    modalInputAsSelect={inputFieldAsSelect}
                     modalOptions={optionsForSelect}
                     modalOptionsText={textForSelect}
                     modalValidation={validation}
@@ -103,13 +103,13 @@ const InputDisplay: React.FC<InputDisplayProps> = (props) => {
 
 InputDisplay.propTypes = {
     inputTitle: PropTypes.string.isRequired,
-    inputValue: PropTypes.string,
+    inputValue: PropTypes.string.isRequired,
     inputId: PropTypes.string.isRequired,
-    inputValueSave: PropTypes.func,
+    inputValueSave: PropTypes.func.isRequired,
     inputVisibility: PropTypes.func,
     inputVisible: PropTypes.bool.isRequired,
     inputType: PropTypes.string,
-    inputFieldAs: PropTypes.string,
+    inputFieldAsSelect: PropTypes.bool,
     optionsForSelect: PropTypes.array,
     textForSelect: PropTypes.array,
     toDisable: PropTypes.oneOf<DisableInput>([ DisableInput.Visibility, DisableInput.Edit ]),

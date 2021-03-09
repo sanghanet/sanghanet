@@ -14,7 +14,23 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const InputPopup = (props) => {
+interface InputPopupProps {
+    modalShow: boolean,
+    modalTitle?: string,
+    modalValue: string,
+    modalClose: () => void,
+    modalId: string,
+    modalValueSave: (id: string, value: string) => void,
+    modalInputType?: string,
+    modalInputAsSelect?: boolean,
+    modalOptions?: Array<string>,
+    modalOptionsText?: Array<string>,
+    modalValidation?: ValidationRuleType,
+    modalFormat?: string,
+    modalPlaceholder?: string
+};
+
+const InputPopup: React.FC<InputPopupProps> = (props) => {
     const {
         modalShow,
         modalTitle,
@@ -23,7 +39,7 @@ const InputPopup = (props) => {
         modalId,
         modalValueSave,
         modalInputType,
-        modalInputAs,
+        modalInputAsSelect,
         modalOptions,
         modalOptionsText,
         modalValidation,
@@ -40,7 +56,7 @@ const InputPopup = (props) => {
     const [value, setValue] = useState(modalValue);
     const [errorMsg, setErrorMsg] = useState('');
 
-    const validation = (input) => {
+    const validation = (input: HTMLInputElement) => {
         const valErr = validationError(input);
         if (valErr) {
             setErrorMsg(valErr);
@@ -51,28 +67,29 @@ const InputPopup = (props) => {
         }
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.preventDefault(); // event.target is the button here
-        if (props.modalId !== 'birthday') {
-            const input = document.getElementById(modalId); // input field
+        if (modalId !== 'birthday') {
+            //TODO: change to forwardRef ??
+            const input: HTMLInputElement = document.getElementById(modalId) as HTMLInputElement; // input field
             if (validation(input)) {
                 modalValueSave(modalId, value);
                 modalClose();
             };
         } else {
-            modalValueSave(modalId, value.toISOString().slice(0, 10));
+            modalValueSave(modalId, new Date(value).toISOString().slice(0, 10));
             modalClose();
         }
     }
 
-    const handleChange = (event) => {
-        const input = event.target; // event.target is the input field
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const input = event.target as HTMLInputElement;
         validation(input);
         setValue(input.value);
     }
 
-    const handleDateChange = (date) => {
-        setValue(date);
+    const handleDateChange = (date: Date) => {
+        setValue(new Date(date).toISOString());
     };
 
     const handleClose = () => {
@@ -80,7 +97,7 @@ const InputPopup = (props) => {
         modalClose();
     }
 
-    const validateDateValue = (currentValue) => {
+    const validateDateValue = (currentValue: string) => {
         // https://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
         if (typeof currentValue === 'string') {
             const convertedToDate = new Date(currentValue);
@@ -123,7 +140,7 @@ const InputPopup = (props) => {
                         : <>
                             <span className="hint">{REQUIREDFORMAT} {modalFormat}</span>
                             <Form.Control
-                                as={modalInputAs}
+                                as={modalInputAsSelect ? 'select' : 'input'}
                                 type={modalInputType}
                                 id={modalId}
                                 value={value}
@@ -134,7 +151,7 @@ const InputPopup = (props) => {
                             >
                                 { modalOptions
                                     ? modalOptions.map((option, index) => {
-                                        return (<option value={option} key={index}>{modalOptionsText[index]}</option>);
+                                        return (<option value={option} key={index}>{modalOptionsText![index]}</option>);
                                     })
                                     : null
                                 }
@@ -159,12 +176,12 @@ const InputPopup = (props) => {
 InputPopup.propTypes = {
     modalShow: PropTypes.bool.isRequired,
     modalTitle: PropTypes.string,
-    modalValue: PropTypes.string,
+    modalValue: PropTypes.string.isRequired,
     modalClose: PropTypes.func.isRequired,
-    modalId: PropTypes.string,
-    modalValueSave: PropTypes.func,
+    modalId: PropTypes.string.isRequired,
+    modalValueSave: PropTypes.func.isRequired,
     modalInputType: PropTypes.string,
-    modalInputAs: PropTypes.string,
+    modalInputAsSelect: PropTypes.bool,
     modalOptions: PropTypes.array,
     modalOptionsText: PropTypes.array,
     modalValidation: PropTypes.object,

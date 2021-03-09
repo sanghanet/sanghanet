@@ -279,12 +279,13 @@ const Personal = (props) => {
                     <Row>
                         <InputDisplay
                             inputTitle={GENDER}
-                            inputValue={GENDERVALUE}
+                            // At start gender is '', and dictionary look-up result is undefined
+                            inputValue={GENDERVALUE || ''}
                             inputId="gender"
                             inputValueSave={handleItemSave}
                             inputVisible={genderVisible}
                             inputVisibility={handleItemVisibility}
-                            inputFieldAs="select"
+                            inputFieldAsSelect={true}
                             // empty string - if one does not want to indicate gender
                             optionsForSelect={['', 'Female', 'Male', 'Other']}
                             textForSelect={['', FEMALE, MALE, OTHER]}
@@ -298,6 +299,7 @@ const Personal = (props) => {
                             inputVisibility={handleItemVisibility}
                             toDisable={ 'Edit' }
                             // this input is not editable by the user
+                            inputValueSave={ (id, newValue) => {} }
                         />
                     </Row>
                 </React.Fragment>
@@ -312,8 +314,7 @@ const Personal = (props) => {
                             inputVisible={emailVisible}
                             inputVisibility={handleItemVisibility}
                             toDisable={ 'Edit' }
-                            // since field is non-editable below props are meaningless
-                            // inputValueSave={handleItemSave}
+                            inputValueSave={ (id, newValue) => {} }
                             // inputType="email"
                         />
                         <InputDisplay
