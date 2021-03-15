@@ -10,9 +10,22 @@ import { ReactComponent as ArrowDown } from '../formIcons/arrow-down.svg';
 import { ReactComponent as ArrowUp } from '../formIcons/arrow-up.svg';
 import './InputDropdown.scss';
 
-const InputDropdown = (props) => {
+
+interface InputDropdownProps {
+    dropdownTitle: string,
+    dropdownId: string,
+    inputValueSave:  (id: string, value: string) => void,
+    dropdownVisibility: (s: string) => void,
+    dropdownVisible: boolean,
+    inputFieldAs?: string,
+    dropdownArrow?: boolean,
+    toggleDropdown: () => void,
+    inputArray: Array<DropdownInputType>
+};
+
+const InputDropdown: React.FC<InputDropdownProps>  = (props) => {
     const [show, setShow] = useState(false);
-    const [activeKey, setKey] = useState(null);
+    const [activeKey, setKey] = useState<null | number>(null);
 
     const { personalPagePlaceholders } = useContext(UIcontext).dictionary;
 
@@ -20,7 +33,8 @@ const InputDropdown = (props) => {
         setKey(null);
         setShow(false);
     };
-    const handleShow = (key) => {
+
+    const handleShow = (key: number) => {
         setKey(key);
         setShow(true);
     };
@@ -53,21 +67,21 @@ const InputDropdown = (props) => {
     return (
         <React.Fragment>
             {activeKey !== null // activeKey 0!!!, 1, 2
-                ? (<InputPopup
-                    modalShow={show}
-                    modalTitle={inputArray[activeKey].inputTitle}
-                    modalValue={inputArray[activeKey].inputValue}
-                    modalClose={handleClose}
-                    modalValueSave={inputValueSave}
-                    modalId={inputArray[activeKey].inputId}
-                    modalInputType={inputArray[activeKey].inputType}
-                    modalValidation={inputArray[activeKey].validation}
-                    modalFormat={inputArray[activeKey].format}
-                    modalPlaceholder= {personalPagePlaceholders.ENTERVALUE}
-                />)
+                ? ( <InputPopup
+                        modalShow={show}
+                        modalTitle={inputArray[activeKey].inputTitle}
+                        modalValue={inputArray[activeKey].inputValue}
+                        modalClose={handleClose}
+                        modalValueSave={inputValueSave}
+                        modalId={inputArray[activeKey].inputId}
+                        modalInputType={inputArray[activeKey].inputType}
+                        modalValidation={inputArray[activeKey].validation}
+                        modalFormat={inputArray[activeKey].format}
+                        modalPlaceholder= {personalPagePlaceholders.ENTERVALUE}
+                    />)
                 : null
             }
-            <Col xm={12} lg={6}>
+            <Col sm={12} lg={6}>
                 <Accordion className="input-accordion">
                     <Card>
                         <Card.Header>
@@ -100,13 +114,13 @@ const InputDropdown = (props) => {
 InputDropdown.propTypes = {
     dropdownTitle: PropTypes.string.isRequired,
     dropdownId: PropTypes.string.isRequired,
-    inputValueSave: PropTypes.func,
-    dropdownVisibility: PropTypes.func,
+    inputValueSave: PropTypes.func.isRequired,
+    dropdownVisibility: PropTypes.func.isRequired,
     dropdownVisible: PropTypes.bool.isRequired,
     inputFieldAs: PropTypes.string,
     dropdownArrow: PropTypes.bool,
-    toggleDropdown: PropTypes.func,
-    inputArray: PropTypes.array
+    toggleDropdown: PropTypes.func.isRequired,
+    inputArray: PropTypes.array.isRequired
 };
 
 export default InputDropdown;
