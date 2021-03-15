@@ -3,6 +3,6 @@ type DropdownInputType = {
     inputValue: string,
     inputId: string,
     inputType: string,
-    validation: ValidationRuleType,
+    validation?: ValidationRuleType,
     format: string
 };

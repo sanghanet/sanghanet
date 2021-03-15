@@ -11,56 +11,60 @@ import Alert from '../../components/Alert/Alert';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import { DataContext } from '../../components/contexts/DataContext/DataContext';
 import Row from 'react-bootstrap/Row';
+import { DisableInput } from '../../enums/DisableInput';
 
-const Personal = (props) => {
+
+interface PersonalProps {};
+
+const Personal: React.FC<PersonalProps>  = (props) => {
     const { dictionary } = useContext(UIcontext);
     const { setUsername, setAvatarSrc } = useContext(DataContext);
 
-    const [openDetails, setOpenDetails] = useState(false);
+    const [openDetails, setOpenDetails] = useState<boolean>(false);
 
-    const [profileImgURL, setProfileImgURL] = useState('');
-    const [firstName, setFirstName] = useState('');
+    const [profileImgURL, setProfileImgURL] = useState<string>('');
+    const [firstName, setFirstName] = useState<string>('');
     // eslint-disable-next-line no-unused-vars
-    const [firstNameVisible, setFirstNameVisible] = useState(true);
-    const [lastName, setLastName] = useState('');
+    const [firstNameVisible, setFirstNameVisible] = useState<boolean>(true);
+    const [lastName, setLastName] = useState<string>('');
     // eslint-disable-next-line no-unused-vars
-    const [lastNameVisible, setLastNameVisible] = useState(true);
-    const [spiritualName, setSpiritualName] = useState('');
+    const [lastNameVisible, setLastNameVisible] = useState<boolean>(true);
+    const [spiritualName, setSpiritualName] = useState<string>('');
     // eslint-disable-next-line no-unused-vars
-    const [spiritualNameVisible, setSpiritualNameVisible] = useState(true);
-    const [birthday, setBirthday] = useState('');
-    const [birthdayVisible, setBirthdayVisible] = useState(false);
-    const [gender, setGender] = useState('');
-    const [genderVisible, setGenderVisible] = useState(false);
-    const [level, setLevel] = useState('');
-    const [levelVisible, setLevelVisible] = useState(false);
-    const [email, setEmail] = useState('');
-    const [emailVisible, setEmailVisible] = useState(false);
-    const [mobile, setMobile] = useState('');
-    const [mobileVisible, setMobileVisible] = useState(false);
-    const [address, setAddress] = useState('');
-    const [addressVisible, setAddressVisible] = useState(false);
-    const [emName, setEmName] = useState('');
-    const [emMobile, setEmMobile] = useState('');
-    const [emEmail, setEmEmail] = useState('');
-    const [emContactVisible, setEmContactVisible] = useState(false);
+    const [spiritualNameVisible, setSpiritualNameVisible] = useState<boolean>(true);
+    const [birthday, setBirthday] = useState<string>('');
+    const [birthdayVisible, setBirthdayVisible] = useState<boolean>(false);
+    const [gender, setGender] = useState<string>('');
+    const [genderVisible, setGenderVisible] = useState<boolean>(false);
+    const [level, setLevel] = useState<string>('');
+    const [levelVisible, setLevelVisible] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>('');
+    const [emailVisible, setEmailVisible] = useState<boolean>(false);
+    const [mobile, setMobile] = useState<string>('');
+    const [mobileVisible, setMobileVisible] = useState<boolean>(false);
+    const [address, setAddress] = useState<string>('');
+    const [addressVisible, setAddressVisible] = useState<boolean>(false);
+    const [emName, setEmName] = useState<string>('');
+    const [emMobile, setEmMobile] = useState<string>('');
+    const [emEmail, setEmEmail] = useState<string>('');
+    const [emContactVisible, setEmContactVisible] = useState<boolean>(false);
 
-    const [showAlert, setShowAlert] = useState(false);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>('');
+    const [alertType, setAlertType] = useState<ALERT>('NOALERT');
 
-    const displayAlert = (visible, msg, type) => {
+    const displayAlert = (visible: boolean, msg: string, type: ALERT) => {
         setShowAlert(visible);
         setAlertMessage(msg);
         setAlertType(type);
     };
 
-    const closeAlert = () => { displayAlert(false, '', ''); };
+    const closeAlert = () => { displayAlert(false, '', 'NOALERT'); };
 
     // componentDidMount
     useEffect(() => {
         Client.fetch('/user/personal')
-            .then((data) => {
+            .then((data: Array<PersonalDataType>) => {
                 setFirstName(data[0].firstName);
                 setLastName(data[0].lastName);
                 setProfileImgURL(data[0].profileImg);
@@ -90,7 +94,7 @@ const Personal = (props) => {
         setOpenDetails(!openDetails);
     };
 
-    const updateItem = (data) => {
+    const updateItem = (data: PersonalDataType) => {
         switch (Object.keys(data)[0]) {
             case 'firstName':
                 setFirstName(data.firstName);
@@ -125,7 +129,7 @@ const Personal = (props) => {
         displayAlert(true, 'SAVEDSUCCESSFULLY', 'INFO');
     };
 
-    const handleItemSave = (id, newValue) => {
+    const handleItemSave = (id: string, newValue: string) => {
         Client.fetch('/user/saveitem', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -138,7 +142,7 @@ const Personal = (props) => {
             });
     };
 
-    const handleItemVisibility = (id) => {
+    const handleItemVisibility = (id: string) => {
         let itemValue = null;
         const itemKey = `${id}Visible`;
         switch (itemKey) {
@@ -165,8 +169,8 @@ const Personal = (props) => {
             });
     };
 
-    const updateProfileImg = (event) => {
-        const imageToUpload = event.target.files[0];
+    const updateProfileImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const imageToUpload = event.target.files![0];
         if (!imageToUpload) return;
         if (!imageToUpload.name.match(/\.(|jpg|jpeg|png|svg|webp)$/i)) {
             displayAlert(true, 'VALIDPHOTO', 'ERROR');
@@ -236,7 +240,7 @@ const Personal = (props) => {
                             inputVisible={firstNameVisible}
                             inputVisibility={handleItemVisibility}
                             inputType="text"
-                            toDisable={ 'Visibility' }
+                            toDisable={ DisableInput.Visibility }
                             format="Maria-Luiza"
                         />
                         <InputDisplay
@@ -248,7 +252,7 @@ const Personal = (props) => {
                             inputVisible={lastNameVisible}
                             inputVisibility={handleItemVisibility}
                             inputType="text"
-                            toDisable={ 'Visibility' }
+                            toDisable={ DisableInput.Visibility }
                             format="Dr. Ribeiro"
                         />
                     </Row>
@@ -262,7 +266,7 @@ const Personal = (props) => {
                             inputVisible={spiritualNameVisible}
                             inputVisibility={handleItemVisibility}
                             inputType="text"
-                            toDisable={ 'Visibility' }
+                            toDisable={ DisableInput.Visibility }
                             format="Flower Power"
                         />
                         <InputDisplay
@@ -297,7 +301,7 @@ const Personal = (props) => {
                             inputId="level"
                             inputVisible={levelVisible}
                             inputVisibility={handleItemVisibility}
-                            toDisable={ 'Edit' }
+                            toDisable={ DisableInput.Edit }
                             // this input is not editable by the user
                             inputValueSave={ (id, newValue) => {} }
                         />
@@ -313,7 +317,7 @@ const Personal = (props) => {
                             inputId="email"
                             inputVisible={emailVisible}
                             inputVisibility={handleItemVisibility}
-                            toDisable={ 'Edit' }
+                            toDisable={ DisableInput.Edit }
                             inputValueSave={ (id, newValue) => {} }
                             // inputType="email"
                         />
