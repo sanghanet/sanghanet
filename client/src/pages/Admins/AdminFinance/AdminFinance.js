@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Client from '../../../components/Client';
 
 import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
@@ -7,53 +7,57 @@ import AddTransactionDialog from './AddTransactionDialog/AddTransactionDialog';
 import DeleteTransactionDialog from './DeleteTransactionDialog/DeleteTransactionDialog';
 import Alert from '../../../components/Alert/Alert';
 
-class AdminFinance extends React.Component {
-    state = {
-        selectedUserEmail: null,
-        selectedUserName: null,
-        showAddTransaction: false,
-        paymentDialogPocketName: '',
-        transactionType: null, // Payment or Debt
+const AdminFinance = () => {
+    const [selectedUserEmail, setSelectedUserEmail] = useState(null);
+    const [selectedUserName, setSelectedUserName] = useState(null);
+    const [showAddTransaction, setShowAddTransaction] = useState(false);
+    const [paymentDialogPocketName, setPaymentDialogPocketName] = useState('');
+    const [transactionType, setTransactionType] = useState(null);
+    const [showDeleteTransaction, setShowDeleteTransaction] = useState(false);
+    const [transaction, setTransaction] = useState(null);
+    const [refreshFinanceData, setRefreshFinanceData] = useState(0);
+    const [activeTab, setActiveTab] = useState('membership');
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('');
 
-        showDeleteTransaction: false,
-        transaction: null,
-
-        refreshFinanceData: 0, // fine HACK to rerender Component when new data is available.
-        activeTab: 'membership',
-
-        showAlert: false,
-        alertMessage: '',
-        alertType: ''
+    const onSelection = (email, userName) => {
+        setSelectedUserEmail(email);
+        setSelectedUserName(userName);
     }
 
-    onSelection = (email, userName) => {
-        this.setState({ selectedUserEmail: email, selectedUserName: userName });
+    const openAddPayment = (pocket) => {
+        setShowAddTransaction(true);
+        setPaymentDialogPocketName(pocket);
+        setTransactionType('payment');
     }
 
-    openAddPayment = (pocket) => {
-        this.setState({ showAddTransaction: true, paymentDialogPocketName: pocket, transactionType: 'payment' });
+    const openAddDebt = (pocket) => {
+        setShowAddTransaction(true);
+        setPaymentDialogPocketName(pocket);
+        setTransactionType('debt');
     }
 
-    openAddDebt = (pocket) => {
-        this.setState({ showAddTransaction: true, paymentDialogPocketName: pocket, transactionType: 'debt' });
+    const closeTransactionDialog = () => {
+        setShowAddTransaction(false);
+        setPaymentDialogPocketName('');
+        setTransactionType(null);
     }
 
-    closeTransactionDialog = () => {
-        this.setState({ showAddTransaction: false, paymentDialogPocketName: '', transactionType: null });
+    const closeAlert = () => {
+        setShowAlert(false);
+        setAlertMessage('');
+        setAlertType('');
     }
 
-    closeAlert = () => {
-        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
-    }
-
-    handleTransaction = (description, amount, pocketName, transactionType, dueDate) => {
+    const handleTransaction = (description, amount, pocketName, transactionType, dueDate) => {
         // TODO:to avoid confusion in case of duplicate name - name search should display name with emails as a result (Kis Pista kis.p1@gmail.com)
         // TODO:DB: why pocket field is present in every transaction
 
         Client.fetch('/finance/addtransaction/', {
             method: 'POST',
             body: `{
-                "email": "${this.state.selectedUserEmail}",
+                "email": "${selectedUserEmail}",
                 "description": "${description}",
                 "amount": "${amount}",
                 "transactionType": "${transactionType}",
@@ -62,96 +66,88 @@ class AdminFinance extends React.Component {
             }`
         })
             .then((data) => {
-                this.setState({ refreshFinanceData: Date.now(), activeTab: pocketName });
+                setRefreshFinanceData(Date.now());
+                setActiveTab(pocketName);
             }).catch((err) => {
                 console.log(err);
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+                setShowAlert(true);
+                setAlertMessage(err.message);
+                setAlertType('ERROR');
             });
-        this.closeTransactionDialog();
+        closeTransactionDialog();
     }
 
-    openDeleteTransaction = (transaction) => {
-        this.setState({ showDeleteTransaction: true, transaction: transaction });
+    const openDeleteTransaction = (transaction) => {
+        setShowDeleteTransaction(true);
+        setTransaction(transaction)
     }
 
-    closeDeleteTransaction = () => {
-        this.setState({ showDeleteTransaction: false, transaction: null });
+    const closeDeleteTransaction = () => {
+        setShowDeleteTransaction(false);
+        setTransaction(null)
     }
 
-    handleDeleteTransaction = (transactionID, pocket) => {
+    const handleDeleteTransaction = (transactionID, pocket) => {
         Client.fetch('/finance/deletetransaction/', {
             method: 'POST',
             body: `{
-                "email": "${this.state.selectedUserEmail}",
+                "email": "${selectedUserEmail}",
                 "pocket": "${pocket}",
                 "transactionID": "${transactionID}"
             }`
         })
             .then((data) => {
-                this.setState({ refreshFinanceData: Date.now(), activeTab: pocket });
+                setRefreshFinanceData(Date.now());
+                setActiveTab(pocket);
             }).catch((err) => {
                 console.log(err);
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+                setShowAlert(true);
+                setAlertMessage(err.message);
+                setAlertType('ERROR');
             });
-        this.setState({ showDeleteTransaction: false, transaction: null });
+        closeDeleteTransaction();
     }
 
-    render () {
-        const {
-            showAddTransaction,
-            showDeleteTransaction,
-            transaction,
-            showAlert,
-            alertType,
-            alertMessage,
-            paymentDialogPocketName,
-            selectedUserEmail,
-            selectedUserName,
-            transactionType,
-            refreshFinanceData,
-            activeTab
-        } = this.state;
-
-        return (
-            <React.Fragment>
-                <UserSelector handleSubmit={this.onSelection} />
-                <FinanceContainer key = {refreshFinanceData}
-                    selectedUser = {selectedUserEmail}
-                    openAddPayment = {this.openAddPayment}
-                    openAddDebt = {this.openAddDebt}
-                    openDeleteTransaction = {this.openDeleteTransaction}
-                    isFinAdmin = {true}
-                    activeTab = {activeTab}
+    return (
+        <React.Fragment>
+            <UserSelector handleSubmit={onSelection} />
+            <FinanceContainer key={refreshFinanceData}
+                selectedUser={selectedUserEmail}
+                openAddPayment={openAddPayment}
+                openAddDebt={openAddDebt}
+                openDeleteTransaction={openDeleteTransaction}
+                isFinAdmin={true}
+                activeTab={activeTab}
+            />
+            { showAddTransaction &&
+                <AddTransactionDialog
+                    transactionType={transactionType}
+                    addPayment={handleTransaction}
+                    closeDialog={closeTransactionDialog}
+                    selectedUserEmail={selectedUserEmail}
+                    selectedUserName={selectedUserName}
+                    pocketName={paymentDialogPocketName}
                 />
-                { showAddTransaction &&
-                    <AddTransactionDialog
-                        transactionType = {transactionType}
-                        addPayment = {this.handleTransaction}
-                        closeDialog = {this.closeTransactionDialog}
-                        selectedUserEmail = {selectedUserEmail}
-                        selectedUserName = {selectedUserName}
-                        pocketName = {paymentDialogPocketName}
-                    />
-                }
-                { showDeleteTransaction &&
-                    <DeleteTransactionDialog
-                        deleteTransaction = {this.handleDeleteTransaction}
-                        closeDialog = {this.closeDeleteTransaction}
-                        selectedUserEmail = {selectedUserEmail}
-                        selectedUserName = {selectedUserName}
-                        transaction = {transaction}
-                    />
-                }
-                { showAlert &&
-                    <Alert
-                        alertMsg = {alertMessage}
-                        alertType = {alertType}
-                        alertClose = {this.closeAlert}
-                    />
-                }
-            </React.Fragment>
-        );
-    }
+            }
+            { showDeleteTransaction &&
+                <DeleteTransactionDialog
+                    deleteTransaction={handleDeleteTransaction}
+                    closeDialog={closeDeleteTransaction}
+                    selectedUserEmail={selectedUserEmail}
+                    selectedUserName={selectedUserName}
+                    transaction={transaction}
+                />
+            }
+            { showAlert &&
+                <Alert
+                    alertMsg={alertMessage}
+                    alertType={alertType}
+                    alertClose={closeAlert}
+                />
+            }
+        </React.Fragment>
+    );
+
 }
 
 export default AdminFinance;
