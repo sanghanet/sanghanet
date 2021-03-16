@@ -176,7 +176,7 @@ const Personal: React.FC<PersonalProps>  = (props) => {
             displayAlert(true, 'VALIDPHOTO', 'ERROR');
             return false;
         }
-        if (imageToUpload.size < 1048576) { // 1048576 = 1 MB 1024*1024 byte
+        if (imageToUpload.size < 1_048_576) { // 1048576 = 1 MB 1024*1024 byte
             const formData = new FormData();
             formData.append('file', imageToUpload);
 
