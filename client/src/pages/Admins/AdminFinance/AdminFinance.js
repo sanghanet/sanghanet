@@ -7,7 +7,7 @@ import AddTransactionDialog from './AddTransactionDialog/AddTransactionDialog';
 import DeleteTransactionDialog from './DeleteTransactionDialog/DeleteTransactionDialog';
 import Alert from '../../../components/Alert/Alert';
 
-const AdminFinance = () => {
+const AdminFinance = (props) => {
     const [selectedUserEmail, setSelectedUserEmail] = useState(null);
     const [selectedUserName, setSelectedUserName] = useState(null);
     const [showAddTransaction, setShowAddTransaction] = useState(false);
