@@ -51,10 +51,10 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
             },
          });
 
-         result.transactions.membership.sort(sortByDueDate);
-         result.transactions.rent.sort(sortByDueDate);
-         result.transactions.event.sort(sortByDueDate);
-         result.transactions.angel.sort(sortByDueDate);
+         result[0].transactions.membership.sort(sortByDueDate);
+         result[0].transactions.rent.sort(sortByDueDate);
+         result[0].transactions.event.sort(sortByDueDate);
+         result[0].transactions.angel.sort(sortByDueDate);
 
          setFinanceData(result);
          setReRender(Date.now());
@@ -79,13 +79,13 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
             <React.Fragment>
                <FinanceDashboard
                   key={reRender}
-                  currency={financeData.currency}
+                  currency={financeData[0].currency}
                   balance={financeData.balance}
                   onError={onError}
                />
                <TransactionTabs
-                  currency={financeData.currency}
-                  transactions={financeData.transactions}
+                  currency={financeData[0].currency}
+                  transactions={financeData[0].transactions}
                   onError={onError}
                   isFinAdmin={isFinAdmin}
                   openAddPayment={openAddPayment}
