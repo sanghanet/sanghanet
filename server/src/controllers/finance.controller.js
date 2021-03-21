@@ -26,30 +26,25 @@ const sumPocket = (result, pocket) => {
 
 module.exports.getFinanceData = async (req, res) => {
     try {
-        if (req.body.email) {
-            const result = await FinanceAccount.find({ email: req.body.email });
-            res.json({
-                ...result,
-                balance: {
-                    membership: sumPocket(result, 'membership'),
-                    rent: sumPocket(result, 'rent'),
-                    event: sumPocket(result, 'event'),
-                    angel: sumPocket(result, 'angel')
-                }
-            });
-        } else {
-            const result = await FinanceAccount.find({ email: req.user.email });
+        const email = req.body.email || req.user.email;
+        const result = await FinanceAccount.find({ email });
 
-            res.json({
-                ...result,
-                balance: {
-                    membership: sumPocket(result, 'membership'),
-                    rent: sumPocket(result, 'rent'),
-                    event: sumPocket(result, 'event'),
-                    angel: sumPocket(result, 'angel')
-                }
-            });
-        }
+        const { transactions, userId, userName, currency } = result[0];
+        const responseFinanceData = {
+            transactions,
+            userId,
+            email,
+            userName,
+            currency,
+            balance: {
+                membership: sumPocket(result, 'membership'),
+                rent: sumPocket(result, 'rent'),
+                event: sumPocket(result, 'event'),
+                angel: sumPocket(result, 'angel')
+            }
+        };
+
+        res.json(responseFinanceData);
     } catch (error) {
         log.error(error);
         res.send(error);
