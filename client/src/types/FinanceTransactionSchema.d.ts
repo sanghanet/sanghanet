@@ -5,7 +5,7 @@ type FinanceTransactionSchema = {
    pocket: string;
    entryDate: Date;
    dueDate: Date;
-   originatorId: string;
+   id: string;
    paymentMethod: string;
    status: string; // calculated on the fly, during fetch
    deleted: DeletedTransactionSchema | null;

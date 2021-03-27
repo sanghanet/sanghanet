@@ -9,9 +9,9 @@ import PropTypes from "prop-types";
 interface FinanceContainerProps {
    selectedUser?: string;
    isFinAdmin: boolean;
-   openAddPayment?: () => void;
-   openAddDebt?: () => void;
-   openDeleteTransaction?: () => void;
+   openAddPayment?: (pocket: string) => void;
+   openAddDebt?: (pocket: string) => void;
+   openDeleteTransaction?: (transaction: FinanceTransactionSchema) => void;
    activeTab?: string;
 }
 

@@ -14,7 +14,7 @@ interface GenericDialogProps {
     children: React.ReactNode,
     acceptDisabled?: boolean,
     handleClose: () => void,
-    handleAccept?: () => void
+    handleAccept?: (event: React.SyntheticEvent) => void
 };
 
 const GenericDialog: React.FC<GenericDialogProps> = ({ title, subtitle, reject, accept, children, acceptDisabled, handleClose, handleAccept }) => {
