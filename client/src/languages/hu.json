@@ -119,7 +119,8 @@
         "FILTEREVENTADMIN": "esemény szervező",
         "FILTERYOGAADMIN": "jóga admin",
         "FILTERNOROLE": "nincs szerep",
-        "RESETFILTERS": "Szűrők törlése"
+        "RESETFILTERS": "Szűrők törlése",
+        "NOMEMBERFOUND": "Nem találtunk ilyen tagot"
     },
 
     "superuserAddMember": {

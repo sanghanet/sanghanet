@@ -40,7 +40,8 @@ class Superuser extends Component {
         alertType: '',
         alertParam: '',
         memberRoles: {},
-        memberLevel: ''
+        memberLevel: '',
+        renderedUsers: []
     };
 
     /* ------------ General functions ------------ */
@@ -50,11 +51,16 @@ class Superuser extends Component {
             fields: ['email', 'isSuperuser', 'isFinanceAdmin', 'isEventAdmin', 'isYogaAdmin', 'label', 'registered', 'level']
         })
             .then((data) => {
-                this.setState({ memberData: data.reverse() });
+                const reverseData = data.reverse();
+                this.setState({ 
+                    memberData: reverseData, 
+                    renderedUsers: reverseData.map((member) => member.email)
+                });
             }).catch((err) => {
                 this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
-            });
+            });   
     }
+
 
     closeAlert = () => {
         this.setState({ showAlert: false, alertMessage: '', alertType: '' });
@@ -62,7 +68,12 @@ class Superuser extends Component {
 
     /* ------------ FilterAccordion functions ------------ */
     handleEmailFilterChange = (inputValue) => {
-        this.setState({ textFilterValue: inputValue });
+        const renderedMemberData = this.state.memberData.filter((member) => this.checkFilters(member));
+        this.setState({
+                textFilterValue: inputValue,
+                renderedUsers: renderedMemberData.map((member) => member.email)
+        });
+        console.log(renderedMemberData);
     }
 
     handleSearchIconClick = (event) => {
@@ -231,24 +242,25 @@ class Superuser extends Component {
     checkFilters = (user) => {
         const { roleFilter, textFilterValue, registeredFilterValue } = this.state;
 
-        // eslint-disable-next-line no-multi-spaces
+            // eslint-disable-next-line no-multi-spaces
         const passedEmailFilter =   user.email.substring(0, user.email.indexOf('@')).toLowerCase().includes(textFilterValue.toLowerCase()) ||
-                                    user.label.toLowerCase().includes(textFilterValue.toLowerCase());
+        user.label.toLowerCase().includes(textFilterValue.toLowerCase());
+
         // eslint-disable-next-line no-multi-spaces
         const passedRoleFilter =    !(roleFilter.filterSuperuser || roleFilter.filterFinanceAdmin || roleFilter.filterEventAdmin || roleFilter.filterYogaAdmin || roleFilter.filterNoRole) ||
-                                    (user.isSuperuser && roleFilter.filterSuperuser) ||
-                                    (user.isFinanceAdmin && roleFilter.filterFinanceAdmin) ||
-                                    (user.isEventAdmin && roleFilter.filterEventAdmin) ||
-                                    (user.isYogaAdmin && roleFilter.filterYogaAdmin) ||
-                                    (
-                                        !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) &&
-                                        roleFilter.filterNoRole
-                                    );
+                (user.isSuperuser && roleFilter.filterSuperuser) ||
+                (user.isFinanceAdmin && roleFilter.filterFinanceAdmin) ||
+                (user.isEventAdmin && roleFilter.filterEventAdmin) ||
+                (user.isYogaAdmin && roleFilter.filterYogaAdmin) ||
+                (
+                    !(user.isSuperuser || user.isFinanceAdmin || user.isEventAdmin || user.isYogaAdmin) &&
+                    roleFilter.filterNoRole
+                );
 
         // eslint-disable-next-line no-multi-spaces
         const passedRegisteredFilter =  (registeredFilterValue === 'all') ||
-                                        (user.registered && registeredFilterValue !== 'unregistered') ||
-                                        (!user.registered && registeredFilterValue !== 'registered');
+                    (user.registered && registeredFilterValue !== 'unregistered') ||
+                    (!user.registered && registeredFilterValue !== 'registered');
 
         return passedEmailFilter && passedRoleFilter && passedRegisteredFilter;
     }
@@ -256,12 +268,14 @@ class Superuser extends Component {
     // *** RENDER ROWS *** //
     renderMembers = () => {
         const { memberData } = this.state;
+        const filteredUsers = memberData.filter(user => this.checkFilters(user));
+        const { NOMEMBERFOUND } = this.context.dictionary.superuser;
 
         return (
-            memberData.map((user, key) => (
-                // check if user passes all filters
-                (this.checkFilters(user)) ? (
-                    <tr key={ key }>
+            // check if user passes all filters
+            (filteredUsers.length > 0) ? 
+                filteredUsers.map((user, index) => 
+                    <tr key={ index }>
                         <td className="name-cells">
                             <span>{user.label}</span>
                             {user.registered && <VerifiedIcon />}
@@ -273,18 +287,17 @@ class Superuser extends Component {
                             }
                         </td>
                         <td className="settings-cells icon-btn">
-                            <Button id={key} onClick={this.openUpdateUserSettingsDialog}>
+                            <Button id={index} onClick={this.openUpdateUserSettingsDialog}>
                                 <SettingsIcon />
                             </Button>
                         </td>
                         <td className="delete-icon-cell icon-btn">
-                            <Button variant='outline-danger' id={ key } onClick={this.openDelete}>
+                            <Button variant='outline-danger' id={ index } onClick={this.openDelete}>
                                 <Bin className='delete-user' />
                             </Button>
                         </td>
                     </tr>
-                ) : (null)
-            ))
+                ) : <tr><td>{ NOMEMBERFOUND }</td></tr>
         );
     }
 
