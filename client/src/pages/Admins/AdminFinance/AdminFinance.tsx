@@ -52,12 +52,12 @@ const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
       setAlertType("NOALERT");
    };
 
-   const handleTransaction = (
-      description: string,
-      amount: string,
-      pocketName: string,
-      transactionType: string,
-      dueDate: Date
+   const handleTransaction: HandleTransaction = (
+      description,
+      amount,
+      pocketName,
+      transactionType,
+      dueDate
    ) => {
       // TODO:to avoid confusion in case of duplicate name - name search should display name with emails as a result (Kis Pista kis.p1@gmail.com)
       // TODO:DB: why pocket field is present in every transaction
