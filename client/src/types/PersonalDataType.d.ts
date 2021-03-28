@@ -1,0 +1,22 @@
+type PersonalDataType = {
+    firstName: string,
+    lastName: string,
+    profileImg: string,
+    spiritualName: string,
+    birthday: string,
+    birthdayVisible: boolean,
+    gender: string,
+    genderVisible: boolean,
+    email: string,
+    emailVisible: boolean,
+    mobile: string,
+    mobileVisible: boolean,
+    level: string,
+    levelVisible: boolean,
+    address: string,
+    addressVisible: boolean,
+    emName: string,
+    emMobile: string,
+    emEmail: string,
+    emContactVisible: boolean
+};
