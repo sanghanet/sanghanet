@@ -17,28 +17,12 @@ interface InputDropdownProps {
     inputValueSave:  (id: string, value: string) => void,
     dropdownVisibility: (s: string) => void,
     dropdownVisible: boolean,
-    inputFieldAs?: string,
     dropdownArrow?: boolean,
     toggleDropdown: () => void,
     inputArray: Array<DropdownInputType>
 };
 
 const InputDropdown: React.FC<InputDropdownProps>  = (props) => {
-    const [show, setShow] = useState(false);
-    const [activeKey, setKey] = useState<null | number>(null);
-
-    const { personalPagePlaceholders } = useContext(UIcontext).dictionary;
-
-    const handleClose = () => {
-        setKey(null);
-        setShow(false);
-    };
-
-    const handleShow = (key: number) => {
-        setKey(key);
-        setShow(true);
-    };
-
     const {
         dropdownTitle,
         dropdownId,
@@ -49,6 +33,21 @@ const InputDropdown: React.FC<InputDropdownProps>  = (props) => {
         inputArray,
         inputValueSave
     } = props;
+
+    const { personalPagePlaceholders } = useContext(UIcontext).dictionary;
+
+    const [show, setShow] = useState(false);
+    const [activeKey, setKey] = useState<null | number>(null);
+
+    const handleClose = () => {
+        setKey(null);
+        setShow(false);
+    };
+
+    const handleShow = (key: number) => {
+        setKey(key);
+        setShow(true);
+    };
 
     const dropdownList = () => {
         return inputArray.map((item, index) => {
@@ -64,6 +63,7 @@ const InputDropdown: React.FC<InputDropdownProps>  = (props) => {
             );
         });
     };
+
     return (
         <React.Fragment>
             {activeKey !== null // activeKey 0!!!, 1, 2
@@ -81,7 +81,7 @@ const InputDropdown: React.FC<InputDropdownProps>  = (props) => {
                     />)
                 : null
             }
-            <Col sm={12} lg={6}>
+            <Col xs={12} lg={6}>
                 <Accordion className="input-accordion">
                     <Card>
                         <Card.Header>
@@ -117,7 +117,6 @@ InputDropdown.propTypes = {
     inputValueSave: PropTypes.func.isRequired,
     dropdownVisibility: PropTypes.func.isRequired,
     dropdownVisible: PropTypes.bool.isRequired,
-    inputFieldAs: PropTypes.string,
     dropdownArrow: PropTypes.bool,
     toggleDropdown: PropTypes.func.isRequired,
     inputArray: PropTypes.array.isRequired
