@@ -8,14 +8,18 @@ import { ReactComponent as Rent } from '../icons/fin_rent.svg';
 import { ReactComponent as Event } from '../icons/fin_event.svg';
 import { ReactComponent as Angel } from '../icons/fin_angel.svg';
 
-const FinanceDashboard = (props) => {
+type FinanceDashboardProps = {
+    balance: object,
+    currency: string,
+    onError: (error: any) => void
+}
+
+const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, currency, onError }) => {
     const { financeDashboard, financePockets } = useContext(UIcontext).dictionary;
     const { BALANCE } = financeDashboard;
     const lang = localStorage.getItem('lang');
 
-    const { balance, currency } = props;
-
-    const getIcon = (key) => {
+    const getIcon = (key: string) => {
         switch (key) {
             case 'membership': return <Membership />;
             case 'rent': return <Rent />;
@@ -40,12 +44,12 @@ const FinanceDashboard = (props) => {
                                     <div>{getIcon(pocket)}</div>
                                 </div>
                                 <div className={`fin-card-2nd ${amount >= 0 ? 'green' : 'red'}`}>
-                                    <div>{formatMoney(lang, amount, currency)}</div>
+                                    <div>{formatMoney(lang, amount)}</div>
                                 </div>
                             </div>
                         );
                     } catch (error) {
-                        props.onError(error);
+                        onError(error);
                     }
                 })}
             </div>
