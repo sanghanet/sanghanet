@@ -6,7 +6,9 @@ import './Login.scss';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
-const Login = (props) => {
+interface LoginProps {};
+
+const Login: React.FC<LoginProps> = (props) => {
     const { loginPageDictionary } = useContext(UIcontext).dictionary;
     const { WELCOME, SIGNIN } = loginPageDictionary;
 
