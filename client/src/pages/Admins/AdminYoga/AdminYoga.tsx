@@ -1,7 +1,9 @@
 import React from 'react';
 import ComingSoon from '../../../components/ComingSoon/ComingSoon';
 
-const AdminYoga = (props) => {
+interface AdminYogaProps {};
+
+const AdminYoga: React.FC<AdminYogaProps> = (props) => {
     return (<ComingSoon pageName = "Yoga Admin" isPlural = {false} />);
 };
 
