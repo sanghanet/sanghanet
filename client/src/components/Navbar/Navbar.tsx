@@ -18,20 +18,26 @@ import { ReactComponent as ForwardIcon } from '../icons/arrow-right.svg';
 import { ReactComponent as SuperuserIcon } from '../icons/superman.svg';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
-const Navbar = ({ openSubmenu, navStyle }) => {
+interface NavbarProps {
+    navStyle: NAVSTYLE,
+    openSubmenu?: boolean
+};
+
+const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
     const [showSubmenu, setShowSubmenu] = useState(openSubmenu);
 
     const context = useContext(UIcontext);
     const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser } = context;
     const isAdmin = isFinanceAdmin || isEventAdmin || isYogaAdmin || isSuperuser;
 
-    const handleSubmenu = (event) => {
+    const handleSubmenu = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation(); // w/o this, bubbling event close the Hamburger in App.js!
         setShowSubmenu(!showSubmenu);
     }
 
-    const handleLink = (event) => {
-        const page = event.target.href.split('/').pop();
+    const handleLink = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        const eventTarget = event.target as HTMLAnchorElement;
+        const page = eventTarget.href.split('/').pop();
         switch (page) {
             case 'finance': !isFinanceAdmin && event.preventDefault(); break;
             case 'event': !isEventAdmin && event.preventDefault(); break;
@@ -41,12 +47,12 @@ const Navbar = ({ openSubmenu, navStyle }) => {
         }
     }
 
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         const keyCode = event.keyCode; // CRSR LEFT(37), CRSR RIGHT(39)
         if (keyCode === 37 || keyCode === 39) event.preventDefault();
     }
 
-    const createMainMenuItem = (menuItem, index) => {
+    const createMainMenuItem = (menuItem: MenuItem, index: number) => {
         return (
             <li key={index}>
                 <NavLink exact to={`/${menuItem.path}`} className="link">
@@ -57,7 +63,7 @@ const Navbar = ({ openSubmenu, navStyle }) => {
         );
     }
 
-    const createSubMenuItem = (menuItem, index) => {
+    const createSubMenuItem = (menuItem: MenuItem, index: number) => {
         return (
             <li key={index}>
                 <div className="sub-link">
@@ -134,7 +140,7 @@ const Navbar = ({ openSubmenu, navStyle }) => {
 }
 
 Navbar.propTypes = {
-    navStyle: PropTypes.string.isRequired,
+    navStyle: PropTypes.oneOf<NAVSTYLE>(['hamburger', 'sidenav']).isRequired,
     openSubmenu: PropTypes.bool
 };
 
