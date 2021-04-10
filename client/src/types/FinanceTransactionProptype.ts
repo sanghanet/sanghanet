@@ -7,7 +7,7 @@ const FinanceTransactionProptype = PropTypes.exact({
     pocket: PropTypes.string.isRequired,
     entryDate: PropTypes.instanceOf(Date).isRequired,
     dueDate: PropTypes.instanceOf(Date).isRequired,
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     paymentMethod: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     deleted: PropTypes.exact({

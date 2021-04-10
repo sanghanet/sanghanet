@@ -16,7 +16,7 @@ const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
    const [paymentDialogPocketName, setPaymentDialogPocketName] = useState("");
    const [transactionType, setTransactionType] = useState<TransactionType>("");
    const [showDeleteTransaction, setShowDeleteTransaction] = useState(false);
-   const [transaction, setTransaction] = useState<FinanceTransactionSchema | null>(null);
+   const [transaction, setTransaction] = useState<TransactionToDelete | null>(null);
    const [refreshFinanceData, setRefreshFinanceData] = useState(0);
    const [activeTab, setActiveTab] = useState("membership");
    const [showAlert, setShowAlert] = useState(false);
@@ -86,7 +86,7 @@ const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
       closeTransactionDialog();
    };
 
-   const openDeleteTransaction = (transaction: FinanceTransactionSchema) => {
+   const openDeleteTransaction = (transaction: TransactionToDelete) => {
       setShowDeleteTransaction(true);
       setTransaction(transaction);
    };

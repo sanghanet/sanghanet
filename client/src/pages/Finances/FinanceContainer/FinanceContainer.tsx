@@ -11,7 +11,7 @@ interface FinanceContainerProps {
     isFinAdmin: boolean;
     openAddPayment?: (pocket: string) => void;
     openAddDebt?: (pocket: string) => void;
-    openDeleteTransaction?: (transaction: FinanceTransactionSchema) => void;
+    openDeleteTransaction?: (transaction: TransactionToDelete) => void;
     activeTab?: string;
 }
 

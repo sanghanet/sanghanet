@@ -4,14 +4,14 @@ import GenericDialog from '../../../../components/Form/GenericDialog/GenericDial
 import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 
 import './DeleteTransactionDialog.scss';
-import FinanceTransactionProptype from '../../../../types/FinanceTransactionProptype';
+import TransactionToDeletePropType from '../../../../types/TransactionToDeletePropType';
 
 interface DeleteTransactionDialogProps {
     deleteTransaction: (transactionId: string, pocket: string) => void;
     closeDialog: () => void;
     selectedUserEmail: string;
     selectedUserName: string;
-    transaction: FinanceTransactionSchema;
+    transaction: TransactionToDelete;
 }
 
 const DeleteTransactionDialog: React.FC<DeleteTransactionDialogProps> = (props) => {
@@ -30,7 +30,7 @@ const DeleteTransactionDialog: React.FC<DeleteTransactionDialogProps> = (props) 
         modalButtons: { CANCEL, DELETE },
     } = useContext(UIcontext).dictionary;
 
-    const handleSubmit = (event: React.SyntheticEvent): void => {
+    const handleSubmit = (event: React.MouseEvent): void => {
         event.preventDefault();
         deleteTransaction(transaction.id, transaction.pocket);
     };
@@ -74,7 +74,7 @@ DeleteTransactionDialog.propTypes = {
     closeDialog: PropTypes.func.isRequired,
     selectedUserName: PropTypes.string.isRequired,
     selectedUserEmail: PropTypes.string.isRequired,
-    transaction: FinanceTransactionProptype,
+    transaction: TransactionToDeletePropType,
 };
 
 export default DeleteTransactionDialog;
