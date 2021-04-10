@@ -3,11 +3,6 @@ type FinanceAccountSchema = {
    userId: string | null;
    email: string;
    userName: string;
-   transactions: {
-      membership: Array<FinanceTransactionSchema>;
-      rent: Array<FinanceTransactionSchema>;
-      event: Array<FinanceTransactionSchema>;
-      angel: Array<FinanceTransactionSchema>;
-   };
+   transactions: Transactions;
    balance: PocketBalanceSchema;
 };
