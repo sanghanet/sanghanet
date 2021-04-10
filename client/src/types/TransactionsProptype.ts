@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import FinanceTransactionProptype from './FinanceTransactionProptype';
+import FinanceTransactionPropType from './FinanceTransactionPropType';
 
-const TransactionsProptype = PropTypes.exact({
-    membership: PropTypes.arrayOf(FinanceTransactionProptype).isRequired,
-    rent: PropTypes.arrayOf(FinanceTransactionProptype).isRequired,
-    event: PropTypes.arrayOf(FinanceTransactionProptype).isRequired,
-    angel: PropTypes.arrayOf(FinanceTransactionProptype).isRequired
+const TransactionsPropType = PropTypes.exact({
+    membership: PropTypes.arrayOf(FinanceTransactionPropType).isRequired,
+    rent: PropTypes.arrayOf(FinanceTransactionPropType).isRequired,
+    event: PropTypes.arrayOf(FinanceTransactionPropType).isRequired,
+    angel: PropTypes.arrayOf(FinanceTransactionPropType).isRequired
 }).isRequired
 
-export default TransactionsProptype;
+export default TransactionsPropType;

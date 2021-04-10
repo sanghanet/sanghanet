@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const FinanceTransactionProptype = PropTypes.exact({
+const FinanceTransactionPropType = PropTypes.exact({
     amount: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     currency: PropTypes.string.isRequired,
@@ -17,4 +17,4 @@ const FinanceTransactionProptype = PropTypes.exact({
     by: PropTypes.string.isRequired,
 }).isRequired;
 
-export default FinanceTransactionProptype;
+export default FinanceTransactionPropType;

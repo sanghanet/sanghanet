@@ -8,7 +8,7 @@ import './TransactionTable.scss';
 import { ReactComponent as Plus } from '../icons/plus.svg';
 import { ReactComponent as Minus } from '../icons/minus.svg';
 import { ReactComponent as Bin } from '../icons/bin.svg';
-import FinanceTransactionProptype from '../../types/FinanceTransactionProptype';
+import FinanceTransactionPropType from '../../types/FinanceTransactionPropType';
 
 type TransactionTableProps = {
     transactionArray: Array<FinanceTransactionSchema>;
@@ -117,7 +117,7 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
 };
 
 TransactionTable.propTypes = {
-    transactionArray: PropTypes.arrayOf(FinanceTransactionProptype).isRequired,
+    transactionArray: PropTypes.arrayOf(FinanceTransactionPropType).isRequired,
     onError: PropTypes.func.isRequired,
     isFinAdmin: PropTypes.bool.isRequired,
     openAddPayment: PropTypes.func,
