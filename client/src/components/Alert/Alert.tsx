@@ -37,7 +37,7 @@ const Alert: React.FC<AlertProps> = ({ alertType, alertMsg, alertClose }) => {
 Alert.propTypes = {
     alertClose: PropTypes.func.isRequired,
     alertMsg: PropTypes.string,
-    alertType: PropTypes.oneOf(['NOALERT', 'ERROR', 'WARNING', 'INFO'] as const).isRequired
+    alertType: PropTypes.oneOf<ALERT>(['NOALERT', 'ERROR', 'WARNING', 'INFO']).isRequired
 };
 
 export default Alert;

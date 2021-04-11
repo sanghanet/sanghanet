@@ -1,7 +1,9 @@
 import React from 'react';
 import ComingSoon from '../../components/ComingSoon/ComingSoon';
 
-const Queries = (props) => {
+interface QueriesProps {};
+
+const Queries: React.FC<QueriesProps> = (props) => {
     return (<ComingSoon pageName = "Queries" isPlural = {true} />);
 };
 

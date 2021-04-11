@@ -5,7 +5,9 @@ import { Spinner } from 'react-bootstrap';
 import './Loading.scss';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 
-const Loading = () => {
+interface LoadingProps {};
+
+const Loading: React.FC<LoadingProps> = (props) => {
     const { generalTermsDictionary } = useContext(UIcontext).dictionary;
 
     useEffect(() => {

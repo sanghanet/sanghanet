@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { validationError } from '../../../../components/ValidationRule';
 import GenericDialog from '../../../../components/Form/GenericDialog/GenericDialog';
@@ -8,82 +8,78 @@ import './DeleteMemberDialog.scss';
 
 import Form from 'react-bootstrap/Form';
 
-class DeleteMemberDialog extends Component {
-    static contextType = UIcontext;
+const  DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
+    const {
+        modalButtons: { NO, DELETE },
+        superuserDeleteMember: { POPUPDELETEMEMBER, MSGDELETE, CONFIRMDELETE },
+        validationMsg
+    } = useContext(UIcontext).dictionary;
 
-    state = {
-        randomNumber: Math.floor(1000 + Math.random() * 9000),
-        isDisabled: true,
-        errorToken: ''
-    }
+    const [randomNumber, resetRandomNumber] = useState(Math.floor(1000 + Math.random() * 9000));
+    const [isDisabled, setDisabled] = useState(true);
+    const [errorToken, setErrorToken] = useState('');
 
-    validation = (input) => {
+    const validation = (input) => {
         const valErr = validationError(input);
         if (valErr) {
-            this.setState({ errorToken: valErr });
+            setErrorToken(valErr);
             return false;
         } else {
-            this.setState({ errorToken: '' });
+            setErrorToken('');
             return true;
         }
     }
 
-    handleChange = (event) => {
+    const handleChange = (event) => {
         const input = event.target;
         const value = parseInt(input.value);
 
-        if (this.validation(input) && value !== this.state.randomNumber) {
-            this.setState({ errorToken: 'WRONGNUMBER' });
+        if (validation(input) && value !== randomNumber) {
+            setErrorToken('WRONGNUMBER');
         };
 
-        if (value === this.state.randomNumber) {
-            this.setState({ isDisabled: false });
+        if (value === randomNumber) {
+            setDisabled(false );
         } else {
-            this.setState({ isDisabled: true });
+            setDisabled(true);
         }
     }
 
-    handleDelete = (event) => {
-        if (!this.state.isDisabled) { this.props.deleteMember(); }
+    const handleDelete = (event) => {
+        if (!isDisabled) deleteMember();
         event.preventDefault();
     }
 
-    render () {
-        const { member, closeDialog } = this.props;
-        const { randomNumber, isDisabled, errorToken } = this.state;
-        const { NO, DELETE } = this.context.dictionary.modalButtons;
-        const { POPUPDELETEMEMBER, MSGDELETE, CONFIRMDELETE } = this.context.dictionary.superuserDeleteMember;
-        const { validationMsg } = this.context.dictionary;
-        return (
-            <GenericDialog
-                title = {POPUPDELETEMEMBER}
-                reject = {NO}
-                accept = {DELETE}
-                acceptDisabled = {isDisabled}
-                handleClose = {closeDialog}
-                handleAccept = {this.handleDelete}
-            >
-                <Form onSubmit={this.handleDelete} autoComplete='off' className="delete-dialog">
-                    <Form.Label htmlFor="digits-label">
-                        <span className="msg">{MSGDELETE}&nbsp;</span>
-                        <span className="email">{member}</span>
-                        <span className="msg">? <br></br>{CONFIRMDELETE}&nbsp;</span>
-                        <span className="random-no">{randomNumber}</span>
-                    </Form.Label>
-                    <Form.Control
-                        type="number"
-                        id="digits-label"
-                        onChange={this.handleChange}
-                        min="1000"
-                        max="9999"
-                        placeholder={member}
-                        autoFocus
-                    ></Form.Control>
-                    <span className="error" aria-live="polite">{validationMsg[errorToken]}</span>
-                </Form>
-            </GenericDialog>
-        );
-    }
+    return (
+        <GenericDialog
+            title = {POPUPDELETEMEMBER}
+            reject = {NO}
+            accept = {DELETE}
+            acceptDisabled = {isDisabled}
+            handleClose = {closeDialog}
+            handleAccept = {handleDelete}
+        >
+            <Form onSubmit={handleDelete} autoComplete='off' className="delete-dialog">
+                <Form.Label htmlFor="digits-label">
+                    <span className="msg">{MSGDELETE}&nbsp;</span>
+                    <span className="email">{member}</span>
+                    <span className="msg">? <br></br>{CONFIRMDELETE}&nbsp;</span>
+                    <span className="random-no">{randomNumber}</span>
+                </Form.Label>
+                <Form.Control
+                    type="number"
+                    id="digits-label"
+                    onChange={handleChange}
+                    min="1000"
+                    max="9999"
+                    placeholder={member}
+                    autoFocus
+                ></Form.Control>
+                <span className="error" aria-live="polite">{validationMsg[errorToken]}</span>
+            </Form>
+        </GenericDialog>
+    );
+
 }
 
 DeleteMemberDialog.propTypes = {
