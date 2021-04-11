@@ -8,7 +8,7 @@ import './TransactionTable.scss';
 import { ReactComponent as Plus } from '../icons/plus.svg';
 import { ReactComponent as Minus } from '../icons/minus.svg';
 import { ReactComponent as Bin } from '../icons/bin.svg';
-import FinanceTransactionPropType from '../../types/FinanceTransactionPropType';
+import FinanceTransactionPropType from '../../proptypes/FinanceTransactionPropType';
 
 type TransactionTableProps = {
     transactionArray: Array<FinanceTransactionSchema>;

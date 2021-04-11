@@ -4,7 +4,7 @@ import GenericDialog from '../../../../components/Form/GenericDialog/GenericDial
 import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 
 import './DeleteTransactionDialog.scss';
-import TransactionToDeletePropType from '../../../../types/TransactionToDeletePropType';
+import TransactionToDeletePropType from '../../../../proptypes/TransactionToDeletePropType';
 
 interface DeleteTransactionDialogProps {
     deleteTransaction: (transactionId: string, pocket: string) => void;

@@ -5,7 +5,7 @@ import TransactionTable from '../TransactionTable/TransactionTable';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './TransactionTabs.scss';
 import PropTypes from 'prop-types';
-import TransactionsPropType from '../../types/TransactionsPropType';
+import TransactionsPropType from '../../proptypes/TransactionsPropType';
 
 type TransactionTabsProps = {
     transactions: Transactions;
