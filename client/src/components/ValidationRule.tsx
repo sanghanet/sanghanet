@@ -1,5 +1,4 @@
-const name = '[A-ZÁÉÍÓÖŐÚÜŰ][A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+';
-const namePattern = `^((${name}(. | |-)){0,2})${name}$`;
+const namePattern = '^[^`~!@#$%^&*()_|+=?;:",<>{}[]\\/]*$';
 const nameValidationRule = {
     required: true,
     minLength: 2,

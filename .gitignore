@@ -18,3 +18,4 @@ server/testDataScripts/logs
 
 #test
 test/node_modules
+test/logs

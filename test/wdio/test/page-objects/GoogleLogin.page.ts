@@ -1,17 +1,23 @@
 class GoogleLogin {
-   get emailInputField() {
-      return $('input[type=email]');
+
+   get emailInput() {
+      return $("input[type=email]");
    }
 
    get nextButton() {
-      return $('#identifierNext > div > button');
-   }
-   get loginButton() {
-      return $('#passwordNext > div > button')
+      return $("#identifierNext > div > button");
    }
 
-   setEmail(emailAddress) {
-      this.emailInputField.setValue(emailAddress);
+   get loginButton() {
+      return $("#passwordNext > div > button");
+   }
+
+   get passwordInput() {
+      return $("input[name=password]");
+   }
+
+   get hiddenPassword() {
+      return $("[name=hiddenPassword]");
    }
 
    clickNextButton() {
@@ -21,21 +27,19 @@ class GoogleLogin {
       this.loginButton.click();
    }
 
-   get passwordInputField() {
-      return $('input[type=password]');
-   }
-   get hiddenPassword() {
-      return $('[name=hiddenPassword]');
+   enterEmail(emailAddress: string) {
+      this.emailInput.setValue(emailAddress);
    }
 
-   setPassword(password) {
-      this.passwordInputField.waitForExist();
-      this.passwordInputField.setValue(password);
-   }
-   waitForPasswordFieldToLoad() {
-      this.hiddenPassword.waitForExist({ reverse: true })
+   enterPassword(password: string) {
+      const passwordInput = this.passwordInput;
+      passwordInput.waitForDisplayed({ timeout: 10000 });
+      passwordInput.setValue(password);
    }
 
+   waitForPasswordFieldLoaded() {
+      this.hiddenPassword.waitForExist({ reverse: true });
+   }
 }
 
 export default new GoogleLogin();

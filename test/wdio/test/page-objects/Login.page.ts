@@ -1,10 +1,11 @@
-class LoginPage {
+import BasePersonalInfo from "./BasePersonalInfo";
+class LoginPage extends BasePersonalInfo {
    get loginButton() {
-      return $('.login-btn')
+      return $(".login-btn");
    }
 
    open() {
-      browser.url('http://localhost:3000');
+      browser.url("http://localhost:3000");
    }
 
    clickLoginButton() {
@@ -13,3 +14,4 @@ class LoginPage {
 }
 
 export default new LoginPage();
+
