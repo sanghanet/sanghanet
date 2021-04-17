@@ -29,8 +29,7 @@
     },
     "plugins": [
         "react",
-        "react-hooks",
-        "@typescript-eslint"
+        "react-hooks"
     ],
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1 }],
