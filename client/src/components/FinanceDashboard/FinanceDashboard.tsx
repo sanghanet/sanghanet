@@ -10,11 +10,10 @@ import { ReactComponent as Angel } from '../icons/fin_angel.svg';
 
 type FinanceDashboardProps = {
     balance: object,
-    currency: string,
-    onError: (error: any) => void
+    onError: (error: Error) => void
 }
 
-const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, currency, onError }) => {
+const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError }) => {
     const { financeDashboard, financePockets } = useContext(UIcontext).dictionary;
     const { BALANCE } = financeDashboard;
     const lang = localStorage.getItem('lang');
@@ -59,7 +58,6 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, currency, 
 
 FinanceDashboard.propTypes = {
     balance: PropTypes.object.isRequired,
-    currency: PropTypes.string.isRequired,
     onError: PropTypes.func.isRequired
 };
 

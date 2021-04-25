@@ -25,7 +25,7 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
         activeTab,
     } = props;
     const [financeData, setFinanceData] = useState<FinanceAccountSchema | null>(null);
-    const [errorState, setErrorState] = useState(null);
+    const [errorState, setErrorState] = useState<Error | null>(null);
     const [reRender, setReRender] = useState(0); // fine HACK to rerender Component when new data is available.
 
     useEffect(() => {
@@ -35,8 +35,8 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
             getFinanceData(selectedUser);
         }
     }, [selectedUser]);
-    //TODO
-    const onError = (error: any): void => setErrorState(error);
+ 
+    const onError = (error: Error): void => setErrorState(error);
 
     const sortByDueDate = (t1: FinanceTransactionSchema, t2: FinanceTransactionSchema): number => {
         return new Date(t2.dueDate).getTime() - new Date(t1.dueDate).getTime();
@@ -70,8 +70,8 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                     alertClose={() => {
                         setErrorState(null);
                     }}
-                    //@ts-ignore - TODO - should find the proper error type
-                    alertMsg={'There was an error! ' + errorState!.message}
+                    
+                    alertMsg={'There was an error! ' + errorState.message}
                     alertType={'ERROR'}
                 />
             )}
@@ -79,7 +79,6 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                 <React.Fragment>
                     <FinanceDashboard
                         key={reRender}
-                        currency={financeData.currency}
                         balance={financeData.balance}
                         onError={onError}
                     />

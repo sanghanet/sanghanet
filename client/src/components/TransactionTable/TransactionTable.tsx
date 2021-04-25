@@ -12,7 +12,7 @@ import FinanceTransactionPropType from '../../proptypes/FinanceTransactionPropTy
 
 type TransactionTableProps = {
     transactionArray: Array<FinanceTransactionSchema>;
-    onError: (error: Error) => void; //TODO
+    onError: (error: Error) => void;
     isFinAdmin: boolean;
     openAddPayment?: (pocket: string) => void;
     openAddDebt?: (pocket: string) => void;
@@ -39,16 +39,17 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
     const onDeleteTransaction: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
 
+        const { description, amount, currency, dueDate} = event.currentTarget.dataset;
         const transaction = {
             id: event.currentTarget.id,
             pocket: pocket,
-            description: event.currentTarget.dataset.description,
-            amount: parseInt(event.currentTarget.dataset.amount!), //TODO
-            currency: event.currentTarget.dataset.currency,
-            dueDate: event.currentTarget.dataset.duedate,
+            description: description || '',
+            amount: parseInt(amount || ''),
+            currency: currency || '',
+            dueDate: new Date(dueDate || ''),
         };
-        // @ts-ignore 
-        openDeleteTransaction!(transaction);
+
+        openDeleteTransaction && openDeleteTransaction(transaction);
     };
 
     return (

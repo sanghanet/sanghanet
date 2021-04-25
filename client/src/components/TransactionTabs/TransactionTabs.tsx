@@ -9,7 +9,7 @@ import TransactionsPropType from '../../proptypes/TransactionsPropType';
 
 type TransactionTabsProps = {
     transactions: Transactions;
-    onError: (error: any) => void; //TODO
+    onError: (error: Error) => void;
     isFinAdmin: boolean;
     openAddPayment?: (pocket: string) => void;
     openAddDebt?: (pocket: string) => void;
