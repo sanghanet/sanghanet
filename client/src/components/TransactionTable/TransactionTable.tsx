@@ -49,7 +49,7 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
             dueDate: new Date(dueDate || ''),
         };
 
-        openDeleteTransaction && openDeleteTransaction(transaction);
+        openDeleteTransaction && openDeleteTransaction(transaction); //TODO when optional chaining allowed --> openDeleteTransaction?(transaction)
     };
 
     return (
