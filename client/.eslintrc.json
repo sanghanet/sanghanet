@@ -13,7 +13,9 @@
         "plugin:react-hooks/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
-        "standard"
+        "standard",
+        "standard-jsx",
+        "standard-react"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -38,6 +40,8 @@
         "react/jsx-wrap-multilines": ["error", { "return": "parens-new-line" }],
         "react/jsx-tag-spacing": ["error", { "beforeSelfClosing": "always", "afterOpening": "never" }],
         "arrow-parens": ["error", "always"],
-        "react-hooks/rules-of-hooks": ["error", "always"]
+        "react-hooks/rules-of-hooks": ["error", "always"],
+        "jsx-quotes": ["error", "prefer-double"],
+        "react/jsx-indent": ["error", 4, {"checkAttributes": true, "indentLogicalExpressions": true}]
     }
 }
