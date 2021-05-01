@@ -19,7 +19,7 @@ const UserSettingsDialog = (props) => {
     const [eventChecked, setEventChecked] = useState(memberRoles.isFinanceAdmin);
     const [yogaChecked, setYogaChecked] = useState(memberRoles.isFinanceAdmin);
     const [superuserChecked, setSuperuserChecked] = useState(memberRoles.isFinanceAdmin);
-    const [level, setLevel] = useState( memberLevel)
+    const [level, setLevel] = useState(memberLevel);
 
     const dictionary = useContext(UIcontext).dictionary;
     const { BEGINNER, INTERMEDIATE, ADVANCED } = dictionary.generalTermsDictionary;
@@ -28,16 +28,16 @@ const UserSettingsDialog = (props) => {
     const { FINANCE_ADMIN, EVENT_ADMIN, YOGA_ADMIN, SUPERUSER } = dictionary.pageAndNavbarTitles;
 
     const handleChecked = (event) => {
-        switch( event.target.id) {
-            case 'finance': setFinanceChecked( !financeChecked); break;
-            case 'event': setEventChecked( !eventChecked ); break;
-            case 'yoga': setYogaChecked( !yogaChecked ); break;
-            case 'superuser': setSuperuserChecked( !superuserChecked); break;
-            default: return;
+        switch (event.target.id) {
+            case 'finance': setFinanceChecked(!financeChecked); break;
+            case 'event': setEventChecked(!eventChecked); break;
+            case 'yoga': setYogaChecked(!yogaChecked); break;
+            case 'superuser': setSuperuserChecked(!superuserChecked); break;
+            default:
         }
-    }
+    };
 
-    const handleLevelChange = (event) => { setLevel(event.target.value); }
+    const handleLevelChange = (event) => { setLevel(event.target.value); };
 
     const setUpdateMemberRoleDialog = () => {
         const data = {
@@ -48,18 +48,18 @@ const UserSettingsDialog = (props) => {
             level: level
         };
         updateSettings(data);
-    }
+    };
 
     return (
         <GenericDialog
-            title = {UPDATESETTINGS}
-            subtitle = {memberEmail}
-            reject = {CANCEL}
-            accept = {ACCEPT}
-            handleClose = {closeDialog}
-            handleAccept = {setUpdateMemberRoleDialog}
+            title={UPDATESETTINGS}
+            subtitle={memberEmail}
+            reject={CANCEL}
+            accept={ACCEPT}
+            handleClose={closeDialog}
+            handleAccept={setUpdateMemberRoleDialog}
         >
-            <Form onSubmit={setUpdateMemberRoleDialog} autoComplete='off' className="role-dialog">
+            <Form onSubmit={setUpdateMemberRoleDialog} autoComplete="off" className="role-dialog">
                 <Form.Group>
                     <Form.Label>
                         <span className="msg">{UPDATEROLE} </span>
@@ -90,7 +90,7 @@ const UserSettingsDialog = (props) => {
                         <span className="msg">{UPDATELEVELOFSTUDY}</span>
                     </Form.Label>
                     <Form.Control as="select" defaultValue={level} size="sm" className="level-of-study" onChange={handleLevelChange}>
-                        <option value="" disabled hidden></option>
+                        <option value="" disabled hidden />
                         <option value="beginner">{BEGINNER}</option>
                         <option value="intermediate">{INTERMEDIATE}</option>
                         <option value="advanced">{ADVANCED}</option>
@@ -99,7 +99,7 @@ const UserSettingsDialog = (props) => {
             </Form>
         </GenericDialog>
     );
-}
+};
 
 UserSettingsDialog.propTypes = {
     memberRoles: PropTypes.object.isRequired,

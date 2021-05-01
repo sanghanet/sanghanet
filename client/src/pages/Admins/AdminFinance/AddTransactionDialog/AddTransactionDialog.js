@@ -72,48 +72,47 @@ function AddTransactionDialog (props) {
 
     return (
         <GenericDialog
-            title = {`${BEFORETYPE}${transactionTypeToDisplay}${AFTERTYPE}`}
-            reject = { CANCEL }
-            accept = { ADD }
-            acceptDisabled = {!(descriptionValid && amountValid && (transactionType === 'payment' || dueDateValid))}
-            handleClose = {closeDialog}
-            handleAccept = {handleSubmit}
+            title={`${BEFORETYPE}${transactionTypeToDisplay}${AFTERTYPE}`}
+            reject={CANCEL}
+            accept={ADD}
+            acceptDisabled={!(descriptionValid && amountValid && (transactionType === 'payment' || dueDateValid))}
+            handleClose={closeDialog}
+            handleAccept={handleSubmit}
         >
 
-            <Form onSubmit={handleSubmit} autoComplete='off' className="add-payment-dialog">
-                <p className='payment-label payment-name'>{ NAME }: {selectedUserName}</p>
-                <p className='payment-label payment-name'>{ EMAIL }: {selectedUserEmail}</p>
-                <p className='payment-label payment-pocket'>{ financePockets.POCKET }: {translatedPocketName}</p>
+            <Form onSubmit={handleSubmit} autoComplete="off" className="add-payment-dialog">
+                <p className="payment-label payment-name">{NAME}: {selectedUserName}</p>
+                <p className="payment-label payment-name">{EMAIL}: {selectedUserEmail}</p>
+                <p className="payment-label payment-pocket">{financePockets.POCKET}: {translatedPocketName}</p>
 
-                <Form.Label htmlFor="add-description-label" className="payment-label">{ DESCRIPTION }</Form.Label>
+                <Form.Label htmlFor="add-description-label" className="payment-label">{DESCRIPTION}</Form.Label>
                 <Form.Control
                     id="add-description-label"
                     value={description}
                     onChange={handleDescriptionChange}
                     {...descriptionValidationRule}
                     autoFocus
-                ></Form.Control>
+                />
                 <span className="error" aria-live="polite">{validationMsg[errorTokenDescription]}</span>
 
-                <Form.Label htmlFor="add-payment-label" className="payment-label">{ AMOUNT }</Form.Label>
+                <Form.Label htmlFor="add-payment-label" className="payment-label">{AMOUNT}</Form.Label>
                 <Form.Control
                     id="add-payment-label"
                     value={amount}
                     onChange={handlePaymentChange}
                     {...positiveIntegerRule}
-                ></Form.Control>
+                />
                 <span className="error" aria-live="polite">{validationMsg[errorTokenAmount]}</span>
 
-                { transactionType === 'debt' &&
+                {transactionType === 'debt' &&
                     <div>
-                        <Form.Label className="payment-label">{ DUEDATE } ({ DATESELECTORINFO })</Form.Label>
-                        <div className='date-picker-finance'>
+                        <Form.Label className="payment-label">{DUEDATE} ({DATESELECTORINFO})</Form.Label>
+                        <div className="date-picker-finance">
                             <DatePicker
                                 id="add-dueDate-label"
                                 selected={dueDate}
                                 onChange={handleDateChange}
                                 customInput={<CustomDateInput />}
-
                                 onMonthChange={handleDateChange}
                                 onYearChange={handleDateChange}
                                 showMonthDropdown
@@ -123,8 +122,7 @@ function AddTransactionDialog (props) {
                             />
                         </div>
                         <span className="error" aria-live="polite">{validationMsg[errorTokenDate]}</span>
-                    </div>
-                }
+                    </div>}
             </Form>
         </GenericDialog>
     );

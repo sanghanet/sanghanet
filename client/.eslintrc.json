@@ -1,27 +1,17 @@
 {
     "settings": {
         "react": {
-            "version": "latest"
+            "version": "detect"
         }
     },
     "env": {
         "browser": true,
         "es6": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "standard",
-        "standard-jsx",
-        "standard-react"
-    ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
-    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -29,19 +19,55 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "react-hooks",
-        "@typescript-eslint"
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "standard",
+        "standard-jsx",
+        "standard-react",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended"
     ],
     "rules": {
+        "no-console": "warn",
         "indent": ["error", 4, { "SwitchCase": 1 }],
+        "no-unused-vars": 1,
+        "arrow-parens": ["error", "always"],
         "semi": ["error", "always"],
+        "react-hooks/rules-of-hooks": ["error", "always"],
+        "react/no-unused-prop-types": 1,
+        "jsx-quotes": ["error", "prefer-double"],
         "react/jsx-wrap-multilines": ["error", { "return": "parens-new-line" }],
         "react/jsx-tag-spacing": ["error", { "beforeSelfClosing": "always", "afterOpening": "never" }],
-        "arrow-parens": ["error", "always"],
-        "react-hooks/rules-of-hooks": ["error", "always"],
-        "jsx-quotes": ["error", "prefer-double"],
-        "react/jsx-indent": ["error", 4, {"checkAttributes": true, "indentLogicalExpressions": true}]
-    }
+        "react/jsx-indent": ["error", 4, {"checkAttributes": true, "indentLogicalExpressions": true}],
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-closing-bracket-location": ["error", "line-aligned"],
+        "react/jsx-closing-tag-location": ["error", "line-aligned"]
+    },
+    "overrides": [
+        {
+            "files": ["**/*.ts", "**/*.tsx"],
+            "plugins": [
+                "react",
+                "react-hooks",
+                "@typescript-eslint"
+            ],
+            "extends": [
+                "plugin:@typescript-eslint/eslint-recommended",
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "rules": {
+                "@typescript-eslint/no-extra-semi": "off",
+                "@typescript-eslint/ban-ts-comment": 1,
+                "no-use-before-define": "off",
+                "@typescript-eslint/no-use-before-define": ["error"]
+            }
+        },
+        {
+            "files": ["**/*.js"],
+            "plugins": [
+                "react",
+                "react-hooks"
+            ]
+        }
+    ]
 }

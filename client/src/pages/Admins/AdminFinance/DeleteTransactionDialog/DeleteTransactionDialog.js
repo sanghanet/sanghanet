@@ -24,20 +24,20 @@ function DeleteTransactionDialog (props) {
 
     return (
         <GenericDialog
-            title = { DELETETRANSACTION }
-            reject = { CANCEL }
-            accept = { DELETE }
-            handleClose = {closeDialog}
-            handleAccept = {handleSubmit}
+            title={DELETETRANSACTION}
+            reject={CANCEL}
+            accept={DELETE}
+            handleClose={closeDialog}
+            handleAccept={handleSubmit}
         >
-            <div className='delete-container'>
-                <p>{ NAME }: {selectedUserName}</p>
-                <p>{ EMAIL }: {selectedUserEmail}</p>
-                <p>{ financePockets.POCKET }: {translatedPocketName}</p>
-                <h4>{ TRANSACTIONDETAILS }</h4>
-                <p>{ DESCRIPTION }: {transaction.description}</p>
-                <p>{ AMOUNT }: {`${transaction.amount} ${transaction.currency}`}</p>
-                <p>{ DUEDATE }: {transaction.duedate}</p>
+            <div className="delete-container">
+                <p>{NAME}: {selectedUserName}</p>
+                <p>{EMAIL}: {selectedUserEmail}</p>
+                <p>{financePockets.POCKET}: {translatedPocketName}</p>
+                <h4>{TRANSACTIONDETAILS}</h4>
+                <p>{DESCRIPTION}: {transaction.description}</p>
+                <p>{AMOUNT}: {`${transaction.amount} ${transaction.currency}`}</p>
+                <p>{DUEDATE}: {transaction.duedate}</p>
             </div>
         </GenericDialog>
     );

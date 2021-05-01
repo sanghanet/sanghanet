@@ -4,8 +4,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import './LoadingIndicator.scss';
 
 interface LoadingIndicatorProps {
-    until: boolean,
-    size?: string
+    until: boolean;
+    size?: string;
 }
 
 const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({ until, size }) => {

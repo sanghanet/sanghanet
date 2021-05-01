@@ -17,11 +17,11 @@ const SearchBar = (props) => {
         onKeyDown
     } = props;
 
-    const handleInputChange = (event) => { props.handleInputChange(event.target.value); }
+    const handleInputChange = (event) => { props.handleInputChange(event.target.value); };
 
     return (
         <div className={`search-bar ${className}`}>
-            <Form.Group controlId={controlId} className={'search-field'}>
+            <Form.Group controlId={controlId} className="search-field">
                 <Form.Control
                     type="text"
                     className="custom"
@@ -38,7 +38,7 @@ const SearchBar = (props) => {
             </Form.Group>
         </div>
     );
-}
+};
 
 SearchBar.propTypes = {
     controlId: PropTypes.string.isRequired,

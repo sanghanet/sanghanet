@@ -6,8 +6,8 @@ export const DataContext = React.createContext<DataContextType>({
         lastName: '',
         fullName: ''
     },
-    getFullName: () => { return 'Oops, default DataContext available only!'},
+    getFullName: () => { return 'Oops, default DataContext available only!'; },
     avatarSrc: '/images/noAvatar.svg',
-    setUsername: () => {},
-    setAvatarSrc: () => {}
+    setUsername: () => { /* do nothing */ },
+    setAvatarSrc: () => { /* do nothing */ }
 });

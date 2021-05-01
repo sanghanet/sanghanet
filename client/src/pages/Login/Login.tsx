@@ -6,16 +6,14 @@ import './Login.scss';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
-interface LoginProps {};
-
-const Login: React.FC<LoginProps> = (props) => {
+const Login: React.FC = () => {
     const { loginPageDictionary } = useContext(UIcontext).dictionary;
     const { WELCOME, SIGNIN } = loginPageDictionary;
 
     return (
-        <div className='login'>
+        <div className="login">
             <header>
-                <h1>{ WELCOME }</h1>
+                <h1>{WELCOME}</h1>
             </header>
             {/* main is a div here to discard general main style */}
             <div className="login-main">
@@ -23,7 +21,7 @@ const Login: React.FC<LoginProps> = (props) => {
                 <form method="POST" action="/auth/google" className="login-btn">
                     <button>
                         <img src={GoogleLogo} alt="Google logo" />
-                        <span>{ SIGNIN }</span>
+                        <span>{SIGNIN}</span>
                     </button>
                 </form>
             </div>

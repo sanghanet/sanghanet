@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { nameValidationRule, spiritualNameValidationRule, addressPattern, mobilePattern } from '../../components/ValidationRule';
 
@@ -13,10 +14,7 @@ import { DataContext } from '../../components/contexts/DataContext/DataContext';
 import Row from 'react-bootstrap/Row';
 import { DisableInput } from '../../enums/DisableInput';
 
-
-interface PersonalProps {};
-
-const Personal: React.FC<PersonalProps>  = (props) => {
+const Personal: React.FC<RouteComponentProps> = () => {
     const { dictionary } = useContext(UIcontext);
     const { setUsername, setAvatarSrc } = useContext(DataContext);
 
@@ -53,13 +51,13 @@ const Personal: React.FC<PersonalProps>  = (props) => {
     const [alertMessage, setAlertMessage] = useState<string>('');
     const [alertType, setAlertType] = useState<ALERT>('NOALERT');
 
-    const displayAlert = (visible: boolean, msg: string, type: ALERT) => {
+    const displayAlert = (visible: boolean, msg: string, type: ALERT): void => {
         setShowAlert(visible);
         setAlertMessage(msg);
         setAlertType(type);
     };
 
-    const closeAlert = () => { displayAlert(false, '', 'NOALERT'); };
+    const closeAlert = (): void => { displayAlert(false, '', 'NOALERT'); };
 
     // componentDidMount
     useEffect(() => {
@@ -90,11 +88,11 @@ const Personal: React.FC<PersonalProps>  = (props) => {
             });
     });
 
-    const toggleDetails = () => {
+    const toggleDetails = (): void => {
         setOpenDetails(!openDetails);
     };
 
-    const updateItem = (data: PersonalDataType) => {
+    const updateItem = (data: PersonalDataType): void => {
         switch (Object.keys(data)[0]) {
             case 'firstName':
                 setFirstName(data.firstName);
@@ -129,7 +127,7 @@ const Personal: React.FC<PersonalProps>  = (props) => {
         displayAlert(true, 'SAVEDSUCCESSFULLY', 'INFO');
     };
 
-    const handleItemSave = (id: string, newValue: string) => {
+    const handleItemSave = (id: string, newValue: string): void => {
         Client.fetch('/user/saveitem', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -142,7 +140,7 @@ const Personal: React.FC<PersonalProps>  = (props) => {
             });
     };
 
-    const handleItemVisibility = (id: string) => {
+    const handleItemVisibility = (id: string): void => {
         let itemValue = null;
         const itemKey = `${id}Visible`;
         switch (itemKey) {
@@ -169,12 +167,12 @@ const Personal: React.FC<PersonalProps>  = (props) => {
             });
     };
 
-    const updateProfileImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const imageToUpload = event.target.files![0];
+    const updateProfileImg = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        if (!event.target.files) return;
+        const imageToUpload = event.target.files[0];
         if (!imageToUpload) return;
         if (!imageToUpload.name.match(/\.(|jpg|jpeg|png|svg|webp)$/i)) {
             displayAlert(true, 'VALIDPHOTO', 'ERROR');
-            return false;
         }
         if (imageToUpload.size < 1_048_576) { // 1048576 = 1 MB 1024*1024 byte
             const formData = new FormData();
@@ -216,15 +214,14 @@ const Personal: React.FC<PersonalProps>  = (props) => {
 
     return (
         <div>
-            { showAlert &&
+            {showAlert &&
                 <Alert
                     alertClose={closeAlert}
                     alertMsg={alert[alertMessage]}
                     alertType={alertType}
-                />
-            }
+                />}
             <FormContainer formTitle={GENERALDATA} mb-4>
-                <React.Fragment>
+                <>
                     <InputAvatar
                         profileImgURL={profileImgURL}
                         updateProfileImg={updateProfileImg}
@@ -240,7 +237,7 @@ const Personal: React.FC<PersonalProps>  = (props) => {
                             inputVisible={firstNameVisible}
                             inputVisibility={handleItemVisibility}
                             inputType="text"
-                            toDisable={ DisableInput.Visibility }
+                            toDisable={DisableInput.Visibility}
                             format="Maria-Luiza"
                         />
                         <InputDisplay
@@ -252,7 +249,7 @@ const Personal: React.FC<PersonalProps>  = (props) => {
                             inputVisible={lastNameVisible}
                             inputVisibility={handleItemVisibility}
                             inputType="text"
-                            toDisable={ DisableInput.Visibility }
+                            toDisable={DisableInput.Visibility}
                             format="Dr. Ribeiro"
                         />
                     </Row>
@@ -266,7 +263,7 @@ const Personal: React.FC<PersonalProps>  = (props) => {
                             inputVisible={spiritualNameVisible}
                             inputVisibility={handleItemVisibility}
                             inputType="text"
-                            toDisable={ DisableInput.Visibility }
+                            toDisable={DisableInput.Visibility}
                             format="Flower Power"
                         />
                         <InputDisplay
@@ -289,7 +286,7 @@ const Personal: React.FC<PersonalProps>  = (props) => {
                             inputValueSave={handleItemSave}
                             inputVisible={genderVisible}
                             inputVisibility={handleItemVisibility}
-                            inputFieldAsSelect={true}
+                            inputFieldAsSelect
                             // empty string - if one does not want to indicate gender
                             optionsForSelect={['', 'Female', 'Male', 'Other']}
                             textForSelect={['', FEMALE, MALE, OTHER]}
@@ -301,15 +298,15 @@ const Personal: React.FC<PersonalProps>  = (props) => {
                             inputId="level"
                             inputVisible={levelVisible}
                             inputVisibility={handleItemVisibility}
-                            toDisable={ DisableInput.Edit }
+                            toDisable={DisableInput.Edit}
                             // this input is not editable by the user
-                            inputValueSave={ (id, newValue) => {} }
+                            inputValueSave={(id, newValue): void => { /* do nothing */ }}
                         />
                     </Row>
-                </React.Fragment>
+                </>
             </FormContainer>
             <FormContainer formTitle={CONTACTDETAILS}>
-                <React.Fragment>
+                <>
                     <Row>
                         <InputDisplay
                             inputTitle={EMAIL}
@@ -317,8 +314,8 @@ const Personal: React.FC<PersonalProps>  = (props) => {
                             inputId="email"
                             inputVisible={emailVisible}
                             inputVisibility={handleItemVisibility}
-                            toDisable={ DisableInput.Edit }
-                            inputValueSave={ (id, newValue) => {} }
+                            toDisable={DisableInput.Edit}
+                            inputValueSave={(id, newValue): void => { /* do nothing */ }}
                             // inputType="email"
                         />
                         <InputDisplay
@@ -366,7 +363,7 @@ const Personal: React.FC<PersonalProps>  = (props) => {
                             toggleDropdown={toggleDetails}
                         />
                     </Row>
-                </React.Fragment>
+                </>
             </FormContainer>
         </div>
     );

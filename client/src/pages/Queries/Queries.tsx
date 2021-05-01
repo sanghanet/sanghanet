@@ -1,10 +1,9 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import ComingSoon from '../../components/ComingSoon/ComingSoon';
 
-interface QueriesProps {};
-
-const Queries: React.FC<QueriesProps> = (props) => {
-    return (<ComingSoon pageName = "Queries" isPlural = {true} />);
+const Queries: React.FC<RouteComponentProps> = () => {
+    return (<ComingSoon pageName="Queries" isPlural />);
 };
 
 export default Queries;

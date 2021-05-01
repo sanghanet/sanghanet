@@ -13,11 +13,13 @@ import { UIcontext } from './components/contexts/UIcontext/UIcontext';
 import { DataContext } from './components/contexts/DataContext/DataContext';
 import { dictionaryList } from './languages/dictionaryList';
 
-interface Props {};
+type Props = {
+    // empty props
+};
 
 type AppState = {
     uiContext: UiContextType;
-    dataContext: DataContextType
+    dataContext: DataContextType;
 };
 
 class App extends Component<Props, AppState> {
@@ -33,7 +35,7 @@ class App extends Component<Props, AppState> {
             uiContext: {
                 isHamburgerOpen: false,
                 toggleHamburger: this.toggleHamburger,
-                closeHamburger: this.closeHamburger,
+                closeHamburger: this.handleCloseHamburger,
 
                 isSuperuser: false,
                 isFinanceAdmin: false,
@@ -60,24 +62,24 @@ class App extends Component<Props, AppState> {
         };
     }
 
-    getFullName = (firstName: string, lastName: string) => {
+    getFullName = (firstName: string, lastName: string): string => {
         const { lang } = this.state.uiContext;
         return lang === 'hu' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`;
-    }
+    };
 
-    toggleHamburger = () => {
+    toggleHamburger = (): void => {
         const { uiContext } = this.state;
         uiContext.isHamburgerOpen = !uiContext.isHamburgerOpen;
         this.setState({ uiContext });
     };
 
-    closeHamburger = () => {
+    handleCloseHamburger = (): void => {
         const { uiContext } = this.state;
         uiContext.isHamburgerOpen = false;
         this.state.uiContext.isHamburgerOpen && this.setState({ uiContext });
     };
 
-    setAccess = (isSuperuser: boolean, isFinanceAdmin: boolean, isEventAdmin: boolean, isYogaAdmin: boolean) => {
+    setAccess = (isSuperuser: boolean, isFinanceAdmin: boolean, isEventAdmin: boolean, isYogaAdmin: boolean): void => {
         const { uiContext } = this.state;
         uiContext.isSuperuser = isSuperuser;
         uiContext.isFinanceAdmin = isFinanceAdmin;
@@ -86,7 +88,7 @@ class App extends Component<Props, AppState> {
         this.setState({ uiContext });
     };
 
-    changeLang = (lang: LANGUAGE) => {
+    changeLang = (lang: LANGUAGE): void => {
         const { uiContext } = this.state;
         const { dataContext } = this.state;
         const { firstName, lastName } = dataContext.userName;
@@ -103,7 +105,7 @@ class App extends Component<Props, AppState> {
         this.setState({ uiContext, dataContext });
     };
 
-    setUsername = (firstName: string, lastName: string) => {
+    setUsername = (firstName: string, lastName: string): void => {
         const { dataContext } = this.state;
 
         dataContext.userName = {
@@ -113,28 +115,28 @@ class App extends Component<Props, AppState> {
         };
 
         this.setState({ dataContext });
-    }
+    };
 
-    setAvatarSrc = (src: string) => {
+    setAvatarSrc = (src: string): void => {
         const { dataContext } = this.state;
         dataContext.avatarSrc = src;
         this.setState({ dataContext });
-    }
+    };
 
-    render () {
+    render (): JSX.Element {
         return (
-            <div onClick={ this.closeHamburger }>
+            <div onClick={this.handleCloseHamburger}>
                 <UIcontext.Provider value={this.state.uiContext}>
                     <DataContext.Provider value={this.state.dataContext}>
                         <BrowserRouter>
                             <Switch>
-                                <Route exact path='/' component={Login} />
-                                <Route path='/loading' component={Loading} />
-                                <Route path='/throwout/:reason' component={ThrowOut} />
-                                <Route exact path='/404' component={PageNotFound} />
-                                <PrivateRoute path='/registration' component={Registration} />
-                                <PrivateRoute path='/app/' component={Main} history={createBrowserHistory()} />
-                                <Redirect to='/404' />
+                                <Route exact path="/" component={Login} />
+                                <Route path="/loading" component={Loading} />
+                                <Route path="/throwout/:reason" component={ThrowOut} />
+                                <Route exact path="/404" component={PageNotFound} />
+                                <PrivateRoute path="/registration" component={Registration} />
+                                <PrivateRoute path="/app/" component={Main} history={createBrowserHistory()} />
+                                <Redirect to="/404" />
                             </Switch>
                         </BrowserRouter>
                     </DataContext.Provider>

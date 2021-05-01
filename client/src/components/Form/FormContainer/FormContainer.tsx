@@ -5,18 +5,18 @@ import Container from 'react-bootstrap/Container';
 
 import './FormContainer.scss';
 
-interface FormContainerProps {
-    formTitle: string,
-    children: React.ReactNode
+interface FormContainerProps {
+    formTitle: string;
+    children: React.ReactNode;
 };
 
-const FormContainer: React.FC<FormContainerProps> = ({ formTitle, children }) => {
-    return (
-        <Container>
-            <h2 className="form-title">{formTitle.toUpperCase()}</h2>
-            {children}
-        </Container>
-    );
+const FormContainer: React.FC<FormContainerProps> = ({ formTitle, children }) => {
+    return (
+        <Container>
+            <h2 className="form-title">{formTitle.toUpperCase()}</h2>
+            {children}
+        </Container>
+    );
 };
 
 FormContainer.propTypes = {

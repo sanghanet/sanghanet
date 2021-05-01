@@ -24,31 +24,31 @@ const AdminFinance = (props) => {
     const onSelection = (email, userName) => {
         setSelectedUserEmail(email);
         setSelectedUserName(userName);
-    }
+    };
 
     const openAddPayment = (pocket) => {
         setShowAddTransaction(true);
         setPaymentDialogPocketName(pocket);
         setTransactionType('payment');
-    }
+    };
 
     const openAddDebt = (pocket) => {
         setShowAddTransaction(true);
         setPaymentDialogPocketName(pocket);
         setTransactionType('debt');
-    }
+    };
 
     const closeTransactionDialog = () => {
         setShowAddTransaction(false);
         setPaymentDialogPocketName('');
         setTransactionType(null);
-    }
+    };
 
     const closeAlert = () => {
         setShowAlert(false);
         setAlertMessage('');
         setAlertType('');
-    }
+    };
 
     const handleTransaction = (description, amount, pocketName, transactionType, dueDate) => {
         // TODO:to avoid confusion in case of duplicate name - name search should display name with emails as a result (Kis Pista kis.p1@gmail.com)
@@ -75,17 +75,17 @@ const AdminFinance = (props) => {
                 setAlertType('ERROR');
             });
         closeTransactionDialog();
-    }
+    };
 
     const openDeleteTransaction = (transaction) => {
         setShowDeleteTransaction(true);
-        setTransaction(transaction)
-    }
+        setTransaction(transaction);
+    };
 
     const closeDeleteTransaction = () => {
         setShowDeleteTransaction(false);
-        setTransaction(null)
-    }
+        setTransaction(null);
+    };
 
     const handleDeleteTransaction = (transactionID, pocket) => {
         Client.fetch('/finance/deletetransaction/', {
@@ -106,20 +106,21 @@ const AdminFinance = (props) => {
                 setAlertType('ERROR');
             });
         closeDeleteTransaction();
-    }
+    };
 
     return (
-        <React.Fragment>
+        <>
             <UserSelector handleSubmit={onSelection} />
-            <FinanceContainer key={refreshFinanceData}
+            <FinanceContainer
+                key={refreshFinanceData}
                 selectedUser={selectedUserEmail}
                 openAddPayment={openAddPayment}
                 openAddDebt={openAddDebt}
                 openDeleteTransaction={openDeleteTransaction}
-                isFinAdmin={true}
+                isFinAdmin
                 activeTab={activeTab}
             />
-            { showAddTransaction &&
+            {showAddTransaction &&
                 <AddTransactionDialog
                     transactionType={transactionType}
                     addPayment={handleTransaction}
@@ -127,27 +128,23 @@ const AdminFinance = (props) => {
                     selectedUserEmail={selectedUserEmail}
                     selectedUserName={selectedUserName}
                     pocketName={paymentDialogPocketName}
-                />
-            }
-            { showDeleteTransaction &&
+                />}
+            {showDeleteTransaction &&
                 <DeleteTransactionDialog
                     deleteTransaction={handleDeleteTransaction}
                     closeDialog={closeDeleteTransaction}
                     selectedUserEmail={selectedUserEmail}
                     selectedUserName={selectedUserName}
                     transaction={transaction}
-                />
-            }
-            { showAlert &&
+                />}
+            {showAlert &&
                 <Alert
                     alertMsg={alertMessage}
                     alertType={alertType}
                     alertClose={closeAlert}
-                />
-            }
-        </React.Fragment>
+                />}
+        </>
     );
-
-}
+};
 
 export default AdminFinance;

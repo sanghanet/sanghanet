@@ -1,34 +1,34 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import AnyUserNameWrapper from '../NameWrappers/AnyUserName/AnyUserNameWrapper'
+import AnyUserNameWrapper from '../NameWrappers/AnyUserName/AnyUserNameWrapper';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './MemberCard.scss';
 
 interface MemberCardProps {
-    index: number,
-    profileImg: string,
-    firstName: string,
-    lastName: string,
-    spiritualName: string,
-    showMemberPopup: (n: number) => void,
-    activeMember: boolean
+    index: number;
+    profileImg: string;
+    firstName: string;
+    lastName: string;
+    spiritualName: string;
+    showMemberPopup: (n: number) => void;
+    activeMember: boolean;
 };
 
 const MemberCard: React.FC<MemberCardProps> = ({ index, profileImg, firstName, lastName, spiritualName, showMemberPopup, activeMember }) => {
-    const showMemberDetails = () => { showMemberPopup(index); };
+    const showMemberDetails = (): void => { showMemberPopup(index); };
     const { SEESHAREDDATA } = useContext(UIcontext).dictionary.memberCardButton;
 
     return (
-        <li className={ `member-card ${activeMember ? 'active-member' : ''}` }>
+        <li className={`member-card ${activeMember ? 'active-member' : ''}`}>
             <div className="profile-img">
-                <img src={ profileImg } alt="Avatar" />
+                <img src={profileImg} alt="Avatar" />
             </div>
             <div className="member-content">
                 <p className="card-name">{AnyUserNameWrapper(firstName, lastName)}</p>
-                <hr className="card-line"></hr>
-                <p className="card-spiritual-name">{ spiritualName }</p>
+                <hr className="card-line" />
+                <p className="card-spiritual-name">{spiritualName}</p>
             </div>
-            <button onClick={ showMemberDetails }>{ SEESHAREDDATA }</button>
+            <button onClick={showMemberDetails}>{SEESHAREDDATA}</button>
         </li>
     );
 };

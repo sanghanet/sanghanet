@@ -38,30 +38,30 @@ const Main: React.FC<RouteComponentProps> = () => {
     }, [location, pageAndNavbarTitles]);
 
     return (
-        <div className='grid-container'>
+        <div className="grid-container">
             <Header activePage={pageName} />
             <Navbar navStyle="sidenav" />
             <main className="align">
                 <Switch>
-                    <Route exact path='/app/dashboard'       render={(props) => <Dashboard {...props} /> } />
-                    <Route exact path='/app/personal'        render={(props) => <Personal {...props} /> } />
-                    <Route exact path='/app/yoga'            render={(props) => <Yoga {...props} /> } />
-                    <Route exact path='/app/finances'        render={(props) => <Finances {...props} /> } />
-                    <Route exact path='/app/events'          render={(props) => <Events {...props} /> } />
-                    <Route exact path='/app/members'         render={(props) => <Members {...props} /> } />
-                    <Route exact path='/app/questions'       render={(props) => <Questions {...props} /> } />
-                    <Route exact path='/app/queries'         render={(props) => <Queries {...props} /> } />
+                    <Route exact path="/app/dashboard" render={(props): React.ReactNode => <Dashboard {...props} />} />
+                    <Route exact path="/app/personal" render={(props): React.ReactNode => <Personal {...props} />} />
+                    <Route exact path="/app/yoga" render={(props): React.ReactNode => <Yoga {...props} />} />
+                    <Route exact path="/app/finances" render={(props): React.ReactNode => <Finances {...props} />} />
+                    <Route exact path="/app/events" render={(props): React.ReactNode => <Events {...props} />} />
+                    <Route exact path="/app/members" render={(props): React.ReactNode => <Members {...props} />} />
+                    <Route exact path="/app/questions" render={(props): React.ReactNode => <Questions {...props} />} />
+                    <Route exact path="/app/queries" render={(props): React.ReactNode => <Queries {...props} />} />
 
-                    <Route exact path='/app/admin/finance'   render={(props) => <AdminFinance {...props} /> } />
-                    <Route exact path='/app/admin/event'     render={(props) => <AdminEvent {...props} /> } />
-                    <Route exact path='/app/admin/yoga'      render={(props) => <AdminYoga {...props} /> } />
-                    <Route exact path='/app/admin/superuser' render={(props) => <Superuser {...props} /> } />
+                    <Route exact path="/app/admin/finance" render={(props): React.ReactNode => <AdminFinance {...props} />} />
+                    <Route exact path="/app/admin/event" render={(props): React.ReactNode => <AdminEvent {...props} />} />
+                    <Route exact path="/app/admin/yoga" render={(props): React.ReactNode => <AdminYoga {...props} />} />
+                    <Route exact path="/app/admin/superuser" render={(props): React.ReactNode => <Superuser {...props} />} />
 
-                    <Route exact path='/app/'>
-                        <Redirect to='/app/personal' />
+                    <Route exact path="/app/">
+                        <Redirect to="/app/personal" />
                     </Route>
 
-                    <Redirect to='/404' />
+                    <Redirect to="/404" />
                 </Switch>
             </main>
             <Footer />
