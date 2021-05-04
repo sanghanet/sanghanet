@@ -7,9 +7,7 @@ import AddTransactionDialog from './AddTransactionDialog/AddTransactionDialog';
 import DeleteTransactionDialog from './DeleteTransactionDialog/DeleteTransactionDialog';
 import Alert from '../../../components/Alert/Alert';
 
-interface AdminFinanceProps {}
-
-const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
+const AdminFinance: React.FC<{}> = (props) => {
     const [selectedUserEmail, setSelectedUserEmail] = useState('');
     const [selectedUserName, setSelectedUserName] = useState('');
     const [showAddTransaction, setShowAddTransaction] = useState(false);
@@ -40,13 +38,13 @@ const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
         setTransactionType('debt');
     };
 
-    const closeTransactionDialog = () => {
+    const closeTransactionDialog = (): void => {
         setShowAddTransaction(false);
         setPaymentDialogPocketName('');
         setTransactionType('');
     };
 
-    const closeAlert = () => {
+    const closeAlert = (): void => {
         setShowAlert(false);
         setAlertMessage('');
         setAlertType('NOALERT');
@@ -71,7 +69,7 @@ const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
                 "transactionType": "${transactionType}",
                 "pocket": "${pocketName}",
                 "dueDate": "${dueDate}"
-            }`,
+            }`
         })
             .then((data) => {
                 setRefreshFinanceData(Date.now());
@@ -86,24 +84,24 @@ const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
         closeTransactionDialog();
     };
 
-    const openDeleteTransaction = (transaction: TransactionToDelete) => {
+    const openDeleteTransaction = (transaction: TransactionToDelete): void => {
         setShowDeleteTransaction(true);
         setTransaction(transaction);
     };
 
-    const closeDeleteTransaction = () => {
+    const closeDeleteTransaction = (): void => {
         setShowDeleteTransaction(false);
         setTransaction(null);
     };
 
-    const handleDeleteTransaction = (transactionID: string, pocket: string) => {
+    const handleDeleteTransaction = (transactionID: string, pocket: string): void => {
         Client.fetch('/finance/deletetransaction/', {
             method: 'POST',
             body: `{
                 "email": "${selectedUserEmail}",
                 "pocket": "${pocket}",
                 "transactionID": "${transactionID}"
-            }`,
+            }`
         })
             .then((data) => {
                 setRefreshFinanceData(Date.now());
@@ -119,7 +117,7 @@ const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <UserSelector handleSubmit={onSelection} />
             <FinanceContainer
                 key={refreshFinanceData}
@@ -127,7 +125,7 @@ const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
                 openAddPayment={openAddPayment}
                 openAddDebt={openAddDebt}
                 openDeleteTransaction={openDeleteTransaction}
-                isFinAdmin={true}
+                isFinAdmin
                 activeTab={activeTab}
             />
             {showAddTransaction && transactionType && (
@@ -147,12 +145,14 @@ const AdminFinance: React.FC<AdminFinanceProps> = (props) => {
                     selectedUserEmail={selectedUserEmail}
                     selectedUserName={selectedUserName}
                     transaction={transaction}
-                />
-            )}
-            {showAlert && (
-                <Alert alertMsg={alertMessage} alertType={alertType} alertClose={closeAlert} />
-            )}
-        </React.Fragment>
+                />)}
+            {showAlert &&
+                <Alert
+                    alertMsg={alertMessage}
+                    alertType={alertType}
+                    alertClose={closeAlert}
+                />}
+        </>
     );
 };
 

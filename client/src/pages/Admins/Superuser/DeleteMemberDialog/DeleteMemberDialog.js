@@ -8,7 +8,7 @@ import './DeleteMemberDialog.scss';
 
 import Form from 'react-bootstrap/Form';
 
-const  DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
+const DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
     const {
         modalButtons: { NO, DELETE },
         superuserDeleteMember: { POPUPDELETEMEMBER, MSGDELETE, CONFIRMDELETE },
@@ -28,7 +28,7 @@ const  DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
             setErrorToken('');
             return true;
         }
-    }
+    };
 
     const handleChange = (event) => {
         const input = event.target;
@@ -39,31 +39,31 @@ const  DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
         };
 
         if (value === randomNumber) {
-            setDisabled(false );
+            setDisabled(false);
         } else {
             setDisabled(true);
         }
-    }
+    };
 
     const handleDelete = (event) => {
         if (!isDisabled) deleteMember();
         event.preventDefault();
-    }
+    };
 
     return (
         <GenericDialog
-            title = {POPUPDELETEMEMBER}
-            reject = {NO}
-            accept = {DELETE}
-            acceptDisabled = {isDisabled}
-            handleClose = {closeDialog}
-            handleAccept = {handleDelete}
+            title={POPUPDELETEMEMBER}
+            reject={NO}
+            accept={DELETE}
+            acceptDisabled={isDisabled}
+            handleClose={closeDialog}
+            handleAccept={handleDelete}
         >
-            <Form onSubmit={handleDelete} autoComplete='off' className="delete-dialog">
+            <Form onSubmit={handleDelete} autoComplete="off" className="delete-dialog">
                 <Form.Label htmlFor="digits-label">
                     <span className="msg">{MSGDELETE}&nbsp;</span>
                     <span className="email">{member}</span>
-                    <span className="msg">? <br></br>{CONFIRMDELETE}&nbsp;</span>
+                    <span className="msg">? <br />{CONFIRMDELETE}&nbsp;</span>
                     <span className="random-no">{randomNumber}</span>
                 </Form.Label>
                 <Form.Control
@@ -74,13 +74,12 @@ const  DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
                     max="9999"
                     placeholder={member}
                     autoFocus
-                ></Form.Control>
+                />
                 <span className="error" aria-live="polite">{validationMsg[errorToken]}</span>
             </Form>
         </GenericDialog>
     );
-
-}
+};
 
 DeleteMemberDialog.propTypes = {
     member: PropTypes.string.isRequired,

@@ -3,10 +3,9 @@ import { Route, RouteProps, Redirect, useHistory, RouteComponentProps } from 're
 import H from 'history';
 import PropTypes from 'prop-types';
 
-
 interface PrivateRouteProps extends RouteProps {
-    component:  React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
-    history?: H.History
+    component: React.ComponentType<RouteComponentProps> | React.ComponentType;
+    history?: H.History;
 };
 
 const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = ({ component: Component, ...rest }) => {
@@ -22,15 +21,17 @@ const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = ({ component: C
     return (
         // Show the component only when user is known
         // Otherwise, redirect the user to / page
-        <Route {...rest} render={ (props) => (
-            userStatus
-                ? <Component {...props} />
-                : <Redirect to="/" />
-        )} />
+        <Route
+            {...rest} render={(props): React.ReactNode => (
+                userStatus
+                    ? <Component {...props} />
+                    : <Redirect to="/" />
+            )}
+        />
     );
 };
 
-//TODO: history validation would be nice
+// TODO: history validation would be nice
 
 PrivateRoute.propTypes = {
     component: PropTypes.func.isRequired,

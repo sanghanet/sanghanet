@@ -1,0 +1,1 @@
+type NAVSTYLE = 'hamburger' | 'sidenav';

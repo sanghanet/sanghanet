@@ -4,19 +4,19 @@ import './LanguageSelector.scss';
 import PropTypes from 'prop-types';
 
 interface LanguageSelectorProps {
-    size?: 'small'
+    size?: 'small';
 }
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({ size }) => {
     const { lang, changeLang } = useContext(UIcontext);
     const [sliderPos, setSliderPos] = useState(lang === 'hu' ? 'left' : 'right');
 
-    const handleLanguageChange = (lang: LANGUAGE) => {
+    const handleLanguageChange = (lang: LANGUAGE): void => {
         changeLang(lang);
         localStorage.setItem('lang', lang);
     };
 
-    const handleSliderClick = ():void => {
+    const handleSliderClick = (): void => {
         if (sliderPos === 'left') {
             setSliderPos('right');
             handleLanguageChange('en');
@@ -28,8 +28,8 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ size }) => {
 
     return (
 
-        <div className = {`language-selector ${size}`} onClick = {handleSliderClick}>
-            <div className = {`lang-slider ${sliderPos}`}></div>
+        <div className={`language-selector ${size}`} onClick={handleSliderClick}>
+            <div className={`lang-slider ${sliderPos}`} />
         </div>
 
     );

@@ -21,44 +21,44 @@ import Card from 'react-bootstrap/Card';
     --------------------------------------
 */
 type RoleFilter = {
-    filterSuperuser: boolean,
-    filterFinanceAdmin: boolean,
-    filterEventAdmin: boolean,
-    filterYogaAdmin: boolean,
-    filterNoRole: boolean
+    filterSuperuser: boolean;
+    filterFinanceAdmin: boolean;
+    filterEventAdmin: boolean;
+    filterYogaAdmin: boolean;
+    filterNoRole: boolean;
 };
 
 interface AccordionProps {
-    handleEmailFilterChange: (inputValue: string) => void,
-    handleSearchIconClick: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    handleRegisteredFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    handleRoleChange: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void,
-    resetFilters: () => void,
-    textFilterValue: string,
-    registeredFilterValue: string,
-    roleFilter: RoleFilter
+    onEmailFilterChange: (inputValue: string) => void;
+    onSearchIconClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onRegisteredFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onRoleChange: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    onResetFilters: () => void;
+    textFilterValue: string;
+    registeredFilterValue: string;
+    roleFilter: RoleFilter;
 };
 
 const FilterAccordion: React.FC<AccordionProps> = ({
-        handleEmailFilterChange,
-        handleSearchIconClick,
-        handleRegisteredFilterChange,
-        handleRoleChange,
-        resetFilters,
-        textFilterValue,
-        registeredFilterValue,
-        roleFilter }) => {
-
+    onEmailFilterChange,
+    onSearchIconClick,
+    onRegisteredFilterChange,
+    onRoleChange,
+    onResetFilters,
+    textFilterValue,
+    registeredFilterValue,
+    roleFilter
+}) => {
     const [dropDownVisible, setDropDownVisible] = useState(false);
     const { superuser } = useContext(UIcontext).dictionary;
     const { FILTERMEMBERS, FILTERTEXT, FILTERSHOW, FILTERALL, FILTERREGISTERED, FILTERUNREGISTERED, RESETFILTERS, FILTERSUPERUSER, FILTERFINADMIN, FILTEREVENTADMIN, FILTERYOGAADMIN, FILTERNOROLE } = superuser;
 
-    const _handleEmailFilterChange = (inputValue: string) => { handleEmailFilterChange(inputValue); };
-    const _handleSearchIconClick = (event: React.ChangeEvent<HTMLInputElement>) => { handleSearchIconClick(event); };
-    const _handleRoleChange = (event: React.MouseEvent<HTMLElement, MouseEvent>) => { handleRoleChange(event); };
-    const _handleRegisteredFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => { handleRegisteredFilterChange(event); };
+    const _handleEmailFilterChange = (inputValue: string): void => { onEmailFilterChange(inputValue); };
+    const _handleSearchIconClick = (event: React.ChangeEvent<HTMLInputElement>): void => { onSearchIconClick(event); };
+    const _handleRoleChange = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => { onRoleChange(event); };
+    const _handleRegisteredFilterChange = (event: React.ChangeEvent<HTMLInputElement>): void => { onRegisteredFilterChange(event); };
 
-    const preventSubmit = (event: React.KeyboardEvent<HTMLElement>) => {
+    const preventSubmit = (event: React.KeyboardEvent<HTMLElement>): void => {
         if (event.key === 'Enter') event.preventDefault();
     };
 
@@ -66,7 +66,7 @@ const FilterAccordion: React.FC<AccordionProps> = ({
         <Accordion onKeyDown={preventSubmit} className="su-filter-accordion">
             <Card>
                 <Card.Header>
-                    <Accordion.Toggle onClick={() => setDropDownVisible((prevState) => !prevState)} as={Button} variant="primary" eventKey="0">
+                    <Accordion.Toggle onClick={(): void => setDropDownVisible((prevState) => !prevState)} as={Button} variant="primary" eventKey="0">
                         <span className="arrow-icon">
                             <Arrow className={dropDownVisible ? 'arrowUp' : 'arrowDown'} />
                         </span>
@@ -78,7 +78,7 @@ const FilterAccordion: React.FC<AccordionProps> = ({
                         <Form className="filter-box">
                             <Form.Group className="search-filter">
                                 <SearchBar
-                                    controlId='accordionTextFilter'
+                                    controlId="accordionTextFilter"
                                     handleInputChange={_handleEmailFilterChange}
                                     handleIconClick={_handleSearchIconClick}
                                     inputValue={textFilterValue}
@@ -130,7 +130,7 @@ const FilterAccordion: React.FC<AccordionProps> = ({
                                     handleChange={_handleRoleChange}
                                 />
                             </Form.Group>
-                            <Button className="reset-button" variant="outline-primary" onClick={() => { resetFilters(); }}>{RESETFILTERS}</Button>
+                            <Button className="reset-button" variant="outline-primary" onClick={(): void => { onResetFilters(); }}>{RESETFILTERS}</Button>
                         </Form>
                     </Card.Body>
                 </Accordion.Collapse>
@@ -140,11 +140,11 @@ const FilterAccordion: React.FC<AccordionProps> = ({
 };
 
 FilterAccordion.propTypes = {
-    handleEmailFilterChange: PropTypes.func.isRequired,
-    handleSearchIconClick: PropTypes.func.isRequired,
-    handleRegisteredFilterChange: PropTypes.func.isRequired,
-    handleRoleChange: PropTypes.func.isRequired,
-    resetFilters: PropTypes.func.isRequired,
+    onEmailFilterChange: PropTypes.func.isRequired,
+    onSearchIconClick: PropTypes.func.isRequired,
+    onRegisteredFilterChange: PropTypes.func.isRequired,
+    onRoleChange: PropTypes.func.isRequired,
+    onResetFilters: PropTypes.func.isRequired,
     textFilterValue: PropTypes.string.isRequired,
     registeredFilterValue: PropTypes.string.isRequired,
     roleFilter: PropTypes.exact({

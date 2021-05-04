@@ -7,9 +7,9 @@ import { UIcontext } from '../../contexts/UIcontext/UIcontext';
 import { Row, Col } from 'react-bootstrap';
 
 interface InputAvatarProps {
-    profileImgURL: string,
-    updateProfileImg: (event: React.ChangeEvent<HTMLInputElement>) => void
-};
+    profileImgURL: string;
+    updateProfileImg: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 // user can't delete the photo - we might want to leave it like that; photo is mandatory
 const InputAvatar: React.FC<InputAvatarProps> = (props) => {
@@ -29,13 +29,12 @@ const InputAvatar: React.FC<InputAvatarProps> = (props) => {
                         name="image"
                         id="file"
                         onChange={updateProfileImg}
-                    ></input>
+                    />
                     <label htmlFor="file" id="file-upload">
-                        <p id="upload-text" className={uploadText}>{ PHOTO }</p>
-                        { profileImgURL
+                        <p id="upload-text" className={uploadText}>{PHOTO}</p>
+                        {profileImgURL
                             ? <img src={profileImgURL} id="avatar" className="personal-photo" alt="" />
-                            : null
-                        }
+                            : null}
                     </label>
                 </div>
             </Col>

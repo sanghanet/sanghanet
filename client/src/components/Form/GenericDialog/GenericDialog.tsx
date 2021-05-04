@@ -7,19 +7,19 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 interface GenericDialogProps {
-    title: string,
-    subtitle?: string,
-    reject?: string,
-    accept?: string,
-    children: React.ReactNode,
-    acceptDisabled?: boolean,
-    handleClose: () => void,
-    handleAccept?: (event: React.MouseEvent) => void
+    title: string;
+    subtitle?: string;
+    reject?: string;
+    accept?: string;
+    children: React.ReactNode;
+    acceptDisabled?: boolean;
+    handleClose: () => void;
+    handleAccept?: (event: React.MouseEvent) => void;
 };
 
 const GenericDialog: React.FC<GenericDialogProps> = ({ title, subtitle, reject, accept, children, acceptDisabled, handleClose, handleAccept }) => {
     return (
-        <Modal show={true} onHide={handleClose} animation={false} dialogClassName={'modal-container'} className="generic-dialog">
+        <Modal show onHide={handleClose} animation={false} dialogClassName="modal-container" className="generic-dialog">
             <Modal.Header closeButton>
                 <div>
                     <h3>{title}</h3>
@@ -36,8 +36,7 @@ const GenericDialog: React.FC<GenericDialogProps> = ({ title, subtitle, reject, 
                 {accept &&
                     <Button onClick={handleAccept} disabled={acceptDisabled}>
                         {accept}
-                    </Button>
-                }
+                    </Button>}
             </Modal.Footer>
         </Modal>
     );

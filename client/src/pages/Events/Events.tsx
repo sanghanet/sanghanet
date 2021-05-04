@@ -2,8 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import ComingSoon from '../../components/ComingSoon/ComingSoon';
 
-const Dashboard: React.FC<RouteComponentProps> = () => {
-    return (<ComingSoon pageName="Dashboard" isPlural={false} />);
+const Events: React.FC<RouteComponentProps> = () => {
+    return (<ComingSoon pageName="Events" isPlural />);
 };
 
-export default Dashboard;
+export default Events;

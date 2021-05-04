@@ -1,30 +1,34 @@
 import React, { useState, useEffect, useContext } from 'react';
+// import PropTypes from 'prop-types';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useLocation, useHistory, RouteComponentProps } from 'react-router-dom';
 import './Members.scss';
 import Client from '../../components/Client';
 import Alert from '../../components/Alert/Alert';
 import MemberCard from '../../components/MemberCard/MemberCard';
 import MemberDetails from '../../components/MemberDetails/MemberDetails';
 
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 
-//TODO: REMOVE ALL @ts-ignore comments
+// TODO: WTF location state ???? Ask Misu about that.
 
-const Members: React.FC<RouteComponentProps<{}>> = ({ history, location }) => {
-    const { SHOWINGRESULTSFOR, SHOWALLMEMBERSBUTTON, SHOWINGMEMBERSTITLE } = useContext(UIcontext).dictionary.membersPage;
+const Members: React.FC<RouteComponentProps> = () => {
+    // const { SHOWINGRESULTSFOR, SHOWALLMEMBERSBUTTON, SHOWINGMEMBERSTITLE } = useContext(UIcontext).dictionary.membersPage;
 
     const [members, setMembers] = useState<RegisteredUserType[]>([]);
     const [memberIndex, setMemberIndex] = useState(-1); // -1 means no selected member
     const [alert, setAlert] = useState({ showAlert: false, alertMessage: '', alertType: 'NOALERT' });
 
-    const showMemberPopup = (index: number) => {
+    const history = useHistory();
+    const location = useLocation();
+
+    const showMemberPopup = (index: number): void => {
         setMemberIndex(index);
     };
-    const closeMemberPopup = () => {
+    const closeMemberPopup = (): void => {
         setMemberIndex(-1);
     };
-    const closeAlert = () => {
+    const closeAlert = (): void => {
         setAlert({ showAlert: false, alertMessage: '', alertType: 'NOALERT' });
     };
 
@@ -38,13 +42,13 @@ const Members: React.FC<RouteComponentProps<{}>> = ({ history, location }) => {
             });
     }, [history, location]); //  to run an effect and clean it up only once
 
-    const displayMember = (id: string) => {
-        // @ts-ignore
-        const usersToDisplay = location.state?.usersToDisplay;
-        return usersToDisplay ? usersToDisplay.includes(id) : true;
+    const displayMember = (id: string): boolean => {
+        // const usersToDisplay = location.state?.usersToDisplay;
+        // return usersToDisplay ? usersToDisplay.includes(id) : true;
+        return true;
     };
 
-    const resetMembersFilter = () => {
+    const resetMembersFilter = (): void => {
         history.push({
             state: {
                 usersToDisplay: null,
@@ -55,51 +59,49 @@ const Members: React.FC<RouteComponentProps<{}>> = ({ history, location }) => {
 
     return (
         members && (
-            <React.Fragment>
-                { alert.showAlert &&
+            <>
+                {alert.showAlert &&
                     <Alert
                         alertClose={closeAlert}
                         alertMsg={alert.alertMessage}
                         alertType={alert.alertType as ALERT}
-                    />
-                }
+                    />}
                 {memberIndex >= 0 &&
                     <MemberDetails
                         closeDialog={closeMemberPopup}
-                        selectedMemberData={ members[memberIndex]}
-                    />
+                        selectedMemberData={members[memberIndex]}
+                    />}
+                <div className="member-page-heading">{
+                    // location.state?.searchString
+                    // ? (
+                    // <>
+                    //     <p>{`${SHOWINGRESULTSFOR} "${location.state.searchString}"`}</p>
+                    //     <Button variant="dark" onClick={resetMembersFilter}>{SHOWALLMEMBERSBUTTON}</Button>
+                    // </>
+                    // )
+                    // : <h2>{SHOWINGMEMBERSTITLE}</h2>
                 }
-                <div className='member-page-heading'>{
-                    // @ts-ignore
-                    location.state?.searchString
-                        ? (
-                            <>
-                                { /* @ts-ignore */ }
-                                <p>{`${SHOWINGRESULTSFOR} "${location.state.searchString}"`}</p>
-                                <Button variant="dark" onClick={resetMembersFilter}>{SHOWALLMEMBERSBUTTON}</Button>
-                            </>
-                        ) : <h2>{SHOWINGMEMBERSTITLE}</h2>
-                }</div>
+                </div>
                 <ul className="card-container">
                     {
                         members.map((member, index) =>
                             (displayMember(member._id) &&
-                            <MemberCard
-                                key={index}
-                                index={index}
-                                profileImg={member.profileImg}
-                                firstName={member.firstName}
-                                lastName={member.lastName}
-                                spiritualName={member.spiritualName}
-                                showMemberPopup={showMemberPopup}
-                                activeMember={member.activeMember}
-                            />)
+                                <MemberCard
+                                    key={index}
+                                    index={index}
+                                    profileImg={member.profileImg}
+                                    firstName={member.firstName}
+                                    lastName={member.lastName}
+                                    spiritualName={member.spiritualName}
+                                    showMemberPopup={showMemberPopup}
+                                    activeMember={member.activeMember}
+                                />)
                         )
                     }
                 </ul>
-            </React.Fragment>
+            </>
         )
     );
 };
 
-export default withRouter(Members);
+export default Members;

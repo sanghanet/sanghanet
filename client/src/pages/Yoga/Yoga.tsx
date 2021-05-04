@@ -2,8 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import ComingSoon from '../../components/ComingSoon/ComingSoon';
 
-const Dashboard: React.FC<RouteComponentProps> = () => {
-    return (<ComingSoon pageName="Dashboard" isPlural={false} />);
+const Yoga: React.FC<RouteComponentProps> = () => {
+    return (<ComingSoon pageName="Yoga" isPlural={false} />);
 };
 
-export default Dashboard;
+export default Yoga;

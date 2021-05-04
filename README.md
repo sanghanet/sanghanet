@@ -144,3 +144,26 @@ Run `npm run buildfinance` in the root directory.
    For those who like to copy and paste:
    run `cd ./server/testDataScripts && ./rebuildDB.sh local` in the root directory for a local reset
    run `cd ./server/testDataScripts && ./rebuildDB.sh atlas` in the root directory for an atlas reset - PROCEED WITH CAUTION
+
+#
+# ESlint config
+- No global lint or plugins/extensions are necessary.
+- No lint or plugins/extensions installed in the root folder anymore.
+- 'server' folder and 'client' folder contains 1-1 lint and all necessay plugins/extensions and the config as well.
+- To render lint errors and warning on the browser, disable(or comment out) ENV variable `ESLINT_NO_DEV_ERRORS` in client/.env file.
+
+## Manual lint execution
+    $ server/node_modules/.bin/eslint server
+
+    $ client/node_modules/.bin/eslint client
+
+## Automatic lint execution in VSCode(ium):
+    Reset former eslint config: CTRL-SHIFT-P + select Eslint: reset library decision
+    When editor ask which lint config to be used, select Allow.
+
+    Correct ESlint load messages in the OUTPUT tab (if One need to debug lint config):
+        [Info - 10:10:50 PM] ESLint server stopped.
+        [Info - 10:10:52 PM] ESLint server running in node v12.18.3
+        [Info - 10:10:52 PM] ESLint server is running.
+        [Info - 10:10:53 PM] ESLint library loaded from: E:\Dev\web\sanghanet\server\node_modules\eslint\lib\api.js
+        [Info - 10:11:03 PM] ESLint library loaded from: E:\Dev\web\sanghanet\client\node_modules\eslint\lib\api.js

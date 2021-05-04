@@ -5,13 +5,13 @@ import { Spinner } from 'react-bootstrap';
 import './Loading.scss';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 
-const Loading = () => {
+const Loading: React.FC = () => {
     const { generalTermsDictionary } = useContext(UIcontext).dictionary;
 
     useEffect(() => {
         Client.fetch('/user/login', { method: 'POST' })
             .then((user) => {
-                if (user.hasOwnProperty('status')) {
+                if (Object.prototype.hasOwnProperty.call(user, 'status')) {
                     sessionStorage.setItem('userStatus', user.status);
                     window.location.href = user.status === 'registered' ? '/app/personal' : '/registration';
                 } else {

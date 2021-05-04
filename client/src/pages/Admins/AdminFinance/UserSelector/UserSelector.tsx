@@ -123,7 +123,7 @@ const UserSelector: React.FC<UserSelectorProps> = ({handleSubmit}) => {
                 {searchResults.map((name, index) => {
                     const active = index === indexOfActiveItem;
                     return (
-                        <li key={name} onClick = {onSuggestionClick} className = {active ? 'activated' : ''} >
+                        <li key={name} onClick={onSuggestionClick} className={active ? 'activated' : ''} >
                             {name}
                         </li>
                     );
@@ -134,7 +134,7 @@ const UserSelector: React.FC<UserSelectorProps> = ({handleSubmit}) => {
 
     return (
         <div className="selector">
-            <div className = "user-info">{selectedUser || UNSELECTEDMSG}</div>
+            <div className="user-info">{selectedUser || UNSELECTEDMSG}</div>
             <div>
                 <Form>
                     <Form.Control
@@ -142,13 +142,13 @@ const UserSelector: React.FC<UserSelectorProps> = ({handleSubmit}) => {
                         id="selectedUser"
                         placeholder={SELECT}
                         autoComplete="off"
-                        onChange = {onInputChange}
+                        onChange={onInputChange}
                         value={userInput}
                         onKeyDown={onKeyPress}
                         ref={inputRef}
                     />
                 </Form>
-                {showSuggestions && userInput ? <SuggestionList></SuggestionList> : null}
+                {showSuggestions && userInput ? <SuggestionList /> : null}
             </div>
         </div>
     );

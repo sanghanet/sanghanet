@@ -22,33 +22,23 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
         openAddPayment,
         openAddDebt,
         openDeleteTransaction,
-        activeTab,
+        activeTab
     } = props;
     const [financeData, setFinanceData] = useState<FinanceAccountSchema | null>(null);
-    const [errorState, setErrorState] = useState<Error | null>(null);
+    const [errorState, setErrorState] = useState(0);
     const [reRender, setReRender] = useState(0); // fine HACK to rerender Component when new data is available.
-
-    useEffect(() => {
-        if (selectedUser === 'own data') {
-            getFinanceData();
-        } else if (selectedUser) {
-            getFinanceData(selectedUser);
-        }
-    }, [selectedUser]);
- 
-    const onError = (error: Error): void => setErrorState(error);
 
     const sortByDueDate = (t1: FinanceTransactionSchema, t2: FinanceTransactionSchema): number => {
         return new Date(t2.dueDate).getTime() - new Date(t1.dueDate).getTime();
     };
 
-    const getFinanceData = async (userEmail: string | null = null) => {
+    const getFinanceData = async (userEmail: string | null = null): Promise<void> => {
         try {
             const result: FinanceAccountSchema = await Client.fetch('/finance/financedata', {
                 method: 'POST',
                 body: {
-                    email: userEmail,
-                },
+                    email: userEmail
+                }
             });
 
             result.transactions.membership.sort(sortByDueDate);
@@ -63,37 +53,46 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
         }
     };
 
+    useEffect(() => {
+        if (selectedUser === 'own data') {
+            getFinanceData();
+        } else if (selectedUser) {
+            getFinanceData(selectedUser);
+        }
+    }, [selectedUser]);
+
+    const handleError = (): void => setErrorState(1);
+
     return (
-        <React.Fragment>
+        <>
             {errorState && (
                 <Alert
-                    alertClose={() => {
-                        setErrorState(null);
+                    alertClose={(): void => {
+                        setErrorState(0);
                     }}
-                    
-                    alertMsg={'There was an error! ' + errorState.message}
-                    alertType={'ERROR'}
+                    alertMsg="There was an error! "
+                    alertType="ERROR"
                 />
             )}
             {financeData && (
-                <React.Fragment>
+                <>
                     <FinanceDashboard
                         key={reRender}
                         balance={financeData.balance}
-                        onError={onError}
+                        onError={handleError}
                     />
                     <TransactionTabs
                         transactions={financeData.transactions}
-                        onError={onError}
+                        onError={handleError}
                         isFinAdmin={isFinAdmin}
                         openAddPayment={openAddPayment}
                         openAddDebt={openAddDebt}
                         openDeleteTransaction={openDeleteTransaction}
                         activeTab={activeTab}
                     />
-                </React.Fragment>
+                </>
             )}
-        </React.Fragment>
+        </>
     );
 };
 
@@ -103,7 +102,7 @@ FinanceContainer.propTypes = {
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,
     openDeleteTransaction: PropTypes.func,
-    activeTab: PropTypes.string,
+    activeTab: PropTypes.string
 };
 
 export default FinanceContainer;
