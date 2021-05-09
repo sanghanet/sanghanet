@@ -9,8 +9,8 @@ import { ReactComponent as Event } from '../icons/fin_event.svg';
 import { ReactComponent as Angel } from '../icons/fin_angel.svg';
 
 type FinanceDashboardProps = {
-    balance: object,
-    onError: (error: Error) => void
+    balance: Balance;
+    onError: (error: Error) => void;
 }
 
 const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError }) => {
@@ -18,7 +18,7 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError })
     const { BALANCE } = financeDashboard;
     const lang = localStorage.getItem('lang');
 
-    const getIcon = (key: string) => {
+    const getIcon = (key: string): JSX.Element | null => {
         switch (key) {
             case 'membership': return <Membership />;
             case 'rent': return <Rent />;
@@ -57,7 +57,12 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError })
 };
 
 FinanceDashboard.propTypes = {
-    balance: PropTypes.object.isRequired,
+    balance: PropTypes.exact({
+        membership: PropTypes.number.isRequired,
+        rent: PropTypes.number.isRequired,
+        event: PropTypes.number.isRequired,
+        angel: PropTypes.number.isRequired
+    }).isRequired,
     onError: PropTypes.func.isRequired
 };
 

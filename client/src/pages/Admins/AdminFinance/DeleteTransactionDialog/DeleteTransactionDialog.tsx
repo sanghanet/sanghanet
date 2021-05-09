@@ -43,8 +43,9 @@ const DeleteTransactionDialog: React.FC<DeleteTransactionDialogProps> = (props) 
             reject={CANCEL}
             accept={DELETE}
             handleClose={closeDialog}
-            handleAccept={handleSubmit}>
-            <div className='delete-container'>
+            handleAccept={handleSubmit}
+        >
+            <div className="delete-container">
                 <p>
                     {NAME}: {selectedUserName}
                 </p>

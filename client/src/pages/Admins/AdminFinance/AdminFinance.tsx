@@ -7,12 +7,12 @@ import AddTransactionDialog from './AddTransactionDialog/AddTransactionDialog';
 import DeleteTransactionDialog from './DeleteTransactionDialog/DeleteTransactionDialog';
 import Alert from '../../../components/Alert/Alert';
 
-const AdminFinance: React.FC<{}> = (props) => {
+const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
     const [selectedUserEmail, setSelectedUserEmail] = useState('');
     const [selectedUserName, setSelectedUserName] = useState('');
     const [showAddTransaction, setShowAddTransaction] = useState(false);
     const [paymentDialogPocketName, setPaymentDialogPocketName] = useState('');
-    const [transactionType, setTransactionType] = useState<TransactionType>('');
+    const [transactionType, setTransactionType] = useState<TRANSACTION>('');
     const [showDeleteTransaction, setShowDeleteTransaction] = useState(false);
     const [transaction, setTransaction] = useState<TransactionToDelete | null>(null);
     const [refreshFinanceData, setRefreshFinanceData] = useState(0);
@@ -76,7 +76,6 @@ const AdminFinance: React.FC<{}> = (props) => {
                 setActiveTab(pocketName);
             })
             .catch((err) => {
-                console.log(err);
                 setShowAlert(true);
                 setAlertMessage(err.message);
                 setAlertType('ERROR');
@@ -108,7 +107,6 @@ const AdminFinance: React.FC<{}> = (props) => {
                 setActiveTab(pocket);
             })
             .catch((err) => {
-                console.log(err);
                 setShowAlert(true);
                 setAlertMessage(err.message);
                 setAlertType('ERROR');

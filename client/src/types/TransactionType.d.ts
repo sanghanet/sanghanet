@@ -1,1 +1,0 @@
-type TransactionType = "debt" | "payment" | "";

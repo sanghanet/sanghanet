@@ -9,7 +9,7 @@ type UserSelectorProps = {
     handleSubmit: (email: string, userName: string) => void;
 }
 
-const UserSelector: React.FC<UserSelectorProps> = ({handleSubmit}) => {
+const UserSelector: React.FC<UserSelectorProps> = ({ handleSubmit }) => {
     const [rawUserData, setRawUserData] = useState<UserOfFinanceUserSelector[]>([]);
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
@@ -23,6 +23,27 @@ const UserSelector: React.FC<UserSelectorProps> = ({handleSubmit}) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const maxDisplayedSuggestions = 10;
+
+    const onSubmit = (): void => {
+        const inputValue = (inputRef && inputRef.current) ? inputRef.current.value : undefined;
+
+        if (inputValue) {
+            const selectedUserName = inputValue;
+            const selectedUserObject = rawUserData.find((item) => {
+                return item.userName === selectedUserName;
+            });
+            if (selectedUserObject) {
+                const selectedEmail = selectedUserObject.email;
+                setShowSuggestions(false);
+                setSearchResults([]);
+                setUserInput('');
+                setSelectedUser(selectedUserName);
+                handleSubmit(selectedEmail, selectedUserObject.userName);
+            } else {
+                setUserInput('');
+            }
+        }
+    };
 
     const onKeyPress: React.KeyboardEventHandler = (e) => {
         // on up or down arrow
@@ -45,7 +66,7 @@ const UserSelector: React.FC<UserSelectorProps> = ({handleSubmit}) => {
                 setSearchResults([]);
                 setUserInput(searchResults[indexOfActiveItem]);
                 setIndexOfActiveItem(0);
-                if(inputRef && inputRef.current) {
+                if (inputRef && inputRef.current) {
                     inputRef.current.value = searchResults[indexOfActiveItem];
                 }
             }
@@ -57,7 +78,7 @@ const UserSelector: React.FC<UserSelectorProps> = ({handleSubmit}) => {
         const inputValue: string = e.currentTarget.value;
 
         const compareStrings = (input: string, libraryValue: string): boolean => {
-            const normalize = (x: string) => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            const normalize = (x: string): string => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
             const stdInput = normalize(input);
             const stdLibValue = normalize(libraryValue);
             return !!stdLibValue.match(new RegExp(`(^|\\s)${stdInput}`));
@@ -83,29 +104,8 @@ const UserSelector: React.FC<UserSelectorProps> = ({handleSubmit}) => {
         onSubmit();
     };
 
-    const onSubmit = () => {
-        const inputValue = (inputRef && inputRef.current) ? inputRef.current.value : undefined;
-
-        if (inputValue) {
-            const selectedUserName = inputValue;
-            const selectedUserObject = rawUserData.find((item) => {
-                return item.userName === selectedUserName;
-            });
-            if (selectedUserObject) {
-                const selectedEmail = selectedUserObject.email;
-                setShowSuggestions(false);
-                setSearchResults([]);
-                setUserInput('');
-                setSelectedUser(selectedUserName);
-                handleSubmit(selectedEmail, selectedUserObject.userName);
-            } else {
-                setUserInput('');
-            }
-        }
-    };
-
-    useEffect(() => {    
-        const getUserList = async () => {
+    useEffect(() => {
+        const getUserList = async (): Promise<void> => {
             const result: Array<UserOfFinanceUserSelector> = await Client.fetch('/finance/userlist');
             const nameList = result.map((user: UserOfFinanceUserSelector) => user.userName);
 

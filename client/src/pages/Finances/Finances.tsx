@@ -1,9 +1,7 @@
 import React from 'react';
 import FinanceContainer from './FinanceContainer/FinanceContainer';
 
-type FinancesProps = {};
-
-const Finances: React.FC<FinancesProps> = (props) => {
+const Finances: React.FC<Record<string, unknown>> = (props) => {
     return (<FinanceContainer selectedUser="own data" isFinAdmin={false} />);
 };
 

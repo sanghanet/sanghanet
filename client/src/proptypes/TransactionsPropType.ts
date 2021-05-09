@@ -6,6 +6,6 @@ const TransactionsPropType = PropTypes.exact({
     rent: PropTypes.arrayOf(FinanceTransactionPropType).isRequired,
     event: PropTypes.arrayOf(FinanceTransactionPropType).isRequired,
     angel: PropTypes.arrayOf(FinanceTransactionPropType).isRequired
-}).isRequired
+}).isRequired;
 
 export default TransactionsPropType;

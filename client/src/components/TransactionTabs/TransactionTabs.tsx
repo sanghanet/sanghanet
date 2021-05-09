@@ -25,12 +25,12 @@ const TransactionTabs: React.FC<TransactionTabsProps> = (props) => {
         openAddPayment,
         openAddDebt,
         openDeleteTransaction,
-        activeTab,
+        activeTab
     } = props;
     const { financePockets } = useContext(UIcontext).dictionary;
 
     return (
-        <Tabs className='MainTabs' bsPrefix='active' defaultActiveKey={activeTab}>
+        <Tabs className="MainTabs" bsPrefix="active" defaultActiveKey={activeTab}>
             {Object.entries(transactions).map((pocket) => {
                 const tabTitle = financePockets[pocket[0].toUpperCase()];
 
@@ -59,7 +59,7 @@ TransactionTabs.propTypes = {
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,
     openDeleteTransaction: PropTypes.func,
-    activeTab: PropTypes.string,
+    activeTab: PropTypes.string
 };
 
 export default TransactionTabs;

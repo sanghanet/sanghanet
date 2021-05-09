@@ -39,7 +39,7 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
     const onDeleteTransaction: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
 
-        const { description, amount, currency, dueDate} = event.currentTarget.dataset;
+        const { description, amount, currency, dueDate } = event.currentTarget.dataset;
         const transaction = {
             id: event.currentTarget.id,
             pocket: pocket,
@@ -49,26 +49,28 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
             dueDate: new Date(dueDate || ''),
         };
 
-        openDeleteTransaction && openDeleteTransaction(transaction); //TODO when optional chaining allowed --> openDeleteTransaction?(transaction)
+        openDeleteTransaction && openDeleteTransaction(transaction); // TODO when optional chaining allowed --> openDeleteTransaction?(transaction)
     };
 
     return (
-        <Table hover bordered variant='dark' className='fn-admin-table'>
+        <Table hover bordered variant="dark" className="fn-admin-table">
             <thead>
                 {isFinAdmin && (
                     <tr>
-                        <th colSpan={4} className='trans'>
+                        <th colSpan={4} className="trans">
                             <Button
-                                className='trans-btn'
-                                variant='success'
-                                onClick={() => openAddPayment!(pocket)}>
+                                className="trans-btn"
+                                variant="success"
+                                onClick={() => openAddPayment!(pocket)}
+                            >
                                 <Plus />
                                 {ADDNEWPAYMENT}
                             </Button>
                             <Button
-                                className='trans-btn'
-                                variant='danger'
-                                onClick={() => openAddDebt!(pocket)}>
+                                className="trans-btn"
+                                variant="danger"
+                                onClick={() => openAddDebt!(pocket)}
+                            >
                                 <Minus />
                                 {ADDNEWDEBIT}
                             </Button>
@@ -80,7 +82,7 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
                     <th>{DESCRIPTION}</th>
                     <th>{DUEDATE}</th>
                     <th>{AMOUNT}</th>
-                    {isFinAdmin && <th className='delete-column-header'></th>}
+                    {isFinAdmin && <th className="delete-column-header" />}
                 </tr>
             </thead>
 
@@ -90,21 +92,22 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
 
                     return (
                         <tr className={`finance-row ${transaction.status}`} key={index}>
-                            <td className='description-cell'>{transaction.description}</td>
-                            <td className='date-cell'>{dueDate}</td>
-                            <td className='amount-cell'>{formatMoney(lang, transaction.amount)}</td>
+                            <td className="description-cell">{transaction.description}</td>
+                            <td className="date-cell">{dueDate}</td>
+                            <td className="amount-cell">{formatMoney(lang, transaction.amount)}</td>
                             {isFinAdmin && (
-                                <td className='delete-cell'>
+                                <td className="delete-cell">
                                     {transaction.status !== 'deleted' && (
                                         <Button
-                                            variant='outline-danger'
+                                            variant="outline-danger"
                                             id={transaction._id}
                                             onClick={onDeleteTransaction}
                                             data-description={transaction.description}
                                             data-amount={transaction.amount}
                                             data-currency={transaction.currency}
-                                            data-duedate={dueDate}>
-                                            <Bin className='delete-transaction' />
+                                            data-duedate={dueDate}
+                                        >
+                                            <Bin className="delete-transaction" />
                                         </Button>
                                     )}
                                 </td>

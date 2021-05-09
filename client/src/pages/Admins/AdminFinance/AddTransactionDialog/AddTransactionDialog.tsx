@@ -8,14 +8,14 @@ import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 import {
     validationError,
     descriptionValidationRule,
-    positiveIntegerRule,
+    positiveIntegerRule
 } from '../../../../components/ValidationRule';
 import Form from 'react-bootstrap/Form';
 
 import './AddTransactionDialog.scss';
 
 type AddTransactionDialogProps = {
-    transactionType: TransactionType;
+    transactionType: TRANSACTION;
     closeDialog: () => void;
     addPayment: HandleTransaction;
     pocketName: string;
@@ -30,7 +30,7 @@ const AddTransactionDialog: React.FC<AddTransactionDialogProps> = (props) => {
         addPayment,
         pocketName,
         selectedUserEmail,
-        selectedUserName,
+        selectedUserName
     } = props;
 
     const [description, setDescription] = useState<string>('');
@@ -50,7 +50,7 @@ const AddTransactionDialog: React.FC<AddTransactionDialogProps> = (props) => {
         transactionTable: { DESCRIPTION, AMOUNT, DUEDATE },
         addTransactionDialog: { BEFORETYPE, AFTERTYPE, DATESELECTORINFO },
         modalButtons: { CANCEL, ADD },
-        transactionTypes,
+        transactionTypes
     } = useContext(UIcontext).dictionary;
 
     const transactionTypeToDisplay =
@@ -72,7 +72,7 @@ const AddTransactionDialog: React.FC<AddTransactionDialogProps> = (props) => {
         setAmountValid(validationResult === '');
     };
 
-    const handleDateChange = (date: Date) => {
+    const handleDateChange = (date: Date): void => {
         setDueDate(date);
         const yearMonthDayString = new Date(Date.now()).toISOString().slice(0, 10);
         const validationResult = date < new Date(yearMonthDayString) ? 'WRONGDATE' : '';
@@ -98,59 +98,60 @@ const AddTransactionDialog: React.FC<AddTransactionDialogProps> = (props) => {
             title={`${BEFORETYPE}${transactionTypeToDisplay}${AFTERTYPE}`}
             reject={CANCEL}
             accept={ADD}
-            acceptDisabled={
-                !(
-                    descriptionValid &&
-                    amountValid &&
-                    (transactionType === 'payment' || dueDateValid)
-                )
-            }
+            acceptDisabled={!(
+                descriptionValid &&
+                amountValid &&
+                (transactionType === 'payment' || dueDateValid)
+            )}
             handleClose={closeDialog}
-            handleAccept={handleSubmit}>
-            <Form onSubmit={handleSubmit} autoComplete='off' className='add-payment-dialog'>
-                <p className='payment-label payment-name'>
+            handleAccept={handleSubmit}
+        >
+            <Form onSubmit={handleSubmit} autoComplete="off" className="add-payment-dialog">
+                <p className="payment-label payment-name">
                     {NAME}: {selectedUserName}
                 </p>
-                <p className='payment-label payment-name'>
+                <p className="payment-label payment-name">
                     {EMAIL}: {selectedUserEmail}
                 </p>
-                <p className='payment-label payment-pocket'>
+                <p className="payment-label payment-pocket">
                     {financePockets.POCKET}: {translatedPocketName}
                 </p>
 
-                <Form.Label htmlFor='add-description-label' className='payment-label'>
+                <Form.Label htmlFor="add-description-label" className="payment-label">
                     {DESCRIPTION}
                 </Form.Label>
                 <Form.Control
-                    id='add-description-label'
+                    id="add-description-label"
                     value={description}
                     onChange={handleDescriptionChange}
                     {...descriptionValidationRule}
-                    autoFocus></Form.Control>
-                <span className='error' aria-live='polite'>
+                    autoFocus
+                />
+                <span className="error" aria-live="polite">
                     {validationMsg[errorTokenDescription]}
                 </span>
 
-                <Form.Label htmlFor='add-payment-label' className='payment-label'>
+                <Form.Label htmlFor="add-payment-label" className="payment-label">
                     {AMOUNT}
                 </Form.Label>
                 <Form.Control
-                    id='add-payment-label'
+                    id="add-payment-label"
                     value={amount}
                     onChange={handlePaymentChange}
-                    {...positiveIntegerRule}></Form.Control>
-                <span className='error' aria-live='polite'>
+                    {...positiveIntegerRule}
+                />
+                <span className="error" aria-live="polite">
                     {validationMsg[errorTokenAmount]}
                 </span>
 
                 {transactionType === 'debt' && (
                     <div>
-                        <Form.Label className='payment-label'>
+                        <Form.Label className="payment-label">
                             {DUEDATE} ({DATESELECTORINFO})
                         </Form.Label>
-                        <div className='date-picker-finance'>
+                        <div className="date-picker-finance">
                             <DatePicker
-                                id='add-dueDate-label'
+                                id="add-dueDate-label"
                                 selected={dueDate}
                                 onChange={handleDateChange}
                                 customInput={<CustomDateInput />}
@@ -158,11 +159,11 @@ const AddTransactionDialog: React.FC<AddTransactionDialogProps> = (props) => {
                                 onYearChange={handleDateChange}
                                 showMonthDropdown
                                 showYearDropdown
-                                dropdownMode='select'
+                                dropdownMode="select"
                                 inline
                             />
                         </div>
-                        <span className='error' aria-live='polite'>
+                        <span className="error" aria-live="polite">
                             {validationMsg[errorTokenDate]}
                         </span>
                     </div>
@@ -173,12 +174,12 @@ const AddTransactionDialog: React.FC<AddTransactionDialogProps> = (props) => {
 };
 
 AddTransactionDialog.propTypes = {
-    transactionType: PropTypes.oneOf<TransactionType>(['payment', 'debt', '']).isRequired,
+    transactionType: PropTypes.oneOf<TRANSACTION>(['payment', 'debt', '']).isRequired,
     addPayment: PropTypes.func.isRequired,
     closeDialog: PropTypes.func.isRequired,
     pocketName: PropTypes.string.isRequired,
     selectedUserName: PropTypes.string.isRequired,
-    selectedUserEmail: PropTypes.string.isRequired,
+    selectedUserEmail: PropTypes.string.isRequired
 };
 
 export default AddTransactionDialog;
