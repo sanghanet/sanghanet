@@ -7,7 +7,7 @@ import './TransactionTabs.scss';
 import PropTypes from 'prop-types';
 import TransactionsPropType from '../../proptypes/TransactionsPropType';
 
-type TransactionTabsProps = {
+interface TransactionTabsProps {
     transactions: Transactions;
     onError: (error: Error) => void;
     isFinAdmin: boolean;

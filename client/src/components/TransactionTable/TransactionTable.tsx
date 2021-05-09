@@ -10,7 +10,7 @@ import { ReactComponent as Minus } from '../icons/minus.svg';
 import { ReactComponent as Bin } from '../icons/bin.svg';
 import FinanceTransactionPropType from '../../proptypes/FinanceTransactionPropType';
 
-type TransactionTableProps = {
+interface TransactionTableProps {
     transactionArray: Array<FinanceTransactionSchema>;
     onError: (error: Error) => void;
     isFinAdmin: boolean;

@@ -5,7 +5,7 @@ import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 import PropTypes from 'prop-types';
 import './UserSelector.scss';
 
-type UserSelectorProps = {
+interface UserSelectorProps {
     handleSubmit: (email: string, userName: string) => void;
 }
 

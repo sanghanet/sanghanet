@@ -14,7 +14,7 @@ import Form from 'react-bootstrap/Form';
 
 import './AddTransactionDialog.scss';
 
-type AddTransactionDialogProps = {
+interface AddTransactionDialogProps {
     transactionType: TRANSACTION;
     closeDialog: () => void;
     addPayment: HandleTransaction;

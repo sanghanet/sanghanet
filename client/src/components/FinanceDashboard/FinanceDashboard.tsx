@@ -8,7 +8,7 @@ import { ReactComponent as Rent } from '../icons/fin_rent.svg';
 import { ReactComponent as Event } from '../icons/fin_event.svg';
 import { ReactComponent as Angel } from '../icons/fin_angel.svg';
 
-type FinanceDashboardProps = {
+interface FinanceDashboardProps {
     balance: Balance;
     onError: (error: Error) => void;
 }
