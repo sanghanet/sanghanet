@@ -8,14 +8,13 @@ const Logout: React.FC = () => {
     const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
     const { LOGOUT } = pageAndNavbarTitles;
 
-    const handleClick = ():void => {
+    const handleClick = (): void => {
         Client.fetch('/user/logout')
             .then((res) => {
                 sessionStorage.clear();
                 if (res.ok) { window.location.href = '/'; }
             })
-            // eslint-disable-next-line handle-callback-err
-            .catch((err) => {
+            .catch(() => {
                 sessionStorage.clear();
                 window.location.href = '/';
             });
@@ -23,7 +22,7 @@ const Logout: React.FC = () => {
     return (
         <button className="link" onClick={handleClick}>
             <div className="menu-icon"><LogoutIcon /></div>
-            <span className="title">{ LOGOUT }</span>
+            <span className="title">{LOGOUT}</span>
         </button>
     );
 };

@@ -1,6 +1,6 @@
 // Intl objects come from the ECMAScript Internationalization API
 
-export function formatMoney(lang, amount) {
+export function formatMoney (lang, amount) {
     const isNegative = amount < 0;
 
     // remove the dash ('-') if negative
@@ -16,7 +16,7 @@ export function formatMoney(lang, amount) {
 
     let resultString = moneyFormatter.format(amountToConvert);
 
-    function formatToNegative(positiveFormat) {
+    function formatToNegative (positiveFormat) {
         let negativeFormattedResult = '';
 
         // if the formatted amount doesn't start with a number (eg. HUF 12 345),
@@ -45,7 +45,7 @@ export function formatMoney(lang, amount) {
     return resultString;
 }
 
-export function formatDate(lang, date) {
+export function formatDate (lang, date) {
     const options = {
         year: 'numeric',
         month: 'short',

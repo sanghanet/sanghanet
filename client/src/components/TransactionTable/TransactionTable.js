@@ -39,7 +39,7 @@ const TransactionTable = (props) => {
 
                 {isFinAdmin &&
                     <tr>
-                        <th colSpan='4' className="trans">
+                        <th colSpan="4" className="trans">
                             <Button className="trans-btn" variant="success" onClick={openAddPayment}>
                                 <Plus />
                                 {ADDNEWPAYMENT}
@@ -49,14 +49,13 @@ const TransactionTable = (props) => {
                                 {ADDNEWDEBIT}
                             </Button>
                         </th>
-                    </tr>
-                }
+                    </tr>}
 
                 <tr>
                     <th>{DESCRIPTION}</th>
                     <th>{DUEDATE}</th>
                     <th>{AMOUNT}</th>
-                    { isFinAdmin && <th className="delete-column-header"></th> }
+                    {isFinAdmin && <th className="delete-column-header" />}
                 </tr>
 
             </thead>
@@ -67,15 +66,15 @@ const TransactionTable = (props) => {
 
                     return (
                         <tr className={`finance-row ${transaction.status}`} key={index}>
-                            <td className='description-cell'>{transaction.description}</td>
-                            <td className='date-cell'>{dueDate}</td>
-                            <td className='amount-cell'>{formatMoney(lang, transaction.amount)}</td>
-                            { isFinAdmin &&
-                                <td className='delete-cell'>
+                            <td className="description-cell">{transaction.description}</td>
+                            <td className="date-cell">{dueDate}</td>
+                            <td className="amount-cell">{formatMoney(lang, transaction.amount)}</td>
+                            {isFinAdmin &&
+                                <td className="delete-cell">
                                     {
                                         transaction.status !== 'deleted' && (
                                             <Button
-                                                variant='outline-danger'
+                                                variant="outline-danger"
                                                 id={transaction._id}
                                                 onClick={onDeleteTransaction}
                                                 data-description={transaction.description}
@@ -83,12 +82,11 @@ const TransactionTable = (props) => {
                                                 data-currency={transaction.currency}
                                                 data-duedate={dueDate}
                                             >
-                                                <Bin className='delete-transaction' />
+                                                <Bin className="delete-transaction" />
                                             </Button>
                                         )
                                     }
-                                </td>
-                            }
+                                </td>}
                         </tr>
                     );
                 })}
@@ -99,7 +97,7 @@ const TransactionTable = (props) => {
 
 TransactionTable.propTypes = {
     transactionArray: PropTypes.array.isRequired,
-    onError: PropTypes.func.isRequired,
+    // onError: PropTypes.func.isRequired,
     isFinAdmin: PropTypes.bool.isRequired,
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,

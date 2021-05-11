@@ -80,7 +80,7 @@ class Superuser extends Component {
         this.setState({ roleFilter: tempRoleState });
     }
 
-    resetFilters = () => {
+    handleResetFilters = () => {
         this.setState({
             textFilterValue: '',
             roleFilter: {
@@ -96,16 +96,16 @@ class Superuser extends Component {
 
     /* ------------ Dialog functions ------------ */
     // *** OPEN / CLOSE *** //
-    openDelete = (event) => {
+    handleOpenDelete = (event) => {
         const member = this.state.memberData[event.currentTarget.id];
         this.setState({ showDeleteMemberDialog: true, editedMember: member.email });
     }
 
-    openAddMember = () => {
+    handleOpenAddMember = () => {
         this.setState({ showAddMemberDialog: true });
     }
 
-    openUpdateUserSettingsDialog = (event) => {
+    handleOpenUpdateUserSettingsDialog = (event) => {
         const member = this.state.memberData[event.currentTarget.id];
         this.setState({
             showUpdateAdminDialog: true,
@@ -260,30 +260,32 @@ class Superuser extends Component {
         return (
             memberData.map((user, key) => (
                 // check if user passes all filters
-                (this.checkFilters(user)) ? (
-                    <tr key={ key }>
-                        <td className="name-cells">
-                            <span>{user.label}</span>
-                            {user.registered && <VerifiedIcon />}
-                        </td>
-                        <td>
-                            {
-                                // take out the end of the email addresses
-                                user.email.substring(0, user.email.indexOf('@'))
-                            }
-                        </td>
-                        <td className="settings-cells icon-btn">
-                            <Button id={key} onClick={this.openUpdateUserSettingsDialog}>
-                                <SettingsIcon />
-                            </Button>
-                        </td>
-                        <td className="delete-icon-cell icon-btn">
-                            <Button variant='outline-danger' id={ key } onClick={this.openDelete}>
-                                <Bin className='delete-user' />
-                            </Button>
-                        </td>
-                    </tr>
-                ) : (null)
+                this.checkFilters(user)
+                    ? (
+                        <tr key={key}>
+                            <td className="name-cells">
+                                <span>{user.label}</span>
+                                {user.registered && <VerifiedIcon />}
+                            </td>
+                            <td>
+                                {
+                                    // take out the end of the email addresses
+                                    user.email.substring(0, user.email.indexOf('@'))
+                                }
+                            </td>
+                            <td className="settings-cells icon-btn">
+                                <Button id={key} onClick={this.handleOpenUpdateUserSettingsDialog}>
+                                    <SettingsIcon />
+                                </Button>
+                            </td>
+                            <td className="delete-icon-cell icon-btn">
+                                <Button variant="outline-danger" id={key} onClick={this.handleOpenDelete}>
+                                    <Bin className="delete-user" />
+                                </Button>
+                            </td>
+                        </tr>
+                    )
+                    : null
             ))
         );
     }
@@ -312,38 +314,35 @@ class Superuser extends Component {
             <div>
                 {showAddMemberDialog &&
                     <AddMemberDialog
-                        closeDialog = {this.handleCloseDialog}
-                        addMember = {this.handleAddMember}
-                    />
-                }
-                { showUpdateAdminDialog &&
+                        onCloseDialog={this.handleCloseDialog}
+                        onAddMember={this.handleAddMember}
+                    />}
+                {showUpdateAdminDialog &&
                     <UserSettingsDialog
-                        memberEmail = {editedMember}
-                        memberRoles = {memberRoles}
-                        memberLevel = {memberLevel}
-                        updateSettings = {this.handleUpdateUserSettings}
-                        closeDialog = {this.handleCloseDialog}
-                    />
-                }
-                { showDeleteMemberDialog &&
+                        memberEmail={editedMember}
+                        memberRoles={memberRoles}
+                        memberLevel={memberLevel}
+                        onUpdateSettings={this.handleUpdateUserSettings}
+                        onCloseDialog={this.handleCloseDialog}
+                    />}
+                {showDeleteMemberDialog &&
                     <DeleteMemberDialog
                         member={editedMember}
-                        deleteMember = {this.handleDeleteMember}
-                        closeDialog = {this.handleCloseDialog}
-                    />
-                }
-                { showAlert &&
+                        onDeleteMember={this.handleDeleteMember}
+                        onCloseDialog={this.handleCloseDialog}
+                    />}
+                {showAlert &&
                     <Alert
                         alertMsg={alert[alertParam] ? `${alertMessage} ${alert[alertParam]}` : alertMessage}
                         alertType={alertType}
-                        alertClose={this.closeAlert} />
-                }
+                        alertClose={this.closeAlert}
+                    />}
                 <FilterAccordion
-                    handleEmailFilterChange={this.handleEmailFilterChange}
-                    handleSearchIconClick={this.handleSearchIconClick}
-                    handleRegisteredFilterChange={this.handleRegisteredFilterChange}
-                    handleRoleChange={this.handleRoleChange}
-                    resetFilters={this.resetFilters}
+                    onEmailFilterChange={this.handleEmailFilterChange}
+                    onSearchIconClick={this.handleSearchIconClick}
+                    onRegisteredFilterChange={this.handleRegisteredFilterChange}
+                    onRoleChange={this.handleRoleChange}
+                    onResetFilters={this.handleResetFilters}
                     textFilterValue={textFilterValue}
                     registeredFilterValue={registeredFilterValue}
                     roleFilter={roleFilter}
@@ -355,34 +354,36 @@ class Superuser extends Component {
                         <tr>
                             <th>{NAME}</th>
                             <th>{EMAIL}</th>
-                            <th className="settings-icon-column"></th>
-                            <th className="delete-icon-column"></th>
+                            <th className="settings-icon-column" />
+                            <th className="delete-icon-column" />
                         </tr>
                     </thead>
-                    {memberData ? (
-                        <tbody id="tableBody">
-                            <tr>
-                                <td colSpan={5} className="p-0">
-                                    <Button className="add-member-btn" variant="success" onClick={this.openAddMember}>
-                                        <Plus />
-                                        {ADDMEMBER}
-                                    </Button>
-                                </td>
-                            </tr>
-                            {this.renderMembers()}
-                        </tbody>
-                    ) : (
-                        <tbody>
-                            <tr>
-                                <td colSpan={4}>
-                                    <LoadingIndicator
-                                        until={!!memberData}
-                                        size="1rem"
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
-                    )}
+                    {memberData
+                        ? (
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td colSpan={5} className="p-0">
+                                        <Button className="add-member-btn" variant="success" onClick={this.handleOpenAddMember}>
+                                            <Plus />
+                                            {ADDMEMBER}
+                                        </Button>
+                                    </td>
+                                </tr>
+                                {this.renderMembers()}
+                            </tbody>
+                        )
+                        : (
+                            <tbody>
+                                <tr>
+                                    <td colSpan={4}>
+                                        <LoadingIndicator
+                                            until={!!memberData}
+                                            size="1rem"
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        )}
                 </Table>
             </div>
         );

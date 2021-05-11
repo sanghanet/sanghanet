@@ -30,7 +30,7 @@ const matchKeyMaps = () => {
                     dictionariesToGet.shift();
                     assembleKeyMaps(dictionariesToGet);
                 })
-                .catch((err) => {
+                .catch(() => {
                     throw new Error(`There was a problem with getting the keymap of ${dictionariesToGet[0]}`);
                 });
         } else { // -------------------------------- check for consistency

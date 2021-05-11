@@ -11,21 +11,21 @@ import LanguageSelector from '../../components/LanguageSelector/LanguageSelector
 import { RouteComponentProps } from 'react-router-dom';
 
 type RegistrationState = {
-    profileImgURL: string,
-    profileImgBlob: Blob | null,
-    firstName: string,
-    lastName: string,
-    spiritualName: string,
-    firstNameValidationToken: string,
-    lastNameValidationToken: string,
-    spiritualNameValidationToken: string,
-    showAlert: boolean,
-    alertMessage: string,
-    alertParam: string,
-    alertType: ALERT
+    profileImgURL: string;
+    profileImgBlob: Blob | null;
+    firstName: string;
+    lastName: string;
+    spiritualName: string;
+    firstNameValidationToken: string;
+    lastNameValidationToken: string;
+    spiritualNameValidationToken: string;
+    showAlert: boolean;
+    alertMessage: string;
+    alertParam: string;
+    alertType: ALERT;
 };
 
-class Registration extends Component<RouteComponentProps<{}>, RegistrationState> {
+class Registration extends Component<RouteComponentProps, RegistrationState> {
     state: RegistrationState = {
         profileImgURL: '',
         profileImgBlob: null,
@@ -41,14 +41,14 @@ class Registration extends Component<RouteComponentProps<{}>, RegistrationState>
         alertType: 'NOALERT'
     };
 
-    componentDidMount = () => {
+    componentDidMount = (): void => {
         const userStatus = sessionStorage.getItem('userStatus');
-        if ( userStatus !== 'unregistered') {
+        if (userStatus !== 'unregistered') {
             window.location.href = '/'; // To avoid reach Registration page via URL
         }
-    }
+    };
 
-    handleSubmit = (event: React.FormEvent<HTMLFormElement> |  React.MouseEvent<HTMLElement, MouseEvent>) => {
+    handleSubmit = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement, MouseEvent>): void => {
         event.preventDefault();
 
         const { profileImgBlob, firstName, lastName, spiritualName, firstNameValidationToken, lastNameValidationToken, spiritualNameValidationToken } = this.state;
@@ -73,28 +73,28 @@ class Registration extends Component<RouteComponentProps<{}>, RegistrationState>
         } else {
             this.setState({ showAlert: true, alertMessage: '', alertParam: 'MANDATORYFIELDS', alertType: 'ERROR' });
         }
-    }
+    };
 
-    closeAlert = () => {
+    closeAlert = (): void => {
         this.setState({ showAlert: false, alertMessage: '', alertType: 'NOALERT' });
     };
 
-    handleChange = (event: React.ChangeEvent<HTMLInputElement> ) => {
+    handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const input = event.target;
-        this.setState( prevState => ({
+        this.setState((prevState) => ({
             ...prevState,
             [input.id]: input.value,
             [input.id + 'ValidationToken']: validationError(input)
         }));
-    }
+    };
 
-    handleClose = () => {
+    handleClose = (): void => {
         document.location.replace('/');
-    }
+    };
 
-    updateProfileImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files![0]; // Typescript needs the '!', if we are OK with null value;
-        if (!file) return;
+    updateProfileImg = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        if (!event.target.files) return;
+        const file = event.target.files[0];
         if (!file.name.match(/\.(jpg|jpeg|png|svg|webp)$/i)) {
             this.setState({ showAlert: true, alertMessage: '', alertParam: 'VALIDPHOTO', alertType: 'ERROR' });
             return;
@@ -109,7 +109,7 @@ class Registration extends Component<RouteComponentProps<{}>, RegistrationState>
         }
     };
 
-    render () {
+    render (): JSX.Element {
         const {
             profileImgURL,
             firstName,
@@ -136,68 +136,67 @@ class Registration extends Component<RouteComponentProps<{}>, RegistrationState>
         } = registrationPageDictionary;
 
         return (
-            <div className='registration'>
-                { showAlert &&
+            <div className="registration">
+                {showAlert &&
                     <Alert
                         alertClose={this.closeAlert}
                         alertMsg={alert[alertParam] ? `${alertMessage} ${alert[alertParam]}` : alertMessage}
                         alertType={alertType}
-                    />
-                }
+                    />}
                 <header>
-                    <h1>{ REGISTRATIONTITLE }</h1>
+                    <h1>{REGISTRATIONTITLE}</h1>
                 </header>
                 <FormContainer formTitle="">
-                    <Form onSubmit={this.handleSubmit} autoComplete='off'>
+                    <Form onSubmit={this.handleSubmit} autoComplete="off">
                         <InputAvatar
                             profileImgURL={profileImgURL}
                             updateProfileImg={this.updateProfileImg}
                         />
                         <Form.Label htmlFor="firstName" className="display-label">
-                            <p className="display-title">{ FIRSTNAME }</p>
+                            <p className="display-title">{FIRSTNAME}</p>
                         </Form.Label>
                         <Form.Control
                             className="display-input"
                             type="text"
                             id="firstName"
                             value={firstName}
-                            placeholder={ PLACEHOLDER }
+                            placeholder={PLACEHOLDER}
                             onChange={this.handleChange}
                             {...nameValidationRule}
-                        ></Form.Control>
+                        />
                         <span className="error" aria-live="polite">{validationMsg[firstNameValidationToken]}</span>
                         <Form.Label htmlFor="lastName" className="display-label">
-                            <p className="display-title">{ LASTNAME }</p>
+                            <p className="display-title">{LASTNAME}</p>
                         </Form.Label>
                         <Form.Control
                             className="display-input"
                             type="text"
                             id="lastName"
                             value={lastName}
-                            placeholder={ PLACEHOLDER }
+                            placeholder={PLACEHOLDER}
                             onChange={this.handleChange}
                             {...nameValidationRule}
-                        ></Form.Control>
+                        />
                         <span className="error" aria-live="polite">{validationMsg[lastNameValidationToken]}</span>
                         <Form.Label htmlFor="spiritualName" className="display-label">
-                            <p className="display-title">{ SPIRITUALNAME }</p>
+                            <p className="display-title">{SPIRITUALNAME}</p>
                         </Form.Label>
                         <Form.Control
                             className="display-input"
                             type="text"
                             id="spiritualName"
-                            value={ spiritualName }
+                            value={spiritualName}
                             placeholder="Start with capital letter, enter minimum 2 characters."
                             onChange={this.handleChange}
                             {...spiritualNameValidationRule}
-                        ></Form.Control>
+                        />
                         <span className="error" aria-live="polite">{validationMsg[spiritualNameValidationToken]}</span>
                         <div className="regForm-btns">
                             <Button variant="outline-secondary" onClick={this.handleClose}>
-                                { LEAVE }
+                                {LEAVE}
                             </Button>
                             <Button onClick={this.handleSubmit} variant="outline-success" className="reg-btn">
-                                { REGISTRATION }
+                                {REGISTRATION}
                             </Button>
                         </div>
                     </Form>

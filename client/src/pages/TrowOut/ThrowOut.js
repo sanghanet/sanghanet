@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 
-const ThrowOut = (props) => {
+const ThrowOut = () => {
     const { reason } = useParams();
     const { throwoutMessages } = useContext(UIcontext).dictionary;
 

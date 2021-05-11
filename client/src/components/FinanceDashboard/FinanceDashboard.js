@@ -26,16 +26,16 @@ const FinanceDashboard = (props) => {
     };
 
     return (
-        <div className='overview' >
-            <div className='outer'>
+        <div className="overview" >
+            <div className="outer">
                 {/* eslint-disable-next-line array-callback-return */}
                 {Object.entries(balance).map(([pocket, amount], index) => {
                     try {
                         const financePocket = financePockets[pocket.toUpperCase()];
 
                         return (
-                            <div key={index} className='fin-card'>
-                                <div className='fin-card-1st'>
+                            <div key={index} className="fin-card">
+                                <div className="fin-card-1st">
                                     <div>{financePocket} {BALANCE}:</div>
                                     <div>{getIcon(pocket)}</div>
                                 </div>

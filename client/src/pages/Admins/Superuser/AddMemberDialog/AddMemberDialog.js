@@ -9,8 +9,7 @@ import { emailValidationRule, nameValidationRule, validationError } from '../../
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const AddMemberDialog = ({ closeDialog, addMember }) => {
-
+const AddMemberDialog = ({ onCloseDialog, onAddMember }) => {
     const [emailInputValue, setEmailInputValue] = useState('');
     const [labelInputValue, setLabelInputValue] = useState('');
     const [emailInvalid, setEmailInvalid] = useState(true);
@@ -22,26 +21,26 @@ const AddMemberDialog = ({ closeDialog, addMember }) => {
         setEmailInputValue(event.target.value);
         setEmailErrorToken(validationError(event.target));
         setEmailInvalid(!!validationError(event.target));
-    }
+    };
 
     const handleLabelChange = (event) => {
         setLabelInputValue(event.target.value);
         setLabelErrorToken(validationError(event.target));
         setLabelInvalid(!!validationError(event.target));
-    }
+    };
 
     const handleEnter = (event) => {
         if (event.key === 'Enter' && !(labelInvalid || emailInvalid)) {
             handleAddMember();
         }
-    }
+    };
 
     const handleAddMember = (event) => {
         if (!(emailInvalid && labelInvalid)) {
-            addMember(`${emailInputValue}@gmail.com`, labelInputValue);
+            onAddMember(`${emailInputValue}@gmail.com`, labelInputValue);
         }
         event && event.preventDefault();
-    }
+    };
 
     const {
         modalButtons: { CANCEL, ADD },
@@ -51,14 +50,14 @@ const AddMemberDialog = ({ closeDialog, addMember }) => {
 
     return (
         <GenericDialog
-            title = {POPUPADDMEMBER}
-            reject = {CANCEL}
-            accept = {ADD}
-            acceptDisabled = {emailInvalid || labelInvalid}
-            handleClose = {closeDialog}
-            handleAccept = {handleAddMember}
+            title={POPUPADDMEMBER}
+            reject={CANCEL}
+            accept={ADD}
+            acceptDisabled={emailInvalid || labelInvalid}
+            handleClose={onCloseDialog}
+            handleAccept={handleAddMember}
         >
-            <Form onSubmit={handleAddMember} autoComplete='off' className="add-member-dialog">
+            <Form onSubmit={handleAddMember} autoComplete="off" className="add-member-dialog">
                 <Form.Label htmlFor="label-input">{POPUPNAME}<span>*</span></Form.Label>
                 <Form.Control
                     className={labelErrorToken.length ? 'label-input invalid' : 'label-input'}
@@ -69,8 +68,7 @@ const AddMemberDialog = ({ closeDialog, addMember }) => {
                     onKeyPress={handleEnter}
                     autoFocus
                     {...nameValidationRule}
-                >
-                </Form.Control>
+                />
                 <span className="error" aria-live="polite">{validationMsg[labelErrorToken]}</span>
                 <Form.Label htmlFor="email-input">{POPUPEMAIL}<span>*</span></Form.Label>
                 <InputGroup>
@@ -82,8 +80,7 @@ const AddMemberDialog = ({ closeDialog, addMember }) => {
                         onChange={handleEmailChange}
                         onKeyPress={handleEnter}
                         {...emailValidationRule}
-                    >
-                    </Form.Control>
+                    />
                     <InputGroup.Append>
                         <InputGroup.Text>@gmail.com</InputGroup.Text>
                     </InputGroup.Append>
@@ -92,11 +89,11 @@ const AddMemberDialog = ({ closeDialog, addMember }) => {
             </Form>
         </GenericDialog>
     );
-}
+};
 
 AddMemberDialog.propTypes = {
-    closeDialog: PropTypes.func.isRequired,
-    addMember: PropTypes.func.isRequired
+    onCloseDialog: PropTypes.func.isRequired,
+    onAddMember: PropTypes.func.isRequired
 };
 
 export default AddMemberDialog;

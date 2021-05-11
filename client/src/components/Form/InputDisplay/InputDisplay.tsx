@@ -12,19 +12,19 @@ import Col from 'react-bootstrap/Col';
 import { DisableInput } from '../../../enums/DisableInput';
 
 interface InputDisplayProps {
-    inputTitle: string,
-    inputValue: string,
-    inputId: string,
-    inputValueSave: (id: string, value: string) => void,
-    inputType?: string,
-    inputFieldAsSelect?: boolean,
-    optionsForSelect?: Array<string>,
-    textForSelect?: Array<string>,
-    inputVisibility?: (inputId: string) => void,
-    inputVisible: boolean,
-    toDisable?: DisableInput,
-    validation?: ValidationRuleType,
-    format?: string
+    inputTitle: string;
+    inputValue: string;
+    inputId: string;
+    inputValueSave: (id: string, value: string) => void;
+    inputType?: string;
+    inputFieldAsSelect?: boolean;
+    optionsForSelect?: Array<string>;
+    textForSelect?: Array<string>;
+    inputVisibility?: (inputId: string) => void;
+    inputVisible: boolean;
+    toDisable?: DisableInput;
+    validation?: ValidationRuleType;
+    format?: string;
 };
 
 const InputDisplay: React.FC<InputDisplayProps> = (props) => {
@@ -51,13 +51,13 @@ const InputDisplay: React.FC<InputDisplayProps> = (props) => {
 
     return (
 
-        <React.Fragment>
-            { show
-                ? (<InputPopup
+        <>
+            {show &&
+                <InputPopup
                     modalShow={show}
                     modalTitle={inputTitle}
                     modalValue={inputValue}
-                    modalClose={ () => setShow(false) }
+                    modalClose={(): void => setShow(false)}
                     modalId={inputId}
                     modalValueSave={inputValueSave}
                     modalInputType={inputType}
@@ -67,37 +67,34 @@ const InputDisplay: React.FC<InputDisplayProps> = (props) => {
                     modalValidation={validation}
                     modalFormat={format}
                     modalPlaceholder={ENTERVALUE}
-                />)
-                : null
-            }
+                />}
             <Col xs={12} lg={6}>
                 <div className="display-container">
                     <div className="display-label">
                         <p className="display-title">{inputTitle}</p>
                         <button
                             className="display-button visible-button"
-                            onClick={ () => inputVisibility && inputVisibility(inputId) }
-                            disabled ={ toDisable === DisableInput.Visibility }
+                            onClick={(): void => inputVisibility && inputVisibility(inputId)}
+                            disabled={toDisable === DisableInput.Visibility}
                         >
                             {inputVisible
                                 ? <Visible className="display-icon visible-icon" />
-                                : <Invisible className="display-icon visible-icon" />
-                            }
+                                : <Invisible className="display-icon visible-icon" />}
                         </button>
                     </div>
                     <div className="display-input">
                         <p className="display-title">{inputValue || ENTERVALUE}</p>
                         <button
                             className="display-button edit-button"
-                            onClick={ () => setShow(true) }
-                            disabled ={ toDisable === DisableInput.Edit }
+                            onClick={(): void => setShow(true)}
+                            disabled={toDisable === DisableInput.Edit}
                         >
                             <Edit className="display-icon edit-icon" />
                         </button>
                     </div>
                 </div>
             </Col>
-        </React.Fragment>
+        </>
     );
 };
 
@@ -112,7 +109,7 @@ InputDisplay.propTypes = {
     inputFieldAsSelect: PropTypes.bool,
     optionsForSelect: PropTypes.array,
     textForSelect: PropTypes.array,
-    toDisable: PropTypes.oneOf<DisableInput>([ DisableInput.Visibility, DisableInput.Edit ]),
+    toDisable: PropTypes.oneOf<DisableInput>([DisableInput.Visibility, DisableInput.Edit]),
     validation: PropTypes.object,
     // validation: PropTypes.exact({
     //     required: PropTypes.bool,

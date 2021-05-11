@@ -10,20 +10,20 @@ const TransactionTabs = (props) => {
     const { financePockets } = useContext(UIcontext).dictionary;
 
     return (
-        <Tabs className = 'MainTabs' bsPrefix = 'active' defaultActiveKey = {props.activeTab}>
+        <Tabs className="MainTabs" bsPrefix="active" defaultActiveKey={props.activeTab}>
             {Object.entries(props.transactions).map((pocket) => {
                 const tabTitle = financePockets[pocket[0].toUpperCase()];
 
                 return (
-                    <Tab title = {tabTitle} eventKey = {pocket[0]} key = {pocket[0]}>
+                    <Tab title={tabTitle} eventKey={pocket[0]} key={pocket[0]}>
                         <TransactionTable
-                            transactionArray = {pocket[1]}
-                            isFinAdmin = {props.isFinAdmin}
-                            openAddPayment = {props.openAddPayment}
-                            openAddDebt = {props.openAddDebt}
-                            openDeleteTransaction = {props.openDeleteTransaction}
-                            onError = {props.onError}
-                            pocket = {pocket[0]}
+                            transactionArray={pocket[1]}
+                            isFinAdmin={props.isFinAdmin}
+                            openAddPayment={props.openAddPayment}
+                            openAddDebt={props.openAddDebt}
+                            openDeleteTransaction={props.openDeleteTransaction}
+                            onError={props.onError}
+                            pocket={pocket[0]}
                         />
                     </Tab>
                 );

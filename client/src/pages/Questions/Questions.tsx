@@ -1,10 +1,9 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import ComingSoon from '../../components/ComingSoon/ComingSoon';
 
-interface QuestionsProps {};
-
-const Questions: React.FC<QuestionsProps> = (props) => {
-    return (<ComingSoon pageName = "Questions" isPlural = {true} />);
+const Questions: React.FC<RouteComponentProps> = () => {
+    return (<ComingSoon pageName="Questions" isPlural />);
 };
 
 export default Questions;

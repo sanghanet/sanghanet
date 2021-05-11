@@ -9,19 +9,19 @@ const goBack = () => {
     window.location.href = 'app/';
 };
 
-const PageNotFound = (props) => {
+const PageNotFound = () => {
     const { PAGENOTFOUND, GOBACK } = useContext(UIcontext).dictionary.pageNotFound;
 
     return (
-        <div className='not-found-page'>
-            <div className='text-container'>
-            <h1>{PAGENOTFOUND}</h1>
+        <div className="not-found-page">
+            <div className="text-container">
+                <h1>{PAGENOTFOUND}</h1>
                 <Button variant="dark" onClick={goBack}>
                     <BackIcon />
                     <p>{GOBACK}</p>
                 </Button>
             </div>
-            <img src={NotFoundImg} alt='page not found' />
+            <img src={NotFoundImg} alt="page not found" />
         </div>
     );
 };

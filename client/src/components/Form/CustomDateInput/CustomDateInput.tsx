@@ -5,9 +5,9 @@ import './CustomDateInput.scss';
 // Source: https://github.com/Hacker0x01/react-datepicker/issues/862
 // For TS: https://github.com/Hacker0x01/react-datepicker/issues/2165
 
-interface CustomDateInputProps {
-    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-    value?: string
+interface CustomDateInputProps {
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    value?: string;
 };
 
 const CustomDateInput: React.FC<CustomDateInputProps> = ({ onClick, value }) => {

@@ -19,8 +19,8 @@ import { ReactComponent as SuperuserIcon } from '../icons/superman.svg';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
 interface NavbarProps {
-    navStyle: NAVSTYLE,
-    openSubmenu?: boolean
+    navStyle: NAVSTYLE;
+    openSubmenu?: boolean;
 };
 
 const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
@@ -30,12 +30,12 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
     const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser } = context;
     const isAdmin = isFinanceAdmin || isEventAdmin || isYogaAdmin || isSuperuser;
 
-    const handleSubmenu = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const handleSubmenu = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
         event.stopPropagation(); // w/o this, bubbling event close the Hamburger in App.js!
         setShowSubmenu(!showSubmenu);
-    }
+    };
 
-    const handleLink = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const handleLink = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
         const eventTarget = event.target as HTMLAnchorElement;
         const page = eventTarget.href.split('/').pop();
         switch (page) {
@@ -45,36 +45,38 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
             case 'superuser': !isSuperuser && event.preventDefault(); break;
             default:
         }
-    }
+    };
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
         const keyCode = event.keyCode; // CRSR LEFT(37), CRSR RIGHT(39)
         if (keyCode === 37 || keyCode === 39) event.preventDefault();
-    }
+    };
 
-    const createMainMenuItem = (menuItem: MenuItem, index: number) => {
+    const createMainMenuItem = (menuItem: MenuItem, index: number): JSX.Element => {
         return (
             <li key={index}>
                 <NavLink exact to={`/${menuItem.path}`} className="link">
                     <div className="menu-icon"><menuItem.icon /></div>
-                    <span className="title">{ menuItem.label }</span>
+                    <span className="title">{menuItem.label}</span>
                 </NavLink>
             </li>
         );
-    }
+    };
 
-    const createSubMenuItem = (menuItem: MenuItem, index: number) => {
+    const createSubMenuItem = (menuItem: MenuItem, index: number): JSX.Element => {
         return (
             <li key={index}>
                 <div className="sub-link">
-                    <NavLink exact to={`/${menuItem.path}`}
+                    <NavLink
+                        exact to={`/${menuItem.path}`}
                         className={`sub-title${menuItem.isEnabled ? '' : ' disabled'}`}
-                        onClick={handleLink}>{ menuItem.label }
+                        onClick={handleLink}
+                    >{menuItem.label}
                     </NavLink>
                 </div>
             </li>
         );
-    }
+    };
 
     const classList = showSubmenu ? 'wrapper show-submenu' : 'wrapper';
     const {
@@ -117,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
                     <li className="admins">
                         <div className={`link ${isAdmin || 'disabled'}`} onClick={handleSubmenu}>
                             <div className="menu-icon"><ForwardIcon /></div>
-                            <span className="title admins">{ ADMINS }</span>
+                            <span className="title admins">{ADMINS}</span>
                         </div>
                     </li>
                     {mainMenu.map((menuItem, index) => createMainMenuItem(menuItem, index))}
@@ -129,7 +131,7 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
                     <li className="back">
                         <div className="link" onClick={handleSubmenu}>
                             <div className="menu-icon"><BackIcon /></div>
-                            <span className="title">{ BACK }</span>
+                            <span className="title">{BACK}</span>
                         </div>
                     </li>
                     {subMenu.map((menuItem, index) => createSubMenuItem(menuItem, index))}
@@ -137,7 +139,7 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
             </div>
         </div>
     );
-}
+};
 
 Navbar.propTypes = {
     navStyle: PropTypes.oneOf<NAVSTYLE>(['hamburger', 'sidenav']).isRequired,

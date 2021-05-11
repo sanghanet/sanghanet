@@ -15,19 +15,19 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 interface InputPopupProps {
-    modalShow: boolean,
-    modalTitle?: string,
-    modalValue: string,
-    modalClose: () => void,
-    modalId: string,
-    modalValueSave: (id: string, value: string) => void,
-    modalInputType?: string,
-    modalInputAsSelect?: boolean,
-    modalOptions?: Array<string>,
-    modalOptionsText?: Array<string>,
-    modalValidation?: ValidationRuleType,
-    modalFormat?: string,
-    modalPlaceholder?: string
+    modalShow: boolean;
+    modalTitle?: string;
+    modalValue: string;
+    modalClose: () => void;
+    modalId: string;
+    modalValueSave: (id: string, value: string) => void;
+    modalInputType?: string;
+    modalInputAsSelect?: boolean;
+    modalOptions?: Array<string>;
+    modalOptionsText?: Array<string>;
+    modalValidation?: ValidationRuleType;
+    modalFormat?: string;
+    modalPlaceholder?: string;
 };
 
 const InputPopup: React.FC<InputPopupProps> = (props) => {
@@ -44,7 +44,7 @@ const InputPopup: React.FC<InputPopupProps> = (props) => {
         modalOptionsText,
         modalValidation,
         modalFormat,
-        modalPlaceholder,
+        modalPlaceholder
     } = props;
 
     const currentDate = Date.now();
@@ -56,7 +56,7 @@ const InputPopup: React.FC<InputPopupProps> = (props) => {
     const [value, setValue] = useState(modalValue);
     const [errorMsg, setErrorMsg] = useState('');
 
-    const validation = (input: HTMLInputElement) => {
+    const validation = (input: HTMLInputElement): boolean => {
         const valErr = validationError(input);
         if (valErr) {
             setErrorMsg(valErr);
@@ -65,12 +65,12 @@ const InputPopup: React.FC<InputPopupProps> = (props) => {
             setErrorMsg('');
             return true;
         }
-    }
+    };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement, MouseEvent>): void => {
         event.preventDefault(); // event.target is the button here
         if (modalId !== 'birthday') {
-            //TODO: change to forwardRef ??
+            // TODO: change to forwardRef ??
             const input: HTMLInputElement = document.getElementById(modalId) as HTMLInputElement; // input field
             if (validation(input)) {
                 modalValueSave(modalId, value);
@@ -80,24 +80,24 @@ const InputPopup: React.FC<InputPopupProps> = (props) => {
             modalValueSave(modalId, new Date(value).toISOString().slice(0, 10));
             modalClose();
         }
-    }
+    };
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const input = event.target as HTMLInputElement;
         validation(input);
         setValue(input.value);
-    }
+    };
 
-    const handleDateChange = (date: Date) => {
+    const handleDateChange = (date: Date): void => {
         setValue(new Date(date).toISOString());
     };
 
-    const handleClose = () => {
+    const handleClose = (): void => {
         setValue(modalValue);
         modalClose();
-    }
+    };
 
-    const validateDateValue = (currentValue: string) => {
+    const validateDateValue = (currentValue: string): Date => {
         // https://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
         if (typeof currentValue === 'string') {
             const convertedToDate = new Date(currentValue);
@@ -113,52 +113,54 @@ const InputPopup: React.FC<InputPopupProps> = (props) => {
 
     return (
         /* autoFocus works only if Modal animation={false} */
-        <Modal show={modalShow} onHide={handleClose} animation={false} dialogClassName={'modal-container'} className="input-popup">
-            <Form onSubmit={handleSubmit} autoComplete='off'>
+        <Modal show={modalShow} onHide={handleClose} animation={false} dialogClassName="modal-container" className="input-popup">
+            <Form onSubmit={handleSubmit} autoComplete="off">
                 <Modal.Header closeButton>
                     <Form.Label htmlFor={modalId}>{modalTitle}</Form.Label>
                 </Modal.Header>
                 <Modal.Body>
                     {modalInputType === 'date'
-                        ? <div className="date-picker-container">
-                            <DatePicker
-                                id="add-dueDate-label"
-                                selected={validateDateValue(value)}
-                                onChange={handleDateChange}
-                                onMonthChange={handleDateChange}
-                                onYearChange={handleDateChange}
-                                customInput={<CustomDateInput />}
-                                className="form-control"
-                                showMonthDropdown
-                                showYearDropdown
-                                dropdownMode="select"
-                                minDate={addYears(currentDate, -101)}
-                                maxDate={addYears(currentDate, -16)}
-                                inline
-                            />
-                        </div>
-                        : <>
-                            <span className="hint">{REQUIREDFORMAT} {modalFormat}</span>
-                            <Form.Control
-                                as={modalInputAsSelect ? 'select' : 'input'}
-                                type={modalInputType}
-                                id={modalId}
-                                value={value}
-                                onChange={handleChange}
-                                placeholder={modalPlaceholder}
-                                autoFocus
-                                {...modalValidation}
-                            >
-                                { modalOptions
-                                    ? modalOptions.map((option, index) => {
-                                        return (<option value={option} key={index}>{modalOptionsText![index]}</option>);
-                                    })
-                                    : null
-                                }
-                            </Form.Control>
-                            <span className="error" aria-live="polite">{validationMsg[errorMsg]}</span>
-                        </>
-                    }
+                        ? (
+                            <div className="date-picker-container">
+                                <DatePicker
+                                    id="add-dueDate-label"
+                                    selected={validateDateValue(value)}
+                                    onChange={handleDateChange}
+                                    onMonthChange={handleDateChange}
+                                    onYearChange={handleDateChange}
+                                    customInput={<CustomDateInput />}
+                                    className="form-control"
+                                    showMonthDropdown
+                                    showYearDropdown
+                                    dropdownMode="select"
+                                    minDate={addYears(currentDate, -101)}
+                                    maxDate={addYears(currentDate, -16)}
+                                    inline
+                                />
+                            </div>
+                        )
+                        : (
+                            <>
+                                <span className="hint">{REQUIREDFORMAT} {modalFormat}</span>
+                                <Form.Control
+                                    as={modalInputAsSelect ? 'select' : 'input'}
+                                    type={modalInputType}
+                                    id={modalId}
+                                    value={value}
+                                    onChange={handleChange}
+                                    placeholder={modalPlaceholder}
+                                    autoFocus
+                                    {...modalValidation}
+                                >
+                                    {modalOptions
+                                        ? modalOptions.map((option, index) => {
+                                            return (<option value={option} key={index}>{modalOptionsText && modalOptionsText[index]}</option>);
+                                        })
+                                        : null}
+                                </Form.Control>
+                                <span className="error" aria-live="polite">{validationMsg[errorMsg]}</span>
+                            </>
+                        )}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -171,7 +173,7 @@ const InputPopup: React.FC<InputPopupProps> = (props) => {
             </Form>
         </Modal>
     );
-}
+};
 
 InputPopup.propTypes = {
     modalShow: PropTypes.bool.isRequired,
