@@ -21,6 +21,7 @@ import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import { DataContext } from '../contexts/DataContext/DataContext';
 
 import Client from '../Client';
+import { Form, FormLabel } from 'react-bootstrap';
 
 const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteComponentProps) => {
     const [showAlert, setShowAlert] = useState(false);
@@ -74,13 +75,13 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
         setActivePage(pageAndNavbarTitles[pageNameCapitalized.toUpperCase()]);
     }, [location, pageAndNavbarTitles]);
 
-    const handleAvatarClick = (event) => {
+    const handleAvatarClick: React.MouseEventHandler<HTMLImageElement> = (event) => {
         if (location.pathname !== '/app/personal') {
             history.push('/app/personal');
         }
     };
 
-    const handleHamburgerClick = (event) => {
+    const handleHamburgerClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation(); // w/o this, bubbling event immediately close the menu in App.js!
         toggleHamburger();
     };
@@ -114,11 +115,15 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
             });
     }, []);
 
-    const handleSearchInputChange = (targetValue) => setSearchBarValue(targetValue);
+    const handleSearchInputChange = (targetValue: string): void => setSearchBarValue(targetValue);
 
-    const handleSearchBarIconClick = () => {
+    const setSearchBarDefaultState = (): void => {
         setSearching((prevState) => !prevState);
         setSearchBarValue('');
+    };
+
+    const handleSearchBarIconClick: React.MouseEventHandler<FormLabel> = () => {
+        setSearchBarDefaultState();
     };
 
     const displayMoreResults = async (): Promise<void> => {
@@ -130,28 +135,28 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
             }
         });
 
-        handleSearchBarIconClick();
+        setSearchBarDefaultState();
     };
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown: React.KeyboardEventHandler = (e) => {
         switch (e.key) {
             case 'Enter':
                 displayMoreResults();
                 break;
             case 'Escape':
-                handleSearchBarIconClick();
+                setSearchBarDefaultState();
                 break;
             default:
                 break;
         }
     };
 
-    const closeMemberModal = () => {
+    const closeMemberModal: React.MouseEventHandler<HTMLButtonElement> = () => {
         setMemberDialogData({});
         setShowMemberDialog(false);
     };
 
-    const handleSearchResultClick = (id) => {
+    const handleSearchResultClick = (id: string): void => {
         Client.fetch('/user/registereduserdata', {
             method: 'POST',
             body: { userIDs: [id] }
@@ -226,7 +231,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
                                     <>{/* Render only the first three results */}
                                         {searchResults.slice(0, 3).map((user, key) => {
                                             return (
-                                                <li key={key} onClick={() => { handleSearchResultClick(user._id); }}>
+                                                <li key={key} onClick={(): void => { handleSearchResultClick(user._id); }}>
                                                     <p>
                                                         {user.spiritualName !== '-' && <span>{user.spiritualName}</span>}
                                                         <span>{AnyUserNameWrapper(user.firstName, user.lastName)}</span>
