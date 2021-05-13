@@ -56,8 +56,8 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
     }, [setAccess, setUsername, setAvatarSrc]);
 
     const [searchBarValue, setSearchBarValue] = useState('');
-    const [nameOfUsers, setNameOfUsers] = useState([]);
-    const [searchResults, setSearchResults] = useState(null);
+    const [nameOfUsers, setNameOfUsers] = useState<NameOfUsers[]>([]);
+    const [searchResults, setSearchResults] = useState<NameOfUsers[] | null>(null);
     const [searching, setSearching] = useState(false);
     const [showMemberDialog, setShowMemberDialog] = useState(false);
     const [memberDialogData, setMemberDialogData] = useState({});
@@ -86,7 +86,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
     };
 
     const getSearchResults = useCallback(() => {
-        if (!searchBarValue.length > 0) return null;
+        if (searchBarValue.length === 0) return null;
         const searchResults = nameOfUsers.filter((user) => {
             const userName = `${user.firstName} ${user.lastName}`;
             return (
@@ -121,6 +121,18 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
         setSearchBarValue('');
     };
 
+    const displayMoreResults = async (): Promise<void> => {
+        await history.push({
+            pathname: '/app/members',
+            state: {
+                usersToDisplay: searchResults && searchResults.map((user) => user._id),
+                searchString: searchBarValue
+            }
+        });
+
+        handleSearchBarIconClick();
+    };
+
     const handleKeyDown = (e) => {
         switch (e.key) {
             case 'Enter':
@@ -150,18 +162,6 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
             }).catch((err) => {
                 displayAlert(true, err.message, 'ERROR');
             });
-    };
-
-    const displayMoreResults = async () => {
-        await history.push({
-            pathname: '/app/members',
-            state: {
-                usersToDisplay: searchResults.map((user) => user._id),
-                searchString: searchBarValue
-            }
-        });
-
-        handleSearchBarIconClick();
     };
 
     return (
