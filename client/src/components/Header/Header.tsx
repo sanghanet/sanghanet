@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import './Header.scss';
 import Alert from '../Alert/Alert';
@@ -23,7 +22,7 @@ import { DataContext } from '../contexts/DataContext/DataContext';
 
 import Client from '../Client';
 
-const Header = (props) => {
+const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteComponentProps) => {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState('');
@@ -63,9 +62,21 @@ const Header = (props) => {
     const [showMemberDialog, setShowMemberDialog] = useState(false);
     const [memberDialogData, setMemberDialogData] = useState({});
 
+    const [activePage, setActivePage] = useState('');
+    const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
+
+    useEffect(() => {
+        const url = location.pathname;
+        const activePageName = url.substring(url.lastIndexOf('/') + 1);
+        let pageNameCapitalized = activePageName.charAt(0).toUpperCase() + activePageName.slice(1);
+        pageNameCapitalized += url.includes('/app/admin') && !url.includes('/superuser') ? '_Admin' : '';
+
+        setActivePage(pageAndNavbarTitles[pageNameCapitalized.toUpperCase()]);
+    }, [location, pageAndNavbarTitles]);
+
     const handleAvatarClick = (event) => {
-        if (props.location.pathname !== '/app/personal') {
-            props.history.push('/app/personal');
+        if (location.pathname !== '/app/personal') {
+            history.push('/app/personal');
         }
     };
 
@@ -142,7 +153,7 @@ const Header = (props) => {
     };
 
     const displayMoreResults = async () => {
-        await props.history.push({
+        await history.push({
             pathname: '/app/members',
             state: {
                 usersToDisplay: searchResults.map((user) => user._id),
@@ -184,7 +195,7 @@ const Header = (props) => {
                             {ActiveUserNameWrapper()}
                         </Figure.Caption>
                     </Figure>
-                    <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
+                    <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{activePage}</h1>
 
                     <SearchBar
                         controlId="headerSearchBar"
@@ -243,12 +254,6 @@ const Header = (props) => {
 
         </>
     );
-};
-
-Header.propTypes = {
-    activePage: PropTypes.string.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
 };
 
 export default withRouter(Header);
