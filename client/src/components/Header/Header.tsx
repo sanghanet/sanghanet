@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './Header.scss';
-import Alert from '../../components/Alert/Alert';
+import Alert from '../Alert/Alert';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 import MemberDetails from '../MemberDetails/MemberDetails';
@@ -21,7 +21,7 @@ import Figure from 'react-bootstrap/Figure';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import { DataContext } from '../contexts/DataContext/DataContext';
 
-import Client from '../../components/Client';
+import Client from '../Client';
 
 const Header = (props) => {
     const [showAlert, setShowAlert] = useState(false);
