@@ -30,7 +30,7 @@ type RoleFilter = {
 
 interface AccordionProps {
     onEmailFilterChange: (inputValue: string) => void;
-    onSearchIconClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onSearchIconClick: React.MouseEventHandler<HTMLLabelElement>;
     onRegisteredFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onRoleChange: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
     onResetFilters: () => void;
@@ -54,9 +54,9 @@ const FilterAccordion: React.FC<AccordionProps> = ({
     const { FILTERMEMBERS, FILTERTEXT, FILTERSHOW, FILTERALL, FILTERREGISTERED, FILTERUNREGISTERED, RESETFILTERS, FILTERSUPERUSER, FILTERFINADMIN, FILTEREVENTADMIN, FILTERYOGAADMIN, FILTERNOROLE } = superuser;
 
     const _handleEmailFilterChange = (inputValue: string): void => { onEmailFilterChange(inputValue); };
-    const _handleSearchIconClick = (event: React.ChangeEvent<HTMLInputElement>): void => { onSearchIconClick(event); };
-    const _handleRoleChange = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => { onRoleChange(event); };
-    const _handleRegisteredFilterChange = (event: React.ChangeEvent<HTMLInputElement>): void => { onRegisteredFilterChange(event); };
+    const _handleSearchIconClick: React.MouseEventHandler<HTMLLabelElement> = (event) => { onSearchIconClick(event); };
+    const _handleRoleChange: React.MouseEventHandler<HTMLElement> = (event) => { onRoleChange(event); };
+    const _handleRegisteredFilterChange: React.ChangeEventHandler<HTMLInputElement> = (event) => { onRegisteredFilterChange(event); };
 
     const preventSubmit = (event: React.KeyboardEvent<HTMLElement>): void => {
         if (event.key === 'Enter') event.preventDefault();

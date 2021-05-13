@@ -21,7 +21,6 @@ import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import { DataContext } from '../contexts/DataContext/DataContext';
 
 import Client from '../Client';
-import { FormLabel } from 'react-bootstrap';
 
 const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteComponentProps) => {
     const [showAlert, setShowAlert] = useState(false);
@@ -122,7 +121,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
         setSearchBarValue('');
     };
 
-    const handleSearchBarIconClick: React.MouseEventHandler<FormLabel> = () => {
+    const handleSearchBarIconClick: React.MouseEventHandler<HTMLLabelElement> = () => {
         setSearchBarDefaultState();
     };
 
