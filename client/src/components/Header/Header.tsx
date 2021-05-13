@@ -21,7 +21,7 @@ import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import { DataContext } from '../contexts/DataContext/DataContext';
 
 import Client from '../Client';
-import { Form, FormLabel } from 'react-bootstrap';
+import { FormLabel } from 'react-bootstrap';
 
 const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteComponentProps) => {
     const [showAlert, setShowAlert] = useState(false);
