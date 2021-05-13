@@ -25,15 +25,15 @@ import Client from '../Client';
 const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteComponentProps) => {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
+    const [alertType, setAlertType] = useState<ALERT>('NOALERT');
 
-    const displayAlert = (visible, msg, type) => {
+    const displayAlert = (visible: boolean, msg: string, type: ALERT): void => {
         setShowAlert(visible);
         setAlertMessage(msg);
         setAlertType(type);
     };
 
-    const closeAlert = () => { displayAlert(false, '', ''); };
+    const closeAlert = (): void => { displayAlert(false, '', 'NOALERT'); };
     const { isHamburgerOpen, toggleHamburger, setAccess } = useContext(UIcontext);
     const { userName, setUsername, avatarSrc, setAvatarSrc } = useContext(DataContext);
 
@@ -63,7 +63,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
     const [memberDialogData, setMemberDialogData] = useState({});
 
     const [activePage, setActivePage] = useState('');
-    const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
+    const { pageAndNavbarTitles, alert } = useContext(UIcontext).dictionary;
 
     useEffect(() => {
         const url = location.pathname;
@@ -110,7 +110,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
                 setNameOfUsers(data);
             })
             .catch((err) => {
-                console.log(err);
+                displayAlert(true, err.message, 'ERROR');
             });
     }, []);
 
@@ -148,7 +148,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
                 setMemberDialogData(visibleUserData[0]);
                 setShowMemberDialog(true);
             }).catch((err) => {
-                console.log(err);
+                displayAlert(true, err.message, 'ERROR');
             });
     };
 
