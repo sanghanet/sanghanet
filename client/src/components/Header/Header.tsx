@@ -61,7 +61,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
     const [searchResults, setSearchResults] = useState<NameOfUsers[] | null>(null);
     const [searching, setSearching] = useState(false);
     const [showMemberDialog, setShowMemberDialog] = useState(false);
-    const [memberDialogData, setMemberDialogData] = useState({});
+    const [memberDialogData, setMemberDialogData] = useState<RegisteredUserType | null>(null);
 
     const [activePage, setActivePage] = useState('');
     const { pageAndNavbarTitles, alert } = useContext(UIcontext).dictionary;
@@ -152,7 +152,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
     };
 
     const closeMemberModal: React.MouseEventHandler<HTMLButtonElement> = () => {
-        setMemberDialogData({});
+        setMemberDialogData(null);
         setShowMemberDialog(false);
     };
 
@@ -177,7 +177,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
                     alertMsg={alert[alertMessage]}
                     alertType={alertType}
                 />}
-            {showMemberDialog &&
+            {showMemberDialog && memberDialogData &&
                 <MemberDetails
                     closeDialog={closeMemberModal}
                     selectedMemberData={memberDialogData}
