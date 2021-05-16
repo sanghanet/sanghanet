@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import './Header.scss';
-import Alert from '../../components/Alert/Alert';
+import Alert from '../Alert/Alert';
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../Search/SearchBar';
 import MemberDetails from '../MemberDetails/MemberDetails';
@@ -21,20 +20,20 @@ import Figure from 'react-bootstrap/Figure';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import { DataContext } from '../contexts/DataContext/DataContext';
 
-import Client from '../../components/Client';
+import Client from '../Client';
 
-const Header = (props) => {
+const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteComponentProps) => {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
+    const [alertType, setAlertType] = useState<ALERT>('NOALERT');
 
-    const displayAlert = (visible, msg, type) => {
+    const displayAlert = (visible: boolean, msg: string, type: ALERT): void => {
         setShowAlert(visible);
         setAlertMessage(msg);
         setAlertType(type);
     };
 
-    const closeAlert = () => { displayAlert(false, '', ''); };
+    const closeAlert = (): void => { displayAlert(false, '', 'NOALERT'); };
     const { isHamburgerOpen, toggleHamburger, setAccess } = useContext(UIcontext);
     const { userName, setUsername, avatarSrc, setAvatarSrc } = useContext(DataContext);
 
@@ -57,25 +56,37 @@ const Header = (props) => {
     }, [setAccess, setUsername, setAvatarSrc]);
 
     const [searchBarValue, setSearchBarValue] = useState('');
-    const [nameOfUsers, setNameOfUsers] = useState([]);
-    const [searchResults, setSearchResults] = useState(null);
+    const [nameOfUsers, setNameOfUsers] = useState<NameOfUsers[]>([]);
+    const [searchResults, setSearchResults] = useState<NameOfUsers[] | null>(null);
     const [searching, setSearching] = useState(false);
     const [showMemberDialog, setShowMemberDialog] = useState(false);
-    const [memberDialogData, setMemberDialogData] = useState({});
+    const [memberDialogData, setMemberDialogData] = useState<RegisteredUserType | null>(null);
 
-    const handleAvatarClick = (event) => {
-        if (props.location.pathname !== '/app/personal') {
-            props.history.push('/app/personal');
+    const [activePage, setActivePage] = useState('');
+    const { pageAndNavbarTitles, alert } = useContext(UIcontext).dictionary;
+
+    useEffect(() => {
+        const url = location.pathname;
+        const activePageName = url.substring(url.lastIndexOf('/') + 1);
+        let pageNameCapitalized = activePageName.charAt(0).toUpperCase() + activePageName.slice(1);
+        pageNameCapitalized += url.includes('/app/admin') && !url.includes('/superuser') ? '_Admin' : '';
+
+        setActivePage(pageAndNavbarTitles[pageNameCapitalized.toUpperCase()]);
+    }, [location, pageAndNavbarTitles]);
+
+    const handleAvatarClick: React.MouseEventHandler<HTMLImageElement> = (event) => {
+        if (location.pathname !== '/app/personal') {
+            history.push('/app/personal');
         }
     };
 
-    const handleHamburgerClick = (event) => {
+    const handleHamburgerClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation(); // w/o this, bubbling event immediately close the menu in App.js!
         toggleHamburger();
     };
 
     const getSearchResults = useCallback(() => {
-        if (!searchBarValue.length > 0) return null;
+        if (searchBarValue.length === 0) return null;
         const searchResults = nameOfUsers.filter((user) => {
             const userName = `${user.firstName} ${user.lastName}`;
             return (
@@ -99,36 +110,52 @@ const Header = (props) => {
                 setNameOfUsers(data);
             })
             .catch((err) => {
-                console.log(err);
+                displayAlert(true, err.message, 'ERROR');
             });
     }, []);
 
-    const handleSearchInputChange = (targetValue) => setSearchBarValue(targetValue);
+    const handleSearchInputChange = (targetValue: string): void => setSearchBarValue(targetValue);
 
-    const handleSearchBarIconClick = () => {
+    const setSearchBarDefaultState = (): void => {
         setSearching((prevState) => !prevState);
         setSearchBarValue('');
     };
 
-    const handleKeyDown = (e) => {
+    const handleSearchBarIconClick: React.MouseEventHandler<HTMLLabelElement> = () => {
+        setSearchBarDefaultState();
+    };
+
+    const displayMoreResults = async (): Promise<void> => {
+        await history.push({
+            pathname: '/app/members',
+            state: {
+                usersToDisplay: searchResults && searchResults.map((user) => user._id),
+                searchString: searchBarValue
+            }
+        });
+
+        setSearchBarDefaultState();
+    };
+
+    const handleKeyDown: React.KeyboardEventHandler = (e) => {
         switch (e.key) {
             case 'Enter':
                 displayMoreResults();
                 break;
             case 'Escape':
-                handleSearchBarIconClick();
+                setSearchBarDefaultState();
                 break;
             default:
                 break;
         }
     };
 
-    const closeMemberModal = () => {
-        setMemberDialogData({});
+    const closeMemberModal: React.MouseEventHandler<HTMLButtonElement> = () => {
+        setMemberDialogData(null);
         setShowMemberDialog(false);
     };
 
-    const handleSearchResultClick = (id) => {
+    const handleSearchResultClick = (id: string): void => {
         Client.fetch('/user/registereduserdata', {
             method: 'POST',
             body: { userIDs: [id] }
@@ -137,20 +164,8 @@ const Header = (props) => {
                 setMemberDialogData(visibleUserData[0]);
                 setShowMemberDialog(true);
             }).catch((err) => {
-                console.log(err);
+                displayAlert(true, err.message, 'ERROR');
             });
-    };
-
-    const displayMoreResults = async () => {
-        await props.history.push({
-            pathname: '/app/members',
-            state: {
-                usersToDisplay: searchResults.map((user) => user._id),
-                searchString: searchBarValue
-            }
-        });
-
-        handleSearchBarIconClick();
     };
 
     return (
@@ -161,7 +176,7 @@ const Header = (props) => {
                     alertMsg={alert[alertMessage]}
                     alertType={alertType}
                 />}
-            {showMemberDialog &&
+            {showMemberDialog && memberDialogData &&
                 <MemberDetails
                     closeDialog={closeMemberModal}
                     selectedMemberData={memberDialogData}
@@ -184,7 +199,7 @@ const Header = (props) => {
                             {ActiveUserNameWrapper()}
                         </Figure.Caption>
                     </Figure>
-                    <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{props.activePage}</h1>
+                    <h1 className={`page-name m-0 ${searching ? 'd-none' : ''}`}>{activePage}</h1>
 
                     <SearchBar
                         controlId="headerSearchBar"
@@ -215,7 +230,7 @@ const Header = (props) => {
                                     <>{/* Render only the first three results */}
                                         {searchResults.slice(0, 3).map((user, key) => {
                                             return (
-                                                <li key={key} onClick={() => { handleSearchResultClick(user._id); }}>
+                                                <li key={key} onClick={(): void => { handleSearchResultClick(user._id); }}>
                                                     <p>
                                                         {user.spiritualName !== '-' && <span>{user.spiritualName}</span>}
                                                         <span>{AnyUserNameWrapper(user.firstName, user.lastName)}</span>
@@ -243,12 +258,6 @@ const Header = (props) => {
 
         </>
     );
-};
-
-Header.propTypes = {
-    activePage: PropTypes.string.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
 };
 
 export default withRouter(Header);
