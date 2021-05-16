@@ -46,11 +46,6 @@ const AddMemberDialog: React.FC<AddMemberDialogProps> = ({ onCloseDialog, onAddM
         event && event.preventDefault();
     };
 
-    const onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
-        addMember();
-        event && event.preventDefault();
-    };
-
     const handleEnter: React.KeyboardEventHandler = (event) => {
         if (event.key === 'Enter') {
             addMember();
@@ -73,7 +68,7 @@ const AddMemberDialog: React.FC<AddMemberDialogProps> = ({ onCloseDialog, onAddM
             handleClose={onCloseDialog}
             handleAccept={handleAddMember}
         >
-            <Form onSubmit={onSubmit} autoComplete="off" className="add-member-dialog">
+            <Form autoComplete="off" className="add-member-dialog">
                 <Form.Label htmlFor="label-input">{POPUPNAME}<span>*</span></Form.Label>
                 <Form.Control
                     className={labelErrorToken.length ? 'label-input invalid' : 'label-input'}
