@@ -23,7 +23,6 @@ const AddMemberDialog: React.FC<AddMemberDialogProps> = ({ onCloseDialog, onAddM
     const [emailErrorToken, setEmailErrorToken] = useState('');
 
     const handleEmailChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-        console.log(event);
         setEmailInputValue(event.target.value);
         setEmailErrorToken(validationError(event.target));
         setEmailInvalid(!!validationError(event.target));
