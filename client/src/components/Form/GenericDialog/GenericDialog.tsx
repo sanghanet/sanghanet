@@ -13,8 +13,8 @@ interface GenericDialogProps {
     accept?: string;
     children: React.ReactNode;
     acceptDisabled?: boolean;
-    handleClose: () => void;
-    handleAccept?: () => void;
+    handleClose: React.MouseEventHandler<HTMLButtonElement>;
+    handleAccept?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const GenericDialog: React.FC<GenericDialogProps> = ({ title, subtitle, reject, accept, children, acceptDisabled, handleClose, handleAccept }) => {
