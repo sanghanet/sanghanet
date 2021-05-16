@@ -24,9 +24,9 @@ const UserSettingsDialog: React.FC<UserSettingsDialogProps> = (props) => {
     const { memberRoles, memberLevel, memberEmail, onCloseDialog, onUpdateSettings } = props;
 
     const [financeChecked, setFinanceChecked] = useState(memberRoles.isFinanceAdmin);
-    const [eventChecked, setEventChecked] = useState(memberRoles.isFinanceAdmin);
-    const [yogaChecked, setYogaChecked] = useState(memberRoles.isFinanceAdmin);
-    const [superuserChecked, setSuperuserChecked] = useState(memberRoles.isFinanceAdmin);
+    const [eventChecked, setEventChecked] = useState(memberRoles.isEventAdmin);
+    const [yogaChecked, setYogaChecked] = useState(memberRoles.isYogaAdmin);
+    const [superuserChecked, setSuperuserChecked] = useState(memberRoles.isSuperuser);
     const [level, setLevel] = useState(memberLevel);
 
     const dictionary = useContext(UIcontext).dictionary;
