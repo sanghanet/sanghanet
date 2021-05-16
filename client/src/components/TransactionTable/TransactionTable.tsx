@@ -11,7 +11,7 @@ import { ReactComponent as Bin } from '../icons/bin.svg';
 import FinanceTransactionPropType from '../../proptypes/FinanceTransactionPropType';
 
 interface TransactionTableProps {
-    transactionArray: Array<FinanceTransactionSchema>;
+    transactionArray: Array<FinanceTransaction>;
     onError: (error: Error) => void;
     isFinAdmin: boolean;
     openAddPayment?: (pocket: string) => void;

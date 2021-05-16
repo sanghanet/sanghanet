@@ -1,4 +1,4 @@
-type FinanceTransactionSchema = {
+type FinanceTransaction = {
    amount: number;
    description: string;
    currency: string;
@@ -8,6 +8,6 @@ type FinanceTransactionSchema = {
    _id: string;
    paymentMethod: string;
    status: string; // calculated on the fly, during fetch
-   deleted: DeletedTransactionSchema | null;
+   deleted: DeletedTransaction | null;
    by: string;
 };

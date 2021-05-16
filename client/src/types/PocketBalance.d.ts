@@ -1,4 +1,4 @@
-type PocketBalanceSchema = {
+type PocketBalance = {
    membership: number;
    rent: number;
    event: number;
