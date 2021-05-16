@@ -4,7 +4,6 @@ import GenericDialog from '../../../../components/Form/GenericDialog/GenericDial
 import { UIcontext } from '../../../../components/contexts/UIcontext/UIcontext';
 
 import './DeleteTransactionDialog.scss';
-import TransactionToDeletePropType from '../../../../proptypes/TransactionToDeletePropType';
 
 interface DeleteTransactionDialogProps {
     deleteTransaction: (transactionId: string, pocket: string) => void;
@@ -75,7 +74,14 @@ DeleteTransactionDialog.propTypes = {
     closeDialog: PropTypes.func.isRequired,
     selectedUserName: PropTypes.string.isRequired,
     selectedUserEmail: PropTypes.string.isRequired,
-    transaction: TransactionToDeletePropType,
+    transaction: PropTypes.exact({
+        id: PropTypes.string.isRequired,
+        pocket: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        amount: PropTypes.number.isRequired,
+        currency: PropTypes.string.isRequired,
+        dueDate: PropTypes.instanceOf(Date).isRequired,
+    }).isRequired,
 };
 
 export default DeleteTransactionDialog;

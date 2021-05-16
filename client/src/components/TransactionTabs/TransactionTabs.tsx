@@ -5,7 +5,7 @@ import TransactionTable from '../TransactionTable/TransactionTable';
 import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './TransactionTabs.scss';
 import PropTypes from 'prop-types';
-import TransactionsPropType from '../../proptypes/TransactionsPropType';
+import FinanceTransactionPropType from '../../proptypes/FinanceTransactionPropType';
 
 interface TransactionTabsProps {
     transactions: Transactions;
@@ -53,7 +53,12 @@ const TransactionTabs: React.FC<TransactionTabsProps> = (props) => {
 };
 
 TransactionTabs.propTypes = {
-    transactions: TransactionsPropType,
+    transactions: PropTypes.exact({
+        membership: PropTypes.arrayOf(FinanceTransactionPropType).isRequired,
+        rent: PropTypes.arrayOf(FinanceTransactionPropType).isRequired,
+        event: PropTypes.arrayOf(FinanceTransactionPropType).isRequired,
+        angel: PropTypes.arrayOf(FinanceTransactionPropType).isRequired
+    }).isRequired,
     onError: PropTypes.func.isRequired,
     isFinAdmin: PropTypes.bool.isRequired,
     openAddPayment: PropTypes.func,
