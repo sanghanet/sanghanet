@@ -12,8 +12,16 @@ import './UserSettingsDialog.scss';
 
 import Form from 'react-bootstrap/Form';
 
-const UserSettingsDialog = (props) => {
-    const { memberRoles, memberLevel, memberEmail, closeDialog, updateSettings } = props;
+interface UserSettingsDialogProps {
+    memberRoles: MemberRoles;
+    memberLevel: string;
+    memberEmail: string;
+    onCloseDialog: React.MouseEventHandler<HTMLButtonElement>;
+    onUpdateSettings: (data: UpdateSettingsData) => void;
+}
+
+const UserSettingsDialog: React.FC<UserSettingsDialogProps> = (props) => {
+    const { memberRoles, memberLevel, memberEmail, onCloseDialog, onUpdateSettings } = props;
 
     const [financeChecked, setFinanceChecked] = useState(memberRoles.isFinanceAdmin);
     const [eventChecked, setEventChecked] = useState(memberRoles.isFinanceAdmin);
@@ -27,7 +35,7 @@ const UserSettingsDialog = (props) => {
     const { UPDATESETTINGS, UPDATEROLE, UPDATELEVELOFSTUDY } = dictionary.superuserUpdateSettings;
     const { FINANCE_ADMIN, EVENT_ADMIN, YOGA_ADMIN, SUPERUSER } = dictionary.pageAndNavbarTitles;
 
-    const handleChecked = (event) => {
+    const handleChecked: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         switch (event.target.id) {
             case 'finance': setFinanceChecked(!financeChecked); break;
             case 'event': setEventChecked(!eventChecked); break;
@@ -37,9 +45,9 @@ const UserSettingsDialog = (props) => {
         }
     };
 
-    const handleLevelChange = (event) => { setLevel(event.target.value); };
+    const handleLevelChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => { setLevel(event.target.value); };
 
-    const setUpdateMemberRoleDialog = () => {
+    const setUpdateMemberRoleDialog = (): void => {
         const data = {
             isFinanceAdmin: financeChecked,
             isEventAdmin: eventChecked,
@@ -47,7 +55,7 @@ const UserSettingsDialog = (props) => {
             isSuperuser: superuserChecked,
             level: level
         };
-        updateSettings(data);
+        onUpdateSettings(data);
     };
 
     return (
@@ -56,7 +64,7 @@ const UserSettingsDialog = (props) => {
             subtitle={memberEmail}
             reject={CANCEL}
             accept={ACCEPT}
-            handleClose={closeDialog}
+            handleClose={onCloseDialog}
             handleAccept={setUpdateMemberRoleDialog}
         >
             <Form onSubmit={setUpdateMemberRoleDialog} autoComplete="off" className="role-dialog">
@@ -102,11 +110,16 @@ const UserSettingsDialog = (props) => {
 };
 
 UserSettingsDialog.propTypes = {
-    memberRoles: PropTypes.object.isRequired,
+    memberRoles: PropTypes.exact({
+        isFinanceAdmin: PropTypes.bool.isRequired,
+        isEventAdmin: PropTypes.bool.isRequired,
+        isYogaAdmin: PropTypes.bool.isRequired,
+        isSuperuser: PropTypes.bool.isRequired
+    }).isRequired,
     memberLevel: PropTypes.string.isRequired,
     memberEmail: PropTypes.string.isRequired,
-    closeDialog: PropTypes.func.isRequired,
-    updateSettings: PropTypes.func.isRequired
+    onCloseDialog: PropTypes.func.isRequired,
+    onUpdateSettings: PropTypes.func.isRequired
 };
 
 export default UserSettingsDialog;
