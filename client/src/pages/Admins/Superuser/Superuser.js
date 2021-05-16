@@ -328,6 +328,7 @@ class Superuser extends Component {
                 {showDeleteMemberDialog &&
                     <DeleteMemberDialog
                         member={editedMember}
+                        randomNumber={Math.floor(1000 + Math.random() * 9000)}
                         onDeleteMember={this.handleDeleteMember}
                         onCloseDialog={this.handleCloseDialog}
                     />}

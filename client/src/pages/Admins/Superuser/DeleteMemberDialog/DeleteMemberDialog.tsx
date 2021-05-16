@@ -8,18 +8,24 @@ import './DeleteMemberDialog.scss';
 
 import Form from 'react-bootstrap/Form';
 
-const DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
+interface DeleteMemberDialogProps {
+    member: string;
+    randomNumber: number;
+    onCloseDialog: React.MouseEventHandler<HTMLButtonElement>;
+    onDeleteMember: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+const DeleteMemberDialog: React.FC<DeleteMemberDialogProps> = ({ member, randomNumber, onCloseDialog, onDeleteMember }) => {
     const {
         modalButtons: { NO, DELETE },
         superuserDeleteMember: { POPUPDELETEMEMBER, MSGDELETE, CONFIRMDELETE },
         validationMsg
     } = useContext(UIcontext).dictionary;
 
-    const [randomNumber, resetRandomNumber] = useState(Math.floor(1000 + Math.random() * 9000));
     const [isDisabled, setDisabled] = useState(true);
     const [errorToken, setErrorToken] = useState('');
 
-    const validation = (input) => {
+    const validate = (input: EventTarget & HTMLInputElement): boolean => {
         const valErr = validationError(input);
         if (valErr) {
             setErrorToken(valErr);
@@ -30,11 +36,11 @@ const DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
         }
     };
 
-    const handleChange = (event) => {
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         const input = event.target;
         const value = parseInt(input.value);
 
-        if (validation(input) && value !== randomNumber) {
+        if (validate(input) && value !== randomNumber) {
             setErrorToken('WRONGNUMBER');
         };
 
@@ -45,8 +51,8 @@ const DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
         }
     };
 
-    const handleDelete = (event) => {
-        if (!isDisabled) deleteMember();
+    const handleDelete: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+        !isDisabled && onDeleteMember(event);
         event.preventDefault();
     };
 
@@ -56,10 +62,10 @@ const DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
             reject={NO}
             accept={DELETE}
             acceptDisabled={isDisabled}
-            handleClose={closeDialog}
+            handleClose={onCloseDialog}
             handleAccept={handleDelete}
         >
-            <Form onSubmit={handleDelete} autoComplete="off" className="delete-dialog">
+            <Form autoComplete="off" className="delete-dialog">
                 <Form.Label htmlFor="digits-label">
                     <span className="msg">{MSGDELETE}&nbsp;</span>
                     <span className="email">{member}</span>
@@ -70,8 +76,6 @@ const DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
                     type="number"
                     id="digits-label"
                     onChange={handleChange}
-                    min="1000"
-                    max="9999"
                     placeholder={member}
                     autoFocus
                 />
@@ -83,8 +87,9 @@ const DeleteMemberDialog = ({ member, closeDialog, deleteMember }) => {
 
 DeleteMemberDialog.propTypes = {
     member: PropTypes.string.isRequired,
-    closeDialog: PropTypes.func.isRequired,
-    deleteMember: PropTypes.func.isRequired
+    randomNumber: PropTypes.number.isRequired,
+    onCloseDialog: PropTypes.func.isRequired,
+    onDeleteMember: PropTypes.func.isRequired
 };
 
 export default DeleteMemberDialog;
