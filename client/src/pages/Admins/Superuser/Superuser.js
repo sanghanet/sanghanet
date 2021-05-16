@@ -1,5 +1,5 @@
 /* ------------ Imports ------------ */
-import React, { Component } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Client from '../../../components/Client';
 import { UIcontext } from '../../../components/contexts/UIcontext/UIcontext';
 
@@ -19,171 +19,159 @@ import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
-class Superuser extends Component {
-    static contextType = UIcontext;
-    state = {
-        memberData: null,
-        textFilterValue: '',
-        registeredFilterValue: 'all',
-        roleFilter: {
-            filterSuperuser: false,
-            filterFinanceAdmin: false,
-            filterEventAdmin: false,
-            filterYogaAdmin: false,
-            filterNoRole: false
-        },
-        showAddMemberDialog: false,
-        showDeleteMemberDialog: false,
-        showUpdateAdminDialog: false,
-        showAlert: false,
-        alertMessage: '',
-        alertType: '',
-        alertParam: '',
-        memberRoles: {},
-        memberLevel: ''
+const Superuser = (props) => {
+    const defaultRoleFilter = {
+        filterSuperuser: false,
+        filterFinanceAdmin: false,
+        filterEventAdmin: false,
+        filterYogaAdmin: false,
+        filterNoRole: false
     };
 
+    const [memberData, setMemberData] = useState(null);
+    const [editedMember, setEditedMember] = useState(null);
+    const [textFilterValue, setTextFilterValue] = useState('');
+    const [registeredFilterValue, setRegisteredFilterValue] = useState('all');
+    const [roleFilter, setRoleFilter] = useState(defaultRoleFilter);
+    const [showAddMemberDialog, setShowAddMemberDialog] = useState(false);
+    const [showDeleteMemberDialog, setShowDeleteMemberDialog] = useState(false);
+    const [showUpdateAdminDialog, setShowUpdateAdminDialog] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('');
+    const [alertParam, setAlertParam] = useState('');
+    const [memberRoles, setMemberRoles] = useState({});
+    const [memberLevel, setMemberLevel] = useState('');
+
     /* ------------ General functions ------------ */
-    componentDidMount () {
+    const updateAlertSettings = (isShown, msg, type, param) => {
+        setShowAlert(isShown);
+        setAlertMessage(msg);
+        setAlertType(type);
+        param !== undefined && setAlertParam(param);
+    };
+
+    const showError = (err) => {
+        updateAlertSettings(true, err.message, 'ERROR', '');
+    };
+
+    useEffect(() => {
         Client.fetch('/su/getmemberdata', {
             method: 'POST',
             fields: ['email', 'isSuperuser', 'isFinanceAdmin', 'isEventAdmin', 'isYogaAdmin', 'label', 'registered', 'level']
         })
             .then((data) => {
-                this.setState({ memberData: data.reverse() });
+                setMemberData(data.reverse());
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+                showError(err);
             });
-    }
+    }, []);
 
-    closeAlert = () => {
-        this.setState({ showAlert: false, alertMessage: '', alertType: '' });
-    }
+    const closeAlert = () => {
+        updateAlertSettings(false, '', '', '');
+    };
 
     /* ------------ FilterAccordion functions ------------ */
-    handleEmailFilterChange = (inputValue) => {
-        this.setState({ textFilterValue: inputValue });
-    }
+    const handleEmailFilterChange = (inputValue) => {
+        setTextFilterValue(inputValue);
+    };
 
-    handleSearchIconClick = (event) => {
+    const handleSearchIconClick = (event) => {
         event.preventDefault();
-        this.setState({ textFilterValue: '' });
-    }
+        setTextFilterValue('');
+    };
 
-    handleRegisteredFilterChange = (event) => {
-        this.setState({ registeredFilterValue: event.target.value });
-    }
+    const handleRegisteredFilterChange = (event) => {
+        setRegisteredFilterValue(event.target.value);
+    };
 
-    handleRoleChange = (event) => {
-        const tempRoleState = { ...this.state.roleFilter };
+    const handleRoleChange = (event) => {
+        const tempRoleState = { ...roleFilter };
         tempRoleState[event.target.id] = !tempRoleState[event.target.id];
-        this.setState({ roleFilter: tempRoleState });
-    }
+        setRoleFilter(tempRoleState);
+    };
 
-    handleResetFilters = () => {
-        this.setState({
-            textFilterValue: '',
-            roleFilter: {
-                filterSuperuser: false,
-                filterFinanceAdmin: false,
-                filterEventAdmin: false,
-                filterYogaAdmin: false,
-                filterNoRole: false
-            },
-            registeredFilterValue: 'all'
-        });
-    }
+    const handleResetFilters = () => {
+        setTextFilterValue('');
+        setRoleFilter(defaultRoleFilter);
+        setRegisteredFilterValue('all');
+    };
 
     /* ------------ Dialog functions ------------ */
     // *** OPEN / CLOSE *** //
-    handleOpenDelete = (event) => {
-        const member = this.state.memberData[event.currentTarget.id];
-        this.setState({ showDeleteMemberDialog: true, editedMember: member.email });
-    }
+    const handleOpenDelete = (event) => {
+        const member = memberData[event.currentTarget.id];
+        setShowDeleteMemberDialog(true);
+        setEditedMember(member.email);
+    };
 
-    handleOpenAddMember = () => {
-        this.setState({ showAddMemberDialog: true });
-    }
+    const handleOpenAddMember = () => {
+        setShowAddMemberDialog(true);
+    };
 
-    handleOpenUpdateUserSettingsDialog = (event) => {
-        const member = this.state.memberData[event.currentTarget.id];
-        this.setState({
-            showUpdateAdminDialog: true,
-            editedMember: member.email,
-            memberRoles: {
-                isFinanceAdmin: member.isFinanceAdmin,
-                isEventAdmin: member.isEventAdmin,
-                isYogaAdmin: member.isYogaAdmin,
-                isSuperuser: member.isSuperuser
-            },
-            memberLevel: member.level
+    const handleOpenUpdateUserSettingsDialog = (event) => {
+        const member = memberData[event.currentTarget.id];
+        setShowUpdateAdminDialog(true);
+        setEditedMember(member.email);
+        setMemberRoles({
+            isFinanceAdmin: member.isFinanceAdmin,
+            isEventAdmin: member.isEventAdmin,
+            isYogaAdmin: member.isYogaAdmin,
+            isSuperuser: member.isSuperuser
         });
-    }
+        setMemberLevel(member.level);
+    };
 
-    handleCloseDialog = () => {
-        this.setState({
-            showDeleteMemberDialog: false,
-            showAddMemberDialog: false,
-            showUpdateAdminDialog: false
-        });
-    }
+    const handleCloseDialog = () => {
+        setShowDeleteMemberDialog(false);
+        setShowAddMemberDialog(false);
+        setShowUpdateAdminDialog(false);
+    };
 
     // *** FETCH *** //
-    handleDeleteMember = (event) => {
+    const handleDeleteMember = (event) => {
         Client.fetch('/su/deletemember', {
             method: 'DELETE',
-            body: `{"remove": "${this.state.editedMember}"}`
+            body: `{"remove": "${editedMember}"}`
         })
             .then((data) => {
                 if (data.deleted) {
-                    this.setState({
-                        memberData: this.state.memberData.filter((member) => member.email !== data.deleted),
-                        showAlert: true,
-                        alertMessage: data.deleted,
-                        alertParam: 'DELETEDSUCCESSFULLY',
-                        alertType: 'INFO'
-                    });
+                    setMemberData(memberData.filter((member) => member.email !== data.deleted));
+                    updateAlertSettings(true, data.deleted, 'INFO', 'DELETEDSUCCESSFULLY');
                 } else {
-                    this.setState({ showAlert: true, alertMessage: '', alertParam: 'DELETEFAILED', alertType: 'ERROR' });
+                    updateAlertSettings(true, '', 'ERROR', 'DELETEFAILED');
                 }
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+                showError(err);
             });
 
-        this.setState({ showDeleteMemberDialog: false });
-    }
+        setShowDeleteMemberDialog(false);
+    };
 
-    handleAddMember = (emailAddress, label) => {
+    const handleAddMember = (emailAddress, label) => {
         Client.fetch('/su/addmember', {
             method: 'POST',
             body: `{"email": "${emailAddress}", "label": "${label}"}`
         })
             .then((data) => {
                 if (data.memberAdded) {
-                    this.setState({
-                        memberData: [data.memberAdded, ...this.state.memberData],
-                        showAlert: true,
-                        alertMessage: data.memberAdded.email,
-                        alertParam: 'ADDED',
-                        alertType: 'INFO'
-                    });
+                    setMemberData([...memberData, data.memberAdded]);
+                    updateAlertSettings(true, data.memberAdded.email, 'INFO', 'ADDED');
                 } else {
                     if (data.exists) {
-                        this.setState({ showAlert: true, alertMessage: emailAddress, alertParam: 'ALREADYADDED', alertType: 'WARNING' });
+                        updateAlertSettings(true, emailAddress, 'WARNING', 'ALREADYADDED');
                     } else {
-                        this.setState({ showAlert: true, alertMessage: emailAddress, alertParam: 'COULDNTADD', alertType: 'ERROR' });
+                        updateAlertSettings(true, emailAddress, 'ERROR', 'COULDNTADD');
                     }
                 }
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+                showError(err);
             });
 
-        this.setState({ showAddMemberDialog: false });
-    }
+        setShowAddMemberDialog(false);
+    };
 
-    handleUpdateUserSettings = (data) => {
-        const { editedMember } = this.state;
-
+    const handleUpdateUserSettings = (data) => {
         Client.fetch('/su/updatemember', {
             method: 'PUT',
             body: `{
@@ -198,7 +186,7 @@ class Superuser extends Component {
             .then((data) => {
                 if (data.updated) {
                     // deep copy with data update
-                    const newMembers = this.state.memberData.map((member) => member.email === data.updated
+                    const newMembers = memberData.map((member) => member.email === data.updated
                         ? {
                             ...member,
                             isEventAdmin: data.isEvent,
@@ -209,28 +197,21 @@ class Superuser extends Component {
                         }
                         : member
                     );
-                    this.setState({
-                        memberData: newMembers,
-                        showAlert: true,
-                        alertMessage: data.updated,
-                        alertParam: 'SETTINGSUPDATED',
-                        alertType: 'INFO'
-                    });
+                    setMemberData(newMembers);
+                    updateAlertSettings(true, data.updated, 'INFO', 'SETTINGSUPDATED');
                 } else {
-                    this.setState({ showAlert: true, alertParam: 'UPDATEFAILED', alertType: 'ERROR' });
+                    updateAlertSettings(true, '', 'ERROR', 'UPDATEFAILED');
                 }
             }).catch((err) => {
-                this.setState({ showAlert: true, alertMessage: err.message, alertType: 'ERROR' });
+                showError(err);
             });
 
-        this.setState({ showUpdateAdminDialog: false });
-    }
+        setShowUpdateAdminDialog(false);
+    };
 
     /* ------------ User rows ------------ */
     // *** CHECK FILTERS *** //
-    checkFilters = (user) => {
-        const { roleFilter, textFilterValue, registeredFilterValue } = this.state;
-
+    const checkFilters = (user) => {
         // eslint-disable-next-line no-multi-spaces
         const passedEmailFilter =   user.email.substring(0, user.email.indexOf('@')).toLowerCase().includes(textFilterValue.toLowerCase()) ||
                                     user.label.toLowerCase().includes(textFilterValue.toLowerCase());
@@ -251,16 +232,14 @@ class Superuser extends Component {
                                         (!user.registered && registeredFilterValue !== 'registered');
 
         return passedEmailFilter && passedRoleFilter && passedRegisteredFilter;
-    }
+    };
 
     // *** RENDER ROWS *** //
-    renderMembers = () => {
-        const { memberData } = this.state;
-
+    const renderMembers = () => {
         return (
             memberData.map((user, key) => (
                 // check if user passes all filters
-                this.checkFilters(user)
+                checkFilters(user)
                     ? (
                         <tr key={key}>
                             <td className="name-cells">
@@ -274,12 +253,12 @@ class Superuser extends Component {
                                 }
                             </td>
                             <td className="settings-cells icon-btn">
-                                <Button id={key} onClick={this.handleOpenUpdateUserSettingsDialog}>
+                                <Button id={key} onClick={handleOpenUpdateUserSettingsDialog}>
                                     <SettingsIcon />
                                 </Button>
                             </td>
                             <td className="delete-icon-cell icon-btn">
-                                <Button variant="outline-danger" id={key} onClick={this.handleOpenDelete}>
+                                <Button variant="outline-danger" id={key} onClick={handleOpenDelete}>
                                     <Bin className="delete-user" />
                                 </Button>
                             </td>
@@ -288,107 +267,88 @@ class Superuser extends Component {
                     : null
             ))
         );
-    }
+    };
 
-    render () {
-        const {
-            memberData,
-            textFilterValue,
-            registeredFilterValue,
-            showAddMemberDialog,
-            showUpdateAdminDialog,
-            editedMember,
-            roleFilter,
-            showDeleteMemberDialog,
-            showAlert,
-            alertMessage,
-            alertParam,
-            alertType,
-            memberRoles,
-            memberLevel
-        } = this.state;
+    const { ADDMEMBER, NAME, EMAIL } = useContext(UIcontext).dictionary.superuser;
+    const { alert } = useContext(UIcontext).dictionary;
 
-        const { ADDMEMBER, NAME, EMAIL } = this.context.dictionary.superuser;
-        const { alert } = this.context.dictionary;
-        return (
-            <div>
-                {showAddMemberDialog &&
-                    <AddMemberDialog
-                        onCloseDialog={this.handleCloseDialog}
-                        onAddMember={this.handleAddMember}
-                    />}
-                {showUpdateAdminDialog &&
-                    <UserSettingsDialog
-                        memberEmail={editedMember}
-                        memberRoles={memberRoles}
-                        memberLevel={memberLevel}
-                        onUpdateSettings={this.handleUpdateUserSettings}
-                        onCloseDialog={this.handleCloseDialog}
-                    />}
-                {showDeleteMemberDialog &&
-                    <DeleteMemberDialog
-                        member={editedMember}
-                        randomNumber={Math.floor(1000 + Math.random() * 9000)}
-                        onDeleteMember={this.handleDeleteMember}
-                        onCloseDialog={this.handleCloseDialog}
-                    />}
-                {showAlert &&
-                    <Alert
-                        alertMsg={alert[alertParam] ? `${alertMessage} ${alert[alertParam]}` : alertMessage}
-                        alertType={alertType}
-                        alertClose={this.closeAlert}
-                    />}
-                <FilterAccordion
-                    onEmailFilterChange={this.handleEmailFilterChange}
-                    onSearchIconClick={this.handleSearchIconClick}
-                    onRegisteredFilterChange={this.handleRegisteredFilterChange}
-                    onRoleChange={this.handleRoleChange}
-                    onResetFilters={this.handleResetFilters}
-                    textFilterValue={textFilterValue}
-                    registeredFilterValue={registeredFilterValue}
-                    roleFilter={roleFilter}
-                />
-
-                {/* --- Table --- */}
-                <Table striped bordered hover variant="dark">
-                    <thead>
-                        <tr>
-                            <th>{NAME}</th>
-                            <th>{EMAIL}</th>
-                            <th className="settings-icon-column" />
-                            <th className="delete-icon-column" />
-                        </tr>
-                    </thead>
-                    {memberData
-                        ? (
-                            <tbody id="tableBody">
-                                <tr>
-                                    <td colSpan={5} className="p-0">
-                                        <Button className="add-member-btn" variant="success" onClick={this.handleOpenAddMember}>
-                                            <Plus />
-                                            {ADDMEMBER}
-                                        </Button>
-                                    </td>
-                                </tr>
-                                {this.renderMembers()}
-                            </tbody>
-                        )
-                        : (
-                            <tbody>
-                                <tr>
-                                    <td colSpan={4}>
-                                        <LoadingIndicator
-                                            until={!!memberData}
-                                            size="1rem"
-                                        />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        )}
-                </Table>
-            </div>
-        );
-    }
+    return (
+        <div>
+            {showAddMemberDialog &&
+                <AddMemberDialog
+                    onCloseDialog={handleCloseDialog}
+                    onAddMember={handleAddMember}
+                />}
+            {showUpdateAdminDialog &&
+                <UserSettingsDialog
+                    memberEmail={editedMember}
+                    memberRoles={memberRoles}
+                    memberLevel={memberLevel}
+                    onUpdateSettings={handleUpdateUserSettings}
+                    onCloseDialog={handleCloseDialog}
+                />}
+            {showDeleteMemberDialog &&
+                <DeleteMemberDialog
+                    member={editedMember}
+                    randomNumber={Math.floor(1000 + Math.random() * 9000)}
+                    onDeleteMember={handleDeleteMember}
+                    onCloseDialog={handleCloseDialog}
+                />}
+            {showAlert &&
+                <Alert
+                    alertMsg={alert[alertParam] ? `${alertMessage} ${alert[alertParam]}` : alertMessage}
+                    alertType={alertType}
+                    alertClose={closeAlert}
+                />}
+            <FilterAccordion
+                onEmailFilterChange={handleEmailFilterChange}
+                onSearchIconClick={handleSearchIconClick}
+                onRegisteredFilterChange={handleRegisteredFilterChange}
+                onRoleChange={handleRoleChange}
+                onResetFilters={handleResetFilters}
+                textFilterValue={textFilterValue}
+                registeredFilterValue={registeredFilterValue}
+                roleFilter={roleFilter}
+            />
+            {/* --- Table --- */}
+            <Table striped bordered hover variant="dark">
+                <thead>
+                    <tr>
+                        <th>{NAME}</th>
+                        <th>{EMAIL}</th>
+                        <th className="settings-icon-column" />
+                        <th className="delete-icon-column" />
+                    </tr>
+                </thead>
+                {memberData
+                    ? (
+                        <tbody id="tableBody">
+                            <tr>
+                                <td colSpan={5} className="p-0">
+                                    <Button className="add-member-btn" variant="success" onClick={handleOpenAddMember}>
+                                        <Plus />
+                                        {ADDMEMBER}
+                                    </Button>
+                                </td>
+                            </tr>
+                            {renderMembers()}
+                        </tbody>
+                    )
+                    : (
+                        <tbody>
+                            <tr>
+                                <td colSpan={4}>
+                                    <LoadingIndicator
+                                        until={!!memberData}
+                                        size="1rem"
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    )}
+            </Table>
+        </div>
+    );
 };
 
 export default Superuser;
