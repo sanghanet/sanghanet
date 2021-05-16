@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 interface AddMemberDialogProps {
-    onCloseDialog: () => void;
+    onCloseDialog: React.MouseEventHandler<HTMLButtonElement>;
     onAddMember: (emailAddress: string, label: string) => void;
 }
 
@@ -23,6 +23,7 @@ const AddMemberDialog: React.FC<AddMemberDialogProps> = ({ onCloseDialog, onAddM
     const [emailErrorToken, setEmailErrorToken] = useState('');
 
     const handleEmailChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+        console.log(event);
         setEmailInputValue(event.target.value);
         setEmailErrorToken(validationError(event.target));
         setEmailInvalid(!!validationError(event.target));
@@ -45,9 +46,16 @@ const AddMemberDialog: React.FC<AddMemberDialogProps> = ({ onCloseDialog, onAddM
         event && event.preventDefault();
     };
 
-    const handleEnter: React.KeyboardEventHandler = (event) => {
+    const onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
         addMember();
         event && event.preventDefault();
+    };
+
+    const handleEnter: React.KeyboardEventHandler = (event) => {
+        if (event.key === 'Enter') {
+            addMember();
+            event && event.preventDefault();
+        }
     };
 
     const {
@@ -65,7 +73,7 @@ const AddMemberDialog: React.FC<AddMemberDialogProps> = ({ onCloseDialog, onAddM
             handleClose={onCloseDialog}
             handleAccept={handleAddMember}
         >
-            <Form autoComplete="off" className="add-member-dialog">
+            <Form onSubmit={onSubmit} autoComplete="off" className="add-member-dialog">
                 <Form.Label htmlFor="label-input">{POPUPNAME}<span>*</span></Form.Label>
                 <Form.Control
                     className={labelErrorToken.length ? 'label-input invalid' : 'label-input'}
