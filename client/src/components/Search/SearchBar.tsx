@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
 import './SearchBar.scss';
 
-const SearchBar = (props) => {
+interface SearchBarProps {
+    controlId: string;
+    handleInputChange: (value: string) => void;
+    inputValue: string;
+    className?: string;
+    placeholder?: string;
+    handleIconClick?: React.MouseEventHandler<HTMLLabelElement>;
+    icon?: ReactElement;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
+    disabled?: boolean;
+    onKeyDown?: React.KeyboardEventHandler;
+}
+
+const SearchBar: React.FC<SearchBarProps> = (props) => {
     const {
         className,
         controlId,
         placeholder,
         inputValue,
         handleIconClick,
+        handleInputChange,
         icon,
         onBlur,
         disabled,
         onKeyDown
     } = props;
 
-    const handleInputChange = (event) => { props.handleInputChange(event.target.value); };
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => { handleInputChange(event.target.value); };
 
     return (
         <div className={`search-bar ${className}`}>
@@ -26,7 +40,7 @@ const SearchBar = (props) => {
                     type="text"
                     className="custom"
                     placeholder={placeholder}
-                    onChange={handleInputChange}
+                    onChange={handleChange}
                     onBlur={onBlur}
                     value={inputValue}
                     disabled={disabled}
