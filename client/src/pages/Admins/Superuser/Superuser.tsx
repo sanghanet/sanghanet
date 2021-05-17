@@ -19,7 +19,7 @@ import AddMemberDialog from './AddMemberDialog/AddMemberDialog';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
-const Superuser = (props) => {
+const Superuser: React.FC<Record<string, unknown>> = (props) => {
     const defaultRoleFilter = {
         filterSuperuser: false,
         filterFinanceAdmin: false,
@@ -28,8 +28,8 @@ const Superuser = (props) => {
         filterNoRole: false
     };
 
-    const [memberData, setMemberData] = useState(null);
-    const [editedMember, setEditedMember] = useState(null);
+    const [members, setMembers] = useState<MemberData[]>([]);
+    const [editedMember, setEditedMember] = useState('');
     const [textFilterValue, setTextFilterValue] = useState('');
     const [registeredFilterValue, setRegisteredFilterValue] = useState('all');
     const [roleFilter, setRoleFilter] = useState(defaultRoleFilter);
@@ -38,21 +38,21 @@ const Superuser = (props) => {
     const [showUpdateAdminDialog, setShowUpdateAdminDialog] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
+    const [alertType, setAlertType] = useState<ALERT>('NOALERT');
     const [alertParam, setAlertParam] = useState('');
-    const [memberRoles, setMemberRoles] = useState({});
+    const [memberRoles, setMemberRoles] = useState<MemberRoles | null>(null);
     const [memberLevel, setMemberLevel] = useState('');
 
     /* ------------ General functions ------------ */
-    const updateAlertSettings = (isShown, msg, type, param) => {
+    const displayAlert = (isShown: boolean, msg: string, type: ALERT, param: string): void => {
         setShowAlert(isShown);
         setAlertMessage(msg);
         setAlertType(type);
         param !== undefined && setAlertParam(param);
     };
 
-    const showError = (err) => {
-        updateAlertSettings(true, err.message, 'ERROR', '');
+    const displayError = (err: Error): void => {
+        displayAlert(true, err.message, 'ERROR', '');
     };
 
     useEffect(() => {
@@ -61,37 +61,38 @@ const Superuser = (props) => {
             fields: ['email', 'isSuperuser', 'isFinanceAdmin', 'isEventAdmin', 'isYogaAdmin', 'label', 'registered', 'level']
         })
             .then((data) => {
-                setMemberData(data.reverse());
+                setMembers(data.reverse());
             }).catch((err) => {
-                showError(err);
+                displayError(err);
             });
     }, []);
 
-    const closeAlert = () => {
-        updateAlertSettings(false, '', '', '');
+    const closeAlert = (): void => {
+        displayAlert(false, '', 'NOALERT', '');
     };
 
     /* ------------ FilterAccordion functions ------------ */
-    const handleEmailFilterChange = (inputValue) => {
+    const handleEmailFilterChange = (inputValue: string): void => {
         setTextFilterValue(inputValue);
     };
 
-    const handleSearchIconClick = (event) => {
+    const handleSearchIconClick: React.MouseEventHandler<HTMLLabelElement> = (event) => {
         event.preventDefault();
         setTextFilterValue('');
     };
 
-    const handleRegisteredFilterChange = (event) => {
+    const handleRegisteredFilterChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         setRegisteredFilterValue(event.target.value);
     };
 
-    const handleRoleChange = (event) => {
+    const handleRoleChange: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         const tempRoleState = { ...roleFilter };
-        tempRoleState[event.target.id] = !tempRoleState[event.target.id];
+        const role = event.currentTarget.id as ADMIN_ROLE;
+        tempRoleState[role] = !tempRoleState[role];
         setRoleFilter(tempRoleState);
     };
 
-    const handleResetFilters = () => {
+    const handleResetFilters: React.MouseEventHandler<HTMLButtonElement> = () => {
         setTextFilterValue('');
         setRoleFilter(defaultRoleFilter);
         setRegisteredFilterValue('all');
@@ -99,18 +100,18 @@ const Superuser = (props) => {
 
     /* ------------ Dialog functions ------------ */
     // *** OPEN / CLOSE *** //
-    const handleOpenDelete = (event) => {
-        const member = memberData[event.currentTarget.id];
+    const handleOpenDelete: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+        const member = members[Number(event.currentTarget.id)];
         setShowDeleteMemberDialog(true);
         setEditedMember(member.email);
     };
 
-    const handleOpenAddMember = () => {
+    const handleOpenAddMember: React.MouseEventHandler<HTMLButtonElement> = () => {
         setShowAddMemberDialog(true);
     };
 
-    const handleOpenUpdateUserSettingsDialog = (event) => {
-        const member = memberData[event.currentTarget.id];
+    const handleOpenUpdateUserSettingsDialog: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+        const member = members[Number(event.currentTarget.id)];
         setShowUpdateAdminDialog(true);
         setEditedMember(member.email);
         setMemberRoles({
@@ -122,56 +123,56 @@ const Superuser = (props) => {
         setMemberLevel(member.level);
     };
 
-    const handleCloseDialog = () => {
+    const handleCloseDialog: React.MouseEventHandler<HTMLButtonElement> = () => {
         setShowDeleteMemberDialog(false);
         setShowAddMemberDialog(false);
         setShowUpdateAdminDialog(false);
     };
 
     // *** FETCH *** //
-    const handleDeleteMember = (event) => {
+    const handleDeleteMember: React.MouseEventHandler<HTMLButtonElement> = () => {
         Client.fetch('/su/deletemember', {
             method: 'DELETE',
             body: `{"remove": "${editedMember}"}`
         })
             .then((data) => {
                 if (data.deleted) {
-                    setMemberData(memberData.filter((member) => member.email !== data.deleted));
-                    updateAlertSettings(true, data.deleted, 'INFO', 'DELETEDSUCCESSFULLY');
+                    setMembers(members.filter((member) => member.email !== data.deleted));
+                    displayAlert(true, data.deleted, 'INFO', 'DELETEDSUCCESSFULLY');
                 } else {
-                    updateAlertSettings(true, '', 'ERROR', 'DELETEFAILED');
+                    displayAlert(true, '', 'ERROR', 'DELETEFAILED');
                 }
             }).catch((err) => {
-                showError(err);
+                displayError(err);
             });
 
         setShowDeleteMemberDialog(false);
     };
 
-    const handleAddMember = (emailAddress, label) => {
+    const handleAddMember = (emailAddress: string, label: string): void => {
         Client.fetch('/su/addmember', {
             method: 'POST',
             body: `{"email": "${emailAddress}", "label": "${label}"}`
         })
             .then((data) => {
                 if (data.memberAdded) {
-                    setMemberData([...memberData, data.memberAdded]);
-                    updateAlertSettings(true, data.memberAdded.email, 'INFO', 'ADDED');
+                    setMembers([...members, data.memberAdded]);
+                    displayAlert(true, data.memberAdded.email, 'INFO', 'ADDED');
                 } else {
                     if (data.exists) {
-                        updateAlertSettings(true, emailAddress, 'WARNING', 'ALREADYADDED');
+                        displayAlert(true, emailAddress, 'WARNING', 'ALREADYADDED');
                     } else {
-                        updateAlertSettings(true, emailAddress, 'ERROR', 'COULDNTADD');
+                        displayAlert(true, emailAddress, 'ERROR', 'COULDNTADD');
                     }
                 }
             }).catch((err) => {
-                showError(err);
+                displayError(err);
             });
 
         setShowAddMemberDialog(false);
     };
 
-    const handleUpdateUserSettings = (data) => {
+    const handleUpdateUserSettings = (data: UpdateSettingsData): void => {
         Client.fetch('/su/updatemember', {
             method: 'PUT',
             body: `{
@@ -186,7 +187,7 @@ const Superuser = (props) => {
             .then((data) => {
                 if (data.updated) {
                     // deep copy with data update
-                    const newMembers = memberData.map((member) => member.email === data.updated
+                    const newMembers = members.map((member) => member.email === data.updated
                         ? {
                             ...member,
                             isEventAdmin: data.isEvent,
@@ -197,13 +198,13 @@ const Superuser = (props) => {
                         }
                         : member
                     );
-                    setMemberData(newMembers);
-                    updateAlertSettings(true, data.updated, 'INFO', 'SETTINGSUPDATED');
+                    setMembers(newMembers);
+                    displayAlert(true, data.updated, 'INFO', 'SETTINGSUPDATED');
                 } else {
-                    updateAlertSettings(true, '', 'ERROR', 'UPDATEFAILED');
+                    displayAlert(true, '', 'ERROR', 'UPDATEFAILED');
                 }
             }).catch((err) => {
-                showError(err);
+                displayError(err);
             });
 
         setShowUpdateAdminDialog(false);
@@ -211,7 +212,7 @@ const Superuser = (props) => {
 
     /* ------------ User rows ------------ */
     // *** CHECK FILTERS *** //
-    const checkFilters = (user) => {
+    const checkFilters = (user: MemberData): boolean => {
         // eslint-disable-next-line no-multi-spaces
         const passedEmailFilter =   user.email.substring(0, user.email.indexOf('@')).toLowerCase().includes(textFilterValue.toLowerCase()) ||
                                     user.label.toLowerCase().includes(textFilterValue.toLowerCase());
@@ -235,38 +236,38 @@ const Superuser = (props) => {
     };
 
     // *** RENDER ROWS *** //
-    const renderMembers = () => {
-        return (
-            memberData.map((user, key) => (
-                // check if user passes all filters
-                checkFilters(user)
-                    ? (
-                        <tr key={key}>
-                            <td className="name-cells">
-                                <span>{user.label}</span>
-                                {user.registered && <VerifiedIcon />}
-                            </td>
-                            <td>
-                                {
-                                    // take out the end of the email addresses
-                                    user.email.substring(0, user.email.indexOf('@'))
-                                }
-                            </td>
-                            <td className="settings-cells icon-btn">
-                                <Button id={key} onClick={handleOpenUpdateUserSettingsDialog}>
-                                    <SettingsIcon />
-                                </Button>
-                            </td>
-                            <td className="delete-icon-cell icon-btn">
-                                <Button variant="outline-danger" id={key} onClick={handleOpenDelete}>
-                                    <Bin className="delete-user" />
-                                </Button>
-                            </td>
-                        </tr>
-                    )
-                    : null
-            ))
-        );
+    const renderMembers = (): Array<JSX.Element | null> => {
+        return members.map((user, index) => {
+            // check if user passes all filters
+            if (checkFilters(user)) {
+                const id = index.toString();
+                return (
+                    <tr key={index}>
+                        <td className="name-cells">
+                            <span>{user.label}</span>
+                            {user.registered && <VerifiedIcon />}
+                        </td>
+                        <td>
+                            {
+                                // take out the end of the email addresses
+                                user.email.substring(0, user.email.indexOf('@'))
+                            }
+                        </td>
+                        <td className="settings-cells icon-btn">
+                            <Button id={id} onClick={handleOpenUpdateUserSettingsDialog}>
+                                <SettingsIcon />
+                            </Button>
+                        </td>
+                        <td className="delete-icon-cell icon-btn">
+                            <Button variant="outline-danger" id={id} onClick={handleOpenDelete}>
+                                <Bin className="delete-user" />
+                            </Button>
+                        </td>
+                    </tr>
+                );
+            }
+            return null;
+        });
     };
 
     const { ADDMEMBER, NAME, EMAIL } = useContext(UIcontext).dictionary.superuser;
@@ -279,7 +280,7 @@ const Superuser = (props) => {
                     onCloseDialog={handleCloseDialog}
                     onAddMember={handleAddMember}
                 />}
-            {showUpdateAdminDialog &&
+            {showUpdateAdminDialog && memberRoles != null &&
                 <UserSettingsDialog
                     memberEmail={editedMember}
                     memberRoles={memberRoles}
@@ -320,7 +321,7 @@ const Superuser = (props) => {
                         <th className="delete-icon-column" />
                     </tr>
                 </thead>
-                {memberData
+                {members
                     ? (
                         <tbody id="tableBody">
                             <tr>
@@ -339,7 +340,7 @@ const Superuser = (props) => {
                             <tr>
                                 <td colSpan={4}>
                                     <LoadingIndicator
-                                        until={!!memberData}
+                                        until={!!members}
                                         size="1rem"
                                     />
                                 </td>
