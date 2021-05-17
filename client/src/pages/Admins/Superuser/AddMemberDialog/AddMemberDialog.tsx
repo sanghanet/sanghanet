@@ -35,7 +35,7 @@ const AddMemberDialog: React.FC<AddMemberDialogProps> = ({ onCloseDialog, onAddM
     };
 
     const addMember = (): void => {
-        if (!(emailInvalid && labelInvalid)) {
+        if (!(emailInvalid || labelInvalid)) {
             onAddMember(`${emailInputValue}@gmail.com`, labelInputValue);
         }
     };
