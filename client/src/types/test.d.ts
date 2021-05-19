@@ -1,0 +1,1 @@
+../../../commonTypes/test.d.ts

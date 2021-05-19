@@ -167,3 +167,17 @@ Run `npm run buildfinance` in the root directory.
         [Info - 10:10:52 PM] ESLint server is running.
         [Info - 10:10:53 PM] ESLint library loaded from: E:\Dev\web\sanghanet\server\node_modules\eslint\lib\api.js
         [Info - 10:11:03 PM] ESLint library loaded from: E:\Dev\web\sanghanet\client\node_modules\eslint\lib\api.js
+
+
+# Symlinks for common types:
+   Always modify commonTypes/type.d.ts.
+   Client and Server going to use the same file through types/symlink-to-type.d.ts
+
+## Enable Symlinks for common types:
+   `git config --global core.symlinks true`
+
+## Create new symlinks (tested on Linux only):
+   - Create common type in commonTypes folder.
+   - `cd client/src/types && ln -s ../../../commonTypes/test.d.ts test.d.ts`
+   - `cd server/src/types && ln -s ../../../commonTypes/test.d.ts test.d.ts`
+
