@@ -61,7 +61,7 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
                             <Button
                                 className="trans-btn"
                                 variant="success"
-                                onClick={() => openAddPayment!(pocket)}
+                                onClick={(): void => openAddPayment && openAddPayment(pocket)}
                             >
                                 <Plus />
                                 {ADDNEWPAYMENT}
@@ -69,7 +69,7 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
                             <Button
                                 className="trans-btn"
                                 variant="danger"
-                                onClick={() => openAddDebt!(pocket)}
+                                onClick={(): void => openAddDebt && openAddDebt(pocket)}
                             >
                                 <Minus />
                                 {ADDNEWDEBIT}
