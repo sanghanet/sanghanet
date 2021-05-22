@@ -9,7 +9,12 @@ import { emailValidationRule, nameValidationRule, validationError } from '../../
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const AddMemberDialog = ({ onCloseDialog, onAddMember }) => {
+interface AddMemberDialogProps {
+    onCloseDialog: React.MouseEventHandler<HTMLButtonElement>;
+    onAddMember: (emailAddress: string, label: string) => void;
+}
+
+const AddMemberDialog: React.FC<AddMemberDialogProps> = ({ onCloseDialog, onAddMember }) => {
     const [emailInputValue, setEmailInputValue] = useState('');
     const [labelInputValue, setLabelInputValue] = useState('');
     const [emailInvalid, setEmailInvalid] = useState(true);
@@ -17,29 +22,34 @@ const AddMemberDialog = ({ onCloseDialog, onAddMember }) => {
     const [labelErrorToken, setLabelErrorToken] = useState('');
     const [emailErrorToken, setEmailErrorToken] = useState('');
 
-    const handleEmailChange = (event) => {
+    const handleEmailChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         setEmailInputValue(event.target.value);
         setEmailErrorToken(validationError(event.target));
         setEmailInvalid(!!validationError(event.target));
     };
 
-    const handleLabelChange = (event) => {
+    const handleLabelChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         setLabelInputValue(event.target.value);
         setLabelErrorToken(validationError(event.target));
         setLabelInvalid(!!validationError(event.target));
     };
 
-    const handleEnter = (event) => {
-        if (event.key === 'Enter' && !(labelInvalid || emailInvalid)) {
-            handleAddMember();
+    const addMember = (): void => {
+        if (!(emailInvalid || labelInvalid)) {
+            onAddMember(`${emailInputValue}@gmail.com`, labelInputValue);
         }
     };
 
-    const handleAddMember = (event) => {
-        if (!(emailInvalid && labelInvalid)) {
-            onAddMember(`${emailInputValue}@gmail.com`, labelInputValue);
-        }
+    const handleAddMember: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+        addMember();
         event && event.preventDefault();
+    };
+
+    const handleEnter: React.KeyboardEventHandler = (event) => {
+        if (event.key === 'Enter') {
+            addMember();
+            event && event.preventDefault();
+        }
     };
 
     const {
@@ -57,7 +67,7 @@ const AddMemberDialog = ({ onCloseDialog, onAddMember }) => {
             handleClose={onCloseDialog}
             handleAccept={handleAddMember}
         >
-            <Form onSubmit={handleAddMember} autoComplete="off" className="add-member-dialog">
+            <Form autoComplete="off" className="add-member-dialog">
                 <Form.Label htmlFor="label-input">{POPUPNAME}<span>*</span></Form.Label>
                 <Form.Control
                     className={labelErrorToken.length ? 'label-input invalid' : 'label-input'}

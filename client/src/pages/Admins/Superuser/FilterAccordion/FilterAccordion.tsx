@@ -31,9 +31,9 @@ type RoleFilter = {
 interface AccordionProps {
     onEmailFilterChange: (inputValue: string) => void;
     onSearchIconClick: React.MouseEventHandler<HTMLLabelElement>;
-    onRegisteredFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    onRoleChange: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-    onResetFilters: () => void;
+    onRegisteredFilterChange: React.ChangeEventHandler<HTMLInputElement>;
+    onRoleChange: React.MouseEventHandler<HTMLButtonElement>;
+    onResetFilters: React.MouseEventHandler<HTMLButtonElement>;
     textFilterValue: string;
     registeredFilterValue: string;
     roleFilter: RoleFilter;
@@ -53,14 +53,16 @@ const FilterAccordion: React.FC<AccordionProps> = ({
     const { superuser } = useContext(UIcontext).dictionary;
     const { FILTERMEMBERS, FILTERTEXT, FILTERSHOW, FILTERALL, FILTERREGISTERED, FILTERUNREGISTERED, RESETFILTERS, FILTERSUPERUSER, FILTERFINADMIN, FILTEREVENTADMIN, FILTERYOGAADMIN, FILTERNOROLE } = superuser;
 
-    const _handleEmailFilterChange = (inputValue: string): void => { onEmailFilterChange(inputValue); };
-    const _handleSearchIconClick: React.MouseEventHandler<HTMLLabelElement> = (event) => { onSearchIconClick(event); };
-    const _handleRoleChange: React.MouseEventHandler<HTMLElement> = (event) => { onRoleChange(event); };
-    const _handleRegisteredFilterChange: React.ChangeEventHandler<HTMLInputElement> = (event) => { onRegisteredFilterChange(event); };
+    const _handleEmailFilterChange = onEmailFilterChange;
+    const _handleSearchIconClick = onSearchIconClick;
+    const _handleRoleChange = onRoleChange;
+    const _handleRegisteredFilterChange = onRegisteredFilterChange;
 
     const preventSubmit = (event: React.KeyboardEvent<HTMLElement>): void => {
         if (event.key === 'Enter') event.preventDefault();
     };
+
+    const handleResetFiltersClick: React.MouseEventHandler<HTMLButtonElement> = (event) => { onResetFilters(event); };
 
     return (
         <Accordion onKeyDown={preventSubmit} className="su-filter-accordion">
@@ -130,7 +132,7 @@ const FilterAccordion: React.FC<AccordionProps> = ({
                                     handleChange={_handleRoleChange}
                                 />
                             </Form.Group>
-                            <Button className="reset-button" variant="outline-primary" onClick={(): void => { onResetFilters(); }}>{RESETFILTERS}</Button>
+                            <Button className="reset-button" variant="outline-primary" onClick={handleResetFiltersClick}>{RESETFILTERS}</Button>
                         </Form>
                     </Card.Body>
                 </Accordion.Collapse>
