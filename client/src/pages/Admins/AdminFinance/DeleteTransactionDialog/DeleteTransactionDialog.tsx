@@ -80,7 +80,7 @@ DeleteTransactionDialog.propTypes = {
         description: PropTypes.string.isRequired,
         amount: PropTypes.number.isRequired,
         currency: PropTypes.string.isRequired,
-        dueDate: PropTypes.instanceOf(Date).isRequired,
+        dueDate: PropTypes.string.isRequired,
     }).isRequired,
 };
 

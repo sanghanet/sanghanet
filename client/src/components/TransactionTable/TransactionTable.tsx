@@ -39,14 +39,14 @@ const TransactionTable: React.FC<TransactionTableProps> = (props) => {
     const onDeleteTransaction: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
 
-        const { description, amount, currency, dueDate } = event.currentTarget.dataset;
+        const { description, amount, currency, duedate } = event.currentTarget.dataset;
         const transaction = {
             id: event.currentTarget.id,
             pocket: pocket,
             description: description || '',
             amount: parseInt(amount || ''),
             currency: currency || '',
-            dueDate: new Date(dueDate || ''),
+            dueDate: duedate || '',
         };
 
         openDeleteTransaction && openDeleteTransaction(transaction); // TODO when optional chaining allowed --> openDeleteTransaction?(transaction)

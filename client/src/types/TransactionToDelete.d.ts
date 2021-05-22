@@ -4,5 +4,5 @@ type TransactionToDelete = {
     description: string;
     amount: number;
     currency: string;
-    dueDate: Date;
+    dueDate: string;
 };
