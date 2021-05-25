@@ -7,12 +7,12 @@ import Alert from '../../../components/Alert/Alert';
 import PropTypes from 'prop-types';
 
 interface FinanceContainerProps {
-   selectedUser?: string;
-   isFinAdmin: boolean;
-   openAddPayment?: () => void;
-   openAddDebt?: () => void;
-   openDeleteTransaction?: () => void;
-   activeTab?: string;
+    selectedUser?: string;
+    isFinAdmin: boolean;
+    openAddPayment?: (pocket: string) => void;
+    openAddDebt?: (pocket: string) => void;
+    openDeleteTransaction?: (transaction: TransactionToDelete) => void;
+    activeTab?: string;
 }
 
 const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
@@ -24,17 +24,17 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
         openDeleteTransaction,
         activeTab
     } = props;
-    const [financeData, setFinanceData] = useState<FinanceAccountSchema | null>(null);
+    const [financeData, setFinanceData] = useState<FinanceAccount | null>(null);
     const [errorState, setErrorState] = useState(0);
     const [reRender, setReRender] = useState(0); // fine HACK to rerender Component when new data is available.
 
-    const sortByDueDate = (t1: FinanceTransactionSchema, t2: FinanceTransactionSchema): number => {
+    const sortByDueDate = (t1: FinanceTransaction, t2: FinanceTransaction): number => {
         return new Date(t2.dueDate).getTime() - new Date(t1.dueDate).getTime();
     };
 
     const getFinanceData = async (userEmail: string | null = null): Promise<void> => {
         try {
-            const result: FinanceAccountSchema = await Client.fetch('/finance/financedata', {
+            const result: FinanceAccount = await Client.fetch('/finance/financedata', {
                 method: 'POST',
                 body: {
                     email: userEmail
@@ -78,12 +78,10 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                 <>
                     <FinanceDashboard
                         key={reRender}
-                        currency={financeData.currency}
                         balance={financeData.balance}
                         onError={handleError}
                     />
                     <TransactionTabs
-                        currency={financeData.currency}
                         transactions={financeData.transactions}
                         onError={handleError}
                         isFinAdmin={isFinAdmin}

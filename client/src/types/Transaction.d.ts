@@ -1,0 +1,1 @@
+type TRANSACTION = 'debt' | 'payment' | '';
