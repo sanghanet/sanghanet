@@ -167,3 +167,8 @@ Run `npm run buildfinance` in the root directory.
         [Info - 10:10:52 PM] ESLint server is running.
         [Info - 10:10:53 PM] ESLint library loaded from: E:\Dev\web\sanghanet\server\node_modules\eslint\lib\api.js
         [Info - 10:11:03 PM] ESLint library loaded from: E:\Dev\web\sanghanet\client\node_modules\eslint\lib\api.js
+
+## Common Types in client and server project:
+- Run `installGitHooks.sh` to enable automatic sync@checkout.
+- Run `syncCommonTypes.sh` to refresh common types under client and server folders.
+- Version control files only in commonTypes folder, client|server/src/types/*.common.d.ts are in .gitignore!
