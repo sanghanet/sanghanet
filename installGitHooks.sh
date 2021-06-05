@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
-echo Install post-checkout hook to manage version data
-
+echo Install post-checkout hooks to:
+echo '    - syncCommonTypes'
+echo '    - manage version data'
 POST_CHECKOUT=.git/hooks/post-checkout
-
 cat <<EOT > $POST_CHECKOUT
 #!/bin/sh
+
+./syncCommonTypes.sh
 
 DATE=\`git show --no-patch --no-notes --date=short --pretty='%ad' HEAD\`
 HASH=\`git show --no-patch --no-notes --pretty='%h' HEAD\`
