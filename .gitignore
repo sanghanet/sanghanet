@@ -17,3 +17,4 @@ server/.env.live
 server/logs
 server/testDataScripts/logs
 server/src/types/*.common.d.ts
+server/build

@@ -172,3 +172,8 @@ Run `npm run buildfinance` in the root directory.
 - Run `installGitHooks.sh` to enable automatic sync@checkout.
 - Run `syncCommonTypes.sh` to refresh common types under client and server folders.
 - Version control files only in commonTypes folder, client|server/src/types/*.common.d.ts are in .gitignore!
+
+## How to build TYPESCRIPT server:
+- single build: `cd server && node_modules/.bin/tsc`
+- build w/ source watch: `cd server && node_modules/.bin/tsc -w`
+In this case src modification going to trigger rebuild automatically, and nodemon going to restart server process as soon as build is ready.
