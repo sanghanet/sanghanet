@@ -1,4 +1,4 @@
-const log4js = require('log4js');
+import log4js from 'log4js';
 
 log4js.configure({
     appenders: {
@@ -24,6 +24,4 @@ log.info('Log service starting.');
 // // Set log level like that:
 // // log.level = 'trace';
 
-module.exports = {
-    log4js: log4js
-};
+export { log4js };
