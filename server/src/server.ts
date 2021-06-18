@@ -18,7 +18,6 @@ import router from './routers/router';
 import suRouter from './routers/su.router';
 import financeRouter from './routers/financeRouter';
 import serviceRouter from './routers/service.router';
-import { url } from 'inspector';
 
 app.use(express.static('app'));
 app.use('/registration', express.static('app'));
@@ -45,8 +44,8 @@ app.use('/app/admin/yoga', express.static('app'));
 app.use('/app/admin/superuser', express.static('app'));
 
 // configuring express to use body-parser as middle-ware.
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false })); // TODO - refactor deprecated bodyParser
+app.use(bodyParser.json()); // TODO - refactor deprecated bodyParser
 
 app.use(sessionMiddleware);
 
