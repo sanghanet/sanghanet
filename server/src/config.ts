@@ -35,25 +35,24 @@ if (env.error) {
     log.info('Environmennt variables: \n', env.parsed);
 };
 
-let variablesToExport: VariablesToExport;
-if ( process.env.DEV_SERVER === '1') {
-    variablesToExport = {
-        ...baseVariablesToExport,
-        SERVER_ROOT: '../client/public',
-        APP_PORT: '3000'
-    }
+let serverRoot, appPort;
+if (process.env.DEV_SERVER === '1') {
+    serverRoot = '../client/public';
+    appPort = '3000';
 
     log.info('APPLICATION developer server should run on port: ', 3000);
 } else {
-    variablesToExport = {
-        ...baseVariablesToExport,
-        SERVER_ROOT: 'app',
-        APP_PORT: process.env.PORT || ''
-    }
+    serverRoot = 'app';
+    appPort = process.env.PORT || '';
 
     log.info('Application developer server is DISABLED! BUILD the software to use latest version!');
 }
 
+let variablesToExport: VariablesToExport = {
+    ...baseVariablesToExport,
+    SERVER_ROOT: serverRoot,
+    APP_PORT: appPort
+}
 log.info('SERVER_ROOT: ', variablesToExport.SERVER_ROOT);
 
 export const {
