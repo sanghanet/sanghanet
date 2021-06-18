@@ -63,7 +63,7 @@ const runServer = async () => {
         log.info('Server is listening on port: ', PORT);
     }).on('error', (error) => {
         log.fatal(error.message);
-        log4js.shutdown(process.exit);
+        log4js.shutdown(() => process.exit());
     });
 };
 
