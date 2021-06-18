@@ -1,7 +1,7 @@
-const { DB_URL } = require('../config');
-const mongoose = require('mongoose');
+import { DB_URL } from '../config';
+import mongoose from 'mongoose';
 
-const log4js = require('log4js');
+import log4js from 'log4js';
 const log = log4js.getLogger('controllers/mongoDB.controller.js');
 
 const initDBConnection = async () => {
@@ -45,7 +45,7 @@ const initDBConnection = async () => {
     }
 };
 
-module.exports = {
+export {
     initDBConnection,
     mongoose
 };
