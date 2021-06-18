@@ -1,23 +1,24 @@
-const { PORT } = require('./config');
+import { PORT } from './config';
 
-const log4js = require('log4js');
+import log4js from 'log4js';
 const log = log4js.getLogger('server.js');
 
-const express = require('express');
+import express from 'express';
 const app = express();
 
-const { initDBConnection } = require('./controllers/mongoDB.controller');
+import { initDBConnection } from './controllers/mongoDB.controller';
 
-const bodyParser = require('body-parser');
-const sessionMiddleware = require('./controllers/session.controller');
+import bodyParser from 'body-parser';
+import sessionMiddleware from './controllers/session.controller';
 
-const passport = require('passport');
+import passport from 'passport';
 
-const authRouter = require('./routers/auth.router');
-const router = require('./routers/router');
-const suRouter = require('./routers/su.router');
-const financeRouter = require('./routers/financeRouter');
-const serviceRouter = require('./routers/service.router');
+import authRouter from './routers/auth.router';
+import router from './routers/router';
+import suRouter from './routers/su.router';
+import financeRouter from './routers/financeRouter';
+import serviceRouter from './routers/service.router';
+import { url } from 'inspector';
 
 app.use(express.static('app'));
 app.use('/registration', express.static('app'));

@@ -29,7 +29,9 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@types/express": "^4.17.12",
     "@types/node": "^15.12.1",
+    "@types/passport": "^1.0.6",
     "eslint": "^7.24.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
