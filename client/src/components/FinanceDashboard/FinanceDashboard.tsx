@@ -9,7 +9,7 @@ import { ReactComponent as Event } from '../icons/fin_event.svg';
 import { ReactComponent as Angel } from '../icons/fin_angel.svg';
 
 interface FinanceDashboardProps {
-    balance: Balance;
+    balance: PocketBalance;
     onError: (error: Error) => void;
 }
 
