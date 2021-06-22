@@ -86,7 +86,7 @@ const Personal: React.FC<RouteComponentProps> = () => {
             }).catch((err) => {
                 displayAlert(true, err.message, 'ERROR');
             });
-    });
+    }, []);
 
     const toggleDetails = (): void => {
         setOpenDetails(!openDetails);
