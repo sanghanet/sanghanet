@@ -175,5 +175,9 @@ Run `npm run buildfinance` in the root directory.
 
 ## How to build TYPESCRIPT server:
 - single build: `cd server && node_modules/.bin/tsc`
-- build w/ source watch: `cd server && node_modules/.bin/tsc -w`
-In this case src modification going to trigger rebuild automatically, and nodemon going to restart server process as soon as build is ready.
+- single forced full (re)build: `cd server && node_modules/.bin/tsc --build --force --verbose`
+
+- incremental build w/ source watch: `cd server && node_modules/.bin/tsc -w`
+- forced full (re)build w/ source watch: `cd server && node_modules/.bin/tsc --build --force --verbose --watch`
+In the last 2 cases src modification going to trigger incremental or full (re)rebuild automatically, and nodemon going to restart server process as soon as build is ready.
+
