@@ -170,7 +170,7 @@ Run `npm run buildfinance` in the root directory.
 
 ## Common Types in client and server project:
 - Run `installGitHooks.sh` to enable automatic sync@checkout.
-- Run `syncCommonTypes.sh` to refresh common types under client and server folders.
+- Run `syncCommonTypes.sh` to refresh common types under client and server folders. In order for it to work, make sure you have a `types` directory under both `client/src` and `server/src`.
 - Version control files only in commonTypes folder, client|server/src/types/*.common.d.ts are in .gitignore!
 
 ## How to build TYPESCRIPT server:
