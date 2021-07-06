@@ -9,7 +9,6 @@ nav.MainTabs {
     justify-content: space-between;
     margin: auto;
     width: 90%;
-    text-transform: capitalize;
 
     .nav-item {
         position: relative;
@@ -56,7 +55,7 @@ nav.MainTabs {
         &:focus {
             outline: none;
         }
-        
+
     }
 
     @include maxQ(767px) {

@@ -183,7 +183,7 @@
 
     "financePockets": {
         "POCKET": "Zseb",
-        "MEMBERSHIP": "Tagság",
+        "MEMBERSHIP": "Tagsági díj",
         "RENT": "Bérleti díj",
         "EVENT": "Esemény",
         "ANGEL": "Angyalkassza"
@@ -200,8 +200,8 @@
         "DESCRIPTION": "Leírás",
         "DUEDATE": "Határidő",
         "AMOUNT": "Összeg",
-        "DELETETRANSACTION": "Transakció törlése",
-        "TRANSACTIONDETAILS": "Transakció részletei"
+        "DELETETRANSACTION": "Tranzakció törlése",
+        "TRANSACTIONDETAILS": "Tranzakció részletei"
     },
 
     "transactionTypes": {
