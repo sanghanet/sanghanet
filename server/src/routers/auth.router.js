@@ -11,7 +11,7 @@ const passport = require('../controllers/passport.controller');
 authRouter.use((req, res, next) => {
     if (req.user) { // If browser already has a session ID, like user opened a new TAB to login again
         log.info(`[${req.ip}] ${req.method} ${req.url} user already authenticated`);
-        res.redirect(`http://localhost:${APP_PORT}/loading`);
+        res.redirect(`http://localhost:${APP_PORT}/loading`); // TODO - what are these hardcoded localhost urls
     } else {
         log.info(`[${req.ip}] ${req.method} ${req.url}`);
         next();
@@ -21,8 +21,8 @@ authRouter.use((req, res, next) => {
 authRouter.post('/google', passport.authenticate('google', { scope: ['email'] }));
 
 authRouter.get('/passport',
-    passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/throwout/authenticationfailed` }),
-    (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); }
+    passport.authenticate('google', { failureRedirect: `http://localhost:${APP_PORT}/throwout/authenticationfailed` }), // TODO - what are these hardcoded localhost urls
+    (req, res) => { res.redirect(`http://localhost:${APP_PORT}/loading`); } // TODO - what are these hardcoded localhost urls
 );
 
 module.exports = authRouter;
