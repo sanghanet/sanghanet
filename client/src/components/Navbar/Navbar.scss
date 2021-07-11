@@ -77,6 +77,9 @@
                         text-decoration: none;
                     }
                     @include hoveredElement;
+                    &:focus:not(.active) {
+                        background-color: $sideBarHover-bg;
+                    }
                 }
                 .link.disabled{
                     opacity: 0.3;
@@ -99,6 +102,9 @@
                             background-color: $sideBarHover-bg;
                             color: $sideBarHover-iconColor;
                             font-size: 13px;
+                        }
+                        &:focus:not(.active) {
+                            background-color: $sideBarHover-bg;
                         }
                     }
                     .sub-title.disabled {
