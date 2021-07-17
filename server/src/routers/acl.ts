@@ -1,15 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 
 import log4js from 'log4js';
 const log = log4js.getLogger('routers/acl.js');
 
-interface ExtendedRequest extends Request{
-    user: Member
-}
-
 const access = (role: Role) => {
-    return (req: ExtendedRequest, res: Response, next: NextFunction) => {
-        log.fatal(req.user);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (req: any, res: Response, next: NextFunction) => {
         if (req.user[role]) {
             log.info(`${req.user.email} ${role}: access granted.`);
             next();

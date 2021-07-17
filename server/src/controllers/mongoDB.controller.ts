@@ -51,7 +51,4 @@ const initDBConnection = async (): Promise<void> => {
     }
 };
 
-export {
-    initDBConnection,
-    mongoose
-};
+export default initDBConnection;

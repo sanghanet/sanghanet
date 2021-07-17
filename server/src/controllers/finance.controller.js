@@ -1,7 +1,7 @@
 const log4js = require('log4js');
 const log = log4js.getLogger('controllers/finance.controller.js');
 
-const { mongoose } = require('../controllers/mongoDB.controller');
+const mongoose = require('mongoose');
 const { FinanceAccount } = require('../models/financeAccount.model');
 const { FinanceTransaction } = require('../models/financeTransaction.model');
 const { DeletedTransaction } = require('../models/deletedTransaction.model');

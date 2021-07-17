@@ -1,12 +1,7 @@
 import { PORT } from './config';
-
-import log4js from 'log4js';
-const log = log4js.getLogger('server.js');
-
 import express from 'express';
-const app = express();
 
-import { initDBConnection } from './controllers/mongoDB.controller';
+import initDBConnection from './controllers/mongoDB.controller';
 
 import bodyParser from 'body-parser';
 import sessionMiddleware from './controllers/session.controller';
@@ -18,6 +13,11 @@ import router from './routers/router';
 import suRouter from './routers/su.router';
 import financeRouter from './routers/financeRouter';
 import serviceRouter from './routers/service.router';
+
+import log4js from 'log4js';
+const log = log4js.getLogger('server.js');
+
+const app = express();
 
 app.use(express.static('app'));
 app.use('/registration', express.static('app'));

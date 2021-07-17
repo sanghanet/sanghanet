@@ -2,8 +2,8 @@ import { PORT, CLIENT_ID, CLIENT_SECRET } from '../config';
 
 import passport, { Profile } from 'passport';
 
-import { mongoose } from './mongoDB.controller';
-import { Member } from '../models/member.model';
+import mongoose from 'mongoose';
+import Member from '../models/member.model';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
 import log4js from 'log4js';
@@ -16,7 +16,7 @@ passport.serializeUser((userID, done) => {
 
 passport.deserializeUser((userID: Express.User, done) => {
     Member.findOne({ _id: mongoose.Types.ObjectId(userID as string) })
-        .then((identifiedUserObject) => {
+        .then((identifiedUserObject: Member) => {
             if (!identifiedUserObject) {
                 log.info('deserialization failed');
                 done(null, null);
@@ -35,9 +35,9 @@ passport.use(new GoogleStrategy({
 }, (identifier, refreshtoken, profile: Profile, done) => {
     if (profile.emails) {
         Member.findOne({ email: profile.emails[0].value })
-            .then((userObject) => {
+            .then((userObject: Member) => {
                 return userObject
-                    ? done(null, userObject.id)
+                    ? done(null, userObject._id)
                     : done(null, undefined);
             })
             .catch((err: Error) => { log.fatal(err); });

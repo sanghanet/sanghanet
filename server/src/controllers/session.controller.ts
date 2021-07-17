@@ -3,7 +3,7 @@ import { SESSION_SECRET } from '../config';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import { v4 as uuidv4 } from 'uuid';
-import { mongoose } from './mongoDB.controller';
+import mongoose from 'mongoose';
 
 const MongoStore = connectMongo(session);
 

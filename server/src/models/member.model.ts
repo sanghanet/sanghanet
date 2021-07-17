@@ -1,6 +1,6 @@
-const { mongoose } = require('../controllers/mongoDB.controller');
+import { Schema, model } from 'mongoose';
 
-const MemberSchema = mongoose.Schema({
+const MemberSchema = new Schema({
     label: String,
     email: { type: String, required: true },
     registered: { type: Boolean, default: false },
@@ -11,4 +11,6 @@ const MemberSchema = mongoose.Schema({
     isYogaAdmin: { type: Boolean, default: false }
 });
 
-module.exports.Member = mongoose.model('Member', MemberSchema);
+const Member = model('Member', MemberSchema);
+
+export default Member;
