@@ -1,16 +1,5 @@
 import { Router, Response, NextFunction } from 'express';
-import {
-    login,
-    registration,
-    logout,
-    personal,
-    registereduserdata,
-    getNameOfUsers,
-    getUserAvatarURL,
-    updateItemAndVisibility,
-    uploadProfileImg
-} from '../controllers/user.controller';
-
+import userController from '../controllers/user.controller';
 import log4js from 'log4js';
 const log = log4js.getLogger('routers/router.js');
 
@@ -27,15 +16,15 @@ router.use((req: any, res: Response, next: NextFunction) => {
     }
 });
 
-router.post('/login', login);
-router.post('/registration', registration);
-router.get('/logout', logout);
-router.get('/personal', personal);
-router.post('/registereduserdata', registereduserdata);
-router.get('/getnameofusers', getNameOfUsers);
-router.get('/avatarurl', getUserAvatarURL);
-router.put('/saveitem', updateItemAndVisibility);
-router.put('/savevisibility', updateItemAndVisibility);
-router.post('/uploadprofileimg', uploadProfileImg);
+router.post('/login', userController.login);
+router.post('/registration', userController.registration);
+router.get('/logout', userController.logout);
+router.get('/personal', userController.personal);
+router.post('/registereduserdata', userController.registereduserdata);
+router.get('/getnameofusers', userController.getNameOfUsers);
+router.get('/avatarurl', userController.getUserAvatarURL);
+router.put('/saveitem', userController.updateItemAndVisibility);
+router.put('/savevisibility', userController.updateItemAndVisibility);
+router.post('/uploadprofileimg', userController.uploadProfileImg);
 
 export default router;

@@ -283,12 +283,12 @@ const registereduserdata = async (req: any, res: Response, next: NextFunction): 
         });
         res.json(visibleUserData);
     } catch (err) {
-        next(err);
         log.error(err);
+        next(err);
     }
 };
 
-export {
+const userController = {
     login,
     registration,
     logout,
@@ -299,3 +299,5 @@ export {
     uploadProfileImg,
     registereduserdata
 };
+
+export default userController;
