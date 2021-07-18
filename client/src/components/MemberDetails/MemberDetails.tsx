@@ -7,7 +7,7 @@ import { ReactComponent as CopyIcon } from '../icons/copy.svg';
 import './MemberDetails.scss';
 
  interface MemberDetailsProps {
-    closeDialog: () => void;
+    closeDialog: React.MouseEventHandler<HTMLButtonElement>;
     selectedMemberData: RegisteredUserType;
 };
 

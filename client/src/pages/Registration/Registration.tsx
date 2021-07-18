@@ -186,7 +186,7 @@ class Registration extends Component<RouteComponentProps, RegistrationState> {
                             type="text"
                             id="spiritualName"
                             value={spiritualName}
-                            placeholder="Start with capital letter, enter minimum 2 characters."
+                            placeholder={PLACEHOLDER}
                             onChange={this.handleChange}
                             {...spiritualNameValidationRule}
                         />

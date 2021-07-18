@@ -1,6 +1,6 @@
 /* eslint-disable no-multi-spaces */
-import React, { useState, useEffect, useContext } from 'react';
-import { Switch, Route, Redirect, useLocation, RouteComponentProps } from 'react-router-dom';
+import React from 'react';
+import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom';
 
 import Header from '../components/Header/Header';
 import Navbar from '../components/Navbar/Navbar';
@@ -19,27 +19,10 @@ import AdminEvent from './Admins/AdminEvent/AdminEvent';
 import AdminYoga from './Admins/AdminYoga/AdminYoga';
 import Superuser from './Admins/Superuser/Superuser';
 
-import { UIcontext } from '../components/contexts/UIcontext/UIcontext';
-
 const Main: React.FC<RouteComponentProps> = () => {
-    const [pageName, setPageName] = useState('');
-
-    const location = useLocation();
-
-    const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
-
-    useEffect(() => {
-        const url = location.pathname;
-        const pageName = url.substring(url.lastIndexOf('/') + 1);
-        let pageNameCapitalized = pageName.charAt(0).toUpperCase() + pageName.slice(1);
-        pageNameCapitalized += url.includes('/app/admin') && !url.includes('/superuser') ? '_Admin' : '';
-
-        setPageName(pageAndNavbarTitles[pageNameCapitalized.toUpperCase()]);
-    }, [location, pageAndNavbarTitles]);
-
     return (
         <div className="grid-container">
-            <Header activePage={pageName} />
+            <Header />
             <Navbar navStyle="sidenav" />
             <main className="align">
                 <Switch>

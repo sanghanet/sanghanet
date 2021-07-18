@@ -71,6 +71,7 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
                         exact to={`/${menuItem.path}`}
                         className={`sub-title${menuItem.isEnabled ? '' : ' disabled'}`}
                         onClick={handleLink}
+                        tabIndex={menuItem.isEnabled ? 0 : -1}
                     >{menuItem.label}
                     </NavLink>
                 </div>

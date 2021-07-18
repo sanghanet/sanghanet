@@ -7,8 +7,8 @@ import './Checkbox.scss';
 
 interface CheckboxProps {
     checked: boolean;
-    id?: string;
-    handleChange: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    id: ADMIN_ROLE;
+    handleChange: React.MouseEventHandler<HTMLButtonElement>;
     value: string;
 };
 
@@ -24,7 +24,12 @@ Checkbox.propTypes = {
     value: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
     handleChange: PropTypes.func.isRequired,
-    id: PropTypes.string
+    id: PropTypes.oneOf<ADMIN_ROLE>([
+        'filterSuperuser',
+        'filterFinanceAdmin',
+        'filterEventAdmin',
+        'filterYogaAdmin',
+        'filterNoRole']).isRequired
 };
 
 export default Checkbox;

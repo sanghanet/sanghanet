@@ -167,3 +167,17 @@ Run `npm run buildfinance` in the root directory.
         [Info - 10:10:52 PM] ESLint server is running.
         [Info - 10:10:53 PM] ESLint library loaded from: E:\Dev\web\sanghanet\server\node_modules\eslint\lib\api.js
         [Info - 10:11:03 PM] ESLint library loaded from: E:\Dev\web\sanghanet\client\node_modules\eslint\lib\api.js
+
+## Common Types in client and server project:
+- Run `installGitHooks.sh` to enable automatic sync@checkout.
+- Run `syncCommonTypes.sh` to refresh common types under client and server folders. In order for it to work, make sure you have a `types` directory under both `client/src` and `server/src`.
+- Version control files only in commonTypes folder, client|server/src/types/*.common.d.ts are in .gitignore!
+
+## How to build TYPESCRIPT server:
+- single build: `cd server && node_modules/.bin/tsc`
+- single forced full (re)build: `cd server && node_modules/.bin/tsc --build --force --verbose`
+
+- incremental build w/ source watch: `cd server && node_modules/.bin/tsc -w`
+- forced full (re)build w/ source watch: `cd server && node_modules/.bin/tsc --build --force --verbose --watch`
+In the last 2 cases src modification going to trigger incremental or full (re)rebuild automatically, and nodemon going to restart server process as soon as build is ready.
+

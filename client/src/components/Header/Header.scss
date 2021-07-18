@@ -52,6 +52,7 @@
             @include maxQ(1020px) {
                 .avatar-name {
                     display: none;
+                    font-size: 18px;
                 }
             }
         }

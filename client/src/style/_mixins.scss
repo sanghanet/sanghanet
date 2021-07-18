@@ -92,6 +92,11 @@ $navbar-width: 110px;
         @content;
     }
 }
+@mixin betweenMinMax($min, $max) {
+    @media screen and (min-width: $min) and (max-width: $max) {
+        @content;
+    }
+}
 @mixin orientation($direction) {
     @media (orientation: landscape) {
         @content;

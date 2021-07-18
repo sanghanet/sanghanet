@@ -55,8 +55,24 @@
 		border-bottom-left-radius: 2px;
 		color: $white;
 		&:focus {
-			background: $input-bg;
-			color: inherit;
+			background: $input-bg !important;
+			color: inherit !important;
+		}
+		@include maxQ(400px) {
+			&::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				font-size: 0.62em;
+			}
+			&::-moz-placeholder { /* Firefox 19+ */
+				font-size: 0.62em;
+			}
+		}
+		@include betweenMinMax(401px, 580px) {
+			&::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				font-size: 0.9em;
+			}
+			&::-moz-placeholder { /* Firefox 19+ */
+				font-size: 0.9em;
+			}
 		}
 	}
 	.regForm-btns {
