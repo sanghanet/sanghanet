@@ -12,8 +12,7 @@ interface FinanceContainerProps {
     openAddPayment?: (pocket: string) => void;
     openAddDebt?: (pocket: string) => void;
     openDeleteTransaction?: (transaction: TransactionToDelete) => void;
-    activeTab?: string;
-    changeActiveTab?: (pocket: string) => void;
+    activeTabFromAdmin?: string;
 }
 
 const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
@@ -23,12 +22,16 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
         openAddPayment,
         openAddDebt,
         openDeleteTransaction,
-        activeTab,
-        changeActiveTab
+        activeTabFromAdmin,
     } = props;
     const [financeData, setFinanceData] = useState<FinanceAccount | null>(null);
     const [errorState, setErrorState] = useState(0);
     const [reRender, setReRender] = useState(0); // fine HACK to rerender Component when new data is available.
+    const [activeTab, setActiveTab] = useState(activeTabFromAdmin);
+
+    const changeActiveTab = (pocket: string): void => {
+        setActiveTab(pocket);
+    };
 
     const sortByDueDate = (t1: FinanceTransaction, t2: FinanceTransaction): number => {
         return new Date(t2.dueDate).getTime() - new Date(t1.dueDate).getTime();
@@ -106,8 +109,7 @@ FinanceContainer.propTypes = {
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,
     openDeleteTransaction: PropTypes.func,
-    activeTab: PropTypes.string,
-    changeActiveTab: PropTypes.func
+    activeTabFromAdmin: PropTypes.string,
 };
 
 export default FinanceContainer;
