@@ -13,6 +13,7 @@ interface FinanceContainerProps {
     openAddDebt?: (pocket: string) => void;
     openDeleteTransaction?: (transaction: TransactionToDelete) => void;
     activeTab?: string;
+    changeActiveTab?: (pocket: string) => void;
 }
 
 const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
@@ -22,7 +23,8 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
         openAddPayment,
         openAddDebt,
         openDeleteTransaction,
-        activeTab
+        activeTab,
+        changeActiveTab
     } = props;
     const [financeData, setFinanceData] = useState<FinanceAccount | null>(null);
     const [errorState, setErrorState] = useState(0);
@@ -80,6 +82,7 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                         key={reRender}
                         balance={financeData.balance}
                         onError={handleError}
+                        onClick={changeActiveTab}
                     />
                     <TransactionTabs
                         transactions={financeData.transactions}
@@ -89,6 +92,7 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                         openAddDebt={openAddDebt}
                         openDeleteTransaction={openDeleteTransaction}
                         activeTab={activeTab}
+                        changeActiveTab={changeActiveTab}
                     />
                 </>
             )}
@@ -102,7 +106,8 @@ FinanceContainer.propTypes = {
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,
     openDeleteTransaction: PropTypes.func,
-    activeTab: PropTypes.string
+    activeTab: PropTypes.string,
+    changeActiveTab: PropTypes.func
 };
 
 export default FinanceContainer;

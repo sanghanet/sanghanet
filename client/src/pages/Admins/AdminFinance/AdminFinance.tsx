@@ -38,6 +38,10 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
         setTransactionType('debt');
     };
 
+    const changeActiveTab = (pocket: string): void => {
+        setActiveTab(pocket);
+    };
+
     const closeTransactionDialog = (): void => {
         setShowAddTransaction(false);
         setPaymentDialogPocketName('');
@@ -125,6 +129,7 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
                 openDeleteTransaction={openDeleteTransaction}
                 isFinAdmin
                 activeTab={activeTab}
+                changeActiveTab={changeActiveTab}
             />
             {showAddTransaction && transactionType && (
                 <AddTransactionDialog

@@ -11,9 +11,10 @@ import { ReactComponent as Angel } from '../icons/fin_angel.svg';
 interface FinanceDashboardProps {
     balance: Balance;
     onError: (error: Error) => void;
+    onClick?: (pocket: string) => void;
 }
 
-const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError }) => {
+const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError, onClick }) => {
     const { financeDashboard, financePockets } = useContext(UIcontext).dictionary;
     const { BALANCE } = financeDashboard;
     const lang = localStorage.getItem('lang');
@@ -28,6 +29,12 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError })
         }
     };
 
+    const handleClick: React.MouseEventHandler<HTMLElement> = (event) => {
+        const { pocket } = event.currentTarget.dataset;
+        console.log(pocket);
+        onClick && pocket && onClick(pocket);
+    };
+
     return (
         <div className="overview" >
             <div className="outer">
@@ -37,7 +44,12 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError })
                         const financePocket = financePockets[pocket.toUpperCase()];
 
                         return (
-                            <div key={index} className="fin-card">
+                            <div
+                                key={index}
+                                className="fin-card"
+                                onClick={handleClick}
+                                data-pocket={pocket}
+                            >
                                 <div className="fin-card-1st">
                                     <div>{financePocket} {BALANCE}:</div>
                                     <div>{getIcon(pocket)}</div>
@@ -63,7 +75,8 @@ FinanceDashboard.propTypes = {
         event: PropTypes.number.isRequired,
         angel: PropTypes.number.isRequired
     }).isRequired,
-    onError: PropTypes.func.isRequired
+    onError: PropTypes.func.isRequired,
+    onClick: PropTypes.func
 };
 
 export default FinanceDashboard;
