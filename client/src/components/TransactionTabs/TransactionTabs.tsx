@@ -31,19 +31,19 @@ const TransactionTabs: React.FC<TransactionTabsProps> = (props) => {
 
     return (
         <Tabs className="MainTabs" bsPrefix="active" defaultActiveKey={activeTab}>
-            {Object.entries(transactions).map((pocket) => {
-                const tabTitle = financePockets[pocket[0].toUpperCase()];
+            {Object.entries(transactions).map(([pocketName, financeTransactions]) => {
+                const tabTitle = financePockets[pocketName.toUpperCase()];
 
                 return (
-                    <Tab title={tabTitle} eventKey={pocket[0]} key={pocket[0]}>
+                    <Tab title={tabTitle} eventKey={pocketName} key={pocketName}>
                         <TransactionTable
-                            transactionArray={pocket[1]}
+                            transactionArray={financeTransactions}
                             isFinAdmin={isFinAdmin}
                             openAddPayment={openAddPayment}
                             openAddDebt={openAddDebt}
                             openDeleteTransaction={openDeleteTransaction}
                             onError={onError}
-                            pocket={pocket[0]}
+                            pocket={pocketName}
                         />
                     </Tab>
                 );
