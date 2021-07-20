@@ -260,7 +260,7 @@ const registereduserdata = async (req: any, res: Response, next: NextFunction): 
     try {
         const ids = req.body.userIDs;
         const registeredUsers = await RegisteredUser.find(ids ? { _id: { $in: ids } } : {});
-        const membersLevel: Array<MemberLevel> = await Member.find(req.body.userId ? { _id: { $in: req.body.userIDs } } : {}, 'level email');
+        const membersLevel: Array<MemberLevel> = await Member.find(req.body.userId ? { _id: { $in: req.body.u`serIDs } } : {}, 'level email');
         log.fatal(membersLevel);
         const visibleUserData = registeredUsers.map((registeredUser: RegisteredUser) => {
             return {

@@ -3,6 +3,7 @@ import { PORT, CLIENT_ID, CLIENT_SECRET } from '../config';
 import passport, { Profile } from 'passport';
 
 import mongoose from 'mongoose';
+import { IMember } from '../interfaces/Member';
 import Member from '../models/member.model';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
@@ -16,7 +17,7 @@ passport.serializeUser((userID, done) => {
 
 passport.deserializeUser((userID: Express.User, done) => {
     Member.findOne({ _id: mongoose.Types.ObjectId(userID as string) })
-        .then((identifiedUserObject: Member) => {
+        .then((identifiedUserObject: IMember | null) => {
             if (!identifiedUserObject) {
                 log.info('deserialization failed');
                 done(null, null);
@@ -35,7 +36,7 @@ passport.use(new GoogleStrategy({
 }, (identifier, refreshtoken, profile: Profile, done) => {
     if (profile.emails) {
         Member.findOne({ email: profile.emails[0].value })
-            .then((userObject: Member) => {
+            .then((userObject: IMember | null) => {
                 return userObject
                     ? done(null, userObject._id)
                     : done(null, undefined);

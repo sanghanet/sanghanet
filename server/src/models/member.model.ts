@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { IMember } from '../interfaces/Member';
 
 const MemberSchema = new Schema({
     label: String,
@@ -11,6 +12,6 @@ const MemberSchema = new Schema({
     isYogaAdmin: { type: Boolean, default: false }
 });
 
-const Member = model('Member', MemberSchema);
+const Member = model<IMember>('Member', MemberSchema);
 
 export default Member;
