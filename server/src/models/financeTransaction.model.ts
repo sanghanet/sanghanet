@@ -1,4 +1,5 @@
 import { Schema, model, Types } from 'mongoose';
+import { IFinanceTransaction } from '../interfaces/FinanceTransaction';
 import { DeletedTransactionSchema } from './deletedTransaction.model';
 
 const FinanceTransactionSchema = new Schema({
@@ -15,7 +16,7 @@ const FinanceTransactionSchema = new Schema({
     by: String
 });
 
-const FinanceTransaction = model('Finance Transaction', FinanceTransactionSchema);
+const FinanceTransaction = model<IFinanceTransaction>('Finance Transaction', FinanceTransactionSchema);
 
 export {
     FinanceTransactionSchema,

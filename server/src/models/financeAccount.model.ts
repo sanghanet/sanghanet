@@ -1,4 +1,5 @@
 import { Schema, model, Types } from 'mongoose';
+import { IFinanceAccount } from '../interfaces/FinanceAccount';
 import { FinanceTransactionSchema } from './financeTransaction.model';
 
 const FinanceAccountSchema = new Schema({
@@ -14,6 +15,6 @@ const FinanceAccountSchema = new Schema({
     }
 });
 
-const FinanceAccount = model('financeaccount', FinanceAccountSchema);
+const FinanceAccount = model<IFinanceAccount>('financeaccount', FinanceAccountSchema);
 
 export default FinanceAccount;
