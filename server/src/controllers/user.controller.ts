@@ -13,6 +13,7 @@ import RegisteredUser from '../models/registered.user.model';
 import FinanceAccount from '../models/financeAccount.model';
 
 import log4js from 'log4js';
+import { IMember } from '../interfaces/Member';
 const log = log4js.getLogger('controllers/user.controller.js');
 
 const renameFile = (fileName: string | null) => {
@@ -240,11 +241,7 @@ const uploadProfileImg = async (req: any, res: Response, next: NextFunction): Pr
     });
 };
 
-type MemberLevel = {
-    _id: string,
-    level: string,
-    email: string
-};
+type MemberLevel = Pick<IMember, '_id' | 'level' | 'email'>;
 
 const findMemberLevel = (membersLevel: Array<MemberLevel>, registeredUser: RegisteredUser): string => {
     if (membersLevel.length) {
@@ -260,8 +257,7 @@ const registereduserdata = async (req: any, res: Response, next: NextFunction): 
     try {
         const ids = req.body.userIDs;
         const registeredUsers = await RegisteredUser.find(ids ? { _id: { $in: ids } } : {});
-        const membersLevel: Array<MemberLevel> = await Member.find(req.body.userId ? { _id: { $in: req.body.u`serIDs } } : {}, 'level email');
-        log.fatal(membersLevel);
+        const membersLevel: Array<MemberLevel> = await Member.find(req.body.userId ? { _id: { $in: req.body.userIDs } } : {}, 'level email');
         const visibleUserData = registeredUsers.map((registeredUser: RegisteredUser) => {
             return {
                 _id: registeredUser._id,
