@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { IRegisteredUser } from '../interfaces/RegisteredUser';
 
 const RegisteredUserSchema = new Schema({
     firstName: { type: String, required: true },
@@ -25,6 +26,6 @@ const RegisteredUserSchema = new Schema({
     emContactVisible: { type: Boolean, default: false }
 });
 
-const RegisteredUser = model('RegisteredUser', RegisteredUserSchema);
+const RegisteredUser = model<IRegisteredUser>('RegisteredUser', RegisteredUserSchema);
 
 export default RegisteredUser;

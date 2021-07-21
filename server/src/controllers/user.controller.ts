@@ -178,8 +178,8 @@ const updateItemAndVisibility = async (req: any, res: Response, next: NextFuncti
             req.body,
             { new: true, useFindAndModify: false }
         );
-        const key = Object.keys(req.body)[0];
-        res.json({ [key]: user[key] });
+        const key = Object.keys(req.body)[0] as RegisteredUserKey;
+        user ? res.json({ [key]: user[key] }) : next();
     } catch (err) {
         next(err);
     }
