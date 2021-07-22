@@ -8,12 +8,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 import fs from 'fs';
 
+import { IMember } from '../interfaces/Member';
 import Member from '../models/member.model';
+import { IRegisteredUser } from '../interfaces/RegisteredUser';
 import RegisteredUser from '../models/registered.user.model';
 import FinanceAccount from '../models/financeAccount.model';
 
 import log4js from 'log4js';
-import { IMember } from '../interfaces/Member';
 const log = log4js.getLogger('controllers/user.controller.js');
 
 const renameFile = (fileName: string | null) => {
@@ -215,15 +216,17 @@ const uploadProfileImg = async (req: any, res: Response, next: NextFunction): Pr
             );
             res.json({ profileImg: fileName });
             log.info(`User new profile image is: ${fileName}`);
-            const removeFile = SERVER_ROOT + user.profileImg; // former profile img
-            if (user.profileImg) {
-                fs.unlink(removeFile, (err: NodeJS.ErrnoException | null) => {
-                    if (err) {
-                        log.warn(`Failed to delete profile image: ${removeFile}`);
-                        return;
-                    }
-                    log.info(`Removed profile image: ${removeFile}`);
-                });
+            if (user) {
+                const removeFile = SERVER_ROOT + user.profileImg; // former profile img
+                if (user.profileImg) {
+                    fs.unlink(removeFile, (err: NodeJS.ErrnoException | null) => {
+                        if (err) {
+                            log.warn(`Failed to delete profile image: ${removeFile}`);
+                            return;
+                        }
+                        log.info(`Removed profile image: ${removeFile}`);
+                    });
+                }
             }
         } catch (err) {
             next(err);
@@ -243,7 +246,7 @@ const uploadProfileImg = async (req: any, res: Response, next: NextFunction): Pr
 
 type MemberLevel = Pick<IMember, '_id' | 'level' | 'email'>;
 
-const findMemberLevel = (membersLevel: Array<MemberLevel>, registeredUser: RegisteredUser): string => {
+const findMemberLevel = (membersLevel: Array<MemberLevel>, registeredUser: IRegisteredUser): string => {
     if (membersLevel.length) {
         const member = membersLevel.find((memberLevel) => memberLevel.email === registeredUser.email);
         if (member) { return member.level; }
@@ -258,7 +261,7 @@ const registereduserdata = async (req: any, res: Response, next: NextFunction): 
         const ids = req.body.userIDs;
         const registeredUsers = await RegisteredUser.find(ids ? { _id: { $in: ids } } : {});
         const membersLevel: Array<MemberLevel> = await Member.find(req.body.userId ? { _id: { $in: req.body.userIDs } } : {}, 'level email');
-        const visibleUserData = registeredUsers.map((registeredUser: RegisteredUser) => {
+        const visibleUserData: Array<VisibleUserData> = registeredUsers.map((registeredUser: IRegisteredUser) => {
             return {
                 _id: registeredUser._id,
                 activeMember: req.user.email === registeredUser.email,

@@ -1,4 +1,4 @@
-type RegisteredUser = {
+type VisibleUserData = {
     _id: string,
     activeMember: boolean,
     profileImg: string,
@@ -6,18 +6,12 @@ type RegisteredUser = {
     lastName: string,
     spiritualName: string,
     email: string | null,
-    emailVisible: boolean,
     address: string | null,
-    addressVisible: boolean,
     birthday: string | null,
-    birthdayVisible: boolean,
+    level: string,
     emEmail: string | null,
     emMobile: string | null,
     emName: string | null,
-    emContactVisible: boolean,
     gender: string | null,
-    genderVisible: boolean,
-    level: string | '-',
-    mobile: string | null,
-    mobileVisible: boolean,
+    mobile: string | null
 };

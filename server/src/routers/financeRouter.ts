@@ -18,7 +18,7 @@ financeRouter.use((req: any, res: Response, next: NextFunction) => {
     }
 });
 
-financeRouter.post('/financedata', financeAdminACL, financeController.getFinanceData);
+financeRouter.post('/financedata', financeController.getFinanceData);
 financeRouter.post('/addtransaction', financeAdminACL, financeController.addTransaction);
 financeRouter.post('/deletetransaction', financeAdminACL, financeController.deleteTransaction);
 financeRouter.get('/userlist', financeAdminACL, financeController.getUserList);
