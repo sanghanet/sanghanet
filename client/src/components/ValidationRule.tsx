@@ -1,18 +1,13 @@
-const name = '[A-ZÁÉÍÓÖŐÚÜŰ][A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű]+';
-const namePattern = `^((${name}(. | |-)){0,2})${name}$`;
 const nameValidationRule = {
     required: true,
     minLength: 2,
     maxLength: 32,
-    pattern: namePattern
 };
 
-const spititualNamePattern = `^(-|${namePattern})$`;
 const spiritualNameValidationRule = {
     required: true,
-    minLength: 1, // '-' means None, and It is only a single char
+    minLength: 1,
     maxLength: 32,
-    pattern: spititualNamePattern
 };
 
 const addressPattern = '^[0-9]{4} [A-ZÁÉÍÓÖŐÚÜŰa-záéíóöőúüű0-9.,/\\s-]*$';
