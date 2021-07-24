@@ -52,6 +52,12 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
         if (keyCode === 37 || keyCode === 39) event.preventDefault();
     };
 
+    const handleTabNavigation = (event: React.KeyboardEvent<HTMLLIElement>): void => {
+        if (event.key === 'Tab' && !event.shiftKey && isAdmin) {
+            setShowSubmenu(true);
+        }
+    };
+
     const createMainMenuItem = (menuItem: MenuItem, index: number): JSX.Element => {
         return (
             <li key={index}>
@@ -124,7 +130,7 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
                         </div>
                     </li>
                     {mainMenu.map((menuItem, index) => createMainMenuItem(menuItem, index))}
-                    <li id="logout-li">
+                    <li id="logout-li" onKeyDown={handleTabNavigation}>
                         <Logout />
                     </li>
                 </ul>
