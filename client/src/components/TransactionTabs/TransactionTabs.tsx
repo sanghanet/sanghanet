@@ -6,6 +6,7 @@ import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import './TransactionTabs.scss';
 import PropTypes from 'prop-types';
 import FinanceTransactionPropType from '../../proptypes/FinanceTransactionPropType';
+import { SelectCallback } from 'react-bootstrap/esm/helpers';
 
 interface TransactionTabsProps {
     transactions: Transactions;
@@ -15,6 +16,7 @@ interface TransactionTabsProps {
     openAddDebt?: (pocket: string) => void;
     openDeleteTransaction?: (transaction: TransactionToDelete) => void;
     activeTab?: string;
+    changeActiveTab?: (pocket: string) => void;
 };
 
 const TransactionTabs: React.FC<TransactionTabsProps> = (props) => {
@@ -25,12 +27,17 @@ const TransactionTabs: React.FC<TransactionTabsProps> = (props) => {
         openAddPayment,
         openAddDebt,
         openDeleteTransaction,
-        activeTab
+        activeTab,
+        changeActiveTab
     } = props;
     const { financePockets } = useContext(UIcontext).dictionary;
 
+    const handleSelect: SelectCallback = (eventKey, event) => {
+        changeActiveTab && eventKey && changeActiveTab(eventKey);
+    };
+
     return (
-        <Tabs className="MainTabs" bsPrefix="active" defaultActiveKey={activeTab}>
+        <Tabs className="MainTabs" bsPrefix="active" activeKey={activeTab} onSelect={handleSelect}>
             {Object.entries(transactions).map(([pocketName, financeTransactions]) => {
                 const tabTitle = financePockets[pocketName.toUpperCase()];
 
@@ -64,7 +71,8 @@ TransactionTabs.propTypes = {
     openAddPayment: PropTypes.func,
     openAddDebt: PropTypes.func,
     openDeleteTransaction: PropTypes.func,
-    activeTab: PropTypes.string
+    activeTab: PropTypes.string,
+    changeActiveTab: PropTypes.func
 };
 
 export default TransactionTabs;
