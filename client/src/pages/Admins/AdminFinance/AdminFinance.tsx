@@ -72,8 +72,8 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
             }`
         })
             .then((data) => {
-                setRefreshFinanceData(Date.now());
                 setActiveTabFromAdmin(pocketName);
+                setRefreshFinanceData(Date.now());
             })
             .catch((err) => {
                 setShowAlert(true);
@@ -103,8 +103,8 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
             }`
         })
             .then((data) => {
-                setRefreshFinanceData(Date.now());
                 setActiveTabFromAdmin(pocket);
+                setRefreshFinanceData(Date.now());
             })
             .catch((err) => {
                 setShowAlert(true);

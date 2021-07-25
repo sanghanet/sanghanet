@@ -31,7 +31,6 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError, o
 
     const handleClick: React.MouseEventHandler<HTMLElement> = (event) => {
         const { pocket } = event.currentTarget.dataset;
-        console.log(pocket);
         onClick && pocket && onClick(pocket);
     };
 
