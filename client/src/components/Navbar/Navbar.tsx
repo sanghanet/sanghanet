@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
@@ -30,6 +30,9 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
     const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser } = context;
     const isAdmin = isFinanceAdmin || isEventAdmin || isYogaAdmin || isSuperuser;
 
+    const backRef = useRef<HTMLLIElement>(null);
+    const adminRef = useRef<HTMLLIElement>(null);
+
     const handleSubmenu = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
         event.stopPropagation(); // w/o this, bubbling event close the Hamburger in App.js!
         setShowSubmenu(!showSubmenu);
@@ -50,6 +53,29 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
         const keyCode = event.keyCode; // CRSR LEFT(37), CRSR RIGHT(39)
         if (keyCode === 37 || keyCode === 39) event.preventDefault();
+    };
+
+    const handleTabNavigation = (event: React.KeyboardEvent<HTMLLIElement>): void => {
+        if (event.key === 'Tab' && !event.shiftKey && isAdmin) {
+            setShowSubmenu(true);
+        }
+    };
+
+    const handleForwardIcon = (event: React.KeyboardEvent<HTMLLIElement>): void => {
+        if (event.key === 'Enter') {
+            setShowSubmenu(true);
+            backRef && backRef.current && backRef.current.focus();
+        };
+    };
+
+    const handleBackIcon = (event: React.KeyboardEvent<HTMLLIElement>): void => {
+        if (event.key === 'Enter') {
+            setShowSubmenu(false);
+            adminRef && adminRef.current && adminRef.current.focus();
+        };
+        if (event.key === 'Tab' && event.shiftKey) {
+            setShowSubmenu(false);
+        };
     };
 
     const createMainMenuItem = (menuItem: MenuItem, index: number): JSX.Element => {
@@ -117,19 +143,19 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
         <div id={navStyle}>
             <div className={classList} onKeyDown={handleKeyDown}>
                 <ul className="main-menu">
-                    <li className="admins">
+                    <li className="admins" tabIndex={isAdmin ? 0 : -1} onKeyDown={handleForwardIcon} ref={adminRef}>
                         <div className={`link ${isAdmin || 'disabled'}`} onClick={handleSubmenu}>
                             <div className="menu-icon"><ForwardIcon /></div>
                             <span className="title admins">{ADMINS}</span>
                         </div>
                     </li>
                     {mainMenu.map((menuItem, index) => createMainMenuItem(menuItem, index))}
-                    <li id="logout-li">
+                    <li id="logout-li" onKeyDown={handleTabNavigation}>
                         <Logout />
                     </li>
                 </ul>
                 <ul className="sub-menu">
-                    <li className="back">
+                    <li className="back" tabIndex={0} ref={backRef} onKeyDown={handleBackIcon}>
                         <div className="link" onClick={handleSubmenu}>
                             <div className="menu-icon"><BackIcon /></div>
                             <span className="title">{BACK}</span>
