@@ -35,6 +35,7 @@ const positiveIntegerRule = {
     required: true,
     min: 1,
     minLength: 1,
+    maxLength: 12,
     pattern: positiveIntegerPattern
 };
 
