@@ -1,9 +1,11 @@
-const { SESSION_SECRET } = require('../config');
+import { SESSION_SECRET } from '../config';
 
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
-const uuidv4 = require('uuid/v4');
-const { mongoose } = require('./mongoDB.controller');
+import session from 'express-session';
+import connectMongo from 'connect-mongo';
+import { v4 as uuidv4 } from 'uuid';
+import mongoose from 'mongoose';
+
+const MongoStore = connectMongo(session);
 
 const sessionMiddleware = session({
     genid: () => uuidv4(),
@@ -20,4 +22,4 @@ const sessionMiddleware = session({
     saveUninitialized: false
 });
 
-module.exports = sessionMiddleware;
+export default sessionMiddleware;

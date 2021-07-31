@@ -1,23 +1,23 @@
-const { PORT } = require('./config');
+import { PORT } from './config';
+import express from 'express';
 
-const log4js = require('log4js');
+import initDBConnection from './controllers/mongoDB.controller';
+
+import bodyParser from 'body-parser';
+import sessionMiddleware from './controllers/session.controller';
+
+import passport from 'passport';
+
+import authRouter from './routers/auth.router';
+import router from './routers/router';
+import suRouter from './routers/su.router';
+import financeRouter from './routers/financeRouter';
+import serviceRouter from './routers/service.router';
+
+import log4js from 'log4js';
 const log = log4js.getLogger('server.js');
 
-const express = require('express');
 const app = express();
-
-const { initDBConnection } = require('./controllers/mongoDB.controller');
-
-const bodyParser = require('body-parser');
-const sessionMiddleware = require('./controllers/session.controller');
-
-const passport = require('passport');
-
-const authRouter = require('./routers/auth.router');
-const router = require('./routers/router');
-const suRouter = require('./routers/su.router');
-const financeRouter = require('./routers/financeRouter');
-const serviceRouter = require('./routers/service.router');
 
 app.use(express.static('app'));
 app.use('/registration', express.static('app'));
@@ -44,8 +44,8 @@ app.use('/app/admin/yoga', express.static('app'));
 app.use('/app/admin/superuser', express.static('app'));
 
 // configuring express to use body-parser as middle-ware.
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false })); // TODO - refactor deprecated bodyParser
+app.use(bodyParser.json()); // TODO - refactor deprecated bodyParser
 
 app.use(sessionMiddleware);
 
@@ -63,7 +63,7 @@ const runServer = async () => {
         log.info('Server is listening on port: ', PORT);
     }).on('error', (error) => {
         log.fatal(error.message);
-        log4js.shutdown(process.exit);
+        log4js.shutdown(() => process.exit());
     });
 };
 
