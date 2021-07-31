@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import { log4js } from './logManager';
 const log = log4js.getLogger('config.js');
 
@@ -13,7 +14,6 @@ switch (process.env.NODE_ENV) {
     default:
 }
 
-import dotenv from 'dotenv';
 const env = dotenv.config({ path: envPath });
 
 const baseVariablesToExport: BaseVariablesToExport = {
@@ -21,7 +21,7 @@ const baseVariablesToExport: BaseVariablesToExport = {
     DB_URL: process.env.DB_URL || '',
     PORT: process.env.PORT || '',
     CLIENT_ID: process.env.CLIENT_ID || '',
-    CLIENT_SECRET: process.env.CLIENT_SECRET || '',
+    CLIENT_SECRET: process.env.CLIENT_SECRET || ''
     // add new entries here ...
 };
 
@@ -33,7 +33,7 @@ if (env.error) {
     }
     env.parsed && (env.parsed.NODE_ENV = process.env.NODE_ENV || '');
     log.info('Environmennt variables: \n', env.parsed);
-};
+}
 
 let serverRoot, appPort;
 if (process.env.DEV_SERVER === '1') {
@@ -48,11 +48,11 @@ if (process.env.DEV_SERVER === '1') {
     log.info('Application developer server is DISABLED! BUILD the software to use latest version!');
 }
 
-let variablesToExport: VariablesToExport = {
+const variablesToExport: VariablesToExport = {
     ...baseVariablesToExport,
     SERVER_ROOT: serverRoot,
     APP_PORT: appPort
-}
+};
 log.info('SERVER_ROOT: ', variablesToExport.SERVER_ROOT);
 
 export const {
