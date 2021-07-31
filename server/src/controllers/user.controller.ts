@@ -246,9 +246,9 @@ const uploadProfileImg = async (req: any, res: Response, next: NextFunction): Pr
 
 type MemberLevel = Pick<IMember, '_id' | 'level' | 'email'>;
 
-const findMemberLevel = (membersLevel: Array<MemberLevel>, registeredUser: IRegisteredUser): string => {
+const findMemberLevel = (membersLevel: Array<MemberLevel>, registeredUserEmail: string): string => {
     if (membersLevel.length) {
-        const member = membersLevel.find((memberLevel) => memberLevel.email === registeredUser.email);
+        const member = membersLevel.find((memberLevel) => memberLevel.email === registeredUserEmail);
         if (member) { return member.level; }
     }
     return '-';
@@ -276,7 +276,7 @@ const registereduserdata = async (req: any, res: Response, next: NextFunction): 
                 emMobile: registeredUser.emContactVisible ? registeredUser.emMobile : null,
                 emName: registeredUser.emContactVisible ? registeredUser.emName : null,
                 gender: registeredUser.genderVisible ? registeredUser.gender : null,
-                level: findMemberLevel(membersLevel, registeredUser),
+                level: findMemberLevel(membersLevel, registeredUser.email),
                 mobile: registeredUser.mobileVisible ? registeredUser.mobile : null
             };
         });

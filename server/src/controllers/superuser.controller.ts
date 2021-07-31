@@ -102,31 +102,32 @@ const addMember = async (req: any, res: Response, next: NextFunction): Promise<v
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const deleteMember = async (req: any, res: Response, next: NextFunction): Promise<void> => {
-    log.info(`${req.user.email} is deleting ${req.body.remove}.`);
+    const email: string = req.body.remove;
+    log.info(`${req.user.email} is deleting ${email}.`);
     try {
         const memberToDelete = await Member.findOneAndDelete( // returns whole object if successful or null
-            { email: req.body.remove }
+            { email }
         );
-        FinanceAccount.findOneAndDelete({ email: req.body.remove })
+        FinanceAccount.findOneAndDelete({ email })
             .then(() => {
-                log.info(`${req.body.remove}: finance data deleted!`);
+                log.info(`${email}: finance data deleted!`);
             })
             .catch((err: Error) => {
-                log.error(`${req.body.remove}: delete finance data failed: (${err})`);
+                log.error(`${email}: delete finance data failed: (${err})`);
             });
-        const msg = memberToDelete ? req.body.remove : null;
+        const msg = memberToDelete ? email : null;
         res.json({ deleted: msg });
         log.info(`Deleted: ${msg}`);
 
         if (memberToDelete && memberToDelete.registered) {
-            log.info(`${req.body.remove}: deleting registration and finance.`);
+            log.info(`${email}: deleting registration and finance.`);
 
-            RegisteredUser.findOneAndDelete({ email: req.body.remove })
+            RegisteredUser.findOneAndDelete({ email })
                 .then(() => {
-                    log.info(`${req.body.remove}: registration deleted!`);
+                    log.info(`${email}: registration deleted!`);
                 })
                 .catch((err: Error) => {
-                    log.error(`${req.body.remove}: delete registration failed: (${err})`);
+                    log.error(`${email}: delete registration failed: (${err})`);
                 });
         }
     } catch (err) {
