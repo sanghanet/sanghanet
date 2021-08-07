@@ -276,7 +276,7 @@ const registereduserdata = async (req: any, res: Response, next: NextFunction): 
                 emMobile: registeredUser.emContactVisible ? registeredUser.emMobile : null,
                 emName: registeredUser.emContactVisible ? registeredUser.emName : null,
                 gender: registeredUser.genderVisible ? registeredUser.gender : null,
-                level: findMemberLevel(membersLevel, registeredUser.email),
+                level: registeredUser.levelVisible ? findMemberLevel(membersLevel, registeredUser.email) : null,
                 mobile: registeredUser.mobileVisible ? registeredUser.mobile : null
             };
         });

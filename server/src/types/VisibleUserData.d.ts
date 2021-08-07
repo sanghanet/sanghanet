@@ -8,7 +8,7 @@ type VisibleUserData = {
     email: string | null,
     address: string | null,
     birthday: string | null,
-    level: string,
+    level: string | null,
     emEmail: string | null,
     emMobile: string | null,
     emName: string | null,
