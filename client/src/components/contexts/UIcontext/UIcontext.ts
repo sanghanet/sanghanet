@@ -5,6 +5,11 @@ export const UIcontext = React.createContext<UiContextType>({
     isHamburgerOpen: false,
     toggleHamburger: () => { /* do nothing */ },
     closeHamburger: () => { /* do nothing */ },
+    mobileView: false,
+    setMobileView: (w) => { /* do nothing */ },
+    showSubmenu: false,
+    setShowSubmenu: (b) => { /* do nothing */ },
+
     isSuperuser: false,
     isFinanceAdmin: false,
     isEventAdmin: false,

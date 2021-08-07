@@ -5,6 +5,7 @@ import { UIcontext } from '../../components/contexts/UIcontext/UIcontext';
 import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 
 const Logout: React.FC = () => {
+    const { mobileView, isHamburgerOpen } = useContext(UIcontext);
     const { pageAndNavbarTitles } = useContext(UIcontext).dictionary;
     const { LOGOUT } = pageAndNavbarTitles;
 
@@ -20,7 +21,7 @@ const Logout: React.FC = () => {
             });
     };
     return (
-        <button className="link" onClick={handleClick}>
+        <button className="link" onClick={handleClick} tabIndex={(!mobileView) || (mobileView && isHamburgerOpen) ? 0 : -1}>
             <div className="menu-icon"><LogoutIcon /></div>
             <span className="title">{LOGOUT}</span>
         </button>
