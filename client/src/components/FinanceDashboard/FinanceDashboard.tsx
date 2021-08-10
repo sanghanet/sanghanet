@@ -33,16 +33,6 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError, o
     };
 
     type Pocket = 'membership' | 'rent' | 'event' | 'angel';
-    type PocketDescriptions = {
-        [key in Pocket]: string;
-    }
-
-    const POCKET_DESCRIPTIONS: PocketDescriptions = {
-        membership: 'It is membership pocket',
-        rent: 'It is rent pocket',
-        event: 'It is event pocket',
-        angel: 'It is angel pocket',
-    };
 
     const handleClick: React.MouseEventHandler<HTMLElement> = (event) => {
         const { pocket } = event.currentTarget.dataset;
@@ -69,7 +59,7 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError, o
                                     </Tooltip>
                                 }
                                 delay={500}
-                                trigger={['hover', 'click']}
+                                trigger={['click']}
                             >
                                 {({ ref, ...triggerHandler }) => (
                                     <div
