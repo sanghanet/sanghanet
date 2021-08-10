@@ -217,5 +217,12 @@
 
     "footer": {
         "MADEBY": "Made by: "
+    },
+
+    "pocketDescription": {
+        "MEMBERSHIP": "membership",
+        "RENT": "rent",
+        "EVENT": "event",
+        "ANGEL": "angel"
     }
 }
