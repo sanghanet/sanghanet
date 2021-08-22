@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useContext, useRef, FocusEvent } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
@@ -20,14 +20,14 @@ import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
 interface NavbarProps {
     navStyle: NAVSTYLE;
-    openSubmenu?: boolean;
 };
 
-const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
-    const [showSubmenu, setShowSubmenu] = useState(openSubmenu);
-
+const Navbar: React.FC<NavbarProps> = ({ navStyle }) => {
     const context = useContext(UIcontext);
-    const { isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser } = context;
+    const {
+        isFinanceAdmin, isEventAdmin, isYogaAdmin, isSuperuser,
+        isHamburgerOpen, closeHamburger, mobileView, showSubmenu, setShowSubmenu
+    } = context;
     const isAdmin = isFinanceAdmin || isEventAdmin || isYogaAdmin || isSuperuser;
 
     const backRef = useRef<HTMLLIElement>(null);
@@ -85,6 +85,11 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
         };
     };
 
+    const handleClick = (): void => {
+        closeHamburger();
+        if (mobileView) setShowSubmenu(false);
+    };
+
     const handleInFocus = (event: React.FocusEvent): void => {
         if (!event.relatedTarget) {
             if (document.activeElement?.classList.contains('admins')) setShowSubmenu(false);
@@ -95,7 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
     const createMainMenuItem = (menuItem: MenuItem, index: number): JSX.Element => {
         return (
             <li key={index}>
-                <NavLink exact to={`/${menuItem.path}`} className="link">
+                <NavLink exact to={`/${menuItem.path}`} className="link" tabIndex={(!mobileView && isAdmin) || (mobileView && isHamburgerOpen && isAdmin) ? 0 : -1}>
                     <div className="menu-icon"><menuItem.icon /></div>
                     <span className="title">{menuItem.label}</span>
                 </NavLink>
@@ -111,7 +116,7 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
                         exact to={`/${menuItem.path}`}
                         className={`sub-title${menuItem.isEnabled ? '' : ' disabled'}`}
                         onClick={handleLink}
-                        tabIndex={menuItem.isEnabled ? 0 : -1}
+                        tabIndex={(!mobileView && isAdmin && menuItem.isEnabled) || (mobileView && isHamburgerOpen && isAdmin && menuItem.isEnabled) ? 0 : -1}
                     >{menuItem.label}
                     </NavLink>
                 </div>
@@ -154,10 +159,10 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
         { path: 'app/admin/superuser', icon: SuperuserIcon, label: SUPERUSER, isEnabled: isSuperuser }];
 
     return (
-        <div id={navStyle} onFocus={handleInFocus}>
+        <div id={navStyle} onFocus={handleInFocus} onClick={handleClick} >
             <div className={classList} onKeyDown={handleKeyDown}>
                 <ul className="main-menu">
-                    <li className="admins" tabIndex={isAdmin ? 0 : -1} onKeyDown={handleForwardIcon} ref={adminRef}>
+                    <li className="admins" tabIndex={(!mobileView && isAdmin) || (mobileView && isHamburgerOpen && isAdmin) ? 0 : -1} onKeyDown={handleForwardIcon} ref={adminRef}>
                         <div className={`link ${isAdmin || 'disabled'}`} onClick={handleAdmin}>
                             <div className="menu-icon"><ForwardIcon /></div>
                             <span className="title admins">{ADMINS}</span>
@@ -169,7 +174,11 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
                     </li>
                 </ul>
                 <ul className="sub-menu">
-                    <li className="back" tabIndex={isAdmin ? 0 : -1} onKeyDown={handleBackIcon} ref={backRef}>
+                    <li
+                        className="back"
+                        tabIndex={(!mobileView && isAdmin) || (mobileView && isHamburgerOpen && isAdmin) ? 0 : -1}
+                        onKeyDown={handleBackIcon} ref={backRef}
+                    >
                         <div className="link" onClick={handleBack}>
                             <div className="menu-icon"><BackIcon /></div>
                             <span className="title">{BACK}</span>
@@ -183,8 +192,7 @@ const Navbar: React.FC<NavbarProps> = ({ openSubmenu, navStyle }) => {
 };
 
 Navbar.propTypes = {
-    navStyle: PropTypes.oneOf<NAVSTYLE>(['hamburger', 'sidenav']).isRequired,
-    openSubmenu: PropTypes.bool
+    navStyle: PropTypes.oneOf<NAVSTYLE>(['hamburger', 'sidenav']).isRequired
 };
 
 export default Navbar;

@@ -2,6 +2,10 @@ type UiContextType = {
     isHamburgerOpen: boolean;
     toggleHamburger: () => void;
     closeHamburger: () => void;
+    mobileView: boolean;
+    setMobileView: (w: number) => void;
+    showSubmenu: boolean;
+    setShowSubmenu: (b: boolean) => void;
 
     isSuperuser: boolean;
     isFinanceAdmin: boolean;
