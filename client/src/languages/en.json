@@ -220,9 +220,9 @@
     },
 
     "pocketDescription": {
-        "MEMBERSHIP": "membership",
-        "RENT": "rent",
-        "EVENT": "event",
-        "ANGEL": "angel"
+        "MEMBERSHIP": "membership balance",
+        "RENT": "rent balance",
+        "EVENT": "event balance",
+        "ANGEL": "angel balance"
     }
 }

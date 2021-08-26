@@ -222,7 +222,7 @@
     "pocketDescription": {
         "MEMBERSHIP": "Tagsági díj",
         "RENT": "Bérleti díj",
-        "EVENT": "Esemény",
-        "ANGEL": "Angyalkassza"
+        "EVENT": "Események díja",
+        "ANGEL": "Angyalkassza angyaloknak"
     }
 }
