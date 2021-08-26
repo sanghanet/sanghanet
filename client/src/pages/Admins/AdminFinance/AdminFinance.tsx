@@ -16,7 +16,7 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
     const [showDeleteTransaction, setShowDeleteTransaction] = useState(false);
     const [transaction, setTransaction] = useState<TransactionToDelete | null>(null);
     const [refreshFinanceData, setRefreshFinanceData] = useState(0);
-    const [activeTab, setActiveTab] = useState('membership');
+    const [activeTabFromAdmin, setActiveTabFromAdmin] = useState('membership');
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<ALERT>('NOALERT');
@@ -72,8 +72,8 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
             }`
         })
             .then((data) => {
+                setActiveTabFromAdmin(pocketName);
                 setRefreshFinanceData(Date.now());
-                setActiveTab(pocketName);
             })
             .catch((err) => {
                 setShowAlert(true);
@@ -103,8 +103,8 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
             }`
         })
             .then((data) => {
+                setActiveTabFromAdmin(pocket);
                 setRefreshFinanceData(Date.now());
-                setActiveTab(pocket);
             })
             .catch((err) => {
                 setShowAlert(true);
@@ -124,7 +124,7 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
                 openAddDebt={openAddDebt}
                 openDeleteTransaction={openDeleteTransaction}
                 isFinAdmin
-                activeTab={activeTab}
+                activeTabFromAdmin={activeTabFromAdmin}
             />
             {showAddTransaction && transactionType && (
                 <AddTransactionDialog

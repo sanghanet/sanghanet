@@ -1,12 +1,12 @@
-const express = require('express');
-const router = express.Router();
-
-const log4js = require('log4js');
+import { Router, Response, NextFunction } from 'express';
+import userController from '../controllers/user.controller';
+import log4js from 'log4js';
 const log = log4js.getLogger('routers/router.js');
 
-const userController = require('../controllers/user.controller');
+const router = Router();
 
-router.use((req, res, next) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+router.use((req: any, res: Response, next: NextFunction) => {
     if (req.isAuthenticated()) { // session cookie has expired ??
         log.info(`[${req.ip}] ${req.method} ${req.url}, ${req.user.email}, authenticated.`);
         next();
@@ -27,4 +27,4 @@ router.put('/saveitem', userController.updateItemAndVisibility);
 router.put('/savevisibility', userController.updateItemAndVisibility);
 router.post('/uploadprofileimg', userController.uploadProfileImg);
 
-module.exports = router;
+export default router;

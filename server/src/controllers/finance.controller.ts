@@ -1,20 +1,24 @@
-const log4js = require('log4js');
+import mongoose from 'mongoose';
+import { Response } from 'express';
+import { IFinanceAccount } from '../interfaces/FinanceAccount';
+import FinanceAccount from '../models/financeAccount.model';
+import { IFinanceTransaction } from '../interfaces/FinanceTransaction';
+import { FinanceTransaction } from '../models/financeTransaction.model';
+import { DeletedTransaction } from '../models/deletedTransaction.model';
+
+import log4js from 'log4js';
+import { IDeletedTransaction } from '../interfaces/DeletedTransaction';
 const log = log4js.getLogger('controllers/finance.controller.js');
 
-const { mongoose } = require('../controllers/mongoDB.controller');
-const { FinanceAccount } = require('../models/financeAccount.model');
-const { FinanceTransaction } = require('../models/financeTransaction.model');
-const { DeletedTransaction } = require('../models/deletedTransaction.model');
-
-const sumPocket = (result, pocket) => {
+const sumPocket = (result: Array<IFinanceAccount>, pocket: Pocket) => {
     let counter = 0;
     const date = Date.now();
-    result[0].transactions[pocket].forEach(transaction => {
+    result[0].transactions[pocket].forEach((transaction: IFinanceTransaction) => {
         if (transaction.deleted) {
             transaction.status = 'deleted';
             return;
         }
-        if (transaction.dueDate < date) {
+        if (Date.parse(transaction.dueDate) < date) {
             transaction.status = 'active';
             counter += transaction.amount;
         } else {
@@ -24,7 +28,8 @@ const sumPocket = (result, pocket) => {
     return counter;
 };
 
-module.exports.getFinanceData = async (req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getFinanceData = async (req: any, res: Response): Promise<void> => {
     try {
         const email = req.body.email || req.user.email;
         const result = await FinanceAccount.find({ email });
@@ -51,7 +56,8 @@ module.exports.getFinanceData = async (req, res) => {
     }
 };
 
-module.exports.addTransaction = async (req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const addTransaction = async (req: any, res: Response): Promise<void> => {
     let amount = null; // Default value
     const dateNow = Date.now(); // In case of payment, due date is always the date of payment.
     let dueDateToDB;
@@ -67,7 +73,7 @@ module.exports.addTransaction = async (req, res) => {
             break;
     }
 
-    const transaction = new FinanceTransaction({
+    const transaction: IFinanceTransaction = new FinanceTransaction({
         amount: amount,
         description: req.body.description,
         currency: 'HUF',
@@ -95,12 +101,13 @@ module.exports.addTransaction = async (req, res) => {
     }
 };
 
-module.exports.deleteTransaction = async (req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const deleteTransaction = async (req: any, res: Response): Promise<void> => {
     try {
         const userEmail = req.body.email;
         const targetPocket = `transactions.${req.body.pocket}`;
         const targetTransactionDeleted = targetPocket + '.$.deleted'; // '$' will get the array index in the query!
-        const deleteObject = new DeletedTransaction({
+        const deleteObject: IDeletedTransaction = new DeletedTransaction({
             by: req.user.email,
             date: Date.now()
         });
@@ -126,12 +133,22 @@ module.exports.deleteTransaction = async (req, res) => {
     }
 };
 
-module.exports.getUserList = async (req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getUserList = async (req: any, res: Response): Promise<void> => {
     try {
-        const result = await FinanceAccount.find({}, 'userName email');
+        const result: Array<IFinanceAccount> = await FinanceAccount.find({}, 'userName email');
         res.json(result);
     } catch (error) {
         log.error(error);
         res.send(error);
     }
 };
+
+const financeController = {
+    getFinanceData,
+    addTransaction,
+    deleteTransaction,
+    getUserList
+};
+
+export default financeController;

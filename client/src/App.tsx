@@ -22,6 +22,9 @@ type AppState = {
     dataContext: DataContextType;
 };
 
+// MAX_MOBILE_WIDTH MUST BE ALIGN WITH SCSS !!!
+const MAX_MOBILE_WIDTH = 768;
+
 class App extends Component<Props, AppState> {
     constructor (props: Props) {
         super(props);
@@ -36,6 +39,10 @@ class App extends Component<Props, AppState> {
                 isHamburgerOpen: false,
                 toggleHamburger: this.toggleHamburger,
                 closeHamburger: this.handleCloseHamburger,
+                mobileView: this.getWidth() <= MAX_MOBILE_WIDTH,
+                setMobileView: this.setMobileView,
+                showSubmenu: false,
+                setShowSubmenu: this.setShowSubmenu,
 
                 isSuperuser: false,
                 isFinanceAdmin: false,
@@ -76,8 +83,15 @@ class App extends Component<Props, AppState> {
     handleCloseHamburger = (): void => {
         const { uiContext } = this.state;
         uiContext.isHamburgerOpen = false;
-        this.state.uiContext.isHamburgerOpen && this.setState({ uiContext });
+        this.setState({ uiContext });
     };
+
+    handleBlur = (event: React.FocusEvent): void => {
+        if (!event.relatedTarget) {
+            this.handleCloseHamburger();
+            this.setShowSubmenu(false);
+        }
+    }
 
     setAccess = (isSuperuser: boolean, isFinanceAdmin: boolean, isEventAdmin: boolean, isYogaAdmin: boolean): void => {
         const { uiContext } = this.state;
@@ -123,9 +137,37 @@ class App extends Component<Props, AppState> {
         this.setState({ dataContext });
     };
 
+    setMobileView = (width: number): void => {
+        const { uiContext } = this.state;
+        uiContext.mobileView = width <= MAX_MOBILE_WIDTH;
+        this.setState({ uiContext });
+    }
+
+    setShowSubmenu = (show: boolean): void => {
+        const { uiContext } = this.state;
+        uiContext.showSubmenu = show;
+        this.setState({ uiContext });
+    }
+
+    getWidth = (): number => {
+        return Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    }
+
+    resize = (): void => {
+        this.setMobileView(this.getWidth());
+    }
+
+    componentDidMount = (): void => {
+        window.addEventListener('resize', this.resize);
+    }
+
+    componentWillUnmount = (): void => {
+        window.removeEventListener('resize', this.resize);
+    }
+
     render (): JSX.Element {
         return (
-            <div onClick={this.handleCloseHamburger}>
+            <div onClick={this.handleCloseHamburger} onBlur={this.handleBlur}>
                 <UIcontext.Provider value={this.state.uiContext}>
                     <DataContext.Provider value={this.state.dataContext}>
                         <BrowserRouter>

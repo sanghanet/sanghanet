@@ -35,7 +35,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
 
     const closeAlert = (): void => { displayAlert(false, '', 'NOALERT'); };
     const { isHamburgerOpen, toggleHamburger, setAccess } = useContext(UIcontext);
-    const { userName, setUsername, avatarSrc, setAvatarSrc } = useContext(DataContext);
+    const { setUsername, avatarSrc, setAvatarSrc } = useContext(DataContext);
 
     useEffect(() => {
         Client.fetch('/user/personal')
@@ -74,7 +74,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
         setActivePage(pageAndNavbarTitles[pageNameCapitalized.toUpperCase()]);
     }, [location, pageAndNavbarTitles]);
 
-    const handleAvatarClick: React.MouseEventHandler<HTMLImageElement> = (event) => {
+    const handleAvatarClick: React.MouseEventHandler<HTMLImageElement> = () => {
         if (location.pathname !== '/app/personal') {
             history.push('/app/personal');
         }
@@ -219,7 +219,7 @@ const Header: React.FC<RouteComponentProps> = ({ location, history }: RouteCompo
                         <HamburgerIcon className={`hamburger-icon${isHamburgerOpen ? ' open' : ''}`} />
                     </button>
                     <div className={isHamburgerOpen ? 'slider position-absolute slideIn' : 'slider position-absolute'}>
-                        <Navbar navStyle="hamburger" openSubmenu={window.location.href.includes('admin')} />
+                        <Navbar navStyle="hamburger" />
                     </div>
                 </Row>
                 {searchResults && (

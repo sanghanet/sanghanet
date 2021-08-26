@@ -1,10 +1,13 @@
-const { Member } = require('../models/member.model');
-const { FinanceAccount } = require('../models/financeAccount.model');
-const { RegisteredUser } = require('../models/registered.user.model');
-const log4js = require('log4js');
+import { Response, NextFunction } from 'express';
+import Member from '../models/member.model';
+import FinanceAccount from '../models/financeAccount.model';
+import RegisteredUser from '../models/registered.user.model';
+
+import log4js from 'log4js';
 const log = log4js.getLogger('controllers/superuser.controller.js');
 
-module.exports.getMemberData = async (req, res, next) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getMemberData = async (req: any, res: Response, next: NextFunction): Promise<void> => {
     try {
         const membersData = (await Member.find({}, req.fields ? req.fields.join(' ') : null)).reverse();
         res.json(membersData);
@@ -14,7 +17,8 @@ module.exports.getMemberData = async (req, res, next) => {
     }
 };
 
-module.exports.getUserData = async (req, res, next) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getUserData = async (req: any, res: Response, next: NextFunction): Promise<void> => {
     try {
         const userData = await Member.find({}, req.fields ? req.fields.join(' ') : null);
         res.json(userData);
@@ -24,7 +28,8 @@ module.exports.getUserData = async (req, res, next) => {
     }
 };
 
-module.exports.updateMember = async (req, res, next) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const updateMember = async (req: any, res: Response, next: NextFunction): Promise<void> => {
     log.info(`${req.user.email} is updating ${req.body.update} roles!`);
     try {
         const memberRoleUpdate = await Member.findOneAndUpdate(
@@ -68,7 +73,8 @@ module.exports.updateMember = async (req, res, next) => {
     }
 };
 
-module.exports.addMember = async (req, res, next) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const addMember = async (req: any, res: Response, next: NextFunction): Promise<void> => {
     const emailToAdd = req.body.email;
     log.info(`${req.user.email} is trying to add ${emailToAdd}...`);
     const labelToAdd = req.body.label;
@@ -77,7 +83,8 @@ module.exports.addMember = async (req, res, next) => {
         const member = await Member.find({ email: emailToAdd });
         if (member.length > 0) { // if address already exists in DB
             log.info(`Tried to add ${emailToAdd}, but it already exists in DB.`);
-            return res.json({ addedAddress: null, exists: true });
+            res.json({ addedAddress: null, exists: true });
+            return;
         }
         const newMember = await Member.create({ label: labelToAdd, email: emailToAdd, level: '' });
         const newAccount = await FinanceAccount.create({ email: emailToAdd, userName: labelToAdd });
@@ -93,32 +100,34 @@ module.exports.addMember = async (req, res, next) => {
     }
 };
 
-module.exports.deleteMember = async (req, res, next) => {
-    log.info(`${req.user.email} is deleting ${req.body.remove}.`);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const deleteMember = async (req: any, res: Response, next: NextFunction): Promise<void> => {
+    const email: string = req.body.remove;
+    log.info(`${req.user.email} is deleting ${email}.`);
     try {
         const memberToDelete = await Member.findOneAndDelete( // returns whole object if successful or null
-            { email: req.body.remove }
+            { email }
         );
-        FinanceAccount.findOneAndDelete({ email: req.body.remove })
-            .then((userObj) => {
-                log.info(`${req.body.remove}: finance data deleted!`);
+        FinanceAccount.findOneAndDelete({ email })
+            .then(() => {
+                log.info(`${email}: finance data deleted!`);
             })
-            .catch((err) => {
-                log.error(`${req.body.remove}: delete finance data failed: (${err})`);
+            .catch((err: Error) => {
+                log.error(`${email}: delete finance data failed: (${err})`);
             });
-        const msg = memberToDelete ? req.body.remove : null;
+        const msg = memberToDelete ? email : null;
         res.json({ deleted: msg });
         log.info(`Deleted: ${msg}`);
 
         if (memberToDelete && memberToDelete.registered) {
-            log.info(`${req.body.remove}: deleting registration and finance.`);
+            log.info(`${email}: deleting registration and finance.`);
 
-            RegisteredUser.findOneAndDelete({ email: req.body.remove })
-                .then((userObj) => {
-                    log.info(`${req.body.remove}: registration deleted!`);
+            RegisteredUser.findOneAndDelete({ email })
+                .then(() => {
+                    log.info(`${email}: registration deleted!`);
                 })
-                .catch((err) => {
-                    log.error(`${req.body.remove}: delete registration failed: (${err})`);
+                .catch((err: Error) => {
+                    log.error(`${email}: delete registration failed: (${err})`);
                 });
         }
     } catch (err) {
@@ -126,3 +135,13 @@ module.exports.deleteMember = async (req, res, next) => {
         next(err);
     }
 };
+
+const superuserController = {
+    getMemberData,
+    getUserData,
+    updateMember,
+    addMember,
+    deleteMember
+};
+
+export default superuserController;

@@ -1,10 +1,15 @@
-const { DB_URL } = require('../config');
-const mongoose = require('mongoose');
+import { DB_URL } from '../config';
+import mongoose from 'mongoose';
 
-const log4js = require('log4js');
+import log4js from 'log4js';
 const log = log4js.getLogger('controllers/mongoDB.controller.js');
 
-const initDBConnection = async () => {
+const shutdownCallback = (error: Error): void => {
+    console.log(error);
+    process.exit();
+};
+
+const initDBConnection = async (): Promise<void> => {
     mongoose.connection.on('connected', () => {
         log.info('Successfully connected to: ', DB_URL);
     });
@@ -17,17 +22,18 @@ const initDBConnection = async () => {
         log.info('MongoDB connection reestablished');
     });
 
-    mongoose.connection.on('error', (error) => {
+    mongoose.connection.on('error', (error: Error) => {
         log.fatal('MongoDB error: ', error.message);
-        log4js.shutdown(process.exit);
+        log4js.shutdown(shutdownCallback);
     });
 
     process.on('SIGINT', () => {
         mongoose.connection.close(() => {
             log.fatal('MongoDB connection is disconnected due to application termination');
-            log4js.shutdown(process.exit);
+            log4js.shutdown(shutdownCallback);
         });
     });
+
     try {
         await mongoose.connect(
             DB_URL, {
@@ -41,11 +47,8 @@ const initDBConnection = async () => {
         );
     } catch (error) {
         log.fatal('MongoDB connection error: ' + error.message);
-        log4js.shutdown(process.exit);
+        log4js.shutdown(shutdownCallback);
     }
 };
 
-module.exports = {
-    initDBConnection,
-    mongoose
-};
+export default initDBConnection;

@@ -22,13 +22,13 @@ const Personal: React.FC<RouteComponentProps> = () => {
 
     const [profileImgURL, setProfileImgURL] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [firstNameVisible, setFirstNameVisible] = useState<boolean>(true);
     const [lastName, setLastName] = useState<string>('');
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [lastNameVisible, setLastNameVisible] = useState<boolean>(true);
     const [spiritualName, setSpiritualName] = useState<string>('');
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [spiritualNameVisible, setSpiritualNameVisible] = useState<boolean>(true);
     const [birthday, setBirthday] = useState<string>('');
     const [birthdayVisible, setBirthdayVisible] = useState<boolean>(false);

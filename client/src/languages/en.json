@@ -118,7 +118,7 @@
         "FILTERFINADMIN": "finance admin",
         "FILTEREVENTADMIN": "event admin",
         "FILTERYOGAADMIN": "yoga admin",
-        "FILTERNOROLE": "no role",
+        "FILTERNOROLE": "not admin",
         "RESETFILTERS": "Reset filters"
     },
 

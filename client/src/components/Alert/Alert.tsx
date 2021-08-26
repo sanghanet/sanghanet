@@ -4,7 +4,7 @@ import { UIcontext } from '../contexts/UIcontext/UIcontext';
 import Toast from 'react-bootstrap/Toast';
 import './Alert.scss';
 import { ReactComponent as Error } from '../icons/errorAlert.svg';
-import { ReactComponent as Info } from '../icons/infoAlert.svg';
+import { ReactComponent as Info } from '../icons/info.svg';
 import { ReactComponent as Warning } from '../icons/warningAlert.svg';
 
 interface AlertProps {

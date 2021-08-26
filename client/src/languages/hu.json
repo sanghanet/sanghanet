@@ -118,7 +118,7 @@
         "FILTERFINADMIN": "pénzügyi admin",
         "FILTEREVENTADMIN": "esemény szervező",
         "FILTERYOGAADMIN": "jóga admin",
-        "FILTERNOROLE": "nincs szerep",
+        "FILTERNOROLE": "nem admin",
         "RESETFILTERS": "Szűrők törlése"
     },
 

@@ -30,7 +30,11 @@
             padding: 0;
             margin-bottom: 0;
             touch-action: pan-y;
-
+            .admins, .back {
+                &:focus:not(.active) {
+                    background-color: $sideBarHover-bg;
+                }
+            }
             li {
                 width: $navbar-width;
                 min-height: $navbar-width;

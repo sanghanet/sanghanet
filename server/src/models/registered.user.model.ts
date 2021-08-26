@@ -1,6 +1,7 @@
-const { mongoose } = require('../controllers/mongoDB.controller');
+import { Schema, model } from 'mongoose';
+import { IRegisteredUser } from '../interfaces/RegisteredUser';
 
-const RegisteredUserSchema = mongoose.Schema({
+const RegisteredUserSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     profileImg: { type: String, required: true },
@@ -25,4 +26,6 @@ const RegisteredUserSchema = mongoose.Schema({
     emContactVisible: { type: Boolean, default: false }
 });
 
-module.exports.RegisteredUser = mongoose.model('RegisteredUser', RegisteredUserSchema);
+const RegisteredUser = model<IRegisteredUser>('RegisteredUser', RegisteredUserSchema);
+
+export default RegisteredUser;
