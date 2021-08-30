@@ -51,6 +51,24 @@ const Personal: React.FC<RouteComponentProps> = () => {
     const [alertMessage, setAlertMessage] = useState<string>('');
     const [alertType, setAlertType] = useState<ALERT>('NOALERT');
 
+    const {
+        FIRSTNAME,
+        LASTNAME,
+        SPIRITUALNAME,
+        DATEOFBIRTH,
+        GENDER,
+        LEVELOFSTUDY,
+        EMAIL,
+        MOBILE,
+        ADDRESS,
+        EMTITLE,
+        EMNAME,
+        EMMOBILE,
+        EMEMAIL
+    } = dictionary.memberDetails;
+
+    const { VISIBLE, NOTVISIBLE, SAVEDSUCCESSFULLY } = dictionary.alert;
+
     const displayAlert = (visible: boolean, msg: string, type: ALERT): void => {
         setShowAlert(visible);
         setAlertMessage(msg);
@@ -92,39 +110,95 @@ const Personal: React.FC<RouteComponentProps> = () => {
         setOpenDetails(!openDetails);
     };
 
+    const getInfoMessage = (visible: boolean, dataName: string): string => {
+        const ending = visible ? VISIBLE : NOTVISIBLE;
+        return `${dataName} ${ending}`;
+    };
+
     const updateItem = (data: PersonalDataType): void => {
         switch (Object.keys(data)[0]) {
             case 'firstName':
                 setFirstName(data.firstName);
                 setUsername(data.firstName, lastName);
+                displayAlert(true, FIRSTNAME + ' ' + SAVEDSUCCESSFULLY, 'INFO');
                 break;
             case 'lastName':
                 setLastName(data.lastName);
                 setUsername(firstName, data.lastName);
+                displayAlert(true, LASTNAME + ' ' + SAVEDSUCCESSFULLY, 'INFO');
                 break;
-            case 'spiritualName': setSpiritualName(data.spiritualName); break;
-            case 'birthday': setBirthday(data.birthday); break;
-            case 'birthdayVisible': setBirthdayVisible(data.birthdayVisible); break;
-            case 'gender': setGender(data.gender); break;
-            case 'genderVisible': setGenderVisible(data.genderVisible); break;
-            case 'level': setLevel(data.level); break;
-            case 'levelVisible': setLevelVisible(data.levelVisible); break;
-            case 'email': setEmail(data.email); break;
-            case 'emailVisible': setEmailVisible(data.emailVisible); break;
-            case 'mobile': setMobile(data.mobile); break;
-            case 'mobileVisible': setMobileVisible(data.mobileVisible); break;
-            case 'address': setAddress(data.address); break;
-            case 'addressVisible': setAddressVisible(data.addressVisible); break;
-            case 'emName': setEmName(data.emName); break;
-            case 'emMobile': setEmMobile(data.emMobile); break;
-            case 'emEmail': setEmEmail(data.emEmail); break;
-            case 'emContactVisible': setEmContactVisible(data.emContactVisible); break;
+            case 'spiritualName':
+                setSpiritualName(data.spiritualName);
+                displayAlert(true, SPIRITUALNAME + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'birthday':
+                setBirthday(data.birthday);
+                displayAlert(true, DATEOFBIRTH + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'birthdayVisible':
+                setBirthdayVisible(data.birthdayVisible);
+                displayAlert(true, getInfoMessage(data.birthdayVisible, DATEOFBIRTH), 'INFO');
+                break;
+            case 'gender':
+                setGender(data.gender);
+                displayAlert(true, GENDER + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'genderVisible':
+                setGenderVisible(data.genderVisible);
+                displayAlert(true, getInfoMessage(data.genderVisible, GENDER), 'INFO');
+                break;
+            case 'level':
+                setLevel(data.level);
+                displayAlert(true, LEVELOFSTUDY + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'levelVisible':
+                setLevelVisible(data.levelVisible);
+                displayAlert(true, getInfoMessage(data.levelVisible, LEVELOFSTUDY), 'INFO');
+                break;
+            case 'email':
+                setEmail(data.email);
+                displayAlert(true, EMAIL + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'emailVisible':
+                setEmailVisible(data.emailVisible);
+                displayAlert(true, getInfoMessage(data.emailVisible, EMAIL), 'INFO');
+                break;
+            case 'mobile':
+                setMobile(data.mobile);
+                displayAlert(true, MOBILE + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'mobileVisible':
+                setMobileVisible(data.mobileVisible);
+                displayAlert(true, getInfoMessage(data.mobileVisible, MOBILE), 'INFO');
+                break;
+            case 'address':
+                setAddress(data.address);
+                displayAlert(true, ADDRESS + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'addressVisible':
+                setAddressVisible(data.addressVisible);
+                displayAlert(true, getInfoMessage(data.addressVisible, ADDRESS), 'INFO');
+                break;
+            case 'emName':
+                setEmName(data.emName);
+                displayAlert(true, EMNAME + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'emMobile':
+                setEmMobile(data.emMobile);
+                displayAlert(true, EMMOBILE + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'emEmail':
+                setEmEmail(data.emEmail);
+                displayAlert(true, EMEMAIL + ' ' + SAVEDSUCCESSFULLY, 'INFO');
+                break;
+            case 'emContactVisible':
+                setEmContactVisible(data.emContactVisible);
+                displayAlert(true, getInfoMessage(data.emContactVisible, EMTITLE), 'INFO');
+                break;
             default:
                 displayAlert(true, 'UNKNOWN_FIELD', 'ERROR');
                 return;
         };
-
-        displayAlert(true, 'SAVEDSUCCESSFULLY', 'INFO');
     };
 
     const handleItemSave = (id: string, newValue: string): void => {
@@ -190,34 +264,17 @@ const Personal: React.FC<RouteComponentProps> = () => {
         }
     };
 
-    const {
-        FIRSTNAME,
-        LASTNAME,
-        SPIRITUALNAME,
-        DATEOFBIRTH,
-        GENDER,
-        LEVELOFSTUDY,
-        EMAIL,
-        MOBILE,
-        ADDRESS,
-        EMTITLE,
-        EMNAME,
-        EMMOBILE,
-        EMEMAIL
-    } = dictionary.memberDetails;
-
     const { GENERALDATA, CONTACTDETAILS } = dictionary.personalPageContainers;
     const { DATE, GENDERFORMAT, FEMALE, MALE, OTHER } = dictionary.personalPagePlaceholders;
     const GENDERVALUE = dictionary.personalPagePlaceholders[gender.toUpperCase()]; // LUT - Look up table
     const LEVELVALUE = dictionary.generalTermsDictionary[level.toUpperCase()];
-    const { alert } = dictionary;
 
     return (
         <div>
             {showAlert &&
                 <Alert
                     alertClose={closeAlert}
-                    alertMsg={alert[alertMessage]}
+                    alertMsg={alertMessage}
                     alertType={alertType}
                 />}
             <FormContainer formTitle={GENERALDATA} mb-4>
