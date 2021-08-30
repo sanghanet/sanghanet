@@ -88,7 +88,7 @@
     },
 
     "personalPagePlaceholders": {
-        "REQUIREDFORMAT": "Elvárt formátum: ",
+        "REQUIREDFORMAT": "Formátum: ",
         "ENTERVALUE": "Adat feltöltés",
         "DATE": "kattints a mezőre a beállításhoz",
         "GENDERFORMAT": "válassz a listából",
