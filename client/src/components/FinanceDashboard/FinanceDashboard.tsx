@@ -59,7 +59,7 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError, o
                                     </Tooltip>
                                 }
                                 delay={500}
-                                trigger={['click']}
+                                trigger={['hover']}
                             >
                                 {({ ref, ...triggerHandler }) => (
                                     <div
