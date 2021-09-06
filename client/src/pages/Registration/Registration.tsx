@@ -92,7 +92,8 @@ const Registration: React.FC<RouteComponentProps> = (props) => {
     };
 
     const handleClose = (): void => {
-        document.location.replace('/');
+        Client.fetch('/user/logout').catch();
+        window.location.href = '/';
     };
 
     const updateProfileImg = (event: React.ChangeEvent<HTMLInputElement>): void => {
