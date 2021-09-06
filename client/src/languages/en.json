@@ -88,7 +88,7 @@
     },
 
     "personalPagePlaceholders": {
-        "REQUIREDFORMAT": "Required format: ",
+        "REQUIREDFORMAT": "Format: ",
         "ENTERVALUE": "Enter a value",
         "DATE": "click on the field to select",
         "GENDERFORMAT": "choose from the list",
@@ -118,7 +118,7 @@
         "FILTERFINADMIN": "finance admin",
         "FILTEREVENTADMIN": "event admin",
         "FILTERYOGAADMIN": "yoga admin",
-        "FILTERNOROLE": "no role",
+        "FILTERNOROLE": "not admin",
         "RESETFILTERS": "Reset filters"
     },
 
@@ -160,7 +160,7 @@
         "MANDATORYFIELDS": "All 4 fields are mandatory!",
         "VALIDPHOTO": "Please select valid photo.",
         "PHOTOSIZE": "Upload a file smaller than 1MB!",
-        "SAVEDSUCCESSFULLY": "Data saved successfully!",
+        "SAVEDSUCCESSFULLY": "saved successfully!",
         "DELETEDSUCCESSFULLY": "deleted",
         "DELETEFAILED": "Delete failed. Refresh the page or try it later.",
         "ADDED": " added",
@@ -169,7 +169,9 @@
         "SETTINGSUPDATED": "settings updated",
         "UPDATEFAILED": "Update failed. Refresh the page or try it later.",
         "TRYAGAINLATER": "Try again later.",
-        "UNKNOWN_FIELD": "Unknown data fiels."
+        "UNKNOWN_FIELD": "Unknown data fiels.",
+        "VISIBLE": "is public now.",
+        "NOTVISIBLE": "is private now."
     },
 
     "pageNotFound": {

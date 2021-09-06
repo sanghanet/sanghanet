@@ -88,7 +88,7 @@
     },
 
     "personalPagePlaceholders": {
-        "REQUIREDFORMAT": "Elvárt formátum: ",
+        "REQUIREDFORMAT": "Formátum: ",
         "ENTERVALUE": "Adat feltöltés",
         "DATE": "kattints a mezőre a beállításhoz",
         "GENDERFORMAT": "válassz a listából",
@@ -118,7 +118,7 @@
         "FILTERFINADMIN": "pénzügyi admin",
         "FILTEREVENTADMIN": "esemény szervező",
         "FILTERYOGAADMIN": "jóga admin",
-        "FILTERNOROLE": "nincs szerep",
+        "FILTERNOROLE": "nem admin",
         "RESETFILTERS": "Szűrők törlése"
     },
 
@@ -160,7 +160,7 @@
         "MANDATORYFIELDS": "Mind a négy mező kitöltése kötelező.",
         "VALIDPHOTO": "Nem támogatott képformátum.",
         "PHOTOSIZE": "A file mérete maximum 1MB lehet.",
-        "SAVEDSUCCESSFULLY": "Sikeresen elmentve!",
+        "SAVEDSUCCESSFULLY": "sikeresen elmentve!",
         "DELETEDSUCCESSFULLY": "kitörölve",
         "DELETEFAILED": "Sikertelen törlés. Frissítse az oldalt vagy próbálkozzon később.",
         "ADDED": " hozzáadva",
@@ -169,7 +169,9 @@
         "SETTINGSUPDATED": "beállításai frissítve",
         "UPDATEFAILED": "Sikertelen frissítés. Frissítse az oldalt vagy próbálkozzon később.",
         "TRYAGAINLATER": "Próbálkozzon később.",
-        "UNKNOWN_FIELD": "Ismeretlen adatmező."
+        "UNKNOWN_FIELD": "Ismeretlen adatmező.",
+        "VISIBLE": "publikus.",
+        "NOTVISIBLE": "elrejtve."
     },
 
     "pageNotFound": {
