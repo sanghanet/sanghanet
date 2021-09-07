@@ -219,5 +219,12 @@
 
     "footer": {
         "MADEBY": "Készítették: "
+    },
+
+    "pocketDescription": {
+        "MEMBERSHIP": "Tagsági díj",
+        "RENT": "Bérleti díj",
+        "EVENT": "Események díja",
+        "ANGEL": "Angyalkassza"
     }
 }

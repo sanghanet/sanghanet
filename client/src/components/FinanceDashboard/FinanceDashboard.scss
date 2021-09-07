@@ -8,6 +8,7 @@
     width: 286px;
     padding: 15px;
     border-radius: 8px;
+    position: relative;
     svg {
         width: 30px;
         height: 30px;
@@ -32,6 +33,16 @@
     }
     .red {
         color: $warning;
+    }
+    .fin-pocket-info {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        width: 15px;
+        height: 15px;
+        @include maxQ(767px) {
+            display: none;
+        }
     }
 }
 

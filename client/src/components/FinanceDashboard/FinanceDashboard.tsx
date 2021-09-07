@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import './FinanceDashboard.scss';
 import PropTypes from 'prop-types';
 import { formatMoney } from '../../languages/InternationalizationMethods';
@@ -7,6 +9,7 @@ import { ReactComponent as Membership } from '../icons/fin_membership.svg';
 import { ReactComponent as Rent } from '../icons/fin_rent.svg';
 import { ReactComponent as Event } from '../icons/fin_event.svg';
 import { ReactComponent as Angel } from '../icons/fin_angel.svg';
+import { ReactComponent as Info } from '../icons/info.svg';
 
 interface FinanceDashboardProps {
     balance: PocketBalance;
@@ -15,7 +18,7 @@ interface FinanceDashboardProps {
 }
 
 const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError, onClick }) => {
-    const { financeDashboard, financePockets } = useContext(UIcontext).dictionary;
+    const { financeDashboard, financePockets, pocketDescription } = useContext(UIcontext).dictionary;
     const { BALANCE } = financeDashboard;
     const lang = localStorage.getItem('lang');
 
@@ -29,6 +32,8 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError, o
         }
     };
 
+    type Pocket = 'membership' | 'rent' | 'event' | 'angel';
+
     const handleClick: React.MouseEventHandler<HTMLElement> = (event) => {
         const { pocket } = event.currentTarget.dataset;
         onClick && pocket && onClick(pocket);
@@ -38,25 +43,45 @@ const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ balance, onError, o
         <div className="overview" >
             <div className="outer">
                 {/* eslint-disable-next-line array-callback-return */}
-                {Object.entries(balance).map(([pocket, amount], index) => {
+                {Object.entries(balance).map((entry, index) => {
+                    const pocket = entry[0] as Pocket;
+                    const amount = entry[1] as number;
                     try {
                         const financePocket = financePockets[pocket.toUpperCase()];
 
                         return (
-                            <div
-                                key={index}
-                                className="fin-card"
-                                onClick={handleClick}
-                                data-pocket={pocket}
+                            <OverlayTrigger
+                                key={pocket}
+                                placement="top"
+                                overlay={
+                                    <Tooltip id={`tooltip-${pocket}`}>
+                                        {pocketDescription[pocket.toUpperCase()]}
+                                    </Tooltip>
+                                }
+                                delay={500}
+                                trigger={['hover']}
                             >
-                                <div className="fin-card-1st">
-                                    <div>{financePocket} {BALANCE}:</div>
-                                    <div>{getIcon(pocket)}</div>
-                                </div>
-                                <div className={`fin-card-2nd ${amount >= 0 ? 'green' : 'red'}`}>
-                                    <div>{formatMoney(lang, amount)}</div>
-                                </div>
-                            </div>
+                                {({ ref, ...triggerHandler }) => (
+                                    <div
+                                        key={index}
+                                        className="fin-card"
+                                        onClick={handleClick}
+                                        data-pocket={pocket}
+                                        {...triggerHandler}
+                                    >
+                                        <div className="fin-card-1st">
+                                            <div>
+                                                <Info ref={ref} className="fin-pocket-info" />
+                                                <div>{financePocket} {BALANCE}:</div>
+                                            </div>
+                                            <div>{getIcon(pocket)}</div>
+                                        </div>
+                                        <div className={`fin-card-2nd ${amount >= 0 ? 'green' : 'red'}`}>
+                                            <div>{formatMoney(lang, amount)}</div>
+                                        </div>
+                                    </div>
+                                )}
+                            </OverlayTrigger>
                         );
                     } catch (error) {
                         onError(error);
