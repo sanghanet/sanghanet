@@ -3,7 +3,6 @@ import express from 'express';
 
 import initDBConnection from './controllers/mongoDB.controller';
 
-import bodyParser from 'body-parser';
 import sessionMiddleware from './controllers/session.controller';
 
 import passport from 'passport';
@@ -44,8 +43,8 @@ app.use('/app/admin/yoga', express.static('app'));
 app.use('/app/admin/superuser', express.static('app'));
 
 // configuring express to use body-parser as middle-ware.
-app.use(bodyParser.urlencoded({ extended: false })); // TODO - refactor deprecated bodyParser
-app.use(bodyParser.json()); // TODO - refactor deprecated bodyParser
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(sessionMiddleware);
 
