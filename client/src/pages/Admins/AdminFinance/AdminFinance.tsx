@@ -115,6 +115,23 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
         closeDeleteTransaction();
     };
 
+    const handleTransactionExport = (): void => {
+        Client.fetch('/finance/exportdata/', {
+            method: 'POST',
+            body: `{
+                "select": "all"
+            }`
+        })
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                setShowAlert(true);
+                setAlertMessage(err.message);
+                setAlertType('ERROR');
+            });
+    };
+
     return (
         <>
             <UserSelector handleSubmit={onSelection} />
@@ -127,7 +144,7 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
                 isFinAdmin
                 activeTabFromAdmin={activeTabFromAdmin}
             />
-            {!selectedUserEmail && (<TransactionExport handleTransactionExport={() => { console.log('TransactionExport.'); }} />)}
+            {!selectedUserEmail && (<TransactionExport handleTransactionExport={handleTransactionExport} />)}
             {showAddTransaction && transactionType && (
                 <AddTransactionDialog
                     transactionType={transactionType}
