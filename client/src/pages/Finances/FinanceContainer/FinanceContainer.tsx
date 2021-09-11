@@ -6,6 +6,9 @@ import TransactionTabs from '../../../components/TransactionTabs/TransactionTabs
 import Alert from '../../../components/Alert/Alert';
 import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
+import { addMonths } from 'date-fns';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 interface FinanceContainerProps {
     selectedUser?: string;
@@ -38,6 +41,46 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     const [deletedTransactionsFilter, setDeletedTransactionsFilter] = useState<DeletedFilter>(
         DeletedFilter.All
     );
+    const [dueDateFromFilter, setDueDateFromFilter] = useState<Date | null>(null);
+    const [dueDateToFilter, setDueDateToFilter] = useState<Date | null>(null);
+    const dateFormat = 'MM/yyyy';
+    const minDate = addMonths(new Date(), -18);
+    const maxDate = addMonths(new Date(), 6);
+
+    const setLastDayOfMonth = (date: Date): Date => {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const day = new Date(year, month + 1, 0).getDate();
+        return new Date(year, month, day);
+    };
+
+    const setFirstDayOfMonth = (date: Date): Date => {
+        return new Date(date.getFullYear(), date.getMonth(), 1);
+    };
+
+    const handleDueDateFromChange = (date: Date | null): void => {
+        if (date) {
+            date = setFirstDayOfMonth(date);
+        }
+        if (dueDateToFilter && date && date > dueDateToFilter) {
+            setDueDateFromFilter(setFirstDayOfMonth(dueDateToFilter));
+            setDueDateToFilter(setLastDayOfMonth(date));
+        } else {
+            setDueDateFromFilter(date);
+        }
+    };
+
+    const handleDueDateToChange = (date: Date | null): void => {
+        if (date) {
+            date = setLastDayOfMonth(date);
+        }
+        if (dueDateFromFilter && date && date < dueDateFromFilter) {
+            setDueDateToFilter(setLastDayOfMonth(dueDateFromFilter));
+            setDueDateFromFilter(setFirstDayOfMonth(date));
+        } else if (date) {
+            setDueDateToFilter(date);
+        }
+    };
 
     const changeActiveTab = (pocket: string): void => {
         setActiveTab(pocket);
@@ -134,6 +177,36 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                                 <option value={DeletedFilter.Active}>Active</option>
                                 <option value={DeletedFilter.Deleted}>Deleted</option>
                             </Form.Control>
+                        </Form.Group>
+                        <Form.Group className="date-picker">
+                            <Form.Label>From start of</Form.Label>
+                            <DatePicker
+                                id="due-date-from"
+                                className="form-control"
+                                selected={dueDateFromFilter}
+                                dateFormat={dateFormat}
+                                onChange={handleDueDateFromChange}
+                                showMonthYearPicker
+                                showPopperArrow={false}
+                                minDate={minDate}
+                                maxDate={maxDate}
+                                showDisabledMonthNavigation
+                                // isClearable
+                            />
+                            <Form.Label>To end of</Form.Label>
+                            <DatePicker
+                                id="due-date-to"
+                                className="form-control"
+                                selected={dueDateToFilter}
+                                dateFormat={dateFormat}
+                                onChange={handleDueDateToChange}
+                                showMonthYearPicker
+                                showPopperArrow={false}
+                                minDate={minDate}
+                                maxDate={maxDate}
+                                showDisabledMonthNavigation
+                                // isClearable
+                            />
                         </Form.Group>
                     </Form>
                     <TransactionTabs
