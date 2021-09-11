@@ -38,9 +38,7 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     const [errorState, setErrorState] = useState(0);
     const [reRender, setReRender] = useState(0); // fine HACK to rerender Component when new data is available.
     const [activeTab, setActiveTab] = useState(activeTabFromAdmin);
-    const [deletedTransactionsFilter, setDeletedTransactionsFilter] = useState<DeletedFilter>(
-        DeletedFilter.All
-    );
+    const [deletedTransactionsFilter, setDeletedTransactionsFilter] = useState<DeletedFilter>(isFinAdmin ? DeletedFilter.All : DeletedFilter.Active);
     const [dueDateFromFilter, setDueDateFromFilter] = useState<Date | null>(null);
     const [dueDateToFilter, setDueDateToFilter] = useState<Date | null>(null);
     const dateFormat = 'MM/yyyy';
@@ -125,7 +123,7 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
         setDeletedTransactionsFilter(event.target.value as DeletedFilter);
     };
 
-    const filterTransactions = (financeTransactions: Transactions): Transactions => {
+    const filterTransactionsByDeletedFlag = (financeTransactions: Transactions): Transactions => {
         const transactions: Transactions = JSON.parse(JSON.stringify(financeTransactions));
 
         const filter = (showDeleted: boolean): Transactions => {
@@ -164,53 +162,55 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                         onError={handleError}
                         onClick={changeActiveTab}
                     />
-                    <Form className="transactions-filter-form">
-                        <Form.Group className="deleted-filter">
-                            <Form.Label>Show deleted</Form.Label>
-                            <Form.Control
-                                id="deletedFilter"
-                                onChange={handleChange}
-                                defaultValue={deletedTransactionsFilter}
-                                as="select"
-                            >
-                                <option value={DeletedFilter.All}>All</option>
-                                <option value={DeletedFilter.Active}>Active</option>
-                                <option value={DeletedFilter.Deleted}>Deleted</option>
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group className="date-picker">
-                            <Form.Label>From start of</Form.Label>
-                            <DatePicker
-                                id="due-date-from"
-                                className="form-control"
-                                selected={dueDateFromFilter}
-                                dateFormat={dateFormat}
-                                onChange={handleDueDateFromChange}
-                                showMonthYearPicker
-                                showPopperArrow={false}
-                                minDate={minDate}
-                                maxDate={maxDate}
-                                showDisabledMonthNavigation
-                                // isClearable
-                            />
-                            <Form.Label>To end of</Form.Label>
-                            <DatePicker
-                                id="due-date-to"
-                                className="form-control"
-                                selected={dueDateToFilter}
-                                dateFormat={dateFormat}
-                                onChange={handleDueDateToChange}
-                                showMonthYearPicker
-                                showPopperArrow={false}
-                                minDate={minDate}
-                                maxDate={maxDate}
-                                showDisabledMonthNavigation
-                                // isClearable
-                            />
-                        </Form.Group>
-                    </Form>
+                    {isFinAdmin && (
+                        <Form className="transactions-filter-form">
+                            <Form.Group className="deleted-filter">
+                                <Form.Label>Show deleted</Form.Label>
+                                <Form.Control
+                                    id="deletedFilter"
+                                    onChange={handleChange}
+                                    defaultValue={deletedTransactionsFilter}
+                                    as="select"
+                                >
+                                    <option value={DeletedFilter.All}>All</option>
+                                    <option value={DeletedFilter.Active}>Active</option>
+                                    <option value={DeletedFilter.Deleted}>Deleted</option>
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group className="date-picker">
+                                <Form.Label>From start of</Form.Label>
+                                <DatePicker
+                                    id="due-date-from"
+                                    className="form-control"
+                                    selected={dueDateFromFilter}
+                                    dateFormat={dateFormat}
+                                    onChange={handleDueDateFromChange}
+                                    showMonthYearPicker
+                                    showPopperArrow={false}
+                                    minDate={minDate}
+                                    maxDate={maxDate}
+                                    showDisabledMonthNavigation
+                                    // isClearable
+                                />
+                                <Form.Label>To end of</Form.Label>
+                                <DatePicker
+                                    id="due-date-to"
+                                    className="form-control"
+                                    selected={dueDateToFilter}
+                                    dateFormat={dateFormat}
+                                    onChange={handleDueDateToChange}
+                                    showMonthYearPicker
+                                    showPopperArrow={false}
+                                    minDate={minDate}
+                                    maxDate={maxDate}
+                                    showDisabledMonthNavigation
+                                    // isClearable
+                                />
+                            </Form.Group>
+                        </Form>
+                    )}
                     <TransactionTabs
-                        transactions={filterTransactions(financeData.transactions)}
+                        transactions={filterTransactionsByDeletedFlag(financeData.transactions)}
                         onError={handleError}
                         isFinAdmin={isFinAdmin}
                         openAddPayment={openAddPayment}
