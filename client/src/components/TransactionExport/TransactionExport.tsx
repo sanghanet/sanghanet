@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { UIcontext } from '../contexts/UIcontext/UIcontext';
 
 import Button from 'react-bootstrap/Button';
 import './TransactionExport.scss';
@@ -9,9 +10,10 @@ interface TransactionExportProps {
 };
 
 const TransactionExport: React.FC<TransactionExportProps> = ({ handleTransactionExport }) => {
+    const { EXPORTTRANSACTION } = useContext(UIcontext).dictionary.transactionExport;
     return (
         <div className="transactionExport">
-            <Button onClick={handleTransactionExport}>Transaction export is coming soon!</Button>
+            <Button onClick={handleTransactionExport}>{EXPORTTRANSACTION}</Button>
         </div>
     );
 };

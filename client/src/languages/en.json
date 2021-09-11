@@ -217,6 +217,10 @@
         "DATESELECTORINFO": "click on the field to select date"
     },
 
+    "transactionExport": {
+        "EXPORTTRANSACTION": "Export all transactions as CSV"
+    },
+
     "footer": {
         "MADEBY": "Made by: "
     }
