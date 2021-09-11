@@ -1,0 +1,17 @@
+@import '../../../style/colors';
+@import '../../../style/mixins';
+
+.transactions-filter-form {
+    width: 90%;
+    color: white;
+    margin: auto;
+
+    .deleted-filter {
+      width: 25%;
+      margin-left: 0;
+    }
+
+    #deletedFilter {
+        background-color: $main-bg;
+    }
+}

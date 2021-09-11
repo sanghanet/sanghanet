@@ -5,6 +5,7 @@ import FinanceDashboard from '../../../components/FinanceDashboard/FinanceDashbo
 import TransactionTabs from '../../../components/TransactionTabs/TransactionTabs';
 import Alert from '../../../components/Alert/Alert';
 import PropTypes from 'prop-types';
+import { Form } from 'react-bootstrap';
 
 interface FinanceContainerProps {
     selectedUser?: string;
@@ -13,6 +14,12 @@ interface FinanceContainerProps {
     openAddDebt?: (pocket: string) => void;
     openDeleteTransaction?: (transaction: TransactionToDelete) => void;
     activeTabFromAdmin?: string;
+}
+
+enum DeletedFilter {
+    All = 'All',
+    Active = 'Active',
+    Deleted = 'Deleted',
 }
 
 const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
@@ -28,6 +35,9 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     const [errorState, setErrorState] = useState(0);
     const [reRender, setReRender] = useState(0); // fine HACK to rerender Component when new data is available.
     const [activeTab, setActiveTab] = useState(activeTabFromAdmin);
+    const [deletedTransactionsFilter, setDeletedTransactionsFilter] = useState<DeletedFilter>(
+        DeletedFilter.All
+    );
 
     const changeActiveTab = (pocket: string): void => {
         setActiveTab(pocket);
@@ -42,8 +52,8 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
             const result: FinanceAccount = await Client.fetch('/finance/financedata', {
                 method: 'POST',
                 body: {
-                    email: userEmail
-                }
+                    email: userEmail,
+                },
             });
 
             result.transactions.membership.sort(sortByDueDate);
@@ -54,7 +64,7 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
             setFinanceData(result);
             setReRender(Date.now());
         } catch (error) {
-            setErrorState(error);
+            setErrorState(error as number);
         }
     };
 
@@ -67,6 +77,30 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     }, [selectedUser]);
 
     const handleError = (): void => setErrorState(1);
+    const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+        event.preventDefault();
+        setDeletedTransactionsFilter(event.target.value as DeletedFilter);
+    };
+
+    const filterTransactions = (financeTransactions: Transactions): Transactions => {
+        const transactions: Transactions = JSON.parse(JSON.stringify(financeTransactions));
+
+        const filter = (showDeleted: boolean): Transactions => {
+            for (const key in transactions) {
+                transactions[key as Pocket] = transactions[key as Pocket].filter((finTransaction) =>
+                    showDeleted ? finTransaction.deleted : !finTransaction.deleted
+                );
+            }
+
+            return transactions;
+        };
+
+        switch (deletedTransactionsFilter) {
+            case DeletedFilter.Active: return filter(false);
+            case DeletedFilter.Deleted: return filter(true);
+            default: return financeTransactions;
+        }
+    };
 
     return (
         <>
@@ -87,8 +121,23 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                         onError={handleError}
                         onClick={changeActiveTab}
                     />
+                    <Form className="transactions-filter-form">
+                        <Form.Group className="deleted-filter">
+                            <Form.Label>Show deleted</Form.Label>
+                            <Form.Control
+                                id="deletedFilter"
+                                onChange={handleChange}
+                                defaultValue={deletedTransactionsFilter}
+                                as="select"
+                            >
+                                <option value={DeletedFilter.All}>All</option>
+                                <option value={DeletedFilter.Active}>Active</option>
+                                <option value={DeletedFilter.Deleted}>Deleted</option>
+                            </Form.Control>
+                        </Form.Group>
+                    </Form>
                     <TransactionTabs
-                        transactions={financeData.transactions}
+                        transactions={filterTransactions(financeData.transactions)}
                         onError={handleError}
                         isFinAdmin={isFinAdmin}
                         openAddPayment={openAddPayment}
