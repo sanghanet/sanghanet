@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import FileSaver from 'file-saver';
 import Client from '../../../components/Client';
 
 import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
@@ -122,9 +123,8 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
                 "select": "all"
             }`
         })
-            .then((data) => {
-                console.log(data);
-            })
+            .then((data) => data.blob())
+            .then((blob) => FileSaver.saveAs(blob, 'dummy.csv'))
             .catch((err) => {
                 setShowAlert(true);
                 setAlertMessage(err.message);
