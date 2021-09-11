@@ -219,5 +219,17 @@
 
     "footer": {
         "MADEBY": "Made by: "
+    },
+
+    "deletedTransactionsFilterTypes": {
+        "ALL": "All",
+        "ACTIVE": "Active",
+        "DELETED": "Deleted"
+    },
+
+    "transactionFilterLabels": {
+        "SHOW_DELETED": "Show deleted",
+        "DUE_DATE_FROM": "From start of",
+        "DUE_DATE_TO": "To end of"
     }
 }
