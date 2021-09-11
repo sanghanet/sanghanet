@@ -5,6 +5,7 @@ import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
 import UserSelector from './UserSelector/UserSelector';
 import AddTransactionDialog from './AddTransactionDialog/AddTransactionDialog';
 import DeleteTransactionDialog from './DeleteTransactionDialog/DeleteTransactionDialog';
+import TransactionExport from '../../../components/TransactionExport/TransactionExport';
 import Alert from '../../../components/Alert/Alert';
 
 const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
@@ -126,6 +127,7 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
                 isFinAdmin
                 activeTabFromAdmin={activeTabFromAdmin}
             />
+            {!selectedUserEmail && (<TransactionExport handleTransactionExport={() => { console.log('TransactionExport.'); }} />)}
             {showAddTransaction && transactionType && (
                 <AddTransactionDialog
                     transactionType={transactionType}
