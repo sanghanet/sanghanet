@@ -57,7 +57,7 @@ const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (p
                         <span className="arrow-icon">
                             <Arrow className={dropDownVisible ? 'arrowUp' : 'arrowDown'} />
                         </span>
-                        Szűrés
+                        {transactionFilterLabels.ACCORDION_LABEL}
                     </Accordion.Toggle>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">

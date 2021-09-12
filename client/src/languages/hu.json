@@ -228,7 +228,7 @@
     },
 
     "transactionFilterLabels": {
-        "SHOW_DELETED": "Törölt elemek",
+        "ACCORDION_LABEL": "Szűrés",
         "DUE_DATE_FROM": "Kezdetétől",
         "DUE_DATE_TO": "Végéig"
     }

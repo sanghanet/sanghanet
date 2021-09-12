@@ -228,7 +228,7 @@
     },
 
     "transactionFilterLabels": {
-        "SHOW_DELETED": "Show deleted",
+        "ACCORDION_LABEL": "Filter transactions",
         "DUE_DATE_FROM": "From start of",
         "DUE_DATE_TO": "To end of"
     }
