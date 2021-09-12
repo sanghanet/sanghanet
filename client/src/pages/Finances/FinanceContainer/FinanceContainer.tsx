@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Client from '../../../components/Client';
-import './FinanceContainer.scss';
+import '../../Admins/AdminFinance/TransactionFilterAccordion/TransactionFilterAccordion.scss';
 import FinanceDashboard from '../../../components/FinanceDashboard/FinanceDashboard';
 import TransactionTabs from '../../../components/TransactionTabs/TransactionTabs';
 import Alert from '../../../components/Alert/Alert';
 import PropTypes from 'prop-types';
-import { Col, Form, Row } from 'react-bootstrap';
+import { ReactComponent as Arrow } from '../../../components/Form/formIcons/arrow-up.svg';
+import { Accordion, Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { addMonths } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -44,6 +45,7 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     );
     const [dueDateFromFilter, setDueDateFromFilter] = useState<Date | null>(null);
     const [dueDateToFilter, setDueDateToFilter] = useState<Date | null>(null);
+    const [dropDownVisible, setDropDownVisible] = useState(false);
     const dateFormat = 'MM/yyyy';
     const minDate = addMonths(new Date(), -18);
     const maxDate = addMonths(new Date(), 6);
@@ -74,13 +76,15 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     };
 
     const handleDueDateToChange = (date: Date | null): void => {
+        console.log('1st');
         if (date) {
             date = setLastDayOfMonth(date);
+            console.log(`2nd ${date.toDateString()}`);
         }
         if (dueDateFromFilter && date && date < dueDateFromFilter) {
             setDueDateToFilter(setLastDayOfMonth(dueDateFromFilter));
             setDueDateFromFilter(setFirstDayOfMonth(date));
-        } else if (date) {
+        } else {
             setDueDateToFilter(date);
         }
     };
@@ -191,51 +195,79 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                         onError={handleError}
                         onClick={changeActiveTab}
                     />
-                    {isFinAdmin && (
-                        <Form className="transactions-filter-form">
-                            <Form.Group controlId="deleted" className="deleted-filter">
-                                <Form.Label>{transactionFilterLabels.SHOW_DELETED}</Form.Label>
-                                <Form.Control
-                                    onChange={handleChange}
-                                    defaultValue={deletedTransactionsFilter}
-                                    as="select"
-                                >
-                                    <option value={DeletedFilter.ALL}>{deletedTransactionsFilterTypes[DeletedFilter.ALL]}</option>
-                                    <option value={DeletedFilter.ACTIVE}>{deletedTransactionsFilterTypes[DeletedFilter.ACTIVE]}</option>
-                                    <option value={DeletedFilter.DELETED}>{deletedTransactionsFilterTypes[DeletedFilter.DELETED]}</option>
-                                </Form.Control>
-                            </Form.Group>
-                            <Form.Group className="date-picker">
-                                <Form.Label>{transactionFilterLabels.DUE_DATE_FROM}</Form.Label>
-                                <DatePicker
-                                    id="due-date-from"
-                                    className="form-control"
-                                    selected={dueDateFromFilter}
-                                    dateFormat={dateFormat}
-                                    onChange={handleDueDateFromChange}
-                                    showMonthYearPicker
-                                    showPopperArrow={false}
-                                    minDate={minDate}
-                                    maxDate={maxDate}
-                                    showDisabledMonthNavigation
-                                    // isClearable
-                                />
-                                <Form.Label>{transactionFilterLabels.DUE_DATE_TO}</Form.Label>
-                                <DatePicker
-                                    id="due-date-to"
-                                    className="form-control"
-                                    selected={dueDateToFilter}
-                                    dateFormat={dateFormat}
-                                    onChange={handleDueDateToChange}
-                                    showMonthYearPicker
-                                    showPopperArrow={false}
-                                    minDate={minDate}
-                                    maxDate={maxDate}
-                                    showDisabledMonthNavigation
-                                    // isClearable
-                                />
-                            </Form.Group>
-                        </Form>
+                    {(isFinAdmin || !isFinAdmin) && (
+                        <Accordion className="transactions-filter-accordion">
+                            <Card>
+                                <Card.Header>
+                                    <Accordion.Toggle onClick={(): void => setDropDownVisible((prevState) => !prevState)} as={Button} variant="primary" eventKey="0">
+                                        <span className="arrow-icon">
+                                            <Arrow className={dropDownVisible ? 'arrowUp' : 'arrowDown'} />
+                                        </span>
+                                        Szűrés
+                                    </Accordion.Toggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="0">
+                                    <Card.Body>
+                                        <Form className="filter-box">
+                                            <Form.Group as={Row} className="deleted-filter">
+                                                <Form.Label as={Col} xs="5" sm="3" lg="2" className="label">{transactionFilterLabels.SHOW_DELETED}</Form.Label>
+                                                <Col xs="5" sm="3" lg="2">
+                                                    <Form.Control
+                                                        onChange={handleChange}
+                                                        defaultValue={deletedTransactionsFilter}
+                                                        as="select"
+                                                    >
+                                                        <option value={DeletedFilter.ALL}>{deletedTransactionsFilterTypes[DeletedFilter.ALL]}</option>
+                                                        <option value={DeletedFilter.ACTIVE}>{deletedTransactionsFilterTypes[DeletedFilter.ACTIVE]}</option>
+                                                        <option value={DeletedFilter.DELETED}>{deletedTransactionsFilterTypes[DeletedFilter.DELETED]}</option>
+                                                    </Form.Control>
+                                                </Col>
+                                            </Form.Group>
+                                            <Form.Group as={Row} >
+                                                <Form.Label as={Col} xs="5" sm="3" lg="2" className="label">{transactionFilterLabels.DUE_DATE_FROM}</Form.Label>
+                                                <Col xs="5" sm="3" lg="2">
+                                                    <DatePicker
+                                                        id="due-date-from"
+                                                        className="form-control"
+                                                        selected={dueDateFromFilter}
+                                                        dateFormat={dateFormat}
+                                                        onChange={handleDueDateFromChange}
+                                                        showMonthYearPicker
+                                                        showPopperArrow={false}
+                                                        minDate={minDate}
+                                                        maxDate={maxDate}
+                                                        showDisabledMonthNavigation
+                                                        withPortal
+                                                        autoComplete="off"
+                                                        isClearable
+                                                    />
+                                                </Col>
+                                            </Form.Group>
+                                            <Form.Group as={Row} >
+                                                <Form.Label as={Col} xs="5" sm="3" lg="2" className="label">{transactionFilterLabels.DUE_DATE_TO}</Form.Label>
+                                                <Col xs="5" sm="3" lg="2">
+                                                    <DatePicker
+                                                        id="due-date-to"
+                                                        className="form-control"
+                                                        selected={dueDateToFilter}
+                                                        dateFormat={dateFormat}
+                                                        onChange={handleDueDateToChange}
+                                                        showMonthYearPicker
+                                                        showPopperArrow={false}
+                                                        minDate={minDate}
+                                                        maxDate={maxDate}
+                                                        showDisabledMonthNavigation
+                                                        withPortal
+                                                        autoComplete="off"
+                                                        isClearable
+                                                    />
+                                                </Col>
+                                            </Form.Group>
+                                        </Form>
+                                    </Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                        </Accordion>
                     )}
                     <TransactionTabs
                         transactions={filterTransactions(financeData.transactions)}
