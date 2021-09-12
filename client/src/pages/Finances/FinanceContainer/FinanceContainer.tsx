@@ -185,7 +185,7 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                         onError={handleError}
                         onClick={changeActiveTab}
                     />
-                    {(isFinAdmin || !isFinAdmin) && (
+                    {isFinAdmin && (
                         <TransactionFilterAccordion
                             dueDateFromFilter={dueDateFromFilter}
                             dueDateToFilter={dueDateToFilter}
