@@ -1,17 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Client from '../../../components/Client';
-import '../../Admins/AdminFinance/TransactionFilterAccordion/TransactionFilterAccordion.scss';
 import FinanceDashboard from '../../../components/FinanceDashboard/FinanceDashboard';
 import TransactionTabs from '../../../components/TransactionTabs/TransactionTabs';
+import TransactionFilterAccordion from '../../Admins/AdminFinance/TransactionFilterAccordion/TransactionFilterAccordion';
 import Alert from '../../../components/Alert/Alert';
 import PropTypes from 'prop-types';
-import { ReactComponent as Arrow } from '../../../components/Form/formIcons/arrow-up.svg';
-import { Accordion, Button, Card, Col, Form, Row } from 'react-bootstrap';
-import { addMonths } from 'date-fns';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { UIcontext } from '../../../components/contexts/UIcontext/UIcontext';
-
 interface FinanceContainerProps {
     selectedUser?: string;
     isFinAdmin: boolean;
@@ -45,12 +38,6 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     );
     const [dueDateFromFilter, setDueDateFromFilter] = useState<Date | null>(null);
     const [dueDateToFilter, setDueDateToFilter] = useState<Date | null>(null);
-    const [dropDownVisible, setDropDownVisible] = useState(false);
-    const dateFormat = 'MM/yyyy';
-    const minDate = addMonths(new Date(), -18);
-    const maxDate = addMonths(new Date(), 6);
-
-    const { deletedTransactionsFilterTypes, transactionFilterLabels } = useContext(UIcontext).dictionary;
 
     const setLastDayOfMonth = (date: Date): Date => {
         const year = date.getFullYear();
@@ -76,10 +63,8 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     };
 
     const handleDueDateToChange = (date: Date | null): void => {
-        console.log('1st');
         if (date) {
             date = setLastDayOfMonth(date);
-            console.log(`2nd ${date.toDateString()}`);
         }
         if (dueDateFromFilter && date && date < dueDateFromFilter) {
             setDueDateToFilter(setLastDayOfMonth(dueDateFromFilter));
@@ -127,12 +112,15 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     }, [selectedUser]);
 
     const handleError = (): void => setErrorState(1);
-    const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+    const handleDeletedFilterChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
         event.preventDefault();
         setDeletedTransactionsFilter(event.target.value as DeletedFilter);
     };
 
-    const transactionsFilterHelper = (transactions: Transactions, predicate: (x: FinanceTransaction) => boolean): Transactions => {
+    const transactionsFilterHelper = (
+        transactions: Transactions,
+        predicate: (x: FinanceTransaction) => boolean
+    ): Transactions => {
         for (const key in transactions) {
             transactions[key as Pocket] = transactions[key as Pocket].filter(predicate);
         }
@@ -142,7 +130,8 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
 
     const filterTransactionsByDeletedFlag = (transactions: Transactions): Transactions => {
         const filter = (showDeleted: boolean): Transactions => {
-            const predicate = (t: FinanceTransaction): boolean => showDeleted ? !!t.deleted : !t.deleted;
+            const predicate = (t: FinanceTransaction): boolean =>
+                showDeleted ? !!t.deleted : !t.deleted;
             return transactionsFilterHelper(transactions, predicate);
         };
 
@@ -158,12 +147,14 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
 
     const filterTransactionsByDueDate = (transactions: Transactions): Transactions => {
         if (dueDateFromFilter != null) {
-            const predicate = (t: FinanceTransaction): boolean => new Date(t.dueDate) >= dueDateFromFilter;
+            const predicate = (t: FinanceTransaction): boolean =>
+                new Date(t.dueDate) >= dueDateFromFilter;
             transactions = transactionsFilterHelper(transactions, predicate);
         }
 
         if (dueDateToFilter != null) {
-            const predicate = (t: FinanceTransaction): boolean => dueDateToFilter >= new Date(t.dueDate);
+            const predicate = (t: FinanceTransaction): boolean =>
+                dueDateToFilter >= new Date(t.dueDate);
             transactions = transactionsFilterHelper(transactions, predicate);
         }
         return transactions;
@@ -196,78 +187,14 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
                         onClick={changeActiveTab}
                     />
                     {(isFinAdmin || !isFinAdmin) && (
-                        <Accordion className="transactions-filter-accordion">
-                            <Card>
-                                <Card.Header>
-                                    <Accordion.Toggle onClick={(): void => setDropDownVisible((prevState) => !prevState)} as={Button} variant="primary" eventKey="0">
-                                        <span className="arrow-icon">
-                                            <Arrow className={dropDownVisible ? 'arrowUp' : 'arrowDown'} />
-                                        </span>
-                                        Szűrés
-                                    </Accordion.Toggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="0">
-                                    <Card.Body>
-                                        <Form className="filter-box">
-                                            <Form.Group as={Row} className="deleted-filter">
-                                                <Form.Label as={Col} xs="5" sm="3" lg="2" className="label">{transactionFilterLabels.SHOW_DELETED}</Form.Label>
-                                                <Col xs="5" sm="3" lg="2">
-                                                    <Form.Control
-                                                        onChange={handleChange}
-                                                        defaultValue={deletedTransactionsFilter}
-                                                        as="select"
-                                                    >
-                                                        <option value={DeletedFilter.ALL}>{deletedTransactionsFilterTypes[DeletedFilter.ALL]}</option>
-                                                        <option value={DeletedFilter.ACTIVE}>{deletedTransactionsFilterTypes[DeletedFilter.ACTIVE]}</option>
-                                                        <option value={DeletedFilter.DELETED}>{deletedTransactionsFilterTypes[DeletedFilter.DELETED]}</option>
-                                                    </Form.Control>
-                                                </Col>
-                                            </Form.Group>
-                                            <Form.Group as={Row} >
-                                                <Form.Label as={Col} xs="5" sm="3" lg="2" className="label">{transactionFilterLabels.DUE_DATE_FROM}</Form.Label>
-                                                <Col xs="5" sm="3" lg="2">
-                                                    <DatePicker
-                                                        id="due-date-from"
-                                                        className="form-control"
-                                                        selected={dueDateFromFilter}
-                                                        dateFormat={dateFormat}
-                                                        onChange={handleDueDateFromChange}
-                                                        showMonthYearPicker
-                                                        showPopperArrow={false}
-                                                        minDate={minDate}
-                                                        maxDate={maxDate}
-                                                        showDisabledMonthNavigation
-                                                        withPortal
-                                                        autoComplete="off"
-                                                        isClearable
-                                                    />
-                                                </Col>
-                                            </Form.Group>
-                                            <Form.Group as={Row} >
-                                                <Form.Label as={Col} xs="5" sm="3" lg="2" className="label">{transactionFilterLabels.DUE_DATE_TO}</Form.Label>
-                                                <Col xs="5" sm="3" lg="2">
-                                                    <DatePicker
-                                                        id="due-date-to"
-                                                        className="form-control"
-                                                        selected={dueDateToFilter}
-                                                        dateFormat={dateFormat}
-                                                        onChange={handleDueDateToChange}
-                                                        showMonthYearPicker
-                                                        showPopperArrow={false}
-                                                        minDate={minDate}
-                                                        maxDate={maxDate}
-                                                        showDisabledMonthNavigation
-                                                        withPortal
-                                                        autoComplete="off"
-                                                        isClearable
-                                                    />
-                                                </Col>
-                                            </Form.Group>
-                                        </Form>
-                                    </Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                        </Accordion>
+                        <TransactionFilterAccordion
+                            dueDateFromFilter={dueDateFromFilter}
+                            dueDateToFilter={dueDateToFilter}
+                            deletedTransactionsFilter={deletedTransactionsFilter}
+                            handleDueDateFromChange={handleDueDateFromChange}
+                            handleDueDateToChange={handleDueDateToChange}
+                            handleDeletedFilterChange={handleDeletedFilterChange}
+                        />
                     )}
                     <TransactionTabs
                         transactions={filterTransactions(financeData.transactions)}
