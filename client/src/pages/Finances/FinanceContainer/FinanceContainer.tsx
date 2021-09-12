@@ -112,9 +112,8 @@ const FinanceContainer: React.FC<FinanceContainerProps> = (props) => {
     }, [selectedUser]);
 
     const handleError = (): void => setErrorState(1);
-    const handleDeletedFilterChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
-        event.preventDefault();
-        setDeletedTransactionsFilter(event.target.value as DeletedFilter);
+    const handleDeletedFilterChange = (filterValue: DeletedFilter): void => {
+        setDeletedTransactionsFilter(filterValue);
     };
 
     const transactionsFilterHelper = (

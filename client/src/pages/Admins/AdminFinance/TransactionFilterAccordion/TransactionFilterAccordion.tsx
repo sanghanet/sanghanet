@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './TransactionFilterAccordion.scss';
 import { ReactComponent as Arrow } from '../../../../components/Form/formIcons/arrow-up.svg';
 import { DeletedFilter } from '../../../../enums/DeletedFilter';
-import { Accordion, Button, Card, Col, Form, Row } from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Form, Row, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import { addMonths } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -16,7 +16,7 @@ type TransactionFilterAccordionProps = {
     deletedTransactionsFilter: string;
     handleDueDateFromChange: (date: Date | null) => void;
     handleDueDateToChange: (date: Date | null) => void;
-    handleDeletedFilterChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+    handleDeletedFilterChange: (x: DeletedFilter) => void;
 };
 
 const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (props) => {
@@ -35,6 +35,14 @@ const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (p
 
     const { deletedTransactionsFilterTypes, transactionFilterLabels } =
         useContext(UIcontext).dictionary;
+
+    const { ALL, ACTIVE, DELETED } = DeletedFilter;
+
+    const deletedFilters = [
+        { name: deletedTransactionsFilterTypes[ALL], value: ALL },
+        { name: deletedTransactionsFilterTypes[ACTIVE], value: ACTIVE },
+        { name: deletedTransactionsFilterTypes[DELETED], value: DELETED },
+    ];
 
     return (
         <Accordion className="transactions-filter-accordion">
@@ -56,29 +64,25 @@ const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (p
                     <Card.Body>
                         <Form className="filter-box">
                             <Form.Group as={Row} className="deleted-filter">
-                                <Form.Label as={Col} xs="5" sm="3" lg="2" className="label">
-                                    {transactionFilterLabels.SHOW_DELETED}
-                                </Form.Label>
-                                <Col xs="5" sm="3" lg="2">
-                                    <Form.Control
-                                        onChange={handleDeletedFilterChange}
-                                        defaultValue={deletedTransactionsFilter}
-                                        as="select"
-                                    >
-                                        <option value={DeletedFilter.ALL}>
-                                            {deletedTransactionsFilterTypes[DeletedFilter.ALL]}
-                                        </option>
-                                        <option value={DeletedFilter.ACTIVE}>
-                                            {deletedTransactionsFilterTypes[DeletedFilter.ACTIVE]}
-                                        </option>
-                                        <option value={DeletedFilter.DELETED}>
-                                            {deletedTransactionsFilterTypes[DeletedFilter.DELETED]}
-                                        </option>
-                                    </Form.Control>
-                                </Col>
+                                <ButtonGroup as={Col} sm="8" xl="6" toggle>
+                                    {deletedFilters.map(({ name, value }, idx) => (
+                                        <ToggleButton
+                                            as={Col}
+                                            key={idx}
+                                            type="radio"
+                                            variant={deletedTransactionsFilter === value ? 'primary' : 'secondary'}
+                                            name="radio"
+                                            value={value}
+                                            checked={deletedTransactionsFilter === value}
+                                            onChange={(e): void => handleDeletedFilterChange(e.currentTarget.value as DeletedFilter)}
+                                        >
+                                            {name}
+                                        </ToggleButton>
+                                    ))}
+                                </ButtonGroup>
                             </Form.Group>
                             <Form.Group as={Row}>
-                                <Form.Label as={Col} xs="5" sm="3" lg="2" className="label">
+                                <Form.Label as={Col} xs="5" sm="3" lg="2">
                                     {transactionFilterLabels.DUE_DATE_FROM}
                                 </Form.Label>
                                 <Col xs="5" sm="3" lg="2">
@@ -100,7 +104,7 @@ const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (p
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row}>
-                                <Form.Label as={Col} xs="5" sm="3" lg="2" className="label">
+                                <Form.Label as={Col} xs="5" sm="3" lg="2">
                                     {transactionFilterLabels.DUE_DATE_TO}
                                 </Form.Label>
                                 <Col xs="5" sm="3" lg="2">

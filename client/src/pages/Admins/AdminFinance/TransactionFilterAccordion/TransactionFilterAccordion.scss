@@ -51,7 +51,7 @@
         }
 
         .card-body {
-            margin: 20px;
+            margin: 15px;
             padding: 0;
 
             .filter-box {
@@ -69,8 +69,33 @@
                     align-items: center;
                     justify-content: flex-start;
 
-                    .form-control {
-                      font-size: .8rem;
+                    .form-control,
+                    .form-label {
+                        font-size: 0.8rem;
+                        max-width: 140px;
+                    }
+
+                    .btn-group {
+                        margin-left: -20px;
+
+                        .btn {
+                            width: 25%;
+                            max-width: 140px;
+                            font-size: 0.8rem;
+                            border-radius: 5px;
+                            margin: 0px 20px;
+                        }
+
+                        @include maxQ(600px) {
+                            margin-left: -5px;
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-evenly;
+
+                            .btn {
+                                margin: 5px;
+                            }
+                        }
                     }
                 }
             }
