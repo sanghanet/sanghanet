@@ -1,0 +1,108 @@
+@import '../../../../style/colors';
+@import '../../../../style/mixins';
+
+.transactions-filter-accordion.accordion {
+    font-size: 0.7rem;
+    width: 90%;
+    margin: 0 auto 30px;
+
+    .card {
+        background: none;
+        border: 1px solid #a5a5a5;
+
+        .card-header {
+            padding: 0;
+            height: 40px;
+
+            @include maxQ(767px) {
+                height: 30px;
+            }
+
+            .btn {
+                font-size: 0.8rem;
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                text-align: left;
+                display: flex;
+                align-items: center;
+            }
+
+            .arrow-icon {
+                display: flex;
+                height: 100%;
+                width: 15px;
+                margin: 0 15px 0 0;
+                float: left;
+                fill: #fff;
+
+                svg {
+                    height: 100%;
+                    transition: all 0.5s;
+
+                    &.arrowDown {
+                        transform: rotate(180deg);
+                    }
+                    &.arrowUp {
+                        transform: rotate(0deg);
+                    }
+                }
+            }
+        }
+
+        .card-body {
+            margin: 15px;
+            padding: 0;
+
+            .filter-box {
+                color: $white;
+                margin: auto;
+
+                .form-text {
+                    text-align: center;
+                    position: absolute;
+                    bottom: 0;
+                }
+
+                .form-group {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    .form-control,
+                    .form-label {
+                        font-size: 0.8rem;
+                        max-width: 140px;
+                    }
+
+                    .btn-group {
+                        margin-left: -20px;
+
+                        .btn {
+                            width: 25%;
+                            max-width: 140px;
+                            font-size: 0.8rem;
+                            border-radius: 5px;
+                            margin: 0px 20px;
+                        }
+
+                        @include maxQ(600px) {
+                            margin-left: -5px;
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-evenly;
+
+                            .btn {
+                                margin: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include maxQ(767px) {
+        width: 100%;
+    }
+}
