@@ -117,14 +117,19 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
     };
 
     const handleTransactionExport = (): void => {
+        let fileName = 'allFinanceData.csv';
         Client.fetch('/finance/exportdata/', {
             method: 'POST',
             body: `{
                 "select": "all"
             }`
         })
-            .then((data) => data.blob())
-            .then((blob) => FileSaver.saveAs(blob, 'dummy.csv'))
+            .then((data) => {
+                const contentDisposition: string = data.headers.get('content-disposition');
+                fileName = contentDisposition.slice(22, contentDisposition.length - 1);
+                return data.blob();
+            })
+            .then((blob) => FileSaver.saveAs(blob, fileName))
             .catch((err) => {
                 setShowAlert(true);
                 setAlertMessage(err.message);

@@ -147,10 +147,11 @@ const getUserList = async (req: any, res: Response): Promise<void> => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const exportData = async (req: any, res: Response): Promise<void> => {
     res.header('Content-Type', 'text/csv');
-    res.attachment('dummy.csv');
+    const fileName = new Date().toISOString().concat('.csv');
+    res.attachment(fileName);
     res.send(`userName,email,pocket,date,amount,status
 Alajos,alajos@gmail.com,membership,2021.09.10,10000,ok
-Belzebub,belzebub@hell.com,angel,6666.06.06,666,deleted`
+Belzebub,belzebub@hell.com,angel,6666.06.06,666,yeppeee!`
     );
 };
 
