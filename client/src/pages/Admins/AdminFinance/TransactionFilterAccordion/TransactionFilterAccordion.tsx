@@ -3,7 +3,7 @@ import './TransactionFilterAccordion.scss';
 import { ReactComponent as Arrow } from '../../../../components/Form/formIcons/arrow-up.svg';
 import { DeletedFilter } from '../../../../enums/DeletedFilter';
 import { Accordion, Button, Card, Col, Form, Row, ButtonGroup, ToggleButton } from 'react-bootstrap';
-import { addMonths } from 'date-fns';
+import { addMonths, endOfMonth, startOfMonth } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -30,8 +30,8 @@ const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (p
     } = props;
     const [dropDownVisible, setDropDownVisible] = useState(false);
     const dateFormat = 'MM/yyyy';
-    const minDate = addMonths(new Date(), -18);
-    const maxDate = addMonths(new Date(), 6);
+    const minDate = startOfMonth(addMonths(new Date(), -18));
+    const maxDate = endOfMonth(addMonths(new Date(), 6));
 
     const { deletedTransactionsFilterTypes, transactionFilterLabels } =
         useContext(UIcontext).dictionary;
@@ -93,7 +93,6 @@ const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (p
                                         dateFormat={dateFormat}
                                         onChange={handleDueDateFromChange}
                                         showMonthYearPicker
-                                        showPopperArrow={false}
                                         minDate={minDate}
                                         maxDate={maxDate}
                                         showDisabledMonthNavigation
@@ -115,7 +114,6 @@ const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (p
                                         dateFormat={dateFormat}
                                         onChange={handleDueDateToChange}
                                         showMonthYearPicker
-                                        showPopperArrow={false}
                                         minDate={minDate}
                                         maxDate={maxDate}
                                         showDisabledMonthNavigation
