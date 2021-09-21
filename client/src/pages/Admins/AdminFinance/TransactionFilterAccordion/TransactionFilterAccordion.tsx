@@ -93,7 +93,6 @@ const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (p
                                         dateFormat={dateFormat}
                                         onChange={handleDueDateFromChange}
                                         showMonthYearPicker
-                                        showPopperArrow={false}
                                         minDate={minDate}
                                         maxDate={maxDate}
                                         showDisabledMonthNavigation
@@ -115,7 +114,6 @@ const TransactionFilterAccordion: React.FC<TransactionFilterAccordionProps> = (p
                                         dateFormat={dateFormat}
                                         onChange={handleDueDateToChange}
                                         showMonthYearPicker
-                                        showPopperArrow={false}
                                         minDate={minDate}
                                         maxDate={maxDate}
                                         showDisabledMonthNavigation
