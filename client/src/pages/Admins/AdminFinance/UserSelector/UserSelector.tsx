@@ -46,19 +46,21 @@ const UserSelector: React.FC<UserSelectorProps> = ({ handleSubmit }) => {
     };
 
     const onKeyPress: React.KeyboardEventHandler = (e) => {
-        // on up or down arrow
-        if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
+        const { key } = e;
 
-        // on up arrow
-        if (e.keyCode === 38 && indexOfActiveItem) setIndexOfActiveItem(indexOfActiveItem - 1);
+        if (key === 'ArrowUp' || key === 'ArrowDown') {
+            e.preventDefault();
+        }
 
-        // on down arrow
-        if (e.keyCode === 40 && indexOfActiveItem < searchResults.length - 1) {
+        if (key === 'ArrowUp' && indexOfActiveItem) {
+            setIndexOfActiveItem(indexOfActiveItem - 1);
+        }
+
+        if (key === 'ArrowDown' && indexOfActiveItem < searchResults.length - 1) {
             setIndexOfActiveItem(indexOfActiveItem + 1);
         }
 
-        // on enter
-        if (e.keyCode === 13) {
+        if (key === 'Enter') {
             e.preventDefault();
 
             if (showSuggestions) {

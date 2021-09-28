@@ -58,8 +58,10 @@ const Navbar: React.FC<NavbarProps> = ({ navStyle }) => {
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
-        const keyCode = event.keyCode; // CRSR LEFT(37), CRSR RIGHT(39)
-        if (keyCode === 37 || keyCode === 39) event.preventDefault();
+        const { key } = event;
+        if (key === 'ArrowLeft' || key === 'ArrowRight') {
+            event.preventDefault();
+        }
     };
 
     const handleTabNavigation = (event: React.KeyboardEvent<HTMLLIElement>): void => {

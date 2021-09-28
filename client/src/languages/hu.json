@@ -223,5 +223,17 @@
 
     "footer": {
         "MADEBY": "Készítették: "
+    },
+
+    "deletedTransactionsFilterTypes": {
+        "ALL": "Mind",
+        "ACTIVE": "Aktív",
+        "DELETED": "Törölt"
+    },
+
+    "transactionFilterLabels": {
+        "ACCORDION_LABEL": "Szűrés",
+        "DUE_DATE_FROM": "Kezdetétől",
+        "DUE_DATE_TO": "Végéig"
     }
 }
