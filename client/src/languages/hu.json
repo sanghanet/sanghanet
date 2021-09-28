@@ -217,6 +217,10 @@
         "DATESELECTORINFO": "jelölje be a dátumot a naptáron"
     },
 
+    "transactionExport": {
+        "EXPORTTRANSACTION": "Tranzakciók exportálása CSV formában"
+    },
+
     "footer": {
         "MADEBY": "Készítették: "
     },

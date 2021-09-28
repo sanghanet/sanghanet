@@ -144,11 +144,36 @@ const getUserList = async (req: any, res: Response): Promise<void> => {
     }
 };
 
+const allTransactionInPocketToCSV = (userName: string, email: string, transactions: Array<IFinanceTransaction>, pocket: string) => {
+    let resultCSV = '';
+    transactions.forEach((transaction: IFinanceTransaction) => {
+        resultCSV = resultCSV.concat('\n', `${userName},${email},${pocket},${transaction.dueDate},${transaction.amount},${transaction.description},${transaction.deleted ? 'deleted' : 'OK'}`);
+    });
+    return resultCSV;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const exportData = async (req: any, res: Response): Promise<void> => {
+    res.header('Content-Type', 'text/csv');
+    const fileName = new Date().toISOString().concat('.csv');
+    res.attachment(fileName);
+    const allData = await FinanceAccount.find();
+    let allDataCSV = 'userName,email,pocket,date,amount,description, status';
+    allData.forEach((user) => {
+        allDataCSV = allDataCSV.concat('', allTransactionInPocketToCSV(user.userName, user.email, user.transactions.membership, 'membership'));
+        allDataCSV = allDataCSV.concat('', allTransactionInPocketToCSV(user.userName, user.email, user.transactions.rent, 'rent'));
+        allDataCSV = allDataCSV.concat('', allTransactionInPocketToCSV(user.userName, user.email, user.transactions.event, 'event'));
+        allDataCSV = allDataCSV.concat('', allTransactionInPocketToCSV(user.userName, user.email, user.transactions.angel, 'angel'));
+    });
+    res.send(allDataCSV);
+};
+
 const financeController = {
     getFinanceData,
     addTransaction,
     deleteTransaction,
-    getUserList
+    getUserList,
+    exportData
 };
 
 export default financeController;

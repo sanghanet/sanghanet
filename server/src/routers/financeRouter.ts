@@ -1,4 +1,5 @@
-import { Router, Response, NextFunction } from 'express';
+import { Router, Response, NextFunction, RequestHandler } from 'express';
+import cors from 'cors';
 import financeController from '../controllers/finance.controller';
 import { financeAdminACL } from './acl';
 
@@ -22,5 +23,8 @@ financeRouter.post('/financedata', financeController.getFinanceData);
 financeRouter.post('/addtransaction', financeAdminACL, financeController.addTransaction);
 financeRouter.post('/deletetransaction', financeAdminACL, financeController.deleteTransaction);
 financeRouter.get('/userlist', financeAdminACL, financeController.getUserList);
+financeRouter.post('/exportdata',
+    (cors as (options: cors.CorsOptions) => RequestHandler)({ exposedHeaders: ['Content-Disposition'] }),
+    financeAdminACL, financeController.exportData);
 
 export default financeRouter;

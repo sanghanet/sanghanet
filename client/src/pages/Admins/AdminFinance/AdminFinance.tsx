@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import FileSaver from 'file-saver';
 import Client from '../../../components/Client';
 
 import FinanceContainer from '../../Finances/FinanceContainer/FinanceContainer';
 import UserSelector from './UserSelector/UserSelector';
 import AddTransactionDialog from './AddTransactionDialog/AddTransactionDialog';
 import DeleteTransactionDialog from './DeleteTransactionDialog/DeleteTransactionDialog';
+import TransactionExport from '../../../components/TransactionExport/TransactionExport';
 import Alert from '../../../components/Alert/Alert';
 
 const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
@@ -114,6 +116,27 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
         closeDeleteTransaction();
     };
 
+    const handleTransactionExport = (): void => {
+        let fileName = 'allFinanceData.csv';
+        Client.fetch('/finance/exportdata/', {
+            method: 'POST',
+            body: `{
+                "select": "all"
+            }`
+        })
+            .then((data) => {
+                const contentDisposition: string = data.headers.get('content-disposition');
+                fileName = contentDisposition.slice(22, contentDisposition.length - 1);
+                return data.blob();
+            })
+            .then((blob) => FileSaver.saveAs(blob, fileName))
+            .catch((err) => {
+                setShowAlert(true);
+                setAlertMessage(err.message);
+                setAlertType('ERROR');
+            });
+    };
+
     return (
         <>
             <UserSelector handleSubmit={onSelection} />
@@ -126,6 +149,7 @@ const AdminFinance: React.FC<Record<string, unknown>> = (props) => {
                 isFinAdmin
                 activeTabFromAdmin={activeTabFromAdmin}
             />
+            {!selectedUserEmail && (<TransactionExport handleTransactionExport={handleTransactionExport} />)}
             {showAddTransaction && transactionType && (
                 <AddTransactionDialog
                     transactionType={transactionType}
